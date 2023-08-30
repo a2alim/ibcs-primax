@@ -1,0 +1,79 @@
+package com.ibcs.idsdp.dpptapp.model.domain;
+
+import com.ibcs.idsdp.common.model.domain.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "dpp_annual_phasing_cost_tab_details")
+@EntityListeners(AuditingEntityListener.class)
+public class DppAnnualPhasingCostTabDetails extends BaseEntity {
+
+    @ManyToOne
+    @JoinColumn(name="dpp_annual_phasing_cost_id")
+    private DppAnnualPhasingCost dppAnnualPhasingCost;
+
+    private Long attachmentId;
+
+    private Boolean isBasis;
+
+    private Boolean isMajor;
+
+    private Long economicCodeId;
+
+    private Long subEconomicCodeId;
+
+    private String description;
+
+    private Long unitId;
+
+    private Double unitCost;
+
+    private Double qty;
+
+    private Double totalAmount;
+
+    @NotNull
+    private Double gobAmount;
+
+    @NotNull
+    private Double gobFeAmount;
+
+    @NotNull
+    private Double gobThruAmount;
+
+    @NotNull
+    private Double spAcAmount;
+
+    @NotNull
+    private Double thruPdAmount;
+
+    @NotNull
+    private Double thruDpAmount;
+
+    @NotNull
+    private Double ownFundAmount;
+
+    @NotNull
+    private Double ownFundFeAmount;
+
+    @NotNull
+    private Double otherAmount;
+
+    @NotNull
+    private Double otherFeAmount;
+
+//    @OneToMany(targetEntity = DppFiscalYear.class,cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "dpp_annual_phasing_cost_tab_details_id", referencedColumnName = "id")
+//    private List<DppFiscalYear> dppFiscalYears;
+}

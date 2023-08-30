@@ -1,0 +1,304 @@
+<div id="loginPage" class="w-full pr-4 lp-4 ">
+    <!-- class="flex flex-col flex-auto min-w-0 sm:justify-center" -->
+    <div id="topImageWrap" class="top-image-wrapperX" fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <div fxFlex="33%" fxFlex.md="33%" fxFlex.sm="33%" fxFlex.xs="33%">
+            <mat-card class="mat-elevation-z4" style="background: transparent;box-shadow: none;">
+                <img mat-card-image style="height: 65px;width: 100px;margin-left: 20px"
+                    src="assets/images/logos/suborno-joyonto-logo.png">
+            </mat-card>
+        </div>
+        <div fxFlex="33%" fxFlex.md="33%" fxFlex.sm="33%" fxFlex.xs="33%">
+            <mat-card class="mat-elevation-z4" style="background: transparent;box-shadow: none;">
+                <img mat-card-image style="height: 65px;width: 65px;margin: 0 auto;"
+                    src="assets/images/logos/bd_gov_logo.png">
+            </mat-card>
+        </div>
+        <div fxFlex="33%" fxFlex.md="33%" fxFlex.sm="33%" fxFlex.xs="33%">
+            <mat-card class="mat-elevation-z4" style="background: transparent;box-shadow: none;">
+                <img mat-card-image style="height: 65px;width: 80px;float: right"
+                    src="assets/images/logos/mujib_100_logo.png">
+            </mat-card>
+        </div>
+    </div>
+    <!-- style="margin-top: 79px !important;" -->
+    <div class="text-center md:mt-25 pl-4 pr-4">
+        <h1 class="banner-lbl">Planning Division & Planning Commission</h1>
+        <p class="sddp-lbl">Strengthening Digital Processing Of Projects (SDPP)</p>
+        <!--        <div class="font-bold text-2xl text-yellow-700">Social Science Research Council (SSRC). Research Management-->
+        <!--            System (RMS)-->
+        <!--        </div>-->
+        <div class="font-bold text-2xl text-yellow-700">Research Management System (RMS). <span
+                style="color:#3e97d7 ">Social Science Research Council (SSRC).</span>
+        </div>
+    </div>
+    <!--    <button (click)="otpValidation('5432')">dialog</button>-->
+
+    <div class="w-full sm:w-auto px-4" style="user-select: none">
+        <div class="flex justify-center">
+
+            <!-- <div fxLayout="row wrap" fxLayoutAlign="space-between center"> -->
+
+            <div class="md:flex md:w-4/5">
+
+                <div class="w-full sm:w-auto md:w-2/5 lg:w-2/5 md:text-left pr-2 md:pt-3 relative md:-top-30">
+                    <div class="mt-0 body-color w-full">
+                        <!-- Do you want to research in SSRC? You can verify your qualification capability for the research. -->
+                    </div>
+                    <div class="flex justify-center">
+                    </div>
+                    <div class="w-full relative">
+                        <div class="md:mt-30 text-left font-normal border-double border-4 border-gray-400">
+
+                            <div class="font-bold text-xl">
+                                <mat-icon class="font-bold" inline=true>speaker_notes</mat-icon>
+                                গবেষণার জন্য নির্দেশিকা
+                            </div>
+
+                            <ng-container *ngFor="let item of researchGuideLineList; let i = 'index'">
+                                <div>
+                                    <a class="ml-3 cursor-pointer text-red-400 font-semibold hover:text-green-600 "
+                                        (click)="showDetails(item,'BN')">
+                                        <mat-icon inline=true>last_page</mat-icon>
+                                        {{item.title}}
+                                    </a>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                    </div>
+
+                    <!-- src="assets/images/logos/bd_gov_logo.png" -->
+                    <div class="w-full relative">
+                        <div class="mt-3 text-left font-normal border-double border-4 border-gray-400">
+
+                            <div class="font-bold text-xl">
+                                <mat-icon class="font-bold" inline=true>speaker_notes</mat-icon>
+                                Guideline for Research
+                            </div>
+
+                            <ng-container *ngFor="let item of researchGuideLineList; let i = 'index'">
+                                <div>
+                                    <a class="ml-3 cursor-pointer text-red-400 font-semibold hover:text-green-600 "
+                                        (click)="showDetails(item,'EN')">
+                                        <mat-icon inline=true>last_page</mat-icon>
+                                        {{item.titleEn}}
+                                    </a>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                    </div>
+                    <div class="w-full relative text-green-600 font-semibold mt-3">
+                        <a target="_blank"
+                            href="/assets/rmsGuidLine/RMS_Researcher_Profile_Proposal_Guideline_v1.0.0.pdf">Profile &
+                            Proposal Completion Guideline</a>
+                    </div>
+                    <div class="w-full relative text-orange-500 font-semibold">
+                        <a target="_blank" href="/assets/rmsGuidLine/UserGuidLine.pdf">Documents List to be Uploaded</a>
+                    </div>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-3/5 lg:w-3/5 md:text-left pr-2 md:pt-3">
+
+                    <div class="mt-0 body-color w-full">
+                        <mat-card class="tab-color">
+                            <div class="text-center font-bold text-lg text-gray-900 mt-0 mb-0">Researcher Sign Up Form
+                            </div>
+                            <!-- Alert -->
+                            <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
+                                [type]="alert.type" [@shake]="alert.type === 'error'">
+                                {{alert.message}}
+                            </fuse-alert>
+                            <form #signInNgForm="ngForm" [formGroup]="signInForm" (ngSubmit)="createUser(signInNgForm)">
+                                <!-- Email field -->
+
+
+                                <!-- <div class="md:flex">
+
+                                    <div class="w-full sm:w-auto md:w-11/12 lg:w-11/12 md:text-left pr-2 md:pt-3">
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Institutional</mat-label>
+                                            <mat-radio-button value="1">Option 1</mat-radio-button>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="w-full sm:w-auto md:w-11/12 lg:w-11/12 md:text-left md:pt-3">
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Indevidual</mat-label>
+                                            <mat-radio-button value="2">Option 2</mat-radio-button>
+                                        </mat-form-field>
+                                    </div>
+                                </div> -->
+
+                                <div class="md:flex">
+                                    <mat-label class="type-with" >Type of Research :</mat-label>&nbsp;&nbsp;&nbsp;
+                                    <mat-radio-group formControlName="isInstitutional" required>
+                                        <mat-radio-button [value]="1"
+                                            (change)="onChangeIsInstitutional(signInForm.value.isInstitutional)">
+                                            Institutional</mat-radio-button>&nbsp;&nbsp;&nbsp;
+                                        <mat-radio-button [value]="2"
+                                            (change)="onChangeIsInstitutional(signInForm.value.isInstitutional)">
+                                            Individual (PhD,Mphill, Fellowship, Promotional)</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+
+                                <div class="md:flex sm:text-center md:pl-32" *ngIf="signInForm.get('isInstitutional').hasError('required')">
+                                    <mat-error>
+                                        Type of research is required
+                                    </mat-error>
+                                </div>
+
+                                <div class="md:flex">
+
+                                    <div class="w-full sm:w-auto md:w-11/12 lg:w-11/12 md:text-left md:pr-2 md:pt-3">
+                                        <mat-form-field class="w-full">
+
+                                            <!-- <ng-container *ngIf="isInstitutional==1; else Individual;">
+                                                <mat-label>Institute Name</mat-label>
+                                            </ng-container>
+
+                                            <ng-template #Individual>
+                                                <mat-label>researcher Name</mat-label>
+                                            </ng-template> -->
+
+                                            <mat-label>
+                                                <ng-container *ngIf="isInstitutional==1">Institute Name <strong class="text-red-600">*</strong></ng-container>
+                                                <ng-container *ngIf="isInstitutional==2">Researcher's Name <strong class="text-red-600">*</strong></ng-container>
+                                            </mat-label>
+
+                                            <input id="name" matInput placeholder="Name" formControlName="name">
+                                            <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                                            <mat-error
+                                                *ngIf="signInForm.get('name').hasError('required') && isInstitutional==1">
+                                                Institute name is required
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="signInForm.get('name').hasError('required') && isInstitutional==2">
+                                                Researcher name is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="w-full sm:w-auto md:w-11/12 lg:w-11/12 md:text-left md:pt-3">
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Email <strong class="text-red-600">*</strong></mat-label>
+                                            <input id="email" matInput placeholder="Email" formControlName="email">
+                                            <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                                            <mat-error *ngIf="signInForm.get('email').hasError('required')">
+                                                Email is required
+                                            </mat-error>
+                                            <mat-error *ngIf="signInForm.get('email').hasError('email')">
+                                                Please enter a valid email address
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="md:flex">
+                                    <div class="w-full sm:w-auto md:w-2/4 lg:w-2/4 md:text-left md:pr-2">
+                                        <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                            <mat-label>Mobile Number <strong class="text-red-600">*</strong></mat-label>
+                                            <input id="mobileNumber" matInput placeholder="Mobile Number"
+                                                formControlName="mobileNumber">
+                                            <mat-icon matSuffix class="secondary-text">phone_iphone</mat-icon>
+                                            <mat-error *ngIf="signInForm.get('mobileNumber').hasError('required')">
+                                                Mobile number is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <ng-container *ngIf="isInstitutional!=1">
+                                        <div class="w-full sm:w-auto md:w-2/4 lg:w-2/4 md:text-left  ">
+                                            <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                                <mat-label>Gender</mat-label>
+                                                <mat-select formControlName="gender">
+                                                    <mat-option value="">--Select--</mat-option>
+                                                    <mat-option value="Male">Male</mat-option>
+                                                    <mat-option value="Female"> Female</mat-option>
+                                                </mat-select>
+                                                <mat-icon matSuffix class="secondary-text">man</mat-icon>
+                                                <mat-error *ngIf="signInForm.get('gender').hasError('required')">
+                                                    Gender is required
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+                                <div class="md:flex">
+                                    <div class="w-full sm:w-auto md:w-2/4 lg:w-2/4 md:text-left md:pr-2  ">
+                                        <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                            <mat-label>Password <strong class="text-red-600">*</strong></mat-label>
+                                            <input id="password" matInput type="password" placeholder="Password"
+                                                formControlName="password" #passwordField>
+                                            <button mat-icon-button type="button"
+                                                (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                                                matSuffix>
+                                                <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+                                                    [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                                <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+                                                    [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                                            </button>
+                                            <mat-error *ngIf="signInForm.get('password').hasError('required')">
+                                                Password is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="w-full sm:w-auto md:w-2/4 lg:w-2/4 md:text-left">
+                                        <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                            <mat-label>Confirm Password <strong class="text-red-600">*</strong></mat-label>
+                                            <input id="confirmPassword" matInput type="password"
+                                                formControlName="confirmPassword">
+                                            <mat-icon matSuffix class="secondary-text">password</mat-icon>
+                                            <mat-error *ngIf="signInForm.get('confirmPassword').hasError('required')">
+                                                Confirm password is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="inline-flex w-full mt-1.5">
+                                        <mat-checkbox #checkbox (change)="isAgreement(checkbox.checked)" [color]="'primary'"
+                                            formControlName="agreements" required>
+                                        </mat-checkbox><strong class="mat-error">*</strong> &nbsp;
+                                        I Agree to the
+                                        <span class="text-green-700 font-bold cursor-pointer">&nbsp; Terms and Conditions
+                                            &nbsp; </span> with
+                                        <span class="text-green-700 font-bold cursor-pointer">&nbsp; Privacy Policy</span>
+                                    </div>
+                                    <div class="text-red-600 pl-6 text-md font-semibold" *ngIf="termsAndCondition == 'false'">
+                                        Terms and Conditions is required
+                                    </div>
+                                </div>
+
+
+                                <!-- Submit button -->
+                                <!-- [disabled]="signInForm.disabled || !agreements" -->
+                                <div class="flex justify-end">
+                                    <button class="mt-1 " mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled"
+                                        style="background: #4b60bd;border-radius: 5px;">
+                                        <mat-icon *ngIf="!signInForm.disabled">person_add</mat-icon>                                       
+                                        <mat-progress-spinner *ngIf="signInForm.disabled" [diameter]="24"
+                                            [mode]="'indeterminate'">
+                                        </mat-progress-spinner>
+                                        <span>&nbsp;Sign Up</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2 mt-10 md:mt-1 mb-2">
+        <div>
+            <img style="width: 220px;margin-left: 25px" src="assets/images/logos/ibcs_akr_logo.png">
+        </div>
+
+        <div class="flex justify-end">
+            <img style="width: 90px;float: right" src="assets/images/logos/sdpp.png">
+        </div>
+    </div>
+</div>

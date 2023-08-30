@@ -1,0 +1,67 @@
+<div class="body">
+    <form name="frmGroup">
+        <!-- CARD ONE-->
+        <div>
+            <!-- {{ActionPlanList | json }} -->
+            <div class="heading mt-2">
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2">
+                        {{'activityPlan' | translate}}
+                    </div>
+                </div>
+            </div>
+            <mat-card class="tab-color">
+                <table style="width:100%">
+                    <tr>
+                        <th class="text-center">{{'sl_no' | translate}}</th>
+                        <th>{{'TaskName' | translate}}</th>
+                        <th>{{'TotalDays' | translate}}</th>
+                        <th class="text-center">{{'Start_Date' | translate}}</th>
+                        <th class="text-center">{{'End_date' | translate}}</th>
+                        <th class="text-center">{{'IsAgree' | translate}}</th>
+                    </tr>
+                    <tr *ngFor="let plan of ActionPlanList; let i = index">
+                        <td class="text-center">{{(i+1) | enToBn:langVal}}</td>
+                        <td>{{plan.taskName}}</td>
+                        <td class="text-center">{{plan.totalDays | enToBn:langVal}}</td>
+                        <td class="text-center">{{plan.startDate2 | enToBn:langVal}}</td>
+                        <td class="text-center">{{plan.endDate2 | enToBn:langVal}}</td>
+                        <td class="text-center">
+                            <span *ngIf="(plan.isAgree == true); else NOt" class="text-green-700">
+                                {{'Yes' | translate}}
+                            </span>
+                            <ng-template #NOt>
+                                <span class="text-red-500">{{'No' | translate}}</span>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </table>
+            </mat-card>
+        </div>
+
+        <div class="flex justify-end mt-8">
+            <div class="flex justify-end mt-8">
+                <button mat-flat-button [color]="'primary'" (click)="previousTab()" type="submit"
+                    class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{ "previous" | translate }}
+                </button>
+                <button [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit"
+                    (click)="save()" color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span>{{ "save" | translate }}</span>
+                </button>
+                <button [disabled]="spinner" mat-flat-button (click)="saveAndNext()" type="button" color="primary"
+                    class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span> {{ "save_and_next" | translate }}</span>
+                </button>
+                <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF"
+                    type="button" color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                    {{ "next" | translate }}
+                    <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

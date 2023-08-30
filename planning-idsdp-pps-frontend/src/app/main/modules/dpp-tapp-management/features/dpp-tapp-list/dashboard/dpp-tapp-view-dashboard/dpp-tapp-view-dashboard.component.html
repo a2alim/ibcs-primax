@@ -1,0 +1,1460 @@
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="show">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="flex flex-col flex-auto min-w-0">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    <!--                                    Integrated Digital Service Delivery Platform (IDSDP)-->
+                                    {{'DPP.heading1' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">
+                                        {{'DPP.heading2' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                        <div class="flex justify-end" style="margin-top: -50px; color: #FFFFFF !important;">
+                            <button matTooltip="Edit Dashboard" *ngIf="actionPermission?.includes('Edit Dpp Tapp Dashboard') && canEdit" (click)="gotToEditDashboard()" mat-button type="button">
+                                <mat-icon svgIcon="heroicons_outline:pencil-alt"></mat-icon>
+                            </button>
+                            <button matTooltip="Project List" (click)="navigateToList()" mat-button type="button">
+                                <mat-icon>dashboard</mat-icon>&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-6 outside-body">
+        <div class="max-w-8xl">
+            <div class="flex items-center justify-end mb-3">
+
+                <button *ngIf="showButtonSendToNothi" class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #ffffff"
+                        (click)="sendDppTappToNothi()">
+
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'send_to_daak' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #df3434;color: #FFFFFF"
+                        (click)="forwardToMinistry()" *ngIf="(isForwardToMinistryHead && potroJari) || (isForwardToMinistryHead && isNoteCompletetion)">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_ministry' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #df3434;color: #FFFFFF"
+                        (click)="forwardToMinistryDesk()" *ngIf="isForwardToMinistryDesk">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_ministry_desk' | translate}}
+                </button>
+
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #df3434;color: #FFFFFF"
+                        (click)="returnToAgencyDesk()" *ngIf="isReturnToAgencyDesk">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_agency_desk' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #df3434;color: #FFFFFF"
+                        (click)="toAgencyHead()" *ngIf="isReturnToAgencyHead">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'return_to_agency' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="forwardToPlanning()" *ngIf="isForwardToPlanningHead">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_planning' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="forwardToPlanningDesk()" *ngIf="isForwardToPlanningDesk">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_planning_desk' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="returnToMinistry()" *ngIf="isReturnToMinistryHead">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'return_to_ministry' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="forwardToPlanningMinister()" *ngIf="isForwardToPlanningMinister">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_planning_minister' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="forwardToEcnec()" *ngIf="isForwardToEcnec">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_ecnec' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="approvedByPlanningMinister()" *ngIf="isInPlanningMinister">
+                    <!-- <img src="assets/images/logo/post_office.png" alt=""
+                        style="width: 30px;margin-right: 5px;"> -->
+<!--                    <mat-icon>check</mat-icon>-->
+                    {{'approved_by_planning_minister' | translate}}
+                </button>
+
+                <button class="px-6 ml-3" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="approvedByEcnec()" *ngIf="isInEcnec">
+<!--                    <mat-icon>check_circle</mat-icon>-->
+                    {{'approved_by_ecnec' | translate}}
+                </button>
+
+                <button  class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                         (click)="setMeetingNotice('Project Scrutiny Committee Notice')" *ngIf="isInProjectScrutinyCommitteeNotice">
+<!--                         <mat-icon>message</mat-icon>-->
+                         <span class="p-2">{{'project_scrutiny_committee_notice' | translate}}</span>
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                    (click)="setMeetingNotice('Project Scrutiny Committee Held')" *ngIf="isInProjectScrutinyCommitteeHeld">
+<!--                    <mat-icon>schedule</mat-icon>-->
+                    <span class="p-2">{{'project_scrutiny_committee_held' | translate}}</span>
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                    (click)="setMeetingNotice('DPEC Meeting Notice')" *ngIf="isInDpecMeetingNotice">
+<!--                    <mat-icon>message</mat-icon>-->
+                    <span class="p-2">{{'DPEC_meeting_notice' | translate}}</span>
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                    (click)="setMeetingNotice('DPEC Meeting Held')" *ngIf="isInDpecMeetingHeld">
+<!--                    <mat-icon>schedule</mat-icon>-->
+                    <span class="p-2">{{'DPEC_meeting_held' | translate}}</span>
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                    (click)="setMeetingNotice('DSPEC Meeting Notice')" *ngIf="isInDspecMeetingNotice">
+                    <mat-icon>message</mat-icon>
+                    <span class="p-2">{{'DSPEC_meeting_notice' | translate}}</span>
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                    (click)="setMeetingNotice('DSPEC Meeting Held')" *ngIf="isInDspecMeetingHeld">
+<!--                    <mat-icon>schedule</mat-icon>-->
+                    <span class="p-2">{{'DSPEC_meeting_held' | translate}}</span>
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                    (click)="setUnderExamine()" *ngIf="isInUnderExamine">
+<!--                    <mat-icon>open_with</mat-icon>-->
+                    <span class="p-2">{{'under_examine' | translate}}</span>
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                    (click)="setMeetingNotice('PEC Meeting Notice')" *ngIf="isInpecMeetingNotice">
+<!--                    <mat-icon>message</mat-icon>-->
+                    <span class="p-2">{{'PEC_meeting_notice' | translate}}</span>
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                    (click)="setMeetingNotice('PEC Meeting Held')" *ngIf="isInpecMeetingHeld">
+<!--                    <mat-icon>schedule</mat-icon>-->
+                    <span class="p-2">{{'PEC_meeting_held' | translate}}</span>
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2!important;color: #FFFFFF"
+                    (click)="addPresentation()" *ngIf="isAddPresentation">
+<!--                    <mat-icon>assignment</mat-icon>-->
+                    <span class="p-2">{{'plancomm_presentation' | translate}}</span>
+                </button>
+
+
+            </div>
+
+
+
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5 mb-5">
+                <div *ngIf="projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'dpp'" class="heading" style="height: 40px;">
+                    <div style="display: inline-block;margin-top: 6px"><h1>{{'DPP.dppInformation' | translate}}</h1></div>
+                </div>
+
+                <div *ngIf="projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'tapp'" class="heading" style="height: 40px;">
+                    <div style="display: inline-block;margin-top: 6px"><h1>{{'DPP.tappInformation' | translate}}</h1></div>
+                </div>
+
+                <div class="m-2" style="background-color: #e7f6ee;">
+
+                    <div class="flex flex-col" style="padding: 10px" >
+                        <span><mat-icon class="icon-size">message</mat-icon>{{'DPP.forwardMessage' | translate}}</span>
+                    </div>
+
+                    <!--Dpp Information Validation -->
+
+                    <table *ngIf="projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'dpp'" class="project-details">
+                        <tr>
+                            <td *ngIf="isDppAnnexure5BDataEmpty">
+                                <mat-icon class="icon-size">gpp_good</mat-icon>
+                                <span style="color: red">{{'DPP.yearWiseComponentCost' | translate}} </span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('add-new-annual-phasing-cost')">{{'DPP.annexureVB' | translate}}</a>
+                                <span style="color: red"> {{'DPP.isRequired' | translate}}</span>
+                            </td>
+
+                            <td *ngIf="isDppAnnexure5BDataEmpty">
+                                <mat-icon class="icon-size">miscellaneous_services</mat-icon>
+                                <span style="color: red">{{'DPP.projectAidDpp' | translate}} </span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('add-new-annual-phasing-cost')">{{'DPP.annexureVB' | translate}}</a>
+                                <span style="color: red"> {{'DPP.isRequired' | translate}}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td *ngIf="isDppPartAConcernedDivisionIdEmpty">
+                                <mat-icon class="icon-size">details</mat-icon>
+                                <span style="color: red">{{'DPP.concernedDivision' | translate}} </span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('add-new')">{{'DPP.partAPoint2' | translate}}</a>
+                                <span style="color: red"> {{'DPP.isRequired' | translate}}</span>
+                            </td>
+                            <td *ngIf="isDppObjectiveTargetsDataEmpty">
+                                <mat-icon class="icon-size">money</mat-icon>
+                                <span style="color: red">{{'DPP.objectivesIn' | translate}} </span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('add-new')">{{'DPP.partAPoint3' | translate}} </a>
+                                <span style="color: red"> {{'DPP.isRequired' | translate}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td *ngIf="isDppPartBDataEmpty">
+                                <mat-icon class="icon-size">location_on</mat-icon>
+                                <span style="color: red"></span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('add-project-details')">{{'DPP.partB' | translate}}</a>
+                                <span style="color: red"> {{'DPP.isRequired' | translate}}</span>
+                            </td>
+                            <td *ngIf="isDppAnnexureIDataEmpty">
+                                <mat-icon class="icon-size">money</mat-icon>
+                                <span style="color: red">{{'DPP.locationCostIn' | translate}}</span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('location-wise-cost-breakdown')">{{'DPP.annexureI' | translate}}</a>
+                                <span style="color: red"> {{'DPP.isRequired' | translate}}</span>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td *ngIf="isDppAnnexureIIDataEmpty">
+                                <mat-icon class="icon-size">settings</mat-icon>
+                                <span style="color: red">{{'DPP.projectManagementSetupIn' | translate}}</span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('project-management-setup')">{{'DPP.annexureII' | translate}}</a>
+                                <span style="color: red"> {{'DPP.isRequired' | translate}}</span>
+                            </td>
+
+
+                            <td *ngIf="isDppAnnexureIIIDataEmpty">
+                                <mat-icon class="icon-size">location_on</mat-icon>
+                                <span style="color: red">{{'DPP.procurementInformationIn' | translate}}</span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('add-annexuregoods')">{{'DPP.annexureIII' | translate}}</a>
+                                <span style="color: red"> {{'DPP.isRequired' | translate}}</span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <!--Tapp Information Validation -->
+
+                    <table *ngIf="projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'tapp'" class="project-details">
+                        <tr>
+                            <td *ngIf="isTappAnnexureIDataEmpty">
+                                <mat-icon class="icon-size">location_on</mat-icon>
+                                <span style="color: red">Year wise component cost in </span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('tapp-annexure-one')">Annexure-I</a>
+                                <span style="color: red"> is required</span>
+                            </td>
+
+                            <td *ngIf="isTappObjectiveTargetsDataEmpty">
+                                <mat-icon class="icon-size">miscellaneous_services</mat-icon>
+                                <span style="color: red">Objectives and Targets of the project in </span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('tapp-project-summery')">Part-A Point 3.0</a>
+                                <span style="color: red"> is required</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td *ngIf="isTappDesignationContactPersonDataEmpty">
+                                <mat-icon class="icon-size">settings</mat-icon>
+                                <span style="color: red">Name and Designation of Contact Person in the Implementing Agency in </span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('tapp-project-summery')">Part-A Point 5.0</a>
+                                <span style="color: red"> is required</span>
+                            </td>
+
+
+                            <td *ngIf="isTappResponsiblePreparation">
+                                <mat-icon class="icon-size">gpp_good</mat-icon>
+                                <span style="color: red">Name and Official Address(s) of the Officer(s) Responsible for the Preparation of the TAPP in </span>
+                                <a style="cursor: pointer; color: green" (click)="gotoSelectedTab('tapp-project-summery')">Part-A Point 6.0</a>
+                                <span style="color: red"> is required</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="56" style="height: 100%">
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden"
+                         style="height: 348px;overflow-y: scroll !important;">
+                        <div class="heading">
+                            <h1>{{'DPP.projectInfo' | translate}}</h1>
+                        </div>
+                        <div class="mr-2 ml-2 mt-2 mb-2">
+                            <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap">
+                                <table class="infoSummary proSummary">
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            {{'DPP.projectNameEn' | translate}}
+                                        </td>
+                                        <td class="right-info-td">{{projectSummary?.titleEn}}</td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-even">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            {{'DPP.projectNameBn' | translate}}
+                                        </td>
+                                        <td class="right-info-td">{{projectSummary?.titleBn}}</td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            {{'DPP.projectType' | translate}}
+                                        </td>
+                                        <td class="right-info-td" *ngIf="projectSummary?.isForeignAid">
+                                            {{projectSummary?.projectTypeDTO.nameEn}}</td>
+                                        <td class="right-info-td" *ngIf="!projectSummary?.isForeignAid">
+                                            {{projectSummary?.projectTypeDTO.nameBn}}</td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-even">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            {{'DPP.dateOfCommencement' | translate}}
+                                        </td>
+                                        <!--                                        <td class="right-info-td">{{projectSummary ? commencementDate : ''}}</td>-->
+                                        <td class="right-info-td">{{(projectSummary?.isForeignAid == false &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() =='DPP') ?
+                                            numberPipe.convertToBanglaNumber(projectSummary ? commencementDate : '') :
+                                            projectSummary ? commencementDate : ''}}</td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            {{'DPP.dateOfCompletion' | translate}}
+                                        </td>
+                                        <!--                                        <td class="right-info-td">{{projectSummary ? completionDate : ''}}</td>-->
+                                        <td class="right-info-td">{{(projectSummary?.isForeignAid == false &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() =='DPP') ?
+                                            numberPipe.convertToBanglaNumber(projectSummary ? completionDate : '') :
+                                            projectSummary ? completionDate : ''}}</td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Project Status
+                                        </td>
+                                        <td class="right-info-td">
+                                            <mat-label *ngIf="dppMasterId != null || tappMasterId != null" >
+                                                <label class="heading"
+                                                             style="border-radius: 5%;">{{projectStatus}}
+                                            </label>
+                                                <span *ngIf="isDownloadMeetingAttachment" title="Download Attchment" (click)="downloadMeetingAttachment(meetingAttachment.attachment.urlPath)" style="cursor: pointer;">
+                                                    <mat-icon>file_download</mat-icon>
+                                                </span>
+
+                                                <article class="right-info-td" [ngStyle]="{'height':assignedPlanningDeskOfficer?'80px':'40px'}">
+                                                    <p *ngIf="assignedPlanningDeskOfficer" style="margin-top: 3%; ">
+                                                        Officer Name: {{assignedPlanningDeskOfficer.name}}
+                                                    </p>
+
+                                                </article>
+                                            </mat-label>
+                                        </td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Project Stage
+                                        </td>
+                                        <td class="right-info-td">
+                                            <mat-label *ngIf="dppMasterId != null || tappMasterId != null"><span class="heading"
+                                                             style="border-radius: 5%;">{{projectStage}}</span>
+                                            </mat-label>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Nothi Status
+                                        </td>
+                                        <td class="right-info-td">
+                                            <mat-label>
+                                                <label class="heading mt-3">
+                                                    {{nothiStatus}}
+                                                </label>
+
+                                                <article class="right-info-td"
+                                                         [ngStyle]="{'height':potroJari?'80px':'40px'}">
+                                                    <p *ngIf="potroJari" style="margin-top: 3%; color:white">
+                                                        <a [href]="potroUrl" target="_blank" class="potroUrlLink"
+                                                           style="animation: glowing 1300ms infinite;
+                                                       padding: 0.5% 5% 0.5% 5%">জারিকৃত পত্র দেখুন </a>
+                                                    </p>
+
+                                                </article>
+                                                <article *ngIf="isNoteCompletetion">
+                                                    নোট নিস্পন্ন |
+                                                </article>
+
+                                            </mat-label>
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr *ngIf="userGroupModel?.ministryDivision" class="info-tr info-tr-even">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Implementing Agency
+                                        </td>
+                                        <td class="right-info-td">{{agencyModel?.nameEn}}</td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            ADP Sector
+                                        </td>
+                                        <td class="right-info-td">{{sector?.sectorNameEn}}</td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-even">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            ADP Sub-Sector
+                                        </td>
+                                        <td class="right-info-td">{{subSector?.subSectorNameEn}}</td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Sector Division of Planning Commission
+                                        </td>
+                                        <td class="right-info-td">{{sectorDivision?.sectorDivisionNameEn}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5" style="height: 348px;">
+                        <div class="heading">
+                            <h1>{{'DPP.costInfo' | translate}}</h1>
+                        </div>
+                        <div class="mr-4 ml-4 mt-4 mb-4">
+                            <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap">
+                                <div style="width: 100%;">
+                                    <button class="mtbf-btn" style="float: right" color="primary" mat-raised-button>
+                                        <!--                                        MTBF Checking-->
+                                        {{'DPP.mtbf' | translate}}
+                                    </button>
+                                </div>
+                                <div id="chart" *ngIf="projectSummary!=null">
+                                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                               [labels]="chartOptions.labels" [dataLabels]="chartOptions.dataLabels"
+                                               [title]="chartOptions.title" [fill]="chartOptions.fill"
+                                               [states]="chartOptions.states" [plotOptions]="chartOptions.plotOptions"
+                                               [stroke]="chartOptions.stroke" [theme]="chartOptions.theme"
+                                               [responsive]="chartOptions.responsive"></apx-chart>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="3"></div>
+                <div fxFlex="41">
+                    <div
+                        style="height: 601px;border: 8px solid #FFFFFF;border-radius: 10px;
+                    background-image: url('/assets/images/logo/view_dashboard_with_border.png');background-repeat:  no-repeat;background-position: center center;">
+                        <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap justify-center">
+                            <div style="text-align: center;">
+                                <img src="assets/images/logo/bd.png"
+                                     style="height: 100px;width: 100px;margin: 0 auto;margin-bottom: 20px;margin-top: 20px"
+                                     alt="">
+                                <p style="font-weight: bold;margin-bottom: 5px;font-size: 16px;">Government of the
+                                    People's Republic of Bangladesh</p>
+                                <p style="margin-bottom: 40px;font-size: 13px">Planning Commission, Ministry of
+                                    Planning </p>
+                                <p style="margin-bottom: 15px;font-weight: bold;">DEVELOPMENT PROJECT PROFORMA (DPP)</p>
+                                <p style="margin-bottom: 15px;font-weight: bold;">OF</p>
+                                <p style="margin-bottom: 40px;font-weight: bold;">Demonestration Project 19.04.2021</p>
+                                <p style="font-weight: bold;font-size: 15px;margin-bottom: 40px;">উপস্থাপনমূলক প্রকল্প
+                                    ২৯-০৪-২০২১</p>
+                                <p style="font-weight: bold;">জনস্বাস্থ্ অদিপ্তর</p>
+                                <p style="font-weight: bold;">স্থানীয় সরকার বিভাগ</p>
+                                <p style="font-weight: bold;margin-bottom: 40px;">ঢাকা, বাংলাদেশ</p>
+                                <p style="font-weight: bold">Date: July,2021</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button
+                                    class="btn-project-concept-edit" style="background-color: #e6922a !important;"
+                                    (click)="downloadRelatedInfoClick()">
+                                <mat-icon style="margin-right: 5px;">outbox</mat-icon>
+                                {{'DPP.downloadDppTapp' | translate}}
+                                {{(projectSummary?.isForeignAid) ? projectSummary?.projectTypeDTO.nameEn :
+                                (!projectSummary?.isForeignAid) ? projectSummary?.projectTypeDTO.nameBn : ''}}
+                                {{'DPP.downloadDppTapp2' | translate}}
+                            </button>
+                            <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button *ngIf="isDownloadGO"
+                                    style="background-color: #00b74a !important" class="btn-project-concept-edit"
+                                    (click)="downloadGOClick()">
+                                <mat-icon style="margin-right: 5px;">system_update_alt</mat-icon>
+                                {{'DPP.downloadGo' | translate}}
+                            </button>
+                            <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button style="color: white;" (click)="downloadAllAttachments()">
+                               <mat-icon>folder</mat-icon> <span style="padding-left: 1.5%;">{{'DPP.downloadAllAttachment' | translate}}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <!--                        <h1>Download Other DPP Related Information</h1>-->
+                        <h1>{{'DPP.otherInfo' | translate}}
+                            {{(projectSummary?.isForeignAid) ? projectSummary?.projectTypeDTO.nameEn :
+                                (!projectSummary?.isForeignAid) ? projectSummary?.projectTypeDTO.nameBn : ''}}
+                            {{'DPP.otherInfo2' | translate}}</h1>
+                    </div>
+                    <div>
+                        <form [formGroup]="downloadReportFormGroup">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-form-field class="fuse-mat-dense flex-auto btn-report">
+                                    <mat-select formControlName="committeeSelect"
+                                                (selectionChange)="committeeSelectChange($event)">
+                                        <mat-option value="">View Committee Information</mat-option>
+                                        <mat-option value="0">Composition of (PEC)</mat-option>
+                                        <mat-option value="1">Composition of (DPEC)</mat-option>
+                                        <mat-option value="2">Composition of (SPEC)</mat-option>
+                                        <mat-option value="3">Composition of (DSPEC)</mat-option>
+                                        <mat-option value="4">Composition of Project Scrutiny Committee</mat-option>
+                                        <mat-option value="5">Composition of Project Steering Committee</mat-option>
+                                        <mat-option value="6">Composition of Project Implementation Committee (PIC)
+                                        </mat-option>
+                                        <!--                                        <mat-option value="7">Inter Ministerial Committee</mat-option>-->
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field class="fuse-mat-dense flex-auto btn-report">
+                                    <mat-select formControlName="summarySelect"
+                                                (selectionChange)="summarySelectChange($event)">
+                                        <mat-option value="">View Summary(Project Related)</mat-option>
+                                        <mat-option value="0">ECNEC Summary</mat-option>
+                                        <mat-option value="1">DPP Summary for Planning Ministry Approval</mat-option>
+                                        <mat-option value="2">FS Summary for Planning Ministry Approval</mat-option>
+                                        <mat-option value="3">TAPP Summary for Planning Ministry Approval</mat-option>
+                                        <mat-option value="4">FS Summary for Own Ministry Approval</mat-option>
+                                        <mat-option value="5">TAPP Summary for Own Ministry Approval</mat-option>
+                                        <mat-option value="6">DPP Summary for ECNEC</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field class="fuse-mat-dense flex-auto btn-report">
+                                    <mat-select formControlName="workingSelect"
+                                                (selectionChange)="workingSelectChange($event)">
+                                        <mat-option value="">View Working Plan</mat-option>
+                                        <mat-option value="0">Project Scrutiny Committee Working Plan</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <!--                                <mat-form-field class="fuse-mat-dense flex-auto btn-report">-->
+                                <!--                                    <mat-select formControlName="selectAdministrative" (selectionChange)="selectAdministrativeChange($event)">-->
+                                <!--                                        <mat-option value="">Approval</mat-option>-->
+                                <!--                                        <mat-option value="0">Approval for Planning Ministry</mat-option>-->
+                                <!--                                        <mat-option value="1">Approval for ECNEC</mat-option>-->
+                                <!--                                    </mat-select>-->
+                                <!--                                </mat-form-field>-->
+                                <!--                            <button mat-raised-button style="background-color: #7abce7 !important" class="btn-report">-->
+                                <!--                                <mat-icon style="margin-right: 5px;">system_update_alt</mat-icon>-->
+                                <!--                                View Committee Information-->
+                                <!--                            </button>-->
+                                <!--                            <button mat-raised-button style="background-color: #53658e !important" class="btn-report">-->
+                                <!--                                <mat-icon style="margin-right: 5px;">system_update_alt</mat-icon>-->
+                                <!--                                View Summary(Project Related)-->
+                                <!--                            </button>-->
+                                <!--                            <button mat-raised-button style="background-color: #6c907a !important" class="btn-report">-->
+                                <!--                                <mat-icon style="margin-right: 5px;">system_update_alt</mat-icon>-->
+                                <!--                                View Working Plan-->
+                                <!--                            </button>-->
+                                <!--                            <button mat-raised-button style="background-color: #ca7584 !important" class="btn-report">-->
+                                <!--                                <mat-icon style="margin-right: 5px;">system_update_alt</mat-icon>-->
+                                <!--                                Download Administrative Order-->
+                                <!--                            </button>-->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center" *ngIf="isLoading">
+                <mat-spinner></mat-spinner>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+
+                    <!-- ---------------------For DPP List---------------------- -->
+
+                    <div *ngIf="projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'dpp'" class="p-4">
+                        <div class="heading" style="background-color: #e6922a !important;">
+                            <!--                            <h1>Download DPP Part of The Project</h1>-->
+                            <h1>
+                                {{'DPP.DOWNLOAD' | translate}}
+                                {{(projectSummary?.isForeignAid) ? projectSummary?.projectTypeDTO.nameEn :
+                                (!projectSummary?.isForeignAid) ? projectSummary?.projectTypeDTO.nameBn : ''}}
+                                {{'DPP.partOfTheProject' | translate}}
+                            </h1>
+
+                        </div>
+                        <!-- First Row -->
+                        <div class="flex flex-wrap content-center">
+
+                            <div (click)="downloadPartAReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">gpp_good</mat-icon>
+                                </div>
+                                <div class="f-title">
+                                    {{'DPP.part_A' | translate}}
+                                </div>
+                            </div>
+
+                            <div (click)="downloadPartBReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">details</mat-icon>
+                                </div>
+                                <div class="f-title">{{'DPP.part_B' | translate}}</div>
+                            </div>
+
+                            <div (click)="downloadAnnexureIReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">location_on</mat-icon>
+                                </div>
+                                {{'DPP.annexure1' | translate}}
+                            </div>
+
+                            <div (click)="downloadAnnexureIIReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">settings</mat-icon>
+                                </div>
+                                <div class="f-title">{{'DPP.annexure2' | translate}}</div>
+                            </div>
+
+                        </div>
+                        <!-- /First Row -->
+
+                        <!-- Second Row -->
+                        <div class="flex flex-wrap content-center">
+
+                            <div (click)="downloadAnnexureIIIaReport()"
+                                class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">pivot_table_chart</mat-icon>
+                                </div>
+                                <div class="f-title">{{'DPP.annexure3A' | translate}}</div>
+                            </div>
+
+                            <div (click)="downloadAnnexureIIIbReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">task</mat-icon>
+                                </div>
+                                <div class="f-title">{{'DPP.annexure3B' | translate}}</div>
+                            </div>
+
+                            <div (click)="downloadAnnexureIIIcReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">miscellaneous_services</mat-icon>
+                                </div>
+                                <div class="f-title">{{'DPP.annexure3C' | translate}}</div>
+                            </div>
+
+                            <div (click)="downloadAnnexureIVReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">money</mat-icon>
+                                </div>
+                                <div class="f-title">{{'DPP.annexure4' | translate}}</div>
+                            </div>
+
+                        </div>
+                        <!-- /Second Row -->
+
+                        <!-- Third Row -->
+                        <div class="flex flex-wrap content-center" [disabled]="isLoading">
+
+                            <div (click)="downloadAnnexureVaReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4">
+                                <div class="icons">
+                                    <mat-icon class="white">money</mat-icon>
+                                </div>
+                                <div class="f-title">{{'DPP.annexure5A' | translate}}</div>
+                            </div>
+
+                            <div (click)="downloadAnnexureVbReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">money</mat-icon>
+                                </div>
+                                <div class="f-title">{{'DPP.annexure5B' | translate}}</div>
+                            </div>
+
+                            <div (click)="downloadAnnexureSixReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">schedule</mat-icon>
+                                </div>
+                                <div class="f-title">{{'DPP.annexure6' | translate}}</div>
+                            </div>
+
+                        </div>
+                        <!-- /Third Row -->
+                    </div>
+                    <!-- ---------------------/ For DPP List---------------------- -->
+
+                    <!-- ---------------------For TAPP List---------------------- -->
+                    <div class="p-4" *ngIf="projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'tapp'">
+                        <div class="heading" style="background-color: #e6922a !important;">
+                            <h1>Download TAPP Part of The Project</h1>
+                        </div>
+                        <!-- First Row -->
+                        <div class="flex flex-wrap content-center">
+                            <div (click)="downloadTappPartAReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">gpp_good</mat-icon>
+                                </div>
+                                <div class="f-title">
+                                    TAPP (Project Part-A)
+                                </div>
+                            </div>
+
+                            <div (click)="downloadTappPartBReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">details</mat-icon>
+                                </div>
+                                <div class="f-title">TAPP Project Details (15-21)</div>
+                            </div>
+
+                            <div (click)="downloadTappAnnexureIReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">trending_down</mat-icon>
+                                </div>
+                                TAPP Annexure- I: Year Wise Breakdown of Component wise-Estimated Cost.
+                            </div>
+
+                            <div (click)="downloadTappAnexTwoReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">room_preferences</mat-icon>
+                                </div>
+                                <div class="f-title">TAPP Annexure-II: Terms of Reference.</div>
+                            </div>
+                        </div>
+                        <!-- /First Row -->
+
+                        <!-- Second Row -->
+                        <div class="flex flex-wrap content-center">
+
+                            <div (click)="downloadTappAnnexureThree()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4">
+                                <div class="icons">
+                                    <mat-icon class="white">assistant_direction</mat-icon>
+                                </div>
+                                <div class="f-title">TAPP Annexure-III: (Consultants)</div>
+                            </div>
+
+                            <div (click)="downloadTappAnnexureFourReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4">
+                                <div class="icons">
+                                    <mat-icon class="white">task</mat-icon>
+                                </div>
+                                <div class="f-title">TAPP Annexure - IV : Implementation/Work Schedule</div>
+                            </div>
+
+                            <div (click)="downloadTappAnexFiveReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">blur_on</mat-icon>
+                                </div>
+                                <div class="f-title">
+                                    TAPP Annexure - V : Tasks and Qualifications of Counterpart Personnel to be Attached
+                                    with the Consultants
+                                </div>
+                            </div>
+
+                            <div (click)="downloadTappAnexSixReport()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4" [disabled]="isLoading">
+                                <div class="icons">
+                                    <mat-icon class="white">transfer_within_a_station</mat-icon>
+                                </div>
+                                <div class="f-title"> TAPP Annexure - VI : Tasks and Qualifications of
+                                    Support Staff to be Recruited
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Second Row -->
+
+                        <!-- Third Row -->
+                        <div class="flex flex-wrap content-center">
+
+                            <div (click)="downloadTappAnnexureSeven()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4">
+                                <div class="icons">
+                                    <mat-icon class="white">mail</mat-icon>
+                                </div>
+                                <div class="f-title">TAPP Annexure - VII : Letter of Agreement with Implementing
+                                    Agencies/Development Partners
+                                </div>
+                            </div>
+
+                            <div (click)="downloadTappAnnexureEightGoods()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4">
+                                <div class="icons">
+                                    <mat-icon class="white">pivot_table_chart</mat-icon>
+                                </div>
+                                <div class="f-title">TAPP Annexure - VIII (a): GOODS</div>
+                            </div>
+
+                            <div (click)="downloadTappAnnexureEightService()"
+                                 class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4">
+                                <div class="icons">
+                                    <mat-icon class="white">miscellaneous_services</mat-icon>
+                                </div>
+                                <div class="f-title">TAPP Annexure - VIII (b): SERVICES</div>
+                            </div>
+
+                            <!-- <div (click)="getProjectSummaryId('amortization_schedule')" class="dashboard-features w-full sm:w-auto md:w-1/4 lg:w-1/4">
+                                <div class="icons"><mat-icon class="white">schedule</mat-icon></div>
+                                <div class="f-title">{{'proInfo.annexure6' | translate}}</div>
+                            </div> -->
+                        </div>
+                        <!-- /Third Row -->
+                    </div>
+                    <!-- ---------------------/ For TAPP List---------------------- -->
+                </div>
+            </div>
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <!--                        <h1>List Page of Attachment</h1>-->
+                        <h1>{{'DPP.listPageAttachment' | translate}}</h1>
+                    </div>
+                    <div class="mr-8 ml-8 mt-4">
+                        <div>
+
+                            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                                <!--<mat-card>-->
+                                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                                    <table mat-table [dataSource]="dataSource"
+                                           class="attachment-table mat-elevation-z8 bg-transparent" matSort>
+                                        <!-- ID Column -->
+                                        <ng-container matColumnDef="id">
+                                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                                <!--                                                Sl.-->
+                                                {{'DPP.sl' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let row, let i = index">
+                                                {{(i + 1) + (page * size) }}</td>
+                                        </ng-container>
+
+                                        <!-- Progress Column -->
+                                        <ng-container matColumnDef="name">
+                                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                                <!--                                                Title-->
+                                                {{'DPP.title' | translate}}
+                                            </th>
+                                            <td style="text-align: left !important" *matCellDef="let row">
+                                                {{ row.title }}
+                                            </td>
+                                        </ng-container>
+
+                                        <!-- Name Column -->
+                                        <ng-container matColumnDef="progress">
+                                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                                <!--                                                Download-->
+                                                {{'DPP.attachDownload' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <button mat-icon-button color="primary" (click)="openUrl(row)">
+                                                    <mat-icon>file_download</mat-icon>
+                                                </button>
+                                            </td>
+                                        </ng-container>
+
+                                        <!-- Action Column -->
+                                        <ng-container matColumnDef="action">
+                                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                                <!--                                                Action-->
+                                                {{'DPP.action' | translate}}
+                                            </th>
+
+                                            <td class="text-alignment" mat-cell *matCellDef="let row">
+                                                <div class="buttons">
+                                                    <button (click)="edit(row)" mat-icon-button
+                                                            class="toggle-sidebar-folded" matTooltip="Edit"
+                                                            fxHide.lt-lg>
+                                                        <mat-icon color="accent">edit
+                                                        </mat-icon>
+                                                    </button>
+
+                                                    <button (click)="deleteDialog(row.uuid)" mat-icon-button
+                                                            class="toggle-sidebar-folded" matTooltip="Delete"
+                                                            fxHide.lt-lg>
+                                                        <mat-icon color="warn">delete
+                                                        </mat-icon>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <!-- Table Action Buttons End-->
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns">
+                                        </tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns">
+                                        </tr>
+
+                                        <!-- Row shown when there is no matching data. -->
+                                        <tr class="mat-row" *matNoDataRow>
+                                            <td class="mat-cell" colspan="4">
+                                                <!--                                                No data Found-->
+                                                {{'DPP.dataNotFound' | translate}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <mat-paginator [length]="total" [pageSize]="size" [pageIndex]="page"
+                                    [pageSizeOptions]="[2, 5, 10, 25, 100]" (page)="onChangePage($event)">
+
+                                </mat-paginator>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="mt-4 mb-4">
+                            <button (click)="openDialog()" color="primary" mat-raised-button>
+                                <!--                                Add Attachment-->
+                                {{'DPP.addAttacment' | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <!--                        <h1>Comment & Observation</h1>-->
+                        <h1>{{'DPP.commentAndObserbation' | translate}}</h1>
+                    </div>
+                    <div class="mr-8 ml-8 mt-4 mb-4">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="btn-comment-agency" fxFlex="28%" fxFlex.md="100%" fxFlex.sm="100%"
+                                fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-icon class="pb-1 icon" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%"
+                                        fxFlex.xs="15%">home
+                                    </mat-icon>
+                                    <label fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+                                        {{'DPP.inAgency' | translate}}</label>
+                                    <button class="pt-1" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="15%"
+                                        (click)="showComments('A')">
+                                        <mat-icon class="icon">comment</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="btn-comment-ministry" fxFlex="28%" fxFlex.md="100%" fxFlex.sm="100%"
+                                fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-icon class="pb-1 icon" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%"
+                                        fxFlex.xs="15%">home
+                                    </mat-icon>
+                                    <label fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">{{'DPP.ministryDivision' | translate}}</label>
+                                    <button class="pt-1" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="15%"
+                                        (click)="showComments('MD')">
+                                        <mat-icon class="icon">comment</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="btn-comment-commission" fxFlex="28%" fxFlex.md="100%" fxFlex.sm="100%"
+                                fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-icon class="pb-1 icon" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%"
+                                        fxFlex.xs="20%">home
+                                    </mat-icon>
+                                    <label fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">{{'DPP.palnningCommition' | translate}}</label>
+                                    <button class="pt-1" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="15%"
+                                        (click)=" showComments('PC')">
+                                        <mat-icon class="icon">comment</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="55" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                    class="flex flex-col bg-card shadow rounded overflow-hidden" style="background-color: rgb(230,230,230) !important;height: 478px; overflow-y: scroll !important">
+                    <div class="heading">
+                        <h1>Project Movement Status</h1>
+                    </div>
+                    <ul class="timesheet" *ngIf="movementStatusList.length>0">
+
+                        <li *ngFor="let movement of movementStatusList; let i=index">
+                            <!-- [ngClass]="i%2==0?'direction-r':'direction-l'" -->
+                            <div>
+                                <div class="direction-l" >
+                                    <p  style="text-align: center;font-weight: 600;">প্রেরক</p>
+                                    <img *ngIf="i==movementStatusList.length-1" [src]="'http://training.nothi.gov.bd'" class="img-l" >
+                                    <img *ngIf="i<movementStatusList.length-1" [src]="'http://training.nothi.gov.bd'+movementStatusList[i+1].current_desk_user_info?.user_photo" class="img-l" >
+                                    <p *ngIf="i<movementStatusList.length-1" class="desc" style="margin-top: 0%;color: blue;">{{movementStatusList[i+1].current_desk_user_info?.officer_name}}</p>
+                                    <p *ngIf="i<movementStatusList.length-1" class="desc" style="margin-top: 0%;color: blue;">{{movementStatusList[i+1].current_desk_user_info?.office_name}}</p>
+                                </div>
+                                <div  class="direction-r">
+
+                                    <div class="flag-wrapper">
+                                        <span class="flag" *ngIf="movement.decision_note!=null">{{movement.decision_note}}</span>
+                                        <span class="flag" *ngIf="movement.nothi_message!=null && movement.decision_note==null">{{movement.nothi_message}}</span>
+                                        <span class="time-wrapper"><span class="time">{{movement.feedbackDateTime | date}}</span></span>
+                                    </div>
+                                    <div class="desc">
+                                        <p style="font-weight: 600;">মূল প্রাপক</p>
+                                        {{movement.current_desk_user_info?.officer_name}},
+                                        {{movement.current_desk_user_info?.designation_label}}
+                                        <p>{{movement?.current_desk_user_info?.office_name}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+
+
+                    </ul>
+                </div>
+
+
+                <div fxFlex="5" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+
+                </div>
+
+                <div fxFlex="40" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                     class="flex flex-col bg-card shadow rounded overflow-hidden" style="height: 348px;">
+                    <div class="heading">
+                        <!--                        <h1>GIS MAP</h1>-->
+                        <h1>{{'DPP.gisMap' | translate}}</h1>
+                    </div>
+                    <div class="">
+                        <div class="mapouter">
+                            <div class="gmap_canvas">
+                                <iframe class="gmap_iframe" frameborder="0" scrolling="no" marginheight="0"
+                                        marginwidth="0"
+                                        src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=planning ministry&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                <a href="https://www.fridaynightfunkin.net/">Friday Night Funkin</a>
+                            </div>
+                            <style>
+                                .mapouter {
+                                    position: relative;
+                                    text-align: right;
+                                    width: 100%;
+                                    height: 100%;
+                                }
+
+                                .gmap_canvas {
+                                    overflow: hidden;
+                                    background: none !important;
+                                    width: 600px;
+                                    height: 400px;
+                                }
+
+                                .gmap_iframe {
+                                    width: 100% !important;
+                                    height: 100% !important;
+                                }
+                            </style>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<fuse-drawer-->
+<!--    fxFlex="50" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"-->
+<!--    style="width: 40%;"-->
+<!--    fixed-->
+<!--    transparentOverlay-->
+<!--    [mode]="'over'"-->
+<!--    [name]="'commentObservationDrawer'"-->
+<!--    [position]="'right'"-->
+<!--    #commentObservationDrawer>-->
+
+<!--</fuse-drawer>-->
+
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callAPIDialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <!--            <h1>Upload Attachment</h1>-->
+            <h1>{{'DPP.uploadAttachment' | translate}}</h1>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <form [formGroup]="frmGroup" class="p-8">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                       fxFlex.xs="100%">
+                                <!--                                Title-->
+                                {{'DPP.title' | translate}}
+                                <strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                            fxFlex.sm="60%" fxFlex.xs="100%">
+                                <input matInput formControlName="title">
+                                <mat-error>Title is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                       fxFlex.xs="100%">
+                                {{'DPP.attachment' | translate}}
+                                <strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                            class="fuse-mat-dense flex-auto mt-5">
+                                <ngx-mat-file-input formControlName="attachmentId"
+                                                    (change)="uploadFile($event.target.files)" [accept]="'.pdf'"
+                                                    placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>Attachment is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button (click)="resetValue()" mat-flat-button color="accent" type="button" mat-dialog-close>{{'DPP.cancel'
+                | translate}}</button>
+            <button (click)="save()" *ngIf="!frmGroup.value.uuid" [disabled]="!frmGroup.valid" class="mr-2"
+                    mat-flat-button color="primary" type="button" [mat-dialog-close]="true" cdkFocusInitial>
+                <!--                Save-->
+                {{'DPP.save' | translate}}
+            </button>
+            <button (click)="save()" *ngIf="frmGroup.value.uuid" [disabled]="!frmGroup.valid" class="mr-2"
+                    mat-flat-button color="primary" type="button" [mat-dialog-close]="true" cdkFocusInitial>
+                <!--                Update-->
+                {{'DPP.update' | translate}}
+            </button>
+        </mat-dialog-actions>
+
+    </div>
+</ng-template>
+
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callDownloadGODialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <h1 style="display: inline-block;">
+                <mat-icon style="margin-right: 5px;vertical-align: middle;color: #fff;">outbox</mat-icon>
+                <!--                Downlaod GO-->
+                {{'DPP.downloadGo' | translate}}
+            </h1>
+            <button mat-icon-button class="close-button" [mat-dialog-close]="true"
+                    (click)="closeReportDownloadDialog()">
+                <mat-icon class="close-icon" color="warn">close</mat-icon>
+            </button>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden" style="padding: 10px;">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button
+                            class="btn-project-concept-edit" style="background-color: #e6922a !important;">
+                        <mat-icon style="margin-right: 5px;">file_download</mat-icon>
+                        <!--                        Download Administrative Order-->
+                        {{'DPP.downloadAdministrativeOrder' | translate}}
+                    </button>
+                    <button (click)="downloadDppGOReport()" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%"
+                            fxFlex.xs="100%" mat-raised-button style="background-color: #00b74a !important"
+                            class="btn-project-concept-edit">
+                        <mat-icon style="margin-right: 5px;">file_download</mat-icon>
+                        <!--                        Download GO-->
+                        {{'DPP.downloadGo' | translate}}
+                    </button>
+                </div>
+            </div>
+        </mat-dialog-content>
+    </div>
+</ng-template>
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callDownloadRelatedInfoDialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <h1 style="display: inline-block;">
+                <mat-icon style="margin-right: 5px;vertical-align: middle;color: #fff;">outbox</mat-icon>
+                <!--                Downlaod {{projectSummary?.projectTypeDTO.nameEn}} Related Information-->
+                {{'DPP.downloadDppTapp' | translate}}
+                {{(projectSummary?.isForeignAid) ? projectSummary?.projectTypeDTO.nameEn :
+                (!projectSummary?.isForeignAid) ? projectSummary?.projectTypeDTO.nameBn : ''}}
+                {{'DPP.downloadDppTapp2' | translate}}
+            </h1>
+            <button mat-icon-button class="close-button" [mat-dialog-close]="true"
+                    (click)="closeReportDownloadDialog()">
+                <mat-icon class="close-icon" color="warn">close</mat-icon>
+            </button>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden" style="padding: 10px;">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                    <ng-container *ngIf="projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'dpp'">
+                        <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button
+                                class="btn-project-concept-edit" style="background-color: #e6922a !important;"
+                                (click)="downloadFullDppReport()">
+                            <mat-icon style="margin-right: 5px;">file_download</mat-icon>
+                            <!--                            Download Full {{projectSummary?.projectTypeDTO.nameEn}}-->
+                            {{'DPP.downloadFull' | translate}}
+                            {{(projectSummary.isForeignAid) ? projectSummary?.projectTypeDTO.nameEn :
+                            (!projectSummary.isForeignAid) ? projectSummary?.projectTypeDTO.nameBn : ''}}
+                        </button>
+                    </ng-container>
+
+
+                    <ng-container *ngIf="projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'tapp'">
+                        <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button
+                                class="btn-project-concept-edit" style="background-color: #e6922a !important;"
+                                (click)="downloadFullTappReport()">
+                            <mat-icon style="margin-right: 5px;">file_download</mat-icon>
+                            <!--                            Download Full {{projectSummary?.projectTypeDTO.nameEn}}-->
+                            {{'DPP.downloadFull' | translate}}
+                            {{projectSummary.isForeignAid ? projectSummary?.projectTypeDTO.nameEn :
+                            projectSummary?.projectTypeDTO.nameBn }}
+                        </button>
+                    </ng-container>
+
+
+                    <!--                    <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"-->
+                    <!--                            mat-raised-button style="background-color: #00b74a !important"-->
+                    <!--                            class="btn-project-concept-edit">-->
+                    <!--                        <mat-icon style="margin-right: 5px;">file_download</mat-icon>-->
+                    <!--                        View {{projectSummary?.projectTypeDTO.nameEn}}(All Version)-->
+                    <!--                    </button>-->
+                    <!-- <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                        style="margin: 5px;margin-bottom: -12px;">
+                        <mat-select style="color: #0d9488;font-weight: 500;">
+                            <mat-option value="" style="color: #0d9488;font-weight: 500;">
+                                <mat-icon style="margin-right: 5px;color: #0d9488;">file_download</mat-icon>View
+                                {{projectSummary?.projectTypeDTO.nameEn}}(All Version)
+                            </mat-option>
+                            <mat-option value="2" style="color: #0d9488;font-weight: 500;">
+                                <mat-icon style="margin-right: 5px;color: #0d9488;">file_download</mat-icon>
+                                {{projectSummary?.projectTypeDTO.nameEn}} Verison 1
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+                    <!--                    <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"-->
+                    <!--                                    style="margin: 5px;margin-bottom: -12px;">-->
+                    <!--                        <mat-select style="color: #0d9488;font-weight: 500;">-->
+                    <!--                            <mat-option value="" style="color: #0d9488;font-weight: 500;"><mat-icon style="margin-right: 5px;color: #0d9488;">file_download</mat-icon>Download {{projectSummary?.projectTypeDTO.nameEn}}</mat-option>-->
+                    <!--                            <mat-option value="2" style="color: #0d9488;font-weight: 500;"><mat-icon style="margin-right: 5px;color: #0d9488;">file_download</mat-icon>{{projectSummary?.projectTypeDTO.nameEn}} Verison 1</mat-option>-->
+                    <!--                        </mat-select>-->
+                    <!--                    </mat-form-field>-->
+                </div>
+            </div>
+        </mat-dialog-content>
+    </div>
+</ng-template>
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callAttachmentDialogForMeeting>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <h1>Add Attachment</h1>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <form [formGroup]="frmGroup" class="p-8">
+
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                fxFlex.xs="100%">Attachment<strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                class="fuse-mat-dense flex-auto mt-5">
+                                <ngx-mat-file-input formControlName="attachmentId"
+                                    (change)="uploadFile($event.target.files)" [accept]="'.pdf'"
+                                    placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>Attachment is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label  fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                fxFlex.xs="100%">Attachment Type
+                            </mat-label>
+                            <div>
+                                <mat-label id="meetingAttachmentType"> </mat-label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button (click)="resetValue()" mat-flat-button color="accent" type="button" mat-dialog-close>Cancel</button>
+            <button (click)="submitMeetingNoticeWithAttachment()" *ngIf="!frmGroup.value.uuid" [disabled]="!file" class="mr-2"
+                mat-flat-button color="primary" type="button" [mat-dialog-close]="true" cdkFocusInitial>Save
+            </button>
+
+        </mat-dialog-actions>
+    </div>
+</ng-template>
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callPlancommPresentation>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <h1>{{'plancomm_presentation' | translate}}</h1>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <form  class="p-8">
+
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+
+                                {{'plancomm_presentation_name' | translate}}
+
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                <input matInput [(ngModel)]="presentation.name" name="name">
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                fxFlex.xs="100%">{{'plancomm_presentation_attachement' | translate}}<strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                class="fuse-mat-dense flex-auto mt-5">
+                                <ngx-mat-file-input
+                                    (change)="uploadpresentationFile($event.target.files)" [accept]="'.pdf'"
+                                    placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>Attachment is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </form>
+        </mat-dialog-content>
+
+        <mat-dialog-actions align="end">
+            <button (click)="resetValue()" mat-flat-button color="accent" type="button" mat-dialog-close>Cancel</button>
+            <button (click)="savePlancommPresentation()" *ngIf="!frmGroup.value.uuid" [disabled]="!presentation.presentationFile" class="mr-2"
+                mat-flat-button color="primary" type="button" [mat-dialog-close]="true" cdkFocusInitial>Save
+            </button>
+
+        </mat-dialog-actions>
+
+        <div *ngIf="dppTappPresentations.length > 0" style="overflow-y: scroll">
+            <br/>
+            <div class="heading">
+                <h1>Presentation List</h1>
+            </div>
+            <table class="table" style="border-top: black 1px;">
+
+                <thead>
+                    <tr>
+                        <th>SL#</th>
+                        <th>Name</th>
+                        <th>Upload Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tr *ngFor="let dppTappPresentation of dppTappPresentations; let i = index;">
+                    <td><span>{{i+1}}</span></td>
+                    <td><mat-label>{{dppTappPresentation?.name}}</mat-label></td>
+                    <td>{{dppTappPresentation.createdOn}}</td>
+                    <td><span (click)="downloadPlancommPresentation(dppTappPresentation?.attachment?.urlPath)" style="cursor:pointer"><mat-icon>file_download</mat-icon></span></td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+</ng-template>
+

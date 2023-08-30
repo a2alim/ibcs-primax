@@ -1,0 +1,141 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <!--    <div *ngIf="spinner" class="flex items-center justify-center">-->
+    <!--        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"-->
+    <!--             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <!-- Horizontal stepper -->
+            <form class="bg-card shadow rounded ounded-2xl overflow-hidden ">
+                <ng-template [ngIf]="smallScreen" [ngIfElse]="BigScreen">
+                    <mat-vertical-stepper [linear]="false" class="tab-bar tab-color" #horizontalStepper
+                                            (selectionChange)="selectionChanged($event)">
+
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_1_title' | translate}}">{{'tab_1_title' |
+                                    translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-create-letter (nextStep)="goForward(horizontalStepper)"
+                                                   (backPrevious)="goBack(horizontalStepper)"
+                                                   (m2_installment_process_id)="setProcessId($event)" (isEdit)="setMode($event)"
+                                                   (installment)="setInstallment($event)" (amount)="setAmount($event)"
+                                                   (installmentName)="setInstallmentName($event)" (processUuId)="setProcessUuid($event)">
+                                </app-create-letter>
+                            </div>
+                        </mat-step>
+
+                        <mat-step>
+
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_2_title' | translate}}">{{'tab_2_title' |
+                                    translate}}</div>
+                            </ng-template>
+
+                            <p class="my-6 font-medium">
+                            </p>
+
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-expenditure-items *ngIf="processId" [getData]="processId" [mode]="mode"
+                                                       [installment]="installment" [amount]="amount" [installmentName]="installmentName"
+                                                       (nextStep)="goForward(horizontalStepper)" (backPrevious)="goBack(horizontalStepper)">
+                                </app-expenditure-items>
+                            </div>
+
+                        </mat-step>
+
+
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_3_title' | translate}}">{{'tab_3_title' |
+                                    translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-upload-bill-voucher *ngIf="processId" [mode]="mode" [processUuid]="processUuId"
+                                                         [processId]="processId" (nextStep)="goForward(horizontalStepper)"
+                                                         (backPrevious)="goBack(horizontalStepper)"></app-upload-bill-voucher>
+                            </div>
+
+
+                        </mat-step>
+
+                    </mat-vertical-stepper>
+                </ng-template>
+
+                <ng-template #BigScreen>
+                    <mat-horizontal-stepper [linear]="false" class="tab-bar tab-color" #horizontalStepper
+                                            (selectionChange)="selectionChanged($event)">
+
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_1_title' | translate}}">{{'tab_1_title' |
+                                    translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-create-letter (nextStep)="goForward(horizontalStepper)"
+                                                   (backPrevious)="goBack(horizontalStepper)"
+                                                   (m2_installment_process_id)="setProcessId($event)" (isEdit)="setMode($event)"
+                                                   (installment)="setInstallment($event)" (amount)="setAmount($event)"
+                                                   (installmentName)="setInstallmentName($event)" (processUuId)="setProcessUuid($event)">
+                                </app-create-letter>
+                            </div>
+                        </mat-step>
+
+                        <mat-step>
+
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_2_title' | translate}}">{{'tab_2_title' |
+                                    translate}}</div>
+                            </ng-template>
+
+                            <p class="my-6 font-medium">
+                            </p>
+
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-expenditure-items *ngIf="processId" [getData]="processId" [mode]="mode"
+                                                       [installment]="installment" [amount]="amount" [installmentName]="installmentName"
+                                                       (nextStep)="goForward(horizontalStepper)" (backPrevious)="goBack(horizontalStepper)">
+                                </app-expenditure-items>
+                            </div>
+
+                        </mat-step>
+
+
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_3_title' | translate}}">{{'tab_3_title' |
+                                    translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-upload-bill-voucher *ngIf="processId" [mode]="mode" [processUuid]="processUuId"
+                                                         [processId]="processId" (nextStep)="goForward(horizontalStepper)"
+                                                         (backPrevious)="goBack(horizontalStepper)"></app-upload-bill-voucher>
+                            </div>
+
+
+                        </mat-step>
+
+                    </mat-horizontal-stepper>
+                </ng-template>
+            </form>
+        </div>
+
+    </div>
+    <!-- Main End -->
+</div>

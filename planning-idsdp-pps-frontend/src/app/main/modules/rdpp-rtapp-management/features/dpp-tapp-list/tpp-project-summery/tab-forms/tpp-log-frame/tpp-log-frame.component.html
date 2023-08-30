@@ -1,0 +1,621 @@
+<div class="body">
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+
+    <!-- start Main div-->
+    <div class="heading">
+        <h1>{{'Log_frame' | translate}}</h1>
+    </div>
+    <div class="landscapePage">
+        <div class="overflow-x-auto">
+            <table class="table-border ">
+                <thead>
+                    <tr class="table-border">
+                        <th rowspan="5" class="table-border">Eco Code</th>
+                        <th rowspan="5" class="table-border">Eco Sub-Code</th>
+                        <th rowspan="5" class="table-border">Sub-Code wise compt. description </th>
+                        <th colspan="9" class="table-border">Latest Approved TAPP</th>
+                        <th colspan="9" class="table-border">Proposed Revised TAPP</th>
+                        <th colspan="9" class="table-border">Differences</th>
+                    </tr>
+                    <tr class="table-border">
+                        <th rowspan="4" class="table-border">Unit</th>
+                        <th rowspan="4" class="table-border">Qty</th>
+                        <th colspan="7" class="table-border">Cost</th>
+                        <th rowspan="4" class="table-border">Unit</th>
+                        <th rowspan="4" class="table-border">Qty</th>
+                        <th colspan="7" class="table-border">Cost</th>
+                        <th rowspan="4" class="table-border">Unit</th>
+                        <th rowspan="4" class="table-border">Qty</th>
+                        <th colspan="7" class="table-border">Cost</th>
+                    </tr>
+                    <tr class="table-border">
+                        <th rowspan="3" class="table-border">Total</th>
+                        <th rowspan="3" class="table-border">GOB (FE)</th>
+                        <th colspan="3" class="table-border">PA</th>
+                        <th rowspan="3" class="table-border">Own Fund</th>
+                        <th rowspan="3" class="table-border">Others</th>
+                        <th rowspan="3" class="table-border">Total</th>
+                        <th rowspan="3" class="table-border">GOB (FE)</th>
+                        <th colspan="3" class="table-border">PA</th>
+                        <th rowspan="3" class="table-border">Own Fund</th>
+                        <th rowspan="3" class="table-border">Others</th>
+                        <th rowspan="3" class="table-border">Total</th>
+                        <th rowspan="3" class="table-border">GOB (FE)</th>
+                        <th colspan="3" class="table-border">PA</th>
+                        <th rowspan="3" class="table-border">Own Fund</th>
+                        <th rowspan="3" class="table-border">Others</th>
+                    </tr>
+                    <tr class="table-border">
+                        <th colspan="2" class="table-border">RPA</th>
+                        <th rowspan="2" class="table-border">DPA</th>
+                        <th colspan="2" class="table-border">RPA</th>
+                        <th rowspan="2" class="table-border">DPA</th>
+                        <th colspan="2" class="table-border">RPA</th>
+                        <th rowspan="2" class="table-border">DPA</th>
+                    </tr>
+                    <tr class="table-border">
+                        <th class="table-border">Through GOB</th>
+                        <th class="table-border">SA</th>
+                        <th class="table-border">Through GOB</th>
+                        <th class="table-border">SA</th>
+                        <th class="table-border">Through GOB</th>
+                        <th class="table-border">SA</th>
+                    </tr>
+                    <tr class="table-border">
+                        <th class="table-border">1</th>
+                        <th class="table-border">2</th>
+                        <th class="table-border">3</th>
+                        <th class="table-border">4</th>
+                        <th class="table-border">5</th>
+                        <th class="table-border">6</th>
+                        <th class="table-border">7</th>
+                        <th class="table-border">8</th>
+                        <th class="table-border">9</th>
+                        <th class="table-border">10</th>
+                        <th class="table-border">11</th>
+                        <th class="table-border">12</th>
+                        <th class="table-border">13</th>
+                        <th class="table-border">14</th>
+                        <th class="table-border">15</th>
+                        <th class="table-border">16</th>
+                        <th class="table-border">17</th>
+                        <th class="table-border">18</th>
+                        <th class="table-border">19</th>
+                        <th class="table-border">20</th>
+                        <th class="table-border">21</th>
+                        <th class="table-border">22</th>
+                        <th class="table-border">23</th>
+                        <th class="table-border">24</th>
+                        <th class="table-border">25</th>
+                        <th class="table-border">26</th>
+                        <th class="table-border">27</th>
+                        <th class="table-border">28</th>
+                        <th class="table-border">29</th>
+                        <th class="table-border">30</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-border">
+                        <td colspan="3" class="table-border">(a) Revenue Component</td>
+                        <td colspan="9" class="table-border"></td>
+                        <td colspan="9" class="table-border"></td>
+                        <td colspan="9" class="table-border"></td>
+                    </tr>
+
+                    <tr class="table-border" *ngFor="let currRevenue of currRevenueItems; let i=index">
+                        <td class="table-border">{{currRevenue?.economicCodeDTO?.economicCode}}</td>
+                        <td class="table-border">{{currRevenue?.subEconomicCodeDTO?.subEconomicCode}}</td>
+                        <td class="table-border">{{currRevenue?.description}}</td>
+
+                        <ng-container *ngIf="refRevenueItems?.length>i">
+                            <td class="table-border">{{refRevenueItems[i]?.unitTypeDTO?.unitTypeNameEng}}</td>
+                            <td class="table-border">{{refRevenueItems[i]?.qty}}</td>
+                            <td class="table-border">{{refRevenueItems[i]?.totalAmount?.toFixed(2)}}</td>
+                            <td class="table-border">{{refRevenueItems[i]?.gobAmount?.toFixed(2)}}
+                                <br>({{refRevenueItems[i]?.gobFeAmount?.toFixed(2)}})
+                            </td>
+                            <td class="table-border">{{refRevenueItems[i]?.gobThruAmount?.toFixed(2)}}
+                            </td>
+                            <td class="table-border">{{refRevenueItems[i]?.spAcAmount?.toFixed(2)}}</td>
+                            <td class="table-border">{{refRevenueItems[i]?.thruDpAmount +
+                                refRevenueItems[i]?.thruPdAmount?.toFixed(2)}}</td>
+                            <td class="table-border">{{refRevenueItems[i]?.ownFundAmount?.toFixed(2)}}
+                            </td>
+                            <td class="table-border">{{refRevenueItems[i]?.otherAmount?.toFixed(2)}} </td>
+                        </ng-container>
+                        <ng-container *ngIf="(refRevenueItems.length-1)<i">
+                            <td callsp class="table-border"></td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                        </ng-container>
+
+                        <td class="table-border">{{currRevenue?.unitTypeDTO?.unitTypeNameEng}}</td>
+                        <td class="table-border">{{currRevenue?.qty}}</td>
+                        <td class="table-border">
+                            {{(currRevenue?.fiscalYearsWiseItemTotal?.totalAmount+currRevenue?.totalAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{(currRevenue?.fiscalYearsWiseItemTotal?.gobAmount+currRevenue?.gobAmount).toFixed(2)}}
+                            <br>
+                            ({{(currRevenue?.fiscalYearsWiseItemTotal?.gobFeAmount+currRevenue?.gobFeAmount).toFixed(2)}})
+                        </td>
+                        <td class="table-border">
+                            {{(currRevenue?.fiscalYearsWiseItemTotal?.gobThruAmount+currRevenue?.gobThruAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{(currRevenue?.fiscalYearsWiseItemTotal?.spAcAmount+currRevenue?.spAcAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{(currRevenue?.fiscalYearsWiseItemTotal?.thruDpAmount+currRevenue?.thruDpAmount
+                            +currRevenue?.fiscalYearsWiseItemTotal?.thruPdAmount+currRevenue?.thruPdAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{(currRevenue?.fiscalYearsWiseItemTotal?.ownFundAmount+currRevenue?.ownFundAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{(currRevenue?.fiscalYearsWiseItemTotal?.otherAmount+currRevenue?.otherAmount).toFixed(2)}}
+                        </td>
+
+                        <ng-container *ngIf="refRevenueItems.length>i">
+                            <td class="table-border"></td>
+                            <td class="table-border">{{Math.abs(currRevenue?.qty-refRevenueItems[i]?.qty)}}</td>
+                            <td class="table-border">
+                                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.totalAmount+currRevenue?.totalAmount
+                                -refRevenueItems[i]?.totalAmount).toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.gobAmount+currRevenue?.gobAmount
+                                -refRevenueItems[i]?.gobAmount).toFixed(2)}}
+                                <br>
+                                ({{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.gobFeAmount+currRevenue?.gobFeAmount
+                                -refRevenueItems[i]?.gobFeAmount).toFixed(2)}})
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.gobThruAmount+currRevenue?.gobThruAmount
+                                -refRevenueItems[i]?.gobThruAmount).toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.spAcAmount+currRevenue?.spAcAmount
+                                -refRevenueItems[i]?.spAcAmount).toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs((currRevenue?.fiscalYearsWiseItemTotal?.thruDpAmount+currRevenue?.thruDpAmount
+                                +currRevenue?.fiscalYearsWiseItemTotal?.thruPdAmount +currRevenue?.thruPdAmount)
+                                -(refRevenueItems[i]?.thruDpAmount
+                                +refRevenueItems[i]?.thruPdAmount).toFixed(2))}}
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.ownFundAmount+currRevenue?.ownFundAmount
+                                -refRevenueItems[i]?.ownFundAmount).toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.otherAmount+currRevenue?.otherAmount
+                                -refRevenueItems[i]?.otherAmount).toFixed(2)}}
+                            </td>
+                        </ng-container>
+                        <ng-container *ngIf="(refRevenueItems.length-1)<i">
+                            <td class="table-border"></td>
+                            <td class="table-border">{{currRevenue?.qty}}</td>
+                            <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.totalAmount?.toFixed(2)}}
+                            </td>
+                            <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.gobAmount?.toFixed(2)}}
+                                <br>
+                                ({{currRevenue?.fiscalYearsWiseItemTotal?.gobFeAmount?.toFixed(2)}})</td>
+                            <td class="table-border">
+                                {{currRevenue?.fiscalYearsWiseItemTotal?.gobThruAmount?.toFixed(2)}}</td>
+                            <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.spAcAmount?.toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{currRevenue?.fiscalYearsWiseItemTotal?.thruDpAmount+currRevenue?.fiscalYearsWiseItemTotal?.thruPdAmount?.toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{currRevenue?.fiscalYearsWiseItemTotal?.ownFundAmount?.toFixed(2)}}</td>
+                            <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.otherAmount?.toFixed(2)}}
+                            </td>
+                        </ng-container>
+                    </tr>
+
+                    <tr class="table-border">
+                        <td colspan="3" class="table-border">Sub-total (Revenue Component )</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{refRevenueItemGTObj?.qty}}</td>
+                        <td class="table-border">{{refRevenueGTObj?.totalAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refRevenueGTObj?.gobAmount?.toFixed(2)}} <br>
+                            ({{refRevenueGTObj?.gobFeAmount?.toFixed(2)}})
+                        </td>
+                        <td class="table-border">{{refRevenueGTObj?.gobThruAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refRevenueGTObj?.spAcAmount?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{refRevenueGTObj?.thruDpAmount+refRevenueGTObj?.thruPdAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refRevenueGTObj?.ownFundAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refRevenueGTObj?.otherAmount?.toFixed(2)}}</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{currRevenueItemGTObj?.qty}}</td>
+                        <td class="table-border">{{currRevenueGTObj?.totalAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currRevenueGTObj?.gobAmount?.toFixed(2)}} <br>
+                            ({{currRevenueGTObj?.gobFeAmount?.toFixed(2)}})</td>
+                        <td class="table-border">{{currRevenueGTObj?.gobThruAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currRevenueGTObj?.spAcAmount?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{currRevenueGTObj?.thruDpAmount+currRevenueGTObj?.thruPdAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currRevenueGTObj?.ownFundAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currRevenueGTObj?.otherAmount?.toFixed(2)}}</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{Math.abs(currRevenueItemGTObj?.qty-refRevenueItemGTObj?.qty)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currRevenueGTObj?.totalAmount-refRevenueGTObj?.totalAmount).toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currRevenueGTObj?.gobAmount-refRevenueGTObj?.gobAmount).toFixed(2)}}
+                            <br>
+                            ({{Math.abs(currRevenueGTObj?.gobFeAmount-refRevenueGTObj?.gobFeAmount).toFixed(2)}})
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currRevenueGTObj?.gobThruAmount-refRevenueGTObj?.gobThruAmount).toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currRevenueGTObj?.spAcAmount-refRevenueGTObj?.spAcAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs((currRevenueGTObj?.thruDpAmount+currRevenueGTObj?.thruPdAmount)
+                            -(refRevenueGTObj?.thruDpAmount+refRevenueGTObj?.thruPdAmount)).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currRevenueGTObj?.ownFundAmount-refRevenueGTObj?.ownFundAmount).toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currRevenueGTObj?.otherAmount-refRevenueGTObj?.otherAmount).toFixed(2)}}</td>
+                    </tr>
+
+                    <tr class="table-border">
+                        <td colspan="3" class="table-border">(b) Capital Component</td>
+                        <td colspan="9" class="table-border"></td>
+                        <td colspan="9" class="table-border"></td>
+                        <td colspan="9" class="table-border"></td>
+                    </tr>
+                    <tr class="table-border" *ngFor="let currCapital of currCapitalItems; let i=index">
+                        <td class="table-border">{{currCapital?.economicCodeDTO?.economicCode}}</td>
+                        <td class="table-border">{{currCapital?.subEconomicCodeDTO?.subEconomicCode}}</td>
+                        <td class="table-border">{{currCapital?.description}}</td>
+
+                        <ng-container *ngIf="refCapitalItems.length>i">
+                            <td class="table-border">{{refCapitalItems[i]?.unitTypeDTO?.unitTypeNameEng}}</td>
+                            <td class="table-border">{{refCapitalItems[i]?.qty}}</td>
+                            <td class="table-border">{{refCapitalItems[i]?.totalAmount?.toFixed(2)}}</td>
+                            <td class="table-border">{{refCapitalItems[i]?.gobAmount?.toFixed(2)}}
+                                <br>({{refCapitalItems[i]?.gobFeAmount?.toFixed(2)}})
+                            </td>
+                            <td class="table-border">{{refCapitalItems[i]?.gobThruAmount?.toFixed(2)}}
+                            </td>
+                            <td class="table-border">{{refCapitalItems[i]?.spAcAmount?.toFixed(2)}}</td>
+                            <td class="table-border">{{refCapitalItems[i]?.thruDpAmount +
+                                refCapitalItems[i]?.thruPdAmount?.toFixed(2)}}</td>
+                            <td class="table-border">{{refCapitalItems[i]?.ownFundAmount?.toFixed(2)}}
+                            </td>
+                            <td class="table-border">{{refCapitalItems[i]?.otherAmount?.toFixed(2)}} </td>
+                        </ng-container>
+                        <ng-container *ngIf="(refCapitalItems.length-1)<i">
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                            <td class="table-border">0.00</td>
+                        </ng-container>
+
+                        <td class="table-border">{{currCapital?.unitTypeDTO?.unitTypeNameEng}}</td>
+                        <td class="table-border">{{currCapital?.qty}}</td>
+                        <td class="table-border">
+                            {{(currCapital?.fiscalYearsWiseItemTotal?.totalAmount+currCapital?.totalAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{(currCapital?.fiscalYearsWiseItemTotal?.gobAmount+currCapital?.gobAmount).toFixed(2)}}
+                            <br>
+                            ({{(currCapital?.fiscalYearsWiseItemTotal?.gobFeAmount+currCapital?.gobFeAmount).toFixed(2)}})
+                        </td>
+                        <td class="table-border">
+                            {{(currCapital?.fiscalYearsWiseItemTotal?.gobThruAmount+currCapital?.gobThruAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{(currCapital?.fiscalYearsWiseItemTotal?.spAcAmount+currCapital?.spAcAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{(currCapital?.fiscalYearsWiseItemTotal?.thruDpAmount+currCapital?.thruDpAmount
+                            +currCapital?.fiscalYearsWiseItemTotal?.thruPdAmount+currCapital?.thruPdAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{(currCapital?.fiscalYearsWiseItemTotal?.ownFundAmount+currCapital?.ownFundAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{(currCapital?.fiscalYearsWiseItemTotal?.otherAmount+currCapital?.otherAmount).toFixed(2)}}
+                        </td>
+
+                        <ng-container *ngIf="refCapitalItems.length>i">
+                            <td class="table-border"></td>
+                            <td class="table-border">{{Math.abs(currCapital?.qty-refCapitalItems[i]?.qty)}}</td>
+                            <td class="table-border">
+                                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.totalAmount
+                                +currCapital?.totalAmount-refCapitalItems[i]?.totalAmount).toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.gobAmount+currCapital?.gobAmount
+                                -refCapitalItems[i]?.gobAmount).toFixed(2)}}
+                                <br>
+                                ({{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.gobFeAmount+currCapital?.gobFeAmount
+                                -refCapitalItems[i]?.gobFeAmount).toFixed(2)}})
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.gobThruAmount
+                                +currCapital?.gobThruAmount-refCapitalItems[i]?.gobThruAmount).toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.spAcAmount+currCapital?.spAcAmount
+                                -refCapitalItems[i]?.spAcAmount).toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs((currCapital?.fiscalYearsWiseItemTotal?.thruDpAmount
+                                +currCapital?.thruDpAmount+currCapital?.fiscalYearsWiseItemTotal?.thruPdAmount+currCapital?.thruPdAmount)
+                                -(refCapitalItems[i]?.thruDpAmount
+                                +refCapitalItems[i]?.thruPdAmount)).toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.ownFundAmount+currCapital?.ownFundAmount
+                                -refCapitalItems[i]?.ownFundAmount).toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.otherAmount+currCapital?.otherAmount
+                                -refCapitalItems[i]?.otherAmount).toFixed(2)}}
+                            </td>
+                        </ng-container>
+                        <ng-container *ngIf="(refCapitalItems.length-1)<i">
+                            <td class="table-border"></td>
+                            <td class="table-border">{{currCapital?.qty}}</td>
+                            <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.totalAmount?.toFixed(2)}}
+                            </td>
+                            <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.gobAmount?.toFixed(2)}}
+                                <br>
+                                ({{currCapital?.fiscalYearsWiseItemTotal?.gobFeAmount?.toFixed(2)}})</td>
+                            <td class="table-border">
+                                {{currCapital?.fiscalYearsWiseItemTotal?.gobThruAmount?.toFixed(2)}}</td>
+                            <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.spAcAmount?.toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{currCapital?.fiscalYearsWiseItemTotal?.thruDpAmount+currCapital?.fiscalYearsWiseItemTotal?.thruPdAmount?.toFixed(2)}}
+                            </td>
+                            <td class="table-border">
+                                {{currCapital?.fiscalYearsWiseItemTotal?.ownFundAmount?.toFixed(2)}}</td>
+                            <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.otherAmount?.toFixed(2)}}
+                            </td>
+                        </ng-container>
+                    </tr>
+                    <tr class="table-border">
+                        <td colspan="3" class="table-border">Sub-total ( Capital Component )</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{refCapitalItemGTObj?.qty}}</td>
+                        <td class="table-border">{{refCapitalGTObj?.totalAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refCapitalGTObj?.gobAmount?.toFixed(2)}} <br>
+                            ({{refCapitalGTObj?.gobFeAmount?.toFixed(2)}})
+                        </td>
+                        <td class="table-border">{{refCapitalGTObj?.gobThruAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refCapitalGTObj?.spAcAmount?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{refCapitalGTObj?.thruDpAmount+refCapitalGTObj?.thruPdAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refCapitalGTObj?.ownFundAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refCapitalGTObj?.otherAmount?.toFixed(2)}}</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{currCapitalItemGTObj?.qty}}</td>
+                        <td class="table-border">{{currCapitalGTObj?.totalAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currCapitalGTObj?.gobAmount?.toFixed(2)}} <br>
+                            ({{currCapitalGTObj?.gobFeAmount?.toFixed(2)}})</td>
+                        <td class="table-border">{{currCapitalGTObj?.gobThruAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currCapitalGTObj?.spAcAmount?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{currCapitalGTObj?.thruDpAmount+currCapitalGTObj?.thruPdAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currCapitalGTObj?.ownFundAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currCapitalGTObj?.otherAmount?.toFixed(2)}}</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{Math.abs(currCapitalItemGTObj.qty-refCapitalItemGTObj.qty)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currCapitalGTObj?.totalAmount-refCapitalGTObj?.totalAmount).toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currCapitalGTObj?.gobAmount-refCapitalGTObj?.gobAmount).toFixed(2)}}
+                            <br>
+                            ({{Math.abs(currCapitalGTObj?.gobFeAmount-refCapitalGTObj?.gobFeAmount).toFixed(2)}})
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currCapitalGTObj?.gobThruAmount-refCapitalGTObj?.gobThruAmount).toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currCapitalGTObj?.spAcAmount-refCapitalGTObj?.spAcAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs((currCapitalGTObj?.thruDpAmount+currCapitalGTObj?.thruPdAmount)
+                            -(refCapitalGTObj?.thruDpAmount+refCapitalGTObj?.thruPdAmount)).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currCapitalGTObj?.ownFundAmount-refCapitalGTObj?.ownFundAmount).toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currCapitalGTObj?.otherAmount-refCapitalGTObj?.otherAmount).toFixed(2)}}</td>
+                    </tr>
+                    <tr class="table-border">
+                        <td colspan="3" class="table-border">(c) Physical Contingency </td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{refPhysicalContingencyGTObj?.qty}}</td>
+                        <td class="table-border">{{refPhysicalContingencyGTObj?.totalAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refPhysicalContingencyGTObj?.gobAmount?.toFixed(2)}} <br>
+                            ({{refPhysicalContingencyGTObj?.gobFeAmount?.toFixed(2)}})</td>
+                        <td class="table-border">{{refPhysicalContingencyGTObj?.gobThruAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refPhysicalContingencyGTObj?.spAcAmount?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{refPhysicalContingencyGTObj?.thruDpAmount+refPhysicalContingencyGTObj?.thruPdAmount?.toFixed(2)}}
+                        </td>
+                        <td class="table-border">{{refPhysicalContingencyGTObj?.ownFundAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refPhysicalContingencyGTObj?.otherAmount?.toFixed(2)}}</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{currPhysicalContingencyGTObj?.qty}}</td>
+                        <td class="table-border">{{currPhysicalContingencyGTObj?.totalAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currPhysicalContingencyGTObj?.gobAmount?.toFixed(2)}} <br>
+                            ({{currPhysicalContingencyGTObj?.gobFeAmount?.toFixed(2)}})</td>
+                        <td class="table-border">{{currPhysicalContingencyGTObj?.gobThruAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currPhysicalContingencyGTObj?.spAcAmount?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{currPhysicalContingencyGTObj?.thruDpAmount+currPhysicalContingencyGTObj?.thruPdAmount?.toFixed(2)}}
+                        </td>
+                        <td class="table-border">{{currPhysicalContingencyGTObj?.ownFundAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currPhysicalContingencyGTObj?.otherAmount?.toFixed(2)}}</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">
+                            {{Math.abs(currPhysicalContingencyGTObj?.qty-refPhysicalContingencyGTObj?.qty)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currPhysicalContingencyGTObj?.totalAmount-refPhysicalContingencyGTObj?.totalAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currPhysicalContingencyGTObj?.gobAmount-refPhysicalContingencyGTObj?.gobAmount).toFixed(2)}}
+                            <br>
+                            ({{Math.abs(currPhysicalContingencyGTObj?.gobFeAmount-refPhysicalContingencyGTObj?.gobFeAmount).toFixed(2)}})
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currPhysicalContingencyGTObj?.gobThruAmount-refPhysicalContingencyGTObj?.gobThruAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currPhysicalContingencyGTObj?.spAcAmount-refPhysicalContingencyGTObj?.spAcAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs((currPhysicalContingencyGTObj?.thruDpAmount+currPhysicalContingencyGTObj?.thruPdAmount)
+                            -(refPhysicalContingencyGTObj?.thruDpAmount+refPhysicalContingencyGTObj?.thruPdAmount)).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currPhysicalContingencyGTObj?.ownFundAmount-refPhysicalContingencyGTObj?.ownFundAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currPhysicalContingencyGTObj?.otherAmount-refPhysicalContingencyGTObj?.otherAmount).toFixed(2)}}
+                        </td>
+                    </tr>
+                    <tr class="table-border">
+                        <td colspan="3" class="table-border">(d) Price Contingency </td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{refPriceContingencyGTObj?.qty}}</td>
+                        <td class="table-border">{{refPriceContingencyGTObj?.totalAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refPriceContingencyGTObj?.gobAmount?.toFixed(2)}} <br>
+                            ({{refPriceContingencyGTObj?.gobFeAmount?.toFixed(2)}})</td>
+                        <td class="table-border">{{refPriceContingencyGTObj?.gobThruAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refPriceContingencyGTObj?.spAcAmount?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{refPriceContingencyGTObj?.thruDpAmount+refPriceContingencyGTObj?.thruPdAmount?.toFixed(2)}}
+                        </td>
+                        <td class="table-border">{{refPriceContingencyGTObj?.ownFundAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refPriceContingencyGTObj?.otherAmount?.toFixed(2)}}</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{currPriceContingencyGTObj?.qty}}</td>
+                        <td class="table-border">{{currPriceContingencyGTObj?.totalAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currPriceContingencyGTObj?.gobAmount?.toFixed(2)}} <br>
+                            ({{currPriceContingencyGTObj?.gobFeAmount?.toFixed(2)}})</td>
+                        <td class="table-border">{{currPriceContingencyGTObj?.gobThruAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currPriceContingencyGTObj?.spAcAmount?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{currPriceContingencyGTObj?.thruDpAmount+currPriceContingencyGTObj?.thruPdAmount?.toFixed(2)}}
+                        </td>
+                        <td class="table-border">{{currPriceContingencyGTObj?.ownFundAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currPriceContingencyGTObj?.otherAmount?.toFixed(2)}}</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">
+                            {{Math.abs(currPriceContingencyGTObj?.qty-refPriceContingencyGTObj?.qty)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currPriceContingencyGTObj?.totalAmount-refPriceContingencyGTObj?.totalAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currPriceContingencyGTObj?.gobAmount-refPriceContingencyGTObj?.gobAmount).toFixed(2)}}
+                            <br>
+                            ({{Math.abs(currPriceContingencyGTObj?.gobFeAmount-refPriceContingencyGTObj?.gobFeAmount).toFixed(2)}})
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currPriceContingencyGTObj?.gobThruAmount-refPriceContingencyGTObj?.gobThruAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currPriceContingencyGTObj?.spAcAmount-refPriceContingencyGTObj?.spAcAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs((currPriceContingencyGTObj?.thruDpAmount+currPriceContingencyGTObj?.thruPdAmount)
+                            -(refPriceContingencyGTObj?.thruDpAmount+refPriceContingencyGTObj?.thruPdAmount)).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currPriceContingencyGTObj?.ownFundAmount-refPriceContingencyGTObj?.ownFundAmount).toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currPriceContingencyGTObj?.otherAmount-refPriceContingencyGTObj?.otherAmount).toFixed(2)}}
+                        </td>
+                    </tr>
+                    <tr class="table-border">
+                        <td colspan="3" class="table-border">Grand Total (a + b + c) </td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{refGrandTotalObj?.qty}}</td>
+                        <td class="table-border">{{refGrandTotalObj?.totalAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refGrandTotalObj?.gobAmount?.toFixed(2)}} <br>
+                            ({{refGrandTotalObj?.gobFeAmount?.toFixed(2)}})</td>
+                        <td class="table-border">{{refGrandTotalObj?.gobThruAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refGrandTotalObj?.spAcAmount?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{refGrandTotalObj?.thruDpAmount+refGrandTotalObj?.thruPdAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refGrandTotalObj?.ownFundAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{refGrandTotalObj?.otherAmount?.toFixed(2)}}</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{currGrandTotalObj?.qty}}</td>
+                        <td class="table-border">{{currGrandTotalObj?.totalAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currGrandTotalObj?.gobAmount?.toFixed(2)}} <br>
+                            ({{currGrandTotalObj?.gobFeAmount?.toFixed(2)}})</td>
+                        <td class="table-border">{{currGrandTotalObj?.gobThruAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currGrandTotalObj?.spAcAmount?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{currGrandTotalObj?.thruDpAmount+currGrandTotalObj?.thruPdAmount?.toFixed(2)}}
+                        </td>
+                        <td class="table-border">{{currGrandTotalObj?.ownFundAmount?.toFixed(2)}}</td>
+                        <td class="table-border">{{currGrandTotalObj?.otherAmount?.toFixed(2)}}</td>
+                        <td class="table-border"></td>
+                        <td class="table-border">{{Math.abs(currGrandTotalObj?.qty-refGrandTotalObj?.qty)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currGrandTotalObj?.totalAmount-refGrandTotalObj?.totalAmount)?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{Math.abs(currGrandTotalObj?.gobAmount-refGrandTotalObj?.gobAmount)?.toFixed(2)}}
+                            <br>
+                            ({{Math.abs(currGrandTotalObj?.gobFeAmount-refGrandTotalObj?.gobFeAmount)?.toFixed(2)}})
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currGrandTotalObj?.gobThruAmount-refGrandTotalObj?.gobThruAmount)?.toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currGrandTotalObj?.spAcAmount-refGrandTotalObj?.spAcAmount)?.toFixed(2)}}</td>
+                        <td class="table-border">
+                            {{Math.abs((currGrandTotalObj?.thruDpAmount+currGrandTotalObj?.thruPdAmount)
+                            -(refGrandTotalObj?.thruDpAmount+refGrandTotalObj?.thruPdAmount))?.toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currGrandTotalObj?.ownFundAmount-refGrandTotalObj?.ownFundAmount)?.toFixed(2)}}
+                        </td>
+                        <td class="table-border">
+                            {{Math.abs(currGrandTotalObj?.otherAmount-refGrandTotalObj?.otherAmount)?.toFixed(2)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- end Main div-->
+    <div class="flex justify-end mt-8">
+        <button [color]="'accent'" class="px-8 mr-2 toggle-sidebar-folded" matTooltip="Back" mat-flat-button
+            matStepperPrevious type="button">
+            Back
+        </button>
+        <button class="px-8 toggle-sidebar-folded" matTooltip="Next" mat-flat-button
+            style="background-color: green; color: #FFFFFF" type="button" matStepperNext>
+            Next
+        </button>
+    </div>
+</div>

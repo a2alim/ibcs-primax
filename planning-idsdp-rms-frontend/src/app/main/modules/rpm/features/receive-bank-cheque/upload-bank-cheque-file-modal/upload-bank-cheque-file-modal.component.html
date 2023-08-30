@@ -1,0 +1,81 @@
+<div class="ps--scrolling-y">
+    <div class="body">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="flex justify-end">
+                <button mat-raised-button (click)="addNewForm()" tooltip="Add More" style="background: royalblue;color:white">
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                    {{'add_more' | translate}}
+                </button>
+            </div>
+    
+            <!-- CARD ONE-->
+            <div  *ngFor="let uploadFileFormModel of uploadFileFormModelList; let i = index">
+                <div class="heading mt-2">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2 md:pt-3">
+                            {{'formTitleModal' | translate}}
+                        </div>
+                        <div class="flex w-full justify-end sm:w-auto md:w-20 lg:w-20">
+                            <button mat-raised-button color="warn" tooltip="Delete" (click)="deleteFormByIndex(i)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <mat-card class="tab-color">
+                    <!-- Row 1-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'fileTitle' | translate}}<strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput [ngModelOptions]="{standalone: true}"
+                                       [(ngModel)]="uploadFileFormModel.fileTitle">
+                                <mat-error> required!</mat-error>
+                            </mat-form-field>
+                        </div>
+    
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'fileName' | translate}}<strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                {{uploadFileFormModel?.fileName}}
+                                <ngx-mat-file-input [accept]="'.pdf'"
+                                                    (change)="handleFileInput($event.target.files,i,uploadFileFormModel.id)">
+                                </ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>File required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+    
+    
+    
+            <!-- Bottom Button -->
+            <div class="flex justify-end mt-8">
+                <button
+                    mat-flat-button
+                    style="background-color: green; color: #FFFFFF"
+                    type="submit"
+                    (click)="save(false)"
+                    color="primary"
+                    class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span >{{ "save" | translate }}</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    </div>
+    
+    
+    

@@ -1,0 +1,356 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+
+ */
+/* ----------------------------------------------------------------------------------------------------- */
+$base-color: #90cec5;
+
+.header {
+    /*justify-content: space-between !important;
+    align-items: center !important;
+    display: flex !important;*/
+    background: #13544e;
+    color: #F5F5F4;
+    padding-top: 2px;
+    padding-bottom: 4px;
+}
+
+.heading {
+    color: #000000 !important;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 17px;
+    background: #FEFEFA;
+    //background-color: $base-color;
+    border-bottom: 1px solid #cccccc;
+}
+
+//previous heading
+/*.heading {
+    background-color: $base-color;
+    color: #000000 !important;
+    padding: 10px;
+    font-weight: bold;
+}*/
+
+.project-proposal-heading {
+    background-color: $base-color;
+    color: #000000 !important;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.sub-heading {
+    background-color: $base-color;
+    color: #000000 !important;
+    padding: 10px;
+}
+
+.body {
+    background-color: #F0FDF4;
+    font-family: Arial, nikosh;
+}
+
+.cursor {
+    cursor: pointer !important;
+}
+
+.outside-body {
+    //background-color: #EEF2FF;
+    background-color: #E2E8F0;
+    margin: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+//Previous
+/*.outside-body {
+    background-color: #EEF2FF;
+    //background-color: #EEF2FF;
+}*/
+
+.go-to-home-page {
+    margin-top: -50px;
+    color: #FFFFFF !important;
+}
+
+/*-----Date 03/05/2021-----*/
+
+.readOnly .mat-form-field-flex {
+    background-color: #e4e4e4 !important;
+}
+
+.readOnly .mat-select-min-line {
+    background-color: #e4e4e4 !important;
+    color: black !important;
+    opacity: 100% !important;
+}
+
+.AnnexureLink {
+    color: #2000ff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+a.AnnexureLink:hover {
+    color: #f00;
+}
+
+.tab-header-title {
+    //white-space: pre-wrap !important;
+}
+
+.warn,
+.required {
+    color: red;
+}
+
+.success-snackbar {
+    background: #008000 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+    white-space: pre-wrap;
+}
+
+.error-snackbar {
+    background: #ff0000 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.warn-snackbar {
+    background: #d79121 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.header-font-title {
+    font-size: 1.50rem;
+    padding-bottom: 2px;
+
+}
+
+.dialog-background {
+    mat-dialog-container {
+        background: #F0FDF4 !important;
+    }
+}
+
+.save-button {
+    background: #008000 !important;
+    color: #ffffff !important;
+}
+
+.cancel-button {
+    background: #ff2f25 !important;
+    color: #ffffff !important;
+}
+
+.fuse-mat-rounded .mat-flat-button,
+.mat-raised-button {
+    background: #4b60bd !important;
+    border-radius: 5px !important;
+}
+
+.dark.bg-card.dark\:border-b {
+    background: radial-gradient(circle, #b7bfe5 0%, #9fd3d0 100%);
+    color: #333333 !important;
+}
+
+table {
+    th {
+        //background-color: $base-color !important;
+        background-color: #4F9488 !important;
+        color: #FFFFFF !important;
+        padding: 5px;
+    }
+}
+
+.leading-5.truncate.text-secondary {
+    //color: #333333 !important;
+    color: #F5F5F4 !important;
+}
+
+
+
+//.fuse-vertical-navigation-item-wrapper > a.fuse-vertical-navigation-item-active {
+//    background-color:blue !important;
+//}
+a.fuse-vertical-navigation-item-active {
+    background-color: #0d9388 !important;
+    color: #FFFFFF !important;
+}
+
+.fuse-vertical-navigation-wrapper{
+    //background-color: #FFFFFF !important;
+    background-color: #F0FDF4 !important;
+    color: #333333 !important;
+}
+
+.list-page-outside-body{
+    //background-color: #F0FDF4;
+    background: #E2E8F0;
+    margin: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.backToTop{
+    background-color: rgba(111, 208, 246, 0.5);;
+
+    position: fixed;
+    bottom: 40px;
+    right: 0.1%;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    color: #1f1f1f;
+    //text-decoration: none;
+    ////opacity: 0;
+    //pointer-events: none;
+    transition: all 0.4s;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+}
+
+.loading::after {
+    content: "";
+    width: 50px;
+    height: 50px;
+    border: 10px solid #dddddd;
+    border-top-color: #009579;
+    border-radius: 50%;
+    animation: loading 1s ease infinite;
+}
+
+@keyframes loading {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.backToTop:hover{
+    background-color: #4b60bd;
+}
+
+
+.modal-dialog {
+    width: 360px !important;
+    margin-top: 120px;
+    margin: 30px auto;
+    .modal-content {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+    .confirm {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        min-height: 156px;
+        .content {
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff !important;
+            font-weight: 700;
+        }
+        .buttons {
+            padding: 10px 15px;
+            float: right;
+            button {
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+//Tailwind class
+@layer components {
+    .btn {
+        @apply px-2 py-1 border rounded-md text-base font-semibold hover:border-transparent hover:text-green-300;
+    }
+
+    .btn-home {
+        @apply px-2 bg-smalt-blue-500 text-white;
+    }
+
+    .btn-add {
+        @apply py-2 bg-smalt-blue text-white
+    }
+
+    .btn-clear {
+        @apply bg-gray-400 px-3 py-2 text-white
+    }
+
+    .btn-search {
+        @apply bg-blue-400 py-2 text-white
+    }
+    .btn-download {
+        @apply py-2 bg-blue-600 text-white
+    }
+    .btn-details {
+        @apply bg-blue-600 text-white;
+    }
+    .btn-list {
+        @apply px-2 bg-smalt-blue-500 text-white;
+    }
+}
+
+.required-ck-editor .ng-invalid.ng-touched .cke_contents {
+    height: 200px !important;
+    border: 1px solid red !important;
+}
+
+.mat-step-header:hover {
+    background-color: rgba(11, 89, 0, 0.20) !important;
+}
+
+.cdk-program-focused {
+    background-color: rgba(11, 89, 0, 0.20) !important;
+}
+
+.crop-text {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 25px !important;
+}
+
+
+
+.background-green{
+    background-color: #00b74a !important;
+  }
+  .background-blue{
+    background-color: #0d9388  !important;
+  }
+
+
+//use for select focus into ==>  <mat-step   role="tab" aria-selected="true"
+::ng-deep .mat-step-header[aria-selected="true"] {
+    background-color: rgba(11, 89, 0, 0.2);
+    font-weight: 10px;
+
+    & div.mat-step-label.mat-step-label-active.mat-step-label-selected {
+        color: #050505;
+    }
+}
+.yes-no-cls {
+    width: 25px;
+    margin-right: 5px;
+    float: left;
+}
+.yes-no-txt {
+    line-height: 27px;
+}

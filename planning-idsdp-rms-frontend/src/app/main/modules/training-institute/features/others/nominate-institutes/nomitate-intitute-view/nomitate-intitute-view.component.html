@@ -1,0 +1,289 @@
+<div style="width: 100%">
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <!-- Header -->
+    <app-form-header class="no-print" [title]="'head' | translate" [subTitle]="'sub' | translate"></app-form-header>
+
+    <div class="flex md:justify-end md:mr-3 mt-1 no-print">
+        <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent" (click)="back()" type="button">
+            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+            {{'previous' | translate}}
+        </button>
+
+        <button class="px-3 mr-2 printBtn" mat-flat-button color="accent" (click)="print()" type="button">
+            <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+            {{'print' | translate}}
+        </button>
+
+        <button class="px-3 mr-2 downloadBtn" mat-flat-button color="accent" (click)="download('nomininate_institute')" type="button">
+            <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+            {{'download' | translate}}
+        </button>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-4">
+        <!--Personal Info-->
+
+        <mat-card id="printPage">
+            <div class="w-full sm:w-auto md:w-full lg:w-full">
+
+                <div class="text-right font-bold" style="font-size: 24px;">
+                    পরিশিষ্ট-ক
+                </div>
+                <div class="text-center font-semibold" style="font-size: 18px;">
+                    সামাজিক বিজ্ঞান গবেষণা পরিষদ
+                </div>
+                <div class="text-center" style="font-size: 18px;">
+                    পরিকল্পনা বিভাগ <br> পরিকল্পনা মন্ত্রণালয়<br> শেরেবাংলা নগর<br><u>ঢাকা-১২০৭</u> <br>
+                </div>
+                <div class="text-center font-semibold mt-3 mb-3" style="font-size: 18px;">
+                    <u>প্রশিক্ষণ প্রস্তাবনা ও উপস্থাপনা ছক</u>
+                </div>
+            </div>
+
+            <div class="mt-5 font-semibold text-gray-700">
+                <!-- <mat-card> -->
+                <table class="researchInfo">
+
+                    <tr>
+                        <td>
+                            ১
+                        </td>
+                        <td>
+                            প্রস্তাবিত প্রশিক্ষণের নাম
+                        </td>
+                        <td>
+                            {{trainerData.trainingName}}
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            ২
+                        </td>
+                        <td>
+                            আবেদনকারী প্রতিষ্ঠানের নাম
+                        </td>
+                        <td>
+                            {{profileModelResponse.trainingInstituteName}}
+                        </td>
+                    </tr>
+
+                    <!-- <tr>
+                        <td>
+                            ৩
+                        </td>
+                        <td>
+                            প্রতিষ্ঠানের প্রকৃতি (সরকারী, স্বায়ত্বশাসিত বা বেসরকারী)
+                        </td>
+                        <td>
+                            {{trainerData.instituteType}}
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td>
+                            ৩
+                        </td>
+                        <td>
+                            প্রতিষ্ঠানের প্রধানের নাম, পদবী ও টেলিফোন নম্বর
+                        </td>
+                        <td>
+                            {{profileModelResponse.headOfInstituteName}}, {{profileModelResponse.designation}},
+                            {{profileModelResponse.mobileNumber}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ৪
+                        </td>
+                        <td>
+                            উল্লিখিত প্রশিক্ষণ পরিচালনার ক্ষেত্রে প্রতিষ্ঠানটির পূর্ব অভিজ্ঞতার বিবরণ
+                        </td>
+                        <td>
+                            বর্তমানে এই বিভাগের {{trainerData.noOfTrainee}} জন অধ্যাপক কর্মরত আছেন।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ৫
+                        </td>
+                        <td>
+                            প্রশিক্ষণের মেয়াদ
+                        </td>
+                        <td>
+                            {{trainerData.trainingDuration || "Not Provided"}}
+                        </td>
+                    </tr>
+                </table>
+                <!-- </mat-card> -->
+            </div>
+            <!--- /trainer Information -->
+            <div class="mt-5 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>
+                    <div class="ml-7 cap text-gray-900">{{'trainsersInfo' | translate}}</div>
+                </div>
+                <mat-card>
+                    <table class="researchInfo">
+
+                        <tr>
+                            <th>
+                                {{'sl' | translate}}
+                            </th>
+                            <th>
+                                {{'nameAndAddressOfTrainers' | translate}}
+                            </th>
+
+                            <th class="capitalize">
+                                {{'currentPosition' | translate}}
+                            </th>
+                            <th class="capitalize">
+                                {{'contractNo' | translate}}
+                            </th>
+                            <th>
+                                {{'email' | translate}}
+                            </th>
+
+                        </tr>
+
+                        <tr *ngFor="let trainer of trainerData.trainersList; let i = index">
+
+                            <td class="text-center align-middle w-11">
+                                {{i + 1}}
+                            </td>
+
+                            <td class="text-center">
+                                <b>{{ trainer?.name }}</b> <br> {{ trainer?.address }}
+                            </td>
+
+                            <td class="text-center">
+                                {{ trainer?.currentPosition }}
+                            </td>
+
+                            <td class="text-center">
+                                {{ trainer?.phone }}
+                            </td>
+                            <td class="text-center">
+                                {{ trainer?.email }}
+                            </td>
+                        </tr>
+
+                    </table>
+                </mat-card>
+            </div>
+            <!--- Course Schedule List -->
+            <div class="mt-5 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>
+                    <div class="ml-7 cap text-gray-900">{{'courseScheduleList' | translate}}</div>
+                </div>
+                <mat-card>
+                    <table class="researchInfo">
+
+                        <tr>
+                            <th>
+                                {{'session' | translate}}
+                            </th>
+                            <th>
+                                {{'speaker' | translate}}
+                            </th>
+                            <th>
+                                {{'topic' | translate}}
+                            </th>
+                            <th>
+                                {{'date' | translate}}
+                            </th>
+                            <th>
+                                {{'day' | translate}}
+                            </th>
+                            <th>
+                                {{'time' | translate}}
+                            </th>
+
+                        </tr>
+
+                        <tr *ngFor="let course of trainerData.courseScheduleList; let i = index">
+
+                            <td class="text-center align-middle w-11">
+                                {{i + 1}}
+                            </td>
+
+                            <td class="text-center">
+                                <span *ngFor="let speaker of course.speakers"> {{speaker?.name}} <br></span>
+                            </td>
+
+                            <td class="text-center">
+                                {{course?.topic}}
+                            </td>
+
+                            <td class="text-center">
+                                {{ convertDate(course?.date) }}
+                            </td>
+
+                            <td class="text-center">
+                                {{ course?.day }}
+                            </td>
+
+                            <td class="text-center">
+                                {{ course?.time }}
+                            </td>
+                        </tr>
+
+                    </table>
+                </mat-card>
+            </div>
+            <!--- /Budget  list -->
+            <div class="mt-5 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>
+                    <div class="ml-7 cap text-gray-900">{{'budgetList' | translate}}</div>
+                </div>
+                <mat-card>
+                    <table class="researchInfo budgetTable">
+
+                        <tr>
+                            <th>
+                                {{'sl' | translate}}
+                            </th>
+                            <th>
+                                {{'itemOfExpenditure' | translate}}
+                            </th>
+                            <th>
+                                {{'expenditureTaka' | translate}}
+                            </th>
+                        </tr>
+
+                        <tr *ngFor="let budget of trainerData.researchBudgetListViewList; let i = index">
+
+                            <td class="text-center align-middle w-11">
+                                {{i + 1}}
+                            </td>
+
+                            <td>
+                                {{ getItemOfExpenditure(budget.itemOfExpenditureId) }}
+                            </td>
+
+                            <td class="pr-3 text-right">
+                                {{ budget.expenditureAmount | number }} .00
+                            </td>
+                        </tr>
+                        <tr class="grantTotal">
+                            <td class="pl-6" colspan="2"> <b>Total Amount</b></td>
+                            <td class="text-right pr-3">
+                                {{totalBudgetAmount | number}}.00
+                            </td>
+                        </tr>
+
+                    </table>
+                </mat-card>
+            </div>
+        </mat-card>
+
+
+    </div>
+    <!-- Main End -->
+</div>

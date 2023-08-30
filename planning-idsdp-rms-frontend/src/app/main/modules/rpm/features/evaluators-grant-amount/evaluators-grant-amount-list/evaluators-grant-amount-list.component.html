@@ -1,0 +1,121 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="flex justify-end mb-3">
+                <button mat-raised-button color="primary" [routerLink]="['/evaluator-grant-amount/add']">
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                    {{'AddMore' | translate}}
+                </button>
+            </div>
+
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                    <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                       fxFlex.xs="100%">
+                                {{'FiscalYear' | translate}}
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                            fxFlex.sm="60%"
+                                            fxFlex.xs="100%">
+                                <mat-select [(ngModel)]="fiscalYearId" (selectionChange)="onChangeFiscalYear()"
+                                            [ngModelOptions]="{standalone: true}">
+                                    <mat-option value=""></mat-option>
+                                    <mat-option *ngFor="let f of fiscalYearsList"
+                                                [value]="f.id">{{f.fiscalYear}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <!--<mat-card>-->
+                    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sl">
+                                <th mat-header-cell *matHeaderCellDef class="w-16"> {{'Sl' | translate}} </th>
+                                <td mat-cell *matCellDef="let row; let i = index;">
+                                    {{(i + 1) + (page * size)}}
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="fiscalYear">
+                                <th mat-header-cell *matHeaderCellDef> {{'FiscalYear' | translate}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.fiscalYear.fiscalYear}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="approvedFile">
+                                <th mat-header-cell *matHeaderCellDef> {{'File' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                    <div>
+                                        <mat-form-field class="p-3 upload-width" *ngIf="!element.uploadSignatureFile">
+                                            <ngx-mat-file-input [accept]="'.pdf'"
+                                                                (change)="uploadFile($event.target.files, element.id)"></ngx-mat-file-input>
+                                            <mat-icon matSuffix>folder</mat-icon>
+                                        </mat-form-field>
+                                        <button (click)="download(element)" *ngIf="element.uploadSignatureFile" mat-flat-button color="primary">{{'Download' | translate}}</button>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'Action' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                    <div class="buttons">
+                                        <button (click)="viewDetails(element.uuid)" mat-icon-button
+                                                class="toggle-sidebar-folded"
+                                                matTooltip="visibility" fxHide.lt-lg>
+                                            <mat-icon color="accent">visibility
+                                            </mat-icon>
+                                        </button>
+                                        <button (click)="edit(element.uuid)" mat-icon-button
+                                                class="toggle-sidebar-folded"
+                                                matTooltip="Edit" fxHide.lt-lg>
+                                            <mat-icon color="accent">edit
+                                            </mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator
+                        [length]="total"
+                        [pageSize]="size"
+                        [pageSizeOptions]="[10, 20, 30, 100]"
+                        (page)="onChangePage($event)">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

@@ -1,0 +1,181 @@
+<div style="width: 100%">
+    <app-form-header [subTitle]="'headerSubTitle' | translate" [title]="'headerTitle' | translate"></app-form-header>
+    <div class="flex-auto m-7 body-color">
+        <form #myForm="ngForm">
+            <!-- CARD ONE-->
+            <div class="heading mt-2">
+                <h1>{{'headerTitle' | translate}}</h1>
+            </div>
+
+            <div *ngIf="spinner || spinner1 || spinner2 || spinner3  || spinner4"
+                class="flex items-center justify-center no-print">
+                <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+                    style="border-top-color:transparent; position: absolute;z-index: 9999;">
+                </div>
+            </div>
+
+
+            <mat-card class="tab-color">
+
+                <!-- Row 1-->
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'courseTitle' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select [(ngModel)]="speakerEvaluationModel.proposalId"
+                                [ngModelOptions]="{standalone: true}" placeholder="Select course" required>
+                                <mat-option *ngFor="let course of courseList" [value]="course.id">
+                                    {{course.trainingName}}</mat-option>
+                            </mat-select>
+                            <mat-error>{{'courseTitle' | translate}} {{'required' | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    </div>
+
+                </div>
+
+                <!-- Row 2-->
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'session' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select (selectionChange)="onSelectSession($event.value)"
+                                [(ngModel)]="speakerEvaluationModel.sessionId" [ngModelOptions]="{standalone: true}"
+                                placeholder="Select session" required>
+                                <mat-option *ngFor="let session of sessionList"
+                                    [value]="session.courseScheduleModel.id"> {{session.courseScheduleModel.session}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>{{'session' | translate}} {{'required' | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'speaker' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select [(ngModel)]="speakerEvaluationModel.trainerId"
+                                [ngModelOptions]="{standalone: true}" placeholder="Select speaker" required>
+                                <mat-option *ngFor="let speaker of speakerList" [value]="speaker.id">{{speaker.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>{{'speaker' | translate}} {{'required' | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    </div> -->
+
+                </div>
+
+                <!-- Qsn 1-->
+                <!-- <div *ngFor="let question of speakerEvaluationModel.speakerEvaluationQuestionModels; let i = index;">
+                    <div class="w-full ml-2 md:text-left pr-2 md:pt-3">
+                        <div class="text-gray-700">
+                            <b>{{ findQuestionString(question.questionId) }}</b><strong class="required">*</strong>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full  ml-5">
+
+                            <mat-select [(ngModel)]="speakerEvaluationModel.speakerEvaluationQuestionModels[i].ratings"
+                                [ngModelOptions]="{standalone: true}" placeholder="Select an answer" required>
+                                <mat-option *ngFor="let rate of ratings" [value]="rate.data">{{rate.data}}</mat-option>
+                            </mat-select>
+                            <mat-error> {{'required2' | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div> -->
+
+
+                <div class="mt-4">
+                    <!--<mat-card>-->
+
+
+                    <table class="OrganizationTbl" style=" width: 100%">
+                        <tr>
+                            <th class="w-16"> {{'sl' | translate}} </th>
+                            <th> {{'Question' | translate}} </th>
+                            <th colspan="3"> {{'Select answer' | translate}}</th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="2"></th>
+                            <th> {{'Good' | translate}} </th>
+                            <th> {{'Very good' | translate}} </th>
+                            <th> {{'Excellent' | translate}} </th>
+                        </tr>
+
+                        <tr *ngFor="let element of questionList; let i='index'">
+
+                            <td class="text-center">
+                                {{(i + 1)}}
+                            </td>
+
+                            <td class="text-center">
+                                {{element.typeName}}
+                            </td>
+
+                            <td colspan="3">
+                                <mat-radio-group [(ngModel)]="element.answer" [ngModelOptions]="{standalone: true}" aria-label="Select an option" class="text-center">
+                                    <mat-radio-button [value]="1" class="ml-6">{{'Good' | translate}}</mat-radio-button>
+                                    <mat-radio-button [value]="2" style="margin-left: 20%;">{{'Very good' | translate}}</mat-radio-button>
+                                    <mat-radio-button [value]="3" style="margin-left: 20%;">{{'Excellent' | translate}}</mat-radio-button>
+                                </mat-radio-group>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <br>
+                <br>
+                <div class="flex justify-end mt-8">
+
+                    <button (click)="formReset()" class="px-3 mr-2" color="accent" mat-flat-button type="reset">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+
+                    <button (click)="submit()" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary"
+                        mat-flat-button style="background-color: green; color: #FFFFFF" type="submit" [disabled]="!(speakerEvaluationModel.proposalId | required) ||
+                                    !(speakerEvaluationModel.sessionId | required) ||
+                                    !(speakerEvaluationModel.trainerId | required)">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span>{{ "submit" | translate }}</span>
+                    </button>
+
+                    <!-- [disabled]="!(speakerEvaluationModel.proposalId | required) ||
+                        !(speakerEvaluationModel.courseScheduleId | required) ||
+                        !(speakerEvaluationModel.trainerId | required)" -->
+
+                </div>
+
+            </mat-card>
+
+        </form>
+    </div>
+</div>

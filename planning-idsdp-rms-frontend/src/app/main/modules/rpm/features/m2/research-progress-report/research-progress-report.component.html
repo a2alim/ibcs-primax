@@ -1,0 +1,60 @@
+<div class="width-100">
+  <!-- Header -->
+  <app-form-header
+    [title]="'headerTitle' | translate"
+    [subTitle]="'headerSubTitle' | translate"
+  ></app-form-header>
+
+  <!-- Main Start -->
+  <div class="flex-auto m-7 body-color">
+    <div class="max-w-8xl">
+      <!-- Horizontal stepper -->
+      <form class="bg-card shadow rounded ounded-2xl overflow-hidden">
+        <mat-horizontal-stepper
+          [linear]="false"
+          class="tab-bar tab-color"
+          #horizontalStepper
+          (selectionChange)="selectionChanged($event)"
+        >
+            <mat-step>
+                <ng-template matStepLabel>
+                <div
+                    class="tab-header-title"
+                    title="{{ 'tab1' | translate }}"
+                >
+                    {{ "tab1" | translate }}
+                </div>
+                </ng-template>
+                <p class="my-6 font-medium"></p>
+                <div class="flex flex-col gt-xs:flex-row">
+                <app-add-research-info
+                    (nextStep)="goForward(horizontalStepper)"
+                    (backPrevious)="goBack(horizontalStepper)"
+                ></app-add-research-info>
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>
+                <div
+                    class="tab-header-title"
+                    title="{{ 'tab2' | translate }}"
+                >
+                    {{ "tab2" | translate }}
+                </div>
+                </ng-template>
+                <p class="my-6 font-medium"></p>
+                <div class="flex flex-col gt-xs:flex-row">
+                <app-add-progress-task-list
+                    (nextStep)="goForward(horizontalStepper)"
+                    (backPrevious)="goBack(horizontalStepper)"
+                ></app-add-progress-task-list>
+                </div>
+            </mat-step>
+
+        </mat-horizontal-stepper>
+      </form>
+    </div>
+  </div>
+  <!-- Main End -->
+</div>

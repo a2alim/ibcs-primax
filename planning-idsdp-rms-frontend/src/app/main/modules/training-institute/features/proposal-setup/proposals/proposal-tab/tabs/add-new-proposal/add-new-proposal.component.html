@@ -1,0 +1,380 @@
+<div style="width: 100%">
+
+    <div *ngIf="spinner || spinner1 || spinner2 || spinner3  || spinner4 || spinner5"
+        class="flex items-center justify-center no-print">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <div class="flex-auto m-7 body-color">
+        <form #myForm="ngForm">
+            <!-- CARD ONE-->
+
+            <div class="heading mt-2">
+                <ng-container *ngIf="proposalModel.id">{{'update_proposal' | translate}}</ng-container>
+                <ng-container *ngIf="!proposalModel.id">{{'create_proposal' | translate}}</ng-container>
+            </div>
+
+            <mat-card class="tab-color">
+
+                <!-- Row 1-->
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700 capitalize">
+                            {{'fiscalYear' | translate}}
+                            <strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select #fiscalYearId="ngModel" [(ngModel)]="proposalModel.fiscalYearId" [(value)]="proposalModel.fiscalYearId"
+                                name="itemOfExpenditure" required>
+                                <mat-option *ngFor="let item of fiscalYears" [value]="item.id">{{item.fiscalYear}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint *ngIf="(fiscalYearId.touched || myForm.submitted) && fiscalYearId.errors?.required"
+                                    style="color: crimson !important;"> {{'fiscalYear' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    </div>
+                </div>
+
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700 text capitalize">
+                            {{'trainerName' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <input #trainingName="ngModel" matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="proposalModel.trainingName" required>
+                            <mat-hint *ngIf="(trainingName.touched || myForm.submitted) && trainingName.errors?.required"
+                                      style="color: crimson !important;">{{'trainerName' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+
+
+                    </div>
+                </div>
+
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2">
+                        <span class="text-gray-700 capitalize">
+                            {{'instituteName2' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        {{proposalModel?.trainingInstituteProfileModel?.trainingInstituteName}}
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2  sm:pt-3 md:pt-0">
+                        <span class="text-gray-700">
+                            {{'InstituteHeadName' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        {{proposalModel?.trainingInstituteProfileModel?.headOfInstituteName}}
+                    </div>
+                </div>
+
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700 capitalize">
+                            {{'Designation' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30 mt-3">
+                        {{proposalModel?.trainingInstituteProfileModel?.designation}}
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2  sm:pt-3 pt-3">
+                        <span class="text-gray-700">
+                            {{'PhoneNumber' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30 pt-3">
+                        {{proposalModel?.trainingInstituteProfileModel?.mobileNumber}}
+                    </div>
+                </div>
+
+                <!-- Row 3-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-4">
+                        <span class="">
+                            {{'experience' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2 pt-4">
+                        <ckeditor [(ngModel)]="proposalModel.previousExperience" [ngModelOptions]="{standalone: true}"
+                            [config]="mediumEditorConfig">
+                        </ckeditor>
+                    </div>
+                </div>
+
+                <!-- Row 4-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'td' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #trainingDuration="ngModel" [ngModelOptions]="{standalone: true}" matInput type="number"
+                                [(ngModel)]="proposalModel.trainingDuration" required
+                                placeholder="Please enter minimum 60 hours" (keydown)="housrValidation($event)">
+                            <mat-hint *ngIf="(trainingDuration.touched || myForm.submitted) && trainingDuration.errors?.required"
+                                        style="color: crimson !important;">{{'td' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'courseNumber' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input [ngModelOptions]="{standalone: true}" matInput type="number"
+                                [(ngModel)]="proposalModel.courseNo" (click)="housrValidation($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Row 5-->
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'programDate' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                            <input #programDate="ngModel" [(ngModel)]="proposalModel.programDate" [matDatepicker]="datepicker" matInput
+                                name="dateOfBirth" required>
+                            <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker>
+                            </mat-datepicker>
+                            <mat-hint *ngIf="(programDate.touched || myForm.submitted) && programDate.errors?.required" style="color: crimson !important;">
+                                {{'programDate' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'End_date' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                            <input #endDate="ngModel" [(ngModel)]="proposalModel.endDate" [matDatepicker]="datepicker1" matInput
+                                name="dateOfBirth1" required>
+                            <mat-datepicker-toggle [for]="datepicker1" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker1>
+                            </mat-datepicker>
+                            <mat-hint *ngIf="(endDate.touched || myForm.submitted) && endDate.errors?.required" style="color: crimson !important;">
+                                {{'End_date' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <!-- Row 6-->
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="">
+                            {{'totalTrainer' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #noOfTrainer="ngModel" [ngModelOptions]="{standalone: true}" matInput type="number"
+                                [(ngModel)]="proposalModel.noOfTrainer" required>
+                            <mat-hint *ngIf="(noOfTrainer.touched || myForm.submitted) && noOfTrainer.errors?.required"
+                                    style="color: crimson !important;">{{'totalTrainer' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="">
+                            {{'typeOfCouurse' | translate }}
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="proposalModel.typeOfCourse">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <!-- Row 8-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'courseDetails' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">
+                        <ckeditor [(ngModel)]="proposalModel.principalAndStrategies"
+                            [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig"></ckeditor>
+
+                    </div>
+                </div>
+
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'courseMotive' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">
+                        <ckeditor [(ngModel)]="proposalModel.courseObjective" [ngModelOptions]="{standalone: true}"
+                            [config]="mediumEditorConfig">
+                        </ckeditor>
+                    </div>
+                </div>
+
+                <!-- Row 9-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'courseTechnique' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #trainingMethods="ngModel" matInput [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="proposalModel.trainingMethods" required>
+                            <mat-hint *ngIf="(trainingMethods.touched || myForm.submitted) && trainingMethods.errors?.required"
+                                    style="color: crimson !important;">{{'courseTechnique' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 ml-2 md:text-left pr-2 md:pt-1">
+
+                    </div>
+                </div>
+
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="">
+                            {{'detailsBenifit' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">
+                        <ckeditor [(ngModel)]="proposalModel.infrastructuralFacility"
+                            [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig"></ckeditor>
+
+                    </div>
+                </div>
+
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'courseFeeRate' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">
+                        <ckeditor [(ngModel)]="proposalModel.anyCourseFeeFromTrainee"
+                            [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig"></ckeditor>
+                    </div>
+                </div>
+
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'othersInfo' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">
+                        <ckeditor [(ngModel)]="proposalModel.otherRelevantInfo" [ngModelOptions]="{standalone: true}"
+                            [config]="mediumEditorConfig">
+                        </ckeditor>
+                    </div>
+                </div>
+
+                <br>
+                <div class="flex justify-end mt-8">
+
+                    <button [routerLink]="['/proposal-list']" class="px-3 mr-2 toggle-sidebar-folded saveBtn"
+                        color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        <span>{{ "back" | translate }}</span>
+                    </button>
+
+                    <button class="px-3 mr-2" (click)="reset()" color="accent" mat-flat-button type="reset">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+
+                    <button mat-flat-button style="background-color: green; color: #FFFFFF" (click)="onSubmit(false)"
+                        color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn" type="submit"
+                        [disabled]="spinner || spinner1 || spinner2 || spinner3  || spinner4 || spinner5">
+                        <ng-container *ngIf="!proposalModel.id">
+                            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                            <span>{{ "Save" | translate }}</span>
+                        </ng-container>
+                        <ng-container *ngIf="proposalModel.id">
+                            <mat-icon *ngIf="saveIcon" class="mr-1">update</mat-icon>
+                            <span>{{ "Update" | translate }}</span>
+                        </ng-container>
+                    </button>
+
+                    <button mat-flat-button (click)="onSubmit(true)" color="primary"
+                        [disabled]="spinner || spinner1 || spinner2 || spinner3  || spinner4 || spinner5"
+                        class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" type="submit">
+                        <ng-container *ngIf="!proposalModel.id">
+<!--                            <mat-icon *ngIf="editIcon" class="mr-1">{{editIcon}}</mat-icon>-->
+                            <span> {{ "SaveAndNext" | translate }}</span>
+                        </ng-container>
+                        <ng-container *ngIf="proposalModel.id">
+<!--                            <mat-icon *ngIf="editIcon" class="mr-1">{{editIcon}}</mat-icon>-->
+                            <span> {{ "UpdateAndNext" | translate }}</span>
+                        </ng-container>
+                    </button>
+
+                    <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF"
+                        type="button" color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                        {{ "Next" | translate }}
+                        <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+                    </button>
+
+                </div>
+
+            </mat-card>
+
+        </form>
+    </div>
+</div>

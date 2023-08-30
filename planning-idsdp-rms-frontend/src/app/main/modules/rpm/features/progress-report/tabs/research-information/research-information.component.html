@@ -1,0 +1,151 @@
+<div class="body">
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <form #myForm="ngForm" (ngSubmit)="onSubmit()" [formGroup]="frmGroup">
+
+        <!-- CARD ONE-->
+        <div class="heading mt-2">
+            <h1>{{'cardHeader1' | translate}}</h1>
+        </div>
+        <mat-card class="tab-color">
+
+            <!-- Row 1-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3" style="margin-top: 10px;">
+                    <span class="text-gray-700">
+                        {{'researchTitle' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-80 lg:w-80" style="margin-top: 10px;">
+                    <mat-form-field class="w-full">
+                        <mat-select placeholder="Select One"
+                                    formControlName="researchTitle"
+                                    [compareWith]="compareFn"
+                                    (selectionChange)="selectResearchTitleUuid($event.value)">
+                            <mat-option *ngFor="let researchInfo of ResearchInfo"
+                                        [value]="researchInfo">{{researchInfo.researchTitle}}</mat-option>
+                        </mat-select>
+                        <mat-error>Research Title Required!</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="md:flex" *ngIf="isData">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3" style="margin-top: 10px;">
+                        <span class="text-gray-700">
+                            {{'fiscalYear' | translate}}
+                        </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30" style="margin-top: 10px;">
+                    <mat-form-field class="w-full">
+                        <input matInput formControlName="fiscalYear" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3" style="margin-top: 10px;">
+                    <span class="text-gray-700">
+                       {{'researchCategory' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30" style="margin-top: 10px;">
+                    <mat-form-field class="w-full">
+                        <input matInput formControlName="researchCategory" readonly>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3" style="margin-top: 10px;">
+                        <span class="text-gray-700">
+                            {{'researchCompletePercentage' | translate}}
+                        </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30" style="margin-top: 10px;">
+                    <mat-form-field class="w-full">
+                        <input matInput type="number" (keypress)="prevent($event)"
+                               formControlName="researchCompletePercentage">
+                    </mat-form-field>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3" style="margin-top: 10px;">
+                        <span class="text-gray-700">
+                           {{'fileUpload' | translate}}
+                        </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30" style="margin-top: 10px;">
+                    <mat-form-field class="w-full" (change)="handleFileInput($event.target.files,1)">
+                        {{ attachment === null ? '' : attachment | slice:attachment.length - 15:attachment.length }}
+                        <ngx-mat-file-input [accept]="'.*'">
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>folder</mat-icon>
+                        <mat-error>File is required!</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card>
+
+        <!-- Bottom Button -->
+        <div class="flex justify-end mt-8">
+            <button
+                mat-flat-button
+                (click)="backTab()"
+                style="background-color: green; color: #FFFFFF"
+                type="button"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{ "back_list_page" | translate }}
+            </button>
+
+            <button
+                mat-flat-button
+                style="background-color: green; color: #FFFFFF"
+                type="submit"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span *ngIf="formTitle == 'Save'"> {{ "save" | translate }}</span>
+                <span *ngIf="formTitle == 'Edit'"> {{ "update" | translate }}</span>
+            </button>
+
+            <!--            <button
+                            mat-flat-button
+                            (click)="reset()"
+                            type="button"
+                            style="background-color: black; color: white"
+                            class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                            <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                            <span> {{ "reset" | translate }}</span>
+                        </button>-->
+
+            <button
+                mat-flat-button
+                (click)="saveAndNext()"
+                type="button"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span *ngIf="formTitle == 'Save'"> {{ "save_and_next" | translate }}</span>
+                <span *ngIf="formTitle == 'Edit'"> {{ "update_and_next" | translate }}</span>
+            </button>
+
+            <button *ngIf="this.formTitle=='Edit'"
+                    mat-flat-button
+                    (click)="nextTab()"
+                    style="background-color: green; color: #FFFFFF"
+                    type="button"
+                    color="primary"
+                    class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                {{ "next" | translate }}
+                <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>

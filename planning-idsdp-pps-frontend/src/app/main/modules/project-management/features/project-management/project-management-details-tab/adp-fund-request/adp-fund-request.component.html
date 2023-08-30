@@ -1,0 +1,305 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+
+<!--  Form Start-->
+<form [formGroup]="adpFundReqformGroup" (ngSubmit)="onClickSave()" name="frmGroup" #adpFundRq="ngForm" class="p-5">
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        সেক্টর<span class="required">*</span>:
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input formControlName="sector" autocomplete="off" matInput required />
+                        <mat-error>অনুগ্রহ করে সাব সেক্টরে প্রবেশ করুন</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" class="pl-5">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        সাব সেক্টর<span class="required">*</span>:
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input formControlName="subSector" autocomplete="off" matInput required />
+                        <mat-error>অনুগ্রহ করে সাব সেক্টরে প্রবেশ করুন</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        অর্থ বছর<span class="required">*</span>:
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <mat-select formControlName="fiscalYear" matInput required
+                            (ngModelChange)="onChangeFiscalYear()">
+                            <mat-option value="">নির্ধারণ করুন</mat-option>
+                            <mat-option *ngFor="let fisYear of fiscalYearList" value="{{fisYear.fiscalYear}}">
+                                {{fisYear.fiscalYear}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>অনুগ্রহ করে অর্থ বছর প্রবেশ করুন</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" class="pl-5">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        সময়কাল<span class="required">*</span>:
+                    </mat-label>
+                    <mat-form-field fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <mat-select formControlName="periodFrom" matInput required>
+                            <mat-option value="">নির্ধারণ করুন</mat-option>
+                            <mat-option *ngFor="let month of monthList" value="{{month}}">{{month}}</mat-option>
+                        </mat-select>
+                        <mat-error>অনুগ্রহ করে অর্থ বছর প্রবেশ করুন</mat-error>
+                    </mat-form-field>
+                    <div class="pl-2" fxFlex="10%" fxFlex.md="10%" fxFlex.sm="100%" fxFlex.xs="100%">হইতে</div>
+                    <mat-form-field fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <mat-select formControlName="periodTo" matInput required>
+                            <mat-option value="">নির্ধারণ করুন</mat-option>
+                            <mat-option *ngFor="let month of monthList" value="{{month}}">{{month}}</mat-option>
+                        </mat-select>
+                        <mat-error>অনুগ্রহ করে অর্থ বছর প্রবেশ করুন</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        ক্রমপুঞ্জিত ব্যয় পর্যন্ত<span class="required">*</span>:
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input (click)="picker1.open()" [matDatepicker]="picker1"
+                            formControlName="cumulativeExpenditureUpTo" matInput required>
+                        <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error>অনুগ্রহ করে ক্রমপুঞ্জিত ব্যয় পর্যন্ত প্রবেশ করুন</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" class="pl-5">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        ফর্মের প্রকার<span class="required">*</span>:
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <mat-select formControlName="formType" matInput required (ngModelChange)="onChangeFormType()">
+                            <mat-option value="">নির্ধারণ করুন</mat-option>
+                            <mat-option value="এ,ডি,পি">এ,ডি,পি</mat-option>
+                            <mat-option value="আর,এ,ডি,পি">আর,এ,ডি,পি</mat-option>
+                        </mat-select>
+                        <mat-error>অনুগ্রহ করে ফর্মের প্রকার প্রবেশ করুন</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+
+    <mat-card class="mt-3">
+        <div class="py-3 my-3" style="background-color: #72bcbe;">
+            <h2 class="text-center text-2xl">{{formTitle}}</h2>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <fieldset class="fieldsetc pt-5 pr-5">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            মোট টাকা:
+                        </mat-label>
+                        <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <input placeholder="টাকা" formControlName="proposedAllocationTk" autocomplete="off"
+                                matInput />
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            রাজস্ব:
+                        </mat-label>
+                        <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <input placeholder="(রাজস্ব)" formControlName="proposedAllocationRevenue" autocomplete="off"
+                                matInput />
+                        </mat-form-field>
+                    </div>
+                </fieldset>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        কর বাবদ বরাদ্দ:
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input placeholder="কর বাবদ বরাদ্দ " formControlName="allocationForTax" autocomplete="off"
+                            matInput />
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" class="pl-5">
+                <fieldset class="w-full b-fieldset">
+                    <legend class="b-text">ব্যয় খাত:</legend>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            মূলধন:
+                        </mat-label>
+                        <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <input placeholder="মূলধন " formControlName="expSectorCapital" autocomplete="off"
+                                matInput />
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            টাকাংশ:
+                        </mat-label>
+                        <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <input placeholder="টাকাংশ" formControlName="expSectorTk" autocomplete="off" matInput />
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            রাজস্ব:
+                        </mat-label>
+                        <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <input placeholder="(রাজস্ব)" formControlName="expSectorRevenue" autocomplete="off"
+                                matInput />
+                        </mat-form-field>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <fieldset class="fieldsetc pt-5 pr-5">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            প্রকল্প সাহায্য:
+                        </mat-label>
+                        <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <input placeholder="প্রকল্প সাহায্য" formControlName="projectAidCost" autocomplete="off"
+                                matInput />
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            টাকাংশ:
+                        </mat-label>
+                        <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <input placeholder="টাকাংশ" formControlName="projectAidTk" autocomplete="off" matInput />
+                        </mat-form-field>
+                    </div>
+                </fieldset>
+            </div>
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" class="pl-5">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        অন্যান্য
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input placeholder="অন্যান্য" formControlName="other" autocomplete="off" matInput />
+                    </mat-form-field>
+                </div>
+                <div class="flex justify-end" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <button mat-flat-button type="submit" color="primary" class="toggle-sidebar-folded"
+                        [disabled]="spinner">
+                        <mat-icon class="mr-1">save</mat-icon>
+                        <span>{{adpFundReqModel.id ?'আপডেট':'সংরক্ষণ'}}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</form>
+<!-- Form end-->
+
+<div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+    <!--<mat-card>-->
+    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+
+            <ng-container matColumnDef="sl">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>সিরিয়াল</th>
+                <td class="text-left" mat-cell *matCellDef="let element; let i = index">{{i+1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sector">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>সেক্টর</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.sector}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="subSector">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>সাব সেক্টর</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.subSector}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fiscalYear">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>অর্থ বছর</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.fiscalYear}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="period">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>সময়কাল</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">
+                    {{element.periodFrom}}-{{element.periodTo}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cumulativeExpenditureUpTo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ক্রমপুঞ্জিত ব্যয় পর্যন্ত</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">
+                    {{element.cumulativeExpenditureUpTo | date: 'dd/MM/YYYY'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="formType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ফর্মের প্রকার</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.formType}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>প্রক্রিয়া</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <button class="ml-3 action-btn" type="button">
+                        Print Report
+                        <mat-icon aria-hidden="false" [color]="'Success'" aria-label="Example report view icon">print
+                        </mat-icon>
+                    </button>
+                    <button (click)="onClickEdit(element)" class="ml-3 action-btn" type="button">
+                        <mat-icon aria-hidden="false" [color]="'primary'" aria-label="Example edit icon">edit</mat-icon>
+                    </button>
+                    <button (click)="onClickDelete(element)" class="ml-3 action-btn" type="button">
+                        <mat-icon aria-hidden="false" [color]="'warn'" aria-label="Example home icon">delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="total" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+    </div>
+    <!-- </mat-card> -->
+</div>
+
+<!--Start Bottom Button -->
+<div class="flex justify-end">
+    <button mat-flat-button type="button" [disabled]="spinner" [color]="'primary'" class="px-3 mr-2"
+        (click)="nextTab()">
+        Next <mat-icon class="mr-1">fast_forward</mat-icon>
+    </button>
+
+    <button mat-flat-button [disabled]="spinner" type="button" [color]="'warn'" class="px-3 mr-2" (click)="goToHome()">
+        Exit
+    </button>
+</div>
+<!--end Bottom Button -->

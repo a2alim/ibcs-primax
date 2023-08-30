@@ -1,0 +1,408 @@
+<div class="w-full">
+    <!-- <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
+    </div> -->
+
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <div *ngIf="spinner2" class="flex items-center justify-center">
+        <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
+    <!-- Main Start -->
+    <div class="flex-auto m-3 body-color">
+        <!--        <div style="color: red;font-min-size: large" *ngIf="spinner2">Generating Report Please Wait</div>-->
+        <!--start button Row -->
+        <mat-card id="print" class="mt-4 bg-card">
+            <div class="displayNone">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <h3>{{'researcher_agreement_details' | translate}}<span> </span></h3>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <div class="flex md:justify-end">
+                                <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent"
+                                    (click)="backAgreementList()" type="button">
+                                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                    {{'previous' | translate}}
+                                </button>
+
+                                <button [disabled]="spinner2" color="accent" class="px-3 mr-2 downloadBtn"
+                                        mat-flat-button (click)="downloadPdf(tbObj1?.researcherProposalId?.stResearchCatTypeId, tbObj1?.researcherProposalId?.researcherProfilePersonalInfoMaster?.uuid)" type="button">
+                                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                                    {{'download' | translate}}
+                                </button>
+
+                                <button
+                                    [useExistingCss]="true"
+                                    printTitle="Agreement Process"
+                                    class="px-3 printBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    printSectionId="print" ngxPrint
+                                    type="button">
+                                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                    {{'print' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- end button Row -->
+
+            <!--start tabe one info -->
+            <div class="mt-5">
+                <div class="heading mt-2">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2">
+                            {{'tab_1_title' | translate}}
+                        </div>
+                    </div>
+                </div>
+
+                <mat-card class="tab-color bg-white">
+                    <table class="w-full">
+                        <tbody>
+                            <tr>
+                                <td><b>{{'researcher_title' | translate}}&nbsp;</b></td>
+                                <td style="width: 18px;">:</td>
+                                <td>{{tbObj1?.researcherProposalId?.researchTitle}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>{{'fiscalYear' | translate}}&nbsp;</b></td>
+                                <td>:</td>
+                                <td>{{tbObj1?.researcherProposalId?.stFiscalYear}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>{{'installment_no' | translate}}&nbsp;</b></td>
+                                <td>:</td>
+                                <td>{{tbObj1?.installmentNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>{{'total_grant_amount' | translate}}&nbsp;</b></td>
+                                <td>:</td>
+                                <td>{{tbObj1?.totalGrantAmount | number : '1.2-2'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>{{'research_start_date' | translate}}&nbsp;</b></td>
+                                <td>:</td>
+                                <td>{{tbObj1?.researchStartDate| date: 'dd-MM-yyyy'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>{{'research_end_date' | translate}}&nbsp;</b></td>
+                                <td>:</td>
+                                <td>{{tbObj1?.researchEndDate| date: 'dd-MM-yyyy'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>{{'research_duration' | translate}}&nbsp;</b></td>
+                                <td>:</td>
+                                <td>{{tbObj1?.researchDuration}} {{'Month' | translate}} </td>
+                            </tr>
+
+                            <tr>
+                                <td><b>{{'recipient_user_id' | translate}}&nbsp;</b></td>
+                                <td>:</td>
+                                <td>{{tbObj1?.recipientUser}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>{{'researcher_category' | translate}}&nbsp;</b></td>
+                                <td>:</td>
+                                <td>{{showResearchCategory(tbObj1?.researcherProposalId?.stResearchCatTypeId)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="w-full mt-5">
+                        <table class="tbl-details">
+                            <tr *ngIf="tbObj1?.firstPage">
+                                <th>
+                                    <h1>{{'first_page' | translate}}</h1>
+                                </th>
+                            </tr>
+                            <tr *ngIf="tbObj1?.firstPage">
+                                <td [innerHTML]="tbObj1?.firstPage"></td>
+                            </tr>
+                            <tr *ngIf="tbObj1?.secondPage">
+                                <th>
+                                    <h1>{{'second_page' | translate}}</h1>
+                                </th>
+                            </tr>
+                            <tr *ngIf="tbObj1?.secondPage">
+                                <td [innerHTML]="tbObj1?.secondPage"></td>
+                            </tr>
+
+                            <tr *ngIf="tbObj1?.thirdPage">
+                                <th>
+                                    <h1>{{'third_page' | translate}}</h1>
+                                </th>
+                            </tr>
+                            <tr *ngIf="tbObj1?.thirdPage">
+                                <td [innerHTML]="tbObj1?.thirdPage"></td>
+                            </tr>
+
+                            <tr *ngIf="tbObj1?.fourthPage">
+                                <th>
+                                    <h1>{{'fourth_page' | translate}}</h1>
+                                </th>
+                            </tr>
+                            <tr *ngIf="tbObj1?.fourthPage">
+                                <td [innerHTML]="tbObj1?.fourthPage"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </mat-card>
+            </div>
+            <!--end tabe one info -->
+
+            <!--start tabe two info -->
+            <div class="mt-5">
+                <div class="heading mt-2">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2">
+                            {{'tab_2_card_header' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <mat-card class="tab-color bg-white">
+                    <table class="w-full party-tbl">
+                        <thead>
+                            <tr>
+                                <th class="text-center">{{'sl_no' | translate}}</th>
+                                <th class="text-center">{{'installment_type' | translate}}</th>
+                                <th class="text-center">{{'percentage_amount' | translate}}</th>
+                                <th class="text-center">{{'tk_amount' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let installment of tb2List; let i=index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td>{{installment?.stInstallmentType}}</td>
+                                <td>{{installment?.percentageAmount}}</td>
+                                <td class="text-center">{{installment?.tkAmount | number : '1.2-2'}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <h2 class="bg-color-green text-right"><b> {{'grantamount' | translate}} :</b></h2>
+                                </td>
+                                <td>
+                                    <h2 class="bg-color-green text-center">
+                                        <b>{{tb2List[0]?.agreementWithResearcherId?.totalGrantAmount | number :
+                                            '1.2-2'}}
+                                            {{'tk' |
+                                            translate}}
+                                        </b>
+                                    </h2>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <!-- <div class="w-full mt-3">
+                        <b>
+                            <h2 class="bg-color-green">
+                                <b> {{'grantamount' | translate}} :</b>
+                                {{tb2List[0]?.agreementWithResearcherId?.totalGrantAmount | number : '1.2-2'}} {{'tk' |
+                                translate}}
+                            </h2>
+                        </b>
+                    </div> -->
+
+                </mat-card>
+            </div>
+            <!--end tabe two info -->
+
+            <!--start tabe three info -->
+            <div class="mt-5">
+                <div class="heading mt-2">
+                    <div class="w-full">
+                        <!-- {{tbObj3 | json}} -->
+                        {{'tab_3_title' | translate}}
+                    </div>
+                </div>
+                <mat-card class="tab-color bg-white">
+                    <table class="w-full party-tbl">
+                        <tbody>
+                            <tr>
+                                <td class="w-20"><b>{{'guarantor_name' | translate}}</b></td>
+                                <td>{{tbObj3?.guarantorName}}</td>
+                                <td class="w-20"><b>{{'fathers_name' | translate}}</b></td>
+                                <td>{{tbObj3?.fathersName}}</td>
+                            </tr>
+                            <tr>
+                                <td class="w-20"><b>{{'present_address' | translate}}</b></td>
+                                <td>{{tbObj3?.presentAddress}}</td>
+                                <td class="w-20"><b>{{'permanent_address' | translate}}</b></td>
+                                <td>{{tbObj3.permanentAddress}}</td>
+                            </tr>
+                            <tr>
+                                <td class="w-20"><b>{{'email_address' | translate}}</b></td>
+                                <td>{{tbObj3.emailAddress}}</td>
+                                <td class="w-20"><b>{{'nid_number' | translate}}</b></td>
+                                <td>{{tbObj3?.nidNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td class="w-20"><b>{{'mobile_number' | translate}}</b></td>
+                                <td>{{tbObj3?.mobileNumber}}</td>
+                                <td class="w-20"></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="w-full mt-5">
+                        <table class="w-full party-tbl">
+                            <tr>
+                                <th *ngIf="tbObj3?.firstPage">
+                                    <h1>{{'first_page' | translate}}</h1>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td [innerHTML]="tbObj3?.firstPage"></td>
+                            </tr>
+                            <tr>
+                                <th *ngIf="tbObj3?.secondPage">
+                                    <h1>{{'second_page' | translate}}</h1>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td [innerHTML]="tbObj3?.secondPage"></td>
+                            </tr>
+                            <tr>
+                                <th *ngIf="tbObj3?.thirdPage">
+                                    <h1>{{'third_page' | translate}}</h1>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td [innerHTML]="tbObj3?.thirdPage"></td>
+                            </tr>
+                            <tr>
+                                <th *ngIf="tbObj3?.fourthPage">
+                                    <h1>{{'fourth_page' | translate}}</h1>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td [innerHTML]="tbObj3?.fourthPage"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </mat-card>
+            </div>
+            <!--end tabe three info -->
+
+            <!--start tabe four info -->
+            <div class="mt-5">
+                <div class="heading mt-2">
+                    <div class="w-full">
+                        {{'partyInfo' | translate}}
+                    </div>
+                </div>
+                <mat-card class="tab-color bg-white">
+                    <mat-card class="tab-color p-0 bg-white">
+                        <div class="heading">
+                            <div class="w-full">
+                                <h3>{{'1stdParty' | translate}}</h3>
+                            </div>
+                        </div>
+                        <table class="w-full party-tbl">
+                            <tbody>
+                                <tr>
+                                    <td class="w-30"><b>{{'first_party_user_id' | translate}}</b></td>
+                                    <td>{{tbObj4?.firstPartyUser}}</td>
+                                    <td><b>{{'first_party_witness_user_id' | translate}}</b></td>
+                                    <td class="w-30">{{tbObj4?.firstPartyWitnessUser}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </mat-card>
+                    <mat-card class="tab-colo mt-5 p-0 bg-white">
+                        <div class="heading">
+                            <div class="w-full">
+                                <h3>{{'2ndParty' | translate}}</h3>
+                            </div>
+                        </div>
+                        <table class="w-full party-tbl">
+                            <tbody>
+                                <tr>
+                                    <td class="w-30"><b>{{'second_party_user_id' | translate}}</b></td>
+                                    <td>{{tbObj4?.secondPartyUser}}</td>
+                                    <td class="w-30"><b>{{'second_party_witness_name' | translate}}</b></td>
+                                    <td>{{tbObj4?.secondPartyWitnessName}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-30"><b>{{'second_party_witness_designation' | translate}}</b>
+                                    </td>
+                                    <td>{{tbObj4?.secondPartyWitnessDesignation}}</td>
+                                    <td class="w-30"><b>{{'second_party_witness_address' | translate}}</b></td>
+                                    <td>{{tbObj4.secondPartyWitnessAddress}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-30"><b>{{'second_party_witness_nid' | translate}}</b></td>
+                                    <td>{{tbObj4.secondPartyWitnessNid}}</td>
+                                    <td class="w-30"><b>{{'second_party_witness_mobile_no' | translate}}</b></td>
+                                    <td>{{tbObj4?.secondPartyWitnessMobileNo}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-30"><b>{{'second_party_witness_email' | translate}}</b></td>
+                                    <td>{{tbObj4?.secondPartyWitnessEmail}}</td>
+                                    <td class="w-30"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </mat-card>
+                </mat-card>
+                <!--end tabe four info -->
+
+                <mat-card class="tab-color mt-5 p-0 bg-white">
+                    <div class="heading">
+                        <div class="w-full">
+                            <h3>{{'UploadedDocument' | translate}}</h3>
+                        </div>
+                    </div>
+
+                    <div class="border3" *ngIf="allTabData?.tabFive?.length > 0">
+                        <div class="md:flex p-4">
+                            <div class="w-full sm:w-auto md:w-full lg:w-full">
+                                <table class="tbl-files">
+                                    <tr>
+                                        <th>{{'sl_no' | translate}}</th>
+                                        <th>{{'file_title' | translate}}</th>
+                                        <th>{{'download' | translate}}</th>
+                                    </tr>
+                                    <tr *ngFor="let f of allTabData.tabFive; let i = index">
+                                        <td class="text-center">{{i+1}}</td>
+                                        <td>{{f.fileTitle}}</td>
+                                       <td>
+                                           <button class="px-3 mr-2 successBtn" mat-flat-button color="accent"
+                                               (click)="downloadFile(f.fileDownloadUrlSignature)" type="button">
+                                               <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+                                               {{'download' | translate}}
+                                           </button>
+                                       </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="displayNone">
+                    <div class="flex justify-end mt-3">
+                        <button class="px-5 previous-button" mat-flat-button color="accent"
+                            (click)="backAgreementList()" type="button">
+                            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                            {{'previous' | translate}}
+                        </button>
+                    </div>
+                    </div>
+                </mat-card>
+
+            </div>
+        </mat-card>
+        <!-- Main End -->
+    </div>
+</div>

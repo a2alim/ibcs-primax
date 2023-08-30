@@ -1,0 +1,1532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rms_agreement_letter" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="39331406-9882-4056-8973-db80ca9554e3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rms_agreement_letter_DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Participient List" uuid="00606891-4c56-494f-9446-ef04ba6529e7">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rms_agreement_letter_DataAdapter.xml"/>
+		<queryString language="json">
+			<![CDATA[participantViewList]]>
+		</queryString>
+		<field name="courseTitle" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="courseTitle"/>
+			<fieldDescription><![CDATA[courseTitle]]></fieldDescription>
+		</field>
+		<field name="courseId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="courseId"/>
+			<fieldDescription><![CDATA[courseId]]></fieldDescription>
+		</field>
+		<field name="name" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="name"/>
+			<fieldDescription><![CDATA[name]]></fieldDescription>
+		</field>
+		<field name="dateOfBirth" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="dateOfBirth"/>
+			<fieldDescription><![CDATA[dateOfBirth]]></fieldDescription>
+		</field>
+		<field name="gender" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="gender"/>
+			<fieldDescription><![CDATA[gender]]></fieldDescription>
+		</field>
+		<field name="email" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="email"/>
+			<fieldDescription><![CDATA[email]]></fieldDescription>
+		</field>
+		<field name="phoneNo" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="phoneNo"/>
+			<fieldDescription><![CDATA[phoneNo]]></fieldDescription>
+		</field>
+		<field name="presentAddress" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="presentAddress"/>
+			<fieldDescription><![CDATA[presentAddress]]></fieldDescription>
+		</field>
+		<field name="permanentAddress" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="permanentAddress"/>
+			<fieldDescription><![CDATA[permanentAddress]]></fieldDescription>
+		</field>
+		<field name="howYouKnowThisProgram" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="howYouKnowThisProgram"/>
+			<fieldDescription><![CDATA[howYouKnowThisProgram]]></fieldDescription>
+		</field>
+		<field name="facebookOrTwitterLink" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="facebookOrTwitterLink"/>
+			<fieldDescription><![CDATA[facebookOrTwitterLink]]></fieldDescription>
+		</field>
+		<field name="ifOthers" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="ifOthers"/>
+			<fieldDescription><![CDATA[ifOthers]]></fieldDescription>
+		</field>
+		<field name="organizationName" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="organizationName"/>
+			<fieldDescription><![CDATA[organizationName]]></fieldDescription>
+		</field>
+		<field name="designation" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="designation"/>
+			<fieldDescription><![CDATA[designation]]></fieldDescription>
+		</field>
+		<field name="organizationAddress" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="organizationAddress"/>
+			<fieldDescription><![CDATA[organizationAddress]]></fieldDescription>
+		</field>
+		<field name="yearsOfExperience" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="yearsOfExperience"/>
+			<fieldDescription><![CDATA[yearsOfExperience]]></fieldDescription>
+		</field>
+		<field name="nidNo" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="nidNo"/>
+			<fieldDescription><![CDATA[nidNo]]></fieldDescription>
+		</field>
+		<field name="academicBackGroundViews" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="academicBackGroundViews"/>
+			<fieldDescription><![CDATA[academicBackGroundViews]]></fieldDescription>
+		</field>
+		<field name="image" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="image"/>
+			<fieldDescription><![CDATA[image]]></fieldDescription>
+		</field>
+		<field name="nidImage" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="nidImage"/>
+			<fieldDescription><![CDATA[nidImage]]></fieldDescription>
+		</field>
+		<field name="sl" class="java.lang.Integer"/>
+		<field name="academicBackGroundViews.subject" class="java.lang.String"/>
+		<field name="academicBackGroundViews.instituteName" class="java.lang.String"/>
+	</subDataset>
+	<queryString language="json">
+		<![CDATA[onBehalf]]>
+	</queryString>
+	<field name="id" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="id"/>
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="uuid" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="uuid"/>
+		<fieldDescription><![CDATA[uuid]]></fieldDescription>
+	</field>
+	<field name="isDeleted" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="isDeleted"/>
+		<fieldDescription><![CDATA[isDeleted]]></fieldDescription>
+	</field>
+	<field name="createdBy" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="createdBy"/>
+		<fieldDescription><![CDATA[createdBy]]></fieldDescription>
+	</field>
+	<field name="createdOn" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="createdOn"/>
+		<fieldDescription><![CDATA[createdOn]]></fieldDescription>
+	</field>
+	<field name="updatedBy" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="updatedBy"/>
+		<fieldDescription><![CDATA[updatedBy]]></fieldDescription>
+	</field>
+	<field name="updatedOn" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="updatedOn"/>
+		<fieldDescription><![CDATA[updatedOn]]></fieldDescription>
+	</field>
+	<field name="firstPartyName" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="firstPartyName"/>
+		<fieldDescription><![CDATA[firstPartyName]]></fieldDescription>
+	</field>
+	<field name="firstPartySurname" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="firstPartySurname"/>
+		<fieldDescription><![CDATA[firstPartySurname]]></fieldDescription>
+	</field>
+	<field name="firstPartyAddress" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="firstPartyAddress"/>
+		<fieldDescription><![CDATA[firstPartyAddress]]></fieldDescription>
+	</field>
+	<field name="secondPartyName" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="secondPartyName"/>
+		<fieldDescription><![CDATA[secondPartyName]]></fieldDescription>
+	</field>
+	<field name="secondPartySurname" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="secondPartySurname"/>
+		<fieldDescription><![CDATA[secondPartySurname]]></fieldDescription>
+	</field>
+	<field name="secondPartyAddress" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="secondPartyAddress"/>
+		<fieldDescription><![CDATA[secondPartyAddress]]></fieldDescription>
+	</field>
+	<field name="secondPartyPhoneNo" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="secondPartyPhoneNo"/>
+		<fieldDescription><![CDATA[secondPartyPhoneNo]]></fieldDescription>
+	</field>
+	<field name="secondPartyNidNo" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="secondPartyNidNo"/>
+		<fieldDescription><![CDATA[secondPartyNidNo]]></fieldDescription>
+	</field>
+	<field name="secondPartyEmail" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="secondPartyEmail"/>
+		<fieldDescription><![CDATA[secondPartyEmail]]></fieldDescription>
+	</field>
+	<field name="agreementDate" class="java.lang.String"/>
+	<field name="onBehalf.firstPartyName" class="java.lang.String"/>
+	<field name="onBehalf.firstPartySurname" class="java.lang.String"/>
+	<field name="onBehalf.firstPartyAddress" class="java.lang.String"/>
+	<field name="onBehalf.secondPartyName" class="java.lang.String"/>
+	<field name="onBehalf.secondPartySurname" class="java.lang.String"/>
+	<field name="onBehalf.secondPartyAddress" class="java.lang.String"/>
+	<field name="onBehalf.secondPartyPhoneNo" class="java.lang.String"/>
+	<field name="witness.firstPartyName" class="java.lang.String"/>
+	<field name="witness.firstPartySurname" class="java.lang.String"/>
+	<field name="witness.firstPartyAddress" class="java.lang.String"/>
+	<field name="witness.secondPartyName" class="java.lang.String"/>
+	<field name="witness.secondPartySurname" class="java.lang.String"/>
+	<field name="witness.secondPartyAddress" class="java.lang.String"/>
+	<field name="witness.secondPartyPhoneNo" class="java.lang.String"/>
+	<field name="witness.secondPartyNidNo" class="java.lang.String"/>
+	<field name="witness.secondPartyEmail" class="java.lang.String"/>
+	<field name="image.fileName" class="java.lang.String"/>
+	<field name="image.fileUrl" class="java.lang.String"/>
+	<field name="guarantorViewListList[0].guarantorName" class="java.lang.String"/>
+	<field name="image.bucketName" class="java.lang.String"/>
+	<field name="guarantorViewListList[0].designation" class="java.lang.String"/>
+	<field name="guarantorViewListList[0].mobileNo" class="java.lang.String"/>
+	<field name="guarantorViewListList[0].email" class="java.lang.String"/>
+	<field name="guarantorViewListList[0].nid" class="java.lang.String"/>
+	<field name="guarantorViewListList.image[0].fileUrl" class="java.lang.String"/>
+	<field name="guarantorViewListList.image[0].fileName" class="java.lang.String"/>
+	<field name="guarantorViewListList.image[0].bucketName" class="java.lang.String"/>
+	<field name="guarantorViewListList[0].presentAddress" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="802" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="550" height="20" uuid="48f39e99-96f4-4896-b394-cd5ef1282a1c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Training course contract]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="32" width="550" height="25" uuid="94151e1e-37ec-416e-b88c-1effc64b7b0c"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["This Agreement was entered into "+"  "+$F{agreementDate} +"  "+"for the following parties"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="59" width="120" height="25" uuid="664c8258-5d76-47e7-b63a-b6ef0a1c731a"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["First Party"+" :"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="89" width="120" height="25" uuid="3d7bcf88-a2f5-4657-96f5-278988855427"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Second Party"+" :"]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="90" y="89" width="460" height="25" uuid="4a5df763-a1c2-4daf-ada9-a2d7f963a484"/>
+				<box padding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(Name of the organization) - on behalf of (name, surname, address)"]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="90" y="59" width="460" height="25" uuid="ee8d7c2a-055e-466f-a308-864dbb246dc1"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["The Government of the People's Republic of Bangladesh will be represented by the Ministry of Planning, Assistant Director of the Social Science Research Council under the Planning Department."]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="367" y="640" width="176" height="24" uuid="f98b4e7c-3f86-47c2-97b7-fcaaffb4c414"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{onBehalf.secondPartyAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="282" y="615" width="75" height="25" uuid="f7268200-7d87-4053-814a-c4bede276432"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Designation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="568" width="259" height="24" uuid="ae20975d-3c59-4d1e-ae3a-8c56d8b2e502"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[(2nd Party Witness)]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="427" width="169" height="25" uuid="bdab4f32-e7fc-432d-91b4-1bc8510b0248"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{witness.firstPartyName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="97" y="642" width="180" height="25" uuid="96589c7b-2ee9-47c6-8665-b850004528a4"/>
+				<box padding="3"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{witness.secondPartyAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="406" width="270" height="21" uuid="03a3b3e3-934c-4b7c-8f9e-732158ab3936"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[(1st party)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="452" width="70" height="25" uuid="56cfcb22-4427-4702-a647-c76d0209dd8c"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Designation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="502" width="70" height="30" uuid="bdac8a83-5efc-48b8-8626-d518c864483a"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile no.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="167" width="550" height="210" uuid="c5ab69b6-3dda-46cb-b2a0-7edf7a5034dd"/>
+				<box padding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Terms
+A) Appendix 'A' (Training Proposal and Budget) shall be deemed to be an integral part of this Agreement and the training course mentioned in it shall also be an editing project under this Agreement;
+B) The first party will provide the training to the second party in a total of 1 installment subject to the approval of the appropriate party including the collection of tax and VAT 5656 / -Tk. at the rate prescribed by the government for carrying out the said training course;
+C) Installed money installments will be as under:
+1) First installment (56% of total grant) 3,167.36 / = will be paid in advance based on their demand. Subject to the submission of the bill voucher received in advance, it must be complied with within the current financial year.
+D) One or more officers will be assigned as observers in the hands of the first party to monitor the progress of the training course. Upon completion of the course, the officer in charge will submit a report.
+E) Course modules, trainers and trainees need to send the required information to this council (1st party) for storage (ssrc.planningdivision@yahoo.com).
+F) After the completion of the training course completed under this agreement, the report of completion of the training course has to be submitted to the 1st party. The report prepared for the training course should be sent to the 1st party address.
+G) If the 2nd party deems it necessary, it will be able to receive money from the trainees for the training fee.
+H) If the second party berths to organize and complete the course without any reasonable or acceptable reason between the specified budget and the corresponding financial year, the second party will have to bear the entire responsibility of such berth. In such a case, the second party will be obliged to return the entire amount received from the first party to the first party.
+I) After completion of the training course with the second party "Research Proposal Call" issued by the Social Science Research Council.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="21" y="377" width="259" height="30" backcolor="#CCCCCC" uuid="2e4a7966-d9dc-40f4-b466-1f627a334c82"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Witness]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="367" y="452" width="177" height="25" uuid="20933f15-b51e-454f-ba37-dc03a8192390"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{onBehalf.firstPartySurname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="550" width="70" height="18" uuid="cc9baedb-9fb4-4b31-b088-76113b634edc"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-Mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="408" width="259" height="19" uuid="266dd2a0-ea1e-41a0-8fc7-983122d03b9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[(1st party witness)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="640" width="75" height="25" uuid="227ec5fc-a717-4542-bca7-b569f85109ee"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="96" y="617" width="180" height="25" uuid="055310d5-c921-4436-afe6-2e662e7b9358"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{witness.secondPartySurname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="568" width="20" height="170" uuid="3f846059-c2b8-4a42-818b-42905655c05e"/>
+				<box padding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[02.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="477" width="70" height="25" uuid="c032821f-5ff0-4cf8-b3e7-d8ea6f07c831"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="367" y="592" width="176" height="23" uuid="de0dafc5-842b-439f-9502-5d4f4dd28717"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{onBehalf.secondPartyName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="720" width="75" height="18" uuid="83cf6591-6f2d-4e61-b60d-3481f4c8d1e0"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-Mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="665" width="75" height="30" uuid="3a631ee8-541a-4140-ae5a-ea6e8fcd1304"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile No.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="279" y="406" width="1" height="332" uuid="131aab09-f7f5-4a35-9821-30606cd78a52"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="20" y="617" width="75" height="25" uuid="a7f2eafc-1ab9-4bd2-a642-76d7301fa740"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Designation]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="115" width="550" height="52" uuid="8ff6d390-e7b6-402a-9963-2becfc89892c"/>
+				<box padding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Since the other party has agreed to carry out the course entitled (Training Course Title) within the period mentioned in Appendix 'A' (Training Proposal and Budget) of this Agreement, the above parties executed this Agreement under the following conditions:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="367" y="477" width="177" height="25" uuid="490f6b99-2ac4-4543-a295-a862dffc07ed"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{onBehalf.secondPartyAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="452" width="70" height="25" uuid="17b55f32-b4ae-42fc-bb12-ad3c8e46932f"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Designation		]]></text>
+			</staticText>
+			<line>
+				<reportElement x="20" y="738" width="530" height="1" uuid="f46f8f28-c0bf-4a8a-b2c5-cbd1777a54f1"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="283" y="550" width="70" height="18" uuid="69571283-a862-4b77-af59-72be0deac0bd"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-Mail]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="96" y="592" width="180" height="25" uuid="4b205cc2-42bb-4710-aa77-2da7d94f9023"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{secondPartyName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="367" y="427" width="177" height="25" uuid="1dfbd868-4641-4ad2-a9ae-6d06b68d17ba"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{onBehalf.firstPartyName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="427" width="70" height="25" uuid="b746d51d-9e4f-4f3d-8d7f-de081671c533"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="642" width="75" height="25" uuid="2f4cebbb-c8df-434e-b4fc-461a3a3f9193"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="532" width="70" height="18" uuid="22803eb6-4bfe-48ff-85b2-0d3b50a408e7"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="667" width="75" height="23" uuid="5da70cfb-7ffe-4068-a0a7-4993d2feb023"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="532" width="70" height="18" uuid="d5d36b5e-e2ae-4756-985a-5218b3c18b2c"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NID]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="477" width="169" height="25" uuid="06176b27-7d8a-4d43-8f30-fc4ad46385ce"/>
+				<box padding="3"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{witness.secondPartyAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="282" y="713" width="75" height="18" uuid="4d80e47a-7a1c-4308-85ed-d3a215169369"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-Mail]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="452" width="169" height="25" uuid="108e112b-a50e-412c-aea8-057cb9ab2988"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{witness.secondPartySurname}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="367" y="617" width="176" height="23" uuid="82f89283-4a64-4471-8c04-311896c3f22e"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{secondPartySurname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="477" width="70" height="25" uuid="133ab245-d249-4b40-a6e8-31ad5c0a3bca"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="377" width="20" height="29" backcolor="#CCCCCC" uuid="bab1fff3-8f28-4b56-9278-ff474879aae7"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="739" width="550" height="61" uuid="07a9ec00-4c0e-43fb-9cd5-7c44c0a4c081"/>
+				<box padding="3"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[                                                                                 Security deposit
+I am submitting the underwriting to the effect that _____- / = for the purpose for which the training course is conducted by (the name of the organization) - the title of the training course - in accordance with the agreement executed with Sociology Research. If not used or not used properly, as a guarantor, I will be obliged to pay the unused portion of the said advance or, as the case may be, within 30 (thirty) working days.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="592" width="75" height="25" uuid="4d7841c0-f159-4de6-9d55-c449f72dfd08"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="427" width="70" height="25" uuid="9ac16ad1-5501-4373-8777-e4ce89919dc5"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name	]]></text>
+			</staticText>
+			<line>
+				<reportElement x="21" y="568" width="528" height="1" uuid="59cc6ecd-d8fd-4ce7-a692-260d8c87d5ce"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="21" y="502" width="70" height="30" uuid="e9195dc6-13b2-4814-b43c-69638c47c66c"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile no.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="690" width="75" height="30" uuid="c7281621-3b33-4570-8cbc-61583270f67a"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="695" width="75" height="18" uuid="e0bb0ce0-3730-4fdf-92b1-66d4586dec04"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="407" width="20" height="161" uuid="8e9f1df2-5648-4237-9c38-128feadc3e21"/>
+				<box padding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[01.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="568" width="271" height="24" uuid="b1c99412-9d16-4db8-9d23-8fc121719925"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[( 2nd Party)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="590" width="75" height="25" uuid="64150ca4-772b-4e9b-b4f4-327dea7c191d"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="377" width="270" height="30" backcolor="#CCCCCC" uuid="4cfdce2b-9c02-4ae4-b113-fb1d1851333d"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Party (Name, Surname, Address, Mobile & Email Number)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="549" y="379" width="1" height="359" uuid="1d90081d-f056-42dc-a545-b4327e3ed89c"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="84" y="544" width="20" height="28" uuid="5f4e0ca5-6208-416e-b696-9f71bdde0315"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="427" width="20" height="25" uuid="a8d2eb0c-d76e-4ba0-b212-9c9182a7f43d"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="453" width="20" height="25" uuid="355b659a-b8ae-4bfc-bc1f-cbdbf8973500"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="478" width="20" height="25" uuid="debc3e1c-4f5d-4be6-9bc7-7f5a275502fd"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="504" width="20" height="25" uuid="b38f7fce-63b3-4ca7-ab09-6d7aab43aca3"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="528" width="20" height="25" uuid="49893b9a-89e0-4650-bd9b-7764a6ce8524"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="593" width="20" height="25" uuid="5a902f9d-412e-4529-b500-135b4487f6a4"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="670" width="20" height="25" uuid="f716076b-4327-4e2b-8da2-64362a596ac4"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="619" width="20" height="25" uuid="3a2d2fcc-d556-4fa7-bcaa-064f6228c656"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="694" width="20" height="25" uuid="ba6c4c94-0d35-41f3-a984-9fa19deeca58"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="644" width="20" height="25" uuid="af480459-cc66-4037-8cd0-6c4cdf862cee"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="713" width="20" height="28" uuid="95d28e02-9f2b-4463-8bb4-6365e33671b4"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="427" width="20" height="25" uuid="900d3bf5-b8dc-4784-b88a-32bdf2195128"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="504" width="20" height="25" uuid="b52c4965-6f58-43fd-b3f0-66ae31aea6ba"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="453" width="20" height="25" uuid="e4ffe80c-e443-41b1-9f1c-689abf064bf0"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="528" width="20" height="25" uuid="5e46b837-0936-4a7d-b35e-3e2475948ac5"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="478" width="20" height="25" uuid="eb0a7dc0-7ea3-44fa-9c0e-b59c2c6d6e4a"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="544" width="20" height="28" uuid="f99056b9-57bf-4cd9-bd77-03b3c81c337e"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="591" width="20" height="25" uuid="6ffe4187-e864-4293-900c-1bd1f3d2aa33"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="668" width="20" height="25" uuid="bf61d115-7682-478e-9514-a76107e3e893"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="617" width="20" height="25" uuid="aae0804d-3899-4db3-b31d-2fda6c5a4c25"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="692" width="20" height="25" uuid="fbe88760-73bf-42b8-b134-53c87018194c"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="642" width="20" height="25" uuid="1f56b0f9-9e13-47da-ac53-58b4b766bef8"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="708" width="20" height="28" uuid="7f9742bd-1b7e-43f7-90e3-ad456fb43ce5"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="204" splitType="Stretch">
+			<rectangle>
+				<reportElement x="210" y="2" width="350" height="190" uuid="73113bef-e118-4c9d-8f51-7c0bdade980d"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="231" y="3" width="329" height="20" uuid="60060f9b-6864-4263-a4a5-218d1fed1120"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name, address and signature of the guarantor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="156" width="79" height="18" uuid="6561aeff-40ef-4045-9fe1-927b5e6c49c2"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="76" width="79" height="25" uuid="5fd7d38e-be25-4f12-a320-4a92c6e45fdb"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Designation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="51" width="79" height="25" uuid="5d0a2e37-57c2-4ef2-905b-d3c30f7cfa36"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="101" width="79" height="25" uuid="3dd484c3-436f-4932-81c5-9e04fb65e9cd"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="126" width="79" height="30" uuid="3b6c7fa0-e95d-4ac1-aecf-0ef475e1ae65"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile no.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="174" width="79" height="18" uuid="cfe73b69-a019-4abc-8dad-7478acd175f4"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-Mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="231" y="24" width="79" height="25" uuid="826f78ea-8fd8-4020-ad4a-8e19440a1cac"/>
+				<box padding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Signature]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="325" y="51" width="236" height="24" uuid="a2603c1c-eb06-4cf7-a5e3-da37bf864a1a"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{guarantorViewListList[0].guarantorName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="324" y="77" width="236" height="24" uuid="b17451be-93b6-4a32-8a03-6b8d57ffd9ee"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{guarantorViewListList[0].designation}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="324" y="130" width="236" height="24" uuid="f780de26-9907-4cbb-9553-70186a089c7e"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{guarantorViewListList[0].mobileNo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="324" y="103" width="236" height="24" uuid="584a512e-dabe-4190-9e69-1cd1597ba14f"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{guarantorViewListList[0].presentAddress}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="324" y="154" width="236" height="17" uuid="2c44fcd7-bcae-40f8-86bb-e71de6a52d8b"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{guarantorViewListList[0].nid}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="324" y="174" width="236" height="18" uuid="10c1ff4f-fcdd-4728-9130-bc12a942f4bc"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{guarantorViewListList[0].email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="24" width="20" height="25" uuid="25fc54d8-64ce-45ca-98c7-de1f82270411"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="51" width="20" height="25" uuid="a0a66c86-48f8-47cc-871b-6681850b70d1"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="76" width="20" height="25" uuid="ba28c060-b13b-4dad-84d5-9b6f928ebabb"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="101" width="20" height="25" uuid="b73efc02-ade4-4063-898d-0bf164a585da"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="126" width="20" height="29" uuid="6c9d6e02-aeb4-4697-86f1-498168e6d678"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="156" width="20" height="18" uuid="02c78fc9-72e6-4ca0-85da-e66621af8631"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="306" y="174" width="20" height="18" uuid="39dc42dc-921d-41aa-a0f6-0dcc43b85d90"/>
+				<box padding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+		<band height="129">
+			<componentElement>
+				<reportElement x="0" y="27" width="550" height="102" uuid="7a299fe6-cf80-4a28-92c7-c294ac571c45">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="Participient List" uuid="c7387c2c-8d40-4c42-bf56-a8e62c4c57f1">
+						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("participantViewList")]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="20" uuid="45d79a72-20b8-49dd-b39f-e0d5763a8609">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="20" height="70" uuid="9901509a-2ad5-4dd0-b732-50bb0dbeb401"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[SL]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="30" uuid="3ec7b087-2d51-4c56-bfe0-d4b5be0083d1"/>
+								<box padding="0">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="1e97ab35-9613-4113-b829-73e4281b471b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="70" uuid="78a41a35-3073-4ea4-8094-abe390d0b2ac"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Participient Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="60" height="30" uuid="d8cb01b4-2522-4eba-b181-02ca70733c09"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="48b9821d-fdab-4a02-bd10-95d28a006061">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="70" uuid="c6d714ba-a1cc-45e0-94df-1a4b1c2e25ad"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[DOB]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="30" uuid="26adef13-d498-4461-91c4-68abbd7e5612"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{dateOfBirth}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="551485fe-9109-43fe-8edb-de432705bd26">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="70" uuid="c79fab4d-7d0b-4daf-854a-ba385e935c0f"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Gender]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="30" uuid="ad6054f8-7630-4641-9d87-cd69ca0046ed"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="d45e5598-c56f-43be-a8e0-a66a5cc76527">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="70" uuid="9ccc0232-b4ef-49ec-8f82-0933c56d753b"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Educational Achievement]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="30" uuid="a365b623-2b61-4ce6-b7a0-083eb1f914c2"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle" markup="html">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{academicBackGroundViews.subject}+","+$F{academicBackGroundViews.instituteName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="9487d819-dd2b-44b8-a2a2-debc78a217f6">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="70" uuid="18372e59-2323-457b-b414-ee0ceb945a4b"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Name of the Org.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="60" height="30" uuid="e0d6df5a-6f2f-4445-8065-a56f443cb4af"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{organizationName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="0d38ea52-6791-45d2-a705-8c5ffd16969e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="70" uuid="3a91cd4f-1827-4325-a941-f72c577fab51"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Official Designation/Job title]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="60" height="30" uuid="31d62287-4696-41ea-8384-f4ee973f5129"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="30" uuid="94e5ede2-c2bd-4b6b-80e5-ad6256802156">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="30" height="70" uuid="83ab9515-0a11-4dc9-b75b-bb6955833a13"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Year of Exp.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="30" uuid="93319363-7a89-4a67-aa0a-c07a1295e2ae"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{yearsOfExperience}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="6f529b47-6d92-447d-9066-3d91ff085cbb">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="70" uuid="f2014432-befb-4a11-a48c-b348fb92ea03"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Present Address]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="30" uuid="11486f09-f224-49c1-aac8-6be7f234c2f6"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{presentAddress}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="cbce991e-f275-4e64-845c-4aaea78ae40d">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="70" uuid="36191d09-66af-4a65-a0a9-6f80d2122a88"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Mobile No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="30" uuid="6b45afdc-feb3-4697-b2ac-06f88e28af75"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{phoneNo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="d2c21eed-4de4-4bca-95ae-b4aa39103d50">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="70" uuid="2a81c9f2-b57d-45a5-ae0b-f8c82d72d0ff"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Email ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="30" uuid="5730ed36-8864-47ba-8524-c5bc54b424e2"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="b9cb5dd5-24a5-49c6-9872-e1a53ec4a25e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
+						<jr:columnHeader style="Table_CH" height="70" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="70" uuid="466541d4-e0d7-4da8-99e5-226d9214843c"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[How did You Know About the Training Program]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="30" uuid="4bcd6a89-0056-47f8-95ff-473fad0a1361"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{howYouKnowThisProgram}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="0" y="1" width="560" height="25" backcolor="#CCCCCC" uuid="28bc23c6-b1e5-412d-ac0b-fba97a8065d3"/>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Participient List"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

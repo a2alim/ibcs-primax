@@ -1,0 +1,528 @@
+<div class="body">
+    <form #myForm="ngForm">
+        <!-- Form Body -->
+        <!-- CARD ONE-->
+        <div class="heading mt-2">
+            <h1>{{'cardHeader1' | translate}}</h1>
+        </div>
+        <mat-card class="tab-color">
+            <!-- Row 1-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'name' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="readonly w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="researcherName" readonly>
+                    </mat-form-field>
+                    <mat-form-field class="readonly w-full" style="display: none;">
+                        <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="personalInfoFormModel.userId"
+                            readonly>
+                    </mat-form-field>
+                    <!-- <input type="hidden" [(ngModel)]="personalInfoFormModel.userId"
+                            readonly> -->
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'bd' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                        <input matInput #dateOfBirth="ngModel" [max]="todayDate" [matDatepicker]="datepicker" name="dateOfBirth"
+                            (dateChange)="ageCalculator()" [(ngModel)]="personalInfoFormModel.dateOfBirth"
+                            (click)="datepicker.open()" required>
+                        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker>
+                        </mat-datepicker>
+                        <!--                        <mat-hint *ngIf="dateOfBirth.dirty && !(dateOfBirth.value | required)" style="color: crimson !important;">Date of birth is required!</mat-hint>-->
+                        <mat-hint *ngIf="(dateOfBirth.touched || myForm.submitted) && dateOfBirth.errors?.required"
+                            style="color: crimson !important;">Date of birth is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Row 2-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        <!-- {{'trainingOfResearch' | translate}} -->
+                        {{'email' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="readonly w-full disableField">
+                        <input matInput #email="ngModel" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="personalInfoFormModel.emailAddress" readonly required>
+                        <mat-hint *ngIf="(email.touched || myForm.submitted) && email.errors?.required"
+                            style="color: crimson !important;">Email is required!
+                        </mat-hint>
+                    </mat-form-field>
+                    <!-- <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="personalInfoFormModel.researchTraining">
+                    </mat-form-field> -->
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'age' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="readonly w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}" required [(ngModel)]="personalInfoFormModel.age" disabled>
+                        <mat-error>Applicant age is required!</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Row 3-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'fatherName' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput #fatherName="ngModel" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="personalInfoFormModel.fatherName" required>
+                        <mat-hint *ngIf="(fatherName.touched || myForm.submitted) && fatherName.errors?.required"
+                            style="color: crimson !important;">Father name is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'motherName' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input #motherName="ngModel" matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="personalInfoFormModel.motherName" required>
+                        <mat-hint *ngIf="(motherName.touched || myForm.submitted) && motherName.errors?.required"
+                            style="color: crimson !important;">Mother name is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Row 4-->
+            <!--
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'email' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="readonly w-full disableField">
+                        <input matInput #email="ngModel" [ngModelOptions]="{standalone: true}" [(ngModel)]="personalInfoFormModel.emailAddress" readonly required>
+                        <mat-hint *ngIf="(email.touched || myForm.submitted) && email.errors?.required"
+                                  style="color: crimson !important;">Email is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                </div>
+            </div>
+            -->
+            <!-- Row 4-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'mobileNo' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="readonly w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="personalInfoFormModel.mobileNo" readonly>
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        <mat-icon color="primary" *ngIf="isPhoneVerified">verified</mat-icon>
+                        <mat-icon color="warn" *ngIf="!isPhoneVerified">highlight_off</mat-icon>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30 md:pt-3">
+                    <span class="text-gray-700">
+                        <button *ngIf="!isPhoneVerified" mat-raised-button color="primary"
+                            (click)="PhoneVerification()"> {{'verification' |
+                            translate}}</button>
+                    </span>
+                </div>
+            </div>
+            <!-- Row 5-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'nid' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input #nid_number="ngModel" [(ngModel)]="personalInfoFormModel.nIDNumber"
+                            [ngModelOptions]="{standalone: true}" matInput type="number">
+                        <mat-hint *ngIf="nid_number.dirty && !(nid_number.value | nid_number) "
+                            style="color: crimson !important;">
+                            Invalid number. Please provide a valid 10 digit, 13 digit or 17 digit number.
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        <mat-icon color="primary" *ngIf="isVerifiedNid">verified</mat-icon>
+                        <mat-icon color="warn" *ngIf="!isVerifiedNid">highlight_off</mat-icon>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30 md:pt-3">
+                    <!-- <span class="text-gray-700">
+                        <button mat-raised-button color="primary" (click)="nidVerification()"> {{'verification' |
+                            translate}}</button>
+                    </span> -->
+                </div>
+            </div>
+            <!-- Row 6-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'tin' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}" type="number"
+                            [(ngModel)]="personalInfoFormModel.tINNumber">
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        <mat-icon color="primary" *ngIf="isVerifiedTin">verified</mat-icon>
+                        <mat-icon color="warn" *ngIf="!isVerifiedTin">highlight_off</mat-icon>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30 md:pt-3">
+                    <!-- <span class="text-gray-700">
+                        <button mat-raised-button color="primary" (click)="tinVerification()">{{'verification' |
+                            translate}}</button>
+                    </span> -->
+                </div>
+            </div>
+            <!-- Row 7-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'ocupation' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="personalInfoFormModel.occupation">
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'designation' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="personalInfoFormModel.designation">
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Row 8-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'totalReseachNo' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <mat-select placeholder="Select One" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="personalInfoFormModel.totalResearcherNumbers">
+                            <mat-option *ngFor="let f of researchNo" [value]="f.id">{{f.id}}</mat-option>
+                        </mat-select>
+                        <mat-error>Education Is Required!</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                </div>
+            </div>
+            <!-- Row 9-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'uploadProfileImage' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    {{profileImageName === null ? '' : profileImageName | slice: profileImageName?.length - 15:
+                    profileImageName?.length}}
+                    <input #profileImage type="file" (change)="handleFileInput($event.target.files,0,330,300,1024)" />
+                    <div><img *ngIf="profileImageNamePreviewUrl" [src]="profileImageNamePreviewUrl" style="width: 20%;">
+                    </div>
+                    <div class="text-gray-500 text-sm">{{'uploadProfileImageSize' | translate}}</div>
+                    <div class="mt-4 text-green-500 font-medium cursor-pointer" (click)="resizeImage('300-5-5.5')">
+                        {{'resizeImage' | translate}}
+                    </div>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'uploadSignatureImage' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    {{ signImageName === null ? '' : signImageName | slice:signImageName?.length -
+                    15:signImageName?.length }}
+                    <input #signImage type="file" (change)="handleFileInput($event.target.files,1,84,300, null)" />
+                    <div><img *ngIf="signImageNamePreviewUrl" [src]="signImageNamePreviewUrl" style="width: 20%;"></div>
+                    <div class="text-gray-500 text-sm">{{'uploadSignatureImageSize' | translate}}</div>
+                    <div class="mt-4 text-green-500 font-medium cursor-pointer" (click)="resizeImage('300-32-9')">
+                        {{'resizeSignatureImage' | translate}}
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+        <!----------------Present Address Details------------->
+        <!-- CARD TWO-->
+        <div class="heading mt-2">
+            <h1>{{'cardHeader3' | translate}}</h1>
+        </div>
+        <mat-card class="tab-color">
+            <!-- Row 10-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'division' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <mat-select #predivision="ngModel" placeholder="Select One"
+                            (selectionChange)="getDistrictByChangeDivision($event.value)"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="personalInfoFormModel.preDivisionId"
+                            required>
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let div of divisionList" [value]="div.id">{{div.nameEn | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="(predivision.touched || myForm.submitted) && predivision.errors?.required"
+                            style="color: crimson !important;">Division is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'district' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <mat-select #predistrict="ngModel" placeholder="Select one"
+                            (selectionChange)="getUpazilaByChangeDistrict($event.value)"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="personalInfoFormModel.preDistrictId"
+                            required>
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let dis of districtList" [value]="dis.id">{{dis.nameEn | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="(predistrict.touched || myForm.submitted) && predistrict.errors?.required"
+                            style="color: crimson !important;">District is required
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Row 11-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'upzilla' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <mat-select #preUpzila="ngModel" placeholder="Select One" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="personalInfoFormModel.preUpzilaId" required>
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let dis of upzilaList" [value]="dis.id">{{dis.nameEn | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="(preUpzila.touched || myForm.submitted) && preUpzila.errors?.required"
+                            style="color: crimson !important;">Upazilla is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Row 12-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'anotherAddress' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                    <mat-form-field class="w-full">
+                        <textarea matInput #preAnotherDetails="ngModel" name="otherExpertAreas"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="personalInfoFormModel.preAnotherDetails"
+                            rows="5" required>
+                        </textarea>
+                        <mat-hint
+                            *ngIf="(preAnotherDetails.touched || myForm.submitted) && preAnotherDetails.errors?.required"
+                            style="color: crimson !important;">Address is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card>
+        <!----------------/Present Address Details------------->
+        <!----------------Parmanent Address Details------------->
+        <!-- CARD TWO-->
+        <div class="heading mt-2">
+            <h1>{{'cardHeader2' | translate}}</h1>
+            <mat-checkbox #sameAddressCheckbox [color]="'primary'" class="ml-3" (change)="isBothAddressSame($event)">
+                {{'addressCheckTitle'|translate}}
+            </mat-checkbox>
+        </div>
+        <mat-card class="tab-color">
+            <!-- Row 10-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'division' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <!-- <input matInput name="commonTypes" > -->
+                        <mat-select #divisionId="ngModel" placeholder="Select One"
+                            (selectionChange)="getDistrictByChangeDivision($event.value, 1)"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="personalInfoFormModel.divisionId"
+                            required>
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let div of ParDivisionList" [value]="div.id">{{div.nameEn | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="(divisionId.touched || myForm.submitted) && divisionId.errors?.required"
+                            style="color: crimson !important;">Division is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'district' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <!-- <input matInput name="commonTypes" > -->
+                        <mat-select #districtId="ngModel" placeholder="Select one"
+                            (selectionChange)="getUpazilaByChangeDistrict($event.value, 1)"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="personalInfoFormModel.districtId"
+                            required>
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let dis of ParDistrictList" [value]="dis.id">{{dis.nameEn | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="(districtId.touched || myForm.submitted) && districtId.errors?.required"
+                            style="color: crimson !important;">District is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Row 11-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'upzilla' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <!-- <input matInput name="commonTypes" > -->
+                        <mat-select #upzilaId="ngModel" placeholder="Select One" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="personalInfoFormModel.upzilaId" required>
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let u of ParUpzilaList" [value]="u.id">{{u.nameEn | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="(upzilaId.touched || myForm.submitted) && upzilaId.errors?.required"
+                            style="color: crimson !important;">Upzila is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Row 12-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'anotherAddress' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                    <mat-form-field class="w-full">
+                        <textarea matInput #anotherDetails="ngModel" name="otherExpertAreas"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="personalInfoFormModel.anotherDetails"
+                            rows="5" required></textarea>
+                        <!--<mat-hint *ngIf="anotherDetails.dirty && !(anotherDetails.value | required)" style="color: crimson !important;">Address is required!</mat-hint>-->
+                        <mat-hint
+                            *ngIf="(anotherDetails.touched || myForm.submitted) && anotherDetails.errors?.required"
+                            style="color: crimson !important;">Address name is required!
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card>
+        <!-- Bottom Button -->
+        <div class="flex justify-end mt-8">
+            <!-- !(signImage.value | required)||
+            !(profileImage.value | required)|| -->
+            <!-- <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit" [disabled]="!(anotherDetails.value | required)||
+                                !(email.value | required)||
+                                !(motherName.value | required)||
+                                !(preAnotherDetails.value | required)||
+                                !(fatherName.value | required)||
+                                !(dateOfBirth.value | required)" (click)="save()" color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span>{{ "save" | translate }}</span>
+            </button>-->
+            <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit" (click)="save()"
+                color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span>{{ "save" | translate }}</span>
+            </button>
+            <!--<button mat-flat-button (click)="saveAndNext()" type="button" color="primary" [disabled]="!(anotherDetails.value | required)||
+                                !(email.value | required)||
+                                !(motherName.value | required)||
+                                !(preAnotherDetails.value | required)||
+                                !(fatherName.value | required)||
+                                !(dateOfBirth.value | required)" class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span> {{ "save_and_next" | translate }}</span>
+            </button>-->
+            <button mat-flat-button (click)="saveAndNext()" color="primary" type="submit"
+                class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span> {{ "save_and_next" | translate }}</span>
+            </button>
+            <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF" type="button"
+                color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                {{ "next" | translate }}
+                <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>

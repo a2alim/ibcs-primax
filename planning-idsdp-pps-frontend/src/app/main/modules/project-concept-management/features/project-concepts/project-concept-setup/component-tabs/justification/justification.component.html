@@ -1,0 +1,124 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+
+<div style="overflow-x:auto;">
+    <form [formGroup]="form">
+        <div style="float: right !important; margin-bottom: 5px">
+            <button class="mr-2" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                    (click)="addRow()">Add New Row</button>
+        </div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" formArrayName="justification">
+            <!-- Row definitions -->
+            <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+            <tr mat-row *matRowDef="let row; let i = index; columns: displayColumns;"></tr>
+
+            <!-- SERIAL NO  Column -->
+            <ng-container matColumnDef="sl">
+                <th mat-header-cell *matHeaderCellDef>{{'SERIAL_NO' | translate}}</th>
+                <td mat-cell *matCellDef="let element; let i = index;">
+                    {{i + 1}}
+                </td>
+            </ng-container>
+
+
+            <!-- JUSTIFICATION TYPE  Column -->
+            <ng-container matColumnDef="justification">
+                <th mat-header-cell *matHeaderCellDef>{{'JUSTIFICATION_TYPE' | translate}}</th>
+                <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+
+                    <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                        <mat-select formControlName="justification" >
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let type of justificationTypeList" [value]=type.id>
+                                {{type.nameEn}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <!-- DESCRIPTION  Column -->
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>{{'DESCRIPTION' | translate}}</th>
+                <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                    <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                        <textarea matInput type="text" formControlName="description">
+                        </textarea>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+
+            <!-- ATTACHMENT  Column -->
+            <ng-container matColumnDef="attachment">
+                <th mat-header-cell *matHeaderCellDef>{{'ATTACHMENT' | translate}}</th>
+                <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+
+                    <div class="buttons">
+                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                            <label>{{row.value.attachmentName}}</label>
+                            <ngx-mat-file-input [disabled]="spinner" formControlName="attachmentId" (change)="uploadFile($event.target.files, index)" [accept]="'.pdf'"
+                                                placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+
+                        <button [disabled]="spinner" *ngIf="this.form.value?.justification[index]?.attachmentId" mat-icon-button class="toggle-sidebar-folded"
+                                fxHide.lt-lg>
+                            <mat-icon matTooltip="Download Attachment" (click)="download(index)" color="primary">file_download</mat-icon>
+                        </button>
+
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- ACTION  Column -->
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>{{'ACTION' | translate}}</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <div>
+<!--                        <div class="toggle-sidebar-folded"-->
+<!--                                fxHide.lt-lg>-->
+<!--                            <mat-icon matTooltip="Add New" (click)="addRow()" color="primary">add</mat-icon>-->
+<!--                        </div>-->
+
+                        <button [disabled]="spinner" *ngIf="!canUpdate" class="toggle-sidebar-folded"
+                                fxHide.lt-lg (click)="openDialog(i, 'deleteFromCurrentRow')">
+                            <mat-icon  matTooltip="Delete" color="warn">delete</mat-icon>
+                        </button>
+
+                        <button [disabled]="spinner" *ngIf="canUpdate" class="toggle-sidebar-folded"
+                                fxHide.lt-lg (click)="openDialog(i, 'deleteFromDB')">
+                            <mat-icon matTooltip="Delete" color="warn">delete</mat-icon>
+                        </button>
+
+                    </div>
+                </td>
+            </ng-container>
+
+        </table>
+    </form>
+</div>
+
+<div>
+    <br/><br/><br/>
+    <div fxLayout="row wrap" fxLayoutAlign="end" *ngIf="canEdit">
+        <button class="mr-2" mat-flat-button color="accent" type="button"
+                (click)="backPrevious()">Back</button>
+        <button [disabled]="!form.valid || spinner" class="mr-2" *ngIf="!canUpdate" mat-flat-button color="primary" type="button"
+                (click)="saveAndNext()">{{'Save&Next' | translate}}</button>
+        <button [disabled]="!form.valid || spinner" class="mr-2" *ngIf="canUpdate" mat-flat-button color="primary" type="button"
+                (click)="update()">{{'Save&Next' | translate}}</button>
+        <button [disabled]="!form.valid || spinner" class="mr-2" *ngIf="!canUpdate" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+        <button [disabled]="!form.valid || spinner" class="mr-2" *ngIf="canUpdate" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                (click)="updateAndExit()">{{'Save&Exit' | translate}}</button>
+<!--        <button mat-flat-button style="background-color: green; color: #FFFFFF" type="button"-->
+<!--                (click)="nextTab()">{{'Next' | translate}}</button>-->
+    </div>
+</div>
+
+<!--<pre>{{ form.value | json }}</pre>-->
+

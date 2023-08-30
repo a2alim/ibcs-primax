@@ -1,0 +1,185 @@
+<div class="flex flex-col flex-auto min-w-0">
+  <!-- Header Start-->
+  <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+    <div class="flex-1 min-w-0">
+
+      <!-- Header -->
+      <div class="dark bg-card dark:border-b">
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+          <div class="m-5">
+            <!-- Avatar and name -->
+            <div class="flex flex-auto items-center min-w-0">
+              <div class="flex flex-col min-w-0 ml-4">
+                <div class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                  style=" font-size: 1.50rem; padding-bottom: 2px;">{{'page_title' | translate}}
+                </div>
+                <div class="flex items-center">
+                  <div class="leading-5 truncate text-secondary">
+                    <a routerLink="/agency-dashboard">{{'breadcrumb' | translate}}</a>
+                    >{{'breadcrumb2' | translate}}
+                    >{{'breadcrumb3' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-end go-to-home-page">
+              <button (click)="goBackToHome()" mat-button type="button">
+                <mat-icon>home</mat-icon>&nbsp;
+                {{"homePage" | translate}}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header close-->
+
+
+  <!-- Main -->
+  <div class="flex-auto m-7 body-color">
+    <!-- <div *ngIf="tabEnable">
+      <mat-card class="obj_cost">
+        <h2>{{'obj_cost_data_not_yet' | translate}}</h2>
+      </mat-card>
+    </div> -->
+    <div class="max-w-8xl">
+      <!-- Horizontal stepper -->
+      <form class="bg-card shadow rounded ounded-2xl overflow-hidden" [formGroup]="horizontalStepperForm">
+        <mat-horizontal-stepper [linear]="false" class="tab-bar tab-color" #horizontalStepper>
+
+          <mat-step [formGroupName]="'step1'" title="Objectives & Cost (1-6)"
+            [stepControl]="horizontalStepperForm.get('step1')" #horizontalStepperStep1>
+            <ng-template matStepLabel>
+              <div matTooltipPosition="above" matTooltip="{{'tab_title_1' | translate}}">
+                <span class="tab-font-size">{{'tab_title_1' | translate}}</span>
+              </div>
+            </ng-template>
+            <p class="my-6 font-medium"></p>
+            <div class="flex flex-col gt-xs:flex-row">
+              <app-pm-pd-selection [dppTappMasterId]="dppTappMasterId" [dppTappMasterUuid]="dppTappMasterUuid"
+                (goForward)="goForward(horizontalStepper)" (goBack)="goBack(horizontalStepper)"
+                (goBackToHome)="goBackToHome()">
+              </app-pm-pd-selection>
+            </div>
+          </mat-step>
+
+          <mat-step [formGroupName]="'step2'" [stepControl]="horizontalStepperForm.get('step2')"
+            #horizontalStepperStep1>
+            <ng-template matStepLabel>
+              <div matTooltipPosition="above" matTooltip="{{'tab_title_2' | translate}}">
+                <span class="tab-font-size">{{'tab_title_2' | translate}}</span>
+              </div>
+            </ng-template>
+            <p class="my-6 font-medium"></p>
+            <div class="flex flex-col gt-xs:flex-row">
+              <app-pm-procurement-plan [dppTappMasterId]="dppTappMasterId" [dppTappMasterUuid]="dppTappMasterUuid"
+                [projectConceptMasterId]="projectConceptMasterId" [projectConceptUuid]="projectConceptUuid"
+                (goForward)="goForward(horizontalStepper)" (goBack)="goBack(horizontalStepper)"
+                (goBackToHome)="goBackToHome()">
+              </app-pm-procurement-plan>
+            </div>
+          </mat-step>
+
+          <mat-step [formGroupName]="'step3'" [stepControl]="horizontalStepperForm.get('step3')"
+            #horizontalStepperStep1>
+            <ng-template matStepLabel>
+              <div matTooltipPosition="above" matTooltip="{{'tab_title_3' | translate}}">
+                <span class="tab-font-size">{{'tab_title_3' | translate}}</span>
+              </div>
+            </ng-template>
+            <p class="my-6 font-medium"></p>
+            <div class="flex flex-col gt-xs:flex-row">
+              <app-pm-work-plan [dppTappMasterId]="dppTappMasterId" [dppTappMasterUuid]="dppTappMasterUuid"
+                [dateCommencement]="dateCommencement" [dateCompletion]="dateCompletion"
+                (goForward)="goForward(horizontalStepper)" (goBack)="goBack(horizontalStepper)"
+                (goBackToHome)="goBackToHome()">
+              </app-pm-work-plan>
+            </div>
+          </mat-step>
+
+          <mat-step [formGroupName]="'step4'" [stepControl]="horizontalStepperForm.get('step4')"
+            #horizontalStepperStep2>
+            <ng-template matStepLabel>
+              <div matTooltipPosition="above" matTooltip="{{'tab_title_4' | translate}}">
+                <span class="tab-font-size">{{'tab_title_4' | translate}}</span>
+              </div>
+            </ng-template>
+            <p class="my-6 font-medium"></p>
+            <div class="flex flex-col gt-xs:flex-row">
+              <app-adp-fund-request [dppTappMasterId]="dppTappMasterId" [dppTappMasterUuid]="dppTappMasterUuid"
+                [type]="type" [projectConceptMasterId]="projectConceptMasterId"
+                [projectConceptMasterUuid]="projectConceptUuid" [dateCommencement]="dateCommencement"
+                [dateCompletion]="dateCompletion" (goForward)="goForward(horizontalStepper)"
+                (goBack)="goBack(horizontalStepper)" (goBackToHome)="goBackToHome()">
+              </app-adp-fund-request>
+            </div>
+          </mat-step>
+
+          <mat-step [formGroupName]="'step5'" [stepControl]="horizontalStepperForm.get('step5')">
+            <ng-template matStepLabel>
+              <div matTooltipPosition="above" matTooltip="{{'tab_title_5' | translate}}">
+                <span class="tab-font-size">{{'tab_title_5' | translate}}</span>
+              </div>
+            </ng-template>
+            <p class="my-6 font-medium"></p>
+            <div class="flex flex-col gt-xs:flex-row">
+              <app-visit-schedule [dppTappMasterId]="dppTappMasterId" [dppTappMasterUuid]="dppTappMasterUuid"
+                (goForward)="goForward(horizontalStepper)" (goBack)="goBack(horizontalStepper)"
+                (goBackToHome)="goBackToHome()">
+              </app-visit-schedule>
+              <!-- <app-effect-impact></app-effect-impact> -->
+            </div>
+          </mat-step>
+
+          <mat-step [formGroupName]="'step6'" [stepControl]="horizontalStepperForm.get('step6')">
+            <ng-template matStepLabel>
+              <div matTooltipPosition="above" matTooltip="{{'tab_title_6' | translate}}">
+                <span class="tab-font-size">{{'tab_title_6' | translate}}</span>
+              </div>
+            </ng-template>
+            <p class="my-6 font-medium"></p>
+            <div class="flex flex-col gt-xs:flex-row">
+              <app-pm-pd-expenditure [dppTappMasterId]="dppTappMasterId" [dppTappMasterUuid]="dppTappMasterUuid"
+                (goForward)="goForward(horizontalStepper)" (goBack)="goBack(horizontalStepper)"
+                (goBackToHome)="goBackToHome()">
+              </app-pm-pd-expenditure>
+            </div>
+          </mat-step>
+
+          <mat-step [formGroupName]="'step7'" [stepControl]="horizontalStepperForm.get('step7')">
+            <ng-template matStepLabel>
+              <div matTooltipPosition="above" matTooltip="{{'tab_title_7' | translate}}">
+                <span class="tab-font-size">{{'tab_title_7' | translate}}</span>
+              </div>
+            </ng-template>
+            <p class="my-6 font-medium"></p>
+            <div class="flex flex-col gt-xs:flex-row">
+              <app-asset-management [dppTappMasterId]="dppTappMasterId" [dppTappMasterUuid]="dppTappMasterUuid"
+                [projectConceptMasterId]="projectConceptMasterId" [projectConceptUuid]="projectConceptUuid"
+                (goForward)="goForward(horizontalStepper)" (goBack)="goBack(horizontalStepper)"
+                (goBackToHome)="goBackToHome()">
+              </app-asset-management>
+            </div>
+          </mat-step>
+
+          <!-- <mat-step [formGroupName]="'step8'" [stepControl]="horizontalStepperForm.get('step8')">
+            <ng-template matStepLabel>
+              <div matTooltipPosition="above" matTooltip="{{'tab_title_7' | translate}}">
+                <span class="tab-font-size">{{'tab_title_8' | translate}}</span>
+              </div>
+            </ng-template>
+            <p class="my-6 font-medium"></p>
+            <div class="flex flex-col gt-xs:flex-row">
+              Step 8
+            </div>
+          </mat-step> -->
+
+        </mat-horizontal-stepper>
+      </form>
+    </div>
+  </div>
+</div>

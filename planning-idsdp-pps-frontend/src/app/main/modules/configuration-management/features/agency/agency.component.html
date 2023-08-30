@@ -1,0 +1,412 @@
+<div style="width: 100%" *ngIf="form">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div
+                    class="flex flex-col w-full max-w-screen-xl mx-auto sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    {{'ConfigurationManagement' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div
+                                        class="leading-5 truncate text-secondary">
+                                        {{'Home>Agency' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+
+            <div *ngIf="actionPermission?.includes('Agency Create')" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1>{{'AddAgency' | translate}}</h1>
+                </div>
+
+                <!-- Form Start -->
+                <form [formGroup]="form" class="p-8">
+                    <!-- Code input field-->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">{{'Code'}}
+                                    <strong class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input matInput formControlName="entryCode" required>
+                                    <mat-error>{{'Code is required!'}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!--Ministry Division selection field-->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                    {{'MinistryDivision' | translate}}
+                                    <strong class="required">*</strong>
+                                </mat-label>
+                                <!--<mat-select-search fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%"
+                                    [formGroup]="form"
+                                    [controlName]="'ministryDivisionId'"
+                                    [required]="true"
+                                    [data]="ministryDivisions">
+                                </mat-select-search>-->
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <mat-select formControlName="ministryDivisionId">
+                                        <mat-option *ngFor="let m of ministryDivisions" [value]="m.id">{{m.nameEn}}</mat-option>
+                                    </mat-select>
+                                    <mat-error>{{'MinistryDivisionRequired' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Name Eng input field-->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                           fxFlex.xs="100%">{{'NameEn' | translate}}
+                                    <strong class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input matInput formControlName="nameEn" required>
+                                    <mat-error>{{'NameEnRequired' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- Name Bng input field-->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                           fxFlex.xs="100%">{{'NameBn' | translate}}
+                                    <strong class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="nameBn" matInput required>
+                                    <mat-error>{{'NameBnRequired' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Name Eng input field-->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                           fxFlex.xs="100%">{{'FiscalYear' | translate}}
+                                    <strong class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%"
+                                                fxFlex.xs="60%">
+                                    <input required (click)="picker1.open()" [matDatepicker]="picker1"
+                                           formControlName="fiscalYear" matInput readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- Name Bng input field-->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                           fxFlex.xs="100%">{{'CeilingAmount' | translate}}
+                                    <strong class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="ceilingAmount" type="number" matInput required>
+                                    <mat-error>{{'CeilingAmount' | translate}} is required</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Short Name input field-->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">{{'ShortName' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="shortName" matInput>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- Description input field-->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                           fxFlex.xs="100%">{{'Description' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <textarea formControlName="description" matInput></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Status selection field-->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                           fxFlex.xs="100%">{{'Status' | translate}}
+                                    <strong class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <mat-select formControlName="status" required>
+                                        <mat-option [value]="true">{{'Active' | translate}}</mat-option>
+                                        <mat-option [value]="false">{{'Inactive' | translate}}</mat-option>
+                                    </mat-select>
+                                    <mat-error>{{'Status' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="flex justify-end mt-3 mr-2">
+
+                        <!-- Reset Button -->
+                        <button
+                            (click)="reset()"
+                            class="px-8"
+                            mat-flat-button
+                            color="accent"
+                            type="button">
+                            {{'Reset' | translate}}
+                        </button>&nbsp;&nbsp;
+
+                        <!-- Save Button -->
+                        <button
+                            *ngIf="!form.value.uuid"
+                            (click)="onSubmit()"
+                            [disabled]="!form.valid"
+                            class="px-8"
+                            mat-flat-button
+                            color="primary"
+                            type="button">
+                            {{'Save' | translate}}
+                        </button>
+
+                        <!-- Update Button -->
+                        <button
+                            *ngIf="form.value.uuid"
+                            (click)="onSubmit()"
+                            [disabled]="!form.valid"
+                            class="px-8"
+                            mat-flat-button
+                            color="primary"
+                            type="button">
+                            {{'Update' | translate}}
+                        </button>
+                    </div>
+
+                </form>
+                <!-- Form End -->
+            </div>
+
+
+            <!-- List Grid Start -->
+            <div
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between center"
+                class="mt-5">
+                <div fxFlex="30%">
+                    <h1 class="header1">
+                        {{'AgencyList' | translate}}
+                    </h1>
+                </div>
+
+                <div>
+                    <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                        <!--<mat-label>Filter</mat-label>-->
+                        <input
+                            matInput
+                            (keyup)="applyFilter($event)"
+                            placeholder="{{'Search' | translate}}"
+                            #input/>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div
+                class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table
+                        mat-table
+                        [dataSource]="dataSource"
+                        class="mat-elevation-z8 bg-transparent"
+                        matSort>
+
+                        <!-- SL Column -->
+                        <ng-container matColumnDef="sl">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                {{'SL' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row; let i = index;">
+                                {{(i+1) + (page * size)}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Code Column -->
+                        <ng-container matColumnDef="entryCode">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                {{'Code' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.entryCode }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name En Column -->
+                        <ng-container matColumnDef="nameEn">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                {{'NameEn' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.nameEn }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Bn Column -->
+                        <ng-container matColumnDef="nameBn">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                {{'NameBn' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.nameBn }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="fiscalYear">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                {{'FiscalYear' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.fiscalYear }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Bn Column -->
+                        <ng-container matColumnDef="ceilingAmount">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                {{'CeilingAmount' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.ceilingAmount }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Status Column -->
+                        <ng-container matColumnDef="status">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                {{'Status' | translate}}
+                            </th>
+                            <td class="text-alignment" mat-cell *matCellDef="let row">
+                                {{ row.currentStatus}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                {{'Action' | translate}}
+                            </th>
+
+                            <td mat-cell *matCellDef="let row">
+                                <div class="buttons">
+                                    <button
+                                        mat-icon-button
+                                        class="toggle-sidebar-folded"
+                                        matTooltip="{{'Edit' | translate}}"
+                                        fxHide.lt-lg
+                                        (click)="edit(row)">
+                                        <mat-icon color="accent">edit
+                                        </mat-icon>
+                                    </button>
+
+                                    <!--<button
+                                        [disabled]="disableDelete"
+                                        mat-icon-button
+                                        class="toggle-sidebar-folded"
+                                        matTooltip="{{'Delete' | translate}}"
+                                        fxHide.lt-lg
+                                        (click)="openDialog('d', row)">
+                                        <mat-icon
+                                            color="warn">delete
+                                        </mat-icon>
+                                    </button>-->
+                                </div>
+                            </td>
+                        </ng-container>
+                        <!-- Table Action Buttons End-->
+
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns"></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns"></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">
+                                No data matching the filter "{{ input.value }}"
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <mat-paginator
+                    [length]="total"
+                    [pageSize]="size"
+                    [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                    (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+
+            <!-- List Grid End -->
+
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>
+
+

@@ -1,0 +1,761 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    Strengthening Digital Processing Of Projects (SDPP)
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">Project Processing,
+                                        Appraisal and Management System
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                        <div class="flex justify-end" style="margin-top: -50px; color: #FFFFFF !important;">
+                            <button (click)="navigateToList()" mat-button type="button">
+                                <mat-icon>dashboard</mat-icon>&nbsp;
+<!--                                {{'Dashboard' | translate}}-->
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-6 outside-body">
+        <div class="max-w-8xl">
+            <div class="flex items-center justify-end mb-3">
+                <button *ngIf="showButtonSendToNothi && showNothiButtonMOFAndTotalEstimatedCostIsEqual" class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #ffffff"
+                        (click)="sendFsToNothi()">
+
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'send_to_daak' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #df3434;color: #FFFFFF"
+                        (click)="forwardToMinistry()" *ngIf="(isForwardToMinistryHead && potroJari) || (isForwardToMinistryHead && isNoteCompletetion)">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_ministry' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #df3434;color: #FFFFFF"
+                        (click)="forwardToMinistryDesk()" *ngIf="isForwardToMinistryDesk">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_ministry_desk' | translate}}
+                </button>
+
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #df3434;color: #FFFFFF"
+                        (click)="returnToAgencyDesk()" *ngIf="isReturnToAgencyDesk">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_agency_desk' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #df3434;color: #FFFFFF"
+                        (click)="toAgencyHead()" *ngIf="isReturnToAgencyHead">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'return_to_agency' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="forwardToPlanning()" *ngIf="isForwardToPlanningHead">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_planning' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="forwardToPlanningDesk()" *ngIf="isForwardToPlanningDesk">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_planning_desk' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="returnToMinistry()" *ngIf="isReturnToMinistryHead">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'return_to_ministry' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="forwardToPlanningMinister()" *ngIf="isForwardToPlanningMinister">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_planning_minister' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="forwardToEcnec()" *ngIf="isForwardToEcnec">
+                    <img src="assets/images/logo/post_office.png" alt=""
+                         style="width: 30px;margin-right: 5px;">{{'forward_to_ecnec' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="approvedByPlanningMinister()" *ngIf="isInPlanningMinister">
+                    <!-- <img src="assets/images/logo/post_office.png" alt=""
+                        style="width: 30px;margin-right: 5px;"> -->
+<!--                    <mat-icon>check</mat-icon>-->
+                    {{'approved_by_planning_minister' | translate}}
+                </button>
+
+                <button class="px-6 ml-3 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="approvedByEcnec()" *ngIf="isInEcnec">
+<!--                    <mat-icon>check_circle</mat-icon>-->
+                    {{'approved_by_ecnec' | translate}}
+                </button>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="56" style="height: 100%">
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden"
+                        style="height: 295px;overflow-y: scroll !important;">
+                        <div class="heading">
+                            <h1>Feasibility Study/Survey Summary</h1>
+                        </div>
+                        <div class="mr-2 ml-2 mt-2 mb-2">
+                            <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap">
+                                <table class="infoSummary proSummary">
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Title Name(English)
+                                        </td>
+                                        <td class="right-info-td">{{fspSummary?.titleEn}}</td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-even">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Title Name(Bangla)
+                                        </td>
+                                        <td class="right-info-td">{{fspSummary?.titleBn}}</td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-even">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Date of Commencement
+                                        </td>
+                                        <td class="right-info-td">{{fspSummary?.dateOfCommencement | date:'dd-MM-yyyy'}}
+                                        </td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Date of Completion
+                                        </td>
+                                        <td class="right-info-td">{{fspSummary?.dateOfCompletion | date:'dd-MM-yyyy'}}
+                                        </td>
+                                    </tr>
+                                    <tr class="info-tr info-tr-even">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Project Status
+                                        </td>
+                                        <td class="right-info-td">
+                                            <mat-label><span class="heading" style="border-radius: 5%;">{{projectStatus}}</span>
+                                            </mat-label>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Project Stage
+                                        </td>
+                                        <td class="right-info-td">
+                                            <mat-label>
+                                                <span class="heading" style="border-radius: 5%;">
+                                                    {{projectStage}}
+                                                </span>
+                                            </mat-label>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr class="info-tr info-tr-odd">
+                                        <td class="left-info-td">
+                                            <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                            </mat-icon>
+                                            Nothi Status
+                                        </td>
+                                        <td class="right-info-td">
+                                            <mat-label>
+                                                <label class="heading mt-3">
+                                                    {{nothiStatus}}
+                                                </label>
+
+                                                <article class="right-info-td"
+                                                         [ngStyle]="{'height':potroJari?'80px':'40px'}">
+                                                    <p *ngIf="potroJari" style="margin-top: 3%; color:white">
+                                                        <a [href]="potroUrl" target="_blank" class="potroUrlLink"
+                                                           style="animation: glowing 1300ms infinite;
+                                                       padding: 0.5% 5% 0.5% 5%">জারিকৃত পত্র দেখুন </a>
+                                                    </p>
+
+                                                </article>
+                                                <article *ngIf="isNoteCompletetion">
+                                                    নোট নিস্পন্ন |
+                                                </article>
+
+                                            </mat-label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5" style="height: 348px;">
+                        <div class="heading">
+                            <h1>Cost Information</h1>
+                        </div>
+                        <div class="mr-4 ml-4 mt-4 mb-4">
+                            <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap">
+                                <div style="width: 100%;">
+                                    <button class="mtbf-btn" style="float: right" color="primary" mat-raised-button>MTBF
+                                        Checking
+                                    </button>
+                                </div>
+                                <div id="chart" *ngIf="fspSummary!=null">
+                                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                        [labels]="chartOptions.labels" [dataLabels]="chartOptions.dataLabels"
+                                        [title]="chartOptions.title" [fill]="chartOptions.fill"
+                                        [states]="chartOptions.states" [plotOptions]="chartOptions.plotOptions"
+                                        [stroke]="chartOptions.stroke" [theme]="chartOptions.theme"
+                                        [responsive]="chartOptions.responsive"></apx-chart>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="3"></div>
+                <div fxFlex="41">
+                    <div
+                        style="height: 601px;border: 8px solid #FFFFFF;border-radius: 10px;
+                    background-image: url('/assets/images/logo/view_dashboard_with_border.png');background-repeat:  no-repeat;background-position: center center;">
+                        <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap justify-center">
+                            <div style="text-align: center;">
+                                <img src="assets/images/logo/bd.png"
+                                    style="height: 100px;width: 100px;margin: 0 auto;margin-bottom: 20px;margin-top: 20px"
+                                    alt="">
+                                <p style="font-weight: bold;margin-bottom: 5px;font-size: 16px;">Government of the
+                                    People's Republic of Bangladesh</p>
+                                <p style="margin-bottom: 40px;font-size: 13px">Planning Commission, Ministry of
+                                    Planning </p>
+                                <p style="margin-bottom: 15px;font-weight: bold;">FEASIBILITY STUDY PROPOSAL</p>
+                                <p style="margin-bottom: 15px;font-weight: bold;">OF</p>
+                                <p style="margin-bottom: 40px;font-weight: bold;">Demonestration Project 19.04.2021</p>
+                                <p style="font-weight: bold;font-size: 15px;margin-bottom: 40px;">উপস্থাপনমূলক প্রকল্প
+                                    ২৯-০৪-২০২১</p>
+                                <p style="font-weight: bold;">জনস্বাস্থ্ অদিপ্তর</p>
+                                <p style="font-weight: bold;">স্থানীয় সরকার বিভাগ</p>
+                                <p style="font-weight: bold;margin-bottom: 40px;">ঢাকা, বাংলাদেশ</p>
+                                <p style="font-weight: bold">Date: July,2021</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button
+                                class="btn-project-concept-edit"
+                                style="background-color: #e6922a !important; font-size: small;"
+                                (click)="downloadRelatedInfoClick()">
+<!--                                <mat-icon style="margin-right: 5px;">outbox</mat-icon>-->
+                                Download Feasibility Study
+                                Proposal Related Information
+                            </button>
+                            <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button
+                                style="background-color: #00b74a !important" class="btn-project-concept-edit"
+                                (click)="downloadGOClick()">
+<!--                                <mat-icon style="margin-right: 5px;">system_update_alt</mat-icon>-->
+                                Download GO
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <h1>Feasibility Study Proposal Information Details</h1>
+                    </div>
+
+                    <div class="mr-8 ml-8 mt-4 mb-4">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+<!--                            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">-->
+<!--                                <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"-->
+<!--                                    mat-raised-button (click)="editProjectSummary()" class="btn-project-concept-edit">-->
+<!--                                    <mat-icon>gpp_good</mat-icon>-->
+<!--                                    Feasibility Study/Survey Summary-->
+<!--                                </button>-->
+<!--                            </div>-->
+
+                            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            </div>
+
+
+                            <div fxFlex="20%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                    mat-raised-button class="btn-project-concept-delete">
+<!--                                    <mat-icon>file_download</mat-icon>-->
+                                    Download
+                                </button>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <h1>List of Attachments</h1>
+                    </div>
+                    <div class="mr-8 ml-8 mt-4">
+                        <div>
+
+                            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                                <!--<mat-card>-->
+                                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                                    <table mat-table [dataSource]="dataSource"
+                                        class="attachment-table mat-elevation-z8 bg-transparent" matSort>
+                                        <!-- ID Column -->
+                                        <ng-container matColumnDef="id">
+                                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                                Sl.
+                                            </th>
+                                            <td mat-cell *matCellDef="let row, let i = index">
+                                                {{(i + 1) }}</td>
+                                        </ng-container>
+
+                                        <!-- Progress Column -->
+                                        <ng-container matColumnDef="name">
+                                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                                Title
+                                            </th>
+                                            <td style="text-align: left !important;" mat-cell *matCellDef="let row">
+                                                {{ row.title }}
+                                            </td>
+                                        </ng-container>
+
+                                        <!-- Name Column -->
+                                        <ng-container matColumnDef="progress">
+                                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                                Download
+                                            </th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <button mat-icon-button color="primary" (click)="openUrl(row)">
+                                                    <mat-icon>file_download</mat-icon>
+                                                </button>
+                                            </td>
+                                        </ng-container>
+
+                                        <!-- Action Column -->
+                                        <ng-container matColumnDef="action">
+                                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                                Action
+                                            </th>
+
+                                            <td class="text-alignment" mat-cell *matCellDef="let row">
+                                                <div class="buttons">
+                                                    <button (click)="edit(row)" mat-icon-button
+                                                        class="toggle-sidebar-folded" matTooltip="Edit" fxHide.lt-lg>
+                                                        <mat-icon color="accent">edit
+                                                        </mat-icon>
+                                                    </button>
+
+                                                    <button (click)="deleteDialog(row.uuid)" mat-icon-button
+                                                        class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>
+                                                        <mat-icon color="warn">delete
+                                                        </mat-icon>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <!-- Table Action Buttons End-->
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns">
+                                        </tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns">
+                                        </tr>
+
+                                        <!-- Row shown when there is no matching data. -->
+                                        <tr class="mat-row" *matNoDataRow>
+                                            <td class="mat-cell" colspan="4">
+                                                No data Found
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <mat-paginator [length]="totalNumber" [pageSize]="size"
+                                    [pageSizeOptions]="[2, 3, 5, 10, 25, 100]" (page)="onChangePage($event)">
+                                </mat-paginator>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="mt-4 mb-4">
+                            <button (click)="openDialog()" color="primary" mat-raised-button>
+                                Add Attachment
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <h1>Comment & Observation</h1>
+                    </div>
+                    <div class="mr-8 ml-8 mt-4 mb-4">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="btn-comment-agency" fxFlex="28%" fxFlex.md="100%" fxFlex.sm="100%"
+                                fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-icon class="pb-1 icon" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%"
+                                        fxFlex.xs="15%">home
+                                    </mat-icon>
+                                    <label fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">{{'Agency' |
+                                        translate}}</label>
+                                    <button class="pt-1" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="15%"
+                                        (click)="showComments('A')">
+                                        <mat-icon class="icon">comment</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="btn-comment-ministry" fxFlex="28%" fxFlex.md="100%" fxFlex.sm="100%"
+                                fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-icon class="pb-1 icon" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%"
+                                        fxFlex.xs="15%">home
+                                    </mat-icon>
+                                    <label fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">{{'MinistryDivision' | translate}}</label>
+                                    <button class="pt-1" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="15%"
+                                        (click)="showComments('MD')">
+                                        <mat-icon class="icon">comment</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+
+<!--                            <div fxFlex="28%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">-->
+
+<!--                            </div>-->
+
+                            <div class="btn-comment-commission" fxFlex="28%"
+                                 fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-icon class="pb-1 icon" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%"
+                                              fxFlex.xs="20%">home
+                                    </mat-icon>
+                                    <label fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                           fxFlex.xs="70%">{{'PlanningCommission' | translate}}</label>
+                                    <button class="pt-1" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="15%"
+                                            (click)=" showComments('PC')">
+                                        <mat-icon class="icon">comment</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="55" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                     class="flex flex-col bg-card shadow rounded overflow-hidden"
+                     style="background-color: rgb(230,230,230) !important;height: 478px; overflow-y: scroll !important">
+                    <div class="heading">
+                        <h1>Project Movement Status</h1>
+                    </div>
+                    <ul class="timesheet" *ngIf="movementStatusList.length>0">
+
+                        <li *ngFor="let movement of movementStatusList; let i=index">
+                            <!-- [ngClass]="i%2==0?'direction-r':'direction-l'" -->
+                            <div>
+                                <div class="direction-l">
+                                    <p  style="text-align: center;font-weight: 600;">প্রেরক</p>
+                                    <img *ngIf="i==movementStatusList.length-1" [src]="'/assets/images/logo/not-allowed.jpg'" class="img-l" >
+                                    <img *ngIf="i<movementStatusList.length-1" [src]="movementStatusList[i+1].current_desk_user_info?'http://training.nothi.gov.bd'+movementStatusList[i+1].current_desk_user_info?.user_photo:i+2<=movementStatusList.length-1?'http://training.nothi.gov.bd'+movementStatusList[i+2].current_desk_user_info.user_photo:'/assets/images/logo/not-allowed.jpg'" class="img-l" />
+                                    <p *ngIf="i<movementStatusList.length-1" class="desc" style="margin-top: 0%;color: blue;">
+                                        {{movementStatusList[i+1].current_desk_user_info?movementStatusList[i+1].current_desk_user_info?.officer_name:(i+2<=movementStatusList.length-1)?movementStatusList[i+2].current_desk_user_info?.officer_name:'N/A'}}
+                                    </p>
+                                    <p *ngIf="i<movementStatusList.length-1" class="desc" style="margin-top: 0%;color: blue;">
+                                        {{movementStatusList[i+1].current_desk_user_info?movementStatusList[i+1].current_desk_user_info?.office_name:(i+2<=movementStatusList.length-1)?movementStatusList[i+2].current_desk_user_info?.office_name:'N/A'}}
+                                    </p>
+                                </div>
+                                <div  class="direction-r">
+
+                                    <div class="flag-wrapper">
+                                        <span class="flag" *ngIf="movement.decision_note!=null">{{movement.decision_note}}</span>
+                                        <span class="flag" *ngIf="movement.nothi_message!=null && movement.decision_note==null">{{movement.nothi_message}}</span>
+                                        <span class="time-wrapper"><span class="time">{{movement.feedbackDateTime | date}}</span></span>
+                                    </div>
+                                    <div class="desc">
+                                        <p style="font-weight: 600;">মূল প্রাপক</p>
+                                        {{movement.current_desk_user_info?.officer_name}}<span *ngIf="movement.current_desk_user_info">,</span>
+                                        {{movement.current_desk_user_info?.designation_label}}
+                                        <p>{{movement?.current_desk_user_info?.office_name}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+
+                        <!-- Item 1 -->
+                        <!-- <li>
+                            <div class="direction-r">
+                                <div class="flag-wrapper">
+                                    <span class="flag">Freelancer</span>m
+                                    <span class="time-wrapper"><span class="time">2013 - present</span></span>
+                                </div>
+                                <div class="desc">My current employment. Way better than the position before!</div>
+                            </div>
+                        </li> -->
+
+                        <!-- Item 2 -->
+                        <!-- <li>
+                            <div class="direction-l">
+                                <div class="flag-wrapper">
+                                    <span class="flag">Apple Inc.</span>
+                                    <span class="time-wrapper"><span class="time">2011 - 2013</span></span>
+                                </div>
+                                <div class="desc">My first employer. All the stuff I've learned and projects I've been working on.</div>
+                            </div>
+                        </li> -->
+
+                        <!-- Item 3 -->
+                        <!-- <li>
+                            <div class="direction-r">
+                                <div class="flag-wrapper">
+                                    <span class="flag">Harvard University</span>
+                                    <span class="time-wrapper"><span class="time">2008 - 2011</span></span>
+                                </div>
+                                <div class="desc">A description of all the lectures and courses I have taken and my final degree?</div>
+                            </div>
+                        </li> -->
+
+                        <!-- Item 4 -->
+                        <!-- <li>
+                            <div class="direction-l">
+                                <div class="flag-wrapper">
+                                    <span class="flag"> University</span>
+                                    <span class="time-wrapper"><span class="time">2008 - 2011</span></span>
+                                </div>
+                                <div class="desc">A description of all the lectures and courses I have taken and my final degree?</div>
+                            </div>
+                        </li> -->
+
+                    </ul>
+                </div>
+
+                <div fxFlex="5" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+
+                </div>
+
+                <div fxFlex="40" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                     class="flex flex-col bg-card shadow rounded overflow-hidden" style="height: 478px;">
+                    <div class="heading">
+                        <h1>GIS MAP</h1>
+                    </div>
+                    <div class="">
+                        <div class="mapouter">
+                            <div class="gmap_canvas">
+                                <iframe class="gmap_iframe" frameborder="0" scrolling="no" marginheight="0"
+                                        marginwidth="0"
+                                        src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=planning ministry&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                <a href="https://www.fridaynightfunkin.net/">Friday Night Funkin</a>
+                            </div>
+                            <style>
+                                .mapouter {
+                                    position: relative;
+                                    text-align: right;
+                                    width: 100%;
+                                    height: 100%;
+                                }
+
+                                .gmap_canvas {
+                                    overflow: hidden;
+                                    background: none !important;
+                                    width: 600px;
+                                    height: 440px;
+                                }
+
+                                .gmap_iframe {
+                                    width: 100% !important;
+                                    height: 100% !important;
+                                }
+                            </style>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--<fuse-drawer
+    fxFlex="50" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+    style="width: 40%;"
+    fixed
+    transparentOverlay
+    [mode]="'over'"
+    [name]="'commentObservationDrawer'"
+    [position]="'right'"
+    #commentObservationDrawer>
+    <app-comment-observation style="width: 100%"></app-comment-observation>
+</fuse-drawer>-->
+
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callAPIDialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <h1>Upload Attachment</h1>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <form [formGroup]="frmGroup" class="p-8">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                fxFlex.xs="100%">Title<strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                <input matInput formControlName="title">
+                                <mat-error>Title is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                fxFlex.xs="100%">Attachment<strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                class="fuse-mat-dense flex-auto mt-5">
+                                <ngx-mat-file-input formControlName="attachmentId"
+                                    (change)="uploadFile($event.target.files)" [accept]="'.pdf'"
+                                    placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>Attachment is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button (click)="resetValue()" mat-flat-button color="accent" type="button" mat-dialog-close>Cancel</button>
+            <button (click)="save()" *ngIf="!frmGroup.value.uuid" [disabled]="!frmGroup.valid" class="mr-2"
+                mat-flat-button color="primary" type="button" [mat-dialog-close]="true" cdkFocusInitial>Save
+            </button>
+            <button (click)="save()" *ngIf="frmGroup.value.uuid" [disabled]="!frmGroup.valid" class="mr-2"
+                mat-flat-button color="primary" type="button" [mat-dialog-close]="true" cdkFocusInitial>Update
+            </button>
+        </mat-dialog-actions>
+
+    </div>
+</ng-template>
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callDownloadGODialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <h1 style="display: inline-block;">
+                <mat-icon style="margin-right: 5px;vertical-align: middle;color: #fff;">outbox</mat-icon>
+                Downlaod GO
+            </h1>
+            <button mat-icon-button class="close-button" [mat-dialog-close]="true"
+                (click)="closeReportDownloadDialog()">
+                <mat-icon class="close-icon" color="warn">close</mat-icon>
+            </button>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden" style="padding: 10px;">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button
+                        class="btn-project-concept-edit" style="background-color: #e6922a !important;">
+                        <mat-icon style="margin-right: 5px;">file_download</mat-icon>
+                        Download Administrative Order
+                    </button>
+                    <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button
+                        style="background-color: #00b74a !important" class="btn-project-concept-edit">
+                        <mat-icon style="margin-right: 5px;">file_download</mat-icon>
+                        Download GO
+                    </button>
+                </div>
+            </div>
+        </mat-dialog-content>
+    </div>
+</ng-template>
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callDownloadRelatedInfoDialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <h1 style="display: inline-block;">
+                <mat-icon style="margin-right: 5px;vertical-align: middle;color: #fff;">outbox</mat-icon>
+                Downlaod Feasibility Study Related Information
+            </h1>
+            <button mat-icon-button class="close-button" [mat-dialog-close]="true"
+                (click)="closeReportDownloadDialog()">
+                <mat-icon class="close-icon" color="warn">close</mat-icon>
+            </button>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden" style="padding: 10px;">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button
+                        class="btn-project-concept-edit" style="background-color: #e6922a !important;"
+                        (click)="downloadFSPReport()">
+                        <mat-icon style="margin-right: 5px;">file_download</mat-icon>
+                        Download Full Feasibility Study
+                        <!-- View Feasibility Study Proposal Report -->
+                    </button>
+                    <!-- <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                    style="margin: 5px;margin-bottom: -12px;">
+                        <mat-select style="color: #0d9488;font-weight: 500;">
+                            <mat-option value="" style="color: #0d9488;font-weight: 500;"><mat-icon style="margin-right: 5px;color: #0d9488;">file_download</mat-icon>View Feasibility Study(All Version)</mat-option>
+                            <mat-option value="2" style="color: #0d9488;font-weight: 500;"><mat-icon style="margin-right: 5px;color: #0d9488;">file_download</mat-icon>Feasibility Study Verison 1</mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+                    <!-- <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                    style="margin: 5px;margin-bottom: -12px;">
+                        <mat-select style="color: #0d9488;font-weight: 500;">
+                            <mat-option value="" style="color: #0d9488;font-weight: 500;"><mat-icon style="margin-right: 5px;color: #0d9488;">file_download</mat-icon>Download Feasibility Study</mat-option>
+                            <mat-option value="2" style="color: #0d9488;font-weight: 500;"><mat-icon style="margin-right: 5px;color: #0d9488;">file_download</mat-icon>Project Feasibility Study 1</mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+                </div>
+            </div>
+        </mat-dialog-content>
+    </div>
+</ng-template>

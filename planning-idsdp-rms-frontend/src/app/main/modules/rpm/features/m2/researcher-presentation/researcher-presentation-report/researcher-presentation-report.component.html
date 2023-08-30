@@ -1,0 +1,76 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+
+    <div class="body m-5">
+        <mat-card>
+
+            <div class="mt-5">
+                <div class="text-align-centre header-font-size">
+                    <p><strong>{{'GovernmentPeopleRepublicBangladesh' | translate}}</strong></p>
+                    <p><strong>{{'MinistryOfPlanning' | translate}}</strong></p>
+                    <p><strong>{{'PlanningDivision' | translate}}</strong></p>
+                    <p><strong><u>{{'MinistryOfPlanning' | translate}}</u></strong></p>
+                </div>
+                <div class="mt-5">
+                    <p>
+                        <strong>{{'Subject' | translate}}: {{presentationReport?.presentationReportResponseDto?.subject}}</strong>
+                    </p>
+                    <hr style="border: 1px solid black; margin-top: 0;">
+                </div>
+                <div *ngIf="presentationReport">
+                    <p [innerHTML]="presentationReport?.presentationReportResponseDto?.firstContent"></p>                   
+                </div>
+            </div>
+
+            <table class="width-100 mt-5 mb-5">
+                <thead>
+                <tr>
+                    <th class="col-1">{{'Sl' | translate}}</th>
+                    <th class="col-2">{{'ResearcherNameDesignationAddress' | translate}}</th>
+                    <th class="col-3">{{'ResearcherTitle' | translate}}</th>
+                    <th class="col-4">{{'EvaluatorsOpinion' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let d of data; let i = index">
+                    <td *ngIf="d.rowSpan !== 0" class="pt-2 text-align-top-center col-1"
+                        [rowSpan]="d.rowSpan">{{d.sl}}</td>
+                    <td *ngIf="d.rowSpan !== 0" class="pt-2 text-align-top-left col-2" [rowSpan]="d.rowSpan">
+                        <p><strong>{{d?.profile?.userDto?.name}}</strong></p>
+                            <p *ngIf="d?.profile?.designation">{{d.profile.designation}}</p>
+                            <p *ngIf="d?.profile?.detailsPresentAddress">{{d.profile.detailsPresentAddress}}</p>
+                    </td>
+                    <td *ngIf="d.rowSpan !== 0" class="pt-2 text-align-top-left col-3" [rowSpan]="d.rowSpan">
+                        {{d?.proposal?.researchTitle}}
+                    </td>
+                    <td class="pt-2 text-align-top-left col-4">
+                        <h1 *ngIf="d?.report.expertEvaluatorResponseDto">
+                            <strong><u>{{d?.report.expertEvaluatorResponseDto?.name}}</u></strong></h1>
+                        <h1 *ngIf="d?.report.newMemberResponseDto">
+                            <strong><u>{{d?.report.newMemberResponseDto?.evaluatorName}}</u></strong></h1>
+                        <p class="pt-2" [innerHTML]="d?.report.evaluatorFeedback"></p>
+                        <!--                        <ckeditor *ngIf="d" [config]="editor" [(ngModel)]="d.report.evaluatorFeedback" [ngModelOptions]="{standalone: true}"></ckeditor>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div *ngIf="presentationReport">
+                <p [innerHTML]="presentationReport?.presentationReportResponseDto?.lastContent"></p>               
+            </div>
+
+        </mat-card>
+
+    </div>
+
+    <!-- Main End -->
+</div>

@@ -1,0 +1,204 @@
+<div style="width: 100%">
+    <!-- Header -->
+
+    <app-form-header [subTitle]="'headerOfSubtitle' | translate" [title]="'header' | translate"></app-form-header>
+
+    <div *ngIf="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="md:flex" *ngIf="userType === 'Rms_Training_Institute'">
+                <div class="flex w-full justify-end mb-3">
+                    <button [routerLink]="['/partial-and-final-payment/add']" class="mr-3" color="primary"
+                        mat-flat-button>
+                        <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                        {{'addNew' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+
+                <div class="md:flex tbl-title">
+
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 md:text-left md:pt-1 lg:mx-2 mr-4">
+                        <ng-container *ngIf="userType === 'Rms_DO'">
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="50%" fxFlex.md="50%"
+                                fxFlex.sm="50%" fxFlex.xs="100%">
+                                <mat-select (selectionChange)="filterByInstitute()"
+                                    [(ngModel)]="selectedTrainingInstitute" [ngModelOptions]="{standalone: true}"
+                                    placeholder="Search By Training Institute">
+                                    <mat-option *ngFor="let f of trainingInstitutes" [value]="f.id">
+                                        {{f.trainingInstituteName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-right">
+                        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                            <!--<mat-label>Filter</mat-label>-->
+                            <input #input (keyup)="applyFilter($event)" [placeholder]="'search'|translate" matInput />
+                            <button mat-button mat-icon-button matPrefix>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="md:flex tbl-title">
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-1">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'header' | translate}}
+                        </h1>
+                    </div>
+                </div>
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <!--<mat-card>-->
+                    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                        <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+
+                            <ng-container matColumnDef="sl">
+                                <th *matHeaderCellDef class="w-16 capitalize" mat-header-cell> {{'sl' | translate}}
+                                </th>
+                                <td *matCellDef="let row; let i = index;" class="text-center" mat-cell>
+                                    {{(i + 1) + (page * size)}}
+                                </td>
+                            </ng-container>
+
+                            <!-- name Of Training Institution Column -->
+                            <ng-container matColumnDef="nameOfTrainingInstitution">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'trainingInstitution' |
+                                    translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    {{element.trainingInstituteProfileModel.trainingInstituteName }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="installmentType">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'installmentType' |
+                                    translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{element.installmentType}}
+                                </td>
+                            </ng-container>
+
+                            <!-- second Party Name Column -->
+                            <ng-container matColumnDef="installmentDate">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'installmentDate' |
+                                    translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{element.installmentDate}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="totalAmount">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'totalAmount' | translate}}
+                                </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{
+                                    element.installmentAmount}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="go">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'go' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+
+                                    <ng-container *ngIf="userType === 'Rms_DO'">
+                                        <ng-container
+                                            *ngIf="!element.goLetter  && (element.status=='PROCESSING' || (element.status=='REJECTED'?true:false ||element.status=='APPROVED'?true:false))">
+                                            <button (click)="createGoLetterDialog(element)"
+                                                class="toggle-sidebar-folded" matTooltip="Create Go Letter"
+                                                [disabled]="element.status=='REJECTED'?true:false ||element.status=='APPROVED'?true:false">
+                                                <mat-icon>save</mat-icon>
+                                            </button>
+                                        </ng-container>
+
+                                        <ng-container
+                                            *ngIf="element.goLetter && ( element.status=='PROCESSING' || (element.status=='REJECTED'?true:false ||element.status=='APPROVED'?true:false))">
+                                            <button (click)="createGoLetterDialog(element)"
+                                                class="toggle-sidebar-folded" matTooltip="Edit Go Letter"
+                                                [disabled]="element.status=='REJECTED'?true:false ||element.status=='APPROVED'?true:false">
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                        </ng-container>
+                                    </ng-container>
+
+
+                                    <ng-container *ngIf="element.goLetter">
+                                        <button (click)="viewGoLetterDialog(element)" mat-icon-button
+                                            class="toggle-sidebar-folded" matTooltip="View GO Letter" fxHide.lt-lg>
+                                            <mat-icon *ngIf="viewIcon" color="primary">{{viewIcon}}
+                                            </mat-icon>
+                                        </button>
+                                    </ng-container>
+
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'status' | translate}} </th>
+                                <td *matCellDef="let element" mat-cell>
+                                    <mat-form-field class="w-full pt-3">
+                                        <mat-select (selectionChange)="changePaymentStatus($event.value, element.id)"
+                                            [(value)]="element.status" placeholder="Select One"
+                                            [disabled]="userType === 'Rms_Training_Institute'">
+                                            <mat-option *ngFor="let status of statusType" [value]="status">{{ status }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th *matHeaderCellDef class="pl-4 w-40 capitalize" class="capitalize" mat-header-cell>
+                                    {{'action' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <div class="buttons">
+
+                                        <button (click)="viewDetails(element.id)" class="toggle-sidebar-folded"
+                                            fxHide.lt-lg mat-icon-button matTooltip="View">
+                                            <mat-icon color="primary">visibility
+                                            </mat-icon>
+                                        </button>
+
+                                        <ng-container *ngIf="userType === 'Rms_Training_Institute'">
+                                            <ng-container
+                                                *ngIf="element.status != 'REJECTED' && element.status != 'APPROVED' && element.status != 'PROCESSING'">
+                                                <button (click)="edit(element.id)" class="toggle-sidebar-folded"
+                                                    fxHide.lt-lg mat-icon-button matTooltip="Edit">
+                                                    <mat-icon color="accent">edit</mat-icon>
+                                                </button>
+
+                                                <button (click)="openDialog(element.uuid)" class="toggle-sidebar-folded"
+                                                    fxHide.lt-lg mat-icon-button matTooltip="Delete">
+                                                    <mat-icon color="warn">delete</mat-icon>
+                                                </button>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator (page)="onChangePage($event)" [length]="total" [pageSizeOptions]="[5, 10, 25, 100]"
+                        [pageSize]="size">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

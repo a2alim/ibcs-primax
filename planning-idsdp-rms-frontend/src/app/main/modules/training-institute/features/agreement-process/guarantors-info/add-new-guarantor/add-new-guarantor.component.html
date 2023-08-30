@@ -1,0 +1,343 @@
+<div style="width: 100%">
+    <app-form-header [subTitle]="'headerSubTitle' | translate" [title]="'headerTitle' | translate"></app-form-header>
+    <div class="flex-auto m-7 body-color">
+        <form #myForm="ngForm">
+            <!-- CARD ONE-->
+            <div class="heading mt-2">
+                <h1>{{'headerTitle' | translate}}</h1>
+            </div>
+
+            <mat-card class="tab-color">
+
+                <!-- Row 1-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'fiscalYear' | translate}}
+                            <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select [(ngModel)]="guarantorRequest.fiscalYearId"
+                                [(value)]="guarantorRequest.fiscalYearId" name="itemOfExpenditure" required>
+                                <mat-option *ngFor="let item of fiscalYears" [value]="item.id">{{item.fiscalYear}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error> {{'fiscalYear' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'courseTitle' | translate}}<strong class="required">*</strong>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-30 lg:w-30">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            &lt;!&ndash; <input matInput name="commonTypes" > &ndash;&gt;-->
+<!--                            <mat-select [(ngModel)]="guarantorRequest.proposalId" name="proposalId"-->
+<!--                                placeholder="Select One" required>-->
+<!--                                <mat-option *ngFor="let trainingTitle of courseList" [value]="trainingTitle.id">{{-->
+<!--                                    trainingTitle.name }}</mat-option>-->
+<!--                            </mat-select>-->
+<!--                            <mat-error>{{'courseTitle' | translate}} {{ 'required' | translate }}</mat-error>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+                </div>
+
+
+
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'courseTitle' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <!-- <input matInput name="commonTypes" > -->
+                            <mat-select [(ngModel)]="guarantorRequest.proposalId" name="proposalId"
+                                        placeholder="Select One" required>
+                                <mat-option *ngFor="let trainingTitle of courseList" [value]="trainingTitle.id">{{
+                                    trainingTitle.name }}</mat-option>
+                            </mat-select>
+                            <mat-error>{{'courseTitle' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Row 2-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-1 md:text-left pr-3 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'guarantorName' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input [(ngModel)]="guarantorRequest.guarantorName" [ngModelOptions]="{standalone: true}"
+                                matInput required>
+                            <mat-error>{{'guarantorName' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'designation' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input [(ngModel)]="guarantorRequest.designation" [ngModelOptions]="{standalone: true}"
+                                   matInput>
+                            <mat-error>Applicant age is {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+
+                <!-- Row 3-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'jonInfo' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <input [(ngModel)]="guarantorRequest.jobInfo" [ngModelOptions]="{standalone: true}"
+                                matInput>
+                            <!--                        <mat-error>Applicant age is  {{ 'required' | translate }}</mat-error>-->
+                        </mat-form-field>
+                    </div>
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'designation' | translate}}-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-30 lg:w-30">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <input [(ngModel)]="guarantorRequest.designation" [ngModelOptions]="{standalone: true}"-->
+<!--                                matInput>-->
+<!--                            <mat-error>Applicant age is {{ 'required' | translate }}</mat-error>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+                </div>
+
+                <!-- Row 3-4-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'mobileNo' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #phoneMobileNo="ngModel" [(ngModel)]="guarantorRequest.mobileNo"
+                                [ngModelOptions]="{standalone: true}" required matInput>
+                            <mat-hint *ngIf="phoneMobileNo.dirty && !(phoneMobileNo.value | phoneMobileNo)"
+                                style="color: crimson !important;">
+                                {{'valid' | translate}} {{'phoneMobileNo' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+
+                            <mat-error
+                                *ngIf="!phoneMobileNo.value || phoneMobileNo.dirty && !(phoneMobileNo.value | required)"
+                                style="color: crimson !important;">{{'phoneMobileNo' | translate}} {{ 'required' |
+                                translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'nidNumber' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #nid_number="ngModel" [(ngModel)]="guarantorRequest.nid"
+                                [ngModelOptions]="{standalone: true}" matInput required type="number">
+
+                            <mat-hint *ngIf="nid_number.dirty && !(nid_number.value | nid_number)" style="color: crimson !important;">
+                                Invalid Number. Please provide a valid 10 digit, 13 digit or 17 digit number.
+                            </mat-hint>
+
+                            <mat-error style="text-transform: none;">Invalid Number. Please provide a valid 10 digit, 13 digit or 17 digit number.</mat-error>
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'email' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #email="ngModel" [(ngModel)]="guarantorRequest.email"
+                                [ngModelOptions]="{standalone: true}" matInput required type="email">
+                            <mat-hint *ngIf="email.dirty && !(email.value | email)" style="color: crimson !important;">
+                                {{'valid' | translate}} {{'email' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+                            <mat-error>{{'email' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'nidImage' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field (change)="uploadFile($event.target.files,'nid_image')" class="w-full">
+                            {{ isEditable && !isReset ? ((guarantorRequest?.nidImage?.fileName
+                            < 15) ? guarantorRequest?.nidImage?.fileName :
+                                guarantorRequest?.nidImage?.fileName.substring(0, 15) + '...' ) : '' }}
+                                <ngx-mat-file-input [(ngModel)]="nidImg" [ngModelOptions]="{standalone: true}"
+                                [accept]="'image/*'">
+                                </ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>File is {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Row 4-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'presentAddress' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <textarea [(ngModel)]="guarantorRequest.presentAddress"
+                                [ngModelOptions]="{standalone: true}" matInput required rows="5"></textarea>
+                            <mat-error>{{'presentAddress' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'permanentAddress' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <textarea [(ngModel)]="guarantorRequest.permanentAddress" [ngModelOptions]="{standalone: true}" matInput required rows="5"></textarea>
+                            <mat-error>{{'permanentAddress' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div> -->
+
+                <!-- Row 5-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-1 md:text-left pr-3 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'refundMony' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <!-- <input [(ngModel)]="guarantorRequest.refundDays" [ngModelOptions]="{standalone: true}" matInput required type="number"> -->
+                            <mat-select placeholder="Select One" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="guarantorRequest.refundDays" required>
+                                <mat-option *ngFor="let f of days" [value]="f.id">{{f.id}}</mat-option>
+                            </mat-select>
+                            <mat-error>{{'refundMony' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Row 6-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'image' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field (change)="uploadFile($event.target.files,'profile_image')" class="w-full">
+                            {{ isEditable && !isReset ? ((guarantorRequest?.image?.fileName
+                            < 15) ? guarantorRequest?.image?.fileName : guarantorRequest?.image?.fileName.substring(0,
+                                15) + '...' ) : '' }} <ngx-mat-file-input required [(ngModel)]="fileRef"
+                                [ngModelOptions]="{standalone: true}" [accept]="'.*'">
+                                </ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>{{'image' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'signature' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field (change)="uploadFile($event.target.files,'signature')" class="w-full">
+                            {{ isEditable && !isReset ? ((guarantorRequest?.signatureImage?.fileName
+                            < 15) ? guarantorRequest?.signatureImage?.fileName :
+                                guarantorRequest?.signatureImage?.fileName.substring(0, 15) + '...' ) : '' }}
+                                <ngx-mat-file-input [(ngModel)]="sigImg" [ngModelOptions]="{standalone: true}"
+                                [accept]="'.*'">
+                                </ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>File is {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <!-- Row 7-->
+
+                <br>
+
+                <!-- Bottom Button -->
+                <div class="flex justify-end mt-8">
+                    <button [routerLink]="['/guarantor-list']" class="px-3 mr-2 toggle-sidebar-folded saveBtn"
+                        color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        <span>{{ "back" | translate }}</span>
+                    </button>
+                    <button (click)="resetFrom()" class="px-3 mr-2" color="accent" mat-flat-button type="reset">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+                    <button (click)="save()" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary"
+                        mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span *ngIf="!isEditable">{{ "save" | translate }}</span>
+                        <span *ngIf="isEditable">{{ "update" | translate }}</span>
+                    </button>
+
+                    <!-- <button (click)="save()" [disabled]="!(guarantorRequest.proposalId | required) ||
+                            !(guarantorRequest.guarantorName | required) ||
+                            !(guarantorRequest.mobileNo | required) ||
+                            !(guarantorRequest.mobileNo | phoneMobileNo) ||
+                            !(guarantorRequest.email | required) ||
+                            !(guarantorRequest.email | email) ||
+                            !(guarantorRequest.presentAddress | required) ||
+                            !(guarantorRequest.refundDays | required) ||
+                            !(guarantorRequest.nid | required) ||
+                            !(guarantorRequest.fiscalYearId | required)||
+                            (guarantorRequest.image === undefined) ||
+                            (!(guarantorRequest.nid | nid_number) && (guarantorRequest.nid != undefined))" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span *ngIf="!isEditable">{{ "save" | translate }}</span>
+                        <span *ngIf="isEditable">{{ "update" | translate }}</span>
+                    </button> -->
+                </div>
+
+            </mat-card>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,1038 @@
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<div class="body">
+    <p class="heading mb-2">{{ "Estimated_cost_summary" | translate }}</p>
+    <div class="cards">
+        <!-- for English View GOB No-->
+        <div *ngIf="isForeignAid; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+            <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                <table class="tables" >
+                    <tr>
+                        <td style="vertical-align: top;  ">
+                            <table class="tables" style="">
+                                <thead style="height: 225px; ">
+                                    <tr>
+                                        <th rowspan="5">{{'Economic_code' | translate}}</th>
+                                        <th rowspan="5">{{'Economic_sub_code' | translate}}</th>
+                                        <th rowspan="5">{{'Component_description' | translate}}</th>
+                                        <th colspan="10" style="height: 40px;">{{'gradualProgression' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="4">{{'Unit' | translate}}</th>
+                                        <th rowspan="4">{{'Quantity' | translate}}</th>
+                                        <th colspan="8" style="height: 40px;">{{'cost' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="3">{{'total' | translate}}</th>
+                                        <th rowspan="3">{{'GOB' | translate}}</th>
+                                        <th colspan="4">{{'pa' | translate}}</th>
+                                        <th rowspan="3">{{'ownCurr' | translate}}</th>
+                                        <th rowspan="3" style="height: 155px;">{{'Others' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">{{'Rpa' | translate}}</th>
+                                        <th colspan="2">{{'Dpa' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'Through_gob' | translate}}</th>
+                                        <th>{{'sa' | translate}}</th>
+                                        <th>{{'Through_pd' | translate}}</th>
+                                        <th>{{'Special_dp' | translate}}</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr style="background-color: #d8d5d5 !important;">
+                                        <td colspan="13" style="text-align: left !important; height: 40px !important;">
+                                            {{'Revenue_component' |  translate}}</td>
+                                    </tr>
+                                    <tr *ngFor="let revData of revDataList?.dppAnnualPhasingCostTabDetails"
+                                        class="text-right" style="height: 80px; ">
+                                        <td class="txt-left">{{revData?.economicCodeDTO?.economicCode}}</td>
+                                        <td class="txt-left">{{revData?.subEconomicCodeDTO?.subEconomicCode}}</td>
+                                        <td class="txt-left " >{{revData?.description}}</td>
+                                        <td class="txt-left" >{{revData?.unitTypeDTO?.unitTypeNameEng}}</td>
+                                        <td class="txt-left" >{{revData?.qty}}</td>
+                                        <td class="txt-left" >{{revData?.totalAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left" >
+                                            {{revData?.gobAmount?.toFixed(2)}}<br>
+                                            ({{revData?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left" >{{revData?.gobThruAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left" >{{revData?.spAcAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{revData?.thruPdAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left" >{{revData?.thruDpAmount?.toFixed(2)}}</td>
+
+                                        <td class="txt-left" >
+                                            {{revData?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{revData?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left" >
+                                            {{revData?.otherAmount?.toFixed(2)}}<br>
+                                            ({{revData?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" style="text-align: left;">{{'Sub_total_Revenue' | translate}}
+                                        </td>
+
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.totalAmount?.toFixed(2)) :
+                                            revenueTotal?.totalAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.gobAmount?.toFixed(2)) :
+                                            revenueTotal?.gobAmount?.toFixed(2)}}<br>
+                                            ({{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.gobFeAmount?.toFixed(2)) :
+                                            revenueTotal?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.gobThruAmount?.toFixed(2)) :
+                                            revenueTotal?.gobThruAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.spAcAmount?.toFixed(2)) :
+                                            revenueTotal?.spAcAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.thruPdAmount?.toFixed(2)) :
+                                            revenueTotal?.thruPdAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.thruDpAmount?.toFixed(2)) :
+                                            revenueTotal?.thruDpAmount?.toFixed(2)}}
+                                        </td>
+
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.ownFundAmount?.toFixed(2)) :
+                                            revenueTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.ownFundFeAmount?.toFixed(2)) :
+                                            revenueTotal?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.otherAmount?.toFixed(2)) :
+                                            revenueTotal?.otherAmount?.toFixed(2)}}<br>
+                                            ({{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(revenueTotal?.otherFeAmount?.toFixed(2)) :
+                                            revenueTotal?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+
+                                    </tr>
+
+                                    <tr style="background-color: #d8d5d5 !important; height: 40px;">
+                                        <td colspan="13" style="text-align: left !important; ">{{'Capital_component' | translate}}</td>
+                                    </tr>
+                                    <tr *ngFor="let capitalData of capItemWiseCumList?.dppAnnualPhasingCostTabDetails"
+                                        class="text-right" style="height: 80px; ">
+                                        <td class="txt-left">{{capitalData?.economicCodeDTO.economicCode }}</td>
+                                        <td class="txt-left">{{capitalData?.subEconomicCodeDTO.subEconomicCode }}</td>
+                                        <td class="txt-left rowTextSize">{{capitalData?.description}}</td>
+                                        <td class="txt-left">{{capitalData?.unitTypeDTO.unitTypeName}}</td>
+                                        <td class="txt-left">{{capitalData?.qty}}</td>
+                                        <td class="txt-left">{{capitalData?.totalAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">
+                                            {{capitalData?.gobAmount?.toFixed(2)}}<br>
+                                            ({{capitalData?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">{{capitalData?.gobThruAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{capitalData?.spAcAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{capitalData?.thruPdAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{capitalData?.thruDpAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">
+                                            {{capitalData?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{capitalData?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">
+                                            {{capitalData?.otherAmount?.toFixed(2)}}<br>
+                                            ({{capitalData?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" style="text-align: left;">{{'Sub_total_Capital' | translate}}
+                                        </td>
+                                        <td class="txt-left">{{capItemWiseCum?.totalAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{capItemWiseCum?.gobAmount?.toFixed(2)}}<br>
+                                            ({{capItemWiseCum?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(capItemWiseCum?.gobThruAmount?.toFixed(2)) :
+                                            capItemWiseCum?.gobThruAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(capItemWiseCum?.spAcAmount?.toFixed(2)) :
+                                            capItemWiseCum?.spAcAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(capItemWiseCum?.thruPdAmount?.toFixed(2)) :
+                                            capItemWiseCum?.thruPdAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(capItemWiseCum?.thruDpAmount?.toFixed(2)) :
+                                            capItemWiseCum?.thruDpAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">{{capItemWiseCum?.ownFundAmount?.toFixed(2) }}<br>
+                                            ({{capItemWiseCum?.ownFundFeAmount?.toFixed(2) }})
+                                        </td>
+                                        <td class="txt-left">{{capItemWiseCum?.otherAmount?.toFixed(2) }}<br>
+                                            ({{capItemWiseCum?.otherFeAmount?.toFixed(2) }})
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="5" style="text-align: left;">{{'Physical_contingency' | translate}}
+                                        </td>
+
+                                        <td class="txt-left" data-label="Total Cost">
+                                            {{contingencyCumO?.totalAmount}}
+                                        </td>
+                                        <td class="txt-left" data-label="GoB (FE)">
+                                            {{contingencyCumO?.gobAmount?.toFixed(2)}}<br>
+                                            ({{contingencyCumO?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(contingencyCumO?.gobThruAmount?.toFixed(2))
+                                            :
+                                            contingencyCumO?.gobThruAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(contingencyCumO?.spAcAmount?.toFixed(2)) :
+                                            contingencyCumO?.spAcAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(contingencyCumO?.thruPdAmount?.toFixed(2)) :
+                                            contingencyCumO?.thruPdAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(contingencyCumO?.thruDpAmount?.toFixed(2)) :
+                                            contingencyCumO?.thruDpAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left" data-label="Own Fund (FE)">
+                                            {{contingencyCumO?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{contingencyCumO?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left" data-label="Other (FE)">
+                                            {{contingencyCumO?.otherAmount?.toFixed(2)}}<br>
+                                            ({{contingencyCumO?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" style="text-align: left;">{{'Price_contingency' | translate}}
+                                        </td>
+
+                                        <td class="txt-left" data-label="Total Cost">
+                                            {{contingencyCumI?.totalAmount}}
+                                        </td>
+                                        <td class="txt-left" data-label="GoB (FE)">
+                                            {{contingencyCumI?.gobAmount?.toFixed(2)}}<br>
+                                            ({{contingencyCumI?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(contingencyCumI?.gobThruAmount?.toFixed(2))
+                                            :
+                                            contingencyCumI?.gobThruAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(contingencyCumI?.spAcAmount?.toFixed(2)) :
+                                            contingencyCumI?.spAcAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(contingencyCumI?.thruPdAmount?.toFixed(2)) :
+                                            contingencyCumI?.thruPdAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(contingencyCumI?.thruDpAmount?.toFixed(2)) :
+                                            contingencyCumI?.thruDpAmount?.toFixed(2)}}
+                                        </td>
+                                        <td  class="txt-left"data-label="Own Fund (FE)">
+                                            {{contingencyCumI?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{contingencyCumI?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left"data-label="Other (FE)">
+                                            {{contingencyCumI?.otherAmount?.toFixed(2)}}<br>
+                                            ({{contingencyCumI?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" style="text-align: left;">{{'Grand_total' | translate}}</td>
+
+                                        <td class="txt-left" data-label="Total Cost">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.totalAmount ) :
+                                            grantTotal?.totalAmount}}
+                                        </td>
+                                        <td class="txt-left" data-label="GoB (FE)">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.gobAmount?.toFixed(2)) :
+                                            grantTotal?.gobAmount?.toFixed(2)}}<br>
+                                            ({{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.gobFeAmount?.toFixed(2)) :
+                                            grantTotal?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.gobThruAmount?.toFixed(2)) :
+                                            grantTotal?.gobThruAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.spAcAmount?.toFixed(2)) :
+                                            grantTotal?.spAcAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.thruPdAmount?.toFixed(2)) :
+                                            grantTotal?.thruPdAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.thruDpAmount?.toFixed(2)) :
+                                            grantTotal?.thruDpAmount?.toFixed(2)}}
+                                        </td>
+                                        <td class="txt-left" data-label="Own Fund (FE)">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.ownFundAmount?.toFixed(2)) :
+                                            grantTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.ownFundFeAmount?.toFixed(2)) :
+                                            grantTotal?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left" data-label="Other (FE)">
+                                            {{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.otherAmount?.toFixed(2)) :
+                                            grantTotal?.otherAmount?.toFixed(2)}}<br>
+                                            ({{(!projectSummary?.isForeignAid &&
+                                            projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                            numberPipe.convertToBanglaNumber(grantTotal?.otherFeAmount?.toFixed(2)) :
+                                            grantTotal?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <!-- fiscal year -->
+
+                        <ng-container *ngFor="let revYear of fCapDList; let i=index">
+                            <td style="vertical-align: top;  "
+                            >
+                               <table class="tables" style="">
+                                   <thead style="height: 225px; ">
+                                       <tr>
+                                           <th colspan="10" style="height: 40px;">{{'tobeIncurred' | translate}}</th>
+                                       </tr>
+                                       <tr>
+                                           <th colspan="10" style="height: 40px;">{{revYear?.fiscalYear}}</th>
+                                       </tr>
+                                       <tr>
+                                           <th rowspan="4" style="height: 155px;">{{'Unit' | translate}}</th>
+                                           <th rowspan="4">{{'Quantity' | translate}}</th>
+                                           <th colspan="8">{{'cost' | translate}}</th>
+                                       </tr>
+                                       <tr>
+                                           <th rowspan="3">{{'total' | translate}}</th>
+                                           <th rowspan="3">{{'GOB' | translate}}</th>
+                                           <th colspan="4">{{'pa' | translate}}</th>
+                                           <th rowspan="3">{{'ownCurr' | translate}}</th>
+                                           <th rowspan="3">{{'Others' | translate}}</th>
+                                       </tr>
+                                       <tr>
+                                           <th colspan="2">{{'Rpa' | translate}}</th>
+                                           <th colspan="2">{{'Dpa' | translate}}</th>
+                                       </tr>
+                                       <tr>
+                                           <th>{{'Through_gob' | translate}}</th>
+                                           <th>{{'sa' | translate}}</th>
+                                           <th>{{'Through_pd' | translate}}</th>
+                                           <th>{{'Special_dp' | translate}}</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                       <!-- reve  -->
+                                       <tr style="background-color: #d8d5d5 !important;">
+                                           <td colspan="6" style="text-align: left !important; height: 40px !important;">&nbsp;
+                                           </td>
+                                       </tr>
+                                       <tr style="height: 80px; " *ngFor="let dataFi of revYear.values">
+
+                                           <td> </td>
+                                           <td></td>
+                                           <td class="txt-left"> {{dataFi?.totalAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{dataFi?.gobAmount?.toFixed(2)}}<br>
+                                               ({{dataFi?.gobFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left"> {{dataFi?.gobThruAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{dataFi?.spAcAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left"> {{dataFi?.thruPdAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{dataFi?.thruDpAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{dataFi?.ownFundAmount?.toFixed(2)}}<br>
+                                               ({{dataFi?.ownFundFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left">{{dataFi?.otherAmount?.toFixed(2)}}<br>
+                                               ({{dataFi?.otherFeAmount?.toFixed(2)}})
+                                           </td>
+                                       </tr>
+                                       <!-- sub rev  -->
+                                       <tr>
+                                           <td></td>
+                                           <td></td>
+                                           <td class="txt-left">{{revYear?.dppAnnualPhasingCostTotal?.totalAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{revYear?.dppAnnualPhasingCostTotal?.gobAmount?.toFixed(2)}}<br>
+                                               ({{revYear?.dppAnnualPhasingCostTotal?.gobFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left"> {{revYear?.dppAnnualPhasingCostTotal?.gobThruAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{revYear?.dppAnnualPhasingCostTotal?.spAcAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left"> {{revYear?.dppAnnualPhasingCostTotal?.thruPdAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{revYear?.dppAnnualPhasingCostTotal?.thruDpAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{revYear?.dppAnnualPhasingCostTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                               ({{revYear?.dppAnnualPhasingCostTotal?.ownFundFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left">{{revYear?.dppAnnualPhasingCostTotal?.otherAmount?.toFixed(2)}}<br>
+                                               ({{revYear?.dppAnnualPhasingCostTotal?.otherFeAmount?.toFixed(2)}})
+                                           </td>
+                                       </tr>
+
+
+                                       <!-- capital   -->
+
+                                       <tr style="background-color: #d8d5d5 !important;">
+                                           <td colspan="13" style="text-align: left !important; height: 40px !important;"> &nbsp; </td>
+                                       </tr>
+                                       <tr style="height: 80px; " *ngFor="let dataFi of fCapDList[i]?.values">
+                                           <td> </td>
+                                           <td></td>
+                                           <td class="txt-left"> {{dataFi?.totalAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{dataFi?.gobAmount?.toFixed(2)}}<br>
+                                               ({{dataFi?.gobFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left"> {{dataFi?.gobThruAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{dataFi?.spAcAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left"> {{dataFi?.thruPdAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{dataFi?.thruDpAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{dataFi?.ownFundAmount?.toFixed(2)}}<br>
+                                               ({{dataFi?.ownFundFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left">{{dataFi?.otherAmount?.toFixed(2)}}<br>
+                                               ({{dataFi?.otherFeAmount?.toFixed(2)}})
+                                           </td>
+                                       </tr>
+                                       <!-- sub capital  -->
+                                       <tr>
+                                           <!-- <td>{{revYear | json}}</td> -->
+                                           <td></td>
+                                           <td></td>
+                                           <td class="txt-left">{{fCapDList[i]?.dppAnnualPhasingCostTotal?.totalAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fCapDList[i]?.dppAnnualPhasingCostTotal?.gobAmount?.toFixed(2)}}<br>
+                                               ({{fCapDList[i]?.dppAnnualPhasingCostTotal?.gobFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left"> {{fCapDList[i]?.dppAnnualPhasingCostTotal?.gobThruAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fCapDList[i]?.dppAnnualPhasingCostTotal?.spAcAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left"> {{fCapDList[i]?.dppAnnualPhasingCostTotal?.thruPdAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fCapDList[i]?.dppAnnualPhasingCostTotal?.thruDpAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fCapDList[i]?.dppAnnualPhasingCostTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                               ({{fCapDList[i]?.dppAnnualPhasingCostTotal?.ownFundFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left">{{fCapDList[i]?.dppAnnualPhasingCostTotal?.otherAmount?.toFixed(2)}}<br>
+                                               ({{fCapDList[i]?.dppAnnualPhasingCostTotal?.otherFeAmount?.toFixed(2)}})
+                                           </td>
+                                       </tr>
+
+                                       <!-- contengency -->
+                                       <tr>
+                                           <td> </td>
+                                           <td></td>
+                                           <td class="txt-left"> {{fContPhyDList[i]?.values[0]?.totalAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fContPhyDList[i]?.values[0]?.gobAmount?.toFixed(2)}}<br>
+                                               ({{fContPhyDList[i]?.values[0]?.gobFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left"> {{fContPhyDList[i]?.values[0]?.gobThruAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fContPhyDList[i]?.values[0]?.spAcAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left"> {{fContPhyDList[i]?.values[0]?.thruPdAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fContPhyDList[i]?.values[0]?.thruDpAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fContPhyDList[i]?.values[0]?.ownFundAmount?.toFixed(2)}}<br>
+                                               ({{fContPhyDList[i]?.values[0]?.ownFundFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left">{{fContPhyDList[i]?.values[0]?.otherAmount?.toFixed(2)}}<br>
+                                               ({{fContPhyDList[i]?.values[0]?.otherFeAmount?.toFixed(2)}})
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td> </td>
+                                           <td></td>
+                                           <td class="txt-left"> {{fContPhyDList[i]?.values[1]?.totalAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fContPhyDList[i]?.values[1]?.gobAmount?.toFixed(2)}}<br>
+                                               ({{fContPhyDList[i]?.values[1]?.gobFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left"> {{fContPhyDList[i]?.values[1]?.gobThruAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fContPhyDList[i]?.values[1]?.spAcAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left"> {{fContPhyDList[i]?.values[1]?.thruPdAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fContPhyDList[i]?.values[1]?.thruDpAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{fContPhyDList[i]?.values[1]?.ownFundAmount?.toFixed(2)}}<br>
+                                               ({{fContPhyDList[i]?.values[1]?.ownFundFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left">{{fContPhyDList[i]?.values[1]?.otherAmount?.toFixed(2)}}<br>
+                                               ({{fContPhyDList[i]?.values[1]?.otherFeAmount?.toFixed(2)}})
+                                           </td>
+                                       </tr>
+
+                                       <!-- Grand_total  -->
+
+                                       <tr>
+                                           <td> </td>
+                                           <td></td>
+                                           <td class="txt-left"> {{grandTotalList[i]?.dppAnnualPhasingCostTotal?.totalAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{grandTotalList[i]?.dppAnnualPhasingCostTotal?.gobAmount?.toFixed(2)}}<br>
+                                               ({{grandTotalList[i]?.dppAnnualPhasingCostTotal?.gobFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left"> {{grandTotalList[i]?.dppAnnualPhasingCostTotal?.gobThruAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{grandTotalList[i]?.dppAnnualPhasingCostTotal?.spAcAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left"> {{grandTotalList[i]?.dppAnnualPhasingCostTotal?.thruPdAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{grandTotalList[i]?.dppAnnualPhasingCostTotal?.thruDpAmount?.toFixed(2)}}</td>
+                                           <td class="txt-left">{{grandTotalList[i]?.dppAnnualPhasingCostTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                               ({{grandTotalList[i]?.dppAnnualPhasingCostTotal?.ownFundFeAmount?.toFixed(2)}})
+                                           </td>
+                                           <td class="txt-left">{{grandTotalList[i]?.dppAnnualPhasingCostTotal?.otherAmount?.toFixed(2)}}<br>
+                                               ({{grandTotalList[i]?.dppAnnualPhasingCostTotal?.otherFeAmount?.toFixed(2)}})
+                                           </td>
+                                       </tr>
+                                   </tbody>
+                               </table>
+                           </td>
+                        </ng-container>
+
+                        <ng-container *ngIf="fCapDList.length == 0"  >
+
+                            <table>
+                                <thead style="height: 210px; ">
+                                    <tr>
+                                        <th colspan="6">{{'potentialcost' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="6">  Fiscal Year </th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="2">{{'Unit' | translate}}</th>
+                                        <th rowspan="2">{{'Quantity' | translate}}</th>
+                                        <th colspan="4">{{'cost' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'total' | translate}}</th>
+                                        <th>{{'GOB' | translate}}</th>
+                                        <th>{{'ownCurr' | translate}}</th>
+                                        <th>{{'Others' | translate}}</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <div style="max-width: 100%; margin: 10px;padding: 30px; text-align: justify;
+                            background-color: aquamarine;
+                            ">
+                                <p style="font-size: 25px; ">{{'validationPage' | translate}}</p>
+                            </div>
+                        </ng-container>
+
+                    </tr>
+                </table>
+            </div>
+        </ng-template>
+
+        <ng-template #elseBlock>
+            <!-- Bangla Project -->
+            <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                <table class="tables" style="width: 100%;">
+                    <tr>
+                        <ng-container>
+                            <td style="vertical-align: top;  ">
+                                <table style="float: left; ; border: 1px solid black;">
+                                    <thead style="height: 210px; ">
+                                        <tr>
+                                            <th rowspan="3">{{'Economic_code' | translate}}</th>
+                                            <th rowspan="3">{{'Economic_sub_code' | translate}}</th>
+                                            <th rowspan="3" class="">{{'Component_description' | translate}}</th>
+                                            <th colspan="6"  style="height: 40px;">{{'gradualProgression' | translate}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th rowspan="2">{{'Unit' | translate}}</th>
+                                            <th rowspan="2">{{'Quantity' | translate}}</th>
+                                            <th colspan="4" style="height: 30px;">{{'cost' | translate}}</th>
+                                        </tr>
+                                        <tr style="  ">
+                                            <th>{{'total' | translate}}</th>
+                                            <th>{{'GOB' | translate}}</th>
+                                            <th>{{'ownCurr' | translate}}</th>
+                                            <th>{{'Others' | translate}}</th>
+                                        </tr>
+
+
+                                    </thead>
+
+                                    <tbody>
+                                        <tr style="background-color: #d8d5d5 !important;">
+                                            <td colspan="9" style="text-align: left !important; height: 30px; ">{{'Revenue_component' |
+                                                translate}}</td>
+                                        </tr>
+                                        <tr class=" " style="height: 70px; " *ngFor="let revData of revDataList?.dppAnnualPhasingCostTabDetails"
+                                            class="text-right" style="height: 75px; ">
+                                            <td class="txt-left">{{revData?.economicCodeDTO?.economicCodeBng}}</td>
+                                            <td class="txt-left">{{revData?.subEconomicCodeDTO?.subEconomicCodeBng}}
+                                            </td>
+                                            <td class="txt-left rowTextSize">{{revData?.description}}</td>
+                                            <td class="txt-left">{{revData?.unitTypeDTO?.unitTypeNameBng}}</td>
+                                            <td class="txt-left">{{revData?.qty}}</td>
+                                            <td class="txt-left">{{revData?.totalAmount}}</td>
+                                            <td class="txt-left">
+                                                {{revData?.gobAmount?.toFixed(2)}}<br>
+                                                ({{revData?.gobFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left">
+                                                {{revData?.ownFundAmount?.toFixed(2)}}<br>
+                                                ({{revData?.ownFundFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left">
+                                                {{revData?.otherAmount?.toFixed(2)}}<br>
+                                                ({{revData?.otherFeAmount?.toFixed(2)}})
+                                            </td>
+                                        </tr>
+                                        <!--        ====================== revenue subtotal =========================-->
+                                        <tr style="background-color: #d8d5d5 !important;">
+                                            <td colspan="5" style="text-align: left;">{{'Sub_total_Revenue' |
+                                                translate}}</td>
+                                            <td class="txt-left">
+                                                {{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(revenueTotal?.totalAmount?.toFixed(2)) :
+                                                revenueTotal?.totalAmount?.toFixed(2)}}
+                                            </td>
+                                            <td class="txt-left">
+                                                {{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(revenueTotal?.gobAmount?.toFixed(2)) :
+                                                revenueTotal?.gobAmount?.toFixed(2)}}<br>
+                                                ({{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(revenueTotal?.gobFeAmount?.toFixed(2)) :
+                                                revenueTotal?.gobFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left">
+                                                {{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(revenueTotal?.ownFundAmount?.toFixed(2))
+                                                :
+                                                revenueTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                                ({{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(revenueTotal?.ownFundFeAmount?.toFixed(2))
+                                                :
+                                                revenueTotal?.ownFundFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left">
+                                                {{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(revenueTotal?.otherAmount?.toFixed(2)) :
+                                                revenueTotal?.otherAmount?.toFixed(2)}}<br>
+                                                ({{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(revenueTotal?.otherFeAmount?.toFixed(2))
+                                                :
+                                                revenueTotal?.otherFeAmount?.toFixed(2)}})
+                                            </td>
+
+                                        </tr>
+                                        <!--        ========================= capital component ====================-->
+                                        <tr style="background-color: #d8d5d5 !important;">
+                                            <td colspan="15" style="text-align: left !important;  height: 30px;">{{'Capital_component'
+                                                | translate}}</td>
+                                        </tr>
+                                        <tr *ngFor="let capitalData of capItemWiseCumList?.dppAnnualPhasingCostTabDetails"
+                                            class="text-right" style="height: 75px; ">
+                                            <td class="txt-left">{{capitalData?.economicCodeDTO.economicCodeBng}}</td>
+                                            <td class="txt-left">{{capitalData?.subEconomicCodeDTO.subEconomicCodeBng}}
+                                            </td>
+                                            <td class="txt-left">{{capitalData?.description}}</td>
+                                            <td class="txt-left">{{capitalData?.unitTypeDTO.unitTypeNameBng}}</td>
+                                            <td class="txt-left">{{capitalData?.qty}}</td>
+                                            <td class="txt-left">{{capitalData?.totalAmount}}</td>
+                                            <td class="txt-left">
+                                                {{capitalData?.gobAmount?.toFixed(2)}}<br>
+                                                ({{capitalData?.gobFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left">
+                                                {{capitalData?.ownFundAmount?.toFixed(2)}}<br>
+                                                ({{capitalData?.ownFundFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left">
+                                                {{capitalData?.otherAmount?.toFixed(2)}}<br>
+                                                ({{capitalData?.otherFeAmount?.toFixed(2)}})
+                                            </td>
+                                        </tr>
+                                        <!-- sub capital  -->
+                                        <tr style="background-color: #d8d5d5 !important;">
+                                            <td colspan="5" style="text-align: left;">{{'Sub_total_Capital' |
+                                                translate}}</td>
+                                            <td class="txt-left">{{capItemWiseCum?.totalAmount}}</td>
+
+                                            <td class="txt-left">{{capItemWiseCum?.gobAmount}}<br>
+                                                ({{capItemWiseCum?.gobFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{capItemWiseCum?.ownFundAmount }}<br>
+                                                ({{capItemWiseCum?.ownFundFeAmount }})
+                                            </td>
+                                            <td class="txt-left">{{capItemWiseCum?.otherAmount }}<br>
+                                                ({{capItemWiseCum?.otherFeAmount }})
+                                            </td>
+
+                                        </tr>
+                                        <!--        ===================== physical contingency ========================-->
+
+                                        <tr style="background-color: #d8d5d5 !important;"
+                                            *ngIf="physicalContingencyTotal != null">
+                                            <td colspan="5" style="text-align: left;">{{'Physical_contingency' |
+                                                translate}}</td>
+                                            <td class="txt-left" data-label="Total Cost">
+                                                {{contingencyCumO?.totalAmount}}
+                                            </td>
+                                            <td class="txt-left" data-label="GoB (FE)">
+                                                {{contingencyCumO?.gobAmount?.toFixed(2)}}<br>
+                                                ({{contingencyCumO?.gobFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left" data-label="Own Fund (FE)">
+                                                {{contingencyCumO?.ownFundAmount?.toFixed(2)}}<br>
+                                                ({{contingencyCumO?.ownFundFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left" data-label="Other (FE)">
+                                                {{contingencyCumO?.otherAmount?.toFixed(2)}}<br>
+                                                ({{contingencyCumO?.otherFeAmount?.toFixed(2)}})
+                                            </td>
+                                        </tr>
+                                        <!--                    ======================= price contingency ========================-->
+
+                                        <tr style="background-color: #d8d5d5 !important;"
+                                            *ngIf="priceContingencyTotal != null">
+                                            <td colspan="5" style="text-align: left;">{{'Price_contingency' |
+                                                translate}}</td>
+                                            <td class="txt-left" data-label="Total Cost">
+                                                {{contingencyCumI?.totalAmount}}
+                                            </td>
+                                            <td class="txt-left" data-label="GoB (FE)">
+                                                {{contingencyCumI?.gobAmount?.toFixed(2)}}<br>
+                                                ({{contingencyCumI?.gobFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left" data-label="Own Fund (FE)">
+                                                {{contingencyCumI?.ownFundAmount?.toFixed(2)}}<br>
+                                                ({{contingencyCumI?.ownFundFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left" data-label="Other (FE)">
+                                                {{contingencyCumI?.otherAmount?.toFixed(2)}}<br>
+                                                ({{contingencyCumI?.otherFeAmount?.toFixed(2)}})
+                                            </td>
+                                        </tr>
+
+                                        <!-- grand total -->
+                                        <tr style="background-color: #d8d5d5 !important;">
+                                            <td colspan="5" style="text-align: left;">{{'Grand_total' | translate}}</td>
+                                            <td class="txt-left" data-label="Total Cost">
+                                                {{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(grantTotal?.totalAmount ) :
+                                                grantTotal?.totalAmount}}
+                                            </td>
+                                            <td class="txt-left" data-label="GoB (FE)">
+                                                {{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(grantTotal?.gobAmount?.toFixed(2)) :
+                                                grantTotal?.gobAmount?.toFixed(2)}}<br>
+                                                ({{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(grantTotal?.gobFeAmount?.toFixed(2)) :
+                                                grantTotal?.gobFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left" data-label="Own Fund (FE)">
+                                                {{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(grantTotal?.ownFundAmount?.toFixed(2)) :
+                                                grantTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                                ({{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(grantTotal?.ownFundFeAmount?.toFixed(2))
+                                                :
+                                                grantTotal?.ownFundFeAmount?.toFixed(2)}})
+                                            </td>
+                                            <td class="txt-left" data-label="Other (FE)">
+                                                {{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(grantTotal?.otherAmount?.toFixed(2)) :
+                                                grantTotal?.otherAmount?.toFixed(2)}}<br>
+                                                ({{(!projectSummary?.isForeignAid &&
+                                                projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                numberPipe.convertToBanglaNumber(grantTotal?.otherFeAmount?.toFixed(2)) :
+                                                grantTotal?.otherFeAmount?.toFixed(2)}})
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </ng-container>
+                        <!-- ++++++++++++++++++++++++++++++++ -->
+                         <!-- fiscal year -->
+
+                            <ng-container *ngFor="let revYear of fCapDList; let i=index">
+                            <td style="vertical-align: top;  "
+                            >
+                                <table style="float: left; ; border: 1px solid black;"  >
+                                    <thead style="height: 210px; ">
+                                        <tr>
+                                            <th colspan="6" style="height: 40px;">{{'potentialcost' | translate}}</th>
+                                        </tr>
+                                        <tr>
+                                            <!-- <th colspan="6">{{revYear?.fiscalYear}}</th> -->
+                                            <th colspan="6">{{(revYear != null) ? revYear?.fiscalYear : "Please entry cumulative fields."}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th rowspan="2">{{'Unit' | translate}}</th>
+                                            <th rowspan="2">{{'Quantity' | translate}}</th>
+                                            <th colspan="4">{{'cost' | translate}}</th>
+                                        </tr>
+                                        <tr>
+
+                                            <th>{{'total' | translate}}</th>
+                                            <th>{{'GOB' | translate}}</th>
+                                            <th>{{'ownCurr' | translate}}</th>
+                                            <th>{{'Others' | translate}}</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <!-- reve  -->
+                                        <tr style="background-color: #d8d5d5 !important;">
+                                            <td colspan="6"
+                                                style="text-align: left !important; height: 30px !important;"> &nbsp;</td>
+                                        </tr>
+
+                                        <tr style="height: 75px; " *ngFor="let dataFi of revYear.values">
+
+                                            <td> </td>
+                                            <td></td>
+                                            <!-- <td class="txt-left"> {{dataFi?.totalAmount}}</td> -->
+                                            <td class="txt-left"> {{(dataFi != null) ? numberPipe.convertToBanglaNumber(dataFi?.totalAmount?.toFixed(2)) : 0.00}}</td>
+                                            <td class="txt-left">{{dataFi?.gobAmount}}<br>
+                                                ({{dataFi?.gobFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{dataFi?.ownFundAmount}}<br>
+                                                ({{dataFi?.ownFundFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{dataFi?.otherAmount}}<br>
+                                                ({{dataFi?.otherFeAmount}})
+                                            </td>
+                                        </tr>
+                                        <!-- sub rev  -->
+                                        <tr>
+                                            <!-- <td>{{revYear | json}}</td> -->
+                                            <td></td>
+                                            <td></td>
+                                            <td class="txt-left">{{revYear?.dppAnnualPhasingCostTotal?.totalAmount}}</td>
+                                            <td class="txt-left">{{revYear?.dppAnnualPhasingCostTotal?.gobAmount}}<br>
+                                                ({{revYear?.dppAnnualPhasingCostTotal?.gobFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{revYear?.dppAnnualPhasingCostTotal?.ownFundAmount}}<br>
+                                                ({{revYear?.dppAnnualPhasingCostTotal?.ownFundFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{revYear?.dppAnnualPhasingCostTotal?.otherAmount}}<br>
+                                                ({{revYear?.dppAnnualPhasingCostTotal?.otherFeAmount}})
+                                            </td>
+                                        </tr>
+
+
+                                            <!-- capital  -->
+                                        <tr style="background-color: #d8d5d5 !important;">
+                                            <td colspan="6"
+                                                style="text-align: left !important; height: 30px !important;">&nbsp; </td>
+                                        </tr>
+
+                                        <tr style="height: 75px; " *ngFor="let dataFi of fCapDList[i]?.values">
+                                            <td> </td>
+                                            <td></td>
+                                            <td class="txt-left"> {{dataFi?.totalAmount}}</td>
+                                            <td class="txt-left">{{dataFi?.gobAmount}}<br>
+                                                ({{dataFi?.gobFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{dataFi?.ownFundAmount}}<br>
+                                                ({{dataFi?.ownFundFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{dataFi?.otherAmount}}<br>
+                                                ({{dataFi?.otherFeAmount}})
+                                            </td>
+                                        </tr>
+                                        <!-- sub capital  -->
+                                        <tr>
+                                            <!-- <td>{{revYear | json}}</td> -->
+                                            <td></td>
+                                            <td></td>
+                                            <td class="txt-left">{{fCapDList[i]?.dppAnnualPhasingCostTotal?.totalAmount}}</td>
+                                            <td class="txt-left">{{fCapDList[i]?.dppAnnualPhasingCostTotal?.gobAmount}}<br>
+                                                ({{fCapDList[i]?.dppAnnualPhasingCostTotal?.gobFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{fCapDList[i]?.dppAnnualPhasingCostTotal?.ownFundAmount}}<br>
+                                                ({{fCapDList[i]?.dppAnnualPhasingCostTotal?.ownFundFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{fCapDList[i]?.dppAnnualPhasingCostTotal?.otherAmount}}<br>
+                                                ({{fCapDList[i]?.dppAnnualPhasingCostTotal?.otherFeAmount}})
+                                            </td>
+                                        </tr>
+
+                                        <!-- contengency -->
+                                        <tr>
+                                            <td> </td>
+                                            <td></td>
+                                            <td class="txt-left"> {{fContPhyDList[i]?.values[0]?.totalAmount}}</td>
+                                            <td class="txt-left">{{fContPhyDList[i]?.values[0]?.gobAmount}}<br>
+                                                ({{fContPhyDList[i]?.values[0]?.gobFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{fContPhyDList[i]?.values[0]?.ownFundAmount}}<br>
+                                                ({{fContPhyDList[i]?.values[0]?.ownFundFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{fContPhyDList[i]?.values[0]?.otherAmount}}<br>
+                                                ({{fContPhyDList[i]?.values[0]?.otherFeAmount}})
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> </td>
+                                            <td></td>
+                                            <td class="txt-left"> {{fContPhyDList[i]?.values[1]?.totalAmount}}</td>
+                                            <td class="txt-left">{{fContPhyDList[i]?.values[1]?.gobAmount}}<br>
+                                                ({{fContPhyDList[i]?.values[1]?.gobFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{fContPhyDList[i]?.values[1]?.ownFundAmount}}<br>
+                                                ({{fContPhyDList[i]?.values[1]?.ownFundFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{fContPhyDList[i]?.values[1]?.otherAmount}}<br>
+                                                ({{fContPhyDList[i]?.values[1]?.otherFeAmount}})
+                                            </td>
+                                        </tr>
+
+                                        <!-- Grand_total  -->
+
+                                        <tr>
+                                            <td> </td>
+                                            <td></td>
+                                            <td class="txt-left"> {{grandTotalList[i]?.dppAnnualPhasingCostTotal?.totalAmount}}</td>
+                                            <td class="txt-left">{{grandTotalList[i]?.dppAnnualPhasingCostTotal?.gobAmount}}<br>
+                                                ({{grandTotalList[i]?.dppAnnualPhasingCostTotal?.gobFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{grandTotalList[i]?.dppAnnualPhasingCostTotal?.ownFundAmount}}<br>
+                                                ({{grandTotalList[i]?.dppAnnualPhasingCostTotal?.ownFundFeAmount}})
+                                            </td>
+                                            <td class="txt-left">{{grandTotalList[i]?.dppAnnualPhasingCostTotal?.otherAmount}}<br>
+                                                ({{grandTotalList[i]?.dppAnnualPhasingCostTotal?.otherFeAmount}})
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+
+                            </td>
+                            </ng-container>
+
+
+                            <ng-container *ngIf="fCapDList.length == 0"  >
+
+                                <table>
+                                    <thead style="height: 210px; ">
+                                        <tr>
+                                            <th colspan="6">{{'potentialcost' | translate}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="6">  Fiscal Year </th>
+                                        </tr>
+                                        <tr>
+                                            <th rowspan="2">{{'Unit' | translate}}</th>
+                                            <th rowspan="2">{{'Quantity' | translate}}</th>
+                                            <th colspan="4">{{'cost' | translate}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>{{'total' | translate}}</th>
+                                            <th>{{'GOB' | translate}}</th>
+                                            <th>{{'ownCurr' | translate}}</th>
+                                            <th>{{'Others' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                                <div style="max-width: 100%; margin: 10px;padding: 30px; text-align: justify;
+                                background-color: aquamarine;
+                                ">
+                                    <p style="font-size: 25px; ">{{'validationPage' | translate}}</p>
+                                </div>
+                            </ng-container>
+                    </tr>
+                </table>
+            </div>
+        </ng-template>
+<!-- ================ -->
+
+        <br />
+        <div>
+            <span>{{ "note1" | translate }}</span>
+        </div>
+        <div>
+            <span>{{ "note2" | translate }}</span>
+        </div>
+    </div>
+</div>

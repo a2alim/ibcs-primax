@@ -1,0 +1,160 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <div class="flex-auto m-7 body-color">
+        <form>
+            <!-- CARD ONE-->
+            <div>
+                <div class="heading mt-2">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2 md:pt-3">
+                            {{'note_tab_title' | translate}}
+                        </div>
+
+                    </div>
+                </div>
+
+                <mat-card class="tab-color">
+                    <!-- Row 1-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'are_you_present' | translate}}<strong class="required">*</strong>
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                            <mat-form-field class="w-full">
+                                <mat-select #fiscalYearIdModel="ngModel"
+                                            [(ngModel)]="notificationNoteModel.isAccept"
+                                            [ngModelOptions]="{standalone: true}">
+                                    <mat-option  value="true">Yes</mat-option>
+                                    <mat-option  value="false">No</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div *ngIf="fiscalYearIdModel.dirty && !(fiscalYearIdModel.value | required)" class="text-red-600">Required!</div>
+                        </div>
+
+                    </div>
+
+                    <!-- Row 2-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'note' | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                            <mat-form-field class="w-full">
+                                 <textarea #subject="ngModel" matInput [(ngModel)]="notificationNoteModel.note"
+                                           [ngModelOptions]="{standalone: true}"
+                                           required></textarea>
+                            </mat-form-field>
+                            <div *ngIf="subject.dirty && !(subject.value | required)" class="text-red-600">Required!
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="flex justify-end mt-8">
+                        <button
+                            mat-flat-button
+                            [color]="'primary'"
+                            type="submit"
+                            (click)="back()"
+                            class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                            {{ "previous" | translate }}
+                        </button>
+
+                        <button
+                            mat-flat-button
+                            style="background-color: green; color: #FFFFFF"
+                            [disabled]="!(notificationNoteModel.isAccept | required) ||
+                                        !(notificationNoteModel.note | required)"
+                            type="submit"
+                            (click)="save()"
+                            color="primary"
+                            class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                            <span>{{ "save" | translate }}</span>
+                        </button>
+                    </div>
+                </mat-card>
+            </div>
+            <!-- Bottom Button -->
+        </form>
+    </div>
+
+    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+        <!--<mat-card>-->
+        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                <!-- Position Column -->
+                <ng-container matColumnDef="userName">
+                    <th mat-header-cell *matHeaderCellDef class="w-16"> {{'from' | translate}} </th>
+                    <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                        {{element.userId}}
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="note">
+                    <th mat-header-cell *matHeaderCellDef> {{'note' | translate}} </th>
+                    <td mat-cell *matCellDef="let element">
+                        <!-- <ng-container *ngFor="let f of fiscalYearList">
+                            <span *ngIf="element.stFiscalYearId==f.id">{{f.fiscalYear}}</span>
+                        </ng-container> -->
+                        {{element.note}}
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="attendedStatus">
+                    <th mat-header-cell *matHeaderCellDef> {{'attendedStatus' | translate}} </th>
+                    <td mat-cell *matCellDef="let element">
+                        <!-- <ng-container *ngFor="let c of commiteeTypeList">
+                            <span *ngIf="element.stCommitteeTypeId==c.id">{{c.committeeName}}</span>
+                        </ng-container> -->
+                        {{element.isAccept}}
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="submissionDate">
+                    <th mat-header-cell *matHeaderCellDef> {{'submissionDate' | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <div class="buttons">
+                            <button (click)="editRow(element)" mat-icon-button class="toggle-sidebar-folded"
+                                    matTooltip="Edit" fxHide.lt-lg>
+                                <mat-icon color="accent">edit
+                                </mat-icon>
+                            </button>
+
+                            <button (click)="openDialog(element.uuid)" mat-icon-button
+                                    class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>
+
+                                <mat-icon color="warn">delete
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Initialized Table Header And Dataset-->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <!-- mat-paginator -->
+<!--        <mat-paginator #paginatorRef [length]="totalElements" [pageSize]="pageSize"-->
+<!--                       [pageSizeOptions]="[5, 10, 25, 100]" (page)="onChangePage($event)">-->
+<!--        </mat-paginator>-->
+    </div>
+</div>

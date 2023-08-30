@@ -1,0 +1,176 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <div *ngIf="spinner2" class="flex items-center justify-center">
+        <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
+
+
+    <!-- Main Start -->
+    <div class="body m-5">
+
+        <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+            <div class="heading">
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                        <!-- <h1 class="md:mt-2"> {{'details' | translate}}</h1>  -->
+                        <!-- {{tabData.personalInfo.userId}} -->
+<!--                        <h3 class="md:mt-2">{{'tab_1_title' | translate}}<span> </span></h3>-->
+                    </div>
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                        <div class="flex md:justify-end">
+                            <button
+                                class="px-3 mr-2 previousIcon"
+                                mat-flat-button
+                                color="accent"
+                                (click)="back()"
+                                type="button">
+                                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                {{'previous' | translate}}
+                            </button>
+
+                            <button [disabled]="spinner2"
+                                    class="px-3 mr-2 downloadBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    (click)="download()"
+                                    type="button">
+                                <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                                {{'download' | translate}}
+                            </button>
+
+                            <!--                                <button-->
+                            <!--                                    class="px-3 printBtn"-->
+                            <!--                                    mat-flat-button-->
+                            <!--                                    color="accent"-->
+                            <!--                                    (click)="print()"-->
+                            <!--                                    type="button">-->
+                            <!--                                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>-->
+                            <!--                                    {{'print' | translate}}-->
+                            <!--                                </button>-->
+                            <button
+                                [useExistingCss]="true"
+                                printTitle="evaluator-grant-amount-details"
+                                class="px-3 printBtn"
+                                mat-flat-button
+                                color="accent"
+                                printSectionId="print" ngxPrint
+                                type="button">
+                                <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                {{'print' | translate}}
+                            </button>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mat-card class="tab-color">
+
+            <!-- CARD ONE-->
+            <div id="print">
+            <div >
+                <br/>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="p-2" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        <strong>{{'FiscalYear' | translate}} :</strong>
+                    </mat-label>
+                    <p fxFlex="80%" fxFlex.md="70%" fxFlex.sm="60%" fxFlex.xs="100%">{{data?.fiscalYear.fiscalYear}}</p>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+<!--                    <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%"-->
+<!--                               fxFlex.xs="100%">-->
+<!--                        <strong>{{'TopContent' | translate}}</strong>-->
+<!--                    </mat-label>-->
+                    <p class="p-2 text-align-justify" [innerHTML]="data?.topContent"></p>
+                </div>
+
+            </div>
+
+            <!-- Data Table -->
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="sl">
+                            <th mat-header-cell *matHeaderCellDef class="w-16"> {{'Sl' | translate}} </th>
+                            <td mat-cell *matCellDef="let row, let i = index;" class="text-align-centre">
+                                    {{(i === (data.details.length - 1)) ? '' : i + 1}}
+                                    <!--{{this.paginator.pageIndex == 0 ? i + 1 : 1 + i + this.paginator.pageIndex * this.paginator.pageSize}}-->
+                            </td>
+
+                        </ng-container>
+
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="researchTitle">
+                            <th mat-header-cell *matHeaderCellDef> {{'ResearchTitle' | translate}} </th>
+                            <td mat-cell
+                                *matCellDef="let element"> {{element?.researcherProposalDto?.researchTitle}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="evaluatorName">
+                            <th mat-header-cell *matHeaderCellDef> {{'EvaluatorName' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.evaluator?.name}} <br/> {{element?.instituteName}}</td>
+                        </ng-container>
+
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="researchCategory">
+                            <th mat-header-cell *matHeaderCellDef> {{'ResearchCategory' | translate}} </th>
+                            <td mat-cell *matCellDef="let element, let i = index">
+                                {{ (i === (data.details.length - 1)) ? 'Grant Amount' : element.researcherProposalDto.researchCategoryType.categoryName}}
+                            </td>
+                        </ng-container>
+
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="grantAmount">
+                            <th mat-header-cell *matHeaderCellDef> {{'GrantAmount' | translate}} </th>
+                            <td mat-cell *matCellDef="let element" class="text-align-right">{{element?.grantAmount.toFixed(2)}}</td>
+                        </ng-container>
+
+                        <!-- Initialized Table Header And Dataset-->
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+                <!-- mat-paginator -->
+
+                <!--                <mat-paginator-->
+                <!--                    [pageSizeOptions]="[5, 10, 25, 100]"-->
+                <!--                    (page)="onChangePage($event)">-->
+                <!--                </mat-paginator>-->
+            </div>
+
+            <div>
+                <br/>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+<!--                    <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%"-->
+<!--                               fxFlex.xs="100%">-->
+<!--                        <strong>{{'BottomContent' | translate}}</strong>-->
+<!--                    </mat-label>-->
+                    <p class="p-2 text-align-justify" [innerHTML]="data?.bottomContent"></p>
+                </div>
+
+            </div>
+            </div>
+        </mat-card>
+    </div>
+
+
+    <!-- Main End -->
+</div>

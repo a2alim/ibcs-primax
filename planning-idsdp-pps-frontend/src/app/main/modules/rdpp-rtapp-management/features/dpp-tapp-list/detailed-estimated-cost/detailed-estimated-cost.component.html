@@ -1,0 +1,434 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">Annexure - V (a) Detailed
+                                    Estimated Cost
+                                </div>
+                                <div class="flex items-center">
+                                    <div
+                                        class="leading-5 truncate text-secondary">Home>Annexure - V (a) Detailed
+                                        Estimated Cost
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex justify-end" style="margin-top: -50px; color: #FFFFFF !important;">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                {{"homePage" | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+            <!-- Main -->
+
+            <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto "
+                 style="padding: 10px; background-color: white">
+                <table class="tables">
+                    <thead>
+                    <tr>
+                        <th rowspan="3">{{'Economic_code' | translate}}</th>
+                        <th rowspan="3">{{'Economic_sub_code' | translate}}</th>
+                        <th rowspan="3">{{'Component_description' | translate}}</th>
+                        <th rowspan="3">{{'Unit' | translate}}</th>
+                        <th rowspan="3">{{'Unit_cost' | translate}}</th>
+                        <th rowspan="3">{{'Quantity' | translate}}</th>
+                        <th rowspan="3">{{'Gob_fe' | translate}}</th>
+                        <th colspan="4" *ngIf="isForeignAid">{{'Project_aid' | translate}}</th>
+                        <th rowspan="3">{{'Own_fund_fe' | translate}}</th>
+                        <th rowspan="3">{{'Other_fe' | translate}}</th>
+                        <th *ngIf="isForeignAid" rowspan="3">{{'Total_cost_en' | translate}}</th>
+                        <th *ngIf="!isForeignAid" rowspan="3">{{'Total_cost_bn' | translate}}</th>
+                        <th rowspan="3">{{'Total_project_cost' | translate}}</th>
+
+                    </tr>
+                    <tr>
+
+                        <th *ngIf="isForeignAid" colspan="2"> {{'Rpa' | translate}}</th>
+                        <th *ngIf="isForeignAid" colspan="2">{{'Dpa' | translate}}</th>
+
+                    </tr>
+                    <tr>
+                        <th *ngIf="isForeignAid">{{'Through_gob' | translate}}</th>
+                        <th *ngIf="isForeignAid">{{'Special_amount' | translate}}</th>
+                        <th *ngIf="isForeignAid">{{'Through_pd' | translate}}</th>
+                        <th *ngIf="isForeignAid">{{'Special_dp' | translate}}</th>
+
+                    </tr>
+                    <tr *ngIf="isForeignAid" class="boldBorder">
+                        <th>{{'Num1' | translate}}</th>
+                        <th>{{'Num2' | translate}}</th>
+                        <th>{{'Num3' | translate}}</th>
+                        <th>{{'Num4' | translate}}</th>
+                        <th>{{'Num5' | translate}}</th>
+                        <th>{{'Num6' | translate}}</th>
+                        <th>{{'Num7' | translate}}</th>
+                        <th>{{'Num8' | translate}}</th>
+                        <th>{{'Num9' | translate}}</th>
+                        <th>{{'Num10' | translate}}</th>
+                        <th>{{'Num11' | translate}}</th>
+                        <th>{{'Num12' | translate}}</th>
+                        <th>{{'Num13' | translate}}</th>
+                        <th>{{'Num14' | translate}}</th>
+                        <th>{{'Num15' | translate}}</th>
+                    </tr>
+
+                    <tr *ngIf="!isForeignAid" class="boldBorder">
+                        <th>{{'Num1' | translate}}</th>
+                        <th>{{'Num2' | translate}}</th>
+                        <th>{{'Num3' | translate}}</th>
+                        <th>{{'Num4' | translate}}</th>
+                        <th>{{'Num5' | translate}}</th>
+                        <th>{{'Num6' | translate}}</th>
+                        <th>{{'Num7' | translate}}</th>
+                        <th>{{'Num8' | translate}}</th>
+                        <th>{{'Num9' | translate}}</th>
+                        <th>{{'Num10' | translate}}</th>
+                        <th>{{'Num11' | translate}}</th>
+                    </tr>
+
+
+
+                    </thead>
+                    <tbody>
+
+<!--                    ========================== revenue component ========================-->
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="15"
+                            style="text-align: left !important;">{{'Revenue_component' | translate}}</td>
+                    </tr>
+                    <tr *ngFor="let data of revenueList" class="text-center">
+                        <td class="txt-left">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.economicCode.economicCode) + '[' + data?.economicCode.economicCodeNameBng + ']' : data?.economicCode.economicCode + '[' + data?.economicCode.economicCode + ']'}}
+                        </td>
+                        <td class="txt-left">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.subEconomicCode.subEconomicCode) + '[' + data?.subEconomicCode.subEconomicCodeNameBng + ']' : data?.subEconomicCode.subEconomicCode + '[' + data?.subEconomicCode.subEconomicCodeName + ']'}}
+                        </td>
+                        <td class="txt-left">
+                            {{data?.description}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? data?.unitType.unitTypeNameBng : data?.unitType.unitTypeNameEng}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.unitCost.toFixed(2)) : data?.unitCost.toFixed(2)}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.qty) : data?.qty}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.gobAmount.toFixed(2)) : data?.gobAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.gobFeAmount.toFixed(2)) : data?.gobFeAmount.toFixed(2)}})
+                        </td>
+                        <td *ngIf="isForeignAid">
+                            {{data?.gobThruAmount}}
+                        </td>
+                        <td *ngIf="isForeignAid">
+                            {{data?.spAcAmount}}
+                        </td>
+                        <td *ngIf="isForeignAid">
+                            {{data?.thruPdAmount}}
+                        </td>
+                        <td *ngIf="isForeignAid">
+                            {{data?.thruDpAmount}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.ownFundAmount.toFixed(2)) : data?.ownFundAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.ownFundFeAmount.toFixed(2)) : data?.ownFundFeAmount.toFixed(2)}})
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.otherAmount.toFixed(2)) : data?.otherAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.otherFeAmount.toFixed(2)) : data?.otherFeAmount.toFixed(2)}})
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.totalCostCalculated.toFixed(2)) : data?.totalCostCalculated.toFixed(2)}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.totalProjectCost.toFixed(2)) : data?.totalProjectCost.toFixed(2)}}
+                        </td>
+                    </tr>
+
+<!--                        ======================= revenue component sub total ============================-->
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="6" style="text-align: left;">{{'Sub_total_Revenue' | translate}}</td>
+                        <td data-label="GoB (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.gobAmount.toFixed(2)) : revenueTotal?.gobAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.gobFeAmount.toFixed(2)) : revenueTotal?.gobFeAmount.toFixed(2)}})
+                        </td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{revenueTotal?.gobThruAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{revenueTotal?.spAcAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{revenueTotal?.thruPdAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{revenueTotal?.thruDpAmount}}</td>
+                        <td data-label="GoB (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.ownFundAmount.toFixed(2)) : revenueTotal?.ownFundAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.ownFundFeAmount.toFixed(2)) : revenueTotal?.ownFundFeAmount.toFixed(2)}})
+                        </td>
+                        <td data-label="GoB (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.otherAmount.toFixed(2)) : revenueTotal?.otherAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.otherFeAmount.toFixed(2)) : revenueTotal?.otherFeAmount.toFixed(2)}})
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.totalAmount.toFixed(2)) : revenueTotal?.totalAmount.toFixed(2)}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.totalProjectCost.toFixed(2)) : revenueTotal?.totalProjectCost.toFixed(2)}}
+                        </td>
+                    </tr>
+
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="15"
+                            style="text-align: left !important;">{{'Capital_component' | translate}}</td>
+                    </tr>
+                    <tr *ngFor="let data of capitalList" class="text-center">
+                        <td class="txt-left">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.economicCode.economicCode) + '[' + data?.economicCode.economicCodeNameBng + ']' : data?.economicCode.economicCode + '[' + data?.economicCode.economicCode + ']'}}
+                        </td>
+                        <td class="txt-left">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.subEconomicCode.subEconomicCode) + '[' + data?.subEconomicCode.subEconomicCodeNameBng + ']' : data?.subEconomicCode.subEconomicCode + '[' + data?.subEconomicCode.subEconomicCodeName + ']'}}
+                        </td>
+                        <td class="txt-left">
+                            {{data?.description}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? data?.unitType.unitTypeNameBng : data?.unitType.unitTypeNameEng}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.unitCost.toFixed(2)) : data?.unitCost.toFixed(2)}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.qty) : data?.qty}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.gobAmount.toFixed(2)) : data?.gobAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.gobFeAmount.toFixed(2)) : data?.gobFeAmount.toFixed(2)}})
+                        </td>
+                        <td *ngIf="isForeignAid">
+                            {{data?.gobThruAmount}}
+                        </td>
+                        <td *ngIf="isForeignAid">
+                            {{data?.spAcAmount}}
+                        </td>
+                        <td *ngIf="isForeignAid">
+                            {{data?.thruPdAmount}}
+                        </td>
+                        <td *ngIf="isForeignAid">
+                            {{data?.thruDpAmount}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.ownFundAmount.toFixed(2)) : data?.ownFundAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.ownFundFeAmount.toFixed(2)) : data?.ownFundFeAmount.toFixed(2)}})
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.otherAmount.toFixed(2)) : data?.otherAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.otherFeAmount.toFixed(2)) : data?.otherFeAmount.toFixed(2)}})
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.totalCostCalculated.toFixed(2)) : data?.totalCostCalculated.toFixed(2)}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.totalProjectCost.toFixed(2)) : data?.totalProjectCost.toFixed(2)}}
+                        </td>
+                    </tr>
+
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="6" style="text-align: left;">{{'Sub_total_Capital' | translate}}</td>
+                        <td data-label="GoB (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.gobAmount.toFixed(2)) : capitalTotal?.gobAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.gobFeAmount.toFixed(2)) : capitalTotal?.gobFeAmount.toFixed(2)}})
+                        </td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{capitalTotal?.gobThruAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{capitalTotal?.spAcAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{capitalTotal?.thruPdAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{capitalTotal?.thruDpAmount}}</td>
+                        <td data-label="Own Fund (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.ownFundAmount.toFixed(2)) : capitalTotal?.ownFundAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.ownFundFeAmount.toFixed(2)) : capitalTotal?.ownFundFeAmount.toFixed(2)}})
+                        </td>
+                        <td data-label="Other (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.otherAmount.toFixed(2)) : capitalTotal?.otherAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.otherFeAmount.toFixed(2)) : capitalTotal?.otherFeAmount.toFixed(2)}})
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.totalAmount.toFixed(2)) : capitalTotal?.totalAmount.toFixed(2)}}
+                        </td>
+                        <td>
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.totalProjectCost.toFixed(2)) : capitalTotal?.totalProjectCost.toFixed(2)}}
+                        </td>
+                    </tr>
+
+<!--                    ========================= physical contingency =======================-->
+
+                    <tr style="background-color: #d8d5d5 !important;" *ngIf="physicalContingencyTotal != null">
+                        <td colspan="6" style="text-align: left;">{{'Physical_contingency' | translate}}</td>
+                        <td data-label="GoB (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.gobAmount.toFixed(2)) : physicalContingencyTotal?.gobAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.gobFeAmount.toFixed(2)) : physicalContingencyTotal?.gobFeAmount.toFixed(2)}})
+                        </td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{physicalContingencyTotal?.gobThruAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{physicalContingencyTotal?.spAcAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{physicalContingencyTotal?.thruPdAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{physicalContingencyTotal?.thruDpAmount}}</td>
+                        <td data-label="Own Fund (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.ownFundAmount.toFixed(2)) : physicalContingencyTotal?.ownFundAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.ownFundFeAmount.toFixed(2)) : physicalContingencyTotal?.ownFundFeAmount.toFixed(2)}})
+                        </td>
+                        <td data-label="Other (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.otherAmount.toFixed(2)) : physicalContingencyTotal?.otherAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.otherFeAmount.toFixed(2)) : physicalContingencyTotal?.otherFeAmount.toFixed(2)}})
+                        </td>
+                        <td data-label="Total Cost">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.totalAmount.toFixed(2)) : physicalContingencyTotal?.totalAmount.toFixed(2)}}
+                        </td>
+                        <td data-label="% of Total Project Cost">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.totalProjectCost.toFixed(2)) : physicalContingencyTotal?.totalProjectCost.toFixed(2)}}
+                        </td>
+                    </tr>
+
+<!--                    ====================== physical contingency when null =================-->
+
+                    <tr style="background-color: #d8d5d5 !important;" *ngIf="physicalContingencyTotal == null">
+                        <td colspan="6" style="text-align: left;">{{'Price_contingency' | translate}}</td>
+                        <td data-label="GoB (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                        </td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{blankVal.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{blankVal.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{blankVal.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{blankVal.toFixed(2)}}</td>
+                        <td data-label="Own Fund (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                        </td>
+                        <td data-label="Other (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                        </td>
+                        <td data-label="Total Cost">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                        </td>
+                        <td data-label="% of Total Project Cost">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                        </td>
+                    </tr>
+
+<!--                    ======================= price contingency ========================-->
+
+                    <tr style="background-color: #d8d5d5 !important;" *ngIf="priceContingencyTotal != null">
+                        <td colspan="6" style="text-align: left;">{{'Price_contingency' | translate}}</td>
+                        <td data-label="GoB (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.gobAmount.toFixed(2)) : priceContingencyTotal?.gobAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.gobFeAmount.toFixed(2)) : priceContingencyTotal?.gobFeAmount.toFixed(2)}})
+                        </td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{priceContingencyTotal?.gobThruAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{priceContingencyTotal?.spAcAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{priceContingencyTotal?.thruPdAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{priceContingencyTotal?.thruDpAmount}}</td>
+                        <td data-label="Own Fund (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.ownFundAmount.toFixed(2)) : priceContingencyTotal?.ownFundAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.ownFundFeAmount.toFixed(2)) : priceContingencyTotal?.ownFundFeAmount.toFixed(2)}})
+                        </td>
+                        <td data-label="Other (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.otherAmount.toFixed(2)) : priceContingencyTotal?.otherAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.otherFeAmount.toFixed(2)) : priceContingencyTotal?.otherFeAmount.toFixed(2)}})
+                        </td>
+                        <td data-label="Total Cost">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.totalAmount.toFixed(2)) : priceContingencyTotal?.totalAmount.toFixed(2)}}
+                        </td>
+                        <td data-label="% of Total Project Cost">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.totalProjectCost.toFixed(2)) : priceContingencyTotal?.totalProjectCost.toFixed(2)}}
+                        </td>
+                    </tr>
+
+<!--                    ========================= price contingency when null ====================-->
+                    <tr style="background-color: #d8d5d5 !important;" *ngIf="priceContingencyTotal == null">
+                        <td colspan="6" style="text-align: left;">{{'Price_contingency' | translate}}</td>
+                        <td data-label="GoB (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                        </td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{blankVal.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{blankVal.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{blankVal.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{blankVal.toFixed(2)}}</td>
+                        <td data-label="Own Fund (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                        </td>
+                        <td data-label="Other (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                        </td>
+                        <td data-label="Total Cost">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                        </td>
+                        <td data-label="% of Total Project Cost">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                        </td>
+                    </tr>
+
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="6" style="text-align: left;">{{'Grand_total' | translate}}</td>
+                        <td data-label="GoB (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.gobAmount.toFixed(2)) : grantTotal?.gobAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.gobFeAmount.toFixed(2)) : grantTotal?.gobFeAmount.toFixed(2)}})
+                        </td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{grantTotal?.gobThruAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{grantTotal?.spAcAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{grantTotal?.thruPdAmount}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{grantTotal?.thruDpAmount}}</td>
+                        <td data-label="Own Fund (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.ownFundAmount.toFixed(2)) : grantTotal?.ownFundAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.ownFundFeAmount.toFixed(2)) : grantTotal?.ownFundFeAmount.toFixed(2)}})
+                        </td>
+                        <td data-label="Other (FE)">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.otherAmount.toFixed(2)) : grantTotal?.otherAmount.toFixed(2)}}<br>
+                            ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.otherFeAmount.toFixed(2)) : grantTotal?.otherFeAmount.toFixed(2)}})
+                        </td>
+                        <td data-label="Total Cost">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.totalAmount.toFixed(2)) : grantTotal?.totalAmount.toFixed(2)}}
+                        </td>
+                        <td data-label="% of Total Project Cost">
+                            {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.totalProjectCost.toFixed(2)) : grantTotal?.totalProjectCost.toFixed(2)}}
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div *ngIf="isForeignAid">
+                <br/>
+                <label style="font-weight: 500">* DOSA, CONTASA, SAFE, Imprest etc</label>
+                <br/><br/>
+            </div>
+
+        </mat-card>
+    </div>
+</div>

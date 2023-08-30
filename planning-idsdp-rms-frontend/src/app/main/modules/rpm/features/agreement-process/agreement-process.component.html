@@ -1,0 +1,165 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <!-- Horizontal stepper -->
+            <form class="bg-card shadow rounded ounded-2xl overflow-hidden ">
+                <ng-template [ngIf]="smallScreen" [ngIfElse]="BigScreen">
+                    <mat-vertical-stepper [linear]="false" class="tab-bar tab-color" #horizontalStepper
+                        (selectionChange)="selectionChanged($event)">
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_1_title' | translate}}">
+                                    {{'tab_1_title' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div *ngIf="stepNo == 0" class="flex flex-col gt-xs:flex-row">
+                                <app-agreement-with-researcher-tab (numberOfInstallment)="setNumberOfIns($event)"
+                                    (rmsProposalId) = "setProposalId($event)"
+                                    (agreementDate)="setAgreementDate($event)"                                    
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)"></app-agreement-with-researcher-tab>
+                            </div>
+                        </mat-step>
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_3_title' | translate}}">
+                                    {{'tab_3_title' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div *ngIf="stepNo == 1" class="flex flex-col gt-xs:flex-row">
+                                <app-agreement-jamanatnama (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)"></app-agreement-jamanatnama>
+                            </div>
+                        </mat-step>
+                        <mat-step #horizontalStepperStep2>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_4_title' | translate}}">
+                                    {{'tab_4_title' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div *ngIf="stepNo == 2" class="flex flex-col gt-xs:flex-row">
+                                <app-agreement-party (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)"></app-agreement-party>
+                            </div>
+                        </mat-step>
+
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'activityPlan' | translate}}">
+                                    {{'activityPlan' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div *ngIf="stepNo == 3" class="flex flex-col gt-xs:flex-row">
+                                <app-agreement-activity-plan *ngIf="getAgreementDate"
+                                    [getAgreementDate] = "getAgreementDate"
+                                    [numberOfInstallment2]="numberOfInstallment"
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)"></app-agreement-activity-plan>
+                            </div>
+                        </mat-step>
+
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_2_title' | translate}}">
+                                    {{'tab_2_title' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div *ngIf="stepNo == 4" class="flex flex-col gt-xs:flex-row">
+                                <app-agreement-installment-tab *ngIf="numberOfInstallment"
+                                    [numberOfInstallment2]="numberOfInstallment"
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)"></app-agreement-installment-tab>
+                            </div>
+                        </mat-step>
+                    </mat-vertical-stepper>
+                </ng-template>
+                <ng-template #BigScreen>
+                    <mat-horizontal-stepper [linear]="false" class="tab-bar tab-color" #horizontalStepper
+                        (selectionChange)="selectionChanged($event)">
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_1_title' | translate}}">
+                                    {{'tab_1_title' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div *ngIf="stepNo == 0" class="flex flex-col gt-xs:flex-row">
+                                <app-agreement-with-researcher-tab (numberOfInstallment)="setNumberOfIns($event)"
+                                    (rmsProposalId) = "setProposalId($event)"
+                                    (agreementDate)="setAgreementDate($event)"
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)"></app-agreement-with-researcher-tab>
+                            </div>
+                        </mat-step>
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_3_title' | translate}}">
+                                    {{'tab_3_title' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div *ngIf="stepNo == 1" class="flex flex-col gt-xs:flex-row">
+                                <app-agreement-jamanatnama (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)"></app-agreement-jamanatnama>
+                            </div>
+                        </mat-step>
+                        <mat-step #horizontalStepperStep2>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_4_title' | translate}}">
+                                    {{'tab_4_title' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div *ngIf="stepNo == 2" class="flex flex-col gt-xs:flex-row">
+                                <app-agreement-party (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)"></app-agreement-party>
+                            </div>
+                        </mat-step>
+
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'activityPlan' | translate}}">
+                                    {{'activityPlan' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div *ngIf="stepNo == 3" class="flex flex-col gt-xs:flex-row">
+                                <app-agreement-activity-plan *ngIf="getAgreementDate"
+                                    [getRMSagreementDate] = "getAgreementDate"   
+                                    [getRMSproposalId] = "getProposalId"
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)"></app-agreement-activity-plan>
+                            </div>
+                        </mat-step>                                                  
+
+                        <mat-step>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'tab_2_title' | translate}}">
+                                    {{'tab_2_title' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div *ngIf="stepNo == 4" class="flex flex-col gt-xs:flex-row">
+                                <app-agreement-installment-tab 
+                                    *ngIf="numberOfInstallment"
+                                    [numberOfInstallment2]="numberOfInstallment"
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-agreement-installment-tab>
+                            </div>
+                        </mat-step>
+
+                    </mat-horizontal-stepper>
+                </ng-template>
+            </form>
+        </div>
+    </div>
+    <!-- Main End -->
+</div>

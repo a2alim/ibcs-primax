@@ -1,0 +1,211 @@
+<div style="width: 100%">
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <!-- Header -->
+    <app-form-header [title]="'head' | translate" [subTitle]="'sub' | translate"></app-form-header>
+
+    <div class="flex md:justify-end md:mr-3 mt-1">
+
+        <ng-container *ngIf="userType==='Rms_DO'">
+            <button class="px-3 mr-2 previous-button" mat-flat-button color="primary" (click)="profileList()" type="button">
+                <mat-icon *ngIf="editIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{'back' | translate}}
+            </button>
+        </ng-container>
+
+        <ng-container *ngIf="userType!='Rms_DO'">
+            <button class="px-3 mr-2 downloadBtn" mat-flat-button color="primary" (click)="updateProfile()" type="button">
+                <mat-icon *ngIf="editIcon" class="mr-1">{{editIcon}}</mat-icon>
+                {{'edit' | translate}}
+            </button>
+        </ng-container>
+
+
+        <button color="accent" class="px-3 mr-2 downloadBtn" mat-flat-button (click)="download('Institute_Profile')"
+            type="button">
+            <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+            {{'download' | translate}}
+        </button>
+
+        <button [useExistingCss]="true" printTitle="Profile Information" class="px-3 printBtn" mat-flat-button
+            color="accent" printSectionId="print" ngxPrint type="button">
+            <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+            {{'print' | translate}}
+        </button>
+    </div>
+
+    <div *ngIf="!isProfileCompleted" class="m-4 relative py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-200  rounded-lg mt-2"  role="alert">
+        <div class="text-lg font-semibold text-red-600"> {{'profileUpdateMessage' | translate}}
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div id="print" class="contentDiv flex-auto m-4 body-color" *ngIf="isProfileCompleted">
+        <!--Personal Info-->
+
+        <mat-card class="profileBg">
+            <div class="w-full sm:w-auto md:w-full lg:w-full">
+                <table class="personalInfoTbl" border="1">
+                    <tr>
+
+                        <td class="text-left w-20 text-bold"><b>{{'training_name' | translate}}</b></td>
+                        <td class="w-60 font-nomal"> <b>{{profileModel?.trainingInstituteName}}</b></td>
+                        <td rowspan="5">
+                            <ng-container *ngIf="profileModel.profileImage !== undefined">
+
+                                <div
+                                    style=" border: 5px solid #CCC; padding: 3px; vertical-align: top; height: 165px; width: 155px">
+
+                                    <img alt="Not Found" src="{{minioFileDownloadEndPointHost+this.profileModel?.profileImage?.bucketName+'/'
+                                     +this.profileModel?.profileImage?.fileName}}"
+                                        style="width: 140px; height: 150px; object-fit: fill">
+                                </div>
+                            </ng-container>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left"><b>{{ 'head_of_institute_name' | translate }}</b></td>
+                        <td>{{profileModel?.headOfInstituteName}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left"><b>{{'designation' | translate}}</b></td>
+                        <td>{{profileModel?.designation}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left"><b>{{'mobile_number' | translate}}</b></td>
+                        <td>{{profileModel?.mobileNumber}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left"><b>{{'dateof_birth' | translate}}</b></td>
+                        <td>{{profileModel?.dateOfBirth | date:'dd/MM/yyyy'}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left"><b>{{'email' | translate}}</b></td>
+                        <td>{{profileModel?.email}}</td>
+                        <td rowspan="4" style="vertical-align: top;">
+                            <ng-container *ngIf="profileModel.signImage !== undefined">
+                                <img src="{{minioFileDownloadEndPointHost+this.profileModel?.signImage?.bucketName+'/'
+                                     +this.profileModel?.signImage?.fileName}}" alt="Not Found"
+                                    style="width: 144px; height: 46px; object-fit: fill;margin-top: 2px" />
+                            </ng-container>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left"><b>{{'permanent_address' | translate}}</b></td>
+                        <td>{{profileModel?.permanentAddress}}</td>
+                    </tr>
+
+                    <!--<tr>
+                        <td class="text-left"><b>{{'nid_no' | translate}}</b></td>
+                        <td>{{profileModel?.nidNo}}</td>
+                    </tr>-->
+                    <tr>
+                        <td class="text-left"><b>{{'infrastrcutural_facilities' | translate}}</b> </td>
+
+                        <td>
+                            <span *ngIf="profileModel.audioVisual"><br> &nbsp;&#9632; Audio Visual</span>
+                            <span *ngIf="profileModel.trainingRoom">&nbsp;<br> &nbsp;&#9632; Training Room</span>
+                            <span *ngIf="profileModel.supportingStaff">&nbsp;<br> &nbsp;&#9632; Supporting Staff</span>
+
+                        </td>
+
+                    </tr>
+
+                </table>
+            </div>
+
+            <!--- Academic Background List -->
+            <div class="mt-5 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>
+                    <div class="ml-7 text-gray-900">{{'proposal_list' | translate}}</div>
+                </div>
+                <mat-card>
+                    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                        <!--<mat-card>-->
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                            <table [dataSource]="dataSource2" class="mat-elevation-z8 w-full" mat-table>
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="position">
+                                    <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl' | translate}} </th>
+                                    <td mat-cell class="text-center" *matCellDef="let row; let i = index;">
+                                        {{(i + 1) + (page * size)}}
+                                    </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="name">
+                                    <th *matHeaderCellDef mat-header-cell> {{'name' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.name}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="institute">
+                                    <th *matHeaderCellDef mat-header-cell> {{'institute' | translate}} </th>
+                                    <!--                                <td *matCellDef="let element" mat-cell class="text-center"> {{element.createdBy}} </td>-->
+                                    <td *matCellDef="let element" class="text-center" mat-cell>
+                                        <!--                                    {{ getInstituteName(element.createdBy) }} -->
+                                        {{ element.institute }}
+                                    </td>
+                                </ng-container>
+
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="designation">
+                                    <th *matHeaderCellDef mat-header-cell> {{'designation' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.designation}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="mobileNo">
+                                    <th *matHeaderCellDef mat-header-cell> {{'mobileNo' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.mobileNo}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="gender">
+                                    <th *matHeaderCellDef mat-header-cell> {{'gender' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.gender}}</td>
+                                </ng-container>
+
+
+                                <ng-container matColumnDef="email">
+                                    <th *matHeaderCellDef mat-header-cell> {{'email' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center" mat-cell> {{ element.email}}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="lastAcademicDeg">
+                                    <th *matHeaderCellDef mat-header-cell> {{'lastAcademicDeg' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center" mat-cell> {{
+                                        element.lastAcademicDeg}}</td>
+                                </ng-container>
+
+                                <!-- Initialized Table Header And Dataset-->
+                                <tr *matHeaderRowDef="displayedColumns2" mat-header-row></tr>
+                                <tr *matRowDef="let row; columns: displayedColumns2;" mat-row></tr>
+                            </table>
+                        </div>
+                        <!-- mat-paginator -->
+                        <mat-paginator (page)="onChangePage($event)" [length]="totalElements"
+                            [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="size">
+                        </mat-paginator>
+                    </div>
+                </mat-card>
+            </div>
+
+
+        </mat-card>
+
+
+    </div>
+    <!-- Main End -->
+</div>

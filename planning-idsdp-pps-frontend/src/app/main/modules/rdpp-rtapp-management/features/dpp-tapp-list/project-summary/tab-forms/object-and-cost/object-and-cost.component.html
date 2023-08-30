@@ -1,0 +1,948 @@
+<div *ngIf="show" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+</div>
+<!--============================== transaction spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--============================== // transaction spinner ===================-->
+<div *ngIf="!show" class="body">
+    <form (ngSubmit)="onSubmit()" [formGroup]="frmGroup" name="frmGroup">
+        <div>
+            <!-- Project Title (English) Div -->
+            <div class="md:flex">
+                <div class=" w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10 text-base">
+                    <span [innerHTML]="'ProjectTitle_1' | translate"></span>
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field [ngClass]="formFieldHelpers" class="w-full readOnly">
+                        <input formControlName="projectTitleEn" id="projectTitle" matInput readonly/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Project Title (Bangla) Div -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                    {{ "ProjectTitle_2" | translate }}
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field [ngClass]="formFieldHelpers" class="w-full readOnly">
+                        <input autocomplete="off" formControlName="projectTitleBn" matInput readonly/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- MinistryDivision Div -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                    {{ "MinistryDivision" | translate }}
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field [ngClass]="formFieldHelpers" class="w-full readOnly">
+                        <input autocomplete="off" formControlName="ministryDivision" matInput readonly/>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- ImplementingAgency Div -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                    {{ "ImplementingAgency" | translate }}
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="w-full readOnly">
+                        <input autocomplete="off" formControlName="implementingAgency" matInput placeholder=""
+                               readonly/>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- ConcernedDivision Div -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2">
+                    <span [innerHTML]="'ConcernedDivision' | translate"></span>
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field class="w-full readOnly">
+                        <mat-select formControlName="concernedDivisionId" disabled>
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let val of concernedDivisionList" [value]=val.id>
+                                {{(projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && !projectSummary.isForeignAid) ? val.sectorDivisionNameBn : val.sectorDivisionNameEn}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="frmGroup.get('concernedDivisionId').hasError('customError')">
+                            {{ frmGroup.get('concernedDivisionId').errors.customError.value }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Development_Partners Table -->
+            <div *ngIf="isForeignAid" class="heading">
+                <span [innerHTML]="'Development_Partners' | translate"></span>
+            </div>
+
+            <mat-card *ngIf="isForeignAid" cdkScrollable class="p-2 mb-5 overflow-x-auto sm:overflow-y-auto">
+                <form [formGroup]="formDev">
+                    <table [dataSource]="developmentPartnerDataSource" class="mat-elevation-z8"
+                           formArrayName="devPartner"
+                           id="devPartnerId"
+                           mat-table>
+
+
+                        <ng-container matColumnDef="8">
+                            <th *matHeaderCellDef class="table-head-style" colspan="3" mat-header-cell></th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="9">
+                            <th *matHeaderCellDef class="table-head-style" colspan="4" mat-header-cell>
+                                Project Aid
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="10">
+                            <th *matHeaderCellDef class="table-head-style" colspan="2" mat-header-cell>
+
+                            </th>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="1">
+                            <th *matHeaderCellDef class="table-head-style" colspan="3" mat-header-cell></th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="2">
+                            <th *matHeaderCellDef class="table-head-style" colspan="2" mat-header-cell>
+                                RPA
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="3">
+                            <th *matHeaderCellDef class="table-head-style" colspan="2" mat-header-cell>
+                                DPA
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="4">
+                            <th *matHeaderCellDef class="table-head-style" colspan="2" mat-header-cell>
+                            </th>
+                        </ng-container>
+
+
+                        <!-- Column definitions -->
+                        <ng-container matColumnDef="sl">
+                            <th *matHeaderCellDef mat-header-cell>{{'SERIAL_NO' | translate}}</th>
+                            <td *matCellDef="let element; let i = index;" mat-cell>
+                                {{i + 1}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="devPartner">
+                            <th *matHeaderCellDef mat-header-cell>{{'Development_Partners' | translate}}</th>
+                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <mat-select (ngModelChange)="setDataInDevelopmentPartnerModal(false)"
+                                                formControlName="devPartnerId">
+                                        <mat-option value="">Select</mat-option>
+                                        <mat-option *ngFor="let type of developmentPartnersList" [value]=type.id>
+                                            {{type.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="modeFinance">
+                            <th *matHeaderCellDef mat-header-cell>{{'ModeOfFinance' | translate}}</th>
+                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <mat-select (ngModelChange)="setDataInDevelopmentPartnerModal(false)"
+                                                formControlName="modeFinance">
+                                        <mat-option value="">Select</mat-option>
+                                        <mat-option *ngFor="let type of modeFinanceTypeList" [value]=type.id>
+                                            {{type.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="gobThruAmount">
+                            <th *matHeaderCellDef mat-header-cell>{{'GobThru' | translate}}</th>
+                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <input (keyup)="setDataInDevelopmentPartnerModal(true)" TwoDigitDecimalNumber
+                                           formControlName="gobThruAmount"
+                                           matInput/>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="spAcAmount">
+                            <th *matHeaderCellDef mat-header-cell>{{'SpAc' | translate}}</th>
+                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <input (keyup)="setDataInDevelopmentPartnerModal(true)" TwoDigitDecimalNumber
+                                           formControlName="spAcAmount"
+                                           matInput/>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thruPdAmount">
+                            <th *matHeaderCellDef mat-header-cell>{{'ThruPd' | translate}}</th>
+                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <input (keyup)="setDataInDevelopmentPartnerModal(true)" TwoDigitDecimalNumber
+                                           formControlName="thruPdAmount"
+                                           matInput/>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thruDpAmount">
+                            <th *matHeaderCellDef mat-header-cell>{{'ThruDp' | translate}}</th>
+                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <input (keyup)="setDataInDevelopmentPartnerModal(true)" TwoDigitDecimalNumber
+                                           formControlName="thruDpAmount"
+                                           matInput/>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="attachment">
+                            <th *matHeaderCellDef mat-header-cell>{{'Attachment' | translate}}</th>
+                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+
+                                <div class="buttons">
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                        <ngx-mat-file-input (change)="uploadFile($event.target.files, index)"
+                                                            [accept]="'.pdf'"
+                                                            formControlName="attachmentId"
+                                                            placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                        <mat-icon matSuffix>folder</mat-icon>
+                                    </mat-form-field>
+
+                                    <button *ngIf="this.formDev.value.devPartner[index].attachmentId"
+                                            class="toggle-sidebar-folded" fxHide.lt-lg
+                                            mat-icon-button>
+                                        <mat-icon (click)="download(index)" color="primary"
+                                                  matTooltip="Download Attachment">file_download
+                                        </mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <th *matHeaderCellDef mat-header-cell>{{'ACTION' | translate}}</th>
+                            <td *matCellDef="let element; let i = index" mat-cell>
+                                <div class="buttons">
+                                    <div class="toggle-sidebar-folded cursor"
+                                         fxHide.lt-lg
+                                         mat-icon-button>
+                                        <mat-icon (click)="addRowForDev()" color="primary" matTooltip="Add New">
+                                            add
+                                        </mat-icon>
+                                    </div>
+
+                                    <div class="toggle-sidebar-folded cursor" fxHide.lt-lg
+                                         mat-icon-button>
+                                        <mat-icon (click)="deleteDevelopmentPartners(i)" color="warn"
+                                                  matTooltip="Delete">delete
+                                        </mat-icon>
+                                        <!-- <mat-icon  matTooltip="Delete" (click)="openDialog(i, 'deleteFromCurrentRow')" color="warn">delete</mat-icon> -->
+                                    </div>
+
+                                    <!-- <button *ngIf="canUpdate" mat-icon-button class="toggle-sidebar-folded"
+                                             fxHide.lt-lg>
+                                         <mat-icon matTooltip="Delete" (click)="openDialog(i, 'deleteFromDB')" color="warn">delete</mat-icon>
+                                     </button>-->
+
+                                </div>
+                            </td>
+                        </ng-container>
+
+
+                        <!-- Row definitions -->
+                        <tr *matHeaderRowDef="['8', '9', '10']" mat-header-row></tr>
+                        <tr *matHeaderRowDef="['1', '2', '3', '4']" mat-header-row></tr>
+                        <tr *matHeaderRowDef="displayColumnsForDev" mat-header-row></tr>
+                        <tr *matRowDef="let row; columns: displayColumnsForDev" mat-row></tr>
+
+                    </table>
+                </form>
+            </mat-card>
+
+
+            <!-- ObjectivesAndTargets CK Editor -->
+            <div class="sub-heading text-lg">
+                <span [innerHTML]="'ObjectivesAndTargets' | translate"></span>
+                <span (click)="expand()" *ngIf="!isShowObjectivesAndTargets">
+                    <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                </span>
+                <span (click)="collapse()" *ngIf="isShowObjectivesAndTargets">
+                    <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                              matTooltipPosition="above">expand_less</mat-icon>
+                </span>
+            </div>
+            <div class="md:flex mb-5">
+                <div *ngIf="isShowObjectivesAndTargets" class="w-full" style="position: relative;">
+
+                    <div class="custom-file-upload-div">
+                        <label class="custom-file-upload" for="file-upload0">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                        </label>
+                        <input #file0 (change)="uploadImageAsBase64(file0.files,'objectivesTargets')" accept='image/*'
+                               id="file-upload0" type="file"/>
+                    </div>
+
+                    <ckeditor formControlName="objectivesTargets"></ckeditor>
+                </div>
+            </div>
+
+            <div class="heading">
+                {{ "ProjectImpPeriod" | translate }}
+            </div>
+            <mat-card class="p-5 mb-5">
+                <!-- DateCommencement1 Div -->
+                <mat-card>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3 md:text-left pr-2 md:pt-3">
+                            <span [innerHTML]="'OriginalVersion' | translate"></span>&nbsp;&nbsp;
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3 md:text-left pr-2 md:pt-3">
+                            <span [innerHTML]="'versionDateCommentment' | translate"></span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3">
+                            <mat-form-field [ngClass]="formFieldHelpers" class="w-full">
+                                <!-- <input matInput type="date" value="" formControlName="dateCommencement"> -->
+
+                                <input (click)="picker11.open()" (dateChange)="setMinDateValue($event)"
+                                       [matDatepicker]="picker11"
+                                       [max]="maxDateValue"
+                                       disabled="true"
+                                       matInput
+                                       readonly value="{{originalCommencementDate}}">
+                                <mat-datepicker-toggle [for]="picker11" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker11></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- DateCommencement2 Div -->
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:pl-3 md:mt-3">
+                            <span [innerHTML]="'versionDateComplesion' | translate"></span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3">
+                            <mat-form-field [ngClass]="formFieldHelpers" class="w-full">
+                                <!-- <input matInput type="date" value="" formControlName="dateCompletion"> -->
+                                <input (click)="picker12.open()" (dateChange)="setMaxDateValue($event)"
+                                       [matDatepicker]="picker12"
+                                       [min]="minDateValue"
+                                       disabled="true"
+                                       matInput
+                                       readonly value="{{originalCompletionDate}}">
+                                <mat-datepicker-toggle [for]="picker12" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker12></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card>
+                <br>
+                <!-- DateCommencement1 Div -->
+                <mat-card *ngFor="let date of dateList; let i = index">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3 md:text-left pr-2 md:pt-3">
+                            <span *ngIf="isEnLabel">{{date.revisedVersion}}</span>
+                            <span *ngIf="!isEnLabel">{{date.revisedVersionBn}}</span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3 md:text-left pr-2 md:pt-3">
+                            <span [innerHTML]="'versionDateCommentment' | translate"></span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3">
+                            <mat-form-field [ngClass]="formFieldHelpers" class="w-full">
+                                <!-- <input matInput type="date" value="" formControlName="dateCommencement"> -->
+
+                                <input (click)="picker21.open()" (dateChange)="setMinDateValue($event)"
+                                       [matDatepicker]="picker21"
+                                       [max]="maxDateValue"
+                                       disabled="true"
+                                       matInput
+                                       readonly value="{{date.dateCommencement}}">
+                                <mat-datepicker-toggle [for]="picker21" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker21></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- DateCommencement2 Div -->
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:pl-3 md:mt-3">
+                            <span [innerHTML]="'versionDateComplesion' | translate"></span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3">
+                            <mat-form-field [ngClass]="formFieldHelpers" class="w-full">
+                                <!-- <input matInput type="date" value="" formControlName="dateCompletion"> -->
+                                <input (click)="picker22.open()" (dateChange)="setMaxDateValue($event)"
+                                       [matDatepicker]="picker22"
+                                       [min]="minDateValue"
+                                       disabled="true"
+                                       matInput
+                                       readonly value="{{date.dateCompletion}}">
+                                <mat-datepicker-toggle [for]="picker22" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker22></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card>
+                <br>
+                <!-- DateCommencement1 Div -->
+                <mat-card>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3 md:text-left pr-2 md:pt-3">
+                            <span>{{currentRevisedVersion}}</span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3 md:text-left pr-2 md:pt-3">
+                            <span [innerHTML]="'DateCommencement1' | translate"></span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3">
+                            <mat-form-field [ngClass]="formFieldHelpers" class="w-full">
+                                <!-- <input matInput type="date" value="" formControlName="dateCommencement"> -->
+
+                                <input (click)="picker31.open()" (dateChange)="setMinDateValue($event)"
+                                       [matDatepicker]="picker31"
+                                       [max]="maxDateValue"
+                                       formControlName="dateCommencement"
+                                       matInput readonly
+                                       disabled="true">
+                                <mat-datepicker-toggle [for]="picker31" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker31></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- DateCommencement2 Div -->
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:pl-3 md:mt-3">
+                            <span [innerHTML]="'DateCommencement2' | translate"></span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3">
+                            <mat-form-field [ngClass]="formFieldHelpers" class="w-full">
+                                <!-- <input matInput type="date" value="" formControlName="dateCompletion"> -->
+                                <input (click)="picker32.open()" (dateChange)="setMaxDateValue($event)"
+                                       [matDatepicker]="picker32"
+                                       [min]="minDateValue"
+                                       formControlName="dateCompletion"
+                                       matInput readonly>
+                                <mat-datepicker-toggle [for]="picker32" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker32></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card>
+            </mat-card>
+
+            <!-- EstimatedCost Table -->
+            <div class="heading" style="display: flex;">
+                {{ "EstimatedCost" | translate }}
+                <div style="cursor:pointer">(
+                    <a [innerHTML]="'revisedEstimated' | translate" class="AnnexureLink"
+                        (click)="navigateToAnnualPhasingCost()">
+                    </a>)
+                </div>
+            </div>
+
+            <mat-card class="p-5 mb-5">
+                <div class="md:flex">
+                    <div class="w-full">
+                        <table id="estCostTbl">
+                            <tr>
+                                <th rowspan="2"></th>
+                                <ng-container *ngFor="let estimatedCost of estimatedCosts; let i=index">
+                                    <th *ngIf="(estimatedCosts.length-1)>i"
+                                        [attr.rowspan]="!estimatedCost?.revisedVersion?.includes('Difference') ? '2' : 1"
+                                        [colSpan]="estimatedCost?.revisedVersion?.includes('Difference') ? '2' : 0">
+                                        {{ estimatedCost.revisedVersion }}
+                                    </th>
+                                </ng-container>
+                            </tr>
+                            <tr>
+                                <th>Total in Taka</th>
+                                <th>In Percentage %</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td *ngFor="let estimatedCost of estimatedCosts; let i=index">{{ i+2 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ "Total" | translate }}</td>
+                                <td *ngFor="let estimatedCost of estimatedCosts">{{ estimatedCost.totalAmount }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span [innerHTML]="'GoB_FE' | translate"></span>
+                                </td>
+                                <td *ngFor="let estimatedCost of estimatedCosts; let i=index">
+                                    <span
+                                        class="{{estimatedCost.gobAmount !=grandGob && i == (estimatedCosts.length-3) ?'border-text-red': ''}}">{{estimatedCost.gobAmount}}</span>
+                                    <br />
+                                    <span
+                                        class="{{estimatedCost.gobFeAmount !=grandGobFe && i == (estimatedCosts.length-3) ?'border-text-red': ''}}">({{estimatedCost.gobFeAmount}})</span>
+                                </td>
+                            </tr>
+
+                            <tr *ngIf="isForeignAid">
+                                <td>
+                                    <span [innerHTML]="'PA_RPA' | translate"></span>
+                                </td>
+                                <td *ngFor="let estimatedCost of estimatedCosts; let i=index ">
+                                    <span
+                                        class="{{estimatedCost.paAmount !=grandPa && i == (estimatedCosts.length-3) ?'border-text-brown': ''}}">{{estimatedCost.paAmount}}</span>
+                                    <br />
+                                    <span
+                                        class="{{ (estimatedCost.gobThruAmount +  estimatedCost.spAcAmount) !=grandPaRpa && i == (estimatedCosts.length-3) ?'border-text-brown': ''}}">
+                                        ({{convertToNumber(estimatedCost.gobThruAmount)+convertToNumber(estimatedCost.spAcAmount)}})
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span [innerHTML]="'OwnFund' | translate"></span>
+                                </td>
+                                <td *ngFor="let estimatedCost of estimatedCosts; let i=index ">
+                                    <span
+                                        class="{{estimatedCost.ownFundAmount !=grandOwnFund && i == (estimatedCosts.length-3) ?'border-text-coral': ''}}">{{estimatedCost.ownFundAmount}}</span>
+                                    <br />
+                                    <span
+                                        class="{{estimatedCost.ownFundFeAmount !=grandOwnFundFe && i == (estimatedCosts.length-3) ?'border-text-coral': ''}}">{{estimatedCost.ownFundFeAmount}}</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span [innerHTML]="'OthersFE' | translate"></span>
+                                </td>
+                                <td *ngFor="let estimatedCost of estimatedCosts; let i=index ">
+                                    <span
+                                        class="{{estimatedCost.otherAmount !=grandOthers && i == (estimatedCosts.length-3) ?'border-text-deeppink': ''}}">{{estimatedCost.otherAmount}}</span>
+                                    <br />
+                                    <span
+                                        class="{{estimatedCost.otherFeAmount !=grandOthersFe && i == (estimatedCosts.length-3) ?'border-text-deeppink': ''}}">{{estimatedCost.otherFeAmount}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </mat-card>
+
+            <!-- ---------ModeFinancingSource--------- -->
+            <div class="heading" style="display: flex;">
+                {{ "ModeFinancingSource" | translate }}
+
+                <div style="cursor:pointer">(
+                    <a [innerHTML]="'revisedEstimated' | translate" class="AnnexureLink"
+                        (click)="navigateToAnnualPhasingCost()">
+                    </a>)
+                </div>
+            </div>
+
+            <mat-card>
+                <div class="md:flex">
+                    <div class="w-full overflow-x-auto">
+                        <i style="float: right !important;">{{ "TakaInLac" | translate }}</i>
+                        <table id="modeFinanceTbl">
+                            <tr>
+                                <th>
+                                    <span [innerHTML]="'ModeSource' | translate"></span>
+                                </th>
+                                <th>
+                                    <span [innerHTML]="'GOB_FE2' | translate"></span>
+                                </th>
+                                <th *ngIf="isForeignAid">
+                                    <span [innerHTML]="'PA_RPA2' | translate"></span>
+                                </th>
+                                <th>
+                                    <span [innerHTML]="'OwnFund2' | translate"></span>
+                                </th>
+                                <th>
+                                    <span [innerHTML]="'Others_FE2' | translate"></span>
+                                </th>
+                                <th *ngIf="isForeignAid">
+                                    <span [innerHTML]="'PA_Sources' | translate"></span>
+                                </th>
+                            </tr>
+
+                            <tr *ngIf="!isForeignAid">
+                                <td class="text-center">
+                                    {{ "Num1" | translate }}
+                                </td>
+                                <td class="text-center">
+                                    {{ "Num2" | translate }}
+                                </td>
+                                <td class="text-center">
+                                    {{ "Num3" | translate }}
+                                </td>
+                                <td class="text-center">
+                                    {{ "Num4" | translate }}
+                                </td>
+
+                            </tr>
+
+                            <tr *ngIf="isForeignAid">
+                                <td class="text-center">
+                                    {{ "Num1" | translate }}
+                                </td>
+                                <td class="text-center">
+                                    {{ "Num2" | translate }}
+                                </td>
+                                <td class="text-center">
+                                    {{ "Num3" | translate }}
+                                </td>
+                                <td class="text-center">
+                                    {{ "Num4" | translate }}
+                                </td>
+                                <td class="text-center">
+                                    {{ "Num5" | translate }}
+                                </td>
+                                <td class="text-center">
+                                    {{ "Num6" | translate }}
+                                </td>
+                            </tr>
+
+                            <tr *ngFor="let mode of modeFinanceList; let i = index">
+                                <td>
+                                    {{ mode.modeSource }}
+                                    <br>
+                                    <input (keyup)="setModeSourceValData($event, i)" *ngIf="mode.isEdited"
+                                           [value]="mode.modeSourceVal" style="text-align: left;"/>
+                                </td>
+                                <td>
+                                    <input (keyup)="setGobData($event, i)" TwoDigitDecimalNumber [value]="mode.gob"/>
+                                    <br>
+                                    <input (keyup)="setGobFeData($event, i)" TwoDigitDecimalNumber
+                                           [value]="mode.gobFe"/>
+                                </td>
+                                <td *ngIf="isForeignAid">
+                                    <input (keyup)="setPaData($event, i)" TwoDigitDecimalNumber [value]="mode.pa"/>
+                                    <br>
+                                    <input (keyup)="setRpaData($event, i)" TwoDigitDecimalNumber [value]="mode.paRpa"/>
+                                </td>
+                                <td>
+                                    <input (keyup)="setOwnFundData($event, i)" TwoDigitDecimalNumber
+                                           [value]="mode.ownFund"/>
+                                    <br>
+                                    <input (keyup)="setOwnFundFeData($event, i)" TwoDigitDecimalNumber
+                                           [value]="mode.ownFundFe"/>
+                                </td>
+                                <td>
+                                    <input (keyup)="setOthersData($event, i)" TwoDigitDecimalNumber
+                                           [value]="mode.others"/>
+                                    <br>
+                                    <input (keyup)="setOthersFeData($event, i)" TwoDigitDecimalNumber
+                                           [value]="mode.othersFe"/>
+                                </td>
+                                <td *ngIf="isForeignAid">
+                                        <textarea (keyup)="setPaSourcesData($event, i)"
+                                                  [value]="mode.paSources"
+                                                  style="text-align: left; border: 1px solid #e2e8f0;"> </textarea>
+                                </td>
+                            </tr>
+                            <tr *ngIf="modeFinanceList.length > 0">
+                                <td>
+                                    {{ "GrandTotal" | translate }}
+                                </td>
+                                <td>
+                                    <input class="{{grndEstimate.gobAmount!=grandGob?'border-text-red': ''}}"   readonly value="{{grandGob.toFixed(2)}}"/>
+                                    <br>
+                                    <input class="{{grndEstimate.gobFeAmount!=grandGobFe?'border-text-red': ''}}"   readonly value="{{grandGobFe.toFixed(2)}}"/>
+                                </td>
+
+                                <td *ngIf="isForeignAid">
+                                    <input class="{{grndEstimate.paAmount!=grandPa?'border-text-brown': ''}}" readonly value="{{grandPa.toFixed(2)}}"/>
+                                    <br>
+                                    <!-- <input readonly value="{{grandPaRpa.toFixed(2)}}"/> -->
+                                    <input class="{{grndEstimate.paRpaAmount!=grandPaRpa?'border-text-brown': ''}}" readonly value="{{grandPaRpa.toFixed(2)}}"/>
+
+                                </td>
+
+                                <td>
+                                    <input class="{{grndEstimate.ownFundAmount!=grandOwnFund?'border-text-coral': ''}}" readonly value="{{grandOwnFund.toFixed(2)}}"/>
+                                     <br>
+                                     <input class="{{grndEstimate.ownFundFeAmount!=grandOwnFundFe?'border-text-coral': ''}}" readonly value="{{grandOwnFundFe.toFixed(2)}}"/>
+                                </td>
+
+                                <td>
+                                    <input class="{{grndEstimate.otherAmount!=grandOthers?'border-text-deeppink': ''}}" readonly value="{{grandOthers.toFixed(2)}}"/>
+                                    <br>
+                                    <input class="{{grndEstimate.otherFeAmount!=grandOthersFe?'border-text-deeppink': ''}}" readonly value="{{grandOthersFe.toFixed(2)}}"/>
+
+                                </td>
+
+                                <td *ngIf="isForeignAid"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </mat-card>
+
+            <!-- ExchangeRate Table -->
+            <div *ngIf="isForeignAid" class="heading">
+                {{ "ExchangeRate" | translate }}
+            </div>
+            <mat-card *ngIf="isForeignAid" class="p-5 mb-5">
+                <form [formGroup]="form">
+                    <table [dataSource]="exchangeDataSource" class="mat-elevation-z8" formArrayName="scope"
+                           id="exchangeTbl"
+                           mat-table>
+                        <!-- Row definitions -->
+                        <tr *matHeaderRowDef="displayColumns" mat-header-row></tr>
+                        <tr *matRowDef="let row; let i = index; columns: displayColumns;" mat-row></tr>
+
+                        <!-- Column definitions -->
+                        <ng-container matColumnDef="sl">
+                            <th *matHeaderCellDef mat-header-cell>{{'SERIAL_NO' | translate}}</th>
+                            <td *matCellDef="let element; let i = index;" mat-cell>
+                                {{i + 1}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="exchangeCurrency">
+                            <th *matHeaderCellDef mat-header-cell>{{'Exchange_Currency' | translate}}</th>
+                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <mat-select formControlName="exchangeCurrency">
+                                        <mat-option value="">Select</mat-option>
+                                        <mat-option *ngFor="let type of currencyList" [value]=type.id>
+                                            {{type.name}}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="exchangeRate">
+                            <th *matHeaderCellDef mat-header-cell>{{'Exchange_Rate' | translate}}</th>
+                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <input TwoDigitDecimalNumber formControlName="exchangeRate" matInput min="0"
+                                           oninput="validity.valid||(value='');"
+                                           value="">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="exchangeDate">
+                            <th *matHeaderCellDef mat-header-cell>{{'Exchange_Date' | translate}}</th>
+                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+                                <mat-form-field class="fuse-mat-dense flex-auto  mt-5">
+
+                                    <!-- <input matInput type="date" value="" formControlName="exchangeDate"> -->
+
+                                    <input (click)="picker4.open()"
+                                           (dateChange)="setExchangeDate($event, index,'exchangeDate')"
+                                           [matDatepicker]="picker4" formControlName="exchangeDate"
+                                           matInput
+                                           readonly>
+                                    <mat-datepicker-toggle [for]="picker4" matSuffix>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #picker4></mat-datepicker>
+
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <th *matHeaderCellDef mat-header-cell>{{'ACTION' | translate}}</th>
+                            <td *matCellDef="let element; let i = index" mat-cell>
+                                <div class="buttons">
+                                    <button class="toggle-sidebar-folded"
+                                            fxHide.lt-lg
+                                            mat-icon-button>
+                                        <mat-icon (click)="addRow()" color="primary">add</mat-icon>
+                                    </button>
+
+                                    <button class="toggle-sidebar-folded" fxHide.lt-lg
+                                            mat-icon-button>
+                                        <mat-icon (click)="deleteRow(i)" color="warn">delete</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                    </table>
+                </form>
+            </mat-card>
+
+            <!-- ModeFinancing Table -->
+            <div class="heading">
+                <span [innerHTML]="'YearWiseEstimatedCost' | translate"> </span>
+                <span style="cursor:pointer">(
+                    <a [innerHTML]="'revisedEstimated' | translate" class="AnnexureLink"
+                       (click)="navigateToAnnualPhasingCost()">
+                    </a>)
+                </span>
+                <span style="cursor:pointer">
+                </span>
+            </div>
+
+            <mat-card class="p-5 mb-5">
+                <!-- ------------/YearWiseEstimatedCost------------ -->
+                <div class="md:flex">
+                    <div class="w-full">
+                        <i style="float: right !important;">{{ "TakaInLac" | translate }}</i>
+                        <table id="yearWiseEstCost">
+
+                            <tr>
+                                <th rowspan="2">
+                                    {{ "FinancialYear" | translate }}
+                                </th>
+                                <th rowspan="2">
+                                    {{ "ProjectRevisions" | translate }}
+                                </th>
+                                <th rowspan="2">
+                                    <span [innerHTML]="'GOB_FE3' | translate"></span>
+                                </th>
+                                <th *ngIf="isForeignAid" colspan="2">
+                                    {{ "PA" | translate }}
+                                </th>
+                                <th rowspan="2">
+                                    <span [innerHTML]="'OwnFund3' | translate"></span>
+                                </th>
+                                <th rowspan="2">
+                                    <span [innerHTML]="'OthersFE3' | translate"></span><br/>
+                                </th>
+                                <th rowspan="2">
+                                    {{ "Total4" | translate }}
+                                    <br/>
+                                    {{ "ForeignCurrency" | translate }}
+                                </th>
+                            </tr>
+
+                            <tr *ngIf="isForeignAid">
+                                <th>{{ "RPA" | translate }}</th>
+                                <th>{{ "DPA" | translate }}</th>
+                            </tr>
+
+                            <tr *ngIf="!isForeignAid">
+                            </tr>
+
+                            <tr *ngIf="!isForeignAid" class="text-center">
+                                <td>{{ "Num1" | translate }}</td>
+                                <td>{{ "Num2" | translate }}</td>
+                                <td>{{ "Num3" | translate }}</td>
+                                <td>{{ "Num4" | translate }}</td>
+                                <td>{{ "Num5" | translate }}</td>
+                                <td>{{ "Num6" | translate }}</td>
+                            </tr>
+
+                            <tr *ngIf="isForeignAid" class="text-center">
+                                <td>{{ "Num1" | translate }}</td>
+                                <td>{{ "Num2" | translate }}</td>
+                                <td>{{ "Num3" | translate }}</td>
+                                <td>{{ "Num4" | translate }}</td>
+                                <td>{{ "Num5" | translate }}</td>
+                                <td>{{ "Num6" | translate }}</td>
+                                <td>{{ "Num7" | translate }}</td>
+                                <td>{{ "Num8" | translate }}</td>
+                            </tr>
+                            <tbody>
+                                <tr class="text-right"  *ngFor="let item of fiscalYearsList; let i=index">
+                                    <ng-container *ngIf="i % estimatiedCostTotal.length == 0">
+                                        <td style="text-align: center;" [attr.rowspan]="estimatiedCostTotal.length">
+                                            {{item.fiscalYear}}
+                                        </td>
+                                    </ng-container>
+                                    <td style="text-align: center;">{{item.revisedVersion}}</td>
+                                    <td>
+                                        {{item.gobAmount}} <br/>
+                                        ({{item.gobFeAmount}})
+                                    </td>
+                                    <td *ngIf="isForeignAid">{{item.rpaAmount}}</td>
+                                    <td *ngIf="isForeignAid">{{item.dpaAmount}}</td>
+                                    <td>
+                                        {{item.ownFundAmount}} <br/>
+                                        ({{item.ownFundFeAmount}})
+                                    </td>
+                                    <td>
+                                        {{item.otherAmount}} <br/>
+                                        ({{item.otherFeAmount}})
+                                    </td>
+                                    <td>
+                                        {{item.totalAmount}}<br/>
+                                    </td>
+                                </tr>
+                                <tr class="text-right"  *ngFor="let item of estimatiedCostTotal; let i=index">
+                                    <ng-container *ngIf="i==0">
+                                        <td style="text-align: center;" [attr.rowspan]="estimatiedCostTotal.length">
+                                            {{"GrandTotal" | translate}}
+                                        </td>
+                                    </ng-container>
+                                    <td style="text-align: center;">{{item?.costTotal.revisedVersion}}</td>
+                                    <td>
+                                        {{item?.costTotal?.gobAmount}} <br/>
+                                        ({{item?.costTotal?.gobFeAmount}})
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        {{item?.costTotal?.rpaAmount}}
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        {{item?.costTotal?.dpaAmount}}
+                                    </td>
+                                    <td>
+                                        {{item?.costTotal?.ownFundAmount}} <br/>
+                                        ({{item?.costTotal?.ownFundFeAmount}})
+                                    </td>
+                                    <td>
+                                        {{item?.costTotal?.otherAmount}} <br/>
+                                        ({{item?.costTotal?.otherFeAmount}})
+                                    </td>
+                                    <td>
+                                        {{item?.costTotal?.totalAmount}}<br/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- ------------/YearWiseEstimatedCost------------ -->
+            </mat-card>
+        </div>
+        <!-- (ngSubmit)="onSubmit('next')" -->
+        <div class="flex justify-end mt-8">
+            <button
+                (click)="onSubmit('next')"
+                [color]="'primary'"
+                [disabled]="spinner"
+                class="px-8 mr-2 toggle-sidebar-folded"
+                mat-flat-button
+                matTooltip="{{ 'SaveNext' | translate }}"
+                type="button">
+                {{ "SaveNext" | translate }}
+            </button>
+
+            <button
+                (click)="onSubmit('list')"
+                [disabled]="spinner"
+                class="px-8 mr-2 toggle-sidebar-folded"
+                mat-flat-button
+                matTooltip="{{ 'SaveExit' | translate }}"
+                style="background-color: green; color: #FFFFFF"
+                type="button">
+                {{ "SaveExit" | translate }}
+            </button>
+        </div>
+
+    </form>
+</div>
+

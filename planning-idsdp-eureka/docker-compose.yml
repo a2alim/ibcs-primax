@@ -1,0 +1,10 @@
+version: '3'
+services:
+  planning-idsdp-uaa-ui:
+    image: 'planning-idsdp-eureka'
+    ports:
+      - "8761:8761"
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+    restart: always

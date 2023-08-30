@@ -1,0 +1,26 @@
+export const locale = {
+    lang: 'en',
+    data: {
+        'InstituteInformation': 'Institute Information',
+        'InstituteName': 'Institute Name',
+        'InstituteNameReq': 'Institute name required',
+        'AddressDetails': 'Address Details',
+        'AddressDetailsReq': 'Address details required',
+        'YearOfEstablishment': 'Year of Establishment',
+        'YearOfEstablishmentReq': 'Year of establishment required',
+        'RegistrationNo': 'Registration No',
+        'RegistrationNoReq': 'Registration no required',
+        'TelephoneNo': 'Telephone No',
+        'TelephoneNoReq': 'Telephone no required',
+        'EmailAddress': 'E-mail',
+        'EmailAddressReq': 'E-mail required',
+        'TinNo': 'TIN No',
+        'TinNoReq': 'TIN no required',
+        'TaxTokenImgOfCurrentYear': 'Acknowledgement of Tax Return',
+        'TaxTokenImgOfCurrentYearReq': 'Tax token image of current year required',
+        'IsEditable': 'Is Editable?',
+        'IsEditableReq': 'Is editable required',
+        'Save': 'Save',
+        'ResearcherProposalReq': 'Researcher proposal does not create yet',
+    }
+};

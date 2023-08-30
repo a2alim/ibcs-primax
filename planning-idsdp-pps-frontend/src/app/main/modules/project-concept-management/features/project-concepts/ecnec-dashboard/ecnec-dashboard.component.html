@@ -1,0 +1,692 @@
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<div class="flex flex-col flex-auto min-w-0" style="user-select: none;">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="'heading1' | translate" class="crop-text"
+                                 [subTitle]="'heading2' | translate"></app-list-header>
+
+                <div class="w-35 flex justify-end">
+                    <div class="pr-6">
+                        <div class="btn btn-home flex justify-center items-center" (click)="navigateToMap()">
+                            <p class="pt-1">{{'projectLocationMap' | translate}}</p>
+                        </div>
+                    </div>
+
+                    <div class="pr-6">
+                        <a class="btn btn-home flex justify-center items-center" href="{{navigationPage}}">
+                            <mat-icon class="text-white">home</mat-icon>
+                            <p class="pt-1">{{'home' | translate}}</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- / New Header end-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    {{'heading1' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">
+                                        {{'heading2' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <div class="flex justify-end" style="margin-top: -50px; color: #4b4b4b !important;">
+                            <a href="{{navigationPage}}" mat-button type="button">
+                                <mat-icon>maps_home_work</mat-icon>&nbsp;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+    <div class="flex-auto m-7 body-color" *ngIf="!spinner">
+        <mat-card *ngIf="ecnecDashbord" class="tab-color -mt-4">
+
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1>{{'Project_status' | translate}}</h1>
+                </div>
+                <div class="p-3">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="48%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%" class="project-status-top"
+                             style="background-color: #800080" (click)="goToAwaitingList()">
+                            <div fxFlex="10%"></div>
+                            <div fxFlex="65%" fxFlex.md="65%" fxFlex.sm="65%" fxFlex.xs="65%" class="project-status-lbl">{{'Ecnec_awaiting_project' | translate}}</div>
+                            <div fxFlex="20%" fxFlex.md="35%" fxFlex.sm="35%" fxFlex.xs="35%" class="project-status-number" style="color: #800080">{{numberPipe.convertToBanglaNumber(awaitingElement ? awaitingElement : '0')}}</div>
+                            <div fxFlex="5%"></div>
+
+                        </div>
+
+                        <div fxFlex="48%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%" class="project-status-top"
+                             style="background-color: #619e68" (click)="goToConditionalApproveList()">
+                            <div fxFlex="10%"></div>
+                            <div fxFlex="65%" fxFlex.md="65%" fxFlex.sm="65%" fxFlex.xs="65%" class="project-status-lbl">{{'Ecnec_conditional_project' | translate}}</div>
+                            <div fxFlex="20%" fxFlex.md="35%" fxFlex.sm="35%" fxFlex.xs="35%" class="project-status-number" style="color: #619e68">{{numberPipe.convertToBanglaNumber(conditionalElement ? conditionalElement : '0')}}</div>
+                            <div fxFlex="5%"></div>
+
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                            <div fxFlex="48%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+                                <button  fxFlex="50%" class="action-btn btn-min-height" mat-raised-button
+                                         (click)="gotoeAwaitingSectorDivision3()"
+                                        color="primary">
+                                    <p>{{'Industry_Power_Division' | translate}}</p>
+                                    <br>
+                                    <p class="sector-status-number m-5" style="color: #800080">{{numberPipe.convertToBanglaNumber(awaitingElement3 ? awaitingElement3 : '0')}}</p>
+                                </button>
+                                <button fxFlex="50%" class="ml-2 btn-min-height" mat-raised-button
+                                        (click)="gotoeAwaitingSectorDivision4()"
+                                        color="primary">
+                                    <p>{{'Physical_Infrastructure_Division' | translate}}</p>
+                                    <br>
+                                    <p class="sector-status-number m-5" style="color: #800080">{{numberPipe.convertToBanglaNumber(awaitingElement4 ? awaitingElement4 : '0')}}</p>
+
+                                </button>
+                            </div>
+
+
+                            <div fxFlex="48%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+                                <button fxFlex="50%" class="action-btn btn-min-height-green" mat-raised-button
+                                        (click)="gotoConditionalSectorDivision3()"
+                                        color="primary">
+                                    <p>{{'Industry_Power_Division' | translate}}</p>
+                                    <br>
+                                    <p class="sector-status-number m-5" style="color: #619e68">{{numberPipe.convertToBanglaNumber(conditionalElement3 ? conditionalElement3 : '0')}}</p>
+                                </button>
+
+                                <button fxFlex="50%" class="action-btn ml-2 btn-min-height-green" mat-raised-button
+                                        (click)="gotoConditionalSectorDivision4()"
+                                        color="primary">
+                                    <p>{{'Physical_Infrastructure_Division' | translate}}</p>
+                                    <br>
+                                    <p class="sector-status-number m-5" style="color: #619e68">{{numberPipe.convertToBanglaNumber(conditionalElement4 ? conditionalElement4 : '0')}}</p>
+
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-5 font-text-12">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                            <div fxFlex="48%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+                                <button fxFlex="50%" class="action-btn btn-min-height" mat-raised-button
+                                        (click)="gotoeAwaitingSectorDivision1()"
+                                        color="primary">
+                                    <p>{{'Socio_Economic' | translate}} <br> {{'Infrastructure_Division' | translate}}</p>
+                                    <br>
+                                    <p class="sector-status-number m-5" style="color: #800080">{{numberPipe.convertToBanglaNumber(awaitingElement1 ? awaitingElement1 : '0')}}</p>
+
+                                </button>
+                                <button fxFlex="50%" class="action-btn ml-2 btn-min-height" mat-raised-button
+                                        (click)="gotoeAwaitingSectorDivision2()"
+                                        color="primary">
+                                    <p>{{'Agriculture_Water_Resource' | translate}} <br> {{'Rural_Infrastructure' | translate}}</p>
+                                    <br>
+                                    <p class="sector-status-number m-5" style="color: #800080">{{numberPipe.convertToBanglaNumber(awaitingElement2 ? awaitingElement2 : '0')}}</p>
+
+                                </button>
+                            </div>
+
+
+                            <div fxFlex="48%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+                                <button fxFlex="50%" class="action-btn btn-min-height-green" mat-raised-button
+                                        (click)="gotoConditionalSectorDivision1()"
+                                        color="primary">
+                                    <p>{{'Socio_Economic' | translate}} <br> {{'Infrastructure_Division' | translate}}</p>
+                                    <br>
+                                    <p class="sector-status-number m-5" style="color: #619e68">{{numberPipe.convertToBanglaNumber(conditionalElement1 ? conditionalElement1 : '0')}}</p>
+                                </button>
+
+                                <button fxFlex="50%" class="action-btn ml-2 btn-min-height-green" mat-raised-button
+                                        (click)="gotoConditionalSectorDivision2()"
+                                        color="primary">
+                                    <p>{{'Agriculture_Water_Resource' | translate}} <br> {{'Rural_Infrastructure' | translate}}</p>
+                                    <br>
+                                    <p class="sector-status-number m-5" style="color: #619e68">{{numberPipe.convertToBanglaNumber(conditionalElement2 ? conditionalElement2 : '0')}}</p>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- List Grid Start -->
+            <div
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between center"
+                class="mt-5">
+                <div fxFlex="30%">
+                    <h1 class="header1">
+                        <span>{{ 'ecnecMeetingList' | translate}}</span>
+                    </h1>
+                </div>
+
+
+                <div class="flex justify-end " style="color: #4b4b4b !important;">
+                    <button class="action-btn" mat-raised-button
+                            [routerLink]="['/dpp-tapp/ecnec-meeting']"
+                            color="primary">{{ 'createNewEcnecMeeting' | translate}}</button>
+                </div>
+            </div>
+
+
+            <!-- List Grid Start -->
+            <div
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between center"
+                class="mt-5">
+                <div fxFlex="30%">
+                </div>
+
+                <div>
+                    <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                        <!--<mat-label>Filter</mat-label>-->
+                        <input
+                            matInput
+                            (keyup)="applyFilter($event)"
+                            placeholder="অনুসন্ধান করুন"
+                            #input/>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+
+            <div
+                class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table
+                        mat-table
+                        [dataSource]="dataSource"
+                        class="mat-elevation-z8 bg-transparent"
+                        matSort>
+
+                        <!-- SL Column -->
+                        <ng-container matColumnDef="sl">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                <span>ক্রমিক </span>
+                            </th>
+                            <td mat-cell *matCellDef="let row; let i = index;">
+                                {{numberPipe.convertToBanglaNumber((i+1) + (page * size))}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Code Column -->
+                        <ng-container matColumnDef="entryCode">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                {{'Code' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row?.entryCode }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name En Column -->
+                        <ng-container matColumnDef="meetingName">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                <span>নাম </span>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row?.meetingName }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Bn Column -->
+                        <ng-container matColumnDef="meetingDate">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                <span>তারিখ </span>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ numberPipe.convertToBanglaNumber(row?.meetingDate | date : 'dd/MM/yyyy') }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Status Column -->
+                        <ng-container matColumnDef="status">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef>
+                                <span>অবস্থা</span>
+                            </th>
+                            <td class="text-alignment" mat-cell *matCellDef="let row">
+                                {{ row?.currentStatus}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                <span>পরিবর্তন </span>
+                            </th>
+
+                            <td mat-cell *matCellDef="let row">
+                                <div class="buttons">
+                                    <button
+                                        mat-icon-button
+                                        class="toggle-sidebar-folded"
+                                        matTooltip="পরিবর্তন "
+                                        fxHide.lt-lg
+                                        (click)="edit(row)">
+                                        <mat-icon color="primary">edit
+                                        </mat-icon>
+                                    </button>
+
+                                    <button
+                                        [disabled]="disableDelete"
+                                        mat-icon-button
+                                        (click)="openDialog(row?.id, row?.meetingName)"
+                                        class="toggle-sidebar-folded"
+                                        matTooltip="{{'View' | translate}}"
+                                        fxHide.lt-lg>
+                                        <mat-icon
+                                            color="primary">view_list
+                                        </mat-icon>
+                                    </button>
+
+                                    <button
+                                        mat-icon-button
+                                        class="toggle-sidebar-folded"
+                                        matTooltip="কার্যবিবরণী ডাউনলোড করুন"
+                                        fxHide.lt-lg
+                                        (click)="download(row)">
+                                        <mat-icon>cloud_download</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <!-- Table Action Buttons End-->
+
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns"></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns"></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="7">
+                                No data matching the filter "{{ input.value }}"
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <mat-paginator
+                    [length]="total"
+                    [pageSize]="size"
+                    [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                    (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+
+            <!-- List Grid End -->
+
+        </mat-card>
+
+
+        <mat-card *ngIf="sectorListPage">
+            <div class="flex justify-end m-5">
+                <button class="px-6 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="backToDashbord()" >
+                    {{'dashboard' | translate}}
+                </button>
+            </div>
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="commonDatasource" class="mat-elevation-z8 bg-transparent" matSort>
+
+                        <ng-container matColumnDef="thSl">
+                            <th [attr.rowspan]="2" class="table-head-style" mat-header-cell *matHeaderCellDef
+                                style="padding-left: 0px;!important;">{{'sl' | translate}}
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thProjectName">
+                            <th [attr.rowspan]="4" class="table-head-style" mat-header-cell *matHeaderCellDef
+                                style="padding-left: 5px;width: 45%">{{'pInfo' | translate}}
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thProjectCost">
+                            <th [attr.colspan]="5" class="table-head-style" mat-header-cell *matHeaderCellDef>{{'projectCost' | translate}}
+                                ({{'takaInlack' | translate}})
+                            </th>
+                        </ng-container>
+
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="sl">
+                            <td mat-cell *matCellDef="let row, let i= index" style="padding-left: 0px;!important;">
+                                <!-- {{ i + 1 }} -->
+                                {{this.paginator.pageIndex == 0 ? numberPipe.convertToBanglaNumber(i + 1) : 1 + i + numberPipe.convertToBanglaNumber(this.paginator.pageIndex * this.paginator.pageSize)}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="projectName">
+                            <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 5px;width: 42%">
+                                <div style="cursor: pointer" (click)="gotToViewDashboard(row?.uuid)"><span
+                                    style="color: #0d9488;">{{ row?.titleBn }}</span> <span
+                                    style="color:#4b60bd;"> ({{row?.projectTypeDTO.nameBn}})</span></div>
+                                <div style="color: #333333">{{ row?.agencyDTO?.nameBn }}</div>
+                                <div style="color: #333333">{{ row?.agencyDTO?.ministryDivisionDTO?.nameBn }}</div>
+                                <div style="color: #333333"><span>{{'sectorDivision' | translate}}</span> <span
+                                    style="color: #0d9488;">{{ row?.sectorDivisionName }}</span></div>
+                                <div style="color: #333333"><span>{{'createDate' | translate}}</span><span
+                                    style="color: #0d9488;">{{numberPipe.convertToBanglaNumber(row?.createdDate | date : 'dd/MM/yyyy')}}</span>
+                                </div>
+                                <div style="color: #333333">
+                                    <span>{{'commencementDate' | translate}}</span> <span style="color: #0d9488;">{{ numberPipe.convertToBanglaNumber(row?.commencementDate)}}</span>
+                                    <br>
+                                    <span>{{'completionDate' | translate}}</span>
+                                    <span
+                                        style="color: #0d9488;">{{ numberPipe.convertToBanglaNumber(row?.completionDate)}}</span>
+                                </div>
+<!--                                <div style="color: #333333">Status: <span-->
+<!--                                    style="color: #ef8c23;font-weight: 500">{{row?.movementStatus}}</span></div>-->
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="total">
+                            <td mat-cell *matCellDef="let row" class="amount-value">
+                                <div></div>
+                                <div style="color: #333333">{{'total' | translate}}</div>
+                                <br>
+                                <div><span
+                                    style="color: #4b60bd">{{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.totalAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.totalAmount.toFixed(2)) }}</span>
+                                </div>
+                                <div></div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="gob">
+                            <td mat-cell *matCellDef="let row" class="amount-value">
+                                <div></div>
+                                <div style="color: #333333">{{'gob' | translate}}</div>
+                                <div style="color: #333333">({{'fe' | translate}})</div>
+                                <br>
+                                <div
+                                    style="color: #4b60bd">{{row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.gobAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.gobAmount.toFixed(2)) }}
+                                    <br>({{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.gobFeAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.feGobAmount.toFixed(2)) }}
+                                    )
+                                </div>
+                            </td>
+                        </ng-container>
+
+<!--                        <ng-container matColumnDef="pa">-->
+<!--                            <td mat-cell *matCellDef="let row" class="amount-value">-->
+<!--                                <div></div>-->
+<!--                                <div style="color: #333333">PA</div>-->
+<!--                                <div style="color: #333333">(RPA)</div>-->
+<!--                                <br>-->
+<!--                                <div-->
+<!--                                    style="color: #4b60bd">{{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.paAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.paAmount?.toFixed(2)) }}-->
+<!--                                    <br>({{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.rpaAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.rpaAmount.toFixed(2)) }}-->
+<!--                                    )-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </ng-container>-->
+
+                        <ng-container matColumnDef="ownFund">
+                            <td mat-cell *matCellDef="let row" class="amount-value" style="width: 53px;">
+                                <div></div>
+                                <div style="color: #333333;">{{'ownFund' | translate}}</div>
+                                <div style="color: #333333">({{'fe' | translate}})</div>
+                                <br>
+                                <div
+                                    style="color: #4b60bd">{{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.ownFundAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.ownFundAmount?.toFixed(2)) }}
+                                    <br>({{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.ownFundFeAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.feOwnFundAmount?.toFixed(2))}}
+                                    )
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="other">
+                            <td mat-cell *matCellDef="let row" class="amount-value">
+                                <div></div>
+                                <div style="color: #333333">{{'other' | translate}}</div>
+                                <div style="color: #333333">({{'fe' | translate}})</div>
+                                <br>
+                                <div
+                                    style="color: #4b60bd">{{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.otherAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.otherAmount?.toFixed(2)) }}
+                                    <br>({{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.otherFeAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.feOtherAmount?.toFixed(2))}}
+                                    )
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsPCList"></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="8">
+                                {{'noData' | translate}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <mat-paginator [length]="commonTotalElement" [pageSize]="size" [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                               (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+        </mat-card>
+    </div>
+
+    <ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callAPIDialog>
+        <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+            <div class="heading">
+                <h1 style="display: inline-block;">
+
+                    <!--                Downlaod GO-->
+                    {{'meetingName' | translate}} <span>{{meetingName}}</span>
+                </h1>
+                <button mat-icon-button class="close-button" [mat-dialog-close]="true"
+                        (click)="closeDialog()">
+                    <mat-icon class="close-icon" color="warn">close</mat-icon>
+                </button>
+            </div>
+            <mat-dialog-content class="mat-typography">
+                <div>
+                    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                        <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+                            <!--<mat-card>-->
+                            <table mat-table [dataSource]="projectListDataSource"
+                                   class="mat-elevation-z8 bg-transparent" matSort>
+
+                                <ng-container matColumnDef="thSl">
+                                    <th [attr.rowspan]="2" class="table-head-style" mat-header-cell *matHeaderCellDef
+                                        style="padding-left: 0px;!important;">{{'sl' | translate}}
+                                    </th>
+                                </ng-container>
+
+                                <ng-container matColumnDef="thProjectName">
+                                    <th [attr.rowspan]="4" class="table-head-style" mat-header-cell *matHeaderCellDef
+                                        style="padding-left: 5px;width: 40%">{{'pInfo' | translate}}
+                                    </th>
+                                </ng-container>
+
+                                <ng-container matColumnDef="thProjectCost">
+                                    <th [attr.colspan]="5" class="table-head-style" mat-header-cell
+                                        *matHeaderCellDef>{{'projectCost' | translate}}
+                                        (<span>{{'takaInlack' | translate}}</span>)
+                                    </th>
+                                </ng-container>
+
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="sl">
+                                    <td mat-cell *matCellDef="let row, let i= index"
+                                        style="padding-left: 0px;!important;">
+                                        {{ numberPipe.convertToBanglaNumber(i + 1) }}
+                                    </td>
+                                </ng-container>
+
+                                <!-- Progress Column -->
+                                <ng-container matColumnDef="projectName">
+                                    <td mat-cell *matCellDef="let row"
+                                        style="text-align: left;padding-left: 5px;width: 40%">
+                                        <div style="cursor: pointer">
+                                            <span>{{'projectName' | translate}}</span>
+                                            <span
+                                            style="color: #0d9488;">{{ row?.projectTitle }}</span>
+                                            <span
+                                            style="color:#4b60bd;"> ({{row?.projectType}})</span>
+                                        </div>
+                                        <div style="color: #333333"><span>{{'agencyName' | translate}}</span>{{ row?.implementingAgency}}</div>
+                                        <div style="color: #333333"><span>{{'ministryName' | translate}}</span>{{ row?.ministryDivision}}</div>
+                                        <!--                                                <div style="color: #333333">Sector Division: <span-->
+                                        <!--                                                    style="color: #0d9488;">{{ row?.sectorDivisionName }}</span></div>-->
+                                        <!--                                                <div style="color: #333333">Create Date: <span-->
+                                        <!--                                                    style="color: #0d9488;">{{ datePipe.transform(row?.createdDate, 'dd/MM/yyyy')}}</span>-->
+                                        <!--                                                </div>-->
+                                        <div style="color: #333333">
+                                            <span>{{'commencementDate' | translate}}</span>
+                                            <span
+                                            style="color: #0d9488;">{{ numberPipe.convertToBanglaNumber(row?.dateCommencement | date : "dd-MM-yyyy" )}}</span>
+                                            <br>
+                                            <span>{{'completionDate' | translate}}</span>
+                                            <span
+                                            style="color: #0d9488;">{{ numberPipe.convertToBanglaNumber(row?.dateCompletion | date : "dd-MM-yyyy" )}}</span>
+                                        </div>
+                                        <!--                                                <div style="color: #333333">Status: -->
+                                        <!--                                                    <span-->
+                                        <!--                                                    style="color: #ef8c23;font-weight: 500">{{row?.movementStatus}}</span>-->
+                                        <!--                                                </div>-->
+                                    </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="total">
+                                    <td mat-cell *matCellDef="let row" class="amount-value">
+                                        <div></div>
+                                        <div style="color: #333333">{{'total' | translate}}</div>
+                                        <br>
+                                        <div><span
+                                            style="color: #4b60bd">{{ numberPipe.convertToBanglaNumber(row?.totalAmount.toFixed(2))}}</span>
+                                        </div>
+                                        <div></div>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="gob">
+                                    <td mat-cell *matCellDef="let row" class="amount-value">
+                                        <div></div>
+                                        <div style="color: #333333">{{'gob' | translate}}</div>
+                                        <div style="color: #333333">({{'fe' | translate}})</div>
+                                        <br>
+                                        <div style="color: #4b60bd">{{numberPipe.convertToBanglaNumber(row?.gobAmount.toFixed(2))}}
+                                            <br>({{ numberPipe.convertToBanglaNumber(row?.gobFeAmount.toFixed(2))}})
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <!--                                        <ng-container matColumnDef="pa">-->
+                                <!--                                            <td mat-cell *matCellDef="let row" class="amount-value">-->
+                                <!--                                                <div></div>-->
+                                <!--                                                <div style="color: #333333">PA</div>-->
+                                <!--                                                <div style="color: #333333">(RPA)</div>-->
+                                <!--                                                <br>-->
+                                <!--                                                <div style="color: #4b60bd">{{ row?.paAmount.toFixed(2)}}-->
+                                <!--                                                    <br>({{ row?.rpaAmount.toFixed(2)}})-->
+                                <!--                                                </div>-->
+                                <!--                                            </td>-->
+                                <!--                                        </ng-container>-->
+
+                                <ng-container matColumnDef="ownFund">
+                                    <td mat-cell *matCellDef="let row" class="amount-value"
+                                        style="width: 53px; text-align: right">
+                                        <div></div>
+                                        <div style="color: #333333;">{{'ownFund' | translate}}</div>
+                                        <div style="color: #333333">({{'fe' | translate}})</div>
+                                        <br>
+                                        <div style="color: #4b60bd">{{ numberPipe.convertToBanglaNumber(row?.ownFundAmount.toFixed(2))}}
+                                            <br>({{ numberPipe.convertToBanglaNumber(row?.ownFundFeAmount ? row?.ownFundFeAmount.toFixed(2) : '0.00')}})
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="other">
+                                    <td mat-cell *matCellDef="let row" class="amount-value" style="width: 53px;">
+                                        <div></div>
+                                        <div style="color: #333333;">{{'other' | translate}}</div>
+                                        <div style="color: #333333">({{'fe' | translate}})</div>
+                                        <br>
+                                        <div style="color: #4b60bd">{{ numberPipe.convertToBanglaNumber(row?.otherAmount.toFixed(2))}}
+                                            <br>({{ numberPipe.convertToBanglaNumber(row?.otherFeAmount ? row?.otherFeAmount.toFixed(2) : '0.00')}})
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Table Action Buttons End-->
+                                <!--                <tr mat-header-row *matHeaderRowDef="['list']"></tr>-->
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns2Ecnec"></tr>
+                                <!--                <tr mat-header-row *matHeaderRowDef="['thTotal', 'thGOB', 'thPA', 'thFE']"></tr>-->
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsEcnec"></tr>
+
+                                <!-- Row shown when there is no matching data. -->
+                                <tr class="mat-row" *matNoDataRow>
+                                    <td class="mat-cell" colspan="8">
+                                        {{'noData' | translate}}
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </mat-dialog-content>
+<!--            <mat-dialog-actions align="end" class="mb-1 mr-1">-->
+<!--                <button (click)="closeDialog()" mat-flat-button color="accent" type="button" mat-dialog-close>-->
+<!--                    <span>{{'cancel' | translate}}</span>-->
+<!--                </button>-->
+<!--            </mat-dialog-actions>-->
+
+        </div>
+    </ng-template>
+
+
+</div>
+
+
+

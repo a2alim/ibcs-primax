@@ -1,0 +1,350 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header class="crop-text" [title]="titleEn" [subTitle]="'sub_title' | translate">
+                </app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button
+                        type="button">
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{"ProjectMainPage" | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+        </div>
+    </div>
+    <!-- Header close-->
+    <!-- Main -->
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+            <div  >
+                <!-- Form Start -->
+                <form [formGroup]="frmGroup" name="frmGroup" class="p-5">
+                    <div class="sub-heading">
+                        <span class="inline-block align-middle">
+                            {{'page_name' | translate}}
+                        </span>
+                    </div>
+                    <table style="border: none; width: 100%;">
+                        <tr style="border: none;">
+                            <td style="text-align: left; border: none; width: 20%;">
+                                {{'nameofTheProject' | translate}}</td>
+                            <td style="text-align: left; border: none;">:
+                                {{projectSummary?.isForeignAid ? projectSummary?.titleEn : projectSummary?.titleBn}}
+                            </td>
+                        </tr>
+                        <tr style="border: none;">
+                            <td style="text-align: left; border: none; width: 20%;">
+                                {{'implementingAgency' | translate}}</td>
+                            <td style="text-align: left; border: none;">:
+                                {{projectSummary?.isForeignAid ? agencyModel?.nameEn : agencyModel?.nameBn}}
+                            </td>
+                        </tr>
+                        <tr style="border: none;">
+                            <td style="text-align: left; border: none; width: 20%;">
+                                {{'sponsoringMinistry' | translate}}</td>
+                            <td style="text-align: left; border: none;">:
+                                {{projectSummary?.isForeignAid ? agencyModel?.ministryDivisionDTO?.nameEn : agencyModel?.ministryDivisionDTO?.nameBn}}
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <div style="text-align: right;" >
+                        <span>
+                            {{'InLakh' | translate}}
+                        </span>
+                    </div>
+                    <table style="width: 100%; text-align: justify; ">
+                        <tr>
+                            <td style="width: 2%;">{{'num1' | translate}}</td>
+                            <td style="width: 44%;  text-align: justify; padding: 5px;"> {{'numberOf' | translate}}</td>
+                            <td style="width: 1%;"> :</td>
+                            <td>
+                                <mat-form-field style="height: 10px;" class="mt-2 mb-2">
+                                    <input formControlName="numberOfOngoingProject" type="number" matInput NumbersOnly>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 2%;">{{'num2' | translate}}</td>
+                            <td style="width: 44%; text-align: justify;padding: 5px;"> {{'estimateCost' | translate}}</td>
+                            <td style="width: 1%;"> :</td>
+                            <td>
+                                <mat-form-field style="height: 10px;" class="mt-2 mb-2">
+                                    <input formControlName="costOfApprovedProject" (keyup)="setAllocationRequired()" matInput TwoDigitDecimalNumber>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 2%;">{{'num3' | translate}}</td>
+                            <td style="width: 44%; text-align: justify;padding: 5px;"> {{'totalCumulative' | translate}}</td>
+                            <td style="width: 1%;"> :</td>
+                            <td>
+                                <mat-form-field style="height: 10px;" class="mt-2 mb-2">
+                                    <input formControlName="cumulativeExpenditure" (keyup)="setAllocationRequired()" matInput TwoDigitDecimalNumber>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 2%;">{{'num4' | translate}}</td>
+                            <td style="width: 44%; text-align: justify;padding: 5px;"> {{'allocationRequ' | translate}}</td>
+                            <td style="width: 1%;"> :</td>
+                            <td>
+                                <mat-form-field style="height: 10px;" class="mt-2 mb-2">
+                                    <input formControlName="allocationRequiredForOngoingProject" readonly matInput TwoDigitDecimalNumber>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 2%;">{{'num5' | translate}}</td>
+                            <td style="width: 44%; text-align: justify;padding: 5px;"> {{'allocationinadb' | translate}}</td>
+                            <td style="width: 1%;"> :</td>
+                            <td>
+                                <mat-form-field style="height: 10px;" class="mt-2 mb-2">
+                                    <input formControlName="allocationInCurrentFiscalYear" matInput TwoDigitDecimalNumber>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="overflow-auto">
+                        <table style="height: 800px;">
+                            <tr>
+                                <td style="height: 400%; width: 47%;">
+                                    <table style=" height: 800px; ">
+                                        <tr style="height: 66px; background-color: rgb(204, 201, 201); ">
+                                            <td style="width: 1%;">
+                                            </td>
+                                            <td style="width: 50%; text-align: justify;">
+                                            </td>
+                                            <td style="width: 1%;">
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 70px;">
+                                            <td style="width: 1%;">
+                                                {{'num6' | translate}}
+                                            </td>
+                                            <td style="width: 50%; text-align: justify;padding: 5px;">
+                                                {{'ssprojectsss' | translate}}
+                                            </td>
+                                            <td style="width: 1%;">
+                                                :
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 70px;">
+                                            <td style="width: 1%;">
+                                                {{'num7' | translate}}
+                                            </td>
+                                            <td style="width: 50%; text-align: justify;padding: 5px;">
+                                                {{'mtbf' | translate}}
+                                            </td>
+                                            <td style="width: 1%;">
+                                                :
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 70px;">
+                                            <td style="width: 1%;">
+                                                {{'num8' | translate}}
+                                            </td>
+                                            <td style="width: 50%; text-align: justify;padding: 5px;">
+                                                {{'approvedProjects' | translate}}
+                                            </td>
+                                            <td style="width: 1%;">
+                                                :
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 120px;">
+                                            <td style="width: 1%;">
+                                                {{'num9' | translate}}
+                                            </td>
+                                            <td style="width: 50%; text-align: justify;padding: 5px;  ">
+                                                {{'numOfpro' | translate}} <br>
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%"
+                                                        fxFlex.xs="100%">
+                                                        <div class="pr-4" fxLayout="row wrap"
+                                                            fxLayoutAlign="space-between center">
+                                                            <mat-label style=" " fxFlex="55%" fxFlex.md="55%"
+                                                                fxFlex.sm="55%" fxFlex.xs="100%">
+                                                                {{'NoApprovedProject' | translate}}
+                                                            </mat-label>
+                                                            <mat-form-field class="fuse-mat-dense flex-auto"
+                                                                fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                                                fxFlex.xs="100%" style="padding-top: 15px;">
+                                                                <input matInput formControlName="numberOfApprovedProject" type="number" required NumbersOnly>
+                                                            </mat-form-field>
+                                                            {{'numCount' | translate}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%"
+                                                        fxFlex.xs="100%">
+                                                        <div class="pr-4" fxLayout="row wrap"
+                                                            fxLayoutAlign="space-between center">
+                                                            <mat-label style=" " fxFlex="55%" fxFlex.md="55%"
+                                                                fxFlex.sm="55%" fxFlex.xs="100%">
+                                                                {{'NoRecommendedProject' | translate}}
+                                                            </mat-label>
+                                                            <mat-form-field class="fuse-mat-dense flex-auto"
+                                                                fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                                                fxFlex.xs="100%" style="padding-top: 15px;">
+                                                                <input matInput formControlName="numberOfRecommendedProject" type="number" required NumbersOnly>
+                                                            </mat-form-field>
+                                                            {{'numCount' | translate}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td style="width: 1%;">
+                                                :
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 66px;">
+                                            <td style="width: 1%;">
+                                                {{'num10' | translate}}
+                                            </td>
+                                            <td style="width: 50%; text-align: justify;padding: 5px;">
+                                                {{'proposed' | translate}}
+                                            </td>
+                                            <td style="width: 1%;">
+                                                :
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 66px;">
+                                            <td style="width: 1%;">
+                                                {{'num11' | translate}}
+                                            </td>
+                                            <td style="width: 50%; text-align: justify;padding: 5px;">
+                                                {{'requer' | translate}}
+                                            </td>
+                                            <td style="width: 1%;">
+                                                :
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 66px;">
+                                            <td style="width: 1%;">
+                                                {{'num12' | translate}}
+                                            </td>
+                                            <td style="width: 50%; text-align: justify;padding: 5px;">
+                                                {{'fissps' | translate}}
+                                            </td>
+                                            <td style="width: 1%;">
+                                                :
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <!-- ========================================================== -->
+                                <ng-container formArrayName="mtbfFiscalYearListData">
+                                    <ng-container *ngFor="let lessonForm of mtbfFiscalYearListData.controls; let i = index">
+                                        <td [formGroup]="lessonForm">
+                                            <!-- {{data | json}}
+                                            {{mtbfFiscalYearListData | json}} -->
+                                            <table style=" height: 800px;" >
+                                                <tr style="height: 60px; background-color: rgb(204, 201, 201);">
+                                                    <td>
+                                                        <mat-form-field style="text-align:center; height: 10px;" class="mt-2 mb-2">
+                                                            <input formControlName="fiscalYear" readonly matInput>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 50px;" hidden>
+                                                    <td>
+                                                        <mat-form-field style="height: 10px;" class="mt-2 mb-2">
+                                                            <input formControlName="uuid" matInput>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 60px;">
+                                                    <td>
+                                                        <mat-form-field style="height: 10px;" class="mt-2 mb-2">
+                                                            <input formControlName="resourcesInFiveYearPlan" matInput TwoDigitDecimalNumber>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 70px;">
+                                                    <td>
+                                                        <mat-form-field style="height: 10px;" class="mt-2 mb-2">
+                                                            <input formControlName="allocationAndProjection" (keyup)="getSummation(i)" matInput TwoDigitDecimalNumber>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 60px;">
+                                                    <td>
+                                                        <mat-form-field style="height: 10px;" class="mt-2 mb-2">
+                                                            <input formControlName="allocationRequiredForProject" (keyup)="getSummation(i)" matInput TwoDigitDecimalNumber>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 190px;">
+                                                    <td style="   ">
+                                                        <mat-form-field style="height: 10px; padding-top: 45px;" class=" ">
+                                                            <input formControlName="allocationOfApprovedProject" (keyup)="getSummation(i)" matInput TwoDigitDecimalNumber>
+                                                        </mat-form-field> <br>
+                                                        <mat-form-field style="height: 10px; padding-top: 20px;" class=" ">
+                                                            <input formControlName="allocationOfRecommendedProject" (keyup)="getSummation(i)" matInput TwoDigitDecimalNumber>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 60px;">
+                                                    <td style=" ">
+                                                        <mat-form-field style="height: 10px;" class=" ">
+                                                            <input formControlName="allocationRequiredForProposedProject" (keyup)="getSummation(i)" matInput TwoDigitDecimalNumber>
+                                                        </mat-form-field><br>
+                                                </tr>
+                                                <tr style="height: 60px;">
+                                                    <td>
+                                                        <mat-form-field style="height: 10px;" class="mt-2 mb-2 readonly">
+                                                            <input formControlName="totalRequirementOfAllocation" matInput TwoDigitDecimalNumber readonly>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 60px;">
+                                                    <td>
+                                                        <mat-form-field style="height: 10px;" class="mt-2 mb-2 readonly">
+                                                            <input formControlName="fiscalSpace" matInput TwoDigitDecimalNumber readonly>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </ng-container>
+                                </ng-container>
+                                <!-- ========================================================== -->
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <mat-card>
+                        <P>
+                            {{'num13' | translate}}. {{'pprojct' | translate}}
+                        </P><br>
+                        <div>
+                            <ckeditor [config]="mediumEditorConfig" formControlName="wayOfFinancing" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%"
+                            fxFlex.xs="100%" fxFlex.sm="100%"></ckeditor>
+                        </div>
+                    </mat-card>
+                    <div class="flex justify-end mt-8">
+                        <button [disabled]="spinner" class="px-8 mr-2" mat-flat-button [color]="'primary'" type="button" (click)="onSubmit()">
+                            {{'Save' | translate}}
+                        </button>
+                        <button [disabled]="spinner" class="px-8 mr-2" mat-flat-button [color]="'primary'" type="button" (click)="onSubmitAndExit()">
+                            {{'SaveExit' | translate}}
+                        </button>
+                    </div>
+                </form>
+                <!-- / Form End -->
+            </div>
+        </mat-card>
+    </div>
+</div>

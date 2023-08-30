@@ -1,0 +1,708 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <!--Loder-->
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <div class="flex md:justify-end md:mr-2 mt-3">
+
+        <button class="px-3 mr-3 editBtn" mat-raised-button color="primary" (click)="addEvaluator()">
+            <mat-icon class="mr-1">add</mat-icon>
+            {{'add_evaluator' | translate}}
+        </button>
+
+
+<!--        <button class="px-3 mr-2 printBtn" mat-flat-button color="accent" (click)="back()" type="button">-->
+<!--            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>-->
+<!--            {{'back' | translate}}-->
+<!--        </button>-->
+
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+<!--            <div class="flex flex-col bg-card shadow rounded overflow-hidden">-->
+<!--                <div class="heading">-->
+<!--                    &lt;!&ndash;                    <h1>{{'formTitle' | translate}}</h1>&ndash;&gt;-->
+
+<!--                    <button class="px-5" mat-flat-button color="primary" (click)="addUser()">-->
+<!--                        <mat-icon class="mr-1">add</mat-icon>-->
+<!--                        {{'add_evaluator' | translate}}-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Card Body &ndash;&gt;-->
+
+<!--            <form #myForm="ngForm" class="p-4 border3 form-bg-color">-->
+<!--                &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;1st row&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+<!--                <div class="md:flex row">-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'name' | translate}}-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-30 lg:w-30">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <mat-select placeholder="Select" [(ngModel)]="expertEvaluator.name" required name="name"-->
+<!--                                        (selectionChange)="selectUser($event.value)"-->
+<!--                                        [ngModelOptions]="{standalone: true}">-->
+<!--                                <mat-option *ngFor="let user of userList" [value]="user.name">{{user.name}}</mat-option>-->
+<!--                            </mat-select>-->
+<!--                            <mat-error>Name is required!</mat-error>-->
+<!--                        </mat-form-field>-->
+
+<!--                    </div>-->
+
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left md:ml-2 md:pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'presentProfession' | translate}}-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-30 lg:w-30">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <input matInput name="presentProfession2" [(ngModel)]="expertEvaluator.presentProfession"-->
+<!--                                   required>-->
+<!--                            <mat-error>-->
+<!--                                Present profession is required.-->
+<!--                            </mat-error>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;/1st row&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+
+<!--                &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;2nd row&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+<!--                <div class="md:flex row">-->
+
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'speciality' | translate}} <strong class="required">*</strong>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-30 lg:w-30">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <mat-select [(ngModel)]="expertEvaluator.stSpecialityTypeId"-->
+<!--                                        [ngModelOptions]="{standalone: true}" required>-->
+<!--                                <mat-option *ngFor="let commonType of commonTypesList" [value]="commonType.id">-->
+<!--                                    {{commonType.typeName}}-->
+<!--                                </mat-option>-->
+<!--                            </mat-select>-->
+
+<!--                            <mat-error>-->
+<!--                                Speciality is required.-->
+<!--                            </mat-error>-->
+<!--                        </mat-form-field>-->
+
+<!--                    </div>-->
+
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left md:ml-2 md:pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'presentOfficeAddress' | translate}} <strong class="required">*</strong>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-30 lg:w-30">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <textarea matInput name="professionalExperience"-->
+<!--                                      [(ngModel)]="expertEvaluator.presentOfficeNameAddress" required></textarea>-->
+<!--                            <mat-error>-->
+<!--                                Present office address is required.-->
+<!--                            </mat-error>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;/2nd row&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+
+
+<!--                <div class="md:flex row">-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'dob' | translate}} <strong class="required">*</strong>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-30 lg:w-30">-->
+
+<!--                        <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">-->
+
+<!--                            <input matInput [matDatepicker]="datepicker" name="dateOfBirth"-->
+<!--                                   [(ngModel)]="expertEvaluator.dateOfBirth" required>-->
+<!--                            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>-->
+<!--                            <mat-datepicker #datepicker>-->
+
+<!--                            </mat-datepicker>-->
+<!--                            <mat-error>Date of birth is required.</mat-error>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left md:ml-2 md:pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'mobile' | translate}}<strong class="required">*</strong>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-30 md:text-left">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <input disabled matInput name="presentProfession5" [(ngModel)]="expertEvaluator.mobileNo"-->
+<!--                                   required>-->
+<!--                            <mat-error>Phone no is required.</mat-error>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="md:flex row">-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'email' | translate}}<strong class="required">*</strong>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-30 md:text-left">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <input disabled matInput name="presentProfession4"-->
+<!--                                   [(ngModel)]="expertEvaluator.emailAddress"-->
+<!--                                   required>-->
+<!--                            <mat-error>-->
+<!--                                Email is required.-->
+<!--                            </mat-error>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left md:ml-2 md:pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'trey' | translate}}-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-30 md:text-left">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <input matInput name="presentProfession3" [(ngModel)]="expertEvaluator.totalResearchExpYear"-->
+<!--                                   type="number">-->
+<!--                            <mat-error>-->
+
+<!--                            </mat-error>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="md:flex row">-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'resed' | translate}}-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-30 md:text-left">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <textarea matInput name="researchExperienceDetail"-->
+<!--                                      [(ngModel)]="expertEvaluator.researchExperienceDetail"></textarea>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left md:ml-2 md:pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'nid' | translate}} <strong class="required">*</strong>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-30 md:text-left">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <input matInput name="nid" [(ngModel)]="expertEvaluator.nidNumber" required>-->
+<!--                            <mat-error> NID is required.</mat-error>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="md:flex row">-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'tin' | translate}}-->
+<!--                       </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-30 md:text-left">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <input matInput name="tin" [(ngModel)]="expertEvaluator.tinNumber">-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-50 lg:w-50 md:text-left"></div>-->
+
+<!--                </div>-->
+<!--                <div class="md:flex row">-->
+<!--                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left md:ml-2 md:pt-3">-->
+<!--                        <span class="text-gray-700">-->
+<!--                            {{'otherExpertAreas' | translate}}-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div class="w-full sm:w-auto md:w-80 lg:w-80 md:text-left">-->
+<!--                        <mat-form-field class="w-full">-->
+<!--                            <textarea matInput name="otherExpertAreas" [(ngModel)]="expertEvaluator.otherExpertAreas"-->
+<!--                                      rows="5"></textarea>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Education Level Dynamic Table &ndash;&gt;-->
+<!--                <div>-->
+<!--                    <div class="heading">-->
+<!--                        <h1>{{'education_Information' | translate}}</h1>-->
+<!--                    </div>-->
+<!--                    <mat-card class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">-->
+<!--                        &lt;!&ndash;<mat-card>&ndash;&gt;-->
+<!--                        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>-->
+<!--                            <table mat-table [dataSource]="certificateDataSource" class="mat-elevation-z8 w-full">-->
+<!--                                &lt;!&ndash; education_level Column &ndash;&gt;-->
+<!--                                <ng-container matColumnDef="education_level">-->
+<!--                                    <th mat-header-cell *matHeaderCellDef> {{'education_level' | translate}} </th>-->
+<!--                                    <td mat-cell *matCellDef="let element; let i = index" class="text-center">-->
+<!--                                        <mat-form-field class="w-full">-->
+<!--                                            &lt;!&ndash; <input matInput name="commonTypes" > &ndash;&gt;-->
+<!--                                            <mat-select name="commonTypes-'{{i}}" [(ngModel)]="element.eudcationLevel"-->
+<!--                                                        [ngModelOptions]="{standalone: true}"-->
+<!--                                                        placeholder="Select Education">-->
+<!--                                                <mat-option *ngFor="let education of educationLevelList"-->
+<!--                                                            [value]="education.id">{{education.typeName}}-->
+<!--                                                </mat-option>-->
+<!--                                            </mat-select>-->
+<!--                                            <mat-error>Education Is Required!</mat-error>-->
+
+<!--                                            <mat-error>-->
+
+<!--                                            </mat-error>-->
+<!--                                        </mat-form-field>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+
+<!--                                &lt;!&ndash; subject_area Column &ndash;&gt;-->
+<!--                                <ng-container matColumnDef="subject_area">-->
+<!--                                    <th mat-header-cell *matHeaderCellDef> {{'subject_area' | translate}} </th>-->
+<!--                                    <td mat-cell *matCellDef="let element">-->
+<!--                                        <mat-form-field class="w-full">-->
+<!--                                            <input type="text" matInput placeholder="Subject"-->
+<!--                                                   [(ngModel)]="element.subject" [ngModelOptions]="{standalone: true}">-->
+<!--                                            <mat-error> Subject Area Required.</mat-error>-->
+<!--                                        </mat-form-field>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+
+<!--                                &lt;!&ndash; university_institute Column &ndash;&gt;-->
+<!--                                <ng-container matColumnDef="university_institute">-->
+<!--                                    <th mat-header-cell *matHeaderCellDef> {{'university_institute' | translate}} </th>-->
+<!--                                    <td mat-cell *matCellDef="let element">-->
+<!--                                        <mat-form-field class="w-full">-->
+<!--                                            <input matInput placeholder="University/Institute"-->
+<!--                                                   [(ngModel)]="element.universityOrInstitute"-->
+<!--                                                   [ngModelOptions]="{standalone: true}">-->
+<!--                                            <mat-error>University/Institute Area Required.</mat-error>-->
+<!--                                        </mat-form-field>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+
+<!--                                &lt;!&ndash; result Column &ndash;&gt;-->
+<!--                                <ng-container matColumnDef="result">-->
+<!--                                    <th mat-header-cell *matHeaderCellDef> {{'result' | translate}} </th>-->
+<!--                                    <td mat-cell *matCellDef="let element">-->
+<!--                                        <mat-form-field [ngStyle]="{'width': '100%'}">-->
+<!--                                            <input matInput placeholder="CGPA" [(ngModel)]="element.result"-->
+<!--                                                   [ngModelOptions]="{standalone: true}">-->
+<!--                                            <mat-error>Result Required.</mat-error>-->
+<!--                                        </mat-form-field>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+
+<!--                                &lt;!&ndash; Action Column &ndash;&gt;-->
+<!--                                <ng-container matColumnDef="action">-->
+<!--                                    <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}}-->
+<!--                                    </th>-->
+<!--                                    <td mat-cell *matCellDef="let element;let i= index" class="text-center">-->
+<!--                                        <div class="buttons">-->
+<!--                                            <button (click)="addCertificateRow()" mat-icon-button-->
+<!--                                                    class="toggle-sidebar-folded" matTooltip="Add Row" fxHide.lt-lg>-->
+<!--                                                <mat-icon color="primary" tyle="cursor:pointer;font-weight: 800">add-->
+<!--                                                </mat-icon>-->
+<!--                                            </button>-->
+
+<!--                                            <button (click)="deleteEducation(i)" mat-icon-button-->
+<!--                                                    class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>-->
+<!--                                                <mat-icon color="warn">delete-->
+<!--                                                </mat-icon>-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+
+<!--                                &lt;!&ndash; Initialized Table Header And Dataset&ndash;&gt;-->
+<!--                                <tr mat-header-row *matHeaderRowDef="certificateColumns"></tr>-->
+<!--                                <tr mat-row *matRowDef="let row; columns: certificateColumns;"></tr>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </mat-card>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Sector/Subsector Dynamic Table &ndash;&gt;-->
+<!--                <div>-->
+<!--                    <div class="heading">-->
+<!--                        <h1>{{'suitable_for_sector' | translate}}</h1>-->
+<!--                    </div>-->
+<!--                    <mat-card class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mb-5">-->
+<!--                        &lt;!&ndash;<mat-card>&ndash;&gt;-->
+<!--                        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>-->
+<!--                            <table mat-table [dataSource]="sectorDataSource" class="mat-elevation-z8 w-full">-->
+<!--                                &lt;!&ndash; sector Column &ndash;&gt;-->
+<!--                                <ng-container matColumnDef="sector">-->
+<!--                                    <th mat-header-cell *matHeaderCellDef> {{'sector' | translate}} </th>-->
+<!--                                    <td mat-cell *matCellDef="let element; let i = index" class="text-center">-->
+<!--                                        <mat-form-field class="w-full">-->
+<!--                                            <mat-select name="sector" [(ngModel)]="element.sectorId"-->
+<!--                                                        [ngModelOptions]="{standalone: true}"-->
+<!--                                                        (selectionChange)="onSectorChange($event, i)"-->
+<!--                                                        placeholder="Select Sector">-->
+<!--                                                <mat-option *ngFor="let sector of sectors" [value]="sector.id">-->
+<!--                                                    {{sector.fieldName}}-->
+<!--                                                </mat-option>-->
+<!--                                            </mat-select>-->
+<!--                                        </mat-form-field>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+
+<!--                                &lt;!&ndash; sub_sector Column &ndash;&gt;-->
+<!--                                <ng-container matColumnDef="sub_sector">-->
+<!--                                    <th mat-header-cell *matHeaderCellDef> {{'sub_sector' | translate}} </th>-->
+<!--                                    <td mat-cell *matCellDef="let element;let i = index">-->
+<!--                                        <mat-form-field class="w-full">-->
+<!--                                            <mat-select name="subSectors" multiple [(ngModel)]="element.subSectorIds"-->
+<!--                                                        (selectionChange)="onSubSectorChange($event.value,i)"-->
+<!--                                                        placeholder="Select Sub Sector">-->
+<!--                                                <mat-option *ngFor="let subSector of subSectors" [value]="subSector.id">-->
+<!--                                                    {{subSector.subFieldName}}-->
+<!--                                                </mat-option>-->
+<!--                                            </mat-select>-->
+<!--                                        </mat-form-field>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+
+<!--                                &lt;!&ndash; Action Column &ndash;&gt;-->
+<!--                                <ng-container matColumnDef="action">-->
+<!--                                    <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}}-->
+<!--                                    </th>-->
+<!--                                    <td mat-cell *matCellDef="let element;let i= index" class="text-center">-->
+<!--                                        <div class="buttons">-->
+<!--                                            <button (click)="addSectorDataSource()" mat-icon-button-->
+<!--                                                    class="toggle-sidebar-folded" matTooltip="Add Row" fxHide.lt-lg>-->
+<!--                                                <mat-icon color="primary" tyle="cursor:pointer;font-weight: 800">add-->
+<!--                                                </mat-icon>-->
+<!--                                            </button>-->
+
+<!--                                            <button (click)="removeSectorRow(i)" mat-icon-button-->
+<!--                                                    class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>-->
+<!--                                                <mat-icon color="warn">delete-->
+<!--                                                </mat-icon>-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+
+<!--                                &lt;!&ndash; Initialized Table Header And Dataset&ndash;&gt;-->
+<!--                                <tr mat-header-row *matHeaderRowDef="sectorColumns"></tr>-->
+<!--                                <tr mat-row *matRowDef="let row; columns: sectorColumns;"></tr>-->
+<!--                            </table>-->
+<!--                        </div>-->
+
+<!--                    </mat-card>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Row-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+<!--                &lt;!&ndash;                <div class="md:flex">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <span class="text-gray-700">&ndash;&gt;-->
+<!--                &lt;!&ndash;                            {{'otherExpertAreas' | translate}}&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </span>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-30 lg:w-30 pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <mat-form-field class="w-full">&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <textarea matInput name="otherExpertAreas" [(ngModel)]="expertEvaluator.otherExpertAreas"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                rows="5"></textarea>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </mat-form-field>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-50 lg:w-50 md:text-left md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <div class="md:flex">&ndash;&gt;-->
+<!--                &lt;!&ndash;                            &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;1st Row-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <div class="w-full sm:w-auto md:w-30 lg:w-30 md:ml-2 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                <span class="text-gray-700">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    {{'nid' | translate}} <strong class="required">*</strong>&ndash;&gt;-->
+<!--                &lt;!&ndash;                                </span>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <div class="w-full sm:w-auto md:w-70 lg:w-70">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                <mat-form-field class="w-full">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    <input matInput name="nid" [(ngModel)]="expertEvaluator.nidNumber" required>&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    <mat-error> NID is required.</mat-error>&ndash;&gt;-->
+<!--                &lt;!&ndash;                                </mat-form-field>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;/1st Row-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <div class="md:flex">&ndash;&gt;-->
+<!--                &lt;!&ndash;                            &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;2nd Row-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <div class="w-full sm:w-auto md:w-30 lg:w-30 md:ml-2 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                <span class="text-gray-700">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    {{'tin' | translate}}&ndash;&gt;-->
+<!--                &lt;!&ndash;                                </span>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <div class="w-full sm:w-auto md:w-70 lg:w-70">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                <mat-form-field class="w-full">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    <input matInput name="tin" [(ngModel)]="expertEvaluator.tinNumber" required>&ndash;&gt;-->
+<!--                &lt;!&ndash;                                </mat-form-field>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;/2nd Row-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;/Row-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+
+<!--                &lt;!&ndash; FOR SSRC USER &ndash;&gt;-->
+<!--                &lt;!&ndash;    <div *ngIf="userInfo.userType == 'Rms_DO'">&ndash;&gt;-->
+<!--                &lt;!&ndash;        <hr>&ndash;&gt;-->
+<!--                &lt;!&ndash;        &lt;!&ndash; Sub Header &ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;        <div class="flex flex-col bg-card shadow rounded overflow-hidden">&ndash;&gt;-->
+<!--                &lt;!&ndash;            <div class="heading">&ndash;&gt;-->
+<!--                &lt;!&ndash;                <h1>{{'forSsrcUser' | translate}}</h1>&ndash;&gt;-->
+<!--                &lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;            <div class="p-5">&ndash;&gt;-->
+<!--                &lt;!&ndash;                <div class="md:flex row">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    <span class="text-gray-700">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                        {{'iv' | translate}}&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    </span>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-30 lg:w-30 mt-2">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <section class="example-section">&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <mat-checkbox class="example-margin"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                          [checked]="expertEvaluator.expertEvaluatorBySsrc.isVerified"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                          (change)="onCheckBoxChange($event,'isVerified')"></mat-checkbox>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </section>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                    &lt;!&ndash;                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3 mt-2">&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                        <span class="text-gray-700">&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                           {{'fy' | translate}}<strong class="required">*</strong>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                        </span>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                        </div>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                        <div class="w-full sm:w-auto md:w-30 lg:w-30 mt-2">&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                            <mat-form-field class="w-full">&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                                <input matInput name="presentProfession1"&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                                       [(ngModel)]="expertEvaluator.expertEvaluatorBySsrc.stFiscalYearId" type="number">&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                                <mat-error>&ndash;&gt;&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                    &lt;!&ndash;                                </mat-error>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                            </mat-form-field>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                    &lt;!&ndash;                        </div>&ndash;&gt;&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                <div class="md:flex row">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    <span class="text-gray-700">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                        {{'aae' | translate}}&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    </span>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-30 lg:w-30 mt-2">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <section class="example-section">&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <mat-checkbox class="example-margin"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                          [checked]="expertEvaluator.expertEvaluatorBySsrc.acceptAsEvaluator"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                          (change)="onCheckBoxChange($event,'acceptEvaluator')"></mat-checkbox>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </section>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                <div class="md:flex row">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    <span class="text-gray-700">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                        {{'feeOfEngagement' | translate}} <strong class="required">*</strong>&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    </span>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-20 lg:w-30 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <mat-form-field class="w-full">&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <input matInput name="feeOfEngagement"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                   [(ngModel)]="expertEvaluator.expertEvaluatorBySsrc.apprxFeeOfEngagement"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                   type="number" required>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <mat-error>&ndash;&gt;-->
+<!--                &lt;!&ndash;                                Apprx. fee of engagement is required.&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </mat-error>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </mat-form-field>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                <div class="md:flex row">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    <span class="text-gray-700">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                        {{'suitability' | translate}} <strong class="required">*</strong>&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    </span>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-80 lg:w-80 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <section class="example-section ">&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <mat-checkbox class="example-margin mr-4"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                          (change)="onCheckBoxChange($event,'Suitable for Proposal Review')">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                Suitable for Proposal Review&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </mat-checkbox>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <mat-checkbox class="example-margin"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                          (change)="onCheckBoxChange($event,'Suitable for Research Evaluation')">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                Suitable for Research Evaluation&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </mat-checkbox>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </section>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                <div class="md:flex row">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    <span class="text-gray-700">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                        {{'researchCategoryType' | translate}} <strong class="required">*</strong>&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    </span>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <div class="w-full sm:w-auto md:w-80 lg:w-80 md:text-left pr-2 md:pt-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <section class="example-section">&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <mat-checkbox class="example-margin"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                          (change)="onCheckBoxChange($event,'Promotional')">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                Promotional &nbsp;&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </mat-checkbox>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <mat-checkbox class="example-margin"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                          (change)="onCheckBoxChange($event,'MPhil')">MPhil&ndash;&gt;-->
+<!--                &lt;!&ndash;                                &nbsp;&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </mat-checkbox>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <mat-checkbox class="example-margin" (change)="onCheckBoxChange($event,'Phd')">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                Phd&ndash;&gt;-->
+<!--                &lt;!&ndash;                                &nbsp;&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </mat-checkbox>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <mat-checkbox class="example-margin"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                          (change)="onCheckBoxChange($event,'Fellowship')">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                Fellowship &nbsp;&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </mat-checkbox>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <mat-checkbox class="example-margin"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                          (change)="onCheckBoxChange($event,'Institutional Research')">&ndash;&gt;-->
+<!--                &lt;!&ndash;                                Institutional&ndash;&gt;-->
+<!--                &lt;!&ndash;                                Research &nbsp;&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </mat-checkbox>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </section>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--                <div class="flex justify-end mt-3 mr-2">-->
+<!--                    <button class="px-5 mr-2" mat-flat-button color="accent" (click)="formReset(myForm)" type="button">-->
+<!--                        <mat-icon class="mr-1">refresh</mat-icon>-->
+<!--                        {{'reset' | translate}}-->
+<!--                    </button>-->
+
+<!--                    <button class="px-5" mat-flat-button color="primary" (click)="onSubmit(formTitle, myForm)">-->
+<!--                        <mat-icon class="mr-1">save</mat-icon>-->
+<!--                        <div *ngIf="formTitle=='Edit'; else temp ">{{'update' | translate}}</div>-->
+<!--                        <ng-template #temp>{{'save' | translate}}</ng-template>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </form>-->
+
+            <!-- Search Bar -->
+            <div class="md:flex tbl-title">
+                <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-6">
+                    <h1 class="header1">
+                        <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                        {{'searchTitle' | translate}}
+                    </h1>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-40 lg:w-40 md:text-left md:pt-3">
+                    <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                        <input matInput (keyup)="applyFilter($event)" [placeholder]="'search'|translate" #input/>
+                        <button mat-button matPrefix mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl' | translate}} </th>
+                            <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                                {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> {{'name' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="mobileNo">
+                            <th mat-header-cell *matHeaderCellDef> {{'mobileNo' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="presentProfession">
+                            <th mat-header-cell *matHeaderCellDef> {{'presentProfession' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.presentProfession}} </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}} </th>
+                            <td mat-cell *matCellDef="let element" class="text-center">
+                                <div class="buttons">
+
+                                    <!--                            <button (click)="viewGoDetails(element.uuid)"-->
+                                    <!--                                    mat-icon-button-->
+                                    <!--                                    class="toggle-sidebar-folded"-->
+                                    <!--                                    matTooltip="View Expert Evaluator"-->
+                                    <!--                                    fxHide.lt-lg>-->
+                                    <!--                                <mat-icon-->
+                                    <!--                                          color="primary">viewIcon-->
+                                    <!--                                </mat-icon>-->
+                                    <!--                            </button>-->
+
+
+
+                                    <button (click)="viewDetails(element)" mat-icon-button class="toggle-sidebar-folded"
+                                            matTooltip="View" fxHide.lt-lg>
+                                        <mat-icon color="accent">{{viewIcon}}
+                                        </mat-icon>
+                                    </button>
+
+                                    <button (click)="editRow(element)" mat-icon-button class="toggle-sidebar-folded"
+                                            matTooltip="Edit" fxHide.lt-lg>
+                                        <mat-icon color="accent">edit
+                                        </mat-icon>
+                                    </button>
+
+                                    <button (click)="openDialog(element.id)" mat-icon-button
+                                            class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>
+                                        <mat-icon color="warn">delete
+                                        </mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <!-- Initialized Table Header And Dataset-->
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+                <!-- mat-paginator -->
+                <mat-paginator #paginatorRef [length]="totalElements" [pageSize]="pageSize"
+                               [pageSizeOptions]="[10, 20, 30, 100]" (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+
+        </mat-card>
+    </div>
+    <!-- Main End -->
+
+</div>
+

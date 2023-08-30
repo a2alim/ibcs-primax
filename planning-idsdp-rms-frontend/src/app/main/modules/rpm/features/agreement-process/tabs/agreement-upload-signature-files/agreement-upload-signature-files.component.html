@@ -1,0 +1,120 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <!--    <div *ngIf="spinner" class="flex items-center justify-center">-->
+    <!--        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"-->
+    <!--             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+<div class="body">
+    <form  name="frmGroup">
+        <!-- Form Body -->
+        <div class="flex justify-end">
+            <button mat-raised-button color="primary" (click)="addNewForm()">
+                <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                {{'add_more' | translate}}
+            </button>
+        </div>
+
+        <!-- CARD ONE-->
+        <div *ngFor="let educationInfoFormModel of signatureUploadModelList; let i = index">
+            <div class="heading mt-2">
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2 md:pt-3">
+                        {{'tab_5_title' | translate}}
+                    </div>
+                    <div class="flex w-full justify-end sm:w-auto md:w-20 lg:w-20">
+                        <button mat-raised-button color="accent" (click)="deleteFormByIndex(i)"><mat-icon>delete</mat-icon> </button>
+                    </div>
+
+                </div>
+            </div>
+            <mat-card class="tab-color" >
+                <!-- Row 1-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'file_title' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="educationInfoFormModel.fileTitle">
+                            <mat-error>required!</mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'upload_file' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <ngx-mat-file-input [accept]="'.pdf'" (change)="handleFileInput($event.target.files,i)"
+                            >
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                            <mat-error>Applicant age is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+
+                 <!-- Row 3-->
+                 <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'is_editable' | translate}}
+                    </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 mt-1">
+                        <mat-checkbox class="example-margin"[(ngModel)]="educationInfoFormModel.isEditable" [ngModelOptions]="{standalone: true}"></mat-checkbox>
+                    </div>
+
+                </div>
+
+            </mat-card>
+        </div>
+
+
+
+
+
+        <!-- Bottom Button -->
+        <div class="flex justify-end mt-8">
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                (click)="previousTab()"
+                type="submit"
+                class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{ "previous" | translate }}
+            </button>
+
+            <button
+                mat-flat-button
+                style="background-color: green; color: #FFFFFF"
+                type="submit"
+                (click)="save()"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span >{{ "save" | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+</div>
+</div>
+</div>

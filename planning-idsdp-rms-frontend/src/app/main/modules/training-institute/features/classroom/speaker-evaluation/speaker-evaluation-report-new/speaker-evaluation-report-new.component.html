@@ -1,0 +1,116 @@
+<div style="width: 100%">
+
+    <app-form-header [subTitle]="'headerOfSubtitle' | translate" [title]="'header' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+                <div class="md:flex tbl-title">
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'tableHeader' | translate}}
+                        </h1>
+                    </div>
+
+
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-right">
+                        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                            <input #input (keyup)="applyFilter($event)" [placeholder]="'search'|translate" matInput />
+                            <button mat-button mat-icon-button matPrefix>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <!--<mat-card>-->
+                    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                        <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sl">
+                                <th *matHeaderCellDef class="w-16" mat-header-cell> {{'sl' | translate}} </th>
+                                <td *matCellDef="let row; let i = index;" mat-cell>
+                                    {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="sessionTopic">
+                                <th *matHeaderCellDef mat-header-cell> {{'trainingIstitute' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    {{ element?.proposalModel?.trainingInstituteProfileModel?.trainingInstituteName }}
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="courseTitle">
+                                <th *matHeaderCellDef mat-header-cell> {{'courseTitle' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    {{element?.proposalModel?.trainingName}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="sessionTitle">
+                                <th *matHeaderCellDef mat-header-cell> {{'sessionTitle' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    {{element?.session?.topic}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="speakerName">
+                                <th *matHeaderCellDef mat-header-cell> {{'speakerName' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{element?.trainer?.name}}
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="qus">
+                                <th *matHeaderCellDef mat-header-cell matTooltip="{{'question' | translate}}">
+                                    {{'question'| translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    {{getQuesName(element.stCommonTypeId)}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="good">
+                                <th *matHeaderCellDef mat-header-cell matTooltip="{{'good' | translate}}"> {{'good'|
+                                    translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>{{element.good}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="very_good">
+                                <th *matHeaderCellDef mat-header-cell matTooltip="{{'very_good' | translate}}">
+                                    {{'very_good'|
+                                    translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{ element.very_good }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="excellent">
+                                <th *matHeaderCellDef mat-header-cell matTooltip="{{'excellent' | translate}}">
+                                    {{'excellent'|
+                                    translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{element.excellent }}</td>
+                            </ng-container>
+
+                            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator #paginatorRef (page)="onPageChange($event)" [length]="totalElements"
+                        [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+        </form>
+    </div>
+    <!-- Main End -->
+</div>

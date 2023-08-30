@@ -1,0 +1,438 @@
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+
+<div style="width: 100%; background-color: #FAFBFC">
+    <div class="header-v2 flex justify-between items-center">
+        <app-dashboard-header [title]="'headerTitle' | translate" class="crop-text"
+                         [subTitle]="'headerSubTitle' | translate"></app-dashboard-header>
+        <div class="w-35 flex justify-end">
+            <div class="pr-6">
+                <div class="btn btn-home flex justify-center items-center space-x-1" (click)="navigateToMap()">
+                    <mat-icon class="text-white">location_on</mat-icon>
+                    <p class="pt-1">{{'projectLocationMap' | translate}}</p>
+                </div>
+            </div>
+
+            <div class="pr-6">
+                <a class="btn btn-home flex justify-center items-center space-x-1" href="{{navigationPage}}">
+                    <mat-icon class="text-white">home</mat-icon>
+                    <p class="pt-1">{{'home' | translate}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="plancomDashbord">
+        <div class="w-full">
+            <div class="m-5 mt-13 p-5 bg-white rounded-lg relative border-1">
+                <div class="absolute left-5 -top-5 p-3 border-2 rounded-lg text-white" style="background-color: #4F9488">
+                    Approved Projects
+                </div>
+                <div class="mt-8 flex justify-between items-center space-x-6 w-full">
+                    <div class="relative cursor-pointer pt-13 pb-13 w-full rounded-md flex justify-between items-center"
+                         (click)="viewForwardProjects('AGENCY')"
+                         style="background-color: #E1F2FE; color: #3B82F6">
+                        <div>
+                            <h3 class="absolute left-3 top-3 font-semi-bold text-xl">Total</h3>
+                            <div class="absolute left-3 bottom-7 font-bold text-5xl">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                {{totalProjects}}
+                            </div>
+                        </div>
+                        <div class="pr-3">
+                            <mat-icon>arrow_forward_ios</mat-icon>
+                        </div>
+                    </div>
+                    <div class="relative cursor-pointer pt-13 pb-13 w-full rounded-md flex justify-between items-center"
+                         (click)="viewForwardProjects('ONGOING')"
+                         style="background-color: #FBE6FE; color: #9333EA">
+                        <div>
+                            <h3 class="absolute left-3 top-3 font-semi-bold text-xl">On Going</h3>
+                            <div class="absolute left-3 bottom-7 font-bold text-5xl">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                {{totalProjectsOngoing}}
+                            </div>
+                        </div>
+                        <div class="pr-3">
+                            <mat-icon>arrow_forward_ios</mat-icon>
+                        </div>
+                    </div>
+                    <div class="relative cursor-pointer pt-13 pb-13 w-full rounded-md flex justify-between items-center"
+                         (click)="viewForwardProjects('COMPLETED')"
+                         style="background-color: #D9FBE8; color: #0D9488">
+                        <div>
+                            <h3 class="absolute left-3 top-3 font-semi-bold text-xl">Completed</h3>
+                            <div class="absolute left-3 bottom-7 font-bold text-5xl">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                {{totalProjectsCompleted}}
+                            </div>
+                        </div>
+                        <div class="pr-3">
+                            <mat-icon>arrow_forward_ios</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full">
+            <div class="m-5 mt-10 p-5 bg-white rounded-lg relative border-1">
+                <div class="absolute left-5 -top-5 p-3 border-2 rounded-lg bg-white" style="color: #4F9488">Unapproved
+                    Projects
+                </div>
+                <div class="mt-8 flex justify-between items-center space-x-2 w-full">
+                    <div (click)="viewForwardProjects('INPROGRESS')"
+                         class="relative cursor-pointer pt-10 pb-10 border-2 bg-white w-full rounded-md flex justify-between items-center">
+                        <div>
+                            <h3 class="absolute left-3 top-3 font-semi-bold">In Preparation</h3>
+                            <div
+                                class="absolute left-3 bottom-5 font-bold text-3xl">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                {{totalProjectsInAgencyInPeparation}}
+                            </div>
+                        </div>
+                        <div class="pr-3">
+                            <mat-icon>arrow_forward_ios</mat-icon>
+                        </div>
+                    </div>
+                    <div (click)="viewForwardProjects('RECAST')"
+                         class="relative cursor-pointer pt-10 pb-10 border-2 bg-white w-full rounded-md flex justify-between items-center">
+                        <div>
+                            <h3 class="absolute left-3 top-3 font-semi-bold">For Recast</h3>
+                            <div class="absolute left-3 bottom-5 font-bold text-3xl">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                {{totalProjectsInAgencyRecust}}
+                            </div>
+                        </div>
+                        <div class="pr-3">
+                            <mat-icon>arrow_forward_ios</mat-icon>
+                        </div>
+                    </div>
+                    <div (click)="viewForwardProjects('MINISTRY_INPROGRESS')"
+                         class="relative cursor-pointer pt-10 pb-10 border-2 bg-white w-full rounded-md flex justify-between items-center">
+                        <div>
+                            <h3 class="absolute left-3 top-3 font-semi-bold">In Ministry</h3>
+                            <div
+                                class="absolute left-3 bottom-5 font-bold text-3xl">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                {{totalProjectsInMinistry}}
+                            </div>
+                        </div>
+                        <div class="pr-3">
+                            <mat-icon>arrow_forward_ios</mat-icon>
+                        </div>
+                    </div>
+                    <div (click)="viewForwardProjects('PLANCOM')"
+                         class="relative cursor-pointer pt-10 pb-10 border-2 bg-white w-full rounded-md flex justify-between items-center">
+                        <div>
+                            <h3 class="absolute left-3 top-3 font-semi-bold">In Planning Commission</h3>
+                            <div class="absolute left-3 bottom-5 font-bold text-3xl">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                {{totalProjectsInPlancomm}}
+                            </div>
+                        </div>
+                        <div class="pr-3">
+                            <mat-icon>arrow_forward_ios</mat-icon>
+                        </div>
+                    </div>
+                    <div (click)="viewForwardProjects('ECNEC')"
+                         class="relative cursor-pointer pt-10 pb-10 border-2 bg-white w-full rounded-md flex justify-between items-center">
+                        <div>
+                            <h3 class="absolute left-3 top-3 font-semi-bold">In ECNEC</h3>
+                            <div class="absolute left-3 bottom-5 font-bold text-3xl">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                {{totalProjectsInEcnec}}
+                            </div>
+                        </div>
+                        <div class="pr-3">
+                            <mat-icon>arrow_forward_ios</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 mt-6 gap-4">
+            <div class="ml-5">
+                <div class="p-5 bg-white rounded-lg border-1" style="min-height: 272px">
+                    <div class="flex items-center">
+                        <div class="flex-initial text-sm w-48">
+                            Approved Project Types
+                        </div>
+                        <div class="w-full flex justify-evenly items-center">
+                            <div class="border-1 p-1 rounded-md">
+<!--                                <input (change)="reloadApproved()" [(ngModel)]="appFromDate" type="date">-->
+                                <input (dateChange)="reloadApproved()" (click)="picker1.open()" [matDatepicker]="picker1" placeholder="From Date"
+                                       [ngModelOptions]="{standalone: true}"
+                                       [(ngModel)]="appFromDate"
+                                       matInput required>
+                                <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </div>
+                            <div>
+                                <mat-icon>arrow_forward</mat-icon>
+                            </div>
+                            <div class="border-1 p-1 rounded-md">
+<!--                                <input (change)="reloadApproved()" [(ngModel)]="appToDate" type="date">-->
+                                <input (dateChange)="reloadApproved()" (click)="picker2.open()" [matDatepicker]="picker2" placeholder="To Date"
+                                       [ngModelOptions]="{standalone: true}"
+                                       [(ngModel)]="appToDate"
+                                       matInput required>
+                                <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="flex items-center ml-40">-->
+<!--                        <div>From Date</div>-->
+<!--                        <div class="ml-28">To Date</div>-->
+<!--                    </div>-->
+                    <div id="barChartApprovedProject" class="w-full">
+                        <apx-chart
+                            [series]="approvedBarChartOptions?.series"
+                            [chart]="approvedBarChartOptions?.chart"
+                            [dataLabels]="approvedBarChartOptions?.dataLabels"
+                            [plotOptions]="approvedBarChartOptions?.plotOptions"
+                            [xaxis]="approvedBarChartOptions?.xaxis"
+                            [colors]="approvedBarChartOptions?.colors"
+                        ></apx-chart>
+                    </div>
+                </div>
+                <div class="p-5 bg-white rounded-lg border-1 mt-4" style="min-height: 272px">
+                    <div>Feasibility Study Status ({{totalFs}})</div>
+                    <div id="pieChartFeasibility">
+                        <apx-chart
+                            [series]="fsPieChartOptions?.pieSeries"
+                            [chart]="fsPieChartOptions?.chart"
+                            [labels]="fsPieChartOptions?.labels"
+                            [responsive]="fsPieChartOptions?.responsive"
+                            [colors]="fsPieChartOptions?.colors"
+                            [legend]="fsPieChartOptions?.legend"
+                        ></apx-chart>
+                    </div>
+                </div>
+            </div>
+            <div class="mr-5 p-5 bg-white rounded-lg border-1">
+                <div>Location Wise Project</div>
+                <div class="flex itmes-center justify-center w-full mt-10">
+                    <app-gis-map></app-gis-map>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full">
+            <div class="m-5 mt-10 p-2 bg-white rounded-lg border-1">
+                <div class="grid grid-cols-2 gap-1">
+                    <div class="p-5 bg-white rounded-lg border-1" style="min-height: 272px">
+                        <div class="flex items-center">
+                            <div class="flex-initial text-sm w-48">
+                                Unapproved Project Types
+                            </div>
+                            <div class="w-full flex justify-evenly items-center">
+                                <div class="border-1 p-1 rounded-md">
+<!--                                    <input (change)="reloadUnapproved()" [(ngModel)]="unAppFromDate" type="date">-->
+                                    <input (dateChange)="reloadUnapproved()" (click)="picker3.open()" [matDatepicker]="picker3" placeholder="From Date"
+                                           [ngModelOptions]="{standalone: true}"
+                                           [(ngModel)]="unAppFromDate"
+                                           matInput required>
+                                    <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #picker3></mat-datepicker>
+                                </div>
+                                <div>
+                                    <mat-icon>arrow_forward</mat-icon>
+                                </div>
+                                <div class="border-1 p-1 rounded-md">
+<!--                                    <input (change)="reloadUnapproved()" [(ngModel)]="unAppToDate" type="date">-->
+                                    <input (dateChange)="reloadUnapproved()" (click)="picker4.open()" [matDatepicker]="picker4" placeholder="To Date"
+                                           [ngModelOptions]="{standalone: true}"
+                                           [(ngModel)]="unAppToDate"
+                                           matInput required>
+                                    <mat-datepicker-toggle [for]="picker4" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #picker4></mat-datepicker>
+                                </div>
+                            </div>
+                        </div>
+<!--                        <div class="flex items-center ml-40">-->
+<!--                            <div>From Date</div>-->
+<!--                            <div class="ml-28">To Date</div>-->
+<!--                        </div>-->
+                        <div id="barChartUnapprovedProject" class="w-full">
+                            <apx-chart
+                                [series]="unapprovedBarChartOptions?.series"
+                                [chart]="unapprovedBarChartOptions?.chart"
+                                [dataLabels]="unapprovedBarChartOptions?.dataLabels"
+                                [plotOptions]="unapprovedBarChartOptions?.plotOptions"
+                                [xaxis]="unapprovedBarChartOptions?.xaxis"
+                                [colors]="unapprovedBarChartOptions?.colors"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white rounded-lg border-1 overflow-x-scroll" style="min-height: 272px">
+                        <div>Recommended Project Status ({{totalRecommended}})</div>
+                        <div class="w-full mt-14" id="pieChartRecommended">
+                            <apx-chart
+                                [series]="recommendedPieChartOptions?.pieSeries"
+                                [chart]="recommendedPieChartOptions?.chart"
+                                [labels]="recommendedPieChartOptions?.labels"
+                                [responsive]="recommendedPieChartOptions?.responsive"
+                                [legend]="recommendedPieChartOptions?.legend"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-page-outside-body">
+        <mat-card *ngIf="plancomListPage">
+            <div class="flex justify-end m-5">
+                <button class="px-6 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="backToDashbord()" >
+                    {{'dashboard' | translate}}
+                </button>
+            </div>
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="commonDatasource" class="mat-elevation-z8 bg-transparent w-full" matSort>
+
+                        <ng-container matColumnDef="thSl">
+                            <th [attr.rowspan]="2" class="table-head-style text-center pl-2" mat-header-cell *matHeaderCellDef
+                                style="padding-left: 0px !important;">{{'sl' | translate}}
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thProjectName">
+                            <th [attr.rowspan]="4" class="table-head-style text-center" mat-header-cell *matHeaderCellDef
+                                style="padding-left: 5px;width: 45%">{{'pInfo' | translate}}
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thProjectCost">
+                            <th [attr.colspan]="5" class="table-head-style text-center" mat-header-cell *matHeaderCellDef>{{'projectCost' | translate}}
+                                ({{'takaInlack' | translate}})
+                            </th>
+                        </ng-container>
+
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="sl">
+                            <td mat-cell *matCellDef="let row, let i= index" class="text-center" style="padding-left: 0px !important;">
+                                {{ i + 1 }}
+                                <!-- {{this.paginator.pageIndex == 0 ? numberPipe.convertToBanglaNumber(i + 1) : 1 + i + numberPipe.convertToBanglaNumber(this.paginator.pageIndex * this.paginator.pageSize)}} -->
+                            </td>
+                        </ng-container>
+
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="projectName">
+                            <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 5px;width: 42%">
+                                <div style="cursor: pointer" (click)="gotToViewDashboard(row?.uuid)"><span
+                                    style="color: #0d9488;">{{ row?.titleEn }}</span> <span
+                                    style="color:#4b60bd;"> ({{row?.projectTypeDTO?.nameEn}})</span></div>
+                                <div style="color: #333333">{{ row?.agencyDTO?.nameEn }}</div>
+                                <div style="color: #333333">{{ row?.agencyDTO?.ministryDivisionDTO?.nameEn }}</div>
+                                <div style="color: #333333"><span>{{'sectorDivision' | translate}}</span> <span
+                                    style="color: #0d9488;">{{ row?.sectorDivisionName }}</span></div>
+                                <div style="color: #333333"><span>{{'createDate' | translate}}</span><span
+                                    style="color: #0d9488;">{{row?.createdDate | date : 'dd/MM/yyyy'}}</span>
+                                </div>
+                                <div style="color: #333333">
+                                    <span>{{'commencementDate' | translate}}</span> <span style="color: #0d9488;">{{row?.commencementDate | date : 'dd/MM/yyyy'}}</span>
+                                    <br>
+                                    <span>{{'completionDate' | translate}}</span>
+                                    <span
+                                        style="color: #0d9488;">{{ row?.completionDate}}</span>
+                                </div>
+                                <div style="color: #333333"><span>{{'status' | translate}}</span><span
+                                    style="color: #ef8c23; font-weight: 500;">{{row?.movementStatus}}</span>
+                                </div>
+
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="total">
+                            <td mat-cell *matCellDef="let row" class="amount-value text-right">
+                                <div></div>
+                                <div style="color: #333333">{{'total' | translate}}</div>
+                                <br>
+                                <div><span
+                                    style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.totalAmount?.toFixed(2) : row?.totalAmount?.toFixed(2) }}</span>
+                                </div>
+                                <div></div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="gob">
+                            <td mat-cell *matCellDef="let row" class="amount-value text-right">
+                                <div></div>
+                                <div style="color: #333333">{{'gob' | translate}}</div>
+                                <div style="color: #333333">({{'fe' | translate}})</div>
+                                <br>
+                                <div
+                                    style="color: #4b60bd">{{row?.annexureAmount ? row?.annexureAmount?.gobAmount.toFixed(2) : row?.gobAmount?.toFixed(2) }}
+                                    <br>({{ row?.annexureAmount ? row?.annexureAmount?.gobFeAmount?.toFixed(2) : row?.feGobAmount?.toFixed(2) }})
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="pa">
+                            <td mat-cell *matCellDef="let row" class="amount-value text-right">
+                                <div></div>
+                                <div style="color: #333333">PA</div>
+                                <div style="color: #333333">(RPA)</div>
+                                <br>
+                                <div
+                                    style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.paAmount?.toFixed(2) : row.paAmount?.toFixed(2) }}
+                                    <br>({{ row?.annexureAmount ? row?.annexureAmount?.rpaAmount?.toFixed(2) : row?.rpaAmount?.toFixed(2) }})
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="ownFund">
+                            <td mat-cell *matCellDef="let row" class="amount-value text-right">
+                                <div></div>
+                                <div style="color: #333333;">{{'ownFund' | translate}}</div>
+                                <div style="color: #333333">({{'fe' | translate}})</div>
+                                <br>
+                                <div
+                                    style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.ownFundAmount?.toFixed(2) : row?.ownFundAmount?.toFixed(2) }}
+                                    <br>({{ row?.annexureAmount ? row?.annexureAmount?.ownFundFeAmount?.toFixed(2) : row?.feOwnFundAmount?.toFixed(2)}})
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="other">
+                            <td mat-cell *matCellDef="let row" class="amount-value text-right">
+                                <div></div>
+                                <div style="color: #333333">{{'other' | translate}}</div>
+                                <div style="color: #333333">({{'fe' | translate}})</div>
+                                <br>
+                                <div
+                                    style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.otherAmount?.toFixed(2) : row?.otherAmount?.toFixed(2) }}
+                                    <br>({{ row?.annexureAmount ? row?.annexureAmount?.otherFeAmount?.toFixed(2) : row?.feOtherAmount?.toFixed(2)}})
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsPCList"></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="8">
+                                {{'noData' | translate}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--                <mat-paginator [length]="commonTotalElement" [pageSize]="listPageSize" [pageSizeOptions]="[5, 10, 25, 50, 100]"-->
+                <!--                               (page)="onChangePage($event)">-->
+                <!--                </mat-paginator>-->
+            </div>
+        </mat-card>
+    </div>
+
+
+</div>

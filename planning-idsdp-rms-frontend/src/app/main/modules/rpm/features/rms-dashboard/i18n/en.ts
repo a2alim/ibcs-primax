@@ -1,0 +1,32 @@
+export const locale = {
+    lang: 'en',
+    data: {
+        'headerTitle': 'Dashboard',
+        'headerSubTitle': '<span>Home >Dashboard</span>',
+        'FiscalYear':'Fiscal Year',
+        'ResearchStatus':'Research Status',
+        'formTitle': 'Researcher Profile & Proposal Form',
+        'CompletedResearch':'Completed Research',
+        'OngoingResearch' : 'Ongoing Research',
+        'CancelledResearch' : 'Cancelled Research',
+        'DefaulterResearch' : 'Default Research',
+        'SubmittedProposal' : 'Submitted Proposal',
+        'CancelledProposal' : 'Cancelled Proposal',
+        'CategoryWishTotalResearch' : 'Category Wise Total Research (Completed & On-going)',
+        'ResearchArea' : 'Research Area (Based On Bangladesh)',
+        'TrainingInstitutesStatus' : 'Training Institutes Status',
+        'TotalInstitute' : 'Total Institute',
+        'Cancelled':'Cancelled',
+        'Pending' : 'Pending',
+        'TrainingInstitutes' : 'Training Institutes',
+        'No':'No',
+        'InstitutesName':'Institute Name',
+        'TotalParticipant':'Total Participant',
+        'Completed' : 'Training Completed',
+        'GrandStatus' : 'Research Agreement Status',
+        'Accepted':'Accepted',
+        'Query' :'Query',
+        'Rejected' : 'Rejected',
+        'CompletedResearchSDGsWise':'Completed Research (SDGs Wise)'
+    }
+};

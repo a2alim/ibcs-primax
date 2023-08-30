@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=Kalpurush.jar -DgroupId=ibcs-font -DartifactId=kalpurush -Dversion=1.0 -Dpackaging=jar

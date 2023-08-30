@@ -1,0 +1,84 @@
+<div class="md:flex row pt-2">
+    <div class="w-full sm:w-auto md:w-90 lg:w-90" style="border: 1px solid;">
+        <table class="table-fixed w-full ">
+            <thead style="background-color: #0d9488;color:white;padding: 2%;">
+            <th width="20%" class="text-center">{{'sector' | translate}}</th>
+            <th width="35%"></th>
+            <th width="20%" class="text-center">{{'subsector' | translate}}</th>
+            <th width="50%"></th>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="pl-2">
+
+                                                <span class="text-gray-700">
+                                                    {{'sector' | translate}}
+                                                </span>
+
+                </td>
+                <td>
+
+                    <mat-form-field class="w-full">
+                        <mat-select name="sector" [(ngModel)]="sectorSubSector.sector"
+                                    (selectionChange)="onSectorChange($event)"
+                                    placeholder="Select Field">
+                            <mat-option *ngFor="let sector of sectors"
+                                        [value]="sector.id">{{sector.fieldName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </td>
+                <td class="pl-2">
+
+                                                <span class="text-gray-700">
+                                                    {{'subsector' | translate}}
+                                                </span>
+
+                </td>
+                <td>
+
+                    <mat-form-field class="w-full">
+                        <mat-select name="subSectors" [(ngModel)]="sectorSubSector.subSectors" multiple
+                                    placeholder="Select Sub Field">
+                            <mat-option *ngFor="let subSector of subSectors"
+                                        [value]="subSector.id">{{subSector.subFieldName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr *ngFor="let sectorSubSector of sectorSubSectors">
+                <td></td>
+                <td><span
+                    style="background-color: #0d9488;font-size: medium;color:white">{{sectorSubSector.sectorFieldName}}
+                    <mat-icon (click)="deleteSector(sectorSubSector.sector)"
+                              style="cursor: pointer;color: white; vertical-align: middle; ">clear</mat-icon></span>
+                </td>
+                <td></td>
+                <td>
+                    <p *ngFor="let subSector of sectorSubSector.subSectors; let i=index"><span
+                        style="background-color: #0d9488;font-size: medium;color:white">{{sectorSubSector?.subSectorsFieldName[i]}}
+                        <mat-icon style="cursor: pointer;color: white; vertical-align: middle; "
+                                  (click)="deleteSubSector(subSector)">clear</mat-icon></span></p>
+                </td>
+            </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+    <div class="w-full sm:w-auto md:w-20 lg:w-15 md:text-left pr-2 md:pt-0">
+        <div class="buttons">
+            <div class="toggle-sidebar-folded" fxHide.lt-lg>
+                <mat-icon matTooltip="Add New" (click)="addNewSectorSubSector()" color="primary"
+                          style="cursor:pointer;font-weight: 800">add
+                </mat-icon>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

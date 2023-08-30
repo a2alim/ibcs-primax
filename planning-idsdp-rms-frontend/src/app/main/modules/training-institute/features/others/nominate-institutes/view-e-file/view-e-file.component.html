@@ -1,0 +1,102 @@
+<div style="width: 100%">
+    <!-- Header -->
+
+    <app-form-header [subTitle]="'su' | translate" [title]="'he' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin" style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <!-- <div class="flex justify-end mb-3">
+                <button (click)="openSendMailDialog()" *ngIf="userType === 'Rms_DO'" color="secondary" mat-raised-button>
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{uploadIcon}}</mat-icon>
+                    {{'uploadEDoc' | translate}}
+                </button>
+
+                <button *ngIf="userType === 'Rms_DO'" class="ml-3" color="primary" mat-raised-button>
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{viewIcon}}</mat-icon>
+                    {{'viewEDoc' | translate}}
+                </button>
+            </div> -->
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+                <!-- <div class="md:flex tbl-title">
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 md:text-left md:pt-1 lg:mx-2 mr-4">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'cardLeftTitle' | translate}}
+                        </h1>
+                    </div>
+
+                </div> -->
+                <div class="md:flex tbl-title mt-5">
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 md:text-left md:pt-1 lg:mx-0 mr-1">
+                        <mat-form-field class="fuse-mat-dense flex-auto mr-1" fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="100%">
+                            <mat-select (selectionChange)="getENothis()" [(ngModel)]="fiscalYearId" [ngModelOptions]="{standalone: true}" placeholder="Search By fiscal Year">
+                                <!-- <mat-option selected value=""></mat-option> -->
+                                <mat-option *ngFor="let f of fiscalYears" [value]="f.id">{{f.fiscalYear}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 md:text-left md:pt-1 lg:mx-1 mr-1">
+
+                    </div>
+                </div>
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-1">
+                    <!--<mat-card>-->
+                    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                        <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sl">
+                                <th *matHeaderCellDef class="w-10 pl-4" mat-header-cell> {{'sl' | translate}} </th>
+                                <td *matCellDef="let row; let i = index;" mat-cell>
+                                    &nbsp; {{(i + 1) + (page * size)}}
+                                </td>
+                            </ng-container>
+
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="fiscalYear">
+                                <th class="w-30" *matHeaderCellDef mat-header-cell> {{'fiscalYear' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{ getFiscalYearName(element.fiscalYearId)}} </td>
+                            </ng-container>
+
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th *matHeaderCellDef class="pl-4 w-52" mat-header-cell> {{'download' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <div class="buttons">
+                                        <button (click)="viewDetails(element, element.id)" class="toggle-sidebar-folded" fxHide.lt-lg>
+                                            <!-- <mat-icon color="primary">downloadIcon
+                                            </mat-icon>  -->
+                                            {{'download' | translate}}
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator (page)="onChangePage($event)" [length]="total" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="size">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

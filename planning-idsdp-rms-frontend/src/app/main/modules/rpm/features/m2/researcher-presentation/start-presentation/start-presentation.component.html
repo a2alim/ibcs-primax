@@ -1,0 +1,125 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+
+    <div class="body m-5">
+
+        <!-- CARD ONE-->
+        <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <mat-label class="heading w-full">
+                {{'StartPresentation' | translate}}
+            </mat-label>
+        </div>
+        <mat-card>
+            <div>
+                <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="sub-heading w-full">
+                        <strong>{{'Evaluators' | translate}}</strong>
+                    </mat-label>
+                </div>
+                <mat-card class="card-background">
+                    <table class="width-100">
+                        <thead>
+                        <tr>
+                            <th>{{'Sl' | translate}}</th>
+                            <th>{{'EvaluatorName' | translate}}</th>
+                            <th>{{'Attendance' | translate}}<br/>{{'Y/N' | translate}}</th>
+                            <th>{{'Action' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let e of evaluatorList; let i = index">
+                            <td class="text-align-centre">{{i + 1}}</td>
+                            <td>{{e?.expertEvaluatorDto.name}}</td>
+                            <td class="text-align-centre">
+                                <mat-checkbox [(ngModel)]="e.present" [ngModelOptions]="{standalone: true}"
+                                              (change)="onChangeEvaluatorAttendance($event, e, i)"></mat-checkbox>
+                            </td>
+                            <td class="text-align-centre">
+                                <button (click)="evaluatorFeedBack(e.attendanceUuid)"
+                                        [disabled]="!e.present"
+                                        mat-flat-button color="primary"
+                                        matTooltip="EvaluatorFeedback" fxHide.lt-lg>
+                                    {{'EvaluatorFeedback' | translate}}
+                                    <!--<mat-icon color="accent">edit</mat-icon>-->
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </mat-card>
+
+                <br/>
+
+
+                <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="sub-heading w-full">
+                        <strong>{{'NewMembers' | translate}}</strong>
+                    </mat-label>
+                </div>
+                <mat-card class="card-background">
+                    <button
+                        mat-flat-button
+                        (click)="addEditNewMember(false, null)"
+                        color="primary"
+                        class="mb-1 float-right">
+                        <mat-icon class="mr-1">{{addNewIcon}}</mat-icon>
+                        <span>{{ "Add" | translate }}</span>
+                    </button>
+                    <table class="width-100">
+                        <thead>
+                        <tr>
+                            <th>{{'Sl' | translate}}</th>
+                            <th>{{'NewMemberName' | translate}}</th>
+                            <th>{{'Attendance' | translate}}<br/>{{'Y/N' | translate}}</th>
+                            <th>{{'Action' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let e of newMemberList; let i = index">
+                            <td class="text-align-centre">{{i + 1}}</td>
+                            <td>{{e?.evaluatorName}}</td>
+                            <td class="text-align-centre">
+                                <mat-checkbox [(ngModel)]="e.present" [ngModelOptions]="{standalone: true}"
+                                              (change)="onChangeNewMemberAttendance($event, e, i)"></mat-checkbox>
+                            </td>
+                            <td class="text-align-centre">
+                                <div fxLayout="row wrap" fxLayoutAlign="center center">
+                                    <div>
+                                        <button mat-flat-button class="btn-bg-color" (click)="addEditNewMember(true, e)"
+                                                matTooltip="{{'Edit' | translate}}" fxHide.lt-lg>
+                                            <mat-icon color="accent">{{editIcon}}</mat-icon>
+                                        </button>
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div>
+                                        <button (click)="evaluatorFeedBack(e.attendanceUuid)"
+                                                [disabled]="!e.present"
+                                                mat-flat-button color="primary"
+                                                matTooltip="{{'EvaluatorFeedback' | translate}}" fxHide.lt-lg>
+                                            {{'EvaluatorFeedback' | translate}}
+                                            <!--<mat-icon color="accent">edit</mat-icon>-->
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </mat-card>
+            </div>
+        </mat-card>
+
+    </div>
+
+    <!-- Main End -->
+</div>

@@ -1,0 +1,354 @@
+<div *ngIf="spinner" class="flex items-center justify-center">
+  <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+    class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+  </div>
+</div>
+
+<!-- <h1 class="p-2" style="color: red;" *ngIf="!canSave || spinner"><strong>{{'ResearcherProposalReq' | translate}}</strong></h1> -->
+
+<div>
+  <form #f="ngForm">
+
+    <ng-container *ngFor="let rsc of researcherProfileRscWorkingInOrganizations; let i = index;">
+
+      <ng-container *ngIf="rsc.isDeleted !== 1">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+          <mat-label class="heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+            {{'RscWorkingInOrg' | translate}} {{i + 1}}
+            <span (click)="deleteNewRelativeForm(rsc,i)">
+              <mat-icon class="exp-icon">delete</mat-icon>
+            </span>
+          </mat-label>
+
+        </div>
+        <mat-card>
+          <br />
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                  {{'ResearcherName' | translate}}
+                  <strong class="required">*</strong>
+                </mat-label>
+
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                  fxFlex.xs="100%">
+                  <input matInput [(ngModel)]="rsc.researcherName" [ngModelOptions]="{standalone: true}"
+                    #researcherName="ngModel" required>
+                  <mat-hint
+                    *ngIf="(researcherName.touched || f.submitted || formSubmit) && researcherName.errors?.required"
+                    style="color: crimson !important;">
+                    {{'Researcher_Name_is_required' | translate}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                  {{'Designation' | translate}}
+                  <strong class="required">*</strong>
+                </mat-label>
+
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                  fxFlex.xs="100%">
+                  <input matInput [(ngModel)]="rsc.designation" [ngModelOptions]="{standalone: true}"
+                    #designation="ngModel" required>
+                  <mat-hint *ngIf="(designation.touched || f.submitted || formSubmit) && designation.errors?.required"
+                    style="color: crimson !important;">
+                    {{'Designation_is_required' | translate}}
+                  </mat-hint>
+                </mat-form-field>
+
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                  {{'Age' | translate}}
+                  <strong class="required">*</strong>
+                </mat-label>
+
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                  fxFlex.xs="100%">
+                  <input matInput [(ngModel)]="rsc.age" [ngModelOptions]="{standalone: true}" #age="ngModel" required>
+                  <mat-hint *ngIf="(age.touched || f.submitted || formSubmit) && age.errors?.required"
+                    style="color: crimson !important;">
+                    {{'Age_is_required' | translate}}
+                  </mat-hint>
+                </mat-form-field>
+
+              </div>
+            </div>
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                  {{'Occupation' | translate}}
+                  <strong class="required">*</strong>
+                </mat-label>
+
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                  fxFlex.xs="100%">
+                  <input matInput [(ngModel)]="rsc.occupation" [ngModelOptions]="{standalone: true}"
+                    #occupation="ngModel" required>
+
+                  <mat-hint *ngIf="(occupation.touched || f.submitted || formSubmit) && occupation.errors?.required"
+                    style="color: crimson !important;">
+                    {{'Occupation_is_required' | translate}}
+                  </mat-hint>
+
+                </mat-form-field>
+
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                  {{'MobileNo' | translate}}
+                  <strong class="required">*</strong>
+                </mat-label>
+
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                  fxFlex.xs="100%">
+
+                  <input matInput #phoneMobileNo="ngModel" [(ngModel)]="rsc.mobileNo"
+                    [ngModelOptions]="{standalone: true}" type="number" maxlength="11"
+                    pattern="^[0-9]{10}$" required name="phoneMobileNo">
+                  <mat-hint *ngIf="(phoneMobileNo.touched || f.submitted) && phoneMobileNo.errors?.required"
+                    style="color: crimson !important;">{{'mobile_n_r' | translate}}
+                  </mat-hint>
+                  <mat-hint *ngIf="phoneMobileNo.errors && phoneMobileNo.errors.pattern"
+                    style="color: crimson !important;">{{'mobile_n_v' | translate}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                  {{'EmailAddress' | translate}}
+                  <strong class="required">*</strong>
+                </mat-label>
+
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                  fxFlex.xs="100%">
+                  <input matInput [(ngModel)]="rsc.emailAddress" [ngModelOptions]="{standalone: true}" #email="ngModel"
+                    pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" type="email" required>
+
+                  <mat-hint *ngIf="(email.touched || f.submitted || formSubmit) && email.errors?.required"
+                    style="color: crimson !important;">{{'Email_is_r'| translate}}</mat-hint>
+
+                  <mat-hint *ngIf="email.dirty && email.invalid && !email.errors?.required"
+                    style="color: crimson !important;">{{'Email_is_v'| translate}}</mat-hint>
+
+                </mat-form-field>
+
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                  {{'NidNo' | translate}}
+                  <strong class="required">*</strong>
+                </mat-label>
+
+
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                  fxFlex.xs="100%">
+                  <input #nid_number="ngModel" [(ngModel)]="rsc.nidNo"
+                      [ngModelOptions]="{standalone: true}" matInput type="number" required>
+
+                  <mat-hint *ngIf="(nid_number.touched || f.submitted || formSubmit) && nid_number.errors?.required"
+                    style="color: crimson !important;">
+                    {{'nid_n_r'|translate}}
+                  </mat-hint>
+
+                  <mat-hint *ngIf="nid_number.dirty && !(nid_number.value | nid_number)"
+                      style="color: crimson !important;">
+                      {{'nid_n_v'|translate}}
+                  </mat-hint>
+                </mat-form-field>
+
+              </div>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                  {{'TelephoneNo' | translate}}
+                </mat-label>
+
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                  fxFlex.xs="100%">
+                  <input matInput [(ngModel)]="rsc.telephoneNo" [ngModelOptions]="{standalone: true}"
+                    #telephoneNo="ngModel">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="20%" fxFlex.sm="20%" fxFlex.xs="100%">
+                  {{'Personal_Digital_Information' | translate}}
+                  <strong class="required">*</strong>
+                </mat-label>
+
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="80%" fxFlex.sm="80%"
+                  fxFlex.xs="100%">
+                  <input matInput [(ngModel)]="rsc.personalDigitalInformation" [ngModelOptions]="{standalone: true}"
+                    #personalDigitalInformation="ngModel" placeholder="Personal Website, Blog etc." required>
+
+                  <mat-hint *ngIf="(personalDigitalInformation.touched || f.submitted || formSubmit) && personalDigitalInformation.errors?.required"
+                  style="color: crimson !important;">
+                    {{'Personal_digital _information_is_required' | translate}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+
+          </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                            {{'EducationQualification' | translate}}
+                            <strong class="required">*</strong>
+                        </mat-label>
+
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                                        fxFlex.xs="100%">
+                            <input matInput [(ngModel)]="rsc.educationQualification" [ngModelOptions]="{standalone: true}"
+                                   #educationQualification="ngModel" required>
+
+                            <mat-hint
+                                *ngIf="(educationQualification.touched || f.submitted || formSubmit) && educationQualification.errors?.required"
+                                style="color: crimson !important;">
+                                {{'Education _Qualification_is_required' | translate}}
+                            </mat-hint>
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                  <span class="text-gray-700">
+                    {{'upload_certificate' | translate}}<strong class="required">*</strong>
+                  </span>
+                        </mat-label>
+
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                                        fxFlex.xs="100%">
+                            {{rsc?.fileName}}
+
+                            <ngx-mat-file-input [accept]="'.pdf'" (change)="handleFileInput($event.target.files,i,rsc.id)"
+                                                required #file="ngModel" [(ngModel)]="rsc.fileName" [ngModelOptions]="{standalone: true}">
+                            </ngx-mat-file-input>
+
+                            <mat-icon matSuffix>folder</mat-icon>
+
+                            <mat-hint *ngIf="(file.touched || f.submitted || formSubmit) && file.errors?.required"
+                                      style="color: crimson !important;">
+                                {{'File _name_is_required' | translate}}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+
+                </div>
+
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                     *ngIf="i === (this.researcherProfileRscWorkingInOrganizations.length - 1)">
+                    <div class="flex justify-end pr-5">
+
+                        <button mat-raised-button color="primary" (click)="addNewRow()" >
+                            {{'AddMore' | translate}}
+                        </button>
+
+                        <!-- <button mat-raised-button color="primary" (click)="addNewRow()" [disabled]="
+                                 email.invalid
+                                 || researcherName.invalid
+                                 || designation.invalid
+                                 || age.invalid
+                                 || occupation.invalid
+                                 || phoneMobileNo.invalid
+                                 || nid_number.invalid
+                                ">
+                          {{'AddMore' | translate}}
+                        </button> -->
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </mat-card>
+      </ng-container>
+      <br />
+    </ng-container>
+
+    <div class="flex justify-end mt-3 mr-2">
+
+      <button mat-flat-button [color]="'primary'" (click)="previousTab()" type="submit"
+        class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+        {{ "Previous" | translate }}
+      </button>
+
+      <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit" (click)="onSubmit(false)"
+        [disabled]="!canSave || spinner" color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+        <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+        <span>{{ "Save" | translate }} </span>
+      </button>
+
+      <button mat-flat-button (click)="onSubmit(true)" [disabled]="!canSave || spinner" type="button" color="primary"
+        class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+        <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+        <span> {{ "SaveAndView" | translate }}</span>
+      </button>
+
+      <!-- <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF" type="button"
+              color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+              {{ "Next" | translate }}
+              <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+          </button> -->
+
+    </div>
+  </form>
+</div>
+
+<!-- Main End -->

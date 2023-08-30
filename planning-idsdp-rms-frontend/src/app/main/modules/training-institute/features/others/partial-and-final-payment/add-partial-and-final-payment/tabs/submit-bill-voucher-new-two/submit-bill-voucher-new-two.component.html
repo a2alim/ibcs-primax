@@ -1,0 +1,266 @@
+<div class="body">
+
+    <div class="md:flex justify-center">
+
+        <!-- <h1 class="text-2xl">
+            {{'installmentText1' | translate}}
+            {{newPaymentModel.proposalModel?.trainingInstituteProfileModel.trainingInstituteName}}
+            {{'installmentText2'|translate}} {{installment?.totalAmount}}.
+        </h1> -->
+
+    </div>
+
+    <form #myForm="ngForm">
+
+        <div class="heading mt-2">
+            <h1>{{'submitInstallment' | translate}}</h1>
+        </div>
+
+        <div *ngIf="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7"
+            class="flex items-center justify-center">
+            <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+                style="border-top-color:transparent; position: absolute;z-index: 9999;">
+            </div>
+        </div>
+
+        <mat-card class="tab-color">
+            <div class="md:flex">
+
+                <!-- <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'fiscalYear' | translate}} {{newPaymentModel.fiscalYearId}}
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <mat-select [(ngModel)]="newPaymentModel.fiscalYearId" [(value)]="newPaymentModel.fiscalYearId"
+                            name="itemOfExpenditure" disabled>
+                            <mat-option *ngFor="let item of fiscalYears" [value]="item.id">{{item.fiscalYear}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error> {{'fiscalYear' | translate}} {{ 'required' | translate }}</mat-error>
+                    </mat-form-field>
+                </div> -->
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'installmentDate' | translate}}
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                        <input [(ngModel)]="newPaymentModel.installmentDate" [matDatepicker]="datepicker" matInput
+                            name="date">
+                        <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <!-- Row 2-->
+            <div class="md:flex">
+                <div *ngIf="newPaymentModel.installmentType != 'Advance Installment'"
+                    class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'installmentAmount' | translate}}
+                    </span>
+                </div>
+
+                <div *ngIf="newPaymentModel.installmentType != 'Advance Installment'"
+                    class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input [(ngModel)]="newPaymentModel.installmentAmount" [ngModelOptions]="{standalone: true}"
+                            disabled matInput type="number">
+                    </mat-form-field>
+
+                    <table class="OrganizationTbl" *ngIf="newPaymentModel.installmentType == 'Adjustment & Installment No: 1'">
+                        <tr class="text-center">
+                            <th>{{'installmentAmount' | translate}}</th>
+                            <th>{{'Advance Amount' | translate}}</th>
+                        </tr>
+                        <tr style="text-align: right;" class="pr-2">
+                            <td>{{installment.totalAmount | number}}.00</td>
+                            <td>{{advanceAmount | number}}.00</td>
+                        </tr>                       
+                        <tr style="font-weight: bold;" class="pr-2">
+                            <td><p>{{'Net Installment Amount' | translate}}</p>  
+                            </td>
+                            <td style="text-align: right;">{{(installment.totalAmount - advanceAmount) | number}}.00</td>
+                        </tr>
+                        <tr style="font-weight: bold;">
+                            <td colspan="2">
+                                <p style="font-size: 12px;" class="text-gray-700">{{'(Installment Amount) - (Advance Amount)' | translate}} </p>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <div *ngIf="newPaymentModel.installmentType == 'Advance Installment'"
+                    class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'advanceAmount' | translate}}
+                    </span>
+                </div>
+
+                <div *ngIf="newPaymentModel.installmentType == 'Advance Installment'"
+                    class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input [(ngModel)]="newPaymentModel.installmentAmount" [ngModelOptions]="{standalone: true}"
+                            (keyup)="checkMoreThenTotal($event)" matInput type="number">
+                    </mat-form-field>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'chalanNumber' | translate}}
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input [(ngModel)]="newPaymentModel.chalanNo" [ngModelOptions]="{standalone: true}" matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Row 3-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                </div>
+            </div>
+        </mat-card>
+    </form>
+
+    <!-- Data Table -->
+    <div *ngIf="newPaymentModel.installmentType != 'Advance Installment'" class="mt-4">
+        <!--<mat-card>-->
+
+
+        <table class="OrganizationTbl" style=" width: 100%">
+            <tr>
+                <th class="w-16"> {{'sl' | translate}} </th>
+                <th> {{'itemOfExpenditure' | translate}} </th>
+                <th> {{'totalBudget' | translate}} </th>
+                <th> {{'expenditureAmount' | translate}} </th>
+                <th> {{'vatTaxPercent' | translate}} </th>
+                <th> {{'vatAndTaxAmount' | translate}} </th>
+                <th> {{'netPaymentAmount' | translate}} </th>
+                <th> {{'voucherNumber' | translate}} </th>
+                <th> {{'UploadFile' | translate}} </th>
+            </tr>
+
+            <tr *ngFor="let element of tempPaymentBillVouchers; let i='index'">
+
+                <td class="text-center">
+                    {{(i + 1)}}
+                </td>
+
+                <td class="text-center">
+                    {{getItemOfExpenditure(element.expenditureId)}}
+                </td>
+
+                <td style="text-align: right !important;" class="pr-8">
+                    {{element.budgetExpenditureAmount | number }}
+                </td>
+
+                <td>
+                    <mat-form-field class="w-full pt-2">
+                        <input (keyup)="calculateOtherFields(i)" [(ngModel)]="element.expenditureAmount"
+                            [ngModelOptions]="{standalone: true}" matInput type="number"
+                            style="text-align: right !important;">
+                    </mat-form-field>
+                </td>
+
+                <td>
+                    <mat-form-field class="w-full pt-2">
+                        <input (keyup)="calculateOtherFields(i)" [(ngModel)]="element.vatAndTaxPercentage"
+                            [ngModelOptions]="{standalone: true}" matInput max="100" min="0" type="number"
+                            style="text-align: right !important;">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="w-full pt-2">
+                        <input [(ngModel)]="element.vatAndTaxAmount" [ngModelOptions]="{standalone: true}" matInput
+                            min="0" disabled type="number" style="text-align: right !important;">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="w-full pt-2">
+                        <input [(ngModel)]="element.netPaymentAmount" [ngModelOptions]="{standalone: true}" matInput
+                            disabled type="number" style="text-align: right !important;">
+                    </mat-form-field>
+                </td>
+                <td class="text-center">
+                    <mat-form-field class="w-full pt-2">
+                        <input [(ngModel)]="element.voucherNumber" [ngModelOptions]="{standalone: true}" matInput
+                            type="">
+                    </mat-form-field>
+                </td>
+
+
+
+                <td>
+                    <ng-container *ngIf="element">
+                        <button (click)="uploadFileForGioLetter(element)" class="toggle-sidebar-folded"
+                            matTooltip="Upload File">
+                            <mat-icon> attach_file</mat-icon>
+                        </button>
+                    </ng-container>
+
+                    <ng-container *ngIf="element && element.fileDownloadUrl">
+                        <button (click)="downloadFile(element)" class="toggle-sidebar-folded"
+                            matTooltip="Download File">
+                            <mat-icon color="warn">get_app</mat-icon>
+                        </button>
+                    </ng-container>
+                </td>
+
+
+            </tr>
+
+            <tr style="font-weight: bold; text-align: right;">
+                <td></td>
+                <td class="pr-8">{{'totalNetPayment' | translate}}</td>
+                <td class="pr-8">{{getTotalAmountOfTotal("totalBudget") | number}}.00 </td>
+                <td class="pr-8">{{getTotalAmountOf("expenditureAmount") | number}}.00</td>
+                <td></td>
+                <td class="pr-8">{{getTotalAmountOf("vatAndTaxAmount") | number}}.00</td>
+                <td class="pr-8">{{getTotalAmountOf("netPaymentAmount") | number}}.00</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!-- Bottom Button -->
+    <div class="flex justify-end mt-8 mb-8">
+        <button (click)="previousTab()" class="px-3 mr-2 toggle-sidebar-folded nextBtn" color="primary" mat-flat-button
+            style="background: #4c72c7 !important;color: white;" type="button"
+            [disabled]="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7">
+            <mat-icon *ngIf="nextIcon" class="mr-1">{{previousIcon}}</mat-icon>
+            {{ "previous" | translate }}
+        </button>
+
+        <button (click)="onSubmit(false)"
+            [disabled]="isButtonOk || isDisabled || spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7"
+            class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button
+            style="background-color: green; color: #FFFFFF" type="submit">
+            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <span>{{ "save" | translate }}</span>
+        </button>
+
+        <button (click)="onSubmit(true)"
+            [disabled]="isButtonOk || isDisabled || spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7"
+            class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" color="primary" mat-flat-button type="button">
+            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <span>{{ "save_and_preview" | translate }}</span>
+        </button>
+    </div>
+    <!-- </form> -->
+</div>

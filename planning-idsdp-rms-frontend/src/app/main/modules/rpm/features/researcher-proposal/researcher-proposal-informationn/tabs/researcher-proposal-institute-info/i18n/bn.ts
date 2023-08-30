@@ -1,0 +1,26 @@
+export const locale = {
+    lang: 'bn',
+    data: {
+        'InstituteInformation': 'প্রতিষ্ঠানের তথ্য',
+        'InstituteName': 'প্রতিষ্ঠানের নাম',
+        'InstituteNameReq': 'প্রতিষ্ঠানের নাম আবশ্যক',
+        'AddressDetails': 'বিস্তারিত ঠিকানা',
+        'AddressDetailsReq': 'বিস্তারিত ঠিকানা আবশ্যক',
+        'YearOfEstablishment': 'সংস্থাপন বছর',
+        'YearOfEstablishmentReq': 'সংস্থাপন বছর আবশ্যক',
+        'RegistrationNo': 'নিবন্ধন নম্বর',
+        'RegistrationNoReq': 'নিবন্ধন নম্বর আবশ্যক',
+        'TelephoneNo': 'টেলিফন নম্বর',
+        'TelephoneNoReq': 'টেলিফন নম্বর আবশ্যক',
+        'EmailAddress': 'ই-মেইল',
+        'EmailAddressReq': 'ই-মেইল আবশ্যক',
+        'TinNo': 'টিআইএন নং',
+        'TinNoReq': 'টিআইএন নং আবশ্যক',
+        'TaxTokenImgOfCurrentYear': 'বর্তমান বছরের ট্যাক্স টোকেন ছবি',
+        'TaxTokenImgOfCurrentYearReq': 'বর্তমান বছরের ট্যাক্স টোকেন ছবি আবশ্যক',
+        'IsEditable': 'সম্পাদনাযোগ্য?',
+        'IsEditableReq': 'সম্পাদনাযোগ্য আবশ্যক',
+        'Save': 'সংরক্ষণ',
+        'ResearcherProposalReq': 'গবেষকের প্রস্তাব এখনো তৈরি করেনি',
+    }
+};

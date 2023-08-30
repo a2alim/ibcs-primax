@@ -1,0 +1,20 @@
+version: '3'
+services:
+  planning-idsdp-pps-pc-backend:
+    container_name: pps-pc-backend
+    image: 'planning-idsdp-pps-pc-backend'
+    environment:
+      - TZ=Asia/Dhaka
+    ports:
+      - "8085:8085"
+    restart: always
+    #Volume mounted for database for the storage
+    volumes:
+    - planning-idsdp-pps-pc-backend:/var/lib/docker/volumes/planning-idsdp-pps-pc-backend/_data
+    - /docker_volume/pps-pc-backend/static:/src/main/resources/static/files/
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+#Volumes for DB data
+volumes:
+  planning-idsdp-pps-pc-backend:

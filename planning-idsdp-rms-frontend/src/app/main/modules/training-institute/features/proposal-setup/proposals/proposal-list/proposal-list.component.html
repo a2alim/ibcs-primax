@@ -1,0 +1,186 @@
+<div style="width: 100%">
+    <!-- Header -->
+
+    <app-form-header [subTitle]="'headerOfSubtitle' | translate" [title]="'header' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="flex justify-end mb-3" *ngIf="isApplicationPeriodActive()">
+                <button [routerLink]="['/proposal-list/add']" color="primary" mat-raised-button
+                    *ngIf="userType !== 'Rms_DO'">
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                    {{'AddMore' | translate}}
+                </button>
+            </div>
+            <div class="flex justify-end mb-3" *ngIf="isApplicationPeriodActive() == false">
+                <div class="w-full font-bold text-red-700 text-xl bg-blue-200 p-2 text-center">{{'appDeadline' | translate}}</div>
+            </div>
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+                <div class="md:flex tbl-title">
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'proposalList' | translate}}
+                        </h1>
+
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-right">
+                        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                            <!--<mat-label>Filter</mat-label>-->
+                            <input #input (keyup)="applyFilter($event)" [placeholder]="'search'|translate" matInput />
+                            <button mat-button mat-icon-button matPrefix>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <!--<mat-card>-->
+                    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                        <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sl">
+                                <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl' | translate}} </th>
+                                <td mat-cell *matCellDef="let row; let i = index;">
+                                    {{((i + 1) + (sendDataForGrid.pageableRequestBodyDTO.page * sendDataForGrid.pageableRequestBodyDTO.size)) | enToBn:langVal}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fiscalYear">
+                                <th *matHeaderCellDef mat-header-cell> {{'fiscalYear' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{ (element.fiscalYear) | enToBn:langVal }}
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="proposedTrainerName">
+                                <th *matHeaderCellDef mat-header-cell style="text-align: left !important;">
+                                    {{'Traning_Title_Institute_Fiscal_Year' | translate}} </th>
+                                <td *matCellDef="let element" mat-cell style="text-align: left !important;"> 
+                                    <span class="font-semibold text-cyan-400 cursor-pointer"
+                                        (click)="goToProposal(element.uuid, element.id , element.trainingInstituteProfileModel.userId)">{{'Traning_Title'
+                                        | translate}}:
+                                        {{element.trainingName}}
+                                    </span>
+                                    <br>
+                                    <span class="font-nomal  text-green-600 cursor-pointer"
+                                        (click)="goToProfile(element)">{{'Institute'| translate}} :
+                                        {{element.instituteName}}
+                                    </span>
+                                    <br>
+                                    <span class="text-amber-500 font-nomal"> {{'FiscalYear' | translate}} :
+                                        {{ getFiscalYearName(element.fiscalYearId) | enToBn:langVal}}
+                                    </span>
+                                </td>
+                            </ng-container>
+
+                            <!-- <ng-container matColumnDef="applicantInstituteName">
+                                <th *matHeaderCellDef mat-header-cell> {{'applicantInstituteName' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    {{ element.instituteName }}
+                                </td>
+                            </ng-container> -->
+
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="trainingDuration">
+                                <th *matHeaderCellDef mat-header-cell> {{'trainingDuration' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{(element.trainingDuration) | enToBn:langVal}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="programDate">
+                                <th *matHeaderCellDef mat-header-cell> {{'programDate' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <span>
+                                        <span class="font-semibold text-cyan-400">{{'Start_date' | translate}}</span>
+                                        {{convertDate(element.programDate) | enToBn:langVal}}
+                                    </span>
+                                     <br>
+                                    <span>
+                                        <span class="font-semibold text-cyan-400">{{'End_date' | translate}}</span>
+                                        {{convertDate(element.endDate) | enToBn:langVal}}
+                                    </span>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="isSubmitted">
+                                <th *matHeaderCellDef mat-header-cell> {{'isSubmitted' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <span *ngIf="element.isSubmitted; else NotSubmit">Yes</span>
+                                    <ng-template #NotSubmit>
+                                        Not Submitted
+                                    </ng-template>
+                                    <!-- {{element.isSubmittedString}} -->
+                                </td>
+                            </ng-container>
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th *matHeaderCellDef class="pl-4 w-32" mat-header-cell> {{'Action' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <div class="buttons">
+
+                                        <button
+                                            (click)="viewDetails(element.uuid, element.id, element.trainingInstituteProfileModel.userId)"
+                                            class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button
+                                            [matTooltip]="'view' | translate">
+                                            <mat-icon color="primary">visibility
+                                            </mat-icon>
+                                        </button>
+
+                                        <span *ngIf="!element.isSubmitted">
+                                            <button (click)="edit(element)" class="toggle-sidebar-folded" fxHide.lt-lg
+                                                [disabled]="element.isSubmitted && userType === 'Rms_Training_Institute'"
+                                                mat-icon-button matTooltip="Edit"
+                                                *ngIf="userType === 'Rms_Training_Institute'">
+                                                <mat-icon color="accent">edit
+                                                </mat-icon>
+                                            </button>
+
+                                            <button (click)="openDialog(element.id)" class="toggle-sidebar-folded"
+                                                fxHide.lt-lg
+                                                [disabled]="element.isSubmitted && userType === 'Rms_Training_Institute'"
+                                                mat-icon-button matTooltip="delete"
+                                                *ngIf="userType === 'Rms_Training_Institute'">
+                                                <mat-icon color="warn">delete</mat-icon>
+                                            </button>
+                                        </span>
+
+
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator
+                        #paginatorRef
+                        (page)="onChangePage($event)"
+                        [length]="total"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        [pageSize]="size">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

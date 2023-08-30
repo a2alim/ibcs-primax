@@ -1,0 +1,322 @@
+<div style="width: 100%">
+    <!-- Header -->
+
+    <app-form-header class="no-print" [subTitle]="'headerOfSubtitlev' | translate" [title]="'headerv' | translate">
+    </app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <div class="flex md:justify-end md:mr-3 mt-1 no-print">
+
+            <button [routerLink]="['/completion-reports']" class="px-3 mr-2 previousIcon" color="accent" mat-flat-button
+                type="button">
+                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{'previous' | translate}}
+            </button>
+
+            <button (click)="print()" class="px-3 mr-2 printBtn" color="accent" mat-flat-button type="button">
+                <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                {{'print' | translate}}
+            </button>
+
+            <button (click)="download('completionReport')" class="px-3 mr-2 downloadBtn" color="accent" mat-flat-button type="button">
+                <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                {{'download' | translate}}
+            </button>
+        </div>
+
+        <mat-card class="mt-5">
+            <div class="p-4">
+
+                <table>
+                    <tbody>
+
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: rgb(115, 224, 64);"
+                                class="font-bold font-nomal">
+                                <p>{{ 'detailsInformation' | translate }}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6" style="text-align: center;" class="font-bold font-nomal">
+                                <p>{{ 'on' | translate }}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="mt-6 mb-2 text-lg font-semibold" style="color: rgb(115, 224, 64);">
+                                    {{'submittedTo' | translate}}:</h2>
+                                <span class="font-semibold" style="color: rgb(115, 224, 64);">
+                                    Social Science Research Council (SSRC), Planning Division, Ministry of Planning,
+                                    Government of Bangladesh
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="mt-6 mb-2 text-lg font-semibold" style="color: red;">{{'submittedBy' |
+                                    translate}}:</h2>
+                                <span class="font-semibold" style="color: red;">
+                                    {{ comp?.proposalModel?.trainingInstituteProfileModel?.headOfInstituteName}} for
+                                    {{comp?.proposalModel?.trainingInstituteProfileModel.trainingInstituteName}}
+                                </span>
+                                <span class="font-semibold" style="color: red;">
+                                    {{completionList?.institute_name}}
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <span class="font-semibold" style="color: red;">{{
+                                    comp?.proposalModel?.programDate}}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="mt-6 mb-2 text-lg font-semibold" style="color: red;">{{'background' |
+                                    translate}}:</h2>
+                                <span innerHTML=" {{ comp?.background}}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="mt-6 mb-2 text-lg font-semibold" style="color: red;">{{'workshopObjectives' |
+                                    translate}}:</h2>
+                                <span innerHTML="{{comp?.workshopObjectives}}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="mt-6 mb-2 text-lg font-semibold" style="color: red;">{{'programDetails' |
+                                    translate}}:</h2>
+                                <h2 class="mt-6 text-lg font-semibold mb-2 ml-6" style="color: red;">{{'courseContents'
+                                    | translate}}:</h2>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6" style="text-align: left">
+                                <table>
+                                    <tr *ngFor="let item of courseScheduleList; let i = 'index'"
+                                        class="border border-black">
+                                        <td style="background-color: none !important">
+                                            {{item?.topic}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="ml-6 mt-6 text-lg font-semibold">{{'programDuration' | translate}}: {{
+                                    comp?.proposalModel?.trainingDuration}}</h2>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="ml-6 mt-2 text-lg font-semibold">{{'noOfSessions' | translate}}:
+                                    {{completionList?.totalSessions}}</h2>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="ml-6 mt-2 text-lg font-semibold">{{'sessionDurations' | translate}}:
+                                    {{courseScheduleList?.totalHours}}</h2>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="ml-6 mt-2 text-lg font-semibold">{{'noOfParticipants' | translate}}: {{
+                                    comp?.proposalModel?.noOfTrainee}}</h2>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="ml-6 mt-2 text-lg font-semibold">{{'noOfResourcePerson' | translate}}: {{
+                                    comp?.proposalModel?.noOfTrainer}}</h2>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="ml-6 mt-2 text-lg font-semibold">{{'perAttendance' | translate}}: {{
+                                    comp?.percentageOfAttendance}} %</h2>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="mt-6 text-lg font-semibold mb-2">{{'trainingProgramSchedule' | translate}}:
+                                </h2>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <table>
+                                    <tr class="border border-black">
+                                        <th class="border border-black">
+                                            {{'session' | translate}}
+                                        </th>
+                                        <th class="border border-black">
+                                            {{'speaker' | translate}}
+                                        </th>
+                                        <th class="border border-black">
+                                            {{'topic' | translate}}
+                                        </th>
+                                        <th class="border border-black">
+                                            {{'date' | translate}}
+                                        </th>
+                                        <th class="border border-black">
+                                            {{'day' | translate}}
+                                        </th>
+                                        <th class="border border-black">
+                                            {{'time' | translate}}
+                                        </th>
+                                    </tr>
+
+                                    <tr *ngFor="let item of courseScheduleList; let i = 'index'"
+                                        class="border border-black">
+                                        <td class="border border-black">{{item?.session}}</td>
+                                        <td class="border border-black">{{item?.topic}}</td>
+                                        <td class="border border-black"><span
+                                                [innerHTML]="getSpeakers(item.speakers)"></span></td>
+                                        <td class="border border-black">{{item?.date}}</td>
+                                        <td class="border border-black">{{item?.day}}</td>
+                                        <td class="border border-black">{{item?.time}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="mt-6 text-lg font-semibold mb-2">{{'resourcePerson' | translate}}:</h2>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <table>
+                                    <tr class="border border-black">
+                                        <th class="border border-black">
+                                            {{'sl' | translate}}
+                                        </th>
+                                        <th class="border border-black">
+                                            {{'nameAndAddressOfTrainers' | translate}}
+                                        </th>
+                                        <th class="border border-black">
+                                            {{'contractNo' | translate}}
+                                        </th>
+                                        <th class="border border-black">
+                                            {{'email' | translate}}
+                                        </th>
+                                    </tr>
+                                    <tr *ngFor="let item of trainerList; let i='index'">
+                                        <td class="border border-black" style="text-align: center;">
+                                            {{i+1}}
+                                        </td>
+                                        <td class="border border-black">
+                                            {{item?.name}}
+                                        </td>
+                                        <td class="border border-black">
+                                            {{item?.phone}}
+                                        </td>
+                                        <td class="border border-black">
+                                            {{item?.email}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+
+                        <!--Participant's Information-->
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="mt-6 text-lg font-semibold mb-2">{{'participantInformation' | translate}}:
+                                </h2>
+                            </td>
+                        </tr>
+
+                        <tr class="border border-black">
+                            <th class="border border-black">
+                                {{'sl' | translate}}
+                            </th>
+                            <th class="border border-black">
+                                {{'nameOfParticipant' | translate}}
+                            </th>
+                            <th class="border border-black">
+                                {{'emailOfParticipant' | translate}}
+                            </th>
+                            <th class="border border-black">
+                                {{'phoneOfParticipant' | translate}}
+                            </th>
+
+                        </tr>
+
+
+
+
+
+                        <tr *ngFor="let item of participantList; let i ='index'" class="border border-black">
+                            <td class="border border-black" style="text-align: center;">
+                                {{i+1}}
+                            </td>
+
+                            <td class="border border-black">
+                                {{item?.name}}
+                            </td>
+
+                            <td class="border border-black">
+                                {{item?.email}}
+                            </td>
+
+                            <td class="border border-black">
+                                {{item?.phoneNo}}
+                            </td>
+
+                            <!-- <th>
+                                {{item.name}}
+                            </th>
+
+                            <th>
+                                {{item.name}}
+                            </th> -->
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="mt-6 mb-2 text-lg font-semibold">{{'finalRemarks' | translate}}:</h2>
+                                <span innerHTML="{{comp?.remarks}}"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- Main End -->
+</div>

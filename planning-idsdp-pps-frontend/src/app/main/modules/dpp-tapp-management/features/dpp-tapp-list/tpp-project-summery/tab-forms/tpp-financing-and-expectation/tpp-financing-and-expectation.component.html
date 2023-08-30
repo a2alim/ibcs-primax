@@ -1,0 +1,122 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<div class="body">
+    <form [formGroup]="frmGroup" name="frmGroup" class="p-5">
+        <div class="sub-heading">
+            <span *ngIf="isParipatra2016" class="inline-block align-middle">
+                {{ "Financing_project" | translate }}
+            </span>
+            <span *ngIf="!isParipatra2016" class="inline-block align-middle">
+                {{ "Financing_project22" | translate }}
+            </span>
+        </div>
+
+        <div class="p-8 pb-2 mb-5" style="border: 1px solid #CCC; background: #FFFFFF;">
+            <mat-card>
+                <!--1st Flex Layout Div Start -->
+                <div class="md:flex">
+                    <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="pb-5" fxFlex="50%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                              <span *ngIf="isParipatra2016">{{"Required_amount" | translate }}</span>
+                                <span *ngIf="!isParipatra2016">{{"Required_amount22" | translate }}</span>
+                            </mat-label>
+                            <mat-form-field fxFlex="50%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%"
+                                style="text-align: right">
+                                <input class="numberField" type="number" formControlName="requiredAmount" matInput />
+                                <mat-error>Value is required</mat-error>
+                            </mat-form-field>
+                            <div fxFlex="4%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Sub Sector Division Field-->
+                    <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="pb-5 pl-3" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                <span *ngIf="isParipatra2016">{{ "Source_financing" | translate }}</span>
+                                <span *ngIf="!isParipatra2016">{{ "Source_financing22" | translate }}</span>
+                            </mat-label>
+                            <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                <input class="numberField" autocomplete="off" formControlName="sourceFinancing" matInput />
+                                <mat-error>Value is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <br />
+            <!--1st CK Editor -->
+            <div class="sub-heading">
+                <span class="inline-block align-middle">
+                    <span *ngIf="isParipatra2016">{{ "Mode_financing" | translate }}</span>
+                     <span *ngIf="!isParipatra2016">{{ "Mode_financing22" | translate }}</span>
+                </span>
+                <span *ngIf="!editor1" (click)="toggleShow1()" title="Click to expand">
+                    <mat-icon style="color: white;cursor: pointer;float:right">expand_more</mat-icon>
+                </span>
+                <span *ngIf="editor1" (click)="toggleShow1()" title="Click to expand less">
+                    <mat-icon style="color: white;cursor: pointer;float:right">expand_less</mat-icon>
+                </span>
+                <span style="float: right">
+                    <label for="file-upload3"><mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon></label>
+                    <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'modeFinancing')" id="file-upload3"/>
+                </span>
+            </div>
+
+            <div class="ck-editor" *ngIf="editor1" style="position: relative;">
+<!--                <div class="custom-file-upload-div">-->
+<!--                    <label for="file-upload3" class="custom-file-upload">-->
+<!--                        <mat-icon class="custom-image-icon">image</mat-icon>-->
+<!--                    </label>-->
+<!--                    <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'modeFinancing')"  id="file-upload3" />-->
+<!--                </div>-->
+                <ckeditor [config]="mediumEditorConfig" formControlName="modeFinancing"></ckeditor>
+            </div>
+            <br/>
+
+        </div>
+        <!--2nd CK Editor -->
+        <div class="sub-heading">
+            <span class="inline-block align-middle">
+                <span *ngIf="isParipatra2016">{{ "Outcome" | translate }}</span>
+                <span *ngIf="!isParipatra2016">{{ "Outcome22" | translate }}</span>
+            </span>
+            <span *ngIf="!editor2" (click)="toggleShow2()" title="Click to expand">
+                <mat-icon style="color: white;cursor: pointer;float:right">expand_more</mat-icon>
+            </span>
+            <span *ngIf="editor2" (click)="toggleShow2()" title="Click to expand less">
+                <mat-icon style="color: white;cursor: pointer;float:right">expand_less</mat-icon>
+            </span>
+            <span style="float: right">
+                    <label for="file-upload5"><mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon></label>
+                    <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'outcome')" id="file-upload5"/>
+                </span>
+        </div>
+        <div class="ck-editor" *ngIf="editor2" style="position: relative;">
+<!--            <div class="custom-file-upload-div">-->
+<!--                <label for="file-upload5" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>-->
+<!--                <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'outcome')"  id="file-upload5" />-->
+<!--            </div>-->
+            <ckeditor [config]="mediumEditorConfig" formControlName="outcome"></ckeditor>
+        </div>
+
+        <div class="flex justify-end mt-8">
+            <button [color]="'accent'" class="px-8 mr-2 toggle-sidebar-folded" matTooltip="Back" mat-flat-button matStepperPrevious type="button">
+                {{ "Back" | translate }}
+            </button>
+            <button [disabled]="spinner" (click)="saveAndNext('')" class="px-8 mr-2 toggle-sidebar-folded" matTooltip="Save & Exit"
+                    mat-flat-button style="background-color: green; color: #FFFFFF" type="button">
+                {{ "Save" | translate }}
+            </button>
+            <button [disabled]="spinner" (click)="saveAndNext('exit')" class="px-8 toggle-sidebar-folded" matTooltip="Save & Exit"
+                    mat-flat-button style="background-color: green; color: #FFFFFF" type="button" (click)="gotNextPage()">
+                {{ "SaveExit" | translate }}
+            </button>
+        </div>
+    </form>
+
+</div>

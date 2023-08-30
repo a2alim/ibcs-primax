@@ -1,0 +1,77 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">Annexure - VII : Letter of
+                                    Agreement with Implementing Agencies/Development Partners
+                                </div>
+                                <div class="flex items-center">
+                                    <div
+                                        class="leading-5 truncate text-secondary"> <a routerLink="/rdpp-rtapp">Home </a> > Annexure - VII : Letter of
+                                        Agreement with Implementing Agencies/Development Partners
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                style="padding-top: 25px;"
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                Project Dashboard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+
+    <mat-card>
+        <mat-card class="tab-color">
+            <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()">
+            <div class="body">
+                <div class="ck-editor" style="position: relative;">
+
+                    <div class="custom-file-upload-div">
+                        <label for="file-upload0" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                        </label>
+                         <input #file0 type="file" accept='image/*'
+                            (change)="uploadImageAsBase64(file0.files,'letterOfAgreement')"  id="file-upload0" />
+                    </div>
+
+                    <ckeditor formControlName="letterOfAgreement">
+                    </ckeditor>
+                </div>
+
+                <div class="mt-2" align="end">
+                    <button [disabled]="spinner" color="primary" type="submit" mat-raised-button>Save</button>
+                </div>
+            </div>
+        </form>
+        </mat-card>
+    </mat-card>
+
+</div>

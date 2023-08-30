@@ -1,0 +1,207 @@
+<div id="loginPage" style="" class="flex flex-col flex-auto min-w-0 sm:justify-center" >
+
+    <div style="vertical-align: top; margin-top: -60px;">
+        <div id=" "  class=" " fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="33%" fxFlex.md="33%" fxFlex.sm="33%" fxFlex.xs="33%">
+                <mat-card class="mat-elevation-z4" style="background: transparent;box-shadow: none;">
+                    <img mat-card-image style="height: 65px;width: 100px" src="assets/images/logos/suborno-joyonto-logo.png">
+                </mat-card>
+            </div>
+            <div fxFlex="33%" fxFlex.md="33%" fxFlex.sm="33%" fxFlex.xs="33%">
+                <mat-card class="mat-elevation-z4" style="background: transparent;box-shadow: none;">
+                    <img mat-card-image style="height: 65px;width: 65px;margin: 0 auto;" src="assets/images/logos/bd_gov_logo.png">
+                </mat-card>
+            </div>
+            <div fxFlex="33%" fxFlex.md="33%" fxFlex.sm="33%" fxFlex.xs="33%">
+                <mat-card class="mat-elevation-z4" style="background: transparent;box-shadow: none;">
+                    <img mat-card-image style="height: 65px;width: 80px;float: right" src="assets/images/logos/mujib_100_logo.png">
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- ================================================================================ -->
+    <div style="text-align: center;">
+        <div style="text-align: center;margin: 10px;">
+            <h1 class="banner-lbl">Planning Division & Planning Commission</h1>
+            <p class="sddp-lbl">Strengthening Digital Processing Of Projects (SDPP)</p>
+        </div>
+    </div>
+     <!-- ================================================================================ -->
+     <div class="w-full sm:w-auto px-4" style="user-select: none">
+        <div class="sm:justify-center">
+            <div style=" margin: 10px;">
+                    <div class="flex  justify-end">
+                        <button *ngIf="ssoForm" class="mr-2 btn-4" mat-flat-button type="button" (click)="showSignInSdppForm()">System Admin
+                        </button>
+                        <button *ngIf="!ssoForm" class="mr-2 btn-4" mat-flat-button type="button" (click)="showSignInSsoForm()">ek-Sheba
+                        </button>
+                        <button (click)="goToImsPage('faq')" class="mr-2 btn-4" mat-flat-button type="button">
+                            <i class="small material-icons">info_outline &nbsp;</i>FAQ
+                        </button>
+                        <button (click)="goToImsPage('guide-line')" class="mr-2 btn-4" mat-flat-button type="button">
+                            <i class="small material-icons">file_download &nbsp;</i>Guideline
+                        </button>
+                        <button (click)="goToImsPage('resources')" class=" mr-2 btn-4" mat-flat-button type="button">
+                            <i class="small material-icons">language &nbsp;</i>Resources
+                        </button>
+                        <button (click)="goToImsPage('notice-panel')" class="mr-2 btn-4" mat-flat-button type="button">
+                            Notice Panel
+                        </button>
+                        <button (click)="goToImsPage('help-line')" class="mr-2 btn-4" mat-flat-button type="button">
+                            Help Line
+                        </button>
+                    </div>
+
+                <!-- <div class="flex justify-end">
+                    <button *ngIf="!ssoForm" class="mr-2 btn-4" mat-flat-button type="button"
+                            (click)="showSignInSsoForm()">ek-Sheba
+                    </button>
+                    <button *ngIf="ssoForm" class="mr-2 btn-4" mat-flat-button type="button"
+                            (click)="showSignInSdppForm()">System Admin
+                    </button>
+                    <button class="mr-2 btn-4" mat-flat-button type="button">Help Line</button>
+                    <button class="btn-4" mat-flat-button type="button">Notice Panel</button>
+                </div> -->
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="17%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="70%" fxFlex.xs="70%">
+                    <mat-card class="mat-elevation-z4" style="background: transparent;box-shadow: none;">
+                        <img mat-card-image src="assets/images/logos/services.png">
+                    </mat-card>
+                </div>
+                <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                <div fxFlex="31%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <mat-card class="tab-color">
+                        <!-- Alert -->
+                        <fuse-alert
+                            class="mt-8 -mb-4"
+                            *ngIf="showAlert"
+                            [appearance]="'outline'"
+                            [showIcon]="false"
+                            [type]="alert.type"
+                            [@shake]="alert.type === 'error'">
+                            {{alert.message}}
+                        </fuse-alert>
+                        <form *ngIf="!ssoForm" #signInNgForm="ngForm" [formGroup]="signInForm">
+                            <!-- Email field -->
+                            <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                <mat-label>Email address</mat-label>
+                                <input id="email" matInput placeholder="email" [formControlName]="'email'">
+                                <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                                <mat-error *ngIf="signInForm.get('email').hasError('required')">
+                                    Email address is required
+                                </mat-error>
+                                <mat-error *ngIf="signInForm.get('email').hasError('email')">
+                                    Please enter a valid email address
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Password field -->
+                            <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                <mat-label>Password</mat-label>
+                                <input id="password" matInput type="password" placeholder="password"
+                                       [formControlName]="'password'" #passwordField>
+                                <button mat-icon-button type="button"
+                                        (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                                        matSuffix>
+                                    <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+                                              [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                    <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+                                              [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                                </button>
+                                <mat-error>Password is required</mat-error>
+                            </mat-form-field>
+
+                            <!-- Actions -->
+                            <div class="inline-flex items-end justify-between w-full mt-1.5">
+                                <mat-checkbox [color]="'primary'" [formControlName]="'rememberMe'">Remember me
+                                </mat-checkbox>
+                                <a class="text-md font-medium text-primary-500 hover:underline"
+                                   [routerLink]="['/forgot-password']">Forgot password?</a>
+                            </div>
+
+                            <!-- Submit button -->
+                            <div class="flex justify-end">
+                                <button class="mt-6" mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled"
+                                        (click)="signIn()" style="background: #4b60bd;border-radius: 5px;">
+                                    <span *ngIf="!signInForm.disabled">Sign in</span>
+                                    <mat-progress-spinner *ngIf="signInForm.disabled" [diameter]="24"
+                                                          [mode]="'indeterminate'"></mat-progress-spinner>
+                                </button>
+                            </div>
+                        </form>
+
+                        <form *ngIf="ssoForm" #signInNgForm="ngForm" [formGroup]="signInSsoForm">
+                            <!-- Email field -->
+                            <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                <mat-label>E-Nothi User ID</mat-label>
+                                <input id="email" matInput placeholder="User ID" [formControlName]="'userId'" (focusout)="focusoutFunc()">
+                                <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                                <mat-error *ngIf="signInSsoForm.get('userId').hasError('required')">
+                                    User ID is required
+                                </mat-error>
+                                <mat-error *ngIf="signInSsoForm.get('userId').hasError('userId')">
+                                    Please enter a valid User ID
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Password field -->
+                            <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                <mat-label>Password</mat-label>
+                                <input id="password" matInput type="password" placeholder="password"
+                                       [formControlName]="'password'" #passwordField>
+                                <button mat-icon-button type="button"
+                                        (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                                        matSuffix>
+                                    <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+                                              [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                    <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+                                              [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                                </button>
+                                <mat-error>Password is required</mat-error>
+                            </mat-form-field>
+
+                            <!-- Actions -->
+                            <div class="inline-flex items-end justify-between w-full mt-1.5">
+                                <mat-checkbox [color]="'primary'" [formControlName]="'rememberMe'">Remember me
+                                </mat-checkbox>
+                                <a class="text-md font-medium text-primary-500 hover:underline"
+                                   [routerLink]="['/forgot-password']">Forgot password?</a>
+                            </div>
+
+                            <!-- Submit button -->
+                            <div class="flex justify-end">
+                                <button class="mt-6" mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled"
+                                        (click)="signInSso()" style="background: #4b60bd;border-radius: 5px;">
+                                    <span *ngIf="!signInForm.disabled">Sign in</span>
+                                    <mat-progress-spinner *ngIf="signInForm.disabled" [diameter]="24"
+                                                          [mode]="'indeterminate'"></mat-progress-spinner>
+                                </button>
+                            </div>
+                        </form>
+                    </mat-card>
+                </div>
+                <div fxFlex="17%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+            </div>
+        </div>
+        <div id="login-page-footer" fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-2 mt-2" style="width: 98%;bottom: 0;position:fixed;">
+            <div fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+                <img style="width: 220px" src="assets/images/logos/ibcs_akr_logo.png">
+            </div>
+            <div fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+                <img style="width: 90px;float: right" src="assets/images/logos/sdpp.png">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+

@@ -1,0 +1,251 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+            <!-- Card Body -->
+
+            <form [formGroup]="frmGroup">
+
+                <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mt-4 mb-4">
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'stFiscalYearIdLn'|translate}}</mat-label>
+                            <mat-select formControlName="stFiscalYearId">
+
+                                <mat-option value="">--Select--</mat-option>
+                                <mat-option *ngFor="let f of fiscalYearList" [value]="f.id">{{f.fiscalYear}}
+                                </mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'keyWord'|translate}}</mat-label>
+                            <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                formControlName="keyWord" [matAutocomplete]="auto">
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.keyWord">
+                                    {{option.keyWord}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'field'|translate}}</mat-label>
+                            <mat-select formControlName="stSectorTypeId">
+                                <mat-option value="">--Select--</mat-option>
+                                <mat-option *ngFor="let r of sectorTypeList" [value]="r.id">
+                                    {{r.fieldName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'Division'|translate}}</mat-label>
+                            <mat-select placeholder="Select One"
+                                (selectionChange)="getDistrictByChangeDivision($event.value)"
+                                formControlName="divisionId">
+                                <mat-option value="">Select</mat-option>
+                                <mat-option *ngFor="let div of divisionList" [value]="div.id">{{div.nameEn | titlecase}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'District'|translate}}</mat-label>
+
+                            <mat-select placeholder="Select one"
+                                (selectionChange)="getUpazilaByChangeDistrict($event.value)"
+                                formControlName="districtId">
+                                <mat-option value="">Select</mat-option>
+                                <mat-option *ngFor="let dis of districtList" [value]="dis.id">{{dis.nameEn | titlecase}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'UpzilaList'|translate}}</mat-label>
+
+                            <mat-select placeholder="Select One" formControlName="upzilaId">
+                                <mat-option value="">Select</mat-option>
+                                <mat-option *ngFor="let dis of upzilaList" [value]="dis.id">{{dis.nameEn | titlecase}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex w-full sm:justify-end md:justify-start">
+                        <div class="inline-block">
+                            <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" type="button"
+                                (click)="onSubmit()" [disabled]="spinner">
+                                <mat-icon class="mr-1">search</mat-icon>
+                                {{'search' | translate}}
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <!-- List Grid -->
+            <div class="md:flex tbl-title">
+
+                <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                    <h1 class="header1">
+                        <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                        {{'searchTitle' | translate}}
+                    </h1>
+                </div>
+
+            </div>
+
+            <!-- Data Table -->
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 sm:w-800 md:w-full lg:w-full">
+                        <!-- Sl Column -->
+                        <ng-container matColumnDef="sl">
+                            <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl' | translate}} </th>
+                            <td class="text-center" mat-cell *matCellDef="let row; let i = index">
+                                {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="researcher_name">
+
+                            <th mat-header-cell *matHeaderCellDef style="text-align: left;">
+                                {{'researchTitleLn' | translate}} /
+                                {{'researcherNameLn' | translate}} /
+                                {{'stFiscalYearIdLn' | translate}}
+                            </th>
+
+                            <td mat-cell *matCellDef="let row">
+
+                                <span class="font-semibold cursor-pointer text-cyan-400">{{'researchTitleLn' |
+                                    translate}}
+                                    :
+                                    {{row.researchTitle}}
+                                </span>
+
+                                <span *ngIf="row.isInstitutional" class="font-semibold text-sm text-amber-600">
+                                    (Inst.Proposal)
+                                </span>
+
+                                <br>
+
+                                <span class="font-nomal cursor-pointer text-green-600"
+                                    (click)="showProfile(row.profileUuid, row.isInstitutional)">
+                                    {{'researcherNameLn' |
+                                    translate}}
+                                    : {{row.userDto.name}}
+                                </span>
+                                <br>
+
+                                <span class="text-amber-500 font-nomal"> {{'stFiscalYearIdLn' | translate}} :
+                                    <ng-conatiner *ngFor="let f of fiscalYearList">
+                                        <span *ngIf="f.id==row.stFiscalYearId">{{f.fiscalYear}}</span>
+                                    </ng-conatiner>
+                                </span>
+
+                            </td>
+                        </ng-container>
+
+
+
+                        <ng-container matColumnDef="st_research_cat_type_id">
+                            <th mat-header-cell *matHeaderCellDef> {{'stResearchCatTypeIdLn' | translate}} </th>
+                            <td mat-cell *matCellDef="let row">
+                                <ng-conatiner *ngFor="let rc of researchCategoryTypeList">
+                                    <span *ngIf="rc.id==row.stResearchCatTypeId">{{rc.categoryName}}</span>
+                                </ng-conatiner>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="st_sector_type_id">
+                            <th mat-header-cell *matHeaderCellDef> {{'stSectorTypeIdLn' | translate}} </th>
+                            <td mat-cell *matCellDef="let row">
+                                <ng-conatiner *ngFor="let s of sectorTypeList">
+                                    <span *ngIf="s.id==row.stSectorTypeId">{{s.fieldName}}</span>
+                                </ng-conatiner>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="location">
+                            <th mat-header-cell *matHeaderCellDef> {{'location' | translate}} </th>
+                            <td mat-cell *matCellDef="let row">
+                                <span class="font-semibold cursor-pointer text-cyan-400">{{'UpzilaList' | translate}}
+                                    :
+                                    {{row.upzilaName}}
+                                </span>
+                                <br>
+
+                                <span class="font-nomal cursor-pointer text-green-600"
+                                    (click)="showProfile(row.profileUuid, row.isInstitutional)">
+                                    {{'District' | translate}}
+                                    : {{row.districtName}}
+                                </span>
+                                <br>
+
+                                <span class="text-amber-500 font-nomal"> {{'Division' | translate}} :
+                                    <span>{{row?.divisionName}}</span>
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef> {{'actionLn' | translate}} </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{'rrrrrrrrrrrrrrr'}}
+                            </td>
+                        </ng-container>
+
+
+
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns">
+                        </tr>
+
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns">
+                        </tr>
+
+
+
+                    </table>
+                </div>
+                <!-- mat-paginator -->
+                <mat-paginator #paginatorRef [length]="totalElements" [pageSize]="pageSize"
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>

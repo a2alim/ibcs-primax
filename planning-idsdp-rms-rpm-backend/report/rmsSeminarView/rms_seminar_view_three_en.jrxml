@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="19_palnning_bn_main_sonjojoni_dontosso" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="487" leftMargin="72" rightMargin="36" topMargin="50" bottomMargin="0" uuid="6a2cd0e0-dbf0-4b56-80b2-7c1a7217232f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="researcherist" uuid="6db6f577-3d92-4873-bb31-55cf5bfc1929">
+		<field name="positionInSeminar" class="java.lang.String"/>
+		<field name="m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.name" class="java.lang.String"/>
+		<field name="name" class="java.lang.String"/>
+		<field name="designation" class="java.lang.String"/>
+		<field name="emailAddress" class="java.lang.String"/>
+		<field name="mobile" class="java.lang.String"/>
+		<field name="m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.designation" class="java.lang.String"/>
+		<field name="m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.emailId" class="java.lang.String"/>
+		<field name="m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.mobileNumber" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString language="json">
+		<![CDATA[]]>
+	</queryString>
+	<field name="obj.createSeminarOptional.memorandumNo" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.nothiDateBn" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.nothiDateEn" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.paragraphOne" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.paragraphTwo" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.subject" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.seminarDate" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.dayName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="487" height="72" uuid="196b6a4c-3db9-49bf-98a0-c3f7c8cb2f40"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="11" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Government of the People's Republic of Bangladesh"
++ "\n" + "Ministry of Planning"
++ "\n" + "Planning Division"
++ "\n" + "Social Science Research Council"
++ "\n" + "Sher-e-Bangla Nagar, Dhaka"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="0" width="487" height="18" uuid="55c1dfe5-e6d3-47a5-95b1-2f31f11ec1af"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font fontName="SansSerif" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{obj.createSeminarOptional.dayName} == null) ? "List of officers participating in the workshop held on: " :  (
+    ($F{obj.createSeminarOptional.dayName} == "") ? "List of officers participating in the workshop held on: " : (
+          ($F{obj.createSeminarOptional.dayName} == "null") ? "List of officers participating in the workshop held on: " : "List of officers participating in the workshop held on: " + $F{obj.createSeminarOptional.dayName}
+            ) )) +
+(($F{obj.createSeminarOptional.seminarDate} == null) ? "" :  (
+    ($F{obj.createSeminarOptional.seminarDate} == "") ? "" : (
+          ($F{obj.createSeminarOptional.seminarDate} == "null") ? "" : " " +$F{obj.createSeminarOptional.seminarDate}
+            ) )) ]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="27">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="1" y="0" width="487" height="23" uuid="d9e4ab00-7870-40ce-8efd-e48c4932a254"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="researcherist" uuid="5f6a6d4a-8544-4e23-b6c8-bb94e76a0a06">
+						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("obj.workshopParticipantList")]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="35" uuid="2f18e23d-b988-4201-b5ed-871375f7a5a5">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="35" height="30" uuid="b2238a0b-71d9-42be-8a55-73578be40f44"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="SansSerif" size="11"/>
+								</textElement>
+								<text><![CDATA[Sl No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="35" height="16" uuid="b86f39f2-71da-4a1f-85dc-378ed7016803"/>
+								<box topPadding="1">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="SansSerif" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}+" । "]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="210" uuid="504dd906-542a-4beb-8932-fe97e81cd20e">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="210" height="30" uuid="3b8eaa74-9242-4282-8c31-a645ba64e187"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="SansSerif" size="11"/>
+								</textElement>
+								<text><![CDATA[Name and Title of the Officer ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="210" height="16" uuid="07d27c70-c2ed-4796-a659-bbb01d58eb57"/>
+								<box topPadding="1" leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement>
+									<font fontName="SansSerif" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[( $F{positionInSeminar}.equals("Lead") ?
+(($F{name} == null) ? "" :  (
+    ($F{name} == "") ? "" : (
+          ($F{name} == "null") ? "" : $F{name}
+            ) )) + "\n"+
+(($F{designation} == null) ? "" :  (
+    ($F{designation} == "") ? "" : (
+          ($F{designation} == "null") ? "" : $F{designation}
+            ) )) + "\n"+
+(($F{emailAddress} == null) ? "" :  (
+    ($F{emailAddress} == "") ? "" : (
+          ($F{emailAddress} == "null") ? "" : $F{emailAddress}
+            ) )) +"\n"+
+(($F{mobile} == null) ? "" :  (
+    ($F{mobile} == "") ? "" : (
+          ($F{mobile} == "null") ? "" : $F{mobile}
+            ) )) :
+(($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.name} == null) ? "" :  (
+    ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.name} == "") ? "" : (
+          ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.name} == "null") ? "" : $F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.name}
+            ) )) + "\n"+
+(($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.designation} == null) ? "" :  (
+    ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.designation} == "") ? "" : (
+          ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.designation} == "null") ? "" : $F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.designation}
+            ) )) + "\n"+
+(($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.emailId} == null) ? "" :  (
+    ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.emailId} == "") ? "" : (
+          ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.emailId} == "null") ? "" : $F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.emailId}
+            ) )) +"\n"+
+(($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.mobileNumber} == null) ? "" :  (
+    ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.mobileNumber} == "") ? "" : (
+          ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.mobileNumber} == "null") ? "" : $F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.mobileNumber}
+            ) )))]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3cd0f785-e264-44ee-862d-3b1fa166d27a">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="8ffd5106-c259-44ee-ab14-8ea4224f2750"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="SansSerif" size="11"/>
+								</textElement>
+								<text><![CDATA[Mobile No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="16" uuid="2cb00bc8-a980-486d-a78f-53b24b28f905"/>
+								<box leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement>
+									<font fontName="SansSerif" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[""]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="211288ce-d599-4086-a379-d9afb2173160">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="95896164-5cf5-4b01-898b-3172f4fd3c6f"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="SansSerif" size="11"/>
+								</textElement>
+								<text><![CDATA[Description of given Goods ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="16" uuid="6e6082a9-67d0-467e-931e-2e6fe1cf93ab"/>
+								<box leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement>
+									<font fontName="SansSerif" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[""]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="62" uuid="6a64be92-9594-4b54-a7e4-722a488ee11d">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="62" height="30" uuid="a54f1724-acec-4af5-b707-464197d5d374"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="SansSerif" size="11"/>
+								</textElement>
+								<text><![CDATA[Signature ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="62" height="16" uuid="136ede59-e4bf-4e5d-94a2-a997fb8c4b47"/>
+								<box leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement>
+									<font fontName="SansSerif" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[""]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<summary>
+		<band height="24" splitType="Stretch"/>
+	</summary>
+</jasperReport>

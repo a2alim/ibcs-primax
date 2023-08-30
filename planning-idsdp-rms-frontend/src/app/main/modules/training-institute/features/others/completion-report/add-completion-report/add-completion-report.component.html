@@ -1,0 +1,125 @@
+<div style="width: 100%">
+    <app-form-header [subTitle]="'headerSubTitle' | translate" [title]="'headerTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner || spinner1 || spinner2" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <div class="flex-auto m-7 body-color">
+        <form #myForm="ngForm">
+            <!-- CARD ONE-->
+            <div class="heading mt-2">
+                <h1 style="font-size: 20px !important;">{{'addNewFormTitle' | translate}}</h1>
+            </div>
+
+            <mat-card class="tab-color">
+
+                <!-- Row 1-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700 text">
+                            {{'percentageOfAttendance' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #pmn="ngModel" [(ngModel)]="completionReport.percentageOfAttendance" matInput
+                                name="percentageOfAttendance" required>
+                            <mat-error class="text-red-600"> {{'percentageOfAttendance' | translate}} {{'required' |
+                                translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700 text capitalize">
+                            {{'onlineAssessment' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #pmn="ngModel" [(ngModel)]="completionReport.onlineAssessment" matInput
+                                name="chequeReceiverPhoneNo">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- row 2 -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'background' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">
+                        <ckeditor [(ngModel)]="completionReport.background" name="background"
+                            [config]="mediumEditorConfig"></ckeditor>
+                    </div>
+                </div>
+
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'workshopObjectives' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">
+                        <ckeditor [(ngModel)]="completionReport.workshopObjectives" name="workshopObjectives"
+                            [config]="mediumEditorConfig"></ckeditor>
+                    </div>
+                </div>
+                <!-- Row 8-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'finalRemarks' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">                        
+                        <ckeditor [(ngModel)]="completionReport.remarks" name="finalRemarks"
+                            [config]="mediumEditorConfig"></ckeditor>
+                    </div>
+                </div>
+
+                <br>
+                <div class="flex justify-end mt-8">
+
+                    <button [routerLink]="['/completion-report']" class="px-3 mr-2 toggle-sidebar-folded saveBtn"
+                        color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        <span>{{ "previous" | translate }}</span>
+                    </button>
+
+                    <button (click)="formReset()" class="px-3 mr-2" color="accent" mat-flat-button type="reset">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+
+                    <button (click)="save()" [disabled]="!(completionReport.percentageOfAttendance | required) ||
+                            !( completionReport.workshopObjectives | required) ||
+                            !(completionReport.background | required) ||
+                            !(completionReport.remarks | required) || spinner || spinner1 || spinner2"
+                        class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button
+                        style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span *ngIf="!isEditable">{{ "save" | translate }}</span>
+                        <span *ngIf="isEditable">{{ "update" | translate }}</span>
+                    </button>
+
+                    <button (click)="saveFinal()" [disabled]="!(completionReport.percentageOfAttendance | required) ||
+                            !( completionReport.workshopObjectives | required) ||
+                            !(completionReport.background | required) ||
+                            !(completionReport.remarks | required) || spinner || spinner1 || spinner2"
+                        class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button
+                        style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span>{{ "finalSubmit" | translate }}</span>
+                    </button>
+                </div>
+
+            </mat-card>
+
+        </form>
+    </div>
+</div>

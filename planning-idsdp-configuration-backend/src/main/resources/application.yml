@@ -1,0 +1,11 @@
+# Application Basic Configuration
+spring:
+  application:
+    name: planning-idsdp-configuration-backend
+  profiles:
+    active: ${spring.cloud.config.profile}
+  mvc:
+    servlet:
+      path: /pps-configuration/
+server:
+  port: 8083

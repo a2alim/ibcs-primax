@@ -1,0 +1,529 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+    <div class="heading">
+        <h1>{{'componentDescription' | translate}}</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="p-8 pb-4">
+        <form [formGroup]="form">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="13%" fxFlex.sm="50%" fxFlex.xs="50%"
+                           style="margin-top: -15px;">{{'economicCode' | translate}} :
+                </mat-label>
+                <mat-select-search class="fuse-mat-dense flex-auto" fxFlex="18%" fxFlex.xs="50%" fxFlex.sm="50%"
+                                   [formGroup]="form"
+                                   [controlName]="'economicCode'"
+                                   [required]="true"
+                                   [data]="economicList"
+                                   (selectionChange)="findSubEconomicCode($event)">
+                </mat-select-search>
+
+                <mat-label fxFlex="17%" fxFlex.sm="50%" fxFlex.xs="50%"
+                           style="margin-top: -15px;">{{'economicSubCode' | translate}} :
+                </mat-label>
+                <mat-select-search class="fuse-mat-dense flex-auto" fxFlex="18%" fxFlex.xs="50%" fxFlex.sm="50%"
+                                   [formGroup]="form"
+                                   [controlName]="'subEconomicCode'"
+                                   [required]="true"
+                                   [data]="subEconomicList"
+                                   (selectionChange)="findSubEconomicCodeDescription($event)">
+                </mat-select-search>
+                <mat-label fxFlex="10%" fxFlex.sm="50%" fxFlex.xs="50%"
+                           style="margin-top: -15px;">{{'description' | translate}} :
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense readOnly flex-auto" fxFlex="18%" fxFlex.xs="50%" fxFlex.sm="50%">
+                    <input matInput readonly formControlName="subEconomicDescription">
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+    <div class="heading">
+        <h1>{{'financialInformation' | translate}}</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="p-8 pb-4">
+        <form [formGroup]="formFinancialInfo">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-2" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5">
+                            <strong>{{'EstimatedCost' | translate}}:&nbsp;{{(fspSummary?.totalAmount).toFixed(2)}}</strong>
+                        </mat-label>
+                    </div>
+                </div>
+                <div class="pr-2" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5">
+                            <strong>{{'Balance' | translate}}
+                                :&nbsp;{{(fspSummary?.totalAmount - expenditureCostTotal).toFixed(2)}}</strong>
+                        </mat-label>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'total' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="75%" fxFlex.sm="50%"
+                                        fxFlex.xs="50%">
+                            <input formControlName="total" matInput readonly type="number">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'gob' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input matInput formControlName="gob" type="number" (focusout)="onGobChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+
+                <div fxFlex="26%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="52%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'fe' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="48%" fxFlex.sm="50%" fxFlex.xs="50%">
+                            <input formControlName="feGob" matInput type="number"
+                                   oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="feGoBChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+
+                <div fxFlex="22%" fxFlex.sm="100%" fxFlex.xs="100%">
+                </div>
+
+
+            </div>
+
+            <div *ngIf="isForeignAid" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'pa' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="75%" fxFlex.sm="50%"
+                                        fxFlex.xs="50%">
+                            <input formControlName="pa" matInput readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+
+            </div>
+
+
+            <div *ngIf="isForeignAid" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+
+                </div>
+
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'rpa' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="75%" fxFlex.sm="50%"
+                                        fxFlex.xs="50%">
+                            <input formControlName="rpa" matInput readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="52%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'rpaGob' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="48%" fxFlex.sm="50%" fxFlex.xs="50%">
+                            <input matInput formControlName="rpaGob" type="number" (focusout)="onRpaGobChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.xs="50%" fxFlex.sm="50%"
+                                   style="margin-top: -15px;">{{'specialAccount' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input matInput formControlName="rpaSpecialAccount" type="number"
+                                   (focusout)="onSpecialAccountChange($event)">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div *ngIf="isForeignAid" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'dpa' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="75%" fxFlex.sm="50%"
+                                        fxFlex.xs="50%">
+                            <input formControlName="dpa" matInput readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="52%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'dpaThroughPd' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="48%" fxFlex.sm="50%" fxFlex.xs="50%">
+                            <input matInput formControlName="dpaThroughPd" type="number"
+                                   (focusout)="onDpaThroughPdChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+
+                </div>
+
+            </div>
+
+
+            <div *ngIf="isForeignAid" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="52%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'dpaThroughDp' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="48%" fxFlex.sm="50%" fxFlex.xs="50%">
+                            <input matInput formControlName="dpaThroughDp" type="number"
+                                   (focusout)="onDpaThroughDpChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+
+            </div>
+
+
+            <div *ngIf="isSelfFund" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    </div>
+                </div>
+
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'ownFund' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input matInput formControlName="ownFund" type="number"
+                                   (focusout)="onOwnFundChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="52%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'fe' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="48%" fxFlex.sm="50%" fxFlex.xs="50%">
+                            <input matInput formControlName="feOwnFund" type="number"
+                                   oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="feOwnFundBChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+
+                </div>
+            </div>
+
+<!--            <div fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+<!--                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">-->
+<!--                </div>-->
+
+<!--                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>-->
+
+
+<!--                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">-->
+<!--                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+<!--                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%"-->
+<!--                                   style="margin-top: -15px;">{{'others' | translate}}:-->
+<!--                        </mat-label>-->
+<!--                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.sm="50%"-->
+<!--                                        fxFlex.xs="50%">-->
+<!--                            <input formControlName="others" matInput type="number" (focusout)="onOtherChange($event)">-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>-->
+
+<!--                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">-->
+<!--                </div>-->
+
+<!--                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>-->
+
+<!--                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">-->
+<!--                </div>-->
+
+<!--            </div>-->
+
+<!--            ============================-->
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                </div>
+
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'others' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.sm="50%"
+                                        fxFlex.xs="50%">
+                            <input formControlName="others" matInput type="number" (focusout)="onOtherChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="52%" fxFlex.sm="50%" fxFlex.xs="50%"
+                                   style="margin-top: -15px;">{{'othersFe' | translate}} :
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="48%" fxFlex.sm="50%" fxFlex.xs="50%">
+                            <input matInput formControlName="othersFe" type="number"  (keyup)="otherFeChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+
+                </div>
+
+            </div>
+
+<!--            ==============================-->
+            <div fxLayout="row" class="flex items-center justify-end mb-5">
+                <div>
+                    <button *ngIf="!this.form.value.uuid" [disabled]="spinner" class="px-6 ml-3" mat-flat-button (click)="create()"
+                            [color]="'primary'">Add
+                    </button>
+                    <button *ngIf="this.form.value.uuid" [disabled]="spinner" class="px-6 ml-3" mat-flat-button (click)="update()"
+                            [color]="'primary'">Update
+                    </button>
+                </div>
+                <div>
+                    <button (click)="reset()" class="px-6 ml-3" mat-flat-button [color]="'accent'">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+        <table>
+            <thead *ngIf="isForeignAid">
+            <tr>
+                <td rowspan="4">{{'economicCode' | translate}}</td>
+                <td rowspan="4">{{'economicSubCode' | translate}}</td>
+                <td rowspan="4">{{'economicSubCodeDescription' |translate}}</td>
+                <td colspan="8">{{'estimatedCost' | translate}}</td>
+                <td rowspan="4">{{'action' | translate}}</td>
+            </tr>
+
+            <tr>
+                <td rowspan="3">{{'gob' | translate}} <br> {{'fe' | translate}}</td>
+                <td colspan="4">{{'projectAid' | translate}}</td>
+                <td rowspan="3">{{'ownFund' | translate}}</td>
+                <td rowspan="3">{{'others' | translate}}</td>
+                <td rowspan="3">{{'total' | translate}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">{{'rpa' | translate}}</td>
+                <td colspan="2">{{'dpa' | translate}}</td>
+            </tr>
+
+            <tr>
+                <td>{{'gob' | translate}}</td>
+                <td>{{'specialAccount' | translate}}</td>
+                <td>{{'throughPd' | translate}}</td>
+                <td>{{'throughDp' | translate}}</td>
+            </tr>
+            </thead>
+
+            <thead *ngIf="!isForeignAid">
+            <tr>
+                <td rowspan="2">{{'economicCode' | translate}}</td>
+                <td rowspan="2">{{'economicSubCode' | translate}}</td>
+                <td rowspan="2">{{'economicSubCodeDescription' |translate}}</td>
+                <td colspan="3">{{'estimatedCost' | translate}}</td>
+                <td rowspan="2">{{'total' | translate}}</td>
+                <td rowspan="2">{{'action' | translate}}</td>
+            </tr>
+            <tr>
+                <td>{{'gob' | translate}} <br> {{'fe' | translate}}</td>
+                <td>{{'ownFund' | translate}}</td>
+                <td>{{'others' | translate}}</td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let list of expenditureCostList">
+                <td>
+                    <span
+                        *ngFor="let c of economicListAll;">{{c.id == list.economicCodeId ? c.economicCodeName : ''}}</span>
+                </td>
+                <td>
+                    <span
+                        *ngFor="let e of subEconomicAllList;">{{e.id == list.economicSubCodeId ? e.subEconomicCodeName : ''}}</span>
+                </td>
+                <td>{{list.description}}</td>
+                <td>
+                    {{list.gobAmount ? list.gobAmount.toFixed(2) : '0.00'}}<br>
+                    ({{list.feGobAmount ? list.feGobAmount.toFixed(2) : '0.00'}})
+                </td>
+                <td *ngIf="isForeignAid">
+                    {{list.rpaGobAmount ? list.rpaGobAmount.toFixed(2) : '0.00'}}
+                </td>
+                <td *ngIf="isForeignAid">{{list.rpaSpecialAccountAmount ? list.rpaSpecialAccountAmount.toFixed(2) : '0.00'}}</td>
+                <td *ngIf="isForeignAid">{{list.dpaThroughPdAmount ? list.dpaThroughPdAmount.toFixed(2) : '0.00'}}</td>
+                <td *ngIf="isForeignAid">{{list.dpaDpAmount ? list.dpaDpAmount.toFixed(2) : '0.00'}}</td>
+                <td>
+                    {{list.ownFundAmount ? list.ownFundAmount.toFixed(2) : '0.00'}}<br>
+                    {{list.feOwnFundAmount ? list.feOwnFundAmount.toFixed(2) : '0.00'}}
+                </td>
+                <td>
+                    {{list.othersAmount ? list.othersAmount.toFixed(2) : '0.00'}}<br>
+                    ({{list.othersFeAmount ? list.othersFeAmount.toFixed(2) : '0.00'}})
+                </td>
+                <td>{{list.totalAmount ? list.totalAmount.toFixed(2) : '0.00'}}</td>
+                <td>
+                    <div fxLayout="row" class="flex justify-center">
+                        <div>
+                            <button class="toggle-sidebar-folded"
+                                    mat-icon-button
+                                    fxHide.lt-lg>
+                                <mat-icon (click)="edit(list)" color="primary">edit</mat-icon>
+                            </button>
+                        </div>
+                        <div>
+                            <button mat-icon-button class="toggle-sidebar-folded"
+                                    fxHide.lt-lg>
+                                <mat-icon (click)="openDialog(list)" color="warn">delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <mat-paginator
+            [length]="total"
+            [pageSize]="size"
+            [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+            (page)="onChangePage($event)">
+        </mat-paginator>
+    </div>
+
+</div>
+
+<div>
+    <br /><br /><br />
+    <div fxLayout="row wrap" fxLayoutAlign="end">
+        <button class="mr-2" mat-flat-button color="accent" type="button" (click)="back()">Back
+        </button>
+        <button *ngIf="!expenditureCostUpdate" class="mr-2" mat-flat-button color="primary" type="button" (click)="saveAndNext()">{{'Save&Next' |
+            translate}}</button>&nbsp;&nbsp;
+        <button *ngIf="!expenditureCostUpdate" class="mr-2" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+        <button *ngIf="expenditureCostUpdate" class="mr-2" mat-flat-button color="primary" type="button" (click)="saveAndNext()">{{'Save&Next' | translate}}</button>&nbsp;&nbsp;
+        <button *ngIf="expenditureCostUpdate" class="mr-2" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+    </div>
+</div>

@@ -1,0 +1,445 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <div class="flex-auto m-7 body-color">
+        <div *ngIf="actionType != 'view'">
+            <form #f="ngForm">
+                <!-- CARD ONE-->
+                <div>
+                    <div class="heading mt-2">
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2 md:pt-3">
+                                {{'tab_title' | translate}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <mat-card class="tab-color">
+                        <!-- Row 1-->
+                        <div class="md:flex">
+
+                            <!-- <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'fiscalYear' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+
+                                <mat-form-field class="w-full">
+                                    <mat-select #fiscalYearIdModel="ngModel"
+                                        [(ngModel)]="notificationsModel.fiscalYearId"
+                                        [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let f of fiscalYearList" [value]="f.id">{{f.fiscalYear}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="fiscalYearIdModel.dirty && !(fiscalYearIdModel.value | required)"
+                                    class="text-red-600">Required!</div>
+                            </div> -->
+
+                            <!-- <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'researcher_title' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <mat-select #userIds="ngModel" [(ngModel)]="notificationsModel.recipientUserId"
+                                        [ngModelOptions]="{standalone: true}" multiple>
+                                        <mat-option *ngFor="let f of userList" [value]="f.id">{{f.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="userIds.dirty && !(userIds.value | required)" class="text-red-600">Required!
+                                </div>
+                            </div> -->
+
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'SendToEmail' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <mat-form-field class="w-full">
+                                    <input matInput [(ngModel)]="notificationsModel.sendTo"
+                                        [ngModelOptions]="{standalone: true}" #to="ngModel"
+                                        placeholder="Ex : xyz@gmail.com,xyz@gmail.com" required>
+
+                                    <mat-hint *ngIf="(to.touched || f.submitted) && to.errors?.required"
+                                        style="color: crimson !important;">
+                                        {{'Required' | translate}}
+                                    </mat-hint>
+
+                                </mat-form-field>
+                                <!-- <div *ngIf="to.dirty && !(to.value | required)" class="text-red-600">Required!
+                                </div> -->
+                            </div>
+
+                        </div>
+
+                        <div class="md:flex">
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'SendToMobile' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <mat-form-field class="w-full">
+                                    <input matInput [(ngModel)]="notificationsModel.sendToMobile"
+                                        [ngModelOptions]="{standalone: true}" #sendToMobile="ngModel"
+                                        placeholder="Ex : 01700000000,01700000001" required>
+
+                                    <mat-hint
+                                        *ngIf="(sendToMobile.touched || f.submitted) && sendToMobile.errors?.required"
+                                        style="color: crimson !important;">
+                                        {{'Required' | translate}}
+                                    </mat-hint>
+
+                                    <mat-hint
+                                        *ngIf="sendToMobile.dirty && !(sendToMobile.value | required)"
+                                        style="color: crimson !important;">
+                                        {{'Required' | translate}}
+                                    </mat-hint>
+
+                                </mat-form-field>
+                                <!-- <div *ngIf="sendToMobile.dirty && !(sendToMobile.value | required)"
+                                    class="text-red-600">Required!
+                                </div> -->
+                            </div>
+
+                        </div>
+
+                        <!-- Row 4-->
+                        <div class="md:flex">
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'SendType' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+
+                                <mat-form-field class="w-full">
+                                    <mat-select #sendType="ngModel" [(ngModel)]="notificationsModel.sendType"
+                                        [ngModelOptions]="{standalone: true}" required>
+                                        <mat-option [value]="1">E-mail</mat-option>
+                                        <mat-option [value]="2">Mobile</mat-option>
+                                        <mat-option [value]="3">Both</mat-option>
+                                    </mat-select>
+
+                                    <mat-hint *ngIf="(sendType.touched || f.submitted) && sendType.errors?.required"
+                                        style="color: crimson !important;">
+                                        {{'Required' | translate}}
+                                    </mat-hint>
+
+                                </mat-form-field>
+
+                                <!-- <div *ngIf="sendType.dirty && !(sendType.value | required)" class="text-red-600">
+                                    Required!
+                                </div> -->
+
+                            </div>
+
+                        </div>
+
+                        <!-- Row 5-->
+                        <div class="md:flex">
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'MessageText' | translate}}
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <mat-form-field class="w-full">
+                                    <input matInput [(ngModel)]="notificationsModel.messageText"
+                                        [ngModelOptions]="{standalone: true}" maxlength="160"
+                                        placeholder="Max : 160 Character">
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <!-- Row 2-->
+                        <div class="md:flex">
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'subject' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <mat-form-field class="w-full">
+                                    <input #subject="ngModel" matInput [(ngModel)]="notificationsModel.subject"
+                                        [ngModelOptions]="{standalone: true}" required>
+
+                                    <mat-hint *ngIf="(subject.touched || f.submitted) && subject.errors?.required"
+                                        style="color: crimson !important;">
+                                        {{'Required' | translate}}
+                                    </mat-hint>
+
+                                </mat-form-field>
+                                <!-- <div *ngIf="subject.dirty && !(subject.value | required)" class="text-red-600">Required!
+                                </div> -->
+                            </div>
+
+                        </div>
+
+                        <!-- Row 3-->
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'mail_body' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <ckeditor #details="ngModel" [(ngModel)]="notificationsModel.details"
+                                    [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" required>
+
+                                    <mat-hint
+                                        *ngIf="(details.touched || f.submitted || (details.dirty && !(details.value | required))) && details.errors?.required"
+                                        style="color: crimson !important;">
+                                        {{'Required'|translate}}
+                                    </mat-hint>
+                                </ckeditor>
+
+                                <!-- <div *ngIf="details.dirty && !(details.value | required)" class="text-red-600">Required!
+                                </div> -->
+                            </div>
+
+                        </div>
+
+                        <div class="flex justify-end mt-8">
+
+                            <button mat-flat-button [color]="'primary'" type="submit" (click)="back()"
+                                class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                {{ "previous" | translate }}
+                            </button>
+
+
+                            <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit"
+                                (click)="save()" color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                                <span>{{ "save" | translate }}</span>
+                            </button>
+
+                            <!-- [disabled]="!(notificationsModel.subject | required) ||
+                                !(notificationsModel.sendTo | required) ||
+                                !(notificationsModel.sendToMobile | required) ||
+                                !(notificationsModel.details | required) ||
+                                !(notificationsModel.sendType | required)" -->
+                        </div>
+                    </mat-card>
+                </div>
+                <!-- Bottom Button -->
+
+            </form>
+        </div>
+        <div *ngIf="actionType === 'view'">
+
+            <div>
+                <div class="heading mt-2">
+                    <div class="md:flex">
+                        <div *ngIf="actionType != 'view'"
+                            class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2 md:pt-3">
+                            {{'tab_title' | translate}} :
+                        </div>
+                        <div *ngIf="actionType === 'view'"
+                            class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2 md:pt-3">
+                            {{'view_notification' | translate}} :
+                        </div>
+                    </div>
+                </div>
+
+                <mat-card class="tab-color">
+                    <!-- Row 1-->
+                    <div class="md:flex">
+
+                        <!-- <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'fiscalYear' | translate}} :
+                            </span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30  mt-4">
+                            <span> {{getFiscalYearByUserId(notificationsModel.fiscalYearId)}}</span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'researcher_title' | translate}} :
+                            </span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30  mt-4">
+                            <span *ngFor="let f of notificationsModel.recipientUserId"> {{getNameByUserId(f)}},</span>
+                        </div> -->
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700 font-bold">
+                                {{'From' | translate}} :
+                            </span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80  mt-4">
+                            <span> {{userDetails.email}}</span>
+                        </div>
+                    </div>
+
+                    <div class="md:flex">
+
+                        <!-- <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'fiscalYear' | translate}} :
+                            </span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30  mt-4">
+                            <span> {{getFiscalYearByUserId(notificationsModel.fiscalYearId)}}</span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'researcher_title' | translate}} :
+                            </span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30  mt-4">
+                            <span *ngFor="let f of notificationsModel.recipientUserId"> {{getNameByUserId(f)}},</span>
+                        </div> -->
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700 font-bold">
+                                {{'SendToEmail' | translate}} :
+                            </span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80  mt-4">
+                            <span> {{notificationsModel?.sendTo}}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="md:flex">
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700 font-bold">
+                                {{'SendToMobile' | translate}} :
+                            </span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80  mt-4">
+                            <span> {{notificationsModel?.sendToMobile}}</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 2-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700 font-bold">
+                                {{'subject' | translate}} :
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 mt-4">
+                            <span> {{notificationsModel.subject}}</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 2-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700 font-bold">
+                                {{'Send Type' | translate}} :
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 mt-4">
+
+                            <ng-container *ngIf="notificationsModel.sendType=='1'">
+                                <span> Email</span>
+                            </ng-container>
+
+                            <ng-container *ngIf="notificationsModel.sendType=='2'">
+                                <span> Mobile</span>
+                            </ng-container>
+
+                            <ng-container *ngIf="notificationsModel.sendType=='3'">
+                                <span> Both</span>
+                            </ng-container>
+
+                        </div>
+                    </div>
+
+                    <!-- Row 2-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700 font-bold">
+                                {{'Message Text' | translate}} :
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 mt-4">
+                            <span> {{notificationsModel.messageText}}</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 3-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700 font-bold">
+                                {{'mail_body' | translate}} :
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80  mt-4">
+                            <span [innerHTML]="notificationsModel.details"> {{notificationsModel.details}}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end mt-8">
+                        <button mat-flat-button [color]="'primary'" type="submit" (click)="back()"
+                            class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                            {{ "previous" | translate }}
+                        </button>
+
+                        <ng-container *ngIf="notificationsModel.send !=true">
+                            <button *ngIf="actionType === 'view'" mat-flat-button
+                                style="background-color: green; color: #FFFFFF" type="submit" (click)="sendMail()"
+                                color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                                <span>{{ "sent" | translate }}</span>
+                                <mat-icon *ngIf="sendIcon" class="ml-1 ">{{sendIcon}}</mat-icon>
+                            </button>
+                        </ng-container>
+
+
+                        <button *ngIf="actionType != 'view'" mat-flat-button
+                            style="background-color: green; color: #FFFFFF" [disabled]="!(notificationsModel.subject | required) ||
+                                        !(notificationsModel.details | required)" type="submit" (click)="save()"
+                            color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                            <span>{{ "save" | translate }}</span>
+                        </button>
+
+                    </div>
+                </mat-card>
+            </div>
+
+        </div>
+    </div>
+</div>

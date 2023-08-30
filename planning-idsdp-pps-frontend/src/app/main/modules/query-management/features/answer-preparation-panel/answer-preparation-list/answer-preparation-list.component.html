@@ -1,0 +1,199 @@
+<div style="width: 100%" *ngIf="form">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    {{'answerPreparationListHeader' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">
+                                        {{'answerPreparationListHeaderBreadcrumb' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading rounded">
+                    <h1><strong>{{'search' | translate}}</strong></h1>
+                </div>
+                <!--<div class="p-8 pb-4">-->
+                <!-- Search Panel Start -->
+                <form [formGroup]="form">
+                    <!-- Searching Fields Start -->
+                    <div class="p-5" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="15%" fxFlex.xs="50%" fxFlex.sm="50%" style="margin-top: -15px;">
+                            {{'questionSource' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="26%" fxFlex.xs="50%"
+                                        fxFlex.sm="50%">
+                            <mat-select formControlName="questionSourceSearch">
+                                <mat-option value="country-1">Select</mat-option>
+                                <mat-option value="country-2">Ministry</mat-option>
+                                <mat-option value="country-3">Division</mat-option>
+                                <mat-option value="country-4">Others</mat-option>
+                            </mat-select>
+                            <!--<mat-error>Question is required!</mat-error>-->
+                        </mat-form-field>
+
+                        <mat-label fxFlex="15%" fxFlex.xs="50%" fxFlex.sm="50%" style="margin-top: -15px;">
+                            {{'questionType' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="26%" fxFlex.xs="50%"
+                                        fxFlex.sm="50%">
+                            <mat-select formControlName="questionTypeSearch">
+                                <mat-option value="country-1">Select</mat-option>
+                                <mat-option value="country-2">Star Marks</mat-option>
+                                <mat-option value="country-3">Non Star Marks</mat-option>
+                            </mat-select>
+                            <!--<mat-error>Question Type is required!</mat-error>-->
+                        </mat-form-field>
+                        <!-- Searching Fields End -->
+
+                    </div>
+                </form>
+                <!-- Search Panel End -->
+                <!--</div>-->
+            </div>
+
+            <!-- List Grid -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-5">
+
+                <div fxFlex="30%">
+                    <h1 class="header1"><strong>{{'questionList' | translate}}</strong></h1>
+                </div>
+
+                <div>
+                    <mat-form-field fxFlex="100%">
+                        <!--<mat-label>Filter</mat-label>-->
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Filter" #input>
+                        <button mat-button matSuffix mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 bg-transparent" matSort>
+
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'slNo' | translate}}</th>
+                            <td mat-cell *matCellDef="let row"> {{row.id}}</td>
+                        </ng-container>
+
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'questionTitle' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row"> {{row.progress}}%</td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="progress">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'questionType' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+                        </ng-container>
+
+                        <!-- Color Column -->
+                        <ng-container matColumnDef="color">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'questionSource' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}}</td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>{{'action' | translate}}</th>
+                            <td mat-cell *matCellDef="let row">
+                                <div class="buttons">
+                                    <button mat-icon-button class="toggle-sidebar-folded" matTooltip="Prepare Answer" fxHide.lt-lg>
+                                        <mat-icon (click)="edit(row.id)" color="accent"
+                                                  [routerLink]="['/answer-preparation-panel/add-new']">add
+                                        </mat-icon>
+                                    </button>
+
+                                    <button mat-icon-button class="toggle-sidebar-folded" matTooltip="View"
+                                            fxHide.lt-lg>
+                                        <mat-icon (click)="edit(row.id)" color="accent"
+                                                  [routerLink]="['/answer-preparation-panel/view']">visibility
+                                        </mat-icon>
+                                    </button>
+
+                                    <button mat-icon-button class="toggle-sidebar-folded" matTooltip="Edit"
+                                            fxHide.lt-lg>
+                                        <mat-icon (click)="edit(row.id)" color="accent"
+                                                  [routerLink]="['/answer-preparation-panel/add-new']">edit
+                                        </mat-icon>
+                                    </button>
+
+                                    <button mat-icon-button class="toggle-sidebar-folded" matTooltip="Delete"
+                                            fxHide.lt-lg>
+                                        <mat-icon (click)="openDialog(row.id)" color="warn"
+                                                  [routerLink]="['/answer-preparation-panel/delete']">delete
+                                        </mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <!-- Table Action Buttons End-->
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </div>
+
+            <!-- Print -->
+            <div class="flex-auto m-7">
+                <div class="max-w-8xl" style="margin-top: -68px; margin-right: 60px">
+                    <div class="buttons" align="end">
+                        <button mat-icon-button class="toggle-sidebar-folded" fxHide.lt-lg>
+                            <mat-icon>print</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Send to Concern Person -->
+            <div class="flex-auto m-7">
+                <div class="max-w-8xl" style="margin-top: -20px; margin-right: -28px">
+                    <div class="buttons" align="end">
+                        <button mat-raised-button style="align-items: end"
+                                [routerLink]="['/answer-preparation-panel/sendConcernPerson']"
+                                color="primary">{{'sendToConcernPerson' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

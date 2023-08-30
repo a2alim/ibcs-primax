@@ -1,0 +1,67 @@
+export const locale = {
+    lang: 'bn',
+    data: {
+        'headerTitle': 'সম্মাননা চিঠি',
+        'headerSubTitle': '<span>হোম > সম্মাননা চিঠিপত্র</span>',
+        'tab_title':'সম্মাননা চিঠি ফর্ম',
+
+        'fiscalYear': 'অর্থবছর',
+        'researcher_title': 'গবেষক শিরোনাম',
+        'subject': 'বিষয়',
+        'letterType': 'চিঠির ধরন',
+        'mail_type': 'মেইলের ধরন',
+        'mail_body': 'মেইল বডি',
+        'Template_type': 'টেমপ্লেট টাইপ',
+        'Pre_defined_template_list': 'পূর্বনির্ধারিত টেমপ্লেট',
+        //View Page
+        'searchTitle':'সম্মাননা চিঠির তালিকা',
+        'preview': 'বিস্তারিত',
+        'mail_status': 'মেইল স্ট্যাটাস',
+
+        //List page
+        'addNew': 'নতুন পুরস্কার পত্র যোগ করুন',
+
+        //for detail page
+        'details': 'বিস্তারিত তথ্য',
+        'previous': 'আগে',
+        'download': 'ডাউনলোড',
+        'print': 'প্রিন্ট',
+        'send': 'পাঠান',
+        'reset': 'রিসেট',
+        'requestLetter': 'আহ্বান পত্র',
+        'sl': 'নং',
+
+
+        'ResearchTitle': 'গবেষণা শিরোনাম',
+        'ResearchCategory': 'গবেষণা বিভাগ',
+        'Sector': 'সেক্টর',
+        'Sub-Sector': 'সাব-সেক্টর',
+        'FiscalYear': 'অর্থবছর',
+        'SDGsGoal': 'SDGs লক্ষ্য',
+        'Email': 'ই-মেইল',
+        'MobileNumber': 'মোবাইল নম্বর',
+        'RegistrationNumber': 'নিবন্ধন নম্বর',
+        'memorandumNo': 'স্মারক নং',
+        'eNothiDateEn': 'ই-নোথি তারিখ (এন)',
+        'eNothiDateBn': 'ই-নোথি তারিখ (বিএন)',
+        'template_type': 'টেমপ্লেট টাইপ',
+        'pre_defined_template_list': 'পূর্বনির্ধারিত টেমপ্লেট',
+
+        // new for view Page
+        'GovernmentPeopleRepublicBangladesh': 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার ',
+        'MinistryOfPlanning': 'পরিকল্পনা মন্ত্রণালয়',
+        'PlanningDivision': 'পরিকল্পনা বিভাগ',
+        'SocialScienceResearchCouncil': 'সামাজিকবিজ্ঞান গবেষণা পরিষদ',
+        'SherEbanglaNagarDhaka': 'শেরেবাংলা নগর, ঢাকা ',
+        'webSite': 'www.ssrc.portal.govt.bd',
+        'MemorandumNo': 'স্মারক নং',
+        'Date': 'তারিখঃ ',
+        'Subject': 'বিষয়ঃ ',
+        'proposal_traning_institude_name': 'প্রশিক্ষণ শিরোনাম',
+        'proposal_traning_institude_name2': 'প্রশিক্ষণ শিরোনাম',
+        'update': 'আপডেট করুন',
+        'save': 'সংরক্ষন করুন',
+        'action': 'একশন',
+        'required': "আবশ্যক!",
+    }
+};

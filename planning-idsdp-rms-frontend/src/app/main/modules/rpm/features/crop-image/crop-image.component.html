@@ -1,0 +1,64 @@
+<div class="width-100">
+
+    <!-- Header -->
+    <div>
+        <app-form-header [title]="'headerTitle' | translate" [subTitle]="'subHeaderTitle' | translate">
+        </app-form-header>
+    </div>
+
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <mat-card class="tab-color">
+                <!-- Row 1-->
+                <div class="md:flex">
+                   <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2">
+                       <span class="text-gray-700 text-center font-bold">
+                           {{'UploadImage' | translate}}<strong class="required">*</strong>
+                       </span>
+                   </div>
+                   <div class="w-full sm:w-auto md:w-30 lg:w-30 grid justify-center">                    
+                       <input type="file" (change)="fileChangeEvent($event)" />
+                   </div>
+               </div>
+   
+               <div class="md:flex mt-10">
+                   <div class="w-full sm:w-auto md:w-50 lg:w-50" style="border: 1px solid #97afbd; min-height: 300px;">
+                       <div class="text-center font-bold titleHeader">
+                           {{'ResizeImage' | translate}}
+                       </div>
+                       <div class="grid justify-center">
+                        <!-- [maintainAspectRatio]="true"
+                        [aspectRatio]="5 / 5.5" 
+                        [resizeToWidth]="imageSize" 
+                    -->
+                           <image-cropper
+                                   [imageChangedEvent]="imageChangedEvent" 
+                                   [maintainAspectRatio]="true"
+                                   [aspectRatio]="RatioWidth / RatioHeight"                                   
+                                   [resizeToWidth]="imageSize" 
+                                   format="png"                              
+                                   (imageCropped)="imageCropped($event)"
+                                   (imageLoaded)="imageLoaded()"
+                                   (cropperReady)="cropperReady()"
+                                   (loadImageFailed)="loadImageFailed()"
+                               ></image-cropper>
+                       </div>
+                   </div>
+                   <div class="w-full sm:w-auto md:w-50 lg:w-50" style="border:1px solid #97afbd; min-height: 300px;">
+                       <div class="text-center font-bold titleHeader">
+                          {{'PreviewImage' | translate}}
+                       </div>
+                       <div class="grid justify-center">
+                           <img [src]="croppedImage" [style.width]="imageSize + 'px !important'" />
+                           <a [href]="croppedImage"
+                           class="btn downloadImg"                           
+                           target="_blank"
+                           download="croppedImage"
+                           >{{'DownloadNow' | translate}}</a>
+                       </div>
+                   </div>
+               </div>
+           </mat-card>
+        </div>
+    </div>
+</div>

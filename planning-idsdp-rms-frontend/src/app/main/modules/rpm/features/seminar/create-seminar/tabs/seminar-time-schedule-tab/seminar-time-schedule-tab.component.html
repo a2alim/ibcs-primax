@@ -1,0 +1,521 @@
+<div class="body">
+
+
+    <div *ngIf="spinner || spinner2 || spinner3 || spinner4 || spinner5 || spinner6"
+        class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <form #myForm="ngForm">
+
+        <div class="heading mt-2">
+            <h1>{{'cardHeader2' | translate}}</h1>
+        </div>
+
+        <mat-card class="tab-color">
+            <!-- Row 1-->
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'position_in_seminar' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <mat-select (selectionChange)="actionByChange($event.value)"
+                            [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="seminarTimeScheduleFormModel.positionInSeminar" required
+                            #positionInSeminar="ngModel">
+                            <mat-option value="Lead">Lead</mat-option>
+                            <mat-option value="Researcher">Researcher</mat-option>
+                            <mat-option value="Others">Others</mat-option>
+                        </mat-select>
+
+                        <mat-hint
+                            *ngIf="(positionInSeminar.touched || myForm.submitted) && positionInSeminar.errors?.required"
+                            style="color: crimson !important;">
+                            {{'Required !.' | translate}}
+                        </mat-hint>
+
+                    </mat-form-field>
+                </div>
+
+                <ng-container *ngIf="isLead">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'concerned_person' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [(ngModel)]="seminarTimeScheduleFormModel.name"
+                                [ngModelOptions]="{standalone: true}" required #name="ngModel">
+
+                            <mat-hint *ngIf="(name.touched || myForm.submitted) && name.errors?.required"
+                                style="color: crimson !important;">
+                                {{'Required !.' | translate}}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="isResearcher || isOthers">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'duration1' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                            <input matInput [(ngModel)]="seminarTimeScheduleFormModel.startTime"
+                                [ngModelOptions]="{standalone: true}" required #startTime="ngModel">
+                            <mat-hint *ngIf="(startTime.touched || myForm.submitted) && startTime.errors?.required"
+                                style="color: crimson !important;">
+                                {{'Required !.' | translate}}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+
+            </div>
+
+            <!-- Row 2-->
+            <div class="md:flex">
+
+                <ng-container *ngIf="isLead">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'duration1' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                            <input matInput [(ngModel)]="seminarTimeScheduleFormModel.startTime"
+                                [ngModelOptions]="{standalone: true}" required #startTime="ngModel">
+                            <mat-hint *ngIf="(startTime.touched || myForm.submitted) && startTime.errors?.required"
+                                style="color: crimson !important;">
+                                {{'Required !.' | translate}}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+
+
+                <ng-container *ngIf="isOthers || isLead">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'Agenda' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="seminarTimeScheduleFormModel.scheduleName" required
+                                #scheduleName="ngModel">
+                            <mat-hint
+                                *ngIf="(scheduleName.touched || myForm.submitted) && scheduleName.errors?.required"
+                                style="color: crimson !important;">
+                                {{'Required !.' | translate}}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+
+            </div>
+
+            <ng-container *ngIf="isLead">
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'Mobile' | translate}}
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="seminarTimeScheduleFormModel.mobile" #mobile="ngModel">
+
+                            <!-- <mat-hint *ngIf="(mobile.touched || myForm.submitted) && mobile.errors?.required"
+                                style="color: crimson !important;">
+                                {{'Required !.' | translate}}
+                            </mat-hint> -->
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'Email' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="seminarTimeScheduleFormModel.emailAddress" required
+                                #emailAddress="ngModel">
+
+                            <mat-hint
+                                *ngIf="(emailAddress.touched || myForm.submitted) && emailAddress.errors?.required"
+                                style="color: crimson !important;">
+                                {{'Required !.' | translate}}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="isLead">
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'Designation' | translate}}
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="seminarTimeScheduleFormModel.designation">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    </div>
+
+                </div>
+            </ng-container>
+
+            <div class="md:flex">
+
+                <ng-container *ngIf="isResearcher">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'m1_researcher_proposal' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="seminarTimeScheduleFormModel.proposalId" #proposalId="ngModel" required>
+                                <mat-option *ngFor="let researcher of researcherProposalList" [value]="researcher.id">
+                                    {{researcher.researchTitle}}</mat-option>
+                            </mat-select>
+
+                            <mat-hint *ngIf="(proposalId.touched || myForm.submitted) && proposalId.errors?.required"
+                                style="color: crimson !important;">
+                                {{'Required !.' | translate}}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                </ng-container>
+
+                <ng-container *ngIf="isResearcher">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'reviewTime' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                            <input matInput [(ngModel)]="seminarTimeScheduleFormModel.reviewTime"
+                                [ngModelOptions]="{standalone: true}" required #reviewTime="ngModel">
+                            <mat-hint *ngIf="(reviewTime.touched || myForm.submitted) && reviewTime.errors?.required"
+                                style="color: crimson !important;">
+                                {{'Required !.' | translate}}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                </ng-container>
+
+            </div>
+
+            <!--<div class="md:flex">
+                <div class="w-full mt-1 ml-5 flex justify-end">
+                    <button mat-raised-button color="primary" (click)="onSaveOrUpdate()"
+                        [disabled]="spinner || spinner2 || spinner3 || spinner4 || spinner5 || spinner6">
+                        {{seminarTimeScheduleFormModel.id ? 'Update' : 'Save'}}
+                    </button>
+                </div>
+            </div>-->
+
+        </mat-card>
+
+
+        <!--Table-->
+        <diV class="mt-5 flex-auto overflow-y-auto overflow-x-auto">
+            <table class="w-full border-collapse border border-black">
+
+                <thead>
+                    <tr class="text-center">
+                        <td class="border border-black font-bold" style="width: 15%">{{'time_allocation' | translate}}
+                        </td>
+                        <td class="border border-black font-bold" style="width: 40%">{{'schedule' | translate}}</td>
+                        <td class="border border-black font-bold" style="width: 30%">{{'concerned_individuals' |
+                            translate}}</td>
+                        <td class="border border-black font-bold" style="width: 15%">{{'action' | translate}}</td>
+                    </tr>
+                </thead>
+
+
+                <ng-container *ngIf="timeScheduleLeadList.length > 0">
+                    <ng-container *ngFor="let item of timeScheduleLeadList; let i ='index'">
+                        <tr class="text-center">
+
+                            <td class="border border-black">{{item.startTime}}</td>
+                            <td class="border border-black">{{item.scheduleName}}</td>
+
+                            <td class="border border-black">
+                                <span>{{item?.name}}</span>
+                                <br>
+                                <span>{{item?.designation}}</span>
+                                <br>
+                                <span>{{item?.mobile}}</span>
+                                <br>
+                                <span>{{item?.emailAddress}}</span>
+                            </td>
+
+                            <td class="border border-black">
+                                <button class="toggle-sidebar-folded" matTooltip="Edit" fxHide.lt-lg
+                                    (click)="onEdit(item)">
+                                    <mat-icon class="text-blue">edit</mat-icon>
+                                </button>
+                                <button (click)="openDeleteDialog(item.uuid, item.m2CreateSeminarId.id)" mat-icon-button
+                                    class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>
+                                    <mat-icon color="warn">delete
+                                    </mat-icon>
+                                </button>
+                            </td>
+
+                        </tr>
+                    </ng-container>
+                </ng-container>
+
+
+                <ng-container *ngIf="timeScheduleResearcherList.length > 0">
+                    <tr>
+                        <td class="text-center font-bold p-2" colspan="4">{{'presentation_of_research_paper'
+                            |translate}}</td>
+                    </tr>
+
+                    <ng-container *ngFor="let item of timeScheduleResearcherList; let i ='index'">
+
+                        <tr class="text-center">
+                            <td class="border border-black">{{item.startTime}}</td>
+
+                            <td class="border border-black">
+                                <span style="text-align: center !important;"><b>{{'Heading' | translate}}</b></span><br>
+                                <span>{{item.m1ResearcherProposalId.researchTitle}}</span><br>
+
+                                <span><b>{{'research_category' | translate}}</b></span> :
+                                <span *ngIf="item.m1ResearcherProposalId.stResearchCatTypeId == 1"> Institutional</span>
+                                <span *ngIf="item.m1ResearcherProposalId.stResearchCatTypeId == 2"> Fellowship </span>
+                                <span *ngIf="item.m1ResearcherProposalId.stResearchCatTypeId == 4"> PhD </span>
+                                <span *ngIf="item.m1ResearcherProposalId.stResearchCatTypeId == 5"> MPhil </span>
+                                <span *ngIf="item.m1ResearcherProposalId.stResearchCatTypeId == 6"> Promotional </span><br>
+
+                                <span><b>{{'field' | translate}}</b></span> :
+                                <span *ngIf="item?.sectorName">
+                                    {{item.sectorName?.fieldName}}
+                                    <!-- {{sectorName(item?.m1ResearcherProposalId?.stSectorTypeId)}} -->
+                                </span>
+                            </td>
+
+                            <td class="border border-black">
+                                <span>{{item?.m1ResearcherProposalId?.researcherProfilePersonalInfoMaster?.userDto?.name}}</span>
+                                <br>
+                                <span>{{item?.m1ResearcherProposalId?.researcherProfilePersonalInfoMaster?.userDto?.designation}}</span>
+                            </td>
+
+                            <td class="border border-black">
+                                <button class="toggle-sidebar-folded" matTooltip="Edit" fxHide.lt-lg
+                                    (click)="onEdit(item)">
+                                    <mat-icon class="text-blue">edit</mat-icon>
+                                </button>
+                                <button (click)="openDeleteDialog(item.uuid , item.m2CreateSeminarId.id)"
+                                    mat-icon-button class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>
+                                    <mat-icon color="warn">delete
+                                    </mat-icon>
+                                </button>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="border border-black text-center">{{item.reviewTime}}</td>
+                            <td class="border border-black text-center font-bold">{{'review' | translate}}</td>
+                            <td colspan="2" class="border border-black text-center">
+                                <!-- <button class="toggle-sidebar-folded" matTooltip="Edit" fxHide.lt-lg
+                                    (click)="onEdit(item)">
+                                    <mat-icon class="text-blue">edit</mat-icon>
+                                </button> -->
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+
+
+                <ng-container *ngIf="timeScheduleOthersList.length > 0">
+                    <ng-container *ngFor="let item of timeScheduleOthersList; let i ='index'">
+                        <tr class="text-center">
+                            <td class="border border-black">{{item.startTime}}</td>
+                            <td class="border border-black">{{item.scheduleName}}</td>
+                            <td class="border border-black"></td>
+                            <td class="border border-black">
+                                <button class="toggle-sidebar-folded" matTooltip="Edit" fxHide.lt-lg
+                                    (click)="onEdit(item)">
+                                    <mat-icon class="text-blue">edit</mat-icon>
+                                </button>
+                                <button (click)="openDeleteDialog(item.uuid , item.m2CreateSeminarId.id)"
+                                    mat-icon-button class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>
+                                    <mat-icon color="warn">delete
+                                    </mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+
+            </table>
+        </diV>
+
+        <!--<div>
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                &lt;!&ndash;<mat-card>&ndash;&gt;
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                        &lt;!&ndash; Position Column &ndash;&gt;
+                        <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl_no' | translate}} </th>
+                            <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                                {{  (i + 1) }}
+                            </td>
+                        </ng-container>
+
+                        &lt;!&ndash; Name Column &ndash;&gt;
+                        <ng-container matColumnDef="position_in_seminar">
+                            <th mat-header-cell *matHeaderCellDef> {{'position_in_seminar' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.positionInSeminar}} </td>
+                        </ng-container>
+
+                        &lt;!&ndash; Name Column &ndash;&gt;
+                        <ng-container matColumnDef="start_date">
+                            <th mat-header-cell *matHeaderCellDef> {{'start_date' | translate}} </th>
+                            <td mat-cell *matCellDef="let element" class="text-center">
+                                {{element.startTime}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="proposal_info">
+                            <th mat-header-cell *matHeaderCellDef> {{'proposal_info' | translate}} </th>
+                            <td mat-cell *matCellDef="let element" class="text-center">
+                                <ng-container >
+
+                                    &lt;!&ndash; <button mat-raised-button color="primary" class="mb-2" (click)="addResearcherProfile(element.uuid)">Proposal</button> &ndash;&gt;
+                                    <button mat-raised-button color="primary" class="mb-2" (click)="goToResearcherProposalList(element)">{{'research_proposal' | translate}}</button>
+
+                                    &lt;!&ndash; <button (click)="editRow(element)" mat-icon-button class="toggle-sidebar-folded pt-5"
+                                            matTooltip="Edit" fxHide.lt-lg>
+                                        <mat-icon color="accent">edit
+                                        </mat-icon>
+                                    </button>
+
+                                    <button (click)="openDialog(element.uuid)" mat-icon-button
+                                            class="toggle-sidebar-folded pt-5" matTooltip="Delete" fxHide.lt-lg>
+
+                                        <mat-icon color="warn">delete
+                                        </mat-icon>
+                                    </button> &ndash;&gt;
+
+                                </ng-container>
+                            </td>
+                        </ng-container>
+
+                        &lt;!&ndash; Action Column &ndash;&gt;
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}} </th>
+                            <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                                <div class="buttons">
+                                    <button (click)="deleteDialog(i)" mat-icon-button
+                                            class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>
+
+                                        <mat-icon color="warn">delete
+                                        </mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        &lt;!&ndash; Initialized Table Header And Dataset&ndash;&gt;
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </div>
+        </div>-->
+        <!-- Bottom Button -->
+        <div class="flex justify-end mt-8">
+            <!-- <button
+                mat-flat-button
+                style="background-color: green; color: #FFFFFF"
+                type="submit"
+                (click)="saveAndNext()"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span >{{ "save" | translate }}</span>
+            </button> -->
+
+            <!-- <button
+                mat-flat-button
+                (click)="saveAndNext()"
+                type="button"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span > {{ "save_and_next" | translate }}</span>
+            </button> -->
+
+            <button mat-flat-button [color]="'primary'" (click)="previousTab()" type="submit"
+                class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{ "Previous" | translate }}
+            </button>
+
+            <button mat-flat-button (click)="onSaveOrUpdate()" style="background-color: green; color: #FFFFFF" type="button"
+                color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                <mat-icon class="mr-1">save</mat-icon>
+                {{ "save" | translate }}
+            </button>
+
+            <!-- <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF" type="button"
+                color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                {{ "next" | translate }}
+                <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+            </button> -->
+        </div>
+    </form>
+
+</div>
+<!-- user_type in ('Rms_DO','Rms_Evaluator','Rms_Researcher','Rms_Training_Institute','NOTHI') -->

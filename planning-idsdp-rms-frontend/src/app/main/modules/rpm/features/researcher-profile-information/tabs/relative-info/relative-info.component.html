@@ -1,0 +1,206 @@
+<div class="body">
+
+    <div *ngIf="spinner || spinner1" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <form name="frmGroup" #f="ngForm">
+        <!-- Form Body -->
+        <div class="flex justify-end">
+            <div  class="addMoreBtn" mat-raised-button color="primary" (click)="addNewRelativeForm()">
+                <mat-icon *ngIf="addNewIcon" class="mr-1" style="color:#f3efe8">{{addNewIcon}}</mat-icon>
+                {{'add_more' | translate}}
+            </div>
+        </div>
+
+        <!-- CARD ONE-->
+        <div>
+            <div>
+                <ng-container *ngFor="let relativeFormModel of relativeFormModelList; let i = index">
+                    <ng-container *ngIf="!relativeFormModel.isDeleted">
+                        <div class="heading mt-2">
+                            <div class="md:flex">
+                                <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2 md:pt-3">
+
+                                    {{'cardHeader1_t2' | translate}}
+
+                                </div>
+                                <div class="flex w-full justify-end sm:w-auto md:w-20 lg:w-20">
+                                    <button mat-raised-button color="accent" (click)="deleteNewRelativeForm(i)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <mat-card class="tab-color">
+
+
+                            <!-- Row 1-->
+                            <div class="md:flex">
+                                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                        {{'name_t2' | translate}}<strong class="required">*</strong>
+                                    </span>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                    <mat-form-field class="w-full">
+                                        <input #name="ngModel" matInput [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="relativeFormModel.name" required>
+                                        <mat-hint *ngIf="(name.touched || f.submitted) && name.errors?.required"
+                                            style="color: crimson !important;">Name is required!
+                                        </mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                        {{'email_address_t2' | translate}}
+                                    </span>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                    <mat-form-field class="w-full">
+
+                                        <input matInput [(ngModel)]="relativeFormModel.email"
+                                            [ngModelOptions]="{standalone: true}" #email="ngModel"
+                                            pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" type="email">
+                                        <mat-hint *ngIf="(email.touched || email.dirty)&& email.invalid"
+                                            style="color: crimson !important;">E-mail is invalid!
+                                        </mat-hint>
+
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <!-- Row 2-->
+                            <div class="md:flex">
+                                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                        {{'mobile_no_t2' | translate}}<strong class="required">*</strong>
+                                    </span>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                    <mat-form-field class="w-full">
+                                        <input matInput #phoneNo="ngModel" maxlength="11"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="relativeFormModel.phoneNo"
+                                            pattern="^((\\+91-?)|0)?[0-9]{10}$" #mobNumber="ngModel" required
+                                            (keyup)="checkUniquePhonNumber(relativeFormModel.phoneNo,i)"
+                                            >
+
+                                        <mat-hint *ngIf="(mobNumber.touched || f.submitted) && mobNumber.errors?.required"
+                                            style="color: crimson !important;">Mobile no is required!
+                                        </mat-hint>
+
+                                        <div *ngIf="mobNumber.errors && !isValidFormSubmitted" [ngClass]="'error'">
+                                            <div *ngIf="mobNumber.errors.pattern">
+                                                Mobile number is not valid.
+                                            </div>
+                                        </div>
+
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                        {{'present_address_t2' | translate}}
+                                    </span>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                    <mat-form-field class="w-full">
+                                        <input matInput [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="relativeFormModel.presentAddress">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <!-- Row 3-->
+                            <div class="md:flex">
+                                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                        {{'permanent_address_t2' | translate}}<strong class="required">*</strong>
+                                    </span>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                    <mat-form-field class="w-full">
+                                        <input matInput #permanentAddress="ngModel"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="relativeFormModel.permanentAddress" required>
+                                        <mat-hint *ngIf="(permanentAddress.touched || f.submitted) && permanentAddress.errors?.required"
+                                            style="color: crimson !important;">Permanent address is required!
+                                        </mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                        {{'nid_number_t2' | translate}}<strong class="required">*</strong>
+                                    </span>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                    <mat-form-field class="w-full">
+                                        <input matInput #nid="ngModel" [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="relativeFormModel.nid" type="number" required>
+
+                                        <mat-hint *ngIf="nid.dirty && !(nid.value | nid_number)"
+                                            style="color: crimson !important;">
+                                            Invalid number. Please provide a valid 10 digit, 13 digit or 17 digit
+                                            number.
+                                        </mat-hint>
+
+                                        <mat-hint *ngIf="(nid.touched || f.submitted) && nid.errors?.required"
+                                            style="color: crimson !important;">
+                                            NID number is required!
+                                        </mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </ng-container>
+                </ng-container>
+
+                <div class="flex justify-end mt-8">
+                    <button mat-flat-button [color]="'primary'" (click)="previousTab()" type="submit"
+                        class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        {{ "previous" | translate }}
+                    </button>
+
+                    <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit"
+                        (click)="onSave()" [disabled]="spinner || spinner1 || isPhonNumberDuplicate" color="primary"
+                        class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                        <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span>{{ "save" | translate }}</span>
+                    </button>
+
+                    <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit"
+                        (click)="onSave(1)" [disabled]="spinner || spinner1 || isPhonNumberDuplicate" color="primary"
+                        class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                        <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span>{{ "SaveAndView" | translate }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Row 1-->
+        <div class="md:flex mt-8">
+            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                <span class="text-gray-700">
+                    {{'declaration' | translate}}<strong class="required">*</strong>
+                </span>
+            </div>
+            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                <mat-checkbox class="example-margin" [(ngModel)]="declaration" [ngModelOptions]="{standalone: true}">
+                </mat-checkbox>
+                {{'Declaration_m' | translate}}
+                <div>
+                    <mat-hint *ngIf="!declaration" style="color: crimson !important;">Declaration is required!
+                    </mat-hint>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,220 @@
+<div style="width: 100%">
+    <!-- Header -->
+
+    <app-form-header class="no-print" [subTitle]="'headerOfSubtitle' | translate" [title]="'header' | translate">
+    </app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+    <div *ngIf="list" class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="flex justify-end mb-3">
+                <button [routerLink]="['/guarantor-list/add']" class="mr-3" color="primary" mat-flat-button>
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                    {{'addNew' | translate}}
+                </button>
+            </div>
+
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+                <div class="md:flex tbl-title">
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+
+                    </div>
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-right">
+                        <mat-form-field fxFlex="100%">
+                            <!--<mat-label>Filter</mat-label>-->
+                            <input #input (keyup)="applyFilter($event)" [placeholder]="'search'|translate" matInput />
+                            <button (click)="search()" mat-button mat-icon-button matPrefix>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <!--<mat-card>-->
+                    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                        <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sl">
+                                <th *matHeaderCellDef class="w-16 capitalize" mat-header-cell> {{'sl' | translate}}
+                                </th>
+                                <td *matCellDef="let row; let i = index;" mat-cell>
+                                    {{(i + 1) + (page * size)}}
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="instituteName">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell style="text-align: left;">
+                                    {{'institute_name_fiscale_year_proposed_tranning_title' | translate}}
+                                </th>
+
+                                <td *matCellDef="let element" mat-cell>
+                                   <span class="font-semibold cursor-pointer text-cyan-400">
+                                    {{'instituteName' | translate}}: {{element.proposalModel.trainingInstituteProfileModel.trainingInstituteName}} </span><br>
+                                   <span class="font-nomal cursor-pointer text-green-600">
+                                    {{'proposedTranningTitle' | translate}}:    {{element.proposalModel.trainingName}} </span><br>
+                                   <span class="text-amber-500 font-nomal">
+                                    {{'fiscalYear' | translate}}:   {{element.fiscalYear}} </span>
+                                   </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="guarantorName">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'guarantorName' |
+                                    translate}} </th>
+                                <td *matCellDef="let element" mat-cell> {{element.guarantorName}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="mobileNo">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'mobileNo' | translate}}
+                                </th>
+                                <td *matCellDef="let element" mat-cell> {{element.mobileNo}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="refundDays">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'refundDays' | translate}}
+                                </th>
+                                <td *matCellDef="let element" mat-cell> {{element.refundDays}} </td>
+                            </ng-container>
+                            <!-- <ng-container matColumnDef="fiscaleYear">
+                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'fiscaleYear' | translate}}
+                                </th>
+                                <td *matCellDef="let element" mat-cell> {{element.fiscalYear}}</td>
+                            </ng-container> -->
+                            <!-- <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field (change)="uploadFile($event.target.files,'nid_image')" class="w-full">
+                                    {{ isEditable && !isReset ? ((guarantorRequest?.nidImage?.fileName
+                                    < 15) ? guarantorRequest?.nidImage?.fileName : guarantorRequest?.nidImage?.fileName.substring(0, 15) + '...') : '' }} <ngx-mat-file-input [(ngModel)]="nidImg" [ngModelOptions]="{standalone: true}" [accept]="'image/*'">
+                                        </ngx-mat-file-input>
+                                        <mat-icon matSuffix>folder</mat-icon>
+                                        <mat-error>File is {{ 'required' | translate }}</mat-error>
+                                </mat-form-field>
+                            </div> -->
+                            <!--                            <ng-container matColumnDef="active">-->
+                            <!--                                <th *matHeaderCellDef class="capitalize" mat-header-cell> {{'active' | translate}} </th>-->
+                            <!--                                &lt;!&ndash;                                <td *matCellDef="let element" mat-cell> {{element.active == true ? 'Yes' : 'No'}} </td>&ndash;&gt;-->
+                            <!--                                <td *matCellDef="let element" mat-cell> {{element.active}} </td>-->
+                            <!--                            </ng-container>-->
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th *matHeaderCellDef class="pl-4 w-42 capitalize" mat-header-cell> {{'Action' |
+                                    translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <div class="buttons">
+                                        <button (click)="openSendUploadDialog(element.id, element);"
+                                            [disabled]="element.submitted || element.uploadFile === undefined"
+                                            fxHide.lt-lg mat-icon-button matTooltip="upload">
+                                            <mat-icon color="primary">upload_file</mat-icon>
+                                        </button>
+                                        <button (click)="seeDetails(element)" class="toggle-sidebar-folded" fxHide.lt-lg
+                                            matTooltip="visibility">
+                                            <mat-icon color="primary">visibility
+                                            </mat-icon>
+                                        </button>
+                                        <button (click)="edit(element.id)" [disabled]="element.submitted"
+                                            class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button
+                                            matTooltip="Edit">
+                                            <mat-icon color="accent">edit
+                                            </mat-icon>
+                                        </button>
+                                        <button (click)="openDialog(element.id)" [disabled]="element.submitted"
+                                            class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button
+                                            matTooltip="Delete">
+                                            <mat-icon color="error">delete
+                                            </mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator (page)="onChangePage($event)" [length]="total" [pageSizeOptions]="[5, 10, 25, 100]"
+                        [pageSize]="size">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+
+
+    <div *ngIf="view" class="flex-auto m-5 body-color">
+        <!-- CARD ONE-->
+        <div class="md:flex no-print">
+            <div class="flex w-full md:justify-end">
+                <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent" (click)="hideDetails()"
+                    type="button">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'back' | translate}}
+                </button>
+
+                <button class="px-3 mr-2  printBtn" mat-flat-button color="accent" (click)="print()" type="button">
+                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                    {{'print' | translate}}
+                </button>
+
+                <button class="px-3 downloadBtn" mat-flat-button color="accent" (click)="download()" type="button">
+                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                    {{'download' | translate}}
+                </button>
+            </div>
+        </div>
+
+        <div class="flex-auto m-7 body-color" id="printPage">
+
+            <div class="mt-2" style="text-align: left !important;background-color: white;">
+                <div class="" style="text-align:center !important;font-size: 18px !important;">
+                    <h1 style="font-size: 28px !important;"><u>{{'জামানতনামা' | translate}}</u></h1> <br>
+                </div>
+            </div>
+
+            <mat-card class="">
+
+                <!-- Row 1-->
+                <div class="md:mx-10">
+                    <p style="text-align: justify;font-size: large;">
+                        আমি নিম্নস্বাক্ষরকারী এই মর্মে জামানতনামা দাখিল করছি যে,
+                        {{details.proposalModel.trainingInstituteProfileModel.trainingInstituteName }}
+                         কতৃক পরিচালিত
+                        {{details.proposalModel.trainingName }}
+                        শীর্ষক প্রশিক্ষণ কোর্স সামাজিকবিজ্ঞান গবেষণা এর সাথে সম্পাদিত চুক্তিনামা অনুযায়ী প্রশিক্ষণ কোর্স আয়োজনের জন্য
+                        {{budgetView}}
+                        /- টাকা যে উদ্দেশ্যে গ্রহণ করা হবে সেই উদ্দেশ্যে নির্ধারিত সময়ের মধ্যে ব্যবহৃত না হলে জামানতকারী হিসেবে আমি নির্ধারিত সময়ের পরবর্তী
+                        {{details.refundDays}}
+                        কর্মদিবসের ভিতর উক্ত অগ্রিম বা ক্ষেত্রমত এর অব্যবহৃত অংশ পরিশোধ করতে বাধ্য থাকব ।
+                    </p> <br>
+                    <div style="text-align: end;">
+                        <h1 style="font-size: large;"><b>জামানতকারীর নাম - ঠিকানা ও স্বাক্ষর</b></h1>
+                        <p style="font-size: medium;">
+                            নামঃ {{details.guarantorName}} <br>
+                            প্রতিষ্ঠানের নামঃ {{details.jobInfo}} <br>
+                            পদবিঃ  {{details.designation}} <br>
+                            ঠিকানাঃ {{details.presentAddress}} <br>
+                            মোবাইল নম্বরঃ {{details.mobileNo}} <br>
+                            জাতীয় পরিচয়পত্র নাম্বারঃ {{details.nid}} <br>
+                            ই-মেইলঃ {{details.email}}
+                        </p>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

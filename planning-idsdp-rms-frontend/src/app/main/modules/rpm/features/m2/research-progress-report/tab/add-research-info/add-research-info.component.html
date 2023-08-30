@@ -1,0 +1,169 @@
+<div  class="flex flex-col bg-card shadow rounded overflow-hidden">
+    <div class="heading">
+        <h1>{{'tab1' | translate}}</h1>
+    </div>
+</div>
+<!-- Card Body -->
+
+<form [formGroup]="frmGroup" (ngSubmit)="onSubmit()" #inputForm="ngForm" class="p-4 border3 form-bg-color">
+
+    <!-- ----------- Row 1----------- --> 
+    <div class="md:flex">
+        <div class="w-full sm:w-auto md:w-20 lg:w-20  md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'m1ResearcherProposalInfoIdLn' | translate}} 
+            </span>
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <mat-select formControlName="m1ResearcherProposalInfoId">
+                    <mat-option value="">--Select--</mat-option>    
+                </mat-select>
+            </mat-form-field>
+        </div>
+        
+        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'stFiscalYearIdLn' | translate}} 
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <mat-select formControlName="stFiscalYearId">
+                    <mat-option value="">--Select--</mat-option>    
+                </mat-select>
+            </mat-form-field>
+        </div>
+        
+    </div> 
+    <!-- ----------- /Row 1----------- -->
+    <!-- ----------- Row 2----------- --> 
+    <div class="md:flex">
+        <div class="w-full sm:w-auto md:w-20 lg:w-20  md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'stResearchCategoryTypeIdLn' | translate}} 
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <mat-select formControlName="stResearchCategoryTypeId">
+                    <mat-option value="">--Select--</mat-option>    
+                </mat-select>
+            </mat-form-field>
+        </div>
+        
+        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'researcherUserIdLn' | translate}} 
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <input matInput formControlName="researcherUserId">
+            </mat-form-field>
+        </div>
+        
+    </div> 
+    <!-- ----------- /Row 2----------- -->
+    <!-- ----------- Row 3----------- --> 
+    <div class="md:flex">
+        <div class="w-full sm:w-auto md:w-20 lg:w-20  md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'presentationStatusLn' | translate}} 
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <mat-select formControlName="presentationStatus">
+                    <mat-option value="">--Select--</mat-option>    
+                </mat-select>
+            </mat-form-field>
+        </div>
+        
+        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'researchCompletedPercentageLn' | translate}} 
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <input matInput formControlName="researchCompletedPercentage">
+            </mat-form-field>
+        </div>
+        
+    </div> 
+    <!-- ----------- /Row 3----------- -->
+    <!-- ----------- Row 4----------- --> 
+    <div class="md:flex">
+        <div class="w-full sm:w-auto md:w-20 lg:w-20  md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'detailsLn' | translate}} 
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <textarea formControlName="details" matInput></textarea>
+            </mat-form-field>
+        </div>
+        
+        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'isSendLn' | translate}} 
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <input matInput formControlName="isSend">
+            </mat-form-field>
+        </div>
+        
+    </div> 
+    <!-- ----------- /Row 4----------- -->
+
+    <div class="flex justify-end mt-3">
+        <button
+            class="px-3 mr-2 previousBtn"
+            mat-flat-button
+            color="accent"
+            (click)="back()"
+            type="button">
+            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+            {{'previous' | translate}}
+        </button>
+
+        <button
+            class="px-3 mr-2"
+            mat-flat-button
+            color="accent"
+            (click)="formReset()"
+            type="reset">
+            <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+            {{'reset' | translate}}
+        </button>
+
+        <button
+            class="px-3"
+            mat-flat-button
+            color="primary"
+            type="submit"
+            ><mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <div *ngIf="formTitle=='Edit'; else temp ">{{'update' | translate}}</div>
+            <ng-template #temp>{{'save' | translate}}</ng-template>                        
+        </button>
+    </div>
+</form>

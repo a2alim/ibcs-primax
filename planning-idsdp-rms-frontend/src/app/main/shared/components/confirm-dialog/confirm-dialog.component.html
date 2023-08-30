@@ -1,0 +1,53 @@
+<!-- Modal -->
+<!-- <div  class="text-center dialog-body">
+    <div class="dialog-header">
+        <h1>{{data.title}}</h1>
+    </div>
+    <div >
+        <h6>{{data.subtitle}}</h6>
+    </div>
+    <button mat-raised-button color="warn" class="delete-but" [mat-dialog-close]="success" cdkFocusInitial> Delete</button>
+    <button mat-raised-button color="warn" (click)="onNoClick()"> Close</button>
+</div> -->
+
+<!-- ------------------------Confirmation Modal----------------------- -->
+<div *ngIf="data.showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">    
+    <div class="relative my-6 w-auto">
+      <!--content-->
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex justify-center border-b border-solid border-slate-200 rounded-t p-3 text-3xl font-semibold">
+         {{'confirmationBox' | translate}}
+        </div>
+        <!--body-->
+            <div class="relative p-6 flex-auto">
+                <div class="w-full mb-2" style="font-size: 16px !important;">
+                    {{'confirmation' | translate}}
+                </div>
+
+                <div class="flex justify-end mt-4">
+                    <button
+                        class="px-3 mr-2"
+                        mat-flat-button
+                        color="accent"
+                        type="button"
+                        (click)="confirm(false)"
+                        ><mat-icon class="mr-1">cancel</mat-icon>
+                        {{'closeBtn' | translate}}
+                    </button>  
+                    <button
+                        class="px-3"
+                        mat-flat-button
+                        color="primary"
+                        type="button"
+                        (click)="confirm(true)"
+                        ><mat-icon class="mr-1">recommend</mat-icon>
+                        {{'confirmationBtn' | translate}}
+                    </button>  
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="data.showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+<!-- ------------------------/Confirmation Modal----------------------- -->

@@ -1,0 +1,61 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <!-- Horizontal stepper -->
+            <form class="bg-card shadow rounded ounded-2xl overflow-hidden " [formGroup]="horizontalStepperForm">
+                <mat-horizontal-stepper [linear]="false" class="tab-bar tab-color" #horizontalStepper>
+
+
+                    <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title" matTooltip="{{'EvaluatorsGrantAmountLetter' | translate}}"
+                                 matTooltipPosition="above">
+                                <span>{{'EvaluatorsGrantAmountLetter' | translate}}</span>
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-evaluators-grant-amount-letter
+                                [existingEvaluatorGrantAmountLetter]="letter"
+                                [brodCastChange]="brodCastChange"
+                                (nextStep)="goForward(horizontalStepper)">
+                            </app-evaluators-grant-amount-letter>
+                        </div>
+                    </mat-step>
+
+                    <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title" matTooltip="{{'EvaluatorsGrantAmount' | translate}}"
+                                 matTooltipPosition="above">{{'EvaluatorsGrantAmount' | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-evaluators-grant-amount
+                                [existingEvaluatorGrantAmountLetter]="letter"
+                                [brodCastChange]="brodCastChange"
+                                (backPrevious)="goBack(horizontalStepper)">
+                            </app-evaluators-grant-amount>
+                        </div>
+                    </mat-step>
+
+
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+
+    </div>
+    <!-- Main End -->
+</div>

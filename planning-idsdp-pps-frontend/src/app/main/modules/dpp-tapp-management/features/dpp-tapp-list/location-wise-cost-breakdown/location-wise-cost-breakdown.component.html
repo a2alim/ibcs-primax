@@ -1,0 +1,220 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="titleEn" class="crop-text"
+                                 [subTitle]="'sub_title' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{"ProjectMainPage" | translate}}
+                    </button>
+                </div>
+            </div>
+
+            <!-- / New Header end-->
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">{{'AnnexureILocationWiseCostBreakdown' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">{{'HomeAnnexureILocationWiseCostBreakdown' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon style="color:white">keyboard_backspace</mat-icon>&nbsp;
+                                {{'ProjectMainPage' | translate}}
+                            </button>
+                        </div>
+                        &lt;!&ndash; /Actions &ndash;&gt;
+
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+    <!-- Header close-->
+    <!-- Body -->
+    <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!show">
+        <mat-spinner></mat-spinner>
+    </div>
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+    <div class="flex-auto m-7 body-color" *ngIf="show">
+
+        <mat-card class="tab-color">
+            <div>
+                <!-- Form Start -->
+                <form class="form p-5">
+                    <div style="padding: 10px; background-color: white">
+                        <p *ngIf="isParipatra2016" class="sub-heading mb-2"><b>{{'LocationWiseCostBreakdown' | translate}}</b></p>
+                        <p *ngIf="!isParipatra2016" class="sub-heading mb-2"><b>{{'LocationWiseCostBreakdown22' | translate}}</b></p>
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                            <!--Table Start-->
+
+                            <table style="border: none; width: 100%;" *ngIf="!isParipatra2016">
+                                <tr style="border: none;">
+                                    <td style="font-weight: bold; text-align: left; border: none; width: 20%;">{{'nameofTheProject' | translate}}</td>
+                                    <td style="text-align: left; border: none;">:
+                                        {{projectSummary?.isForeignAid ? projectSummary?.titleEn : projectSummary?.titleBn}}
+
+                                    </td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <td style="font-weight: bold; text-align: left; border: none; width: 20%;"> {{'implimentingAgency' | translate}}</td>
+                                    <td style="text-align: left; border: none;">:
+                                        {{projectSummary?.isForeignAid ? agencyModel?.nameEn : agencyModel?.nameBn}}
+                                    </td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <td style="font-weight: bold; text-align: left; border: none; width: 20%;">{{'sposoringMinistry' | translate}}</td>
+                                    <td style="text-align: left; border: none;">:
+                                        {{projectSummary?.isForeignAid ? agencyModel?.ministryDivisionDTO?.nameEn : agencyModel?.ministryDivisionDTO?.nameBn}}
+                                    </td>
+                                </tr>
+                            </table>
+
+                          <div style="text-align: right;" >
+                            <span *ngIf="!isParipatra2016">
+                                {{'InLakh' | translate}}
+                            </span>
+                            <span  *ngIf="isParipatra2016">
+                                {{'InLakhTaka' | translate}}
+                            </span>
+                            <table>
+
+                                <thead>
+                                <tr>
+                                    <th style="width: 5%" class="top-header">{{'SlNo' | translate}}</th>
+                                    <th style="width: 10%" class="top-header">{{'Division' | translate}}</th>
+                                    <th style="width: 10%" class="top-header">{{'Zilla' | translate}}</th>
+                                    <th style="width: 20%" class="top-header">{{'UpazilaCityCorporationPourosave' | translate}}</th>
+                                    <th *ngIf="isParipatra2016" style="width: 15%" class="top-header">{{'MajorItems' | translate}}/<br>{{'ComponentWithQuantity' | translate}}</th>
+                                    <th *ngIf="!isParipatra2016" style="width: 15%" class="top-header">{{'MajorItems' | translate}}<br>{{'ComponentWithQuantity22' | translate}}</th>
+                                    <th style="width: 15%" class="top-header">{{'EstimatedCost' | translate}}<br> ({{'InLakhTaka' | translate}})</th>
+                                    <th *ngIf="isParipatra2016" style="width: 25%" class="top-header">{{'Comments' | translate}}</th>
+                                    <th *ngIf="!isParipatra2016" style="width: 25%" class="top-header">{{'Comments22' | translate}}</th>
+                                </tr>
+                                <tr style="height: 10px;" *ngIf="isParipatra2016">
+                                    <th class="">{{'1' | translate}}</th>
+                                    <th class="">{{'2' | translate}}</th>
+                                    <th class="">{{'3' | translate}}</th>
+                                    <th class="">{{'4' | translate}}</th>
+                                    <th class="">{{'5' | translate}}</th>
+                                    <th class="">{{'6' | translate}}</th>
+                                    <th class="">{{'7' | translate}}</th>
+                                </tr>
+
+                                <tr style="height: 10px;" *ngIf="!isParipatra2016">
+                                    <th class="">{{'01' | translate}}</th>
+                                    <th class="">{{'02' | translate}}</th>
+                                    <th class="">{{'03' | translate}}</th>
+                                    <th class="">{{'04' | translate}}</th>
+                                    <th class="">{{'05' | translate}}</th>
+                                    <th class="">{{'06' | translate}}</th>
+                                    <th class="">{{'07' | translate}}</th>
+                                </tr>
+
+                                </thead>
+                                <tbody>
+
+                                <tr *ngFor="let up of upazilas; let i = index">
+                                    <td style="width: 5%"  *ngIf="up.dSpan !== 0" [rowSpan]="up.dSpan">{{up.sl}}</td>
+                                    <td style="width: 10%" *ngIf="up.dSpan !== 0" [rowSpan]="up.dSpan">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up?.division?.nameBn : up?.division?.nameEn}}
+                                    </td>
+                                    <td style="width: 10%" *ngIf="up.zSpan !== 0" [rowSpan]="up.zSpan">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up?.zilla?.nameBn : up?.zilla?.nameEn}}
+                                    </td>
+                                    <td style="width: 20%">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up?.upazila?.nameBn : up?.upazila?.nameEn}}
+                                    </td>
+                                    <td style="width: 15%">
+<!--                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">-->
+<!--                                            <input onfocus="this.select()" matInput type="text" (keyup)="keyUp($event, i, 'quantity')" [value]="up?.location?.quantity" style="text-align: left">-->
+<!--                                        </mat-form-field>-->
+                                        <button *ngIf="up?.location?.quantity" (click)="openCkEditorDialog(up)" class="background-green btn" mat-button type="button">
+                                            <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                            {{"MajorItems" | translate}}
+                                        </button>
+                                        <button *ngIf="!up?.location?.quantity" (click)="openCkEditorDialog(up)" class="background-blue btn" mat-button type="button">
+                                            <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                            {{"MajorItems" | translate}}
+                                        </button>
+                                    </td>
+                                    <td style="width: 15%">
+                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                            <input onfocus="this.select()" matInput TwoDigitDecimalNumber (keyup)="keyUp($event, i, 'cost')" [value]="up?.location?.estimatedCost" style="text-align: right">
+                                        </mat-form-field>
+                                    </td>
+                                    <td style="width: 25%">
+                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                            <input matInput (keyup)="keyUp($event, i, 'comment')" [value]="up?.location?.comment">
+                                        </mat-form-field>
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                          </div>
+
+                            <!--Table End-->
+                        </div>
+
+                    </div>
+                    <div class="p-5 text-right">
+<!--                        <button class="m-2" color="warn" mat-raised-button>{{'Close' | translate}}</button>-->
+                        <button (click)="onSubmit()" [disabled]="saveDisable || spinner" class="m-2" color="primary" mat-raised-button>
+                            {{((locationWiseCost.length > 0) ? 'Update' : 'Save') | translate}}</button>
+                    </div>
+                </form>
+                <!-- / Form End -->
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+<div>
+    <ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #locationCkEditor>
+        <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+            <div class="sub-heading font-semibold">
+                <h1>{{'MajorItems' | translate}}&nbsp;{{'ComponentWithQuantity' | translate}}</h1>
+            </div>
+            <mat-dialog-content class="mat-typography">
+                <ckeditor [config]="mediumEditorConfig" [(ngModel)]="ckEditorData"></ckeditor>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <button class="mr-2" mat-flat-button color="warn" type="button" [mat-dialog-close]="false"
+                        mat-dialog-close>{{'Cancel' | translate}}</button>
+
+                <button class="mr-5" mat-flat-button color="primary" type="button" [mat-dialog-close]="true"
+                        cdkFocusInitial>{{'Save' | translate}}</button>
+            </mat-dialog-actions>
+
+        </div>
+    </ng-template>
+</div>

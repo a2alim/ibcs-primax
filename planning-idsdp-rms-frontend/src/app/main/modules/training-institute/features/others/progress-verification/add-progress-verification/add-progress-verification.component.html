@@ -1,0 +1,251 @@
+<div style="width: 100%">
+    <app-form-header [subTitle]="'headerSubTitle' | translate" [title]="'headerTitle' | translate"></app-form-header>
+    <div class="flex-auto m-7 body-color">
+        <!-- START FORM  -->
+        <form #myForm="ngForm">
+            <div class="heading mt-2">
+                <h1>{{'headerTitle' | translate}}</h1>
+            </div>
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+
+                <!-- Row 1-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'fiscalYear' | translate | customCapitalize}}
+                            <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select [disabled]="isEditable" [(ngModel)]="progressVerificationRequest.fiscalYearId"
+                                [(value)]="progressVerificationRequest.fiscalYearId"
+                                (selectionChange)="findTrainingTitleByFiscalYear($event.value)" name="itemOfExpenditure"
+                                required>
+                                <ng-container *ngIf="isEditable">
+                                    <mat-option *ngFor="let item of activeFiscalYear" [value]="item.id">{{item.fiscalYear}}
+                                    </mat-option>
+                                </ng-container>
+                                <ng-container *ngIf="!isEditable">
+                                    <mat-option *ngFor="let item of fiscalYears" [value]="item.id">{{item.fiscalYear}}
+                                    </mat-option>
+                                </ng-container>
+
+                            </mat-select>
+                            <mat-error> {{'fiscalYear' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+
+
+                <!-- Row 2-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'titleOfResearch' | translate | customCapitalize}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-70 lg:w-70">
+                        <mat-form-field class="w-full">
+                            <mat-select [(ngModel)]="progressVerificationRequest.proposalId" name="propId"
+                                (selectionChange)="SetInstituteByTraining($event.value)" placeholder="Select Training"
+                                required>
+                                <mat-option *ngFor="let proposal of proposalList" [value]="proposal.id">{{
+                                    proposal.trainingName }}</mat-option>
+                            </mat-select>
+                            <mat-error>{{'titleOfResearch' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+
+                <!-- Row ***2***2-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'nameOfInstitute' | translate | customCapitalize}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-70 lg:w-70">
+                        <mat-form-field class="w-full">
+                            <mat-select disabled [(ngModel)]="progressVerificationRequest.trainingInstituteProfileId"
+                                name="trainingInstitutePro" placeholder="Select Training First" required>
+                                <mat-option *ngFor="let trainingTitle of trainingInstitutes" [value]="trainingTitle.id">
+                                    {{ trainingTitle.trainingInstituteName }}</mat-option>
+                            </mat-select>
+                            <mat-error>{{'nameOfInstitute' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <!-- Row 3-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'examiner' | translate | customCapitalize}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-70 lg:w-70">
+                        <mat-form-field class="w-full">
+                            <mat-select [(ngModel)]="progressVerificationRequest.examinerUserId" name="examinerUs"
+                                placeholder="Select One" required multiple>
+                                <mat-option *ngFor="let deskOfficer of deskOfficers" [value]="deskOfficer.id">
+                                    {{ deskOfficer.name }}</mat-option>
+                            </mat-select>
+                            <mat-error>{{'examiner' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                </div>
+                <!-- Row **********************2-->
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'verificationDate' | translate | customCapitalize}}
+                            <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" class="example-form-field" style="width: 100%;">
+                            <input [(ngModel)]="progressVerificationRequest.verificationDate" placeholder="dd/mm/yyyy"
+                                [matDatepicker]="verificationDate" matInput name="verificationDate" required>
+                            <mat-datepicker-toggle [for]="verificationDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #verificationDate>
+
+                            </mat-datepicker>
+                            <mat-error>{{'verificationDate' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Row 3********************-->
+                <div class="md:flex">
+
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'numberOfManPower' | translate | customCapitalize}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input [(ngModel)]="progressVerificationRequest.numberOfManPower"
+                                [ngModelOptions]="{standalone: true}" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <!-- Row 4-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'organizationActivity' | translate | customCapitalize}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">
+                        <ckeditor #orgAct="ngModel" [(ngModel)]="progressVerificationRequest.organizationActivity"
+                            [ngModelOptions]="{standalone: true}" [config]="minEditorConfig"></ckeditor>
+                        <!-- <mat-error *ngIf="(orgAct.touched || callTreeEditForm.submitted)  && orgAct.errors?.required">
+                            {{'organizationActivity' | translate}}<strong class="required">*</strong>
+                        </mat-error> -->
+                    </div>
+                </div>
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'monitoring' | translate | customCapitalize}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">
+                        <ckeditor [(ngModel)]="progressVerificationRequest.monitoring"
+                            [ngModelOptions]="{standalone: true}" [config]="minEditorConfig"></ckeditor>
+
+                    </div>
+                </div>
+                <!-- Row 5-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'comment' | translate | customCapitalize}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">
+                        <ckeditor [(ngModel)]="progressVerificationRequest.comment"
+                            [ngModelOptions]="{standalone: true}" [config]="minEditorConfig"></ckeditor>
+
+                    </div>
+                </div>
+
+                <!-- Row 6-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'nothi' | translate | customCapitalize}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field (change)="uploadFile($event.target.files,'nothi')" class="w-full">
+                            {{ isEditable ? ((progressVerificationRequest?.nothi?.fileName
+                            < 15) ? progressVerificationRequest?.nothi?.fileName :
+                                progressVerificationRequest?.nothi?.fileName.substring(0, 15) + '...' ) :
+                                (progressVerificationRequest.nothi ? '' : '' ) }} <ngx-mat-file-input
+                                [(ngModel)]="nothiFile" [ngModelOptions]="{standalone: true}" [accept]="'.*'">
+                                </ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-hint>{{ 'imgHint' | translate }}</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!-- Bottom Button -->
+                <div class="flex justify-end mt-8">
+                    <button [routerLink]="['/progress-verification']" class="px-3 mr-2 toggle-sidebar-folded saveBtn"
+                        color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        <span>{{ "back" | translate }}</span>
+                    </button>
+                    <button (click)="formReset()" class="px-3 mr-2" color="accent" mat-flat-button type="reset">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+                    <button (click)="save()" [disabled]="!(progressVerificationRequest.trainingInstituteProfileId | required) ||
+                            !(progressVerificationRequest.proposalId | required) ||
+                            !(progressVerificationRequest.verificationDate | required) ||
+                            !(progressVerificationRequest.fiscalYearId | required) ||
+                            !(progressVerificationRequest.examinerUserId | required) ||
+                            !(progressVerificationRequest.organizationActivity | required) ||
+                            !(progressVerificationRequest.monitoring | required) ||
+                            !(progressVerificationRequest.comment | required)"
+                        class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button
+                        style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span *ngIf="!isEditable">{{ "save" | translate }}</span>
+                        <span *ngIf="isEditable">{{ "update" | translate }}</span>
+                    </button>
+                </div>
+
+                <!-- END CARD  -->
+            </mat-card>
+            <!-- END FORM  -->
+        </form>
+    </div>
+</div>

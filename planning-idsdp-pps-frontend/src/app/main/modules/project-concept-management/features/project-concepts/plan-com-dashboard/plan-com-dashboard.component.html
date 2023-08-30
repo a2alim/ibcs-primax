@@ -1,0 +1,314 @@
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<div style="width: 100%" *ngIf="!spinner">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="'headerTitle' | translate" class="crop-text"
+                                 [subTitle]="'headerSubTitle' | translate"></app-list-header>
+
+                <div class="w-35 flex justify-end">
+                    <div class="pr-6">
+                        <div class="btn btn-home flex justify-center items-center" (click)="navigateToMap()">
+                            <p class="pt-1">{{'projectLocationMap' | translate}}</p>
+                        </div>
+                    </div>
+
+                    <div class="pr-6">
+                        <a class="btn btn-home flex justify-center items-center" href="">
+                            <mat-icon class="text-white">home</mat-icon>
+                            <p class="pt-1">{{'home' | translate}}</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--//New Header-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto sm:px-8">
+                    <div class="m-5" fxFlex="25%" fxFlex.sm="33%" fxFlex.xl="100%" fxFlex.md="50%">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    ইন্টিগ্রেটেড ডিজিটাল সার্ভিস ডেলিভারি প্ল্যাটফর্ম (আইডিএসডিপি)
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">
+                                        প্রকল্প প্রক্রিয়াকরণ, মূল্যায়ন এবং ব্যবস্থাপনা পদ্ধতি
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        &lt;!&ndash; Actions here if need &ndash;&gt;
+
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+    <!--Main-->
+    <div class="list-page-outside-body">
+        <div class="flex flex-col shadow rounded overflow-hidden m-5" *ngIf="plancomDashbord">
+            <!--<div class="heading">
+                <h1>
+                    <mat-icon svgIcon="heroicons_outline:adjustments"
+                              style="vertical-align: middle;color: #000000;"></mat-icon>
+                    Criteria Based Searching
+                </h1>
+            </div>-->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-2xl">
+                <div class="flex-auto bg-gray-300">
+                    <mat-card class="flex-auto space-y-1 md:space-y-3 h-full">
+                        <div style="background-color: #599ad7"
+                            class="flex items-center justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                            <p>{{sectorDivisionName}}</p>
+                            <div class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                <span *ngIf="!loadAmount">{{numberPipe.convertToBanglaNumber(sectorDivisionTotalProject ? sectorDivisionTotalProject : '0')}}</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-2 gap-1">
+                            <div style="background-color: #599ad7"  *ngFor="let sector of sectorModel" (click)="projectDataSourceBySectorId(sector.id)" [matTooltip]="'View Project Details'"
+                                class="flex items-center cursor-pointer justify-between p-4 text-center text-white text-xs sm:text-sm md:text-base rounded-sm md:rounded-md">
+                                <p>{{sector.sectorNameBn}}</p>
+                                <div style="color: #599ad7"
+                                    class="bg-white rounded-full h-12 w-12 flex justify-center items-center">
+                                    <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                    <span style="font-size: 27px;" *ngIf="!loadAmount">{{numberPipe.convertToBanglaNumber(sector?.totalProject ? sector?.totalProject : '0')}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </mat-card>
+                </div>
+                <div class="flex-auto bg-gray-300">
+                    <mat-card class="flex-auto space-y-3">
+                        <div (click)="viewForwardProjects('ACNEC')"  [matTooltip]="'View Project Details'"
+                            class="flex items-center cursor-pointer justify-between w-full text-white text-center p-2 bg-blue-400 rounded-sm md:rounded-md">
+                            <p>একনেকে প্রেরণ</p>
+                            <div class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                <span *ngIf="!loadAmount">{{numberPipe.convertToBanglaNumber(totalProjectsInEcnec ? totalProjectsInEcnec : '0')}}</span>
+                            </div>
+                        </div>
+                        <div (click)="viewForwardProjects('MINISTRY')"  [matTooltip]="'View Project Details'" class="flex items-center cursor-pointer justify-between w-full text-white text-center p-2 bg-purple-400 rounded-sm md:rounded-md">
+                            <p>মন্ত্রণালয়ে প্রেরণ</p>
+                            <div
+                                class="bg-white text-purple-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                <span *ngIf="!loadAmount">{{numberPipe.convertToBanglaNumber(totalProjectsInMinistry ? totalProjectsInMinistry : '0')}}</span>
+                            </div>
+                        </div>
+                        <!-- <div (click)="viewForwardProjects('PLANCOM')"  [matTooltip]="'View Project Details'" class="flex items-center cursor-pointer justify-between w-full text-white text-center p-2 bg-blue-400 rounded-sm md:rounded-md">
+                            <p>পরিকল্পনা কমিশনে প্রেরণ</p>
+                            <div
+                                class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                {{totalProjectsInPlancomm}}
+                            </div>
+                        </div> -->
+                        <div style="background-color: #619e68" (click)="viewForwardProjects('APPROVED')"  [matTooltip]="'View Project Details'" class="flex items-center cursor-pointer justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                            <p>অনুমোদিত</p>
+                            <div style="color: #619e68"
+                                class="bg-white text-emerald-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                <span *ngIf="!loadAmount">{{numberPipe.convertToBanglaNumber(totalApproved ? totalApproved : '0')}}</span>
+                            </div>
+                        </div>
+
+                        <div style="background-color: #619e68" (click)="viewForwardProjects('CONDITIONAL-APPROVED')"  [matTooltip]="'View Project Details'" class="flex items-center cursor-pointer justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                            <p>শর্তসাপেক্ষে অনুমোদিত</p>
+                            <div style="color: #619e68"
+                                 class="bg-white text-emerald-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                <span *ngIf="!loadAmount">{{numberPipe.convertToBanglaNumber(totalConditionalApproved ? totalConditionalApproved : '0')}}</span>
+                            </div>
+                        </div>
+
+                    </mat-card>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 mt-5 gap-3">
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <h1>{{'totalProjectDifferentType' | translate}}</h1>
+                    </div>
+                    <div id="projectTotalChart" style="height: 300px;">
+                        <apx-chart
+                            [series]="chartOptionsTotalProject?.series"
+                            [chart]="chartOptionsTotalProject?.chart"
+                            [dataLabels]="chartOptionsTotalProject?.dataLabels"
+                            [plotOptions]="chartOptionsTotalProject?.plotOptions"
+                            [colors]="chartOptionsTotalProject?.colors"
+                            [xaxis]="chartOptionsTotalProject?.xaxis">
+                        </apx-chart>
+                    </div>
+                </div>
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <h1>{{'projectStatus' | translate}}</h1>
+                    </div>
+                    <div class="overflow-auto">
+                        <div id="recommendedProject" style="margin: 0 auto;height: 300px;padding-top: 25px;">
+                            <apx-chart
+                                [series]="chartOptionsRecommendedStatus?.seriesNonAxis"
+                                [chart]="chartOptionsRecommendedStatus?.chart"
+                                [labels]="chartOptionsRecommendedStatus?.labels"
+                                [colors]="chartOptionsRecommendedStatus?.colors"
+                                [responsive]="chartOptionsRecommendedStatus?.responsive">
+                            </apx-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-page-outside-body">
+        <mat-card *ngIf="plancomListPage">
+            <div class="flex justify-end m-5">
+                <button class="px-6 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                        (click)="backToDashbord()" >
+                    {{'dashboard' | translate}}
+                </button>
+            </div>
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="commonDatasource" class="mat-elevation-z8 bg-transparent w-full" matSort>
+
+                        <ng-container matColumnDef="thSl">
+                            <th [attr.rowspan]="2" class="table-head-style text-center pl-2" mat-header-cell *matHeaderCellDef
+                                style="padding-left: 0px !important;">{{'sl' | translate}}
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thProjectName">
+                            <th [attr.rowspan]="4" class="table-head-style text-center" mat-header-cell *matHeaderCellDef
+                                style="padding-left: 5px;width: 45%">{{'pInfo' | translate}}
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thProjectCost">
+                            <th [attr.colspan]="5" class="table-head-style text-center" mat-header-cell *matHeaderCellDef>{{'projectCost' | translate}}
+                                ({{'takaInlack' | translate}})
+                            </th>
+                        </ng-container>
+
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="sl">
+                            <td mat-cell *matCellDef="let row, let i= index" class="text-center" style="padding-left: 0px !important;">
+                                {{ i + 1 }}
+                                <!-- {{this.paginator.pageIndex == 0 ? numberPipe.convertToBanglaNumber(i + 1) : 1 + i + numberPipe.convertToBanglaNumber(this.paginator.pageIndex * this.paginator.pageSize)}} -->
+                            </td>
+                        </ng-container>
+
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="projectName">
+                            <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 5px;width: 42%">
+                                <div style="cursor: pointer" (click)="gotToViewDashboard(row?.uuid)"><span
+                                    style="color: #0d9488;">{{ row?.titleBn }}</span> <span
+                                    style="color:#4b60bd;"> ({{row?.projectTypeDTO.nameBn}})</span></div>
+                                <div style="color: #333333">{{ row?.agencyDTO?.nameBn }}</div>
+                                <div style="color: #333333">{{ row?.agencyDTO?.ministryDivisionDTO?.nameBn }}</div>
+                                <div style="color: #333333"><span>{{'sectorDivision' | translate}}</span> <span
+                                    style="color: #0d9488;">{{ row?.sectorDivisionName }}</span></div>
+                                <div style="color: #333333"><span>{{'createDate' | translate}}</span><span
+                                    style="color: #0d9488;">{{numberPipe.convertToBanglaNumber(row?.createdDate | date : 'dd/MM/yyyy')}}</span>
+                                </div>
+                                <div style="color: #333333">
+                                    <span>{{'commencementDate' | translate}}</span> <span style="color: #0d9488;">{{ numberPipe.convertToBanglaNumber(row?.commencementDate)}}</span>
+                                    <br>
+                                    <span>{{'completionDate' | translate}}</span>
+                                    <span
+                                        style="color: #0d9488;">{{ numberPipe.convertToBanglaNumber(row?.completionDate)}}</span>
+                                </div>
+                             </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="total">
+                            <td mat-cell *matCellDef="let row" class="amount-value">
+                                <div></div>
+                                <div style="color: #333333">{{'total' | translate}}</div>
+                                <br>
+                                <div><span
+                                    style="color: #4b60bd">{{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.totalAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.totalAmount.toFixed(2)) }}</span>
+                                </div>
+                                <div></div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="gob">
+                            <td mat-cell *matCellDef="let row" class="amount-value">
+                                <div></div>
+                                <div style="color: #333333">{{'gob' | translate}}</div>
+                                <div style="color: #333333">({{'fe' | translate}})</div>
+                                <br>
+                                <div
+                                    style="color: #4b60bd">{{row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.gobAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.gobAmount.toFixed(2)) }}
+                                    <br>({{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.gobFeAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.feGobAmount.toFixed(2)) }}
+                                    )
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="ownFund">
+                            <td mat-cell *matCellDef="let row" class="amount-value" style="width: 53px;">
+                                <div></div>
+                                <div style="color: #333333;">{{'ownFund' | translate}}</div>
+                                <div style="color: #333333">({{'fe' | translate}})</div>
+                                <br>
+                                <div
+                                    style="color: #4b60bd">{{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.ownFundAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.ownFundAmount?.toFixed(2)) }}
+                                    <br>({{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.ownFundFeAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.feOwnFundAmount?.toFixed(2))}}
+                                    )
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="other">
+                            <td mat-cell *matCellDef="let row" class="amount-value">
+                                <div></div>
+                                <div style="color: #333333">{{'other' | translate}}</div>
+                                <div style="color: #333333">({{'fe' | translate}})</div>
+                                <br>
+                                <div
+                                    style="color: #4b60bd">{{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.otherAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.otherAmount?.toFixed(2)) }}
+                                    <br>({{ row?.annexureAmount ? numberPipe.convertToBanglaNumber(row?.annexureAmount?.otherFeAmount.toFixed(2)) : numberPipe.convertToBanglaNumber(row?.feOtherAmount?.toFixed(2))}}
+                                    )
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsPCList"></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="8">
+                                {{'noData' | translate}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <mat-paginator [length]="commonTotalElement" [pageSize]="size" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                               (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+        </mat-card>
+    </div>
+    <!--//Main-->
+
+</div>
+
+
+
+

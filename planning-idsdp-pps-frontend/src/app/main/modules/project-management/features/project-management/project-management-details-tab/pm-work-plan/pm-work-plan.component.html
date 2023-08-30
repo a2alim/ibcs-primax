@@ -1,0 +1,123 @@
+<div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+    <!--<mat-card>-->
+    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+
+            <ng-container matColumnDef="sl">
+                <th mat-header-cell *matHeaderCellDef class="pl-5">{{'sl'|translate}}</th>
+                <td mat-cell *matCellDef="let element; let i = index">{{i+1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="taskDetails">
+                <th mat-header-cell *matHeaderCellDef class="pl-5">
+                    {{'taskDetails'|translate}} <strong class="required">*</strong>
+                </th>
+                <td mat-cell *matCellDef="let element;" class="m-5">
+                    <mat-form-field class="w-full p-3">
+                        <mat-select [(ngModel)]="element.taskDetails">
+                            <mat-option value="">Select</mat-option>
+                            <mat-option value="RFQM">RFQM</mat-option>
+                            <mat-option value="TSTM">TSTM</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="itemList">
+                <th mat-header-cell *matHeaderCellDef class="pl-5">
+                    {{'itemList'|translate}} <strong class="required">*</strong>
+                </th>
+                <td mat-cell *matCellDef="let element;" class="m-5">
+                    <mat-form-field class="w-full p-3">
+                        <mat-select [(ngModel)]="element.itemName">
+                            <mat-option value="">Select</mat-option>
+                            <mat-option value="INT">INT</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef class="pl-5">
+                    {{'startDate'|translate}} <strong class="required">*</strong>
+                </th>
+                <td mat-cell *matCellDef="let element; let i = index" class="m-5">
+                    <mat-form-field class="w-full p-3">
+                        <input (click)="picker1.open()" [matDatepicker]="picker1" placeholder="Enter Start Date"
+                            matInput [(ngModel)]="element.startDate" (dateChange)="onCheckStartDate($event, i)">
+                        <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="endDate">
+                <th mat-header-cell *matHeaderCellDef class="pl-5">
+                    {{'endDate' |translate}} <strong class="required">*</strong>
+                </th>
+                <td mat-cell *matCellDef="let element; let i = index" class="m-5">
+                    <mat-form-field class="w-full p-3">
+                        <input (click)="picker1.open()" [matDatepicker]="picker1" placeholder="Enter End Date" matInput
+                            [(ngModel)]="element.endDate" (dateChange)="onCheckEndDate($event, element, i)">
+                        <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef class="pl-5">
+                    {{'status' |translate}} <strong class="required">*</strong>
+                </th>
+                <td mat-cell *matCellDef="let element;" class="m-5">
+                    <mat-form-field class="w-full p-3">
+                        <mat-select [(ngModel)]="element.status">
+                            <mat-option value="Progress">Progress</mat-option>
+                            <mat-option value="Done">Done</mat-option>
+                            <mat-option value="Not Done">Not Done</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef class="pl-5">{{'action'|translate}}</th>
+                <td mat-cell *matCellDef="let element; let i = index" class="m-5">
+                    <button (click)="deleteRow(element,i)" type="button" class="pl-3">
+                        <mat-icon aria-hidden="false" [color]="'warn'" aria-label="Example home icon">delete</mat-icon>
+                    </button>
+                    <button (click)="addRow(i)" type="button" class="pl-3" [hidden]="i!=(pmWorkPlanList.length-1)">
+                        <mat-icon aria-hidden="false" [color]="'primary'" aria-label="Example home icon">add
+                        </mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <!-- Initialized Table Header And Dataset-->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>
+
+<!--Start Bottom Button -->
+<div class="flex justify-end mt-8">
+    <button mat-flat-button type="button" [disabled]="spinner" [color]="'primary'" class="px-3 mr-2"
+        (click)="onClickViewList()">View List
+    </button>
+
+    <button mat-flat-button type="button" [disabled]="spinner" [color]="'primary'" class="px-3 mr-2"
+        (click)="createWorkPlan('Save')">Save
+    </button>
+
+    <button mat-flat-button type="button" [disabled]="spinner" [color]="'primary'" class="px-3 mr-2"
+        (click)="saveAndNextTab()">Save & Next
+        <mat-icon class="mr-1">fast_forward</mat-icon>
+    </button>
+
+    <button mat-flat-button [disabled]="spinner" type="button" [color]="'warn'" class="px-3 mr-2"
+        (click)="saveAndExit()">
+        Save & Exit
+    </button>
+</div>
+<!--end Bottom Button -->

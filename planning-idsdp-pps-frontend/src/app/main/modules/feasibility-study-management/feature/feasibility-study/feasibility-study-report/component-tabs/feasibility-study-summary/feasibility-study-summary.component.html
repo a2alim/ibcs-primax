@@ -1,0 +1,334 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<div *ngIf="form">
+    <div class="heading">
+        <h1>{{'ProjectConceptSummary' | translate}}</h1>
+    </div>
+    <mat-card>
+        <form class="form" [formGroup]="form">
+            <!--1st Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="mat-label-padding" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                    {{'TitleEn' | translate}}:
+                </mat-label>
+                <mat-form-field class="readOnly" fxFlex="80%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">
+                    <textarea matInput formControlName="titleEnPC" readonly></textarea>
+                </mat-form-field>
+            </div>
+            <!--1st Flex Layout Div End -->
+            <!--2nd Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="mat-label-padding" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                    {{'TitleBn' | translate}}:
+                </mat-label>
+                <mat-form-field class="readOnly" fxFlex="80%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">
+                    <textarea matInput formControlName="titleBnPC" readonly></textarea>
+                </mat-form-field>
+            </div>
+            <!--2nd Flex Layout Div End -->
+            <!--3rd Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="45%" fxFlex.sm="50%" fxFlex.xs="50%" fxFlex.md="50%"
+                                   >{{'EstimatedCost' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly" fxFlex="52%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input readonly formControlName="estimatedCostPC" matInput type="number">
+                        </mat-form-field>
+                        <div fxFlex="3%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.sm="50%" fxFlex.xs="50%" fxFlex.md="50%" style="margin-top: -15px;" >{{'Gob' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly" fxFlex="57%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input readonly formControlName="gobPC" matInput type="number">
+                        </mat-form-field>
+                        <div fxFlex="3%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.sm="50%" fxFlex.xs="50%" fxFlex.md="50%" style="margin-top: -15px;"
+                        >{{'Pa' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly" fxFlex="57%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input readonly formControlName="paPC" matInput type="number">
+                        </mat-form-field>
+                        <div fxFlex="3%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.sm="50%" fxFlex.xs="50%" fxFlex.md="50%" style="margin-top: -15px;"
+                        >{{'OwnFund' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly" fxFlex="57%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input readonly formControlName="ownFundPC" matInput type="number">
+                        </mat-form-field>
+                        <div fxFlex="3%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.sm="50%" fxFlex.xs="50%" fxFlex.md="50%" style="margin-top: -15px;"
+                        >{{'Others' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly" fxFlex="60%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input readonly formControlName="othersPC" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <!--3rd Flex Layout Div End -->
+            <!--4th Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="30%">{{'ExpectedDateOfCommencement' | translate}}:
+                        </mat-label>
+
+                        <mat-form-field class="readOnly" fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+                            <input formControlName="dateOfCommencementPC" matInput readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                        <mat-label class="pb-5" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="30%">{{'ExpectedDateOfCompletion' | translate}}:
+                        </mat-label>
+
+                        <mat-form-field class="readOnly" fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+                            <input formControlName="dateOfCompletionPC" matInput readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <!--4th Flex Layout Div End -->
+        </form>
+    </mat-card>
+
+    <br/>
+
+    <div class="heading">
+        <h1>{{'FsSummary' | translate}}</h1>
+    </div>
+    <mat-card>
+        <form class="form" [formGroup]="form">
+
+            <!--1st Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="mat-label-padding" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                    {{'TitleEn' | translate}} :
+                </mat-label>
+                <mat-form-field fxFlex="80%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">
+                    <textarea matInput formControlName="titleEn" required></textarea>
+                </mat-form-field>
+            </div>
+            <!--1st Flex Layout Div End -->
+
+            <!--2nd Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="mat-label-padding" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                    {{'TitleBn' | translate}} :
+                </mat-label>
+                <mat-form-field fxFlex="80%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">
+                    <textarea matInput formControlName="titleBn" required></textarea>
+                </mat-form-field>
+            </div>
+            <!--2nd Flex Layout Div End -->
+
+            <!--3rd Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="mat-label-padding" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                    {{'SponsoringMinistryDivision' | translate}}:
+                </mat-label>
+                <mat-form-field class="readOnly" fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+                    <input formControlName="sponsoringMinistryOrDivision" matInput readonly>
+                </mat-form-field>
+            </div>
+            <!--3rd Flex Layout Div End -->
+
+            <!--4th Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="mat-label-padding" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                    {{'ImplementingAgency' | translate}}:
+                </mat-label>
+                <mat-form-field class="readOnly" fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+                    <input formControlName="implementingAgency" matInput readonly>
+                </mat-form-field>
+            </div>
+            <!--4th Flex Layout Div End -->
+
+            <!--5th Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'ProjectObjectives' | translate}}:
+                </mat-label>
+            </div>
+            <div fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload" class="custom-file-upload">
+                    <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                     <input #file type="file" accept='image/*'
+                        (change)="uploadImageAsBase64(file.files,'projectObjectives')"  id="file-upload" />
+                </div>
+
+                    <ckeditor formControlName="projectObjectives" fxFlex="100%" fxFlex.xs="100%"
+                              fxFlex.sm="100%" fxFlex.md="100%" [config]="mediumEditorConfig">
+                    </ckeditor>
+            </div>
+            <!--5th Flex Layout Div End -->
+
+            <br/>
+
+            <!--6th Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="mat-label-padding" fxFlex="17%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                    {{'EstimatedProjectCost' | translate}}:
+                </mat-label>
+
+                <mat-form-field fxFlex="33%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">
+                    <input type="number" matInput formControlName="estimatedProjectCost">
+                </mat-form-field>
+                <div fxFlex="50%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+            </div>
+            <!--6th Flex Layout Div End -->
+
+            <!--7th Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="55%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <mat-label class="mat-label-padding-2" fxFlex="36%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                        {{'Sector' | translate}}:
+                    </mat-label>
+                    <mat-form-field fxFlex="66%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">
+                        <mat-select formControlName="sectorOrDivision" (selectionChange)="findSector($event)">
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let sector of sectorList"
+                                        [value]=sector.id>{{sector.sectorNameEn}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div fxFlex="4%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                </div>
+                <div fxFlex="45%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <mat-label class="mat-label-padding-2" fxFlex="25%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                        {{'SubSector' | translate}}:
+                    </mat-label>
+                    <div fxFlex="4%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                    <mat-form-field fxFlex="67%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">
+                        <mat-select formControlName="subSector">
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let subSector of subSectorList"
+                                        [value]=subSector.id>{{subSector.subSectorNameEn}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--7th Flex Layout Div End -->
+
+            <!--8th Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="mat-label-padding" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                    {{'ProjectCategory' | translate}}:
+                </mat-label>
+<!--                <mat-form-field fxFlex="33%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">-->
+<!--                    <input matInput formControlName="projectCategory">-->
+<!--                </mat-form-field>-->
+                <mat-form-field fxFlex="33%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">
+                    <mat-select formControlName="projectCategoryId">
+                        <mat-option value="">Select</mat-option>
+                        <mat-option *ngFor="let category of categoryList"
+                                    [value]=category.id>{{category.categoryCodeName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div fxFlex="47%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+            </div>
+            <!--8th Flex Layout Div End -->
+
+            <!--9th Flex Layout Div Start -->
+            <div class="sub-heading">
+                <h1>{{'ExpectedImplementationPeriod' | translate}} :</h1>
+            </div>
+            <mat-card>
+                <!--6th Flex Layout Div Start -->
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="pb-5" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                       fxFlex.xs="30%">{{'DateOfCommencement' | translate}}:
+                            </mat-label>
+
+                            <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+<!--                                <input (click)="picker1.open()" [matDatepicker]="picker1" formControlName="dateOfCommencement" matInput>-->
+                                <input (click)="picker1.open()" [matDatepicker]="picker1"
+                                       [max]="expCommencementMaxDate"
+                                       (dateChange)="commencementDataChange($event)"
+                                       formControlName="dateOfCommencement"
+                                       matInput readonly required>
+                                <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                            <mat-label class="pb-5" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%"
+                                       fxFlex.xs="30%">{{'DateOfCompletion' | translate}}:
+                            </mat-label>
+
+                            <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+<!--                                <input (click)="picker2.open()" [matDatepicker]="picker2" formControlName="dateOfCompletion" matInput>-->
+                                <input (click)="picker2.open()" [matDatepicker]="picker2"
+                                       [min]="expCompletionMinDate"
+                                       formControlName="dateOfCompletion"
+                                       (dateChange)="completionDataChange($event)"
+                                       matInput readonly required>
+                                <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <!--6th Flex Layout Div End -->
+            </mat-card>
+            <!--9th Flex Layout Div End -->
+
+        </form>
+    </mat-card>
+
+    <!--------------------------------------------------------------------------------------------------------------------------->
+
+<!--    <br/>-->
+<!--    <div class="heading">-->
+<!--        <h1>{{'ProjectGeographicLocation' | translate}}</h1>-->
+<!--    </div>-->
+
+<!--    <app-project-location-common></app-project-location-common>-->
+    <div>
+        <br/><br/><br/>
+        <div fxLayout="row wrap" fxLayoutAlign="end">
+            <button class="mr-2" *ngIf="!update" [disabled]="spinner" mat-flat-button color="primary" type="button"
+                    (click)="saveAndNext()">{{'Save&Next' | translate}}</button>&nbsp;&nbsp;
+            <button class="mr-2" *ngIf="!update" [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                    (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+            <button class="mr-2" *ngIf="update" [disabled]="spinner" mat-flat-button color="primary" type="button"
+                    (click)="updateAndNext()">{{'Save&Next' | translate}}</button>
+            <button class="mr-2" *ngIf="update" [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF" color="primary" type="button"
+                    (click)="updateAndExit()">{{'Save&Exit' | translate}}</button>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,390 @@
+<div class="width-100" >
+    <!-- <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
+    </div> -->
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div class="flex md:justify-end md:mr-3 mt-1">
+            <button
+                class="px-3 mr-2 previousBtn"
+                mat-flat-button
+                color="accent"
+                (click)="backResearcherprofilelist()"
+                type="button">
+                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{'previous' | translate}}
+            </button>
+
+            <button
+                class="px-3 mr-2 downloadBtn"
+                mat-flat-button
+                color="accent"
+                (click)="download()"
+                type="button">
+                <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                {{'download' | translate}}
+            </button>
+
+            <button
+                class="px-3 printBtn"
+                mat-flat-button
+                color="accent"
+                (click)="print()"
+                type="button">
+                <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                {{'print' | translate}}
+            </button>
+
+            <button
+                class="px-3 ml-2 saveBtn"
+                mat-flat-button
+                color="accent"
+                (click)="backResearcherprofilelist()"
+                type="button">
+                <mat-icon *ngIf="editIcon" class="mr-1">{{editIcon}}</mat-icon>
+                {{'editProfile' | translate}}
+            </button>
+    </div>
+
+    <!-- Main Start -->
+    <div class="contentDiv flex-auto m-4 body-color">
+
+        <mat-card style="background: none !important;">
+
+            <div class="grid grid-cols-2 gap-2 mt-4 mb-4">
+                <div>
+                    <table class="personalInfoTbl">
+                        <tr>
+                            <td class="text-left w-20">Name</td>
+                            <td class="w-60 font-nomal">Bulbul Sarker </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Fathers's Name</td>
+                            <td>Fathers's Name Fathers's Name </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Mother's Name</td>
+                            <td>Mother's Name Mother's Name </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Spouse Name</td>
+                            <td>Not Available</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Address for Correspondence</td>
+                            <td>Address for Correspondence Address for Correspondence Address for Correspondence</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Permanet Address</td>
+                            <td>
+                                <span *ngIf="tabData?.personalInfo.unionId"><b>Union:</b> {{tabData?.personalInfo.unionId}} </span>
+                                <span *ngIf="tabData?.personalInfo.upzilaId"><br>Upazila: {{tabData?.personalInfo.upzilaId}} </span>
+                                <span *ngIf="tabData?.personalInfo.districtId"><br>District: {{tabData?.personalInfo.districtId}} </span>
+                                <span *ngIf="tabData?.personalInfo.divisionId"><br>Division: {{tabData?.personalInfo.divisionId}} </span>
+                                <span *ngIf="tabData?.personalInfo.anotherDetails"><br>Address: {{tabData?.personalInfo.anotherDetails}} </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Date Of Birth</td>
+                            <td >{{tabData?.personalInfo.dateOfBirth | date: 'dd-MM-yyyy'}} </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Citizenship</td>
+                            <td >Bangladeshi </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Marital Status</td>
+                            <td >Married </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="flex justify-end">
+                    <table class="personalInfoTbl">
+                        <tr>
+                            <td class="text-left w-20">Name</td>
+                            <td class="w-60 font-nomal">Bulbul Sarker </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Fathers's Name</td>
+                            <td>Fathers's Name Fathers's Name </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Mother's Name</td>
+                            <td>Mother's Name Mother's Name </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Spouse Name</td>
+                            <td>Not Available</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Address for Correspondence</td>
+                            <td>Address for Correspondence Address for Correspondence Address for Correspondence</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Permanet Address</td>
+                            <td>
+                                <span *ngIf="tabData?.personalInfo.unionId"><b>Union:</b> {{tabData?.personalInfo.unionId}} </span>
+                                <span *ngIf="tabData?.personalInfo.upzilaId"><br>Upazila: {{tabData?.personalInfo.upzilaId}} </span>
+                                <span *ngIf="tabData?.personalInfo.districtId"><br>District: {{tabData?.personalInfo.districtId}} </span>
+                                <span *ngIf="tabData?.personalInfo.divisionId"><br>Division: {{tabData?.personalInfo.divisionId}} </span>
+                                <span *ngIf="tabData?.personalInfo.anotherDetails"><br>Address: {{tabData?.personalInfo.anotherDetails}} </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Date Of Birth</td>
+                            <td >{{tabData?.personalInfo.dateOfBirth | date: 'dd-MM-yyyy'}} </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Citizenship</td>
+                            <td >Bangladeshi </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">Marital Status</td>
+                            <td >Married </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 mt-4 mb-4">
+                <div>
+                    <div class="inline-block">
+                        >> Agreement Information
+                    </div>
+                    <div class="inline-block flex justify-end">
+                        >> XX
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <mat-card>
+                        sdfds
+                    </mat-card>
+                </div>
+            </div>
+
+
+            <div class="w-full sm:w-auto md:w-full lg:w-full">
+                <table class="personalInfoTbl" border="1">
+                    <tr>
+                        <td class="text-left w-20">Name</td>
+                        <td class="w-60 font-nomal">Bulbul Sarker </td>
+                        <td class="w-20" rowspan="5">
+
+                            <div style=" border: 5px solid #CCC; padding: 3px; vertical-align: top; ">
+                                <img style="width: 250px;" src="data:image/jpeg;base64,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">
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left">Fathers's Name</td>
+                        <td>Fathers's Name Fathers's Name </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left">Mother's Name</td>
+                        <td>Mother's Name Mother's Name </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left">Spouse Name</td>
+                        <td>Not Available</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left">Address for Correspondence</td>
+                        <td>Address for Correspondence Address for Correspondence Address for Correspondence</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left">Permanet Address</td>
+                        <td>
+                            <span *ngIf="tabData?.personalInfo.unionId"><b>Union:</b> {{tabData?.personalInfo.unionId}} </span>
+                            <span *ngIf="tabData?.personalInfo.upzilaId"><br>Upazila: {{tabData?.personalInfo.upzilaId}} </span>
+                            <span *ngIf="tabData?.personalInfo.districtId"><br>District: {{tabData?.personalInfo.districtId}} </span>
+                            <span *ngIf="tabData?.personalInfo.divisionId"><br>Division: {{tabData?.personalInfo.divisionId}} </span>
+                            <span *ngIf="tabData?.personalInfo.anotherDetails"><br>Address: {{tabData?.personalInfo.anotherDetails}} </span>
+                        </td>
+                        <td rowspan="4" style="vertical-align: top;">
+                            <div>
+                                <img src="data:image/jpeg;base64,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" alt="Not Found"/>
+                                Signature............
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left">Date Of Birth</td>
+                        <td >{{tabData?.personalInfo.dateOfBirth | date: 'dd-MM-yyyy'}} </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left">Citizenship</td>
+                        <td >Bangladeshi </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left">Marital Status</td>
+                        <td >Married </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <!--- Research Information -->
+            <div class="mt-6 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">perm_data_setting</mat-icon>
+                    <div class="ml-7 text-gray-900">{{'researchInfo' | translate}}</div>
+                    </div>
+                    <mat-card>
+                        <table class="researchInfo">
+
+                            <tr>
+                                <th>
+                                    {{'sl' | translate}}
+                                </th>
+                                <th>
+                                    {{'researchTitleLn' | translate}}
+                                </th>
+                                <th>
+                                    {{'supervisorEvaluator' | translate}}
+                                </th>
+                                <th>
+                                    {{'researchCategory' | translate}}
+                                </th>
+                                <th>
+                                    {{'fiscalYear' | translate}}
+                                </th>
+                                <th>
+                                    {{'researchStatus' | translate}}
+                                </th>
+                            </tr>
+                            <tr *ngFor="let contact of [0,1,2]; let i = index">
+                                <td class="text-center align-middle w-11">
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <div class="font-bold">
+                                        Do you want to do research in SSRC? And verify whether your qualifications are compatible for research.
+                                    </div>
+                                    <div class="publication hover:bg-blue-200">
+                                        <span class="text-blue-700">prothomalo.com</span> <br>
+                                        <span>Date: 03/06/2017 (Local)</span>
+                                    </div>
+                                </td>
+                                <td style=" vertical-align: top; ">
+                                    <div class="font-bold">Dr. Profull Chandra Sarker</div>
+                                    <div>Vice Chancellor of Royal University Dhaka, Bangladesh</div>
+                                </td>
+                                <td class="text-pink-600 font-semibold text-center">
+                                    Institutional
+                                </td>
+                                <td class="text-center">
+                                    2020-2021
+                                </td>
+                                <td class="font-semibold text-center">
+                                    <span *ngIf="i == 0; else Compleated" class="text-yellow-600"> Running </span>
+                                    <ng-template #Compleated>
+                                        <span class="text-green-600">Compleated</span>
+                                    </ng-template>
+
+                                </td>
+                            </tr>
+
+                        </table>
+                    </mat-card>
+            </div>
+            <!--- /Research Information -->
+
+            <!--- Grant Information -->
+            <div class="mt-5 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>
+                    <div class="ml-7 text-gray-900">{{'grantInfo' | translate}}</div>
+                    </div>
+                    <mat-card>
+                        <table class="researchInfo">
+
+                            <tr>
+                                <th>
+                                    {{'sl' | translate}}
+                                </th>
+                                <th>
+                                    {{'researchTitleLn' | translate}}
+                                </th>
+                                <th>
+                                    {{'grantAmount' | translate}}
+                                </th>
+                                <th>
+                                    {{'receivedAmount' | translate}}
+                                </th>
+                                <th>
+                                    {{'receivingAmount' | translate}}
+                                </th>
+
+                            </tr>
+                            <tr *ngFor="let contact of [0,1,2]; let i = index">
+                                <td class="text-center align-middle w-11">
+                                    {{i+1}}
+                                </td>
+                                <td>
+                                    <div class="font-bold">
+                                        Do you want to do research in SSRC? And verify whether your qualifications are compatible for research.
+                                    </div>
+                                </td>
+                                <td class="text-green-600 text-right">
+                                    {{'300000' | number}}.00
+                                </td>
+                                <td class="text-right">
+                                    {{'150000' | number}}.00
+                                </td>
+                                <td class="font-semibold text-right">
+                                    <span *ngIf="i == 0; else received" class="text-pink-600">
+                                        {{'150000' | number}}.00
+                                    </span>
+                                    <ng-template #received>
+                                        <span> {{'150000' | number}}.00</span>
+                                    </ng-template>
+                                </td>
+                            </tr>
+                            <tr class="grantTotal">
+                                <td class="text-right" colspan="2">Total Amount</td>
+                                <td>{{'900000' | number}}.00</td>
+                                <td>{{'450000' | number}}.00</td>
+                                <td>{{'450000' | number}}.00</td>
+                            </tr>
+
+                        </table>
+                    </mat-card>
+            </div>
+            <!--- /Grant Information -->
+
+        </mat-card>
+
+
+    </div>
+    <!-- Main End -->
+</div>
+
+

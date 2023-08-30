@@ -1,0 +1,541 @@
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+
+<div style="width: 100%; background-color: white">
+
+    <div *ngIf="agency && !spinner" class="flex flex-col flex-auto min-w-0" style="user-select: none;">
+        <div
+            class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+            <div class="flex-1 min-w-0">
+                <!--New Header-->
+                <div class="header flex justify-between items-center">
+                    <app-list-header [title]="'headerTitle' | translate" class="crop-text"
+                                     [subTitle]="'headerSubTitle' | translate"></app-list-header>
+
+                    <div class="w-35 flex justify-end">
+                        <div class="pr-6">
+                            <div class="btn btn-home flex justify-center items-center" (click)="navigateToMap()">
+                                <p class="pt-1">{{'projectLocationMap' | translate}}</p>
+                            </div>
+                        </div>
+
+                        <div class="pr-6">
+                            <a class="btn btn-home flex justify-center items-center" href="{{navigationPage}}">
+                                <mat-icon class="text-white">home</mat-icon>
+                                <p class="pt-1">{{'home' | translate}}</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--//New Header-->
+
+                <!-- Header -->
+                <!--<div class="dark bg-card dark:border-b">
+                    <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                        <div class="m-5">
+                            &lt;!&ndash; Avatar and name &ndash;&gt;
+                            <div class="flex flex-auto items-center min-w-0">
+                                <div class="flex flex-col min-w-0 ml-4">
+                                    <div
+                                        class="sm:text-xl md:text-2xl font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                        style="padding-bottom: 2px">
+                                        Integrated Digital Service Delivery Platform (IDSDP)
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="text-xs sm:text-base" style="color: #333333 !important;">
+                                            Project Processing,
+                                            Appraisal and Management System
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            &lt;!&ndash; Actions &ndash;&gt;
+                            <div class="flex justify-end" style="margin-top: -50px; color: #4b4b4b !important;">
+                                <a href="{{navigationPage}}" mat-button type="button">
+                                    <mat-icon>maps_home_work</mat-icon>&nbsp;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        <div  *ngIf="plancomDashbord" class="list-page-outside-body">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden m-3">
+                <div class="heading">
+                    <h1>Project Status</h1>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-2xl">
+                    <div class="flex-auto bg-gray-300">
+                        <mat-card class="flex-auto space-y-1 md:space-y-3 h-full">
+                            <div style="background-color: #599ad7; cursor: pointer;"
+                                 (click)="viewForwardProjects('AGENCY')"
+                                 [matTooltip]="'View Project Details'"
+                                 matTooltipPosition="above"
+                                 class="flex items-center justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                                <p>{{agency_name}}</p>
+                                <div class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                    <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                    {{totalProjectsInAgency}}
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-2 gap-1" *ngIf="(userGroup.groupStatus == 'AGENCY-DESK') || (userGroup.groupStatus == 'AGENCY-HEAD')">
+                                <div style="background-color: #599ad7; cursor: pointer;"
+                                     (click)="viewForwardProjects('INPROGRESS')"
+                                     [matTooltip]="'View Project Details'"
+                                     matTooltipPosition="above"
+                                     class="flex items-center justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                                    <p>In Preparation</p>
+                                    <div class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                        <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                        {{totalProjectsInAgencyInPeparation}}
+                                    </div>
+                                </div>
+
+                                <div style="background-color: #599ad7; cursor: pointer;"
+                                     (click)="viewForwardProjects('RECAST')"
+                                     [matTooltip]="'View Project Details'"
+                                     matTooltipPosition="above"
+                                     class="flex items-center justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                                    <p>Recast</p>
+                                    <div class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                        <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                        {{totalProjectsInAgencyRecust}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 sm:grid-cols-2 gap-1" *ngIf="(userGroup.groupStatus == 'MINISTRY-DESK') || (userGroup.groupStatus == 'MINISTRY-HEAD')">
+                                <div style="background-color: #599ad7; cursor: pointer;"
+                                     (click)="viewForwardProjects('MINISTRY_INPROGRESS')"
+                                     [matTooltip]="'View Project Details'"
+                                     matTooltipPosition="above"
+                                     class="flex items-center justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                                    <p>In Preparation</p>
+                                    <div class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                        <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                        {{totalProjectsInMinistryInPeparation}}
+                                    </div>
+                                </div>
+
+                                <div style="background-color: #599ad7; cursor: pointer;"
+                                     (click)="viewForwardProjects('MINISTRY_RECAST')"
+                                     [matTooltip]="'View Project Details'"
+                                     matTooltipPosition="above"
+                                     class="flex items-center justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                                    <p>Recast</p>
+                                    <div class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                        <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                        {{totalProjectsInMinistryRecust}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+                            <div class="grid grid-cols-2 sm:grid-cols-2 gap-2">
+                                <div style="background-color: #599ad7; cursor: pointer;"
+                                     (click)="viewForwardProjects('ONGOING')"
+                                     [matTooltip]="'View Project Details'"
+                                     matTooltipPosition="above"
+                                     class="flex items-center justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                                    <p>On Going</p>
+                                    <div class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                        <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                        {{totalProjectsOngoing}}
+                                    </div>
+                                </div>
+
+                                <div style="background-color: #599ad7; cursor: pointer;"
+                                     (click)="viewForwardProjects('COMPLETED')"
+                                     [matTooltip]="'View Project Details'"
+                                     matTooltipPosition="above"
+                                     class="flex items-center justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                                    <p>Completed</p>
+                                    <div class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                        <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                        {{totalProjectsCompleted}}
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                    <div class="flex-auto bg-gray-300">
+                        <mat-card class="flex-auto space-y-3">
+                            <div *ngIf="(userGroup.groupStatus == 'AGENCY-DESK') || (userGroup.groupStatus == 'AGENCY-HEAD')"
+                                 (click)="viewForwardProjects('MINISTRY')"
+                                 [matTooltip]="'View Project Details'"
+                                 matTooltipPosition="above"
+                                 class="flex items-center cursor-pointer justify-between w-full text-white text-center p-2 bg-blue-400 rounded-sm md:rounded-md">
+                                <p>In Ministry</p>
+                                <div class="bg-white text-blue-400 rounded-full h-16 w-16 flex justify-center items-center ">
+                                    <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                    {{totalProjectsInMinistry}}
+                                </div>
+                            </div>
+                            <div
+                                (click)="viewForwardProjects('PLANCOM')"
+                                [matTooltip]="'View Project Details'"
+                                matTooltipPosition="above"
+                                class="flex items-center cursor-pointer justify-between w-full text-white text-center p-2 bg-purple-400 rounded-sm md:rounded-md">
+                                <p>In Planning Commission</p>
+                                <div
+                                    class="bg-white text-purple-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                    <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                    {{totalProjectsInPlancomm}}
+                                </div>
+                            </div>
+                            <div style="background-color: #619e68"
+                                 (click)="viewForwardProjects('ECNEC')"
+                                 [matTooltip]="'View Project Details'"
+                                 matTooltipPosition="above"
+                                 class="flex items-center cursor-pointer justify-between w-full text-white text-center p-2 rounded-sm md:rounded-md">
+                                <p>In ECNEC</p>
+                                <div style="color: #619e68"
+                                     class="bg-white text-emerald-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                    <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                    {{totalProjectsInEcnec}}
+                                </div>
+                            </div>
+
+                            <div
+                                (click)="viewForwardProjects('APPROVED')"
+                                [matTooltip]="'View Project Details'"
+                                matTooltipPosition="above"
+                                class="flex items-center cursor-pointer justify-between w-full text-white text-center p-2 bg-purple-400 rounded-sm md:rounded-md">
+                                <p>Approved</p>
+                                <div
+                                    class="bg-white text-purple-400 rounded-full h-16 w-16 flex justify-center items-center">
+                                    <div *ngIf="loadAmount" class="loading loading--full-height"></div>
+                                    {{totalApproved}}
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+<!--                <div class="p-3">-->
+<!--                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5" fxLayout="row wrap"-->
+<!--                         fxLayoutAlign="space-between center">-->
+<!--                        <div-->
+<!--                            class="project-status-top flex items-center justify-center text-center"-->
+<!--                            style="background-color: #ee8139" (click)="goToDppList()">-->
+<!--                            <div-->
+<!--                                class="project-status-number rounded rounded-full w-16 h-16 p-6 flex items-center justify-center"-->
+<!--                                style="color: #ee8139">{{agencyDashboardModel?.totalProjects}}</div>-->
+<!--                            <div class="project-status-lbl flex-auto">-->
+<!--                                Total Projects-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div-->
+<!--                            class="project-status-top flex items-center justify-center text-center"-->
+<!--                            style="background-color: #619e68" (click)="goToDppList()">-->
+<!--                            <div-->
+<!--                                class="project-status-number rounded rounded-full w-16 h-16 p-6 flex items-center justify-center"-->
+<!--                                style="color: #619e68">{{agencyDashboardModel?.approvedProjects}}</div>-->
+<!--                            <div class="project-status-lbl flex-auto">-->
+<!--                                Approved Project-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="project-status-top flex items-center justify-center text-center"-->
+<!--                             style="background-color: #a764d2" (click)="goToDppList()">-->
+<!--                            <div-->
+<!--                                class="project-status-number rounded rounded-full w-16 h-16 p-6 flex items-center justify-center"-->
+<!--                                style="color: #a764d2">{{agencyDashboardModel?.sendToMinistryDivision}}</div> <br> <br>-->
+<!--                            <div class="project-status-lbl flex-auto">-->
+<!--                                In <br> Ministry/Division-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="project-status-top flex items-center justify-center text-center"-->
+<!--                             style="background-color: #599ad7" (click)="goToDppList()">-->
+<!--                            <div-->
+<!--                                class="project-status-number rounded rounded-full w-16 h-16 p-6 flex items-center justify-center"-->
+<!--                                style="color: #599ad7">{{agencyDashboardModel?.sendToPlanningCommission}}</div> <br> <br>-->
+<!--                            <div class="project-status-lbl flex-auto">-->
+<!--                                In <br> Planning Commission-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="project-status-top flex items-center justify-center text-center"-->
+<!--                             style="background-color: #5878f1" (click)="goToDppList()">-->
+<!--                            <div-->
+<!--                                class="project-status-number rounded rounded-full w-16 h-16 p-6 flex items-center justify-center"-->
+<!--                                style="color: #5878f1">{{agencyDashboardModel?.ecnecProjects}}</div>-->
+
+<!--                            <div class="project-status-lbl flex-auto">-->
+<!--                                In <br> ECNEC-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="48" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                     class="flex flex-col bg-card shadow rounded overflow-hidden m-3" style="margin-right: 0 !important;">
+                    <div class="heading">
+                        <h1>Total Projects (Different types)</h1>
+                    </div>
+                    <div id="projectTotalChart" style="height: 500px;">
+                        <apx-chart
+                            [series]="chartOptionsTotalProject?.series"
+                            [chart]="chartOptionsTotalProject?.chart"
+                            [dataLabels]="chartOptionsTotalProject?.dataLabels"
+                            [plotOptions]="chartOptionsTotalProject?.plotOptions"
+                            [colors]="chartOptionsTotalProject?.colors"
+                            [xaxis]="chartOptionsTotalProject?.xaxis">
+                        </apx-chart>
+                    </div>
+                </div>
+                <div fxFlex="48" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                     class="flex flex-col bg-card shadow rounded overflow-hidden m-3" style="margin-left: 0 !important;">
+                    <div class="heading" style="padding: 7px 10px;">
+                        <h1 style="float: left;">Project Location Map</h1>
+                        <div class="flex justify-end">
+                            <div class="btn btn-home flex justify-center items-center" (click)="navigateToMap()"
+                                 style="padding: 0.1rem 0.5rem !important;border-radius: 0.3rem;">
+                                <p class="pt-1" style="padding-top: 0 !important;">Full View</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap" style="height: 500px;padding-left: 25%;">
+                        <app-gis-map></app-gis-map>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="48" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                     class="flex flex-col bg-card shadow rounded m-3" style="margin-right: 0 !important;">
+                    <div class="heading">
+                        <h1>Recommended Project Status (9)</h1>
+                    </div>
+                    <div class="overflow-auto">
+                        <div id="recommendedProject" style="margin: 0 auto;height: 300px;padding-top: 25px;">
+                            <apx-chart
+                                [series]="chartOptionsRecommendedStatus?.seriesNonAxis"
+                                [chart]="chartOptionsRecommendedStatus?.chart"
+                                [labels]="chartOptionsRecommendedStatus?.labels"
+                                [colors]="chartOptionsRecommendedStatus?.colors"
+                                [responsive]="chartOptionsRecommendedStatus?.responsive"
+                            >
+                            </apx-chart>
+                            <!--                    <highcharts-chart-->
+                            <!--                        [Highcharts]="highcharts"-->
+                            <!--                        [options]="chartOptionsRecommendedStatus"-->
+                            <!--                        style="width: 550px; height: 310px; display: block;">-->
+                            <!--                    </highcharts-chart>-->
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="48" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                     class="flex flex-col bg-card shadow rounded overflow-hidden m-3" style="margin-left: 0 !important;">
+                    <div class="heading">
+                        <h1>No. of Feasibility Study Status ({{agencyDashboardModel?.totalFs}})</h1>
+                    </div>
+                    <div id="fsChart" style="margin: 0 auto;height: 300px;padding-top: 25px;">
+                        <!--                    <google-chart-->
+                        <!--                        [type]="'PieChart'"-->
+                        <!--                        [data]="fsStatusData"-->
+                        <!--                        [width]="550"-->
+                        <!--                        [options]="{ is3D: true,colors: ['#0cbe32', '#f60808']  }"-->
+                        <!--                        [height]="320">-->
+                        <!--                    </google-chart>-->
+                        <apx-chart
+                            [series]="chartOptionsFs?.seriesNonAxis"
+                            [chart]="chartOptionsFs?.chart"
+                            [labels]="chartOptionsFs?.labels"
+                            [colors]="chartOptionsFs?.colors"
+                            [responsive]="chartOptionsFs?.responsive"
+                        ></apx-chart>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden m-3">
+                <div class="heading">
+                    <h1>Ongoing Project Financial Progress Status (In Lac Taka)</h1>
+                </div>
+                <div class="m-3">
+                    <mat-label class="mr-2" style="vertical-align: super">Fiscal Year</mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" style="vertical-align: middle;width: 200px">
+                        <mat-select ngModel="fiscalYear">
+                            <mat-option value="">2020-2021</mat-option>
+                            <!--                        <mat-option *ngFor="let sector of sectorList" [value]="sector.id">-->
+                            <!--                            {{sector.sectorNameEn}}-->
+                            <!--                        </mat-option>-->
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div id="ongoingChart">
+                    <apx-chart
+                        [series]="chartOngoingOptions?.series"
+                        [chart]="chartOngoingOptions?.chart"
+                        [dataLabels]="chartOngoingOptions?.dataLabels"
+                        [plotOptions]="chartOngoingOptions?.plotOptions"
+                        [colors]="chartOngoingOptions?.colors"
+                        [xaxis]="chartOngoingOptions?.xaxis"
+                        [stroke]="chartOngoingOptions?.stroke">
+                    </apx-chart>
+                </div>
+                <!--<div class="flex justify-end m-2">
+                    <button class="action-btn" mat-flat-button [color]="'accent'" type="button">Details</button>
+                </div>-->
+            </div>
+        </div>
+
+        <div class="list-page-outside-body">
+            <mat-card *ngIf="plancomListPage">
+                <div class="flex justify-end m-5">
+                    <button class="px-6 mtbf-btn" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"
+                            (click)="backToDashbord()" >
+                        {{'dashboard' | translate}}
+                    </button>
+                </div>
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+                    <!--<mat-card>-->
+                    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                        <table mat-table [dataSource]="commonDatasource" class="mat-elevation-z8 bg-transparent w-full" matSort>
+
+                            <ng-container matColumnDef="thSl">
+                                <th [attr.rowspan]="2" class="table-head-style text-center pl-2" mat-header-cell *matHeaderCellDef
+                                    style="padding-left: 0px !important;">{{'sl' | translate}}
+                                </th>
+                            </ng-container>
+
+                            <ng-container matColumnDef="thProjectName">
+                                <th [attr.rowspan]="4" class="table-head-style text-center" mat-header-cell *matHeaderCellDef
+                                    style="padding-left: 5px;width: 45%">{{'pInfo' | translate}}
+                                </th>
+                            </ng-container>
+
+                            <ng-container matColumnDef="thProjectCost">
+                                <th [attr.colspan]="5" class="table-head-style text-center" mat-header-cell *matHeaderCellDef>{{'projectCost' | translate}}
+                                    ({{'takaInlack' | translate}})
+                                </th>
+                            </ng-container>
+
+                            <!-- ID Column -->
+                            <ng-container matColumnDef="sl">
+                                <td mat-cell *matCellDef="let row, let i= index" class="text-center" style="padding-left: 0px !important;">
+                                    {{ i + 1 }}
+                                    <!-- {{this.paginator.pageIndex == 0 ? numberPipe.convertToBanglaNumber(i + 1) : 1 + i + numberPipe.convertToBanglaNumber(this.paginator.pageIndex * this.paginator.pageSize)}} -->
+                                </td>
+                            </ng-container>
+
+                            <!-- Progress Column -->
+                            <ng-container matColumnDef="projectName">
+                                <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 5px;width: 42%">
+                                    <div style="cursor: pointer" (click)="gotToViewDashboard(row?.uuid)"><span
+                                        style="color: #0d9488;">{{ row?.titleEn }}</span> <span
+                                        style="color:#4b60bd;"> ({{row?.projectTypeDTO.nameEn}})</span></div>
+                                    <div style="color: #333333">{{ row?.agencyDTO?.nameEn }}</div>
+                                    <div style="color: #333333">{{ row?.agencyDTO?.ministryDivisionDTO?.nameEn }}</div>
+                                    <div style="color: #333333"><span>{{'sectorDivision' | translate}}</span> <span
+                                        style="color: #0d9488;">{{ row?.sectorDivisionName }}</span></div>
+                                    <div style="color: #333333"><span>{{'createDate' | translate}}</span><span
+                                        style="color: #0d9488;">{{row?.createdDate | date : 'dd/MM/yyyy'}}</span>
+                                    </div>
+                                    <div style="color: #333333">
+                                        <span>{{'commencementDate' | translate}}</span> <span style="color: #0d9488;">{{row?.commencementDate | date : 'dd/MM/yyyy'}}</span>
+                                        <br>
+                                        <span>{{'completionDate' | translate}}</span>
+                                        <span
+                                            style="color: #0d9488;">{{ row?.completionDate}}</span>
+                                    </div>
+                                    <div style="color: #333333"><span>{{'status' | translate}}</span><span
+                                        style="color: #ef8c23; font-weight: 500;">{{row?.movementStatus}}</span>
+                                    </div>
+
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="total">
+                                <td mat-cell *matCellDef="let row" class="amount-value text-right">
+                                    <div></div>
+                                    <div style="color: #333333">{{'total' | translate}}</div>
+                                    <br>
+                                    <div><span
+                                        style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.totalAmount.toFixed(2) : row?.totalAmount.toFixed(2) }}</span>
+                                    </div>
+                                    <div></div>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="gob">
+                                <td mat-cell *matCellDef="let row" class="amount-value text-right">
+                                    <div></div>
+                                    <div style="color: #333333">{{'gob' | translate}}</div>
+                                    <div style="color: #333333">({{'fe' | translate}})</div>
+                                    <br>
+                                    <div
+                                        style="color: #4b60bd">{{row?.annexureAmount ? row?.annexureAmount?.gobAmount.toFixed(2) : row?.gobAmount.toFixed(2) }}
+                                        <br>({{ row?.annexureAmount ? row?.annexureAmount?.gobFeAmount.toFixed(2) : row?.feGobAmount.toFixed(2) }})
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="pa">
+                                <td mat-cell *matCellDef="let row" class="amount-value text-right">
+                                    <div></div>
+                                    <div style="color: #333333">PA</div>
+                                    <div style="color: #333333">(RPA)</div>
+                                    <br>
+                                    <div
+                                        style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.paAmount.toFixed(2) : row.paAmount?.toFixed(2) }}
+                                        <br>({{ row?.annexureAmount ? row?.annexureAmount?.rpaAmount.toFixed(2) : row?.rpaAmount.toFixed(2) }})
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="ownFund">
+                                <td mat-cell *matCellDef="let row" class="amount-value text-right">
+                                    <div></div>
+                                    <div style="color: #333333;">{{'ownFund' | translate}}</div>
+                                    <div style="color: #333333">({{'fe' | translate}})</div>
+                                    <br>
+                                    <div
+                                        style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.ownFundAmount.toFixed(2) : row?.ownFundAmount?.toFixed(2) }}
+                                        <br>({{ row?.annexureAmount ? row?.annexureAmount?.ownFundFeAmount.toFixed(2) : row?.feOwnFundAmount?.toFixed(2)}})
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="other">
+                                <td mat-cell *matCellDef="let row" class="amount-value text-right">
+                                    <div></div>
+                                    <div style="color: #333333">{{'other' | translate}}</div>
+                                    <div style="color: #333333">({{'fe' | translate}})</div>
+                                    <br>
+                                    <div
+                                        style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.otherAmount.toFixed(2) : row?.otherAmount?.toFixed(2) }}
+                                        <br>({{ row?.annexureAmount ? row?.annexureAmount?.otherFeAmount.toFixed(2) : row?.feOtherAmount?.toFixed(2)}})
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsPCList"></tr>
+
+                            <!-- Row shown when there is no matching data. -->
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="8">
+                                    {{'noData' | translate}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!--                <mat-paginator [length]="commonTotalElement" [pageSize]="listPageSize" [pageSizeOptions]="[5, 10, 25, 50, 100]"-->
+                    <!--                               (page)="onChangePage($event)">-->
+                    <!--                </mat-paginator>-->
+                </div>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="w-full flex-auto" *ngIf="inEcnec && !spinner">
+        <app-ecnec-dashboard> </app-ecnec-dashboard>
+    </div>
+
+    <div class="w-full flex-auto" *ngIf="plancom && !spinner">
+        <app-plan-com-dashboard> </app-plan-com-dashboard>
+    </div>
+
+</div>
+

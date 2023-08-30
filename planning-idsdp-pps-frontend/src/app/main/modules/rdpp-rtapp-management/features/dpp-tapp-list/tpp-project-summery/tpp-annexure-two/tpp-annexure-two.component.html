@@ -1,0 +1,203 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 max-w-full">
+
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">
+                                    Project <small> TAPP (Annexure-II) </small>
+                                </div>
+                                <div class="flex items-center">
+                                    <div
+                                        class="leading-5 truncate text-secondary">
+                                        <a routerLink="/rdpp-rtapp">Home </a> > Project > TAPP > Annexure - II : Terms of Reference
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                Project Dashboard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+
+
+        <mat-card class="tab-color">
+            <div class="body">
+                <mat-card>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                    <div>
+                        <form class="form">
+                            <div style="margin-left: 10px">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div>
+                                        <form class="form">
+                                            <div>
+                                                <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                                    <!--<p>{{'project_cost' | translate}}</p>
+                                                    &lt;!&ndash;Table Start&ndash;&gt;-->
+
+
+                                                    <table class="mat-elevation-z8">
+
+                                                        <!-- Table Body-->
+                                                        <tbody class="projectInfo">
+                                                        <tr>
+                                                            <th class="text-left">
+                                                                Project Title (English)
+                                                            </th>
+                                                            <td>
+                                                                :
+                                                            </td>
+                                                            <td>
+                                                                {{projectName}}
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th>
+                                                                Project Total Cost (Taka in Lac)
+                                                            </th>
+                                                            <td>
+                                                                :
+                                                            </td>
+                                                            <td>
+                                                                {{totalAmount}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                                Date of Commencement
+                                                            </th>
+                                                            <td>
+                                                                :
+                                                            </td>
+                                                            <td>{{commencementDate | date: 'dd-MM-yyyy'}}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th>
+                                                                Date of Completion
+                                                            </th>
+                                                            <td>
+                                                                :
+                                                            </td>
+                                                            <td>
+                                                                {{completionDate | date: 'dd-MM-yyyy'}}
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                        <!-- Table Body End-->
+                                                    </table>
+                                                    <!--Table End-->
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                    <mat-label>
+                                        Project Title (English) : SDPP project dummy TAPP with Gob
+                                    </mat-label>
+                                    <br>
+                                    <mat-label>Project Total Cost (Taka in Lac) : 0
+                                    </mat-label>
+                                    <br>
+                                    <mat-label>Date of Commencement : 26/04/2021
+                                    </mat-label>
+                                    <br>
+                                    <mat-label>Date of Completion : 30/04/2021
+                                    </mat-label>
+                                    <br>
+                                </div>-->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <br>
+                <div>
+                    <form [formGroup]="frmGroup" name="frmGroup" class="p-5">
+                    <div class="eca">
+                        <mat-card>
+                            <p>{{'noteName' | translate}}</p>
+                        </mat-card>
+
+                        <div class="heading mt-5">
+                            <p>{{'termsName' | translate}}</p>
+                        </div>
+
+                        <div class="fileInput" style="margin-left: 5px">
+
+                            <p>• Background of the project;</p>
+                            <p>• Objectives of the assignments;</p>
+                            <p>• Scope of services;</p>
+                            <p>• Transfer of knowledge (training), where appropriate;</p>
+                            <p>• List of reports, Schedule of deliveries, period of performance;</p>
+                            <p>• Data, personnel, facilities and local services to be provided by the client, and</p>
+                            <p>• Institutional arrangements</p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="ck-editor" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload0" class="custom-file-upload">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                             <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'institutionalAgreement')"  id="file-upload0" />
+                        </div>
+
+                        <ckeditor formControlName="institutionalAgreement">
+
+                        </ckeditor>
+                    </div>
+
+
+
+
+                    <!-- <div class="eca" style="margin-top: 9px">
+                    <div class="description">
+                    </div>
+                    <div class="fileInput">
+                    </div>
+                </div> -->
+
+                    <div class="mt-4" align="end">
+                        <button [disabled]="spinner" (click)="onSubmit()" color="primary" mat-raised-button>Save</button>
+
+                    </div>
+                </form>
+                </div>
+                </mat-card>
+            </div>
+        </mat-card>
+</div>

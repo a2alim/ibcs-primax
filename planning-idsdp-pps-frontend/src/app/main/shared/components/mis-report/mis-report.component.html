@@ -1,0 +1,582 @@
+
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<div style="width: 100%; background-color: white">
+
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="'headerTitle' | translate" class="crop-text"
+                                 [subTitle]="'headerSubTitle' | translate"></app-list-header>
+
+                <div class="pr-6">
+                    <a class="btn btn-home flex justify-center items-center" (click)="backToList()">
+                        <mat-icon class="text-white">arrow_back_ios</mat-icon>
+                        <p class="pt-1">Back</p>
+                    </a>
+                </div>
+            </div>
+            <!--//New Header-->
+
+        </div>
+    </div>
+
+    <div class="list-page-outside-body">
+
+        <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+            <div class="heading">
+                <div style="float: left">
+                    <div class="flex items-center">
+                        <h1>
+                            <mat-icon svgIcon="heroicons_outline:adjustments"
+                                      style="vertical-align: middle;color: #000000;"></mat-icon>
+                            Criteria Based Searching
+                        </h1>
+                    </div>
+                </div>
+                <div *ngIf="dataTable" style="float: right" class="mr-4">
+                    <button (click)="clearSearchForm()" class="btn btn-clear flex justify-center items-center"
+                            type="button">
+                        <mat-icon class="text-white">clear_all</mat-icon>
+                        <p>Clear Search </p>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="applyForm">
+                <form [formGroup]="form" class="mr-15 ml-15 mb-3">
+                    <!--                Project type -->
+                    <mat-card class="mt-3">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-4">
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Project Type
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <mat-select formControlName="projectTypeId">
+                                            <mat-option value="0">Select</mat-option>
+                                            <mat-option *ngFor="let projectType of projectTypeModel" [value]="projectType.id">
+                                                {{projectType.nameEn}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+
+                    <!--                project location-->
+                    <mat-card class="mt-3">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-5">
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Project Location:
+                                    </mat-label>
+                                    <mat-checkbox fxFlex="70%" fxFlex.xs="70%" fxFlex.sm="60%" fxFlex.md="60%"
+                                                  (change)="selectLocation($event.checked)">
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                            <!--<div fxFlex="10%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Sector
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <mat-select formControlName="sector">
+                                            <mat-option value="">Select</mat-option>
+                                            <mat-option *ngFor="let sector of sectorList" [value]="sector.id">
+                                                {{sector.sectorNameEn}}
+                                            </mat-option>
+                                            <mat-option>
+                                                Select
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>-->
+                        </div>
+
+                        <div *ngIf="isLocation" fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-4">
+                            <div fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Division
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <mat-select formControlName="divisionLocationId" (ngModelChange)="onchangeZillas($event)">
+                                            <mat-option value="0">Select</mat-option>
+                                            <mat-option *ngFor="let division of divisions" [value]="division.id">
+                                                {{division.nameEn}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">District
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <mat-select formControlName="zillaLocationId" (ngModelChange)="onchangeUpazillas($event)">
+                                            <mat-option value="0">Select</mat-option>
+                                            <mat-option *ngFor="let zilla of zillas" [value]="zilla.id">
+                                                {{zilla.nameEn}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Upazila
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <mat-select formControlName="upazilaLocationId">
+                                            <mat-option value="0">Select</mat-option>
+                                            <mat-option *ngFor="let upazilla of upazillas" [value]="upazilla.id">
+                                                {{upazilla.nameEn}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!--                    <div fxFlex="10%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>-->
+                        </div>
+
+
+
+                    </mat-card>
+
+                    <!--                sector-sub sector-->
+                    <mat-card class="mt-3">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-4">
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Sector Division
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <mat-select formControlName="sectorDivisionId" (ngModelChange)="onchangeSectorDivision($event)">
+                                            <mat-option value="0">Select</mat-option>
+                                            <mat-option *ngFor="let sectorDivision of sectorDivision" [value]="sectorDivision.id">
+                                                {{sectorDivision.sectorDivisionNameEn}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-4">
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Sector
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <mat-select formControlName="sectorId" (ngModelChange)="onchangeSector($event)">
+                                            <mat-option value="0">Select</mat-option>
+                                            <mat-option *ngFor="let sector of sectors"
+                                                        [value]="sector.id">{{sector.sectorNameEn}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="10%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Sub-Sector
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <mat-select formControlName="subSectorIid" (ngModelChange)="onchangeSubSector()">
+                                            <mat-option value="0">Select</mat-option>
+                                            <mat-option *ngFor="let subSector of subSectors"
+                                                        [value]="subSector.id">{{subSector.subSectorNameEn}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+
+                    <!--                agency ministry-->
+                    <mat-card class="mt-3">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-4">
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Ministry
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <mat-select formControlName="ministry" (ngModelChange)="onchangeAgency($event)">
+                                            <mat-option value="">Select</mat-option>
+                                            <mat-option *ngFor="let ministryDivision of ministryDivision" [value]="ministryDivision.id">
+                                                {{ministryDivision.nameEn}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="10%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Agency
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <mat-select formControlName="agency" (ngModelChange)="onchangeAgencyName($event)">
+                                            <mat-option value="">Select</mat-option>
+                                            <mat-option *ngFor="let agency of agencyModel" [value]="agency.id">
+                                                {{agency.nameEn}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+
+                    <!--                funding type-->
+                    <mat-card class="mt-3">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-around center" class="mt-4">
+                            <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-around center">
+                                    <mat-label fxFlex="11%" fxFlex.md="100%" fxFlex.sm="100%"
+                                               fxFlex.xs="100%">Funding Type
+                                    </mat-label>
+                                    <div fxFlex="20%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-around center">
+                                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                       fxFlex.xs="30%">GoB
+                                            </mat-label>
+                                            <mat-checkbox formControlName="isFundingTypeGob" fxFlex="70%" fxFlex.xs="70%" fxFlex.sm="60%" fxFlex.md="60%">
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                        <div class="pr5" fxLayout="row  " fxLayoutAlign="space-around center">
+                                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                       fxFlex.xs="30%">Own Fund
+                                            </mat-label>
+                                            <mat-checkbox formControlName="isFundingTypeOwn" fxFlex="70%" fxFlex.xs="70%" fxFlex.sm="60%" fxFlex.md="60%">
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-around center">
+                                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                       fxFlex.xs="30%">Others
+                                            </mat-label>
+                                            <mat-checkbox formControlName="isFundingTypeOther" fxFlex="70%" fxFlex.xs="70%" fxFlex.sm="60%" fxFlex.md="60%">
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+
+                    <!--                financing  type and fiscal year -->
+                    <mat-card class="mt-3">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-4">
+                            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Financing Type
+                                    </mat-label>
+                                    <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                        <div class="pr5 mr5" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                       fxFlex.xs="30%">GoB
+                                            </mat-label>
+                                            <mat-checkbox formControlName="isFinancingTypeGob" fxFlex="70%" fxFlex.xs="70%" fxFlex.sm="60%" fxFlex.md="60%">
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                       fxFlex.xs="30%">PA
+                                            </mat-label>
+                                            <mat-checkbox formControlName="isFinancingTypePa" fxFlex="70%" fxFlex.xs="70%" fxFlex.sm="60%" fxFlex.md="60%">
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div fxFlex="10%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div> -->
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Fiscal Year
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <input formControlName="fiscalYearFrom" matInput placeholder="YYYY" type="text">
+                                    </mat-form-field>
+                                    <mat-label fxFlex="10%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                               style="text-align: center;">To
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <input formControlName="fiscalYearTo" matInput placeholder="YYYY" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+
+                    <!--                amount range-->
+                    <mat-card class="mt-3">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-4">
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">GoB Amount
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <input onfocus="this.select()" formControlName="gobAmountFrom" matInput placeholder="Number">
+                                    </mat-form-field>
+                                    <mat-label fxFlex="10%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                               style="text-align: center;">To
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <input formControlName="gobAmountTo" onfocus="this.select()" matInput placeholder="Number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="10%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Foreign Aid
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <input formControlName="paAmountFrom" onfocus="this.select()" matInput placeholder="Number">
+                                    </mat-form-field>
+                                    <mat-label fxFlex="10%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                               style="text-align: center;">To
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <input formControlName="paAmountTo" onfocus="this.select()" matInput placeholder="Number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+
+                    <!--                amount-range-->
+                    <mat-card class="mt-3">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-4">
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Own Fund Amount
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <input formControlName="ownAmountFrom" onfocus="this.select()" matInput placeholder="Number">
+                                    </mat-form-field>
+                                    <mat-label fxFlex="10%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                               style="text-align: center;">To
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <input formControlName="ownAmountTo" onfocus="this.select()" matInput placeholder="Number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="10%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="30%">Total Amount
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <input formControlName="totalAmountFrom" onfocus="this.select()" matInput placeholder="Number">
+                                    </mat-form-field>
+                                    <mat-label fxFlex="10%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                               style="text-align: center;">To
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                                    fxFlex.sm="70%" fxFlex.xs="70%">
+                                        <input formControlName="totalAmountTo" onfocus="this.select()" matInput placeholder="Number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+
+                    <div class="flex justify-end space-x-2 mr-3 mt-3">
+                        <button (click)="clearSearchForm()" class="btn btn-clear flex justify-center items-center"
+                                type="button">
+                            <mat-icon class="text-white">clear_all</mat-icon>
+                            <p>Clear</p>
+                        </button>
+                        <button (click)="getMisReport()" class="btn btn-search flex justify-center items-center"
+                                type="button">
+                            <mat-icon class="text-white">search</mat-icon>
+                            <p>Search</p>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div *ngIf="dataTable" class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+            <!--<mat-card>-->
+            <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                <table  style="width: 100%" mat-table [dataSource]="misDataSource" class="mat-elevation-z8 bg-transparent" matSort>
+                    <ng-container matColumnDef="thSl">
+                        <th [attr.rowspan]="2" class="table-head-style" mat-header-cell *matHeaderCellDef>
+                            {{'SL' | translate}}
+                        </th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="thProjectName">
+                        <th [attr.rowspan]="4" class="table-head-style" mat-header-cell *matHeaderCellDef
+                            style="padding-left: 5px;width: 45%">{{'Project Information' | translate}}
+                        </th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="thProjectCost">
+                        <th [attr.colspan]="5" class="table-head-style" mat-header-cell *matHeaderCellDef>{{'project Cost' | translate}}
+                            ({{'Taka In Lac' | translate}})
+                        </th>
+                    </ng-container>
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="sl">
+                        <td mat-cell *matCellDef="let row, let i= index">
+                            <!--    {{ i + 1 }}     -->
+                            {{this.paginator?.pageIndex == 0 ? i + 1 : 1 + i + this.paginator?.pageIndex * this.paginator?.pageSize}}
+                        </td>
+                    </ng-container>
+
+
+                    <!-- Progress Column -->
+                    <ng-container matColumnDef="projectName">
+                        <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 5px;width: 42%">
+                            <div style="cursor: pointer" (click)="gotToViewDashboard(row?.projectConceptUuid)"><span
+                                style="color: #0d9488;">{{ row?.projectTitleEn }}</span> <span
+                                style="color:#4b60bd;"> ({{row?.projectType.nameEn}})</span></div>
+                            <div style="color: #333333">{{ row?.ministryDivision }}</div>
+                            <div style="color: #333333">{{ row?.implementingAgency }}</div>
+                            <div style="color: #333333"><span>{{'Sector Division : ' | translate}}</span> <span
+                                style="color: #0d9488;">{{ row?.sectorDivision.sectorDivisionNameEn }}</span></div>
+                            <div style="color: #333333"><span>{{'Created Date : ' | translate}}</span><span
+                                style="color: #0d9488;">{{row?.createdDate | date : 'dd/MM/yyyy'}}</span>
+                            </div>
+                            <div style="color: #333333">
+                                <span>{{'Commencement Date : ' | translate}}</span> <span style="color: #0d9488;">{{ row.commencementDate}}</span>
+                                <br>
+                                <span>{{'Completion Date : ' | translate}}</span>
+                                <span
+                                    style="color: #0d9488;">{{ row.completionDate}}</span>
+                            </div>
+                            <div style="color: #333333"><span>{{'Movement Status : ' | translate}}</span><span
+                                style="color: #0d9488;">{{row?.movementStatus}}</span>
+                            </div>
+                            <!--                                <div style="color: #333333">Status: <span-->
+                            <!--                                    style="color: #ef8c23;font-weight: 500">{{row?.movementStatus}}</span></div>-->
+                        </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="total">
+                        <td mat-cell *matCellDef="let row" class="amount-value">
+                            <div></div>
+                            <div style="color: #333333">{{'Total' | translate}}</div>
+                            <br>
+                            <div><span
+                                style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.totalAmount.toFixed(2) : 0.00 }}</span>
+                            </div>
+                            <div></div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="gob">
+                        <td mat-cell *matCellDef="let row" class="amount-value">
+                            <div></div>
+                            <div style="color: #333333">{{'Gob' | translate}}</div>
+                            <div style="color: #333333">({{'FE' | translate}})</div>
+                            <br>
+                            <div
+                                style="color: #4b60bd">{{row?.annexureAmount ? row?.annexureAmount?.gobAmount.toFixed(2) : 0.00 }}
+                                <br>({{ row?.annexureAmount ? row?.annexureAmount?.gobFeAmount.toFixed(2) : 0.00 }}
+                                )
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ownFund">
+                        <td mat-cell *matCellDef="let row" class="amount-value">
+                            <div></div>
+                            <div style="color: #333333;">{{'Own Fund' | translate}}</div>
+                            <div style="color: #333333">({{'FE' | translate}})</div>
+                            <br>
+                            <div
+                                style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.ownFundAmount.toFixed(2) : 0.00 }}
+                                <br>({{ row?.annexureAmount ? row?.annexureAmount?.ownFundFeAmount.toFixed(2) : 0.00}}
+                                )
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="other">
+                        <td mat-cell *matCellDef="let row" class="amount-value">
+                            <div></div>
+                            <div style="color: #333333">{{'Other' | translate}}</div>
+                            <div style="color: #333333">({{'FE' | translate}})</div>
+                            <br>
+                            <div
+                                style="color: #4b60bd">{{ row?.annexureAmount ? row?.annexureAmount?.otherAmount.toFixed(2) : 0.00 }}
+                                <br>({{ row?.annexureAmount ? row?.annexureAmount?.otherFeAmount.toFixed(2) : 0.00}}
+                                )
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsList"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="8">
+                            {{'No Data Found' | translate}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <mat-paginator [length]="totalElement" [pageSize]="size" [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                           (page)="onChangePage($event)">
+            </mat-paginator>
+        </div>
+
+    </div>
+
+</div>

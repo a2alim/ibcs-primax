@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center align-items-center continer">
+    <div class="card py-5 px-3">
+        <div class="m-0 text-center card a">
+            <h5 class="text-2xl" >Verify Your Login Credentials</h5>
+        </div>
+
+        <div class="text-center link ac">
+An activation link sent to your mail address and OTP sent to mobile, please check and enter the verification code to verify your mobile number
+        </div>
+
+
+        <div class="text-center v">
+            Enter Verification Code
+        </div>
+
+
+        <div class="text-center v2">
+            Please enter the verification code sent to your phone number
+        </div>
+
+        <div class="f text-center">
+
+        <div class="md:flex">
+
+            <div class="w-full sm:w-auto md:w-3/12 lg:w-3/12 md:text-left md:pt-3">
+                <mat-form-field class="w-full" >
+                    <input id="otp1" maxlength="1" matInput  [(ngModel)]="otp1" #input1 >
+                </mat-form-field>
+            </div>
+
+            <div class="w-full sm:w-auto md:w-3/12 lg:w-3/12 md:text-left md:pt-3">
+                <mat-form-field class="w-full">
+                    <input id="otp2" maxlength="1" matInput [(ngModel)]="otp2">
+                </mat-form-field>
+            </div>
+
+<!--            -->
+
+            <div class="w-full sm:w-auto md:w-3/12 lg:w-3/12 md:text-left md:pt-3">
+                <mat-form-field class="w-full">
+                    <input id="otp3" maxlength="1" matInput [(ngModel)]="otp3">
+                </mat-form-field>
+            </div>
+
+            <div class="w-full sm:w-auto md:w-3/12 lg:w-3/12 md:text-left md:pt-3">
+                <mat-form-field class="w-full">
+                    <input id="otp4" maxlength="1" matInput [(ngModel)]="otp4">
+                </mat-form-field>
+            </div>
+        </div>
+        </div>
+        <div class="text-center mt-5">
+            <span class="d-block mobile-text" id="countdown"></span>
+            <!--            <span class="d-block mobile-text" id="resend"></span>-->
+            <div *ngIf="resendOtp" id="resend">
+                Don't receive the code? <button class="font-weight-bold text-color cursor" type="button" (click)="reSend(60)">Resend </button>
+                <div>
+                    <button mat-button class="no-button" (click)="confirm(false,true)">{{'Cancel' | translate}}</button>
+                </div>
+            </div>
+            <div *ngIf="!resendOtp">
+            <mat-dialog-actions align="end">
+                <button mat-button class="no-button" (click)="confirm(false,true)">{{'Cancel' | translate}}</button>
+                <button mat-button class="yes-button" cdkFocusInitial (click)="confirm(true,false)">{{'Submit' | translate}}</button>
+            </mat-dialog-actions>
+            </div>
+        </div>
+
+    </div>
+</div>

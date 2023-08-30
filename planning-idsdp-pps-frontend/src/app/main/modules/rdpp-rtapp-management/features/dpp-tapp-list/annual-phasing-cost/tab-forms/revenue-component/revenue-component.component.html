@@ -1,0 +1,960 @@
+<form [formGroup]="revenueCostFrmGroup">
+
+    <div class="max-w-8xl wrapper">
+        <section fxLayout fxLayoutAlign="space-between">
+
+            <!-- ************* Table Start ******************-->
+            <div>
+                <table class="RevenueTbl">
+                    <!-- ************* START HEAD ******************-->
+                    <thead>
+                    <tr>
+                        <td colspan="16"
+                            style="height: 73px !important;border-right: none !important;text-align: center;font-size: 18px;">
+                            (a) Revenue Component
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th rowspan="4"></th>
+
+                        <th rowspan="4">
+                            {{ "colName.economic_code" | translate }}
+                        </th>
+
+                        <th rowspan="4">
+                            {{ "colName.economic_sub_code" | translate }}
+                        </th>
+
+                        <th rowspan="4">
+                            {{ "colName.code_description" | translate }}
+                        </th>
+                        <th rowspan="4">
+                            Is Major?
+                        </th>
+                        <th rowspan="4">
+                            {{ "colName.Unit" | translate }}
+                        </th>
+
+                        <th rowspan="4">
+                            {{ "colName.Unit_Cost" | translate }}
+                        </th>
+
+                        <th rowspan="4">
+                            {{ "colName.Qty" | translate }}
+                        </th>
+
+                        <th rowspan="4">
+                            {{ "colName.Total_Cost" | translate }}
+                        </th>
+
+                        <th *ngIf="'colName.Thru_GoB' | translate; else whenFalse"
+                            colspan="7" style="height: 41px !important;">
+                            {{ "colName.Project_Total" | translate }}
+                        </th>
+
+                        <ng-template #whenFalse>
+                            <th #whenFalse colspan="3" style="height: 41px;">
+                                {{ "colName.Project_Total" | translate }}
+                            </th>
+                        </ng-template>
+                    </tr>
+                    <tr>
+                        <th rowspan="3">
+                            <span [innerHTML]="'colName.GoB_FE' | translate"></span>
+                        </th>
+                        <th colspan="4" *ngIf="'colName.Project_Aid' | translate">
+                            {{ "colName.Project_Aid" | translate }}
+                        </th>
+                        <th rowspan="3">
+                        <span
+                            [innerHTML]="'colName.Own_Fund_FE' | translate"
+                        ></span>
+                        </th>
+                        <th rowspan="3">
+                        <span
+                            [innerHTML]="'colName.Other_FE' | translate"
+                        ></span>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" *ngIf="'colName.RPA' | translate">
+                            {{ "colName.RPA" | translate }}
+                        </th>
+                        <th colspan="2" *ngIf="'colName.DPA' | translate">
+                            {{ "colName.DPA" | translate }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngIf="'colName.Thru_GoB' | translate">
+                            {{ "colName.Thru_GoB" | translate }}
+                        </th>
+                        <th *ngIf="'colName.Sp_AC' | translate">
+                            {{ "colName.Sp_AC" | translate }}
+                        </th>
+                        <th *ngIf="'colName.Thru_PD' | translate">
+                            {{ "colName.Thru_PD" | translate }}
+                        </th>
+                        <th *ngIf="'colName.Thru_DP' | translate">
+                            {{ "colName.Thru_DP" | translate }}
+                        </th>
+                    </tr>
+                    <tr class="text-center">
+                        <td></td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+
+                        <td *ngIf="'colName.Thru_GoB' | translate">9</td>
+                        <td *ngIf="'colName.Thru_GoB' | translate">10</td>
+                        <td *ngIf="'colName.Thru_GoB' | translate">11</td>
+                        <td *ngIf="'colName.Thru_GoB' | translate">12</td>
+
+                        <td>13</td>
+                        <td>14</td>
+                        <td>15</td>
+                    </tr>
+                    </thead>
+                    <!-- ************* END HEAD ******************-->
+
+
+                    <!-- ************* START BODY ******************-->
+                    <tbody>
+
+                    <!-- ************* Body Row 1 ******************-->
+                    <tr>
+                        <td colspan="4">{{ "Revenue_Component_A" | translate }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td colspan="4">{{ "Revenue_Component" | translate }}</td>
+                        <ng-container *ngIf="'colName.Thru_GoB' | translate">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </ng-container>
+                    </tr>
+                    <!-- ************* Body Row 1 End ******************-->
+
+                    <ng-container [formGroup]="revenueCostFrmGroup">
+                        <!-- ************* Dynamic Row ******************-->
+                        <ng-container formArrayName="revenueCostArray">
+                            <ng-container *ngFor="let revenueCost of revenueCosts.controls; index as i">
+                                <ng-container [formGroupName]="i">
+                                    <tr><!-----------------Initial Action Button-------------------------->
+                                        <td>
+                                            <button
+                                                mat-icon-button
+                                                class="toggle-sidebar-folded"
+                                                fxHide.lt-lg>
+                                                <mat-icon (click)="deleteRevenueCost(i)" color="warn">delete</mat-icon>
+                                            </button>
+                                        </td>
+                                        <!----------------- Basic Column -------------------------->
+                                        <td>
+                                            <input autocomplete="off"
+                                                   matInput
+                                                   required
+                                                   class="field-size-left"
+                                                   formControlName="economicCodeText"
+                                                   [matAutocomplete]="auto">
+                                            <mat-autocomplete #auto="matAutocomplete"  [panelWidth]="auto">
+
+                                                <mat-option *ngFor="let item of economicCodes" [value]="item.code"
+                                                            (click)="onSelectedEconomicCode(item.id)"
+                                                            title="{{item.code}}">
+                                                    {{item.code}}({{item.description}})
+                                                </mat-option>
+                                            </mat-autocomplete>
+
+                                            <div class="example-button-row">
+                                                <mat-icon color="primary">
+                                <span class="material-icons-outlined">
+                                    file_upload
+                                </span>
+                                                </mat-icon>
+
+                                                <mat-icon (click)="deleteRevenueCost(i)" color="accent"
+                                                ><span class="material-icons-outlined">
+                                    visibility
+                                </span></mat-icon
+                                                >
+                                                <mat-icon (click)="deleteRevenueCost(i)" color="warn"
+                                                ><span class="material-icons-outlined">
+                                    delete_outline
+                                </span></mat-icon
+                                                >
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input autocomplete="off"
+                                                   matInput
+                                                   required
+                                                   class="field-size-left"
+                                                   formControlName="economicSubCodeText"
+                                                   [matAutocomplete]="sub">
+                                            <mat-autocomplete #sub="matAutocomplete"  [panelWidth]="auto">
+                                                <mat-option *ngFor="let option of subEconomicCodes"
+                                                            [value]="option.code"
+                                                            (click)="onSelectedSubEconomicCode(option.id,i)"
+                                                            title="{{option.code}}">
+                                                    {{option.code}}({{option.description}})
+                                                </mat-option>
+                                            </mat-autocomplete>
+
+                                        </td>
+
+                                        <td>
+                                            <textarea
+                                                formControlName="codeDescriptionText"
+                                                readonly
+                                                class="readOnly field-size-right"></textarea>
+                                        </td>
+
+                                        <!--major-->
+                                        <td>
+                                            <mat-checkbox id="amateur" class="amateur ml-4 mt-3" color="primary"
+                                                          formControlName="isMajor"></mat-checkbox>
+                                        </td>
+                                        <td>
+                                            <input autocomplete="off"
+                                                   matInput
+                                                   required
+                                                   class="field-size-left"
+                                                   formControlName="unitText"
+                                                   [matAutocomplete]="unit">
+                                            <mat-autocomplete #unit="matAutocomplete"  [panelWidth]="auto">
+                                                <mat-option *ngFor="let unit of unitTypeList"
+                                                            [value]="unit.unitTypeNameEng">
+                                                    {{ unit.unitTypeNameEng }}({{unit.description}})
+                                                </mat-option>
+                                            </mat-autocomplete>
+
+                                        </td>
+
+                                        <td>
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="unitCostText"
+                                                matInput
+                                                type="number"
+                                                required
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="qtyText"
+                                                matInput
+                                                type="number"
+                                                #qtyText
+                                                (blur)="totalCalculation(qtyText,$event,i)"
+                                                required
+                                                class="field-size-right"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="totalCostText"
+                                                matInput
+                                                type="number"
+                                                readonly
+                                                class="readOnly field-size-right"
+                                                #totalCostText
+                                                (blur)="totalCalculation(totalCostText,$event,i)"
+                                                (input)="aromaticCalculation([$event.target.value,
+                                                 this.revenueCostFrmArray.controls[i].value.qtyText],
+                                                 i,'unitCostText','+')"
+                                                required
+                                            />
+                                        </td>
+
+                                        <!-------------- Total Project Part -------------------------->
+                                        <td>
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="gobText"
+                                                matInput
+                                                required
+
+                                                type="number"
+                                                #gobText
+                                                (blur)="totalCalculation(gobText,$event,i)"
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            />
+                                            <br/>
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="feText"
+                                                matInput
+                                                type="number"
+                                                #feText
+                                                (blur)="totalCalculation(feText,$event,i)"
+                                                required
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            />
+                                        </td>
+
+                                        <td *ngIf="'colName.Thru_GoB' | translate">
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="thruGobText"
+                                                matInput
+                                                type="number"
+                                                #thruGobText
+                                                (blur)="totalCalculation(thruGobText,$event,i)"
+                                                required
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            />
+                                        </td>
+                                        <td *ngIf="'colName.Thru_GoB' | translate">
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="spAcText"
+                                                matInput
+                                                type="number"
+                                                #spAcText
+                                                (blur)="totalCalculation(spAcText,$event,i)"
+                                                required
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            />
+                                        </td>
+                                        <td *ngIf="'colName.Thru_GoB' | translate">
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="thruPdText"
+                                                matInput
+                                                type="number"
+                                                #thruPdText
+                                                (blur)="totalCalculation(thruPdText,$event,i)"
+                                                required
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            />
+                                        </td>
+                                        <td *ngIf="'colName.Thru_GoB' | translate">
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="thruDpText"
+                                                matInput
+                                                type="number"
+                                                #thruDpText
+                                                (blur)="totalCalculation(thruDpText,$event,i)"
+                                                required
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="ownFundFeText"
+                                                matInput
+                                                type="number"
+                                                #ownFundFeText
+                                                (blur)="totalCalculation(ownFundFeText,$event,i)"
+                                                required
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            /><br/>
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="ownFeFundFeText"
+                                                matInput
+                                                type="number"
+                                                #ownFeFundFeText
+                                                (blur)="totalCalculation(ownFeFundFeText,$event,i)"
+                                                required
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="otherFeText"
+                                                matInput
+                                                type="number"
+                                                #otherFeText
+                                                (blur)="totalCalculation(otherFeText,$event,i)"
+                                                required
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            /><br/>
+                                            <input
+                                                autocomplete="off"
+                                                formControlName="feOtherFeText"
+                                                matInput
+                                                type="number"
+                                                #feOtherFeText
+                                                (blur)="totalCalculation(feOtherFeText,$event,i)"
+                                                required
+                                                readonly
+                                                class="readOnly field-size-right"
+                                            />
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                        <!-- ************* Dynamic Row End ******************-->
+
+
+                        <!-- ************* Revenue Sub Total Row ******************-->
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                <button
+                                    mat-stroked-button
+                                    color="warn"
+                                    class="px-8 m-4"
+                                    type="button"
+                                    (click)="addBasicInitRevenueRowWithValue()"
+                                >
+                                    {{ "BtnName.add_revenue" | translate }}
+                                </button>
+                            </td>
+                            <td
+                                colspan="4"
+                                class="text-center"
+                                style="vertical-align: middle !important"
+                            >
+
+                                <b>{{ "Revenue_sub_total" | translate }}</b>
+                            </td>
+                            <td>
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_qtyText"
+                                    matInput
+                                    required
+                                    class="field-size-right"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_totalCostText"
+                                    matInput
+                                    required
+                                    class="field-size-right"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    autocomplete="off"
+                                    matInput
+                                    formControlName="t_gobText"
+                                    required
+                                    class="field-size-right"
+                                /><br/>
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_feText"
+                                    matInput
+                                    required
+                                    class="field-size-right"
+                                />
+                            </td>
+
+                            <!-- Column number 9 to 12 -->
+                            <td *ngIf="'colName.Thru_GoB' | translate">
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_thruGobText"
+                                    matInput
+                                    required
+                                    class="field-size-right"
+                                />
+                            </td>
+                            <td *ngIf="'colName.Thru_GoB' | translate">
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_spAcText"
+                                    matInput
+                                    required
+                                    class="field-size-right"
+                                />
+                            </td>
+                            <td *ngIf="'colName.Thru_GoB' | translate">
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_thruPdText"
+                                    matInput
+                                    required
+                                    class="field-size-right"
+                                />
+                            </td>
+                            <td *ngIf="'colName.Thru_GoB' | translate">
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_thruDpText"
+                                    matInput
+                                    required
+                                    class="field-size-right"
+                                />
+                            </td>
+                            <!-- /Column number 9 to 12 -->
+
+                            <td>
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_ownFundFeText"
+                                    matInput
+                                    required
+                                    class="field-size-right"
+                                /><br/>
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_ownFeFundFeText"
+                                    matInput
+                                    required
+                                    class="field-size-right"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_otherFeText"
+                                    matInput
+                                    required
+                                    class="field-size-right"
+                                /><br/>
+                                <input
+                                    autocomplete="off"
+                                    formControlName="t_feOtherFeText"
+                                    matInput
+                                    required
+                                    class="field-size-right"/>
+                            </td>
+                        </tr>
+                        <!-- ************* Revenue Sub Total Row ******************-->
+                    </ng-container>
+
+                    </tbody>
+                    <!-- ************* START BODY End******************-->
+                </table>
+            </div>
+            <!-- ************* Table End ******************-->
+
+            <!-- ************* Fiscal Year Tabs Start ******************-->
+            <div style="border: 1px solid #cccccc">
+                <mat-horizontal-stepper
+                    [linear]="false"
+                    #horizontalStepper
+                    (selectionChange)="addNewFiscalYear()">
+                    <mat-step
+                        [formGroupName]="'step1'"
+                        #horizontalStepperStep *ngFor="let value of fiscalList; index as i">
+                        <ng-template matStepLabel>
+
+                            <div class="tab-header-title"
+                                 formControlName="fiscalYear">{{value.fiscalYear}}</div>
+                        </ng-template>
+                        <table class="RevenueTbl" [formGroup]="fiscalYearFrmGroup">
+                            <thead>
+                            <tr>
+                                <th colspan="8" style="height: 41px;">
+                                    {{ "InField.fiscal_year_next" | translate }} : {{value.fiscalYear}}
+
+                                </th>
+                                <ng-template #whenBanglaFontActive>
+                                    <th colspan="4">
+                                        <input
+                                            autocomplete="off"
+                                            matInput
+
+                                            required
+                                            class="fiscal-year-field-size-right"
+                                        />
+                                        <span class="material-icons-outlined"
+                                              style="vertical-align: middle !important;
+                                            cursor: pointer;">
+                                           <mat-icon color="warn">delete_outline</mat-icon>
+                                        </span>
+                                    </th>
+                                </ng-template>
+                            </tr>
+
+                            <ng-container
+                                *ngIf="'colName.F_Project_Aid' | translate;
+                                else whenBanglaFontActive2">
+                                <tr>
+                                    <th rowspan="3">
+                                        <span [innerHTML]="'colName.F_GoB_FE' | translate"></span>
+                                    </th>
+                                    <th colspan="4">
+                                        {{ "colName.F_Project_Aid" | translate }}
+                                    </th>
+                                    <th rowspan="3">
+                                                        <span
+                                                            [innerHTML]="
+                                                                'colName.F_Own_Fund_FE' | translate
+                                                            "
+                                                        ></span>
+                                    </th>
+                                    <th rowspan="3">
+                                                        <span
+                                                            [innerHTML]="
+                                                                'colName.F_Other_FE' | translate
+                                                            "
+                                                        ></span>
+                                    </th>
+                                    <th rowspan="3">
+                                        {{ "colName.F_total" | translate }}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">
+                                        {{ "colName.RPA" | translate }}
+                                    </th>
+                                    <th colspan="2">
+                                        {{ "colName.DPA" | translate }}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ "colName.F_Thru_GoB" | translate }}
+                                    </th>
+                                    <th>
+                                        {{ "colName.F_Sp_AC" | translate }}
+                                    </th>
+                                    <th>
+                                        {{ "colName.F_Thru_PD" | translate }}
+                                    </th>
+                                    <th>
+                                        {{ "colName.F_Thru_DP" | translate }}
+                                    </th>
+                                </tr>
+                            </ng-container>
+
+                            <ng-template #whenBanglaFontActive2>
+                                <tr>
+                                    <th>
+                                                        <span
+                                                            [innerHTML]="'colName.F_GoB_FE' | translate"
+                                                        ></span>
+                                    </th>
+                                    <th>
+                                                        <span
+                                                            [innerHTML]="
+                                                                'colName.F_Own_Fund_FE' | translate
+                                                            "
+                                                        ></span>
+                                    </th>
+                                    <th>
+                                                        <span
+                                                            [innerHTML]="
+                                                                'colName.F_Other_FE' | translate
+                                                            "
+                                                        ></span>
+                                    </th>
+                                    <th>
+                                        {{ "colName.F_total" | translate }}
+                                    </th>
+                                </tr>
+                            </ng-template>
+
+                            <tr>
+                                <td>1</td>
+
+                                <ng-container *ngIf="'colName.F_Project_Aid' | translate">
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                </ng-container>
+
+                                <td>6</td>
+                                <td>7</td>
+                                <td>8</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td colspan="8">
+                                    {{ "Revenue_Component" | translate }}
+                                </td>
+                                <ng-template>
+                                    <td colspan="4">
+                                        {{ "Revenue_Component" | translate }}
+                                    </td>
+                                </ng-template>
+                            </tr>
+                            <!----------------- Dynamic Array List Start --------------------->
+                            <ng-container >
+                                <ng-container formArrayName="fiscalYearArray">
+
+                                    <ng-container *ngFor="let revenueCost of fiscalYears.controls; index as i">
+                                        <ng-container [formGroupName]="i">
+                                            {{revenueCost.patchValue({fiscalYear: value.fiscalYear})}}
+
+                                            <tr *ngIf="value.fiscalYear==revenueCost.controls.fiscalYear.value|| !dppAnnualPhasingOfCostUuid">
+
+                                                <td>
+                                                    <input
+                                                        autocomplete="off"
+                                                        matInput
+                                                        formControlName="fgobText"
+                                                        type="number"
+                                                        #fgobText
+                                                        (blur)="totalCalculation(fgobText,$event,i)"
+                                                        value="start"
+                                                        required
+                                                        class="field-size-right"
+                                                    /><br/>
+                                                    <input
+                                                        autocomplete="off"
+                                                        matInput
+                                                        type="number"
+                                                        formControlName="ffeText"
+                                                        #ffeText
+                                                        (blur)="totalCalculation(ffeText,$event,i)"
+                                                        required
+                                                        class="field-size-right"
+                                                    />
+                                                </td>
+                                                <ng-container
+                                                >
+                                                    <td>
+                                                        <input
+                                                            autocomplete="off"
+                                                            matInput
+                                                            formControlName="fthruGobText"
+                                                            type="number"
+                                                            #fthruGobText
+                                                            (blur)="totalCalculation(fthruGobText,$event,i)"
+                                                            required
+                                                            class="field-size-right"
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            autocomplete="off"
+                                                            matInput
+                                                            formControlName="fspAcText"
+                                                            type="number"
+                                                            #fspAcText
+                                                            (blur)="totalCalculation(fspAcText,$event,i)"
+                                                            required
+                                                            class="field-size-right"
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            autocomplete="off"
+                                                            matInput
+                                                            formControlName="fthruPdText"
+                                                            type="number"
+                                                            #fthruPdText
+                                                            (blur)="totalCalculation(fthruPdText,$event,i)"
+                                                            required
+                                                            class="field-size-right"
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            autocomplete="off"
+                                                            matInput
+                                                            formControlName="fthruDpText"
+                                                            type="number"
+                                                            #fthruDpText
+                                                            (blur)="totalCalculation(fthruDpText,$event,i)"
+                                                            required
+                                                            class="field-size-right"
+                                                        />
+                                                    </td>
+                                                </ng-container>
+
+                                                <td>
+                                                    <input
+                                                        autocomplete="off"
+                                                        matInput
+                                                        formControlName="fownFundFeText"
+                                                        type="number"
+                                                        #fownFundFeText
+                                                        (blur)="totalCalculation(fownFundFeText,$event,i)"
+                                                        required
+                                                        class="field-size-right"
+                                                    /><br/>
+                                                    <input
+                                                        autocomplete="off"
+                                                        matInput
+                                                        formControlName="ffeownFundFeText"
+                                                        type="number"
+                                                        #ffeownFundFeText
+                                                        (blur)="totalCalculation(ffeownFundFeText,$event,i)"
+                                                        required
+                                                        class="field-size-right"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        autocomplete="off"
+                                                        matInput
+                                                        formControlName="fotherFeText"
+                                                        type="number"
+                                                        #fotherFeText
+                                                        (blur)="totalCalculation(fotherFeText,$event,i)"
+                                                        required
+                                                        class="field-size-right"
+                                                    /><br/>
+                                                    <input
+                                                        autocomplete="off"
+                                                        matInput
+                                                        formControlName="ffeotherFeText"
+                                                        type="number"
+                                                        #ffeotherFeText
+                                                        (blur)="totalCalculation(ffeotherFeText,$event,i)"
+                                                        required
+                                                        class="field-size-right"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        autocomplete="off"
+                                                        matInput
+                                                        formControlName="fTotalText"
+                                                        type="number"
+                                                        #fTotalText
+                                                        (blur)="totalCalculation(fTotalText,$event,i)"
+                                                        required
+                                                        class="field-size-right"
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+
+                                    </ng-container>
+
+                                </ng-container>
+                            </ng-container>
+                            <!----------------- Dynamic Array List End --------------------->
+                            <ng-container formGroupName="dppAnnualPhasingCostTotal">
+                                <tr>
+                                    <td>
+                                        <input
+                                            autocomplete="off"
+                                            matInput
+                                            formControlName="f_t_gobText"
+
+                                            required
+                                            class="field-size-right"
+                                        /><br/>
+                                        <input
+                                            autocomplete="off"
+                                            matInput
+                                            formControlName="f_t_feText"
+                                            required
+                                            class="field-size-right"
+                                        />
+                                    </td>
+
+                                    <ng-container
+
+                                    >
+                                        <td>
+                                            <input
+                                                autocomplete="off"
+                                                matInput
+                                                formControlName="f_t_thruGobText"
+                                                required
+                                                class="field-size-right"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                autocomplete="off"
+                                                matInput
+                                                formControlName="f_t_spAcText"
+                                                required
+                                                class="field-size-right"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                autocomplete="off"
+                                                matInput
+                                                formControlName="f_t_thruPdText"
+                                                required
+                                                class="field-size-right"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                autocomplete="off"
+                                                matInput
+                                                formControlName="f_t_thruDpText"
+                                                required
+                                                class="field-size-right"
+                                            />
+                                        </td>
+                                    </ng-container>
+                                    <td>
+                                        <input
+                                            autocomplete="off"
+                                            matInput
+                                            formControlName="f_t_ownFundFeText"
+                                            required
+                                            class="field-size-right"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            autocomplete="off"
+                                            matInput
+                                            formControlName="f_t_ownFeFundFeText"
+                                            required
+                                            class="field-size-right"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            autocomplete="off"
+                                            matInput
+                                            formControlName="f_t_totalFeText"
+                                            required
+                                            class="field-size-right"
+                                        />
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+                    </mat-step>
+
+
+                </mat-horizontal-stepper>
+            </div>
+            <!-- ************* Fiscal Year Tabs End ******************-->
+
+        </section>
+
+    </div>
+    <!-- ************* Bottom Buttons List ******************-->
+    <div>
+        <br/><br/><br/>
+        <div fxLayout="row wrap" fxLayoutAlign="end">
+            <button mat-flat-button color="primary" type="button" (click)="onNextTab()">Save & Next</button>&nbsp;&nbsp;
+            <button mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                    (click)="saveAndExit()">Save & Exit
+            </button>
+        </div>
+    </div>
+    <!-- ************* Bottom Buttons End ******************-->
+</form>
+

@@ -1,0 +1,127 @@
+<div class="body">
+    <form name="frmGroup">
+        <!-- CARD ONE-->
+        <div class="flex w-full justify-end sm:w-auto md:w-23 lg:w-23 mt-2">
+            <b> {{'grantamount' | translate}} :</b> {{initialGrandTotal}} {{'tk' | translate}}
+        </div>
+        <div *ngFor="let agreementInstallmentFormModel of agreementInstallmentFormModels; let i = index">
+            <div class="heading mt-2">
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2">
+                        {{'tab_2_card_header' | translate}}
+                    </div>
+                </div>
+            </div>
+            <mat-card class="tab-color">
+                <!-- Row 1-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'installment_type' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <mat-select [(ngModel)]="agreementInstallmentFormModel.stInstallmentTypeId"
+                                [ngModelOptions]="{standalone: true}">
+                                <mat-option *ngFor="let installmentType of installmentTypeList"
+                                    [value]="installmentType.id">{{installmentType.installmentType}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Fiscal year is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Row 2-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'percentage_amount' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [(ngModel)]="agreementInstallmentFormModel.percentageAmount"
+                                [ngModelOptions]="{standalone: true}" (ngModelChange)="modifyGrandTotal($event,i)">
+                            <mat-error>required!</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'tk_amount' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="agreementInstallmentFormModel.tkAmount">
+                            <!--<mat-error>required!</mat-error>-->
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </mat-card>
+        </div>
+
+        <div class="flex justify-end mt-8">
+            <button mat-flat-button [color]="'primary'" (click)="previousTab()" type="submit"
+                class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{ "previous" | translate }}
+            </button>
+            <button [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit" (click)="save()"
+                color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span>{{ "save" | translate }}</span>
+            </button>
+
+        </div>
+
+        <!--        &lt;!&ndash; Bottom Button &ndash;&gt;-->
+        <!--        <div class="flex justify-end mt-8">-->
+        <!--            <button-->
+        <!--                mat-flat-button-->
+        <!--                [color]="'primary'"-->
+        <!--                (click)="previousTab()"-->
+        <!--                type="submit"-->
+        <!--                class="px-3 mr-2 toggle-sidebar-folded previousBtn">-->
+        <!--                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>-->
+        <!--                {{ "previous" | translate }}-->
+        <!--            </button>-->
+
+        <!--            <button-->
+        <!--                mat-flat-button-->
+        <!--                style="background-color: green; color: #FFFFFF"-->
+        <!--                type="submit"-->
+        <!--                (click)="save()"-->
+        <!--                color="primary"-->
+        <!--                class="px-3 mr-2 toggle-sidebar-folded saveBtn">-->
+        <!--                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>-->
+        <!--                <span>{{ "save" | translate }}</span>-->
+        <!--            </button>-->
+
+        <!--            <button-->
+        <!--                mat-flat-button-->
+        <!--                (click)="saveAndNext()"-->
+        <!--                type="button"-->
+        <!--                color="primary"-->
+        <!--                class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">-->
+        <!--                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>-->
+        <!--                <span> {{ "save_and_next" | translate }}</span>-->
+        <!--            </button>-->
+
+        <!--            <button-->
+        <!--                mat-flat-button-->
+        <!--                (click)="nextTab()"-->
+        <!--                style="background-color: green; color: #FFFFFF"-->
+        <!--                type="button"-->
+        <!--                color="primary"-->
+        <!--                class="px-3 mr-2 toggle-sidebar-folded nextBtn">-->
+        <!--                {{ "next" | translate }}-->
+        <!--                <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>-->
+        <!--            </button>-->
+        <!--        </div>-->
+    </form>
+</div>

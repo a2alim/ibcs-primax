@@ -1,0 +1,185 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header class="crop-text" *ngIf="isForeignAid" [title]="titleEn" [subTitle]="'sub_title' | translate"></app-list-header>
+                <app-list-header class="crop-text" *ngIf="!isForeignAid" [title]="titleBn" [subTitle]="'sub_title' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        <span *ngIf="isForeignAid">{{'homePage' | translate}}</span>
+                        <span *ngIf="!isForeignAid">{{'goBack' | translate}}</span>
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">{{'LANG.page_title' | translate}}</div>
+                                <div class="flex items-center">
+                                    <div
+                                        class="leading-5 truncate text-secondary">
+                                        <span (click)="navigateToDppListPage()" style="cursor: pointer;">Home > </span>
+                                        {{'LANG.page_title' | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+&lt;!&ndash;                                <mat-icon>home</mat-icon>&nbsp;&ndash;&gt;
+                                {{"homePage" | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <!-- Header close-->
+    <!-- Main -->
+    <div class="flex-auto m-7">
+
+        <div class="max-w-8xl">
+
+            <!-- Horizontal stepper -->
+            <form
+                class="bg-card shadow rounded ounded-2xl overflow-hidden"
+                [formGroup]="horizontalStepperForm">
+                <mat-horizontal-stepper
+                    [linear]="false"
+                    class="tab-bar tab-color"
+                    #horizontalStepper>
+                    <mat-step   role="tab" aria-selected="true"
+                        [formGroupName]="'step1'"
+                        [stepControl]="horizontalStepperForm.get('step1')"
+                        #horizontalStepperStep1
+                        (selectionChange)="selectionChanged($event)">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                   matTooltipPosition="above">
+                                <span>{{'LANG.tab_title_1' | translate}}</span><br>
+                                <span *ngIf="isParipatra2016">{{'LANG.tab_title_1.0' | translate}}</span>
+                                <span *ngIf="!isParipatra2016">{{'LANG.tab_title_1.0_22' | translate}}</span>
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-tpp-objectives-and-cost
+                                (nextStep)="goForward(horizontalStepper)"
+                                (backPrevious)="goBack(horizontalStepper)"
+                                (sendTitleEn)="getTitleEn($event)"
+                            ></app-tpp-objectives-and-cost>
+                        </div>
+                    </mat-step>
+                    <mat-step
+                        [formGroupName]="'step2'"
+                        [stepControl]="horizontalStepperForm.get('step2')"
+                        #horizontalStepperStep1>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="{{'LANG.tab_title_2' | translate}} {{'LANG.tab_title_2.0' | translate}}" matTooltipPosition="above">
+                                <span>{{'LANG.tab_title_2' | translate}}</span><br>
+                                <span *ngIf="isParipatra2016">{{'LANG.tab_title_2.0' | translate}}</span>
+                                <span *ngIf="!isParipatra2016">{{'LANG.tab_title_2.0_22' | translate}}</span>
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-tpp-component-wise-cost
+                                (nextStep)="goForward(horizontalStepper)"
+                                (backPrevious)="goBack(horizontalStepper)"
+                            ></app-tpp-component-wise-cost>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step3'"
+                        [stepControl]="horizontalStepperForm.get('step3')"
+                        #horizontalStepperStep1>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="{{'LANG.tab_title_3' | translate}} {{'LANG.tab_title_3.0' | translate}}" matTooltipPosition="above">
+                                <span>{{'LANG.tab_title_3' | translate}}</span><br>
+                                <span *ngIf="isParipatra2016">{{'LANG.tab_title_3.0' | translate}}</span>
+                                <span *ngIf="!isParipatra2016">{{'LANG.tab_title_3.0_22' | translate}}</span>
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-tpp-year-cost-summery
+                                (nextStep)="goForward(horizontalStepper)"
+                                (backPrevious)="goBack(horizontalStepper)"
+                            ></app-tpp-year-cost-summery>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step4'"
+                        [stepControl]="horizontalStepperForm.get('step4')"
+                        #horizontalStepperStep2>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="{{'LANG.tab_title_4' | translate}}" matTooltipPosition="above">
+                                <span *ngIf="isParipatra2016">{{'LANG.tab_title_4' | translate}}</span>
+                                <span *ngIf="!isParipatra2016">{{'LANG.tab_title_4_22' | translate}}</span>
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-tpp-log-frame
+                                (nextStep)="goForward(horizontalStepper)"
+                                (backPrevious)="goBack(horizontalStepper)"
+                            ></app-tpp-log-frame>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step5'"
+                        [stepControl]="horizontalStepperForm.get('step5')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="{{'LANG.tab_title_5' | translate}} {{'LANG.tab_title_5.0' | translate}}" matTooltipPosition="above">
+                                <span>{{'LANG.tab_title_5' | translate}}</span><br>
+                                <span *ngIf="isParipatra2016">{{'LANG.tab_title_5.0' | translate}}</span>
+                                <span *ngIf="!isParipatra2016">{{'LANG.tab_title_5.0_22' | translate}}</span>
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-tpp-financing-and-expectation
+                                (nextStep)="goForward(horizontalStepper)"
+                                (backPrevious)="goBack(horizontalStepper)"
+                            ></app-tpp-financing-and-expectation>
+                        </div>
+                    </mat-step>
+
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+    </div>
+</div>
+

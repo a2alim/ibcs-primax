@@ -1,0 +1,361 @@
+<div style="width: 100%" *ngIf="form">
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    {{'answerPanelHeader' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">{{'answerPanelHeaderBreadcrumb' | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+            <div class="md:flex">
+                <!--<div class="w-full heading">
+                    <h1><strong>{{'search' | translate}}</strong></h1>
+                </div>-->
+            </div>
+
+            <!-- Search & View Block -->
+            <div class="md:flex mt-3">
+                <div class="w-full sm:w-auto md:w-3/12 lg:w-3/12">
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                        <div class="w-full heading">
+                            <h1><strong>{{'search' | translate}}</strong></h1>
+                        </div>
+                        <div class="p-8 pb-4">
+                            <!-- Search Panel Start -->
+                            <form [formGroup]="form">
+                                <!-- Searching Fields Start -->
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div class="w-full">
+                                        {{'projectType' | translate}}
+                                    </div>
+                                    <div class="w-full">
+                                        <mat-form-field class="w-full">
+                                            <mat-select formControlName="projectTypeSearch">
+                                                <mat-option value="country-1">Select</mat-option>
+                                                <mat-option value="country-2">Ministry</mat-option>
+                                                <mat-option value="country-3">Division</mat-option>
+                                                <mat-option value="country-4">Others</mat-option>
+                                            </mat-select>
+                                            <!--<mat-error>Question is required!</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div class="w-full">
+                                        {{'askBy' | translate}}
+                                    </div>
+                                    <div class="w-full">
+                                        <mat-form-field class="w-full">
+                                            <mat-select formControlName="askBySearch">
+                                                <mat-option value="country-1">Select</mat-option>
+                                                <mat-option value="country-2">Ministry</mat-option>
+                                                <mat-option value="country-3">Division</mat-option>
+                                                <mat-option value="country-4">Others</mat-option>
+                                            </mat-select>
+                                            <!--<mat-error>Question is required!</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div class="w-full">
+                                        {{'location' | translate}}
+                                    </div>
+                                    <div class="w-full">
+                                        <mat-form-field class="w-full">
+                                            <mat-select formControlName="locationSearch">
+                                                <mat-option value="country-1">Select</mat-option>
+                                                <mat-option value="country-2">Ministry</mat-option>
+                                                <mat-option value="country-3">Division</mat-option>
+                                                <mat-option value="country-4">Others</mat-option>
+                                            </mat-select>
+                                            <!--<mat-error>Question is required!</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div class="w-full">
+                                        {{'implementingAgency' | translate}}
+                                    </div>
+                                    <div class="w-full">
+                                        <mat-form-field class="w-full">
+                                            <mat-select formControlName="implementingAgencySearch">
+                                                <mat-option value="country-1">Select</mat-option>
+                                                <mat-option value="country-2">Star Marks</mat-option>
+                                                <mat-option value="country-3">Non Star Marks</mat-option>
+                                            </mat-select>
+                                            <!--<mat-error>Question is required!</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div class="w-full">
+                                        {{'questionSource' | translate}}
+                                    </div>
+                                    <div class="w-full">
+                                        <mat-form-field class="w-full">
+                                            <mat-select formControlName="questionSourceSearch">
+                                                <mat-option value="country-1">Select</mat-option>
+                                                <mat-option value="country-2">Ministry</mat-option>
+                                                <mat-option value="country-3">Division</mat-option>
+                                                <mat-option value="country-4">Others</mat-option>
+                                            </mat-select>
+                                            <!--<mat-error>Question is required!</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div class="w-full">
+                                        {{'fiscalYear' | translate}}
+                                    </div>
+                                    <div class="w-full">
+                                        <mat-form-field class="w-full">
+                                            <mat-select formControlName="fiscalYearSearch">
+                                                <mat-option value="country-1">Select</mat-option>
+                                                <mat-option value="country-2">2020-2021</mat-option>
+                                                <mat-option value="country-3">2021-2022</mat-option>
+                                            </mat-select>
+                                            <!--<mat-error>Question is required!</mat-error>-->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <!-- Button Start -->
+                                <div class="flex items-center justify-center mb-5" style="margin-top: 30px">
+                                    <button class="px-6 ml-3" (click)="enabledDisableViewDiv(1)" mat-flat-button
+                                            [color]="'primary'">
+                                        {{'view' | translate}}
+                                    </button>
+                                </div>
+                                <!-- Button End -->
+
+                            </form>
+                            <!-- Search Panel End -->
+                        </div>
+                    </div>
+                </div> <!--/left div-->
+                <div class="w-full sm:w-auto md:w-9/12 lg:w-9/12">
+                    <!-- View Answer List Block -->
+                    <div class="flex-auto ml-5 wrapper rounded" *ngIf="viewAns">
+                        <div class="max-w-8xl" id="slide">
+                            <div class="heading">
+                                <h1><strong>{{'viewAnswerList' | translate}}</strong></h1>
+                            </div>
+                            <div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+                                <!--<mat-divider></mat-divider>-->
+                                <div class="p-8 pb-4">
+                                    <!-- Form Block Start -->
+                                    <form [formGroup]="form">
+                                        <!-- Form Fields Start -->
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <mat-label fxFlex="12%" fxFlex.xs="100%" fxFlex.sm="50%"
+                                                       style="margin-top: -15px;">
+                                                {{'questionSource' | translate}}
+                                            </mat-label>
+                                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%"
+                                                            fxFlex.xs="100%"
+                                                            fxFlex.sm="50%">
+                                                <mat-select formControlName="questionSource">
+                                                    <mat-option value="country-1">Select</mat-option>
+                                                    <mat-option value="country-2">Ministry</mat-option>
+                                                    <mat-option value="country-3">Division</mat-option>
+                                                    <mat-option value="country-4">Others</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <mat-label fxFlex="12%" fxFlex.xs="100%" fxFlex.sm="30%"
+                                                       style="margin-top: -15px;">
+                                                {{'questionTitle' | translate}}
+                                            </mat-label>
+                                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%"
+                                                            fxFlex.xs="100%"
+                                                            fxFlex.sm="50%">
+                                                <input matInput formControlName="questionTitle">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <mat-label fxFlex="12%" fxFlex.xs="100%" fxFlex.sm="50%"
+                                                       style="margin-top: -15px;">
+                                                {{'questionType' | translate}}
+                                            </mat-label>
+                                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%"
+                                                            fxFlex.xs="100%"
+                                                            fxFlex.sm="50%">
+                                                <mat-select formControlName="questionType">
+                                                    <mat-option value="country-1">Select</mat-option>
+                                                    <mat-option value="country-2">Star Marks</mat-option>
+                                                    <mat-option value="country-3">Non Star Marks</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-4">
+                                            <mat-label fxFlex="12%" fxFlex.xs="30%" fxFlex.sm="30%">{{'description' |
+                                                translate}}
+                                            </mat-label>
+                                            <ckeditor formControlName="description" fxFlex="80%" fxFlex.xs="60%"
+                                                      fxFlex.sm="60%"></ckeditor>
+                                        </div>
+
+                                        <!-- Attachment Block Start -->
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="margin1">
+                                            <mat-label class="pb-3" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%"
+                                                       fxFlex.md="30%">
+                                                {{'attachment' | translate}}
+                                            </mat-label>
+                                            <mat-form-field appearance="outline" fxFlex="30%" fxFlex.xs="50%"
+                                                            fxFlex.sm="50%"
+                                                            fxFlex.md="50%" style="padding-top: 21px;">
+                                                <mat-label>{{'browse' | translate}}</mat-label>
+                                                <ngx-mat-file-input [accept]="'.pdf'" formControlName="attachment"
+                                                                    placeholder="{{'browse' | translate}}">
+                                                </ngx-mat-file-input>
+                                                <mat-icon matSuffix>folder</mat-icon>
+                                            </mat-form-field>
+                                            <div fxFlex="50%" fxFlex.xs="20%" fxFlex.sm="20%" fxFlex.md="20%"></div>
+                                        </div>
+                                        <!-- Attachment Block End -->
+
+
+                                        <!-- Form Fields End -->
+
+                                        <!-- Button Start -->
+                                        <div class="flex items-center justify-end mb-5">
+                                            <button class="px-6 ml-3" (click)="enabledDisableViewDiv(0)" mat-flat-button
+                                                    [color]="'accent'">
+                                                {{'close' | translate}}
+                                            </button>
+                                        </div>
+                                        <!-- Button End -->
+                                    </form>
+                                    <!-- Form Block End -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> <!--right div-->
+
+            </div>
+
+            <!-- Answer Submit Block -->
+            <div class="flex-auto mt-7">
+                <div class="max-w-8xl">
+                    <div class="heading rounded">
+                        <h1><strong>{{'answer' | translate}}</strong></h1>
+                    </div>
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+                        <div class="p-8 pb-4">
+                            <!-- Form Block Start -->
+                            <form [formGroup]="form">
+                                <!-- Form Fields Start -->
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="12%" fxFlex.xs="100%" fxFlex.sm="50%" style="margin-top: -15px;">
+                                        {{'questionSource' | translate}}
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="100%"
+                                                    fxFlex.sm="50%">
+                                        <mat-select formControlName="questionSource">
+                                            <mat-option value="country-1">Select</mat-option>
+                                            <mat-option value="country-2">Ministry</mat-option>
+                                            <mat-option value="country-3">Division</mat-option>
+                                            <mat-option value="country-4">Others</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="12%" fxFlex.xs="100%" fxFlex.sm="30%" style="margin-top: -15px;">
+                                        {{'questionTitle' | translate}}
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="100%"
+                                                    fxFlex.sm="50%">
+                                        <input matInput formControlName="questionTitle">
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="12%" fxFlex.xs="100%" fxFlex.sm="50%" style="margin-top: -15px;">
+                                        {{'questionType' | translate}}
+                                    </mat-label>
+                                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="100%"
+                                                    fxFlex.sm="50%">
+                                        <mat-select formControlName="questionType">
+                                            <mat-option value="country-1">Select</mat-option>
+                                            <mat-option value="country-2">Star Marks</mat-option>
+                                            <mat-option value="country-3">Non Star Marks</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-4">
+                                    <mat-label fxFlex="12%" fxFlex.xs="30%" fxFlex.sm="30%">{{'description' |
+                                        translate}}
+                                    </mat-label>
+                                    <ckeditor formControlName="description" fxFlex="80%" fxFlex.xs="60%"
+                                              fxFlex.sm="60%"></ckeditor>
+                                </div>
+
+                                <!-- Attachment Block Start -->
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="margin1">
+                                    <mat-label class="pb-3" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%"
+                                               fxFlex.md="30%">
+                                        {{'attachment' | translate}}
+                                    </mat-label>
+                                    <mat-form-field appearance="outline" fxFlex="30%" fxFlex.xs="50%" fxFlex.sm="50%"
+                                                    fxFlex.md="50%" style="padding-top: 21px;">
+                                        <mat-label>{{'browse' | translate}}</mat-label>
+                                        <ngx-mat-file-input [accept]="'.pdf'" formControlName="attachment"
+                                                            placeholder="{{'browse' | translate}}">
+                                        </ngx-mat-file-input>
+                                        <mat-icon matSuffix>folder</mat-icon>
+                                    </mat-form-field>
+                                    <div fxFlex="50%" fxFlex.xs="20%" fxFlex.sm="20%" fxFlex.md="20%"></div>
+                                </div>
+                                <!-- Attachment Block End -->
+                                <!-- Form Fields End -->
+
+                                <!-- Button Start -->
+                                <div class="flex items-center justify-end mb-5">
+                                    <button class="px-6 ml-3" mat-flat-button [color]="'primary'">{{'submit' |
+                                        translate}}
+                                    </button>
+                                </div>
+                                <!-- Button End -->
+                            </form>
+                            <!-- Form Block End -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+</div>

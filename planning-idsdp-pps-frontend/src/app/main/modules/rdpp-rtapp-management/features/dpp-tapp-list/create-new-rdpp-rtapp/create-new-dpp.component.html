@@ -1,0 +1,534 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+
+
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="'RDPP / RTAPP Project' | translate" class="crop-text"
+                                 [subTitle]="'Home / Create New RDPP/RTAPP' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{'Project Dashboard' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">RDPP / RTAPP Project
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">Home / Create New RDPP/RTAPP
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        &lt;!&ndash; Actions &ndash;&gt;
+&lt;!&ndash;                        <div class="flex justify-end" style="margin-top: -50px; color: #FFFFFF !important;">&ndash;&gt;
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                mat-button&ndash;&gt;
+&lt;!&ndash;                                type="button">&ndash;&gt;
+&lt;!&ndash;                                <mat-icon>home</mat-icon>&nbsp;&ndash;&gt;
+&lt;!&ndash;                                Home&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+&lt;!&ndash;                        </div>&ndash;&gt;
+
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+    <!--        <div fxLayout="row" fxLayoutAlign="center center">-->
+    <!--            <mat-spinner></mat-spinner>-->
+    <!--        </div>-->
+
+
+    <div class="flex-auto p-6 sm:p-10 outside-body">
+
+        <div class="max-w-8xl">
+            <div>
+                <form class="form p4">
+
+                    <!--1st Header Body Div Start -->
+                    <div class="heading">
+                        <h1>{{'BasicInformation' | translate}}</h1>
+                    </div>
+
+                    <mat-card>
+                        <div>
+                            <div>
+
+                                <!--1st Flex Layout Div Start -->
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <!-- Project Code Field-->
+
+                                    <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="100%">
+                                        Approved DPP/TAPP Project :
+                                    </mat-label>
+
+                                    <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                        <mat-select (selectionChange)="onChangeProjectTitle($event)"
+                                                    required>
+                                            <mat-option *ngFor="let dppTappTitle of approveDppTappList"
+                                                        [value]="dppTappTitle.projectConceptUuid">
+                                                <span style="color: red">{{dppTappTitle.dppTappType}}</span>&nbsp;
+                                                &nbsp;<span>{{dppTappTitle.projectTitleEn}}</span>
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <!--1st Flex Layout Div End -->
+
+
+                                <div *ngIf="projectType ==='DPP' || projectType ==='RDPP'">
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'Version' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%"
+                                                        class="w-full readOnly">
+                                            <input [(ngModel)]="this.rdppRtapp.version" [ngModelOptions]="{standalone: true}" matInput readonly>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <!--2nd Flex Layout Div Start -->
+                                    <!-- Title Eng Field-->
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'TitleEn' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%" class="w-full readOnly">
+                                            <input [(ngModel)]="this.rdppRtapp.projectTitleEn" [ngModelOptions]="{standalone: true}" matInput readonly>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <!--3th Flex Layout Div Start -->
+                                    <!-- Title Bng Field-->
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'TitleBn' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%" class="w-full readOnly">
+                                            <input [(ngModel)]="this.rdppRtapp.projectTitleBn" [ngModelOptions]="{standalone: true}" matInput readonly>
+                                        </mat-form-field>
+                                    </div>
+                                    <!--3rd Flex Layout Div End -->
+
+                                    <!--4nd Flex Layout Div Start -->
+                                    <!-- Ministry Division Field-->
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'Ministry_Division' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%"
+                                                        class="w-full readOnly">
+                                            <input [(ngModel)]="this.rdppRtapp.ministryDivision" [ngModelOptions]="{standalone: true}" matInput readonly>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <!--5th Flex Layout Div Start -->
+                                    <!-- Agency Field-->
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'Impleting_Agency' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%"
+                                                        class="w-full readOnly">
+                                            <input [(ngModel)]="this.rdppRtapp.implementingAgency" [ngModelOptions]="{standalone: true}" matInput readonly>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <br/>
+                                    <!--5th Flex Layout Div End -->
+
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <!-- Time Extension Field-->
+                                        <div class="pr-5" fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                <mat-label fxFlex="65%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                           fxFlex.xs="100%">Time Extension :
+                                                </mat-label>
+
+                                                <mat-checkbox fxFlex="10%"
+                                                              [(ngModel)]="rdppRtapp.timeExtension"
+                                                              [ngModelOptions]="{standalone: true}"
+                                                              (change)="onTimeExtensionChecked($event, 'RDPP')"></mat-checkbox>
+                                                <div fxFlex="25%"></div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Cost Extension Field-->
+                                        <div class="pr-5" fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                <mat-label fxFlex="65%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                           fxFlex.xs="100%">Cost Extension :
+                                                </mat-label>
+                                                <mat-checkbox fxFlex="10%"
+                                                              [(ngModel)]="rdppRtapp.costExtension"
+                                                              [ngModelOptions]="{standalone: true}"
+                                                ></mat-checkbox>
+                                                <div fxFlex="25%"></div>
+                                            </div>
+                                        </div>
+
+                                        <div fxFlex="33%"></div>
+                                    </div>
+
+                                    <br/>
+                                    <!--7th Flex Layout Div End -->
+
+
+                                    <div class="sub-heading" *ngIf="selectTimeExtension">
+                                        <h1>{{'ExpectedImplementationPeriod' | translate}}</h1>
+                                    </div>
+                                    <mat-card *ngIf="selectTimeExtension">
+                                        <!--6th Flex Layout Div Start -->
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <!-- Date Of Commencement Field-->
+                                            <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                                                 fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <mat-label class="pb-5" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                               fxFlex.xs="100%">{{'DateOfCommencement' | translate}}:
+                                                    </mat-label>
+                                                    <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                                    fxFlex.xs="100%">
+                                                        <input
+                                                            [disabled]="true"
+                                                            [(ngModel)]="this.rdppRtapp.dateCommencement"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            matInput readonly required>
+                                                        <mat-datepicker-toggle
+                                                            matSuffix></mat-datepicker-toggle>
+                                                        <mat-datepicker></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <!-- Date Of Completion Field-->
+                                            <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                                                 fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                                                    <mat-label class="pb-5" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                               fxFlex.xs="100%">{{'DateOfCompletion' | translate}}:
+                                                    </mat-label>
+                                                    <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                                    fxFlex.xs="100%">
+                                                        <input  (click)="picker2.open()" [matDatepicker]="picker2"
+                                                                [min]="rdppRtapp.dateCompletion"
+                                                                [(ngModel)]="this.rdppRtapp.dateCompletion"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                (dateChange)="completionDataChange($event)"
+                                                                matInput readonly required>
+                                                        <mat-datepicker-toggle [for]="picker2"
+                                                                               matSuffix></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker2></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--6th Flex Layout Div End -->
+
+                                        <!--7th Flex Layout Div Start -->
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <!-- Date Of Commencement Field-->
+                                            <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                                                 fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <mat-label class="pb-5" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                               fxFlex.xs="100%">{{'DateOfCumulative' | translate}}:
+                                                    </mat-label>
+                                                    <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                                    fxFlex.xs="100%">
+                                                        <input  (click)="picker3.open()" [matDatepicker]="picker3"
+                                                                [min]="rdppRtapp.dateCommencement"
+                                                                [max]="rdppRtapp.dateCompletion"
+                                                                [(ngModel)]="this.rdppRtapp.cumulativeDate"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                (dateChange)="completionDataChange($event)"
+                                                                matInput readonly required>
+                                                        <mat-datepicker-toggle [for]="picker3" matSuffix>
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #picker3></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <!-- Date Of Completion Field-->
+                                            <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                                                 fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--7th Flex Layout Div End -->
+
+
+
+                                    </mat-card>
+
+                                    <div>
+                                        <div fxLayout="row wrap" fxLayoutAlign="end" class="mr-5 mt-5">
+
+
+                                            <!-- Save and Exit Button -->
+                                            <button (click)="create()" [disabled]="spinner" class="mr-2" mat-flat-button class="mr-2"
+                                                    style="background-color: green; color: #FFFFFF"
+                                                    type="button">Save
+                                            </button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--                                ============ rtapp project ==============-->
+
+                                <div *ngIf="projectType ==='TAPP' || projectType ==='RTAPP'">
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'Version' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%"
+                                                        class="w-full readOnly">
+                                            <input [(ngModel)]="this.rtappModel.revisedVersion" [ngModelOptions]="{standalone: true}" matInput readonly>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                    <!--2nd Flex Layout Div Start -->
+                                    <!-- Title Eng Field-->
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'TitleEn' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%" class="w-full readOnly">
+                                            <input [(ngModel)]="this.rtappModel.projectTitleEn" [ngModelOptions]="{standalone: true}" matInput readonly>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <!--3th Flex Layout Div Start -->
+                                    <!-- Title Bng Field-->
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'TitleBn' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%" class="w-full readOnly">
+                                            <input [(ngModel)]="this.rtappModel.projectTitleBn" [ngModelOptions]="{standalone: true}" matInput readonly>
+                                        </mat-form-field>
+                                    </div>
+                                    <!--3rd Flex Layout Div End -->
+
+                                    <!--4nd Flex Layout Div Start -->
+                                    <!-- Ministry Division Field-->
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'Ministry_Division' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%"
+                                                        class="w-full readOnly">
+                                            <input [(ngModel)]="this.rtappModel.ministryDivision" [ngModelOptions]="{standalone: true}" matInput readonly>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <!--5th Flex Layout Div Start -->
+                                    <!-- Agency Field-->
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'Impleting_Agency' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%"
+                                                        class="w-full readOnly">
+                                            <input [(ngModel)]="this.rtappModel.implementingAgency" [ngModelOptions]="{standalone: true}" matInput readonly>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <br/>
+                                    <!--5th Flex Layout Div End -->
+
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <!-- Time Extension Field-->
+                                        <div class="pr-5" fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                <mat-label fxFlex="65%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                           fxFlex.xs="100%">Time Extension :
+                                                </mat-label>
+
+                                                <mat-checkbox fxFlex="10%"
+                                                              [(ngModel)]="rtappModel.timeExtension"
+                                                              [ngModelOptions]="{standalone: true}"
+                                                              (change)="onTimeExtensionChecked($event, 'RTAPP')"></mat-checkbox>
+                                                <div fxFlex="25%"></div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Cost Extension Field-->
+                                        <div class="pr-5" fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                <mat-label fxFlex="65%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                           fxFlex.xs="100%">Cost Extension :
+                                                </mat-label>
+                                                <mat-checkbox fxFlex="10%"
+                                                              [(ngModel)]="rtappModel.costExtension"
+                                                              [ngModelOptions]="{standalone: true}"
+                                                ></mat-checkbox>
+                                                <div fxFlex="25%"></div>
+                                            </div>
+                                        </div>
+
+                                        <div fxFlex="33%"></div>
+                                    </div>
+
+                                    <br/>
+                                    <!--7th Flex Layout Div End -->
+
+
+                                    <div class="sub-heading" *ngIf="selectTimeExtension">
+                                        <h1>{{'ExpectedImplementationPeriod' | translate}}</h1>
+                                    </div>
+                                    <mat-card *ngIf="selectTimeExtension">
+                                        <!--6th Flex Layout Div Start -->
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <!-- Date Of Commencement Field-->
+                                            <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                                                 fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <mat-label class="pb-5" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                               fxFlex.xs="100%">{{'DateOfCommencement' | translate}}:
+                                                    </mat-label>
+                                                    <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                                    fxFlex.xs="100%">
+                                                        <input
+                                                            [disabled]="true"
+                                                            [(ngModel)]="this.rtappModel.dateCommencement"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            matInput readonly required>
+                                                        <mat-datepicker-toggle
+                                                            matSuffix></mat-datepicker-toggle>
+                                                        <mat-datepicker></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <!-- Date Of Completion Field-->
+                                            <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                                                 fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                                                    <mat-label class="pb-5" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                               fxFlex.xs="100%">{{'DateOfCompletion' | translate}}:
+                                                    </mat-label>
+                                                    <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                                    fxFlex.xs="100%">
+                                                        <input  (click)="picker2.open()" [matDatepicker]="picker2"
+                                                                [min]="rtappModel.dateCompletion"
+                                                                [(ngModel)]="this.rtappModel.dateCompletion"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                (dateChange)="completionDataChange($event)"
+                                                                matInput readonly required>
+                                                        <mat-datepicker-toggle [for]="picker2"
+                                                                               matSuffix></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker2></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--6th Flex Layout Div End -->
+
+
+                                        <!--7th Flex Layout Div Start -->
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <!-- Date Of Commencement Field-->
+                                            <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                                                 fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <mat-label class="pb-5" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                               fxFlex.xs="100%">{{'DateOfCumulative' | translate}}:
+                                                    </mat-label>
+                                                    <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                                    fxFlex.xs="100%">
+                                                        <input  (click)="picker3.open()" [matDatepicker]="picker3"
+                                                                [min]="rtappModel.dateCommencement"
+                                                                [max]="rtappModel.dateCompletion"
+                                                                [(ngModel)]="this.rtappModel.cumulativeDate"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                (dateChange)="completionDataChange($event)"
+                                                                matInput readonly required>
+                                                        <mat-datepicker-toggle [for]="picker3"
+                                                                               matSuffix></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker3></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <!-- Date Of Completion Field-->
+                                            <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                                                 fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--7th Flex Layout Div End -->
+
+                                    </mat-card>
+
+                                    <div>
+                                        <div fxLayout="row wrap" fxLayoutAlign="end" class="mr-5 mt-5">
+
+
+                                            <!-- Save and Exit Button -->
+                                            <button (click)="createRtapp()" [disabled]="spinner" class="mr-2" mat-flat-button class="mr-2"
+                                                    style="background-color: green; color: #FFFFFF"
+                                                    type="button">Save
+                                            </button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </mat-card>
+
+                </form>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,912 @@
+<div class="body">
+  <!--============================== transaction spinner ===================-->
+  <div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+  </div>
+  <!--============================== // transaction spinner ===================-->
+
+  <!-- start Main div-->
+  <div class="heading">
+    <h1>{{'costSummaryLabel' | translate}}</h1>
+  </div>
+  <div class="landscapePage">
+    <div class="overflow-x-auto" *ngIf="isEnLabel">
+      <table class="table-border ">
+        <thead>
+          <tr class="table-border">
+            <th rowspan="5" class="table-border">Eco Code</th>
+            <th rowspan="5" class="table-border">Eco Sub-Code</th>
+            <th rowspan="5" class="table-border">Sub-Code wise compt. description </th>
+            <th colspan="9" class="table-border">Latest Approved DPP</th>
+            <th colspan="9" class="table-border">Proposed Revised DPP</th>
+            <th colspan="9" class="table-border">Differences</th>
+          </tr>
+          <tr class="table-border">
+            <th rowspan="4" class="table-border">Unit</th>
+            <th rowspan="4" class="table-border">Qty</th>
+            <th colspan="7" class="table-border">Cost</th>
+            <th rowspan="4" class="table-border">Unit</th>
+            <th rowspan="4" class="table-border">Qty</th>
+            <th colspan="7" class="table-border">Cost</th>
+            <th rowspan="4" class="table-border">Unit</th>
+            <th rowspan="4" class="table-border">Qty</th>
+            <th colspan="7" class="table-border">Cost</th>
+          </tr>
+          <tr class="table-border">
+            <th rowspan="3" class="table-border">Total</th>
+            <th rowspan="3" class="table-border">GOB (FE)</th>
+            <th colspan="3" class="table-border">PA</th>
+            <th rowspan="3" class="table-border">Own Fund</th>
+            <th rowspan="3" class="table-border">Others</th>
+            <th rowspan="3" class="table-border">Total</th>
+            <th rowspan="3" class="table-border">GOB (FE)</th>
+            <th colspan="3" class="table-border">PA</th>
+            <th rowspan="3" class="table-border">Own Fund</th>
+            <th rowspan="3" class="table-border">Others</th>
+            <th rowspan="3" class="table-border">Total</th>
+            <th rowspan="3" class="table-border">GOB (FE)</th>
+            <th colspan="3" class="table-border">PA</th>
+            <th rowspan="3" class="table-border">Own Fund</th>
+            <th rowspan="3" class="table-border">Others</th>
+          </tr>
+          <tr class="table-border">
+            <th colspan="2" class="table-border">RPA</th>
+            <th rowspan="2" class="table-border">DPA</th>
+            <th colspan="2" class="table-border">RPA</th>
+            <th rowspan="2" class="table-border">DPA</th>
+            <th colspan="2" class="table-border">RPA</th>
+            <th rowspan="2" class="table-border">DPA</th>
+          </tr>
+          <tr class="table-border">
+            <th class="table-border">Through GOB</th>
+            <th class="table-border">SA</th>
+            <th class="table-border">Through GOB</th>
+            <th class="table-border">SA</th>
+            <th class="table-border">Through GOB</th>
+            <th class="table-border">SA</th>
+          </tr>
+          <tr class="table-border">
+            <th class="table-border">1</th>
+            <th class="table-border">2</th>
+            <th class="table-border">3</th>
+            <th class="table-border">4</th>
+            <th class="table-border">5</th>
+            <th class="table-border">6</th>
+            <th class="table-border">7</th>
+            <th class="table-border">8</th>
+            <th class="table-border">9</th>
+            <th class="table-border">10</th>
+            <th class="table-border">11</th>
+            <th class="table-border">12</th>
+            <th class="table-border">13</th>
+            <th class="table-border">14</th>
+            <th class="table-border">15</th>
+            <th class="table-border">16</th>
+            <th class="table-border">17</th>
+            <th class="table-border">18</th>
+            <th class="table-border">19</th>
+            <th class="table-border">20</th>
+            <th class="table-border">21</th>
+            <th class="table-border">22</th>
+            <th class="table-border">23</th>
+            <th class="table-border">24</th>
+            <th class="table-border">25</th>
+            <th class="table-border">26</th>
+            <th class="table-border">27</th>
+            <th class="table-border">28</th>
+            <th class="table-border">29</th>
+            <th class="table-border">30</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-border">
+            <td colspan="3" class="table-border">(a) Revenue Component</td>
+            <td colspan="9" class="table-border"></td>
+            <td colspan="9" class="table-border"></td>
+            <td colspan="9" class="table-border"></td>
+          </tr>
+
+          <tr class="table-border" *ngFor="let currRevenue of currRevenueItems; let i=index">
+            <td class="table-border">{{currRevenue?.economicCodeDTO?.economicCodeName}}</td>
+            <td class="table-border">{{currRevenue?.subEconomicCodeDTO?.subEconomicCodeName}}</td>
+            <td class="table-border">{{currRevenue?.description}}</td>
+
+            <ng-container *ngIf="refRevenueItems?.length>i">
+              <td class="table-border">{{refRevenueItems[i]?.unitTypeDTO?.unitTypeNameEng}}</td>
+              <td class="table-border">{{refRevenueItems[i]?.qty}}</td>
+              <td class="table-border">{{refRevenueItems[i]?.fiscalYearsWiseItemTotal?.totalAmount}}</td>
+              <td class="table-border">{{refRevenueItems[i]?.fiscalYearsWiseItemTotal?.gobAmount}}
+                <br>({{refRevenueItems[i]?.fiscalYearsWiseItemTotal?.gobFeAmount}})
+              </td>
+              <td class="table-border">{{refRevenueItems[i]?.fiscalYearsWiseItemTotal?.gobThruAmount}}</td>
+              <td class="table-border">{{refRevenueItems[i]?.fiscalYearsWiseItemTotal?.spAcAmount}}</td>
+              <td class="table-border">{{refRevenueItems[i]?.fiscalYearsWiseItemTotal?.thruDpAmount +
+                refRevenueItems[i]?.fiscalYearsWiseItemTotal?.thruPdAmount}}</td>
+              <td class="table-border">{{refRevenueItems[i]?.fiscalYearsWiseItemTotal?.ownFundAmount}}</td>
+              <td class="table-border">{{refRevenueItems[i]?.fiscalYearsWiseItemTotal?.otherAmount}} </td>
+            </ng-container>
+            <ng-container *ngIf="(refRevenueItems.length-1)<i">
+              <td callsp class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+            </ng-container>
+
+            <td class="table-border">{{currRevenue?.unitTypeDTO?.unitTypeNameEng}}</td>
+            <td class="table-border">{{currRevenue?.qty}}</td>
+            <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.totalAmount+currRevenue?.totalAmount}}</td>
+            <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.gobAmount+currRevenue?.gobAmount}} <br>
+              ({{currRevenue?.fiscalYearsWiseItemTotal?.gobFeAmount+currRevenue?.gobFeAmount}})</td>
+            <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.gobThruAmount+currRevenue?.gobThruAmount}}</td>
+            <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.spAcAmount+currRevenue?.spAcAmount}}</td>
+            <td class="table-border">
+              {{currRevenue?.fiscalYearsWiseItemTotal?.thruDpAmount+currRevenue?.thruDpAmount
+                +currRevenue?.fiscalYearsWiseItemTotal?.thruPdAmount+currRevenue?.thruPdAmount}}
+            </td>
+            <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.ownFundAmount+currRevenue?.ownFundAmount}}</td>
+            <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.otherAmount+currRevenue?.otherAmount}}</td>
+
+            <ng-container *ngIf="refRevenueItems.length>i">
+              <td class="table-border"></td>
+              <td class="table-border">{{Math.abs(currRevenue?.qty-refRevenueItems[i]?.qty)}}</td>
+              <td class="table-border">
+                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.totalAmount+currRevenue?.totalAmount-refRevenueItems[i]?.fiscalYearsWiseItemTotal?.totalAmount)}}
+              </td>
+              <td class="table-border">
+                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.gobAmount+currRevenue?.gobAmount-refRevenueItems[i]?.fiscalYearsWiseItemTotal?.gobAmount)}}
+                <br>
+                ({{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.gobFeAmount+currRevenue?.gobFeAmount-refRevenueItems[i]?.fiscalYearsWiseItemTotal?.gobFeAmount)}})
+              </td>
+              <td class="table-border">
+                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.gobThruAmount+currRevenue?.gobThruAmount-refRevenueItems[i]?.fiscalYearsWiseItemTotal?.gobThruAmount)}}
+              </td>
+              <td class="table-border">
+                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.spAcAmount+currRevenue?.spAcAmount-refRevenueItems[i]?.fiscalYearsWiseItemTotal?.spAcAmount)}}
+              </td>
+              <td class="table-border">
+                {{Math.abs((currRevenue?.fiscalYearsWiseItemTotal?.thruDpAmount+currRevenue?.thruDpAmount+currRevenue?.fiscalYearsWiseItemTotal?.thruPdAmount+currRevenue?.thruPdAmount)
+                  -(refRevenueItems[i]?.fiscalYearsWiseItemTotal?.thruDpAmount+refRevenueItems[i]?.fiscalYearsWiseItemTotal?.thruPdAmount))}}
+              </td>
+              <td class="table-border">
+                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.ownFundAmount+currRevenue?.ownFundAmount-refRevenueItems[i]?.fiscalYearsWiseItemTotal?.ownFundAmount)}}
+              </td>
+              <td class="table-border">
+                {{Math.abs(currRevenue?.fiscalYearsWiseItemTotal?.otherAmount+currRevenue?.otherAmount-refRevenueItems[i]?.fiscalYearsWiseItemTotal?.otherAmount)}}
+              </td>
+            </ng-container>
+            <ng-container *ngIf="(refRevenueItems.length-1)<i">
+              <td class="table-border"></td>
+              <td class="table-border">{{currRevenue?.qty}}</td>
+              <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.totalAmount}}</td>
+              <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.gobAmount}} <br>
+                ({{currRevenue?.fiscalYearsWiseItemTotal?.gobFeAmount}})</td>
+              <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.gobThruAmount}}</td>
+              <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.spAcAmount}}</td>
+              <td class="table-border">
+                {{currRevenue?.fiscalYearsWiseItemTotal?.thruDpAmount+currRevenue?.fiscalYearsWiseItemTotal?.thruPdAmount}}
+              </td>
+              <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.ownFundAmount}}</td>
+              <td class="table-border">{{currRevenue?.fiscalYearsWiseItemTotal?.otherAmount}}</td>
+            </ng-container>
+          </tr>
+
+          <tr class="table-border">
+            <td colspan="3" class="table-border">Sub-total (Revenue Component )</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{refRevenueItemGTObj?.qty}}</td>
+            <td class="table-border">{{refRevenueGTObj?.totalAmount}}</td>
+            <td class="table-border">{{refRevenueGTObj?.gobAmount}} <br> ({{refRevenueGTObj?.gobFeAmount}})</td>
+            <td class="table-border">{{refRevenueGTObj?.gobThruAmount}}</td>
+            <td class="table-border">{{refRevenueGTObj?.spAcAmount}}</td>
+            <td class="table-border">{{refRevenueGTObj?.thruDpAmount+refRevenueGTObj?.thruPdAmount}}</td>
+            <td class="table-border">{{refRevenueGTObj?.ownFundAmount}}</td>
+            <td class="table-border">{{refRevenueGTObj?.otherAmount}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{currRevenueItemGTObj?.qty}}</td>
+            <td class="table-border">{{currRevenueGTObj?.totalAmount}}</td>
+            <td class="table-border">{{currRevenueGTObj?.gobAmount}} <br> ({{currRevenueGTObj?.gobFeAmount}})</td>
+            <td class="table-border">{{currRevenueGTObj?.gobThruAmount}}</td>
+            <td class="table-border">{{currRevenueGTObj?.spAcAmount}}</td>
+            <td class="table-border">{{currRevenueGTObj?.thruDpAmount+currRevenueGTObj?.thruPdAmount}}</td>
+            <td class="table-border">{{currRevenueGTObj?.ownFundAmount}}</td>
+            <td class="table-border">{{currRevenueGTObj?.otherAmount}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{Math.abs(currRevenueItemGTObj?.qty-refRevenueItemGTObj?.qty)}}</td>
+            <td class="table-border">{{Math.abs(currRevenueGTObj?.totalAmount-refRevenueGTObj?.totalAmount)}}</td>
+            <td class="table-border">{{Math.abs(currRevenueGTObj?.gobAmount-refRevenueGTObj?.gobAmount)}} <br>
+              ({{Math.abs(currRevenueGTObj?.gobFeAmount-refRevenueGTObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{Math.abs(currRevenueGTObj?.gobThruAmount-refRevenueGTObj?.gobThruAmount)}}</td>
+            <td class="table-border">{{Math.abs(currRevenueGTObj?.spAcAmount-refRevenueGTObj?.spAcAmount)}}</td>
+            <td class="table-border">
+              {{Math.abs((currRevenueGTObj?.thruDpAmount+currRevenueGTObj?.thruPdAmount)
+                -(refRevenueGTObj?.thruDpAmount+refRevenueGTObj?.thruPdAmount))}}
+            </td>
+            <td class="table-border">{{Math.abs(currRevenueGTObj?.ownFundAmount-refRevenueGTObj?.ownFundAmount)}}</td>
+            <td class="table-border">{{Math.abs(currRevenueGTObj?.otherAmount-refRevenueGTObj?.otherAmount)}}</td>
+          </tr>
+
+          <tr class="table-border">
+            <td colspan="3" class="table-border">(b) Capital Component</td>
+            <td colspan="9" class="table-border"></td>
+            <td colspan="9" class="table-border"></td>
+            <td colspan="9" class="table-border"></td>
+          </tr>
+          <tr class="table-border" *ngFor="let currCapital of currCapitalItems; let i=index">
+            <td class="table-border">{{currCapital?.economicCodeDTO?.economicCodeName}}</td>
+            <td class="table-border">{{currCapital?.subEconomicCodeDTO?.subEconomicCodeName}}</td>
+            <td class="table-border">{{currCapital?.description}}</td>
+
+            <ng-container *ngIf="refCapitalItems.length>i">
+              <td class="table-border">{{refCapitalItems[i]?.unitTypeDTO?.unitTypeNameEng}}</td>
+              <td class="table-border">{{refCapitalItems[i]?.qty}}</td>
+              <td class="table-border">{{refCapitalItems[i]?.fiscalYearsWiseItemTotal?.totalAmount}}</td>
+              <td class="table-border">{{refCapitalItems[i]?.fiscalYearsWiseItemTotal?.gobAmount}}
+                <br>({{refCapitalItems[i]?.fiscalYearsWiseItemTotal?.gobFeAmount}})
+              </td>
+              <td class="table-border">{{refCapitalItems[i]?.fiscalYearsWiseItemTotal?.gobThruAmount}}</td>
+              <td class="table-border">{{refCapitalItems[i]?.fiscalYearsWiseItemTotal?.spAcAmount}}</td>
+              <td class="table-border">{{refCapitalItems[i]?.fiscalYearsWiseItemTotal?.thruDpAmount +
+                refCapitalItems[i]?.fiscalYearsWiseItemTotal?.thruPdAmount}}</td>
+              <td class="table-border">{{refCapitalItems[i]?.fiscalYearsWiseItemTotal?.ownFundAmount}}</td>
+              <td class="table-border">{{refCapitalItems[i]?.fiscalYearsWiseItemTotal?.otherAmount}} </td>
+            </ng-container>
+            <ng-container *ngIf="(refCapitalItems.length-1)<i">
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+            </ng-container>
+
+            <td class="table-border">{{currCapital?.unitTypeDTO?.unitTypeNameEng}}</td>
+            <td class="table-border">{{currCapital?.qty}}</td>
+            <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.totalAmount+currCapital?.totalAmount}}</td>
+            <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.gobAmount+currCapital?.gobAmount}} <br>
+              ({{currCapital?.fiscalYearsWiseItemTotal?.gobFeAmount+currCapital?.gobFeAmount}})</td>
+            <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.gobThruAmount+currCapital?.gobThruAmount}}</td>
+            <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.spAcAmount+currCapital?.spAcAmount}}</td>
+            <td class="table-border">
+              {{currCapital?.fiscalYearsWiseItemTotal?.thruDpAmount+currCapital?.thruDpAmount
+              +currCapital?.fiscalYearsWiseItemTotal?.thruPdAmount+currCapital?.thruPdAmount}}
+            </td>
+            <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.ownFundAmount+currCapital?.ownFundAmount}}</td>
+            <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.otherAmount+currCapital?.otherAmount}}</td>
+
+            <ng-container *ngIf="refCapitalItems.length>i">
+              <td class="table-border"></td>
+              <td class="table-border">{{Math.abs(currCapital?.qty-refCapitalItems[i]?.qty)}}</td>
+              <td class="table-border">
+                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.totalAmount+currCapital?.totalAmount-refCapitalItems[i]?.fiscalYearsWiseItemTotal?.totalAmount)}}
+              </td>
+              <td class="table-border">
+                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.gobAmount+currCapital?.gobAmount-refCapitalItems[i]?.fiscalYearsWiseItemTotal?.gobAmount)}}
+                <br>
+                ({{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.gobFeAmount+currCapital?.gobFeAmount-refCapitalItems[i]?.fiscalYearsWiseItemTotal?.gobFeAmount)}})
+              </td>
+              <td class="table-border">
+                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.gobThruAmount+currCapital?.gobThruAmount-refCapitalItems[i]?.fiscalYearsWiseItemTotal?.gobThruAmount)}}
+              </td>
+              <td class="table-border">
+                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.spAcAmount+currCapital?.spAcAmount-refCapitalItems[i]?.fiscalYearsWiseItemTotal?.spAcAmount)}}
+              </td>
+              <td class="table-border">
+                {{Math.abs((currCapital?.fiscalYearsWiseItemTotal?.thruDpAmount+currCapital?.thruDpAmount+currCapital?.fiscalYearsWiseItemTotal?.thruPdAmount+currCapital?.thruPdAmount)
+                  -(refCapitalItems[i]?.fiscalYearsWiseItemTotal?.thruDpAmount+refCapitalItems[i]?.fiscalYearsWiseItemTotal?.thruPdAmount))}}
+              </td>
+              <td class="table-border">
+                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.ownFundAmount+currCapital?.ownFundAmount-refCapitalItems[i]?.fiscalYearsWiseItemTotal?.ownFundAmount)}}
+              </td>
+              <td class="table-border">
+                {{Math.abs(currCapital?.fiscalYearsWiseItemTotal?.otherAmount+currCapital?.otherAmount-refCapitalItems[i]?.fiscalYearsWiseItemTotal?.otherAmount)}}
+              </td>
+            </ng-container>
+            <ng-container *ngIf="(refCapitalItems.length-1)<i">
+              <td class="table-border"></td>
+              <td class="table-border">{{currCapital?.qty}}</td>
+              <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.totalAmount}}</td>
+              <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.gobAmount}} <br>
+                ({{currCapital?.fiscalYearsWiseItemTotal?.gobFeAmount}})</td>
+              <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.gobThruAmount}}</td>
+              <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.spAcAmount}}</td>
+              <td class="table-border">
+                {{currCapital?.fiscalYearsWiseItemTotal?.thruDpAmount+currCapital?.fiscalYearsWiseItemTotal?.thruPdAmount}}
+              </td>
+              <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.ownFundAmount}}</td>
+              <td class="table-border">{{currCapital?.fiscalYearsWiseItemTotal?.otherAmount}}</td>
+            </ng-container>
+          </tr>
+          <tr class="table-border">
+            <td colspan="3" class="table-border">Sub-total ( Capital Component )</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{refCapitalItemGTObj?.qty}}</td>
+            <td class="table-border">{{refCapitalGTObj?.totalAmount}}</td>
+            <td class="table-border">{{refCapitalGTObj?.gobAmount}} <br> ({{refCapitalGTObj?.gobFeAmount}})</td>
+            <td class="table-border">{{refCapitalGTObj?.gobThruAmount}}</td>
+            <td class="table-border">{{refCapitalGTObj?.spAcAmount}}</td>
+            <td class="table-border">{{refCapitalGTObj?.thruDpAmount+refCapitalGTObj?.thruPdAmount}}</td>
+            <td class="table-border">{{refCapitalGTObj?.ownFundAmount}}</td>
+            <td class="table-border">{{refCapitalGTObj?.otherAmount}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{currCapitalItemGTObj?.qty}}</td>
+            <td class="table-border">{{currCapitalGTObj?.totalAmount}}</td>
+            <td class="table-border">{{currCapitalGTObj?.gobAmount}} <br> ({{currCapitalGTObj?.gobFeAmount}})</td>
+            <td class="table-border">{{currCapitalGTObj?.gobThruAmount}}</td>
+            <td class="table-border">{{currCapitalGTObj?.spAcAmount}}</td>
+            <td class="table-border">{{currCapitalGTObj?.thruDpAmount+currCapitalGTObj?.thruPdAmount}}</td>
+            <td class="table-border">{{currCapitalGTObj?.ownFundAmount}}</td>
+            <td class="table-border">{{currCapitalGTObj?.otherAmount}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{Math.abs(currCapitalItemGTObj.qty-refCapitalItemGTObj.qty)}}</td>
+            <td class="table-border">{{Math.abs(currCapitalGTObj?.totalAmount-refCapitalGTObj?.totalAmount)}}</td>
+            <td class="table-border">{{Math.abs(currCapitalGTObj?.gobAmount-refCapitalGTObj?.gobAmount)}} <br>
+              ({{Math.abs(currCapitalGTObj?.gobFeAmount-refCapitalGTObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{Math.abs(currCapitalGTObj?.gobThruAmount-refCapitalGTObj?.gobThruAmount)}}</td>
+            <td class="table-border">{{Math.abs(currCapitalGTObj?.spAcAmount-refCapitalGTObj?.spAcAmount)}}</td>
+            <td class="table-border">
+              {{Math.abs((currCapitalGTObj?.thruDpAmount+currCapitalGTObj?.thruPdAmount)-(refCapitalGTObj?.thruDpAmount+refCapitalGTObj?.thruPdAmount))}}
+            </td>
+            <td class="table-border">{{Math.abs(currCapitalGTObj?.ownFundAmount-refCapitalGTObj?.ownFundAmount)}}</td>
+            <td class="table-border">{{Math.abs(currCapitalGTObj?.otherAmount-refCapitalGTObj?.otherAmount)}}</td>
+          </tr>
+          <tr class="table-border">
+            <td colspan="3" class="table-border">(c) Physical Contingency </td>
+            <td class="table-border"></td>
+            <td class="table-border">{{refPhysicalContingencyGTObj?.qty}}</td>
+            <td class="table-border">{{refPhysicalContingencyGTObj?.totalAmount}}</td>
+            <td class="table-border">{{refPhysicalContingencyGTObj?.gobAmount}} <br>
+              ({{refPhysicalContingencyGTObj?.gobFeAmount}})</td>
+            <td class="table-border">{{refPhysicalContingencyGTObj?.gobThruAmount}}</td>
+            <td class="table-border">{{refPhysicalContingencyGTObj?.spAcAmount}}</td>
+            <td class="table-border">
+              {{refPhysicalContingencyGTObj?.thruDpAmount+refPhysicalContingencyGTObj?.thruPdAmount}}</td>
+            <td class="table-border">{{refPhysicalContingencyGTObj?.ownFundAmount}}</td>
+            <td class="table-border">{{refPhysicalContingencyGTObj?.otherAmount}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{currPhysicalContingencyGTObj?.qty}}</td>
+            <td class="table-border">{{currPhysicalContingencyGTObj?.totalAmount}}</td>
+            <td class="table-border">{{currPhysicalContingencyGTObj?.gobAmount}} <br>
+              ({{currPhysicalContingencyGTObj?.gobFeAmount}})</td>
+            <td class="table-border">{{currPhysicalContingencyGTObj?.gobThruAmount}}</td>
+            <td class="table-border">{{currPhysicalContingencyGTObj?.spAcAmount}}</td>
+            <td class="table-border">
+              {{currPhysicalContingencyGTObj?.thruDpAmount+currPhysicalContingencyGTObj?.thruPdAmount}}</td>
+            <td class="table-border">{{currPhysicalContingencyGTObj?.ownFundAmount}}</td>
+            <td class="table-border">{{currPhysicalContingencyGTObj?.otherAmount}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{Math.abs(currPhysicalContingencyGTObj?.qty-refPhysicalContingencyGTObj?.qty)}}</td>
+            <td class="table-border">
+              {{Math.abs(currPhysicalContingencyGTObj?.totalAmount-refPhysicalContingencyGTObj?.totalAmount)}}</td>
+            <td class="table-border">{{Math.abs(currPhysicalContingencyGTObj?.gobAmount-refPhysicalContingencyGTObj?.gobAmount)}}
+              <br> ({{Math.abs(currPhysicalContingencyGTObj?.gobFeAmount-refPhysicalContingencyGTObj?.gobFeAmount)}})
+            </td>
+            <td class="table-border">
+              {{Math.abs(currPhysicalContingencyGTObj?.gobThruAmount-refPhysicalContingencyGTObj?.gobThruAmount)}}</td>
+            <td class="table-border">{{Math.abs(currPhysicalContingencyGTObj?.spAcAmount-refPhysicalContingencyGTObj?.spAcAmount)}}
+            </td>
+            <td class="table-border">
+              {{Math.abs((currPhysicalContingencyGTObj?.thruDpAmount+currPhysicalContingencyGTObj?.thruPdAmount)
+                -(refPhysicalContingencyGTObj?.thruDpAmount+refPhysicalContingencyGTObj?.thruPdAmount))}}
+            </td>
+            <td class="table-border">
+              {{Math.abs(currPhysicalContingencyGTObj?.ownFundAmount-refPhysicalContingencyGTObj?.ownFundAmount)}}</td>
+            <td class="table-border">
+              {{Math.abs(currPhysicalContingencyGTObj?.otherAmount-refPhysicalContingencyGTObj?.otherAmount)}}</td>
+          </tr>
+          <tr class="table-border">
+            <td colspan="3" class="table-border">(d) Price Contingency </td>
+            <td class="table-border"></td>
+            <td class="table-border">{{refPriceContingencyGTObj?.qty}}</td>
+            <td class="table-border">{{refPriceContingencyGTObj?.totalAmount}}</td>
+            <td class="table-border">{{refPriceContingencyGTObj?.gobAmount}} <br>
+              ({{refPriceContingencyGTObj?.gobFeAmount}})</td>
+            <td class="table-border">{{refPriceContingencyGTObj?.gobThruAmount}}</td>
+            <td class="table-border">{{refPriceContingencyGTObj?.spAcAmount}}</td>
+            <td class="table-border">{{refPriceContingencyGTObj?.thruDpAmount+refPriceContingencyGTObj?.thruPdAmount}}
+            </td>
+            <td class="table-border">{{refPriceContingencyGTObj?.ownFundAmount}}</td>
+            <td class="table-border">{{refPriceContingencyGTObj?.otherAmount}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{currPriceContingencyGTObj?.qty}}</td>
+            <td class="table-border">{{currPriceContingencyGTObj?.totalAmount}}</td>
+            <td class="table-border">{{currPriceContingencyGTObj?.gobAmount}} <br>
+              ({{currPriceContingencyGTObj?.gobFeAmount}})</td>
+            <td class="table-border">{{currPriceContingencyGTObj?.gobThruAmount}}</td>
+            <td class="table-border">{{currPriceContingencyGTObj?.spAcAmount}}</td>
+            <td class="table-border">{{currPriceContingencyGTObj?.thruDpAmount+currPriceContingencyGTObj?.thruPdAmount}}
+            </td>
+            <td class="table-border">{{currPriceContingencyGTObj?.ownFundAmount}}</td>
+            <td class="table-border">{{currPriceContingencyGTObj?.otherAmount}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{Math.abs(currPriceContingencyGTObj?.qty-refPriceContingencyGTObj?.qty)}}</td>
+            <td class="table-border">{{Math.abs(currPriceContingencyGTObj?.totalAmount-refPriceContingencyGTObj?.totalAmount)}}</td>
+            <td class="table-border">{{Math.abs(currPriceContingencyGTObj?.gobAmount-refPriceContingencyGTObj?.gobAmount)}} <br>
+              ({{Math.abs(currPriceContingencyGTObj?.gobFeAmount-refPriceContingencyGTObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{Math.abs(currPriceContingencyGTObj?.gobThruAmount-refPriceContingencyGTObj?.gobThruAmount)}}
+            </td>
+            <td class="table-border">{{Math.abs(currPriceContingencyGTObj?.spAcAmount-refPriceContingencyGTObj?.spAcAmount)}}</td>
+            <td class="table-border">
+              {{Math.abs((currPriceContingencyGTObj?.thruDpAmount+currPriceContingencyGTObj?.thruPdAmount)
+                -(refPriceContingencyGTObj?.thruDpAmount+refPriceContingencyGTObj?.thruPdAmount))}}
+            </td>
+            <td class="table-border">{{Math.abs(currPriceContingencyGTObj?.ownFundAmount-refPriceContingencyGTObj?.ownFundAmount)}}
+            </td>
+            <td class="table-border">{{Math.abs(currPriceContingencyGTObj?.otherAmount-refPriceContingencyGTObj?.otherAmount)}}</td>
+          </tr>
+          <tr class="table-border">
+            <td colspan="3" class="table-border">Grand Total (a + b + c) </td>
+            <td class="table-border"></td>
+            <td class="table-border">{{refGrandTotalObj?.qty}}</td>
+            <td class="table-border">{{refGrandTotalObj?.totalAmount}}</td>
+            <td class="table-border">{{refGrandTotalObj?.gobAmount}} <br> ({{refGrandTotalObj?.gobFeAmount}})</td>
+            <td class="table-border">{{refGrandTotalObj?.gobThruAmount}}</td>
+            <td class="table-border">{{refGrandTotalObj?.spAcAmount}}</td>
+            <td class="table-border">{{refGrandTotalObj?.thruDpAmount+refGrandTotalObj?.thruPdAmount}}</td>
+            <td class="table-border">{{refGrandTotalObj?.ownFundAmount}}</td>
+            <td class="table-border">{{refGrandTotalObj?.otherAmount}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{currGrandTotalObj?.qty}}</td>
+            <td class="table-border">{{currGrandTotalObj?.totalAmount}}</td>
+            <td class="table-border">{{currGrandTotalObj?.gobAmount}} <br> ({{currGrandTotalObj?.gobFeAmount}})</td>
+            <td class="table-border">{{currGrandTotalObj?.gobThruAmount}}</td>
+            <td class="table-border">{{currGrandTotalObj?.spAcAmount}}</td>
+            <td class="table-border">{{currGrandTotalObj?.thruDpAmount+currGrandTotalObj?.thruPdAmount}}</td>
+            <td class="table-border">{{currGrandTotalObj?.ownFundAmount}}</td>
+            <td class="table-border">{{currGrandTotalObj?.otherAmount}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{Math.abs(currGrandTotalObj?.qty-refGrandTotalObj?.qty)}}</td>
+            <td class="table-border">{{Math.abs(currGrandTotalObj?.totalAmount-refGrandTotalObj?.totalAmount)}}</td>
+            <td class="table-border">{{Math.abs(currGrandTotalObj?.gobAmount-refGrandTotalObj?.gobAmount)}} <br>
+              ({{Math.abs(currGrandTotalObj?.gobFeAmount-refGrandTotalObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{Math.abs(currGrandTotalObj?.gobThruAmount-refGrandTotalObj?.gobThruAmount)}}</td>
+            <td class="table-border">{{Math.abs(currGrandTotalObj?.spAcAmount-refGrandTotalObj?.spAcAmount)}}</td>
+            <td class="table-border">
+              {{Math.abs((currGrandTotalObj?.thruDpAmount+currGrandTotalObj?.thruPdAmount)
+                -(refGrandTotalObj?.thruDpAmount+refGrandTotalObj?.thruPdAmount))}}
+            </td>
+            <td class="table-border">{{Math.abs(currGrandTotalObj?.ownFundAmount-refGrandTotalObj?.ownFundAmount)}}</td>
+            <td class="table-border">{{Math.abs(currGrandTotalObj?.otherAmount-refGrandTotalObj?.otherAmount)}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overflow-x-auto" *ngIf="!isEnLabel">
+      <table class="table-border">
+        <thead>
+          <tr class="table-border">
+            <th rowspan="3" class="table-border">ইকনমিক কোড </th>
+            <th rowspan="3" class="table-border">ইকনমিক সাবকোড</th>
+            <th rowspan="3" class="table-border">ইকনমিক সাবকোড বর্ননা (বিস্তারিত) </th>
+            <th colspan="6" class="table-border">মূল অনুমোদিত/ সর্বশেষ সংশোধিত ডিপিপি</th>
+            <th colspan="6" class="table-border">গ্রস্তাবিত সংশোধিত ডিপিপি ( ১ম/ ২য় )</th>
+            <th colspan="6" class="table-border">পার্থক্য </th>
+          </tr>
+          <tr class="table-border">
+            <th rowspan="2" class="table-border">একক</th>
+            <th rowspan="2" class="table-border">পরিমান </th>
+            <th colspan="4" class="table-border"> ব্যয় </th>
+            <th rowspan="2" class="table-border">একক</th>
+            <th rowspan="2" class="table-border">পরিমান </th>
+            <th colspan="4" class="table-border">ব্যয় </th>
+            <th rowspan="2" class="table-border">একক </th>
+            <th rowspan="2" class="table-border">পরিমান </th>
+            <th colspan="4" class="table-border">ব্যয় </th>
+          </tr>
+          <tr class="table-border">
+            <th class="table-border">মোট </th>
+            <th class="table-border">জিওবি (বৈদেশিক মূদ্রা) </th>
+            <th class="table-border">নিজস্ব অর্থ ( বৈদেশিক মূদ্রা) </th>
+            <th class="table-border">অন্যান্ন</th>
+            <th class="table-border">মোট </th>
+            <th class="table-border">জিওবি ( বৈদেশিক মূদ্রা ) </th>
+            <th class="table-border">নিজস্ব অর্থ </th>
+            <th class="table-border">অন্যান্ন</th>
+            <th class="table-border">মোট </th>
+            <th class="table-border">জিওবি ( বৈদেশিক মূদ্রা ) </th>
+            <th class="table-border">নিজস্ব অর্থ </th>
+            <th class="table-border">অন্যান্ন </th>
+          </tr>
+          <tr class="table-border">
+            <th class="table-border">১</th>
+            <th class="table-border">২</th>
+            <th class="table-border">৩</th>
+            <th class="table-border">৪</th>
+            <th class="table-border">৫</th>
+            <th class="table-border">৬</th>
+            <th class="table-border">৭</th>
+            <th class="table-border">৮</th>
+            <th class="table-border">৯</th>
+            <th class="table-border">১০</th>
+            <th class="table-border">১১</th>
+            <th class="table-border">১২</th>
+            <th class="table-border">১৩</th>
+            <th class="table-border">১৪</th>
+            <th class="table-border">১৫</th>
+            <th class="table-border">১৬</th>
+            <th class="table-border">১৭</th>
+            <th class="table-border">১৮</th>
+            <th class="table-border">১৯</th>
+            <th class="table-border">২০</th>
+            <th class="table-border">২১</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-border">
+            <td colspan="2" class="table-border">(ক) রাজস্ব </td>
+            <td colspan="19" class="table-border"></td>
+          </tr>
+          <tr class="table-border" *ngFor="let currRevenue of currRevenueItems; let i=index">
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currRevenue?.economicCodeDTO?.economicCodeName)}}
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currRevenue?.subEconomicCodeDTO?.subEconomicCodeName)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currRevenue?.description)}}</td>
+
+            <ng-container *ngIf="refRevenueItems.length>i">
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(refRevenueItems[i]?.unitTypeDTO?.unitTypeNameEng)}}
+              </td>
+              <td class="table-border">{{numberPipe.convertToBanglaNumber(refRevenueItems[i]?.qty)}}</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(refRevenueItems[i]?.fiscalYearsWiseItemTotal?.totalAmount)}}</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(refRevenueItems[i]?.fiscalYearsWiseItemTotal?.gobAmount)}}
+                <br>({{numberPipe.convertToBanglaNumber(refRevenueItems[i]?.fiscalYearsWiseItemTotal?.gobFeAmount)}})
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(refRevenueItems[i]?.fiscalYearsWiseItemTotal?.ownFundAmount)}}</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(refRevenueItems[i]?.fiscalYearsWiseItemTotal?.otherAmount)}} </td>
+            </ng-container>
+            <ng-container *ngIf="(refRevenueItems.length-1)<i">
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+              <td class="table-border"></td>
+            </ng-container>
+
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currRevenue?.unitTypeDTO?.unitTypeNameEng)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currRevenue?.qty)}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currRevenue?.fiscalYearsWiseItemTotal?.totalAmount+currRevenue?.totalAmount)}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currRevenue?.fiscalYearsWiseItemTotal?.gobAmount+currRevenue?.gobAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(currRevenue?.fiscalYearsWiseItemTotal?.gobFeAmount+currRevenue?.gobFeAmount)}})</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currRevenue?.fiscalYearsWiseItemTotal?.ownFundAmount+currRevenue?.ownFundAmount)}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currRevenue?.fiscalYearsWiseItemTotal?.otherAmount+currRevenue?.otherAmount)}}</td>
+
+            <ng-container *ngIf="refRevenueItems.length>i">
+              <td class="table-border"></td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(strSubtraction(currRevenue?.qty,refRevenueItems[i]?.qty))}}
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(strSubtraction(currRevenue?.fiscalYearsWiseItemTotal?.totalAmount+currRevenue?.totalAmount,refRevenueItems[i]?.fiscalYearsWiseItemTotal?.totalAmount))}}
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(strSubtraction(currRevenue?.fiscalYearsWiseItemTotal?.gobAmount+currRevenue?.gobAmount,refRevenueItems[i]?.fiscalYearsWiseItemTotal?.gobAmount))}}
+                <br>
+                ({{numberPipe.convertToBanglaNumber(strSubtraction(currRevenue?.fiscalYearsWiseItemTotal?.gobFeAmount+currRevenue?.gobFeAmount,refRevenueItems[i]?.fiscalYearsWiseItemTotal?.gobFeAmount))}})
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(strSubtraction(currRevenue?.fiscalYearsWiseItemTotal?.ownFundAmount+currRevenue?.ownFundAmount,refRevenueItems[i]?.fiscalYearsWiseItemTotal?.ownFundAmount))}}
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(strSubtraction(currRevenue?.fiscalYearsWiseItemTotal?.otherAmount+currRevenue?.otherAmount,refRevenueItems[i]?.fiscalYearsWiseItemTotal?.otherAmount))}}
+              </td>
+            </ng-container>
+            <ng-container *ngIf="(refRevenueItems.length-1)<i">
+              <td class="table-border"></td>
+              <td class="table-border">{{numberPipe.convertToBanglaNumber(currRevenue?.qty)}}
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(currRevenue?.fiscalYearsWiseItemTotal?.totalAmount)}}</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(currRevenue?.fiscalYearsWiseItemTotal?.gobAmount)}} <br>
+                ({{numberPipe.convertToBanglaNumber(currRevenue?.fiscalYearsWiseItemTotal?.gobFeAmount)}})</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(currRevenue?.fiscalYearsWiseItemTotal?.ownFundAmount)}}</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(currRevenue?.fiscalYearsWiseItemTotal?.otherAmount)}}</td>
+            </ng-container>
+          </tr>
+          <tr class="table-border">
+            <td colspan="2" class="table-border">উপ-মোট (রাজস্ব ) </td>
+            <td class="table-border"></td>
+            <td class="table-border"></td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refRevenueItemGTObj?.qty)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refRevenueGTObj?.totalAmount)}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(refRevenueGTObj?.gobAmount)}}
+              <br> ({{numberPipe.convertToBanglaNumber(refRevenueGTObj?.gobFeAmount)}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(refRevenueGTObj?.ownFundAmount)}}
+              <br> ({{numberPipe.convertToBanglaNumber(refRevenueGTObj?.ownFundFeAmount)}})
+            </td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refRevenueGTObj?.otherAmount)}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currRevenueItemGTObj?.qty)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currRevenueGTObj?.totalAmount)}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currRevenueGTObj?.gobAmount)}}
+              <br> ({{numberPipe.convertToBanglaNumber(currRevenueGTObj?.gobFeAmount)}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currRevenueGTObj?.ownFundAmount)}}
+              <br> ({{numberPipe.convertToBanglaNumber(currRevenueGTObj?.ownFundFeAmount)}})
+            </td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currRevenueGTObj?.otherAmount)}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currRevenueItemGTObj?.qty,refRevenueItemGTObj?.qty))}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currRevenueGTObj?.totalAmount,refRevenueGTObj?.totalAmount))}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currRevenueGTObj?.gobAmount,refRevenueGTObj?.gobAmount))}}
+              <br> ({{numberPipe.convertToBanglaNumber(strSubtraction(currRevenueGTObj?.gobFeAmount,refRevenueGTObj?.gobFeAmount))}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currRevenueGTObj?.ownFundAmount,refRevenueGTObj?.ownFundAmount))}} <br>
+              ({{numberPipe.convertToBanglaNumber(strSubtraction(currRevenueGTObj?.ownFundFeAmount,refRevenueGTObj?.ownFundFeAmount))}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currRevenueGTObj?.otherAmount,refRevenueGTObj?.otherAmount))}}</td>
+          </tr>
+          <tr class="table-border">
+            <td colspan="2" class="table-border">(খ) মূলধন </td>
+            <td colspan="19" class="table-border"></td>
+          </tr>
+
+          <tr class="table-border" *ngFor="let currCapital of currCapitalItems; let i=index">
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currCapital?.economicCodeDTO?.economicCodeName)}}
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currCapital?.subEconomicCodeDTO?.subEconomicCodeName)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currCapital?.description)}}</td>
+
+            <ng-container *ngIf="refCapitalItems.length>i">
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(refCapitalItems[i]?.unitTypeDTO?.unitTypeNameEng)}}</td>
+              <td class="table-border">{{numberPipe.convertToBanglaNumber(refCapitalItems[i]?.qty)}}</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(refCapitalItems[i]?.fiscalYearsWiseItemTotal?.totalAmount)}}</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(refCapitalItems[i]?.fiscalYearsWiseItemTotal?.gobAmount)}}
+                <br>({{numberPipe.convertToBanglaNumber(refCapitalItems[i]?.fiscalYearsWiseItemTotal?.gobFeAmount)}})
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(refCapitalItems[i]?.fiscalYearsWiseItemTotal?.ownFundAmount)}}</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(refCapitalItems[i]?.fiscalYearsWiseItemTotal?.otherAmount)}} </td>
+            </ng-container>
+            <ng-container *ngIf="(refCapitalItems.length-1)<i">
+              <td colspan="6" class="table-border"></td>
+            </ng-container>
+
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currCapital?.unitTypeDTO?.unitTypeNameEng)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currCapital?.qty)}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currCapital?.fiscalYearsWiseItemTotal?.totalAmount+currCapital?.totalAmount)}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currCapital?.fiscalYearsWiseItemTotal?.gobAmount+currCapital?.gobAmount)}}
+              <br> ({{numberPipe.convertToBanglaNumber(currCapital?.fiscalYearsWiseItemTotal?.gobFeAmount+currCapital?.gobFeAmount)}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currCapital?.fiscalYearsWiseItemTotal?.ownFundAmount+currCapital?.ownFundAmount)}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(currCapital?.fiscalYearsWiseItemTotal?.otherAmount+currCapital?.otherAmount)}}</td>
+
+            <ng-container *ngIf="refCapitalItems.length>i">
+              <td class="table-border"></td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(strSubtraction(currCapital?.qty,refCapitalItems[i]?.qty))}}
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(strSubtraction(currCapital?.fiscalYearsWiseItemTotal?.totalAmount+currCapital?.totalAmount,refCapitalItems[i]?.fiscalYearsWiseItemTotal?.totalAmount))}}
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(strSubtraction(currCapital?.fiscalYearsWiseItemTotal?.gobAmount+currCapital?.gobAmount,refCapitalItems[i]?.fiscalYearsWiseItemTotal?.gobAmount))}}
+                <br>
+                ({{numberPipe.convertToBanglaNumber(strSubtraction(currCapital?.fiscalYearsWiseItemTotal?.gobFeAmount+currCapital?.gobFeAmount,refCapitalItems[i]?.fiscalYearsWiseItemTotal?.gobFeAmount))}})
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(strSubtraction(currCapital?.fiscalYearsWiseItemTotal?.ownFundAmount+currCapital?.ownFundAmount,refCapitalItems[i]?.fiscalYearsWiseItemTotal?.ownFundAmount))}}
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(strSubtraction(currCapital?.fiscalYearsWiseItemTotal?.otherAmount+currCapital?.otherAmount,refCapitalItems[i]?.fiscalYearsWiseItemTotal?.otherAmount))}}
+              </td>
+            </ng-container>
+            <ng-container *ngIf="(refCapitalItems.length-1)<i">
+              <td class="table-border"></td>
+              <td class="table-border">{{numberPipe.convertToBanglaNumber(currCapital?.qty)}}
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(currCapital?.fiscalYearsWiseItemTotal?.totalAmount)}}</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(currCapital?.fiscalYearsWiseItemTotal?.gobAmount)}}
+                <br> ({{numberPipe.convertToBanglaNumber(currCapital?.fiscalYearsWiseItemTotal?.gobFeAmount)}})
+              </td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(currCapital?.fiscalYearsWiseItemTotal?.ownFundAmount)}}</td>
+              <td class="table-border">
+                {{numberPipe.convertToBanglaNumber(currCapital?.fiscalYearsWiseItemTotal?.otherAmount)}}</td>
+            </ng-container>
+          </tr>
+          <tr class="table-border">
+            <td colspan="2" class="table-border">উপ-মোট ( মূলধন) </td>
+            <td class="table-border"></td>
+            <td class="table-border"></td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refCapitalItemGTObj?.qty)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refCapitalGTObj?.totalAmount)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refCapitalGTObj?.gobAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(refCapitalGTObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refCapitalGTObj?.ownFundAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(refCapitalGTObj?.ownFundFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refCapitalGTObj?.otherAmount)}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currCapitalItemGTObj?.qty)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currCapitalGTObj?.totalAmount)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currCapitalGTObj?.gobAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(currCapitalGTObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currCapitalGTObj?.ownFundAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(currCapitalGTObj?.ownFundFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currCapitalGTObj?.otherAmount)}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currCapitalItemGTObj.qty,refCapitalItemGTObj.qty))}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currCapitalGTObj?.totalAmount,refCapitalGTObj?.totalAmount))}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currCapitalGTObj?.gobAmount,refCapitalGTObj?.gobAmount))}} <br>
+              ({{numberPipe.convertToBanglaNumber(strSubtraction(currCapitalGTObj?.gobFeAmount,refCapitalGTObj?.gobFeAmount))}})</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currCapitalGTObj?.ownFundAmount,refCapitalGTObj?.ownFundAmount))}} <br>
+              ({{numberPipe.convertToBanglaNumber(strSubtraction(currCapitalGTObj?.ownFundFeAmount,refCapitalGTObj?.ownFundFeAmount))}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currCapitalGTObj?.otherAmount,refCapitalGTObj?.otherAmount))}}</td>
+          </tr>
+          <tr class="table-border">
+            <td colspan="3" class="table-border">(গ) ফিজিক্যাল কনটিনজেন্সি </td>
+            <td class="table-border"></td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refPhysicalContingencyGTObj?.qty)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refPhysicalContingencyGTObj?.totalAmount)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refPhysicalContingencyGTObj?.gobAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(refPhysicalContingencyGTObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refPhysicalContingencyGTObj?.ownFundAmount)}}
+              <br> ({{numberPipe.convertToBanglaNumber(refPhysicalContingencyGTObj?.ownFundFeAmount)}})
+            </td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refPhysicalContingencyGTObj?.otherAmount)}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currPhysicalContingencyGTObj?.qty)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currPhysicalContingencyGTObj?.totalAmount)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currPhysicalContingencyGTObj?.gobAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(currPhysicalContingencyGTObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currPhysicalContingencyGTObj?.ownFundAmount)}}
+              <br> ({{numberPipe.convertToBanglaNumber(currPhysicalContingencyGTObj?.ownFundFeAmount)}})
+            </td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currPhysicalContingencyGTObj?.otherAmount)}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currPhysicalContingencyGTObj?.qty,refPhysicalContingencyGTObj?.qty))}}
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currPhysicalContingencyGTObj?.totalAmount,refPhysicalContingencyGTObj?.totalAmount))}}
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currPhysicalContingencyGTObj?.gobAmount,refPhysicalContingencyGTObj?.gobAmount))}}
+              <br>
+              ({{numberPipe.convertToBanglaNumber(strSubtraction(currPhysicalContingencyGTObj?.gobFeAmount,refPhysicalContingencyGTObj?.gobFeAmount))}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currPhysicalContingencyGTObj?.ownFundAmount,refPhysicalContingencyGTObj?.ownFundAmount))}}
+              <br>
+              ({{numberPipe.convertToBanglaNumber(strSubtraction(currPhysicalContingencyGTObj?.ownFundFeAmount,refPhysicalContingencyGTObj?.ownFundFeAmount))}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currPhysicalContingencyGTObj?.otherAmount,refPhysicalContingencyGTObj?.otherAmount))}}
+            </td>
+          </tr>
+          <tr class="table-border">
+            <td colspan="3" class="table-border">(ঘ) প্রাইস কনটিঞ্জেন্সি </td>
+            <td class="table-border"></td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refPriceContingencyGTObj?.qty)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refPriceContingencyGTObj?.totalAmount)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refPriceContingencyGTObj?.gobAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(refPriceContingencyGTObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refPriceContingencyGTObj?.ownFundAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(refPriceContingencyGTObj?.ownFundFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refPriceContingencyGTObj?.otherAmount)}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currPriceContingencyGTObj?.qty)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currPriceContingencyGTObj?.totalAmount)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currPriceContingencyGTObj?.gobAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(currPriceContingencyGTObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currPriceContingencyGTObj?.ownFundAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(currPriceContingencyGTObj?.ownFundFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currPriceContingencyGTObj?.otherAmount)}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currPriceContingencyGTObj?.qty,refPriceContingencyGTObj?.qty))}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currPriceContingencyGTObj?.totalAmount,refPriceContingencyGTObj?.totalAmount))}}
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currPriceContingencyGTObj?.gobAmount,refPriceContingencyGTObj?.gobAmount))}}
+              <br>
+              ({{numberPipe.convertToBanglaNumber(strSubtraction(currPriceContingencyGTObj?.gobFeAmount,refPriceContingencyGTObj?.gobFeAmount))}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currPriceContingencyGTObj?.ownFundAmount,refPriceContingencyGTObj?.ownFundAmount))}}
+              <br>
+              ({{numberPipe.convertToBanglaNumber(strSubtraction(currPriceContingencyGTObj?.ownFundFeAmount,refPriceContingencyGTObj?.ownFundFeAmount))}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currPriceContingencyGTObj?.otherAmount,refPriceContingencyGTObj?.otherAmount))}}
+            </td>
+          </tr>
+          <tr class="table-border">
+            <td colspan="3" class="table-border">সর্বমোট ( ক + খ + গ + ঘ) </td>
+            <td class="table-border"></td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refGrandTotalObj?.qty)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refGrandTotalObj?.totalAmount)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refGrandTotalObj?.gobAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(refGrandTotalObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refGrandTotalObj?.ownFundAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(refGrandTotalObj?.ownFundFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(refGrandTotalObj?.otherAmount)}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currGrandTotalObj?.qty)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currGrandTotalObj?.totalAmount)}}</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currGrandTotalObj?.gobAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(currGrandTotalObj?.gobFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currGrandTotalObj?.ownFundAmount)}} <br>
+              ({{numberPipe.convertToBanglaNumber(currGrandTotalObj?.ownFundFeAmount)}})</td>
+            <td class="table-border">{{numberPipe.convertToBanglaNumber(currGrandTotalObj?.otherAmount)}}</td>
+            <td class="table-border"></td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currGrandTotalObj?.qty,refGrandTotalObj?.qty))}}
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currGrandTotalObj?.totalAmount,refGrandTotalObj?.totalAmount))}}</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currGrandTotalObj?.gobAmount,refGrandTotalObj?.gobAmount))}} <br>
+              ({{numberPipe.convertToBanglaNumber(strSubtraction(currGrandTotalObj?.gobFeAmount,refGrandTotalObj?.gobFeAmount))}})</td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currGrandTotalObj?.ownFundAmount,refGrandTotalObj?.ownFundAmount))}} <br>
+              ({{numberPipe.convertToBanglaNumber(strSubtraction(currGrandTotalObj?.ownFundFeAmount,refGrandTotalObj?.ownFundFeAmount))}})
+            </td>
+            <td class="table-border">
+              {{numberPipe.convertToBanglaNumber(strSubtraction(currGrandTotalObj?.otherAmount,refGrandTotalObj?.otherAmount))}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <!-- end Main div-->
+
+  <div class="mt-5">
+    <div fxLayout="row wrap" fxLayoutAlign="end">
+      <button class="mr-2" mat-flat-button color="primary" type="button" [disabled]="spinner"
+        (click)="saveAndNext()">{{'SaveNext' | translate}}</button>
+      <button class="mr-2" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+        [disabled]="spinner" (click)="saveAndExit()">{{'SaveExit' | translate}}</button>
+    </div>
+  </div>
+
+</div>

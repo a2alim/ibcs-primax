@@ -1,0 +1,125 @@
+.sign-box {
+    border: 2px solid gray;
+    -webkit-print-color-adjust: exact;
+    // width: 200px;
+    // height: 100px;
+    // float: right;
+}
+
+.pa-0 {
+    padding: 0 !important;
+}
+
+.table-inside tr,
+.table-inside td {
+    border: 0px solid gray !important;
+    -webkit-print-color-adjust: exact;
+}
+
+.table-ins tr,
+.table-ins td {
+    border: 0px solid gray !important;
+    background-color: transparent !important;
+    -webkit-print-color-adjust: exact;
+}
+
+.table-inside th {
+    background-color: white !important;
+    height: 30px;
+    -webkit-print-color-adjust: exact;
+}
+
+.pic-box {
+    border: 2px solid gray;
+    -webkit-print-color-adjust: exact;
+    height: 200px;
+}
+
+.outerDiv {
+    background: url('/assets/images/profile_bg.png') no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: auto;
+}
+
+.contentDiv {
+    margin: 0 auto;
+    background-color: white;
+    height: 100%;
+    -webkit-print-color-adjust: exact;
+    // max-width: 1040px;
+}
+
+.tbl-details th {
+    background-color: none !important;
+}
+
+.personalInfoTbl {
+    td:nth-child(1) {}
+}
+
+.researchInfo {
+    width: 100%;
+    td {
+        border: 1px solid #CCC;
+        padding: 3px;
+        -webkit-print-color-adjust: exact;
+    }
+    th {
+        border: 1px solid #CCC;
+        background-color: #d8d8d8 !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+.publication {
+    padding: 2px;
+    cursor: pointer;
+}
+
+.tblTitle {
+    border: 1px solid #90cec5;
+    padding: 3px;
+    background-color: #90cec5 !important;
+    -webkit-print-color-adjust: exact;
+}
+
+.grantTotal td {
+    background-color: #f6f7c6;
+    -webkit-print-color-adjust: exact;
+}
+
+.editButton {
+    border: 1px solid;
+    width: 108px;
+    padding: 3px;
+    background: #4b60bd;
+    text-align: center;
+    border: 1px solid #4b60bd;
+    border-radius: 4px;
+}
+
+table.researchInfo tr:nth-child(odd) td {
+    background: #f7f5f5;
+    -webkit-print-color-adjust: exact;
+}
+
+table.researchInfo tr:nth-child(even) td {
+    background: #ffffff;
+    -webkit-print-color-adjust: exact;
+}
+
+@media print {
+    .tblTitle {
+        border: 1px solid #90cec5;
+        padding: 3px;
+        background-color: #90cec5 !important;
+        -webkit-print-color-adjust: exact;
+    }
+    .no-print {
+        display: none !important;
+    }
+    .mat-card {
+        box-shadow: none !important;
+    }
+}

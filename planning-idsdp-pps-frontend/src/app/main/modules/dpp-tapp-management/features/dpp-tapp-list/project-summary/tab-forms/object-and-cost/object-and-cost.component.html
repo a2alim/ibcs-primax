@@ -1,0 +1,1058 @@
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="show">
+    <mat-spinner></mat-spinner>
+</div>
+<!--============================== transaction spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--============================== // transaction spinner ===================-->
+<div class="body" *ngIf="!show">
+    <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()" name="frmGroup">
+        <div>
+            <!-- Project Title (English) Div -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10 text-base">
+                    <span [innerHTML]="'ProjectTitle_1' | translate"></span>
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field [ngClass]="formFieldHelpers" class="w-full">
+                        <textarea formControlName="projectTitleEn" id="projectTitle" matInput></textarea>
+                        <mat-error *ngIf="frmGroup.get('projectTitleEn').hasError('customError')">
+                            {{ frmGroup.get('projectTitleEn').errors.customError.value }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Project Title (Bangla) Div -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10 text-base">
+                    {{ "ProjectTitle_2" | translate }}
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field [ngClass]="formFieldHelpers" class="w-full">
+                        <textarea formControlName="projectTitleBn" matInput></textarea>
+                        <!--                        <input autocomplete="off" matInput formControlName="projectTitleBn"/>-->
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- MinistryDivision Div -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10 text-base">
+                    {{ "MinistryDivision" | translate }}
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field [ngClass]="formFieldHelpers" class="w-full readOnly">
+                        <input autocomplete="off" matInput readonly formControlName="ministryDivision"/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- ImplementingAgency Div -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10 text-base">
+                    <span *ngIf="isParipatra2016"> {{ "ImplementingAgency" | translate }}</span>
+                    <span *ngIf="!isParipatra2016"> {{ "ImplementingAgency22" | translate }}</span>
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field [ngClass]="formFieldHelpers" class="w-full readOnly">
+                        <input autocomplete="off" matInput placeholder="" readonly
+                               formControlName="implementingAgency"/>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- ConcernedDivision Div -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 text-base">
+                    <span *ngIf="isParipatra2016" [innerHTML]="'ConcernedDivision' | translate"></span>
+                    <span *ngIf="!isParipatra2016" [innerHTML]="'ConcernedDivision22' | translate"></span>
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field class="w-full">
+                        <mat-select formControlName="concernedDivisionId" required (ngModelChange)="onchangeSectorDivision($event)">
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let val of concernedDivisionList" [value]=val.id>
+                                {{(projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && !projectSummary.isForeignAid) ? val.sectorDivisionNameBn : val.sectorDivisionNameEn}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="frmGroup.get('concernedDivisionId').hasError('customError')">
+                            {{ frmGroup.get('concernedDivisionId').errors.customError.value }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2">
+                    <span [innerHTML]="'Sector' | translate"></span>
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field class="w-full">
+                        <mat-select formControlName="sectorId" required (ngModelChange)="onchangeSector($event)">
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let val of sectorList" [value]=val.id>
+                                {{(projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && !projectSummary.isForeignAid) ? val.sectorNameBn : val.sectorNameEn}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="frmGroup.get('sectorId').hasError('customError')">
+                            {{ frmGroup.get('sectorId').errors.customError.value }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2">
+                    <span [innerHTML]="'SubSector' | translate"></span>
+                </div>
+                <div class="w-full sm:w-auto md:w-3/4 lg:w-3/4">
+                    <mat-form-field class="w-full">
+                        <mat-select formControlName="subSectorId" required>
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let val of subSectorList" [value]=val.id>
+                                {{(projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && !projectSummary.isForeignAid) ? val.subSectorNameBn : val.subSectorNameEn}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="frmGroup.get('subSectorId').hasError('customError')">
+                            {{ frmGroup.get('subSectorId').errors.customError.value }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Development_Partners Table -->
+            <div *ngIf="isForeignAid" class="sub-heading text-lg">
+                <span [innerHTML]="'Development_Partners' | translate"></span>
+            </div>
+
+            <mat-card *ngIf="isForeignAid" cdkScrollable class="p-2 mb-5 overflow-x-auto sm:overflow-y-auto">
+                <form [formGroup]="formDev">
+                    <table id="devPartnerId" mat-table [dataSource]="developmentPartnerDataSource"
+                           class="mat-elevation-z8"
+                           formArrayName="devPartner">
+
+
+                        <ng-container matColumnDef="8">
+                            <th colspan="3" class="table-head-style" mat-header-cell *matHeaderCellDef></th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="9">
+                            <th colspan="4" class="table-head-style" mat-header-cell *matHeaderCellDef>
+                                Project Aid
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="10">
+                            <th colspan="2" class="table-head-style" mat-header-cell *matHeaderCellDef>
+
+                            </th>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="1">
+                            <th colspan="3" class="table-head-style" mat-header-cell *matHeaderCellDef></th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="2">
+                            <th colspan="2" class="table-head-style" mat-header-cell *matHeaderCellDef>
+                                RPA
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="3">
+                            <th colspan="2" class="table-head-style" mat-header-cell *matHeaderCellDef>
+                                DPA
+                            </th>
+                        </ng-container>
+
+                        <ng-container matColumnDef="4">
+                            <th colspan="2" class="table-head-style" mat-header-cell *matHeaderCellDef>
+                            </th>
+                        </ng-container>
+
+
+                        <!-- Column definitions -->
+                        <ng-container matColumnDef="sl">
+                            <th mat-header-cell *matHeaderCellDef>{{'SERIAL_NO' | translate}}</th>
+                            <td mat-cell *matCellDef="let element; let i = index;">
+                                {{i + 1}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="devPartner">
+                            <th mat-header-cell *matHeaderCellDef>{{'Development_Partners' | translate}}</th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <mat-select formControlName="devPartnerId"
+                                                (ngModelChange)="setDataInDevelopmentPartnerModal(false)">
+                                        <mat-option value="">Select</mat-option>
+                                        <mat-option *ngFor="let type of developmentPartnersList" [value]=type.id>
+                                            {{type.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="modeFinance">
+                            <th mat-header-cell *matHeaderCellDef>{{'ModeOfFinance' | translate}}</th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <mat-select formControlName="modeFinance"
+                                                (ngModelChange)="setDataInDevelopmentPartnerModal(false)">
+                                        <mat-option value="">Select</mat-option>
+                                        <mat-option *ngFor="let type of modeFinanceTypeList" [value]=type.id>
+                                            {{type.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="gobThruAmount">
+                            <th mat-header-cell *matHeaderCellDef>{{'GobThru' | translate}}</th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <input matInput TwoDigitDecimalNumber formControlName="gobThruAmount"
+                                           (keyup)="setDataInDevelopmentPartnerModal(true)"/>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="spAcAmount">
+                            <th mat-header-cell *matHeaderCellDef>{{'SpAc' | translate}}</th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <input matInput TwoDigitDecimalNumber formControlName="spAcAmount"
+                                           (keyup)="setDataInDevelopmentPartnerModal(true)"/>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thruPdAmount">
+                            <th mat-header-cell *matHeaderCellDef>{{'ThruPd' | translate}}</th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <input matInput TwoDigitDecimalNumber formControlName="thruPdAmount"
+                                           (keyup)="setDataInDevelopmentPartnerModal(true)"/>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thruDpAmount">
+                            <th mat-header-cell *matHeaderCellDef>{{'ThruDp' | translate}}</th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <input matInput TwoDigitDecimalNumber formControlName="thruDpAmount"
+                                           (keyup)="setDataInDevelopmentPartnerModal(true)"/>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="attachment">
+                            <th mat-header-cell *matHeaderCellDef>{{'Attachment' | translate}}</th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+
+                                <div class="buttons">
+                                    <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                        <ngx-mat-file-input formControlName="attachmentId"
+                                                            (change)="uploadFile($event.target.files, index)"
+                                                            [accept]="'.pdf'"
+                                                            placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                        <mat-icon matSuffix>folder</mat-icon>
+                                    </mat-form-field>
+
+                                    <button *ngIf="this.formDev.value.devPartner[index].attachmentId"
+                                            mat-icon-button class="toggle-sidebar-folded"
+                                            fxHide.lt-lg>
+                                        <mat-icon matTooltip="Download Attachment" (click)="download(index)"
+                                                  color="primary">file_download
+                                        </mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>{{'ACTION' | translate}}</th>
+                            <td mat-cell *matCellDef="let element; let i = index">
+                                <div class="buttons">
+                                    <div class="toggle-sidebar-folded cursor"
+                                         mat-icon-button
+                                         fxHide.lt-lg>
+                                        <mat-icon matTooltip="Add New" (click)="addRowForDev()" color="primary">
+                                            add
+                                        </mat-icon>
+                                    </div>
+
+                                    <div mat-icon-button class="toggle-sidebar-folded cursor"
+                                         fxHide.lt-lg>
+                                        <mat-icon matTooltip="Delete" (click)="deleteDevelopmentPartners(i)"
+                                                  color="warn">delete
+                                        </mat-icon>
+                                        <!-- <mat-icon  matTooltip="Delete" (click)="openDialog(i, 'deleteFromCurrentRow')" color="warn">delete</mat-icon> -->
+                                    </div>
+
+                                    <!-- <button *ngIf="canUpdate" mat-icon-button class="toggle-sidebar-folded"
+                                             fxHide.lt-lg>
+                                         <mat-icon matTooltip="Delete" (click)="openDialog(i, 'deleteFromDB')" color="warn">delete</mat-icon>
+                                     </button>-->
+
+                                </div>
+                            </td>
+                        </ng-container>
+
+
+                        <!-- Row definitions -->
+                        <tr mat-header-row *matHeaderRowDef="['8', '9', '10']"></tr>
+                        <tr mat-header-row *matHeaderRowDef="['1', '2', '3', '4']"></tr>
+                        <tr mat-header-row *matHeaderRowDef="displayColumnsForDev"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayColumnsForDev"></tr>
+
+                    </table>
+                </form>
+            </mat-card>
+
+
+            <!-- ObjectivesAndTargets CK Editor -->
+            <div class="sub-heading text-lg">
+                <span *ngIf="isParipatra2016" [innerHTML]="'ObjectivesAndTargets' | translate"></span>
+                <span *ngIf="!isParipatra2016" [innerHTML]="'ObjectivesAndTargets22' | translate"></span>
+                <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                    <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                </span>
+                <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                    <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                              matTooltipPosition="above">expand_less</mat-icon>
+                </span>
+                <span style="float: right">
+                    <label for="file-upload0">
+                        <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                    </label>
+                    <input #file0 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file0.files,'objectivesTargets')" id="file-upload0"/>
+                </span>
+            </div>
+            <div class="md:flex mb-5 text-lg">
+                <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                    <ckeditor formControlName="objectivesTargets" [config]="mediumEditorConfig"></ckeditor>
+                </div>
+            </div>
+
+            <div class="sub-heading text-lg">
+                {{ "ProjectImpPeriod" | translate }}
+            </div>
+            <mat-card class="p-5 mb-5">
+                <!-- DateCommencement1 Div -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3 md:text-left pr-2 md:pt-3">
+                        <span *ngIf="isParipatra2016"[innerHTML]="'DateCommencement1' | translate"></span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3 md:text-left pr-2 md:pt-3">
+                        <span *ngIf="!isParipatra2016"[innerHTML]="'DateCommencement1_22' | translate"></span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3">
+                        <mat-form-field [ngClass]="formFieldHelpers" class="w-full">
+                            <!-- <input matInput type="date" value="" formControlName="dateCommencement"> -->
+
+                            <input (click)="picker1.open()" [matDatepicker]="picker1"
+                                   [max]="maxDateValue"
+                                   (dateChange)="setMinDateValue($event)"
+                                   formControlName="dateCommencement"
+                                   matInput readonly>
+                            <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- DateCommencement2 Div -->
+                    <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:pl-3 md:mt-3">
+                        <span *ngIf="isParipatra2016" [innerHTML]="'DateCommencement2' | translate"></span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:pl-3 md:mt-3">
+                        <span *ngIf="!isParipatra2016" [innerHTML]="'DateCommencement2_22' | translate"></span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3">
+                        <mat-form-field [ngClass]="formFieldHelpers" class="w-full">
+                            <!-- <input matInput type="date" value="" formControlName="dateCompletion"> -->
+                            <input (click)="picker2.open()" [matDatepicker]="picker2"
+                                   [min]="minDateValue"
+                                   formControlName="dateCompletion"
+                                   (dateChange)="setMaxDateValue($event)"
+                                   matInput readonly>
+                            <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card>
+
+            <!-- EstimatedCost Table -->
+            <div class="sub-heading text-lg" style="display: flex;">
+                {{ "EstimatedCost" | translate }}
+                <div style="cursor:pointer">(
+                    {{"According2" | translate}}
+                    <a class="AnnexureLink" routerLink="/dpp-tapp/add-new-annual-phasing-cost/{{proConceptUuid}}"
+                       [innerHTML]="'EstimatedCostInfo' | translate">
+                    </a>)
+                </div>
+            </div>
+
+            <mat-card class="p-5 mb-5">
+                <div class="md:flex">
+                    <div class="w-full">
+                        <table id="estCostTbl">
+                            <tr>
+                                <th>{{ "Total" | translate }}</th>
+                                <th>{{projectCost.totalAmount}}</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span *ngIf="isParipatra2016" [innerHTML]="'GoB_FE' | translate"></span>
+                                    <span *ngIf="!isParipatra2016" [innerHTML]="'Gob22' | translate"></span>
+                                </td>
+                                <td>
+                                    <span class="{{projectCost.gobAmount!=grandGob?'border-text-red': ''}}">{{projectCost.gobAmount}}</span>
+                                    <br/>
+                                    <span class="{{projectCost.gobFeAmount!=grandGobFe?'border-text-red': ''}}">({{projectCost.gobFeAmount}})</span>
+                                </td>
+                            </tr>
+
+                            <tr *ngIf="isForeignAid">
+                                <td>
+                                    <span *ngIf="isParipatra2016" [innerHTML]="'PA_RPA2' | translate"></span>
+                                    <span *ngIf="!isParipatra2016" [innerHTML]="'PA_RPA' | translate"></span>
+                                </td>
+                                <td>
+                                    <span class="{{projectCost.paAmount!=grandPa?'border-text-brown': ''}}">{{projectCost.paAmount}}</span>
+                                    <br/>
+                                    <span class="{{projectCost.paRpaAmount!=grandPaRpa?'border-text-brown': ''}}">({{projectCost.paRpaAmount}})</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span [innerHTML]="'OwnFund' | translate"></span>
+                                </td>
+                                <td>
+                                    <span class="{{projectCost.ownFundAmount!=grandOwnFund?'border-text-coral': ''}}" >{{projectCost.ownFundAmount}}</span>
+                                    <br/>
+                                    <span class="{{projectCost.ownFeAmount!=grandOwnFundFe?'border-text-coral': ''}}">({{projectCost.ownFeAmount}})</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span [innerHTML]="'OthersFE' | translate"></span>
+                                </td>
+                                <td>
+                                    <span class="{{projectCost.othersAmount!=grandOthers?'border-text-deeppink': ''}}">{{projectCost.othersAmount}}</span>
+                                    <br/>
+                                    <span class="{{projectCost.otherFeAmount!=grandOthersFe?'border-text-deeppink': ''}}">({{projectCost.otherFeAmount}})</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </mat-card>
+
+            <!-- ExchangeRate Table -->
+            <div *ngIf="isParipatra2016" class="sub-heading text-lg">
+                {{ "ExchangeRate" | translate }}
+                {{ "ExchangeRateSub" | translate }}
+            </div>
+            <div *ngIf="!isParipatra2016"class="sub-heading text-lg">
+                {{ "ExchangeRate22" | translate }}
+                {{ "ExchangeRateSub22" | translate }}
+            </div>
+            <mat-card class="p-5 mb-5">
+                <form [formGroup]="form">
+                    <table id="exchangeTbl" mat-table [dataSource]="exchangeDataSource" class="mat-elevation-z8"
+                           formArrayName="scope">
+                        <!-- Row definitions -->
+                        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                        <tr mat-row *matRowDef="let row; let i = index; columns: displayColumns;"></tr>
+
+                        <!-- Column definitions -->
+                        <ng-container matColumnDef="sl">
+                            <th mat-header-cell *matHeaderCellDef>{{'SERIAL_NO' | translate}}</th>
+                            <td mat-cell *matCellDef="let element; let i = index;">
+                                {{i + 1}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="exchangeCurrency">
+                            <th mat-header-cell *matHeaderCellDef>{{'Exchange_Currency' | translate}}</th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <mat-select *ngIf="isForeignAid" formControlName="exchangeCurrency">
+                                        <mat-option value="">Select</mat-option>
+                                        <mat-option *ngFor="let type of currencyList" [value]=type.id>
+                                            {{type.name}} ({{type.country}})
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-select *ngIf="!isForeignAid" formControlName="exchangeCurrency">
+                                        <mat-option value="">Select</mat-option>
+                                        <mat-option *ngFor="let type of currencyList" [value]=type.id>
+                                            {{type.nameBn}} ({{type.country}})
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="exchangeRate">
+                            <th mat-header-cell *matHeaderCellDef>{{'Exchange_Rate' | translate}}</th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                    <input matInput TwoDigitDecimalNumber min="0" value=""
+                                           formControlName="exchangeRate"
+                                           oninput="validity.valid||(value='');">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="exchangeDate">
+                            <th mat-header-cell *matHeaderCellDef>{{'Exchange_Date' | translate}}</th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field class="fuse-mat-dense flex-auto  mt-5">
+
+                                    <!-- <input matInput type="date" value="" formControlName="exchangeDate"> -->
+
+                                    <input (click)="picker4.open()"
+                                           [matDatepicker]="picker4"
+                                           formControlName="exchangeDate" matInput
+                                           (dateChange)="setExchangeDate($event, index,'exchangeDate')"
+                                           readonly>
+                                    <mat-datepicker-toggle [for]="picker4" matSuffix>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #picker4></mat-datepicker>
+
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element; let i = index">
+                                <div class="buttons">
+                                    <button class="toggle-sidebar-folded"
+                                            mat-icon-button
+                                            fxHide.lt-lg>
+                                        <mat-icon (click)="addRow()" color="primary">add</mat-icon>
+                                    </button>
+
+                                    <button mat-icon-button class="toggle-sidebar-folded"
+                                            fxHide.lt-lg>
+                                        <mat-icon (click)="deleteRow(i)" color="warn">delete</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                    </table>
+                </form>
+            </mat-card>
+
+            <!-- ModeFinancing Table -->
+            <div class="sub-heading text-lg">
+                <span *ngIf="isParipatra2016" [innerHTML]="'ModeFinancing' | translate"> </span>
+                <span *ngIf="!isParipatra2016" [innerHTML]="'ModeFinancing2022' | translate"> </span>
+            </div>
+
+            <mat-card class="p-5 mb-5 text-lg">
+                <!-- ---------ModeFinancingSource--------- -->
+                <div class="sub-heading" style="padding-bottom: 20px;">
+                    <span *ngIf="isParipatra2016" [innerHTML]="'ModeFinancingSource' | translate"></span>
+                    <span *ngIf="!isParipatra2016" [innerHTML]="'ModeFinancingSource' | translate"></span>
+                    <button type="button" (click)="openDialog()" mat-raised-button color="primary"
+                            style="float: right !important; min-height: 30px !important;height: 30px !important;padding: 0 10px !important;">
+                        {{'Project_Concept_Estimated_Cost' | translate}}
+                    </button>
+                </div>
+
+                <mat-card>
+                    <div class="md:flex">
+
+                        <div class="w-full overflow-x-auto">
+                            <i style="float: right !important;">{{ "TakaInLac" | translate }}</i>
+                            <table id="modeFinanceTbl">
+                                <tr>
+                                    <th style="min-width: 10%;">
+                                        <span [innerHTML]="'ModeSource' | translate"></span>
+                                    </th>
+                                    <th>
+                                        <span [innerHTML]="'GOB_FE2' | translate"></span>
+                                    </th>
+                                    <th *ngIf="isForeignAid">
+                                        <span [innerHTML]="'PA_RPA2' | translate"></span>
+                                    </th>
+                                    <th>
+                                        <span [innerHTML]="'OwnFund2' | translate"></span>
+                                    </th>
+                                    <th>
+                                        <span [innerHTML]="'Others_FE2' | translate"></span><br>
+<!--                                        <span [innerHTML]="'Others_FE2.0' | translate"></span>-->
+                                    </th>
+                                    <th *ngIf="isForeignAid">
+                                        <span [innerHTML]="'PA_Sources' | translate"></span>
+                                    </th>
+                                </tr>
+<!--
+                                <tr *ngIf="!isForeignAid && isParipatra2016">
+                                    <td class="text-center">
+                                        {{ "Num1" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "Num2" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "Num3" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "Num4" | translate }}
+                                    </td>
+
+                                </tr>
+
+                                <tr *ngIf="!isForeignAid && !isParipatra2016">
+                                    <td class="text-center">
+                                        {{ "c1" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "c2" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "c3" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "c4" | translate }}
+                                    </td>
+
+                                </tr>
+
+                                  -->
+
+                                <tr *ngIf="isForeignAid && isParipatra2016">
+                                    <td class="text-center">
+                                        {{ "Num1" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "Num2" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "Num3" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "Num4" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "Num5" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "Num6" | translate }}
+                                    </td>
+                                </tr>
+                                <tr *ngIf="isForeignAid && !isParipatra2016">
+                                    <td class="text-center">
+                                        {{ "col1" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "col2" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "col3" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "col4" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "col5" | translate }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ "col6" | translate }}
+                                    </td>
+                                </tr>
+
+                                <tr *ngFor="let mode of modeFinancingList; let i = index">
+                                    <td>
+                                        {{ mode.modeSource }}
+                                        <br>
+                                        <input onfocus="this.select()" *ngIf="mode.isEdited" (keyup)="setModeSourceValData($event, i)"
+                                               [value]="mode.modeSourceVal" style="text-align: left;" />
+                                    </td>
+                                    <td>
+                                        <input onfocus="this.select()" TwoDigitDecimalNumber (keyup)="setGobData($event, i)"
+                                               [value]="mode.gob"/>
+                                        <br>
+                                        <input onfocus="this.select()" TwoDigitDecimalNumber (keyup)="setGobFeData($event, i)"
+                                               [value]="mode.gobFe"/>
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        <input onfocus="this.select()" TwoDigitDecimalNumber (keyup)="setPaData($event, i)"
+                                            [value]="mode.pa"/>
+                                        <br>
+                                        <input onfocus="this.select()" TwoDigitDecimalNumber (keyup)="setRpaData($event, i)"
+                                               [value]="mode.paRpa"/>
+                                    </td>
+                                    <td>
+                                        <input onfocus="this.select()" TwoDigitDecimalNumber (keyup)="setOwnFundData($event, i)"
+                                               [value]="mode.ownFund"/>
+                                        <br>
+                                        <input onfocus="this.select()" TwoDigitDecimalNumber (keyup)="setOwnFundFeData($event, i)"
+                                               [value]="mode.ownFundFe"/>
+                                    </td>
+                                    <td>
+                                        <input onfocus="this.select()" TwoDigitDecimalNumber (keyup)="setOthersData($event, i)"
+                                               [value]="mode.others"/>
+                                        <br>
+                                        <input onfocus="this.select()" TwoDigitDecimalNumber (keyup)="setOthersFeData($event, i)"
+                                               [value]="mode.othersFe"/>
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        <textarea (keyup)="setPaSourcesData($event, i)" [value]="mode.paSources" style="text-align: left; border: 1px solid #e2e8f0;"> </textarea>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="modeFinancingList.length > 0">
+                                    <td>
+                                        <b>{{ "GrandTotal" | translate }}</b>
+                                    </td>
+                                    <td>
+                                        <input class="{{projectCost.gobAmount!=grandGob?'border-text-red': ''}}" readonly value="{{grandGob}}"/>
+                                        <br>
+                                        <input class="{{projectCost.gobFeAmount!=grandGobFe?'border-text-red': ''}}" readonly value="{{grandGobFe}}"/>
+                                    </td>
+
+                                    <td *ngIf="isForeignAid">
+                                        <input class="{{projectCost.paAmount!=grandPa?'border-text-brown': ''}}" readonly value="{{grandPa}}"/>
+                                        <br>
+                                        <input class="{{projectCost.paRpaAmount!=grandPaRpa?'border-text-brown': ''}}" readonly value="{{grandPaRpa}}"/>
+                                    </td>
+
+                                    <td>
+                                        <input class="{{projectCost.ownFundAmount!=grandOwnFund?'border-text-coral': ''}}" readonly value="{{grandOwnFund}}"/>
+                                        <br>
+                                        <input class="{{projectCost.ownFeAmount!=grandOwnFundFe?'border-text-coral': ''}}" readonly value="{{grandOwnFundFe}}"/>
+                                    </td>
+
+                                    <td>
+                                        <input class="{{projectCost.othersAmount!=grandOthers?'border-text-deeppink': ''}}" readonly value="{{grandOthers}}"/>
+                                        <br>
+                                        <input class="{{projectCost.otherFeAmount!=grandOthersFe?'border-text-deeppink': ''}}" readonly value="{{grandOthersFe}}"/>
+                                    </td>
+
+                                    <td *ngIf="isForeignAid"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </mat-card>
+                <!-- ---------ModeFinancingSource--------- -->
+
+                <!-- ---------YearWiseEstimatedCost--------- -->
+                <div class="sub-heading mt-5 text-lg">
+                    <span *ngIf="isParipatra2016" [innerHTML]="'YearWiseEstimatedCost' | translate"></span>
+                    <span *ngIf="!isParipatra2016" [innerHTML]="'YearWiseEstimatedCost22' | translate"></span>
+
+                    <span style="cursor:pointer">(
+                        {{"According" | translate}}
+                        <a class="AnnexureLink" routerLink="/dpp-tapp/add-new-annual-phasing-cost/{{proConceptUuid}}"
+                           [innerHTML]="'YearWiseEstimatedCostInfo' | translate">
+                        </a>)
+                    </span>
+                </div>
+                <mat-card>
+                    <div class="md:flex">
+                        <div class="w-full">
+                            <i style="float: right !important;">{{ "TakaInLac" | translate }}</i>
+
+                            <table id="yearWiseEstCost">
+                                <tr>
+                                    <th rowspan="2">
+                                        {{ "FinancialYear" | translate }}
+                                    </th>
+                                    <th rowspan="2">
+                                        <span [innerHTML]="'GOB_FE3' | translate"></span>
+                                    </th>
+                                    <th *ngIf="isForeignAid && isParipatra2016" colspan="2">
+                                        {{ "PA" | translate }}
+                                    </th>
+                                    <th *ngIf="isForeignAid && !isParipatra2016" colspan="2">
+                                        {{ "ProjectAid2022" | translate }}
+                                    </th>
+                                    <th rowspan="2">
+                                        <span *ngIf="isParipatra2016" [innerHTML]="'OwnFund3' | translate"></span>
+                                        <span *ngIf="!isParipatra2016" [innerHTML]="'OwnFund322' | translate"></span>
+                                    </th>
+                                    <th rowspan="2">
+                                        <span [innerHTML]="'OthersFE3' | translate"></span><br/>
+                                    </th>
+                                    <th rowspan="2">
+                                        {{ "Total4" | translate }}
+                                        <br/>
+                                        {{ "ForeignCurrency" | translate }}
+                                    </th>
+                                </tr>
+                                <tr *ngIf="isForeignAid && isParipatra2016">
+                                    <th>{{ "RPA16" | translate }}
+                                    </th>
+                                    <th>{{ "DPA16" | translate }}
+                                    </th>
+                                </tr>
+                                <tr *ngIf="isForeignAid && !isParipatra2016">
+                                    <th>{{ "RPA22" | translate }}<br>
+                                        {{ "RPA22_sub" | translate }}
+                                    </th>
+                                    <th>{{ "DPA22" | translate }}<br>
+                                        {{ "DPA22_sub" | translate }}
+                                    </th>
+                                </tr>
+
+                                <tr *ngIf="!isForeignAid">
+                                </tr>
+
+                                <tr *ngIf="!isForeignAid && isParipatra2016" class="text-center">
+                                    <td>{{ "Num1" | translate }}</td>
+                                    <td>{{ "Num2" | translate }}</td>
+                                    <td>{{ "Num3" | translate }}</td>
+                                    <td>{{ "Num4" | translate }}</td>
+                                    <td>{{ "Num5" | translate }}</td>
+                                </tr>
+
+                                <tr *ngIf="!isForeignAid && !isParipatra2016" class="text-center">
+                                    <td>{{ "c1" | translate }}</td>
+                                    <td>{{ "c2" | translate }}</td>
+                                    <td>{{ "c3" | translate }}</td>
+                                    <td>{{ "c4" | translate }}</td>
+                                    <td>{{ "c5" | translate }}</td>
+                                </tr>
+
+
+                                <tbody *ngFor="let item of fiscalYearsList">
+                                <tr class="text-right">
+                                    <td style="text-align: center;">{{item.fiscalYear}}</td>
+                                    <td>
+                                        {{item.govAmount ? item.govAmount : 0.00}} <br/>
+                                        ({{item.govFeAmount ? item.govFeAmount : 0.00}})
+                                    </td>
+                                    <td *ngIf="isForeignAid">{{item.rpaAmount ? item.rpaAmount : 0.00}}</td>
+                                    <td *ngIf="isForeignAid">{{item.dpaAmount ? item.dpaAmount : 0.00}}</td>
+                                    <td>
+                                        {{item.ownFundAmount ? item.ownFundAmount : 0.00}} <br/>
+                                        ({{item.ownFundFeAmount ? item.ownFundFeAmount : 0.00}})
+                                    </td>
+                                    <td>
+                                        {{item.otherAmount ? item.otherAmount : 0.00}} <br/>
+                                        ({{item.otherFeAmount ? item.otherFeAmount : 0.00}})
+                                    </td>
+                                    <td>
+                                        {{item.totalAmount ? item.totalAmount : 0.00}}<br/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </mat-card>
+                <!-- ------------/YearWiseEstimatedCost------------ -->
+
+                <div *ngIf="!isParipatra2016"><br>
+                    <p><b>{{'mtbf' | translate}}<a class="AnnexureLink" routerLink="/dpp-tapp/dpp-mtbf/{{conceptUuid}}">{{'mtbfLink' | translate}}</a></b>
+                    </p><br/><br/>
+                </div>
+            </mat-card>
+        </div>
+        <!-- (ngSubmit)="onSubmit('next')" -->
+        <div class="flex justify-end mt-8">
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                type="button"
+                [disabled]="spinner"
+                (click)="onSubmit('save')"
+                class="px-8 mr-2 toggle-sidebar-folded"
+                matTooltip="{{ 'Save' | translate }}">
+                {{ "Save" | translate }}
+            </button>
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                type="button"
+                [disabled]="spinner"
+                (click)="onSubmit('next')"
+                class="px-8 mr-2 toggle-sidebar-folded"
+                matTooltip="{{ 'SaveNext' | translate }}">
+                {{ "SaveNext" | translate }}
+            </button>
+
+            <button
+                mat-flat-button
+                style="background-color: green; color: #FFFFFF"
+                type="button"
+                [disabled]="spinner"
+                (click)="onSubmit('list')"
+                class="px-8 mr-2 toggle-sidebar-folded"
+                matTooltip="{{ 'SaveExit' | translate }}">
+                {{ "SaveExit" | translate }}
+            </button>
+
+            <!--            <button-->
+            <!--                class="px-8 mr-2 toggle-sidebar-folded"-->
+            <!--                matTooltip="{{ 'Next' | translate }}"-->
+            <!--                mat-flat-button-->
+            <!--                style="background-color: green; color: #FFFFFF"-->
+            <!--                (click)="navigateToList('next')"-->
+            <!--                type="button">-->
+            <!--                {{ "Next" | translate }}-->
+            <!--            </button>-->
+        </div>
+
+    </form>
+</div>
+
+
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callAPIDialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+
+        <mat-dialog-content class="mat-typography">
+            <div>
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table class="popup-table">
+
+                        <thead>
+                        <tr style="text-align: center !important;">
+                            <th class="popup-th">
+                                <span [innerHTML]="'SERIAL_NO' | translate"></span>
+                            </th>
+                            <th class="popup-th">
+                                <span [innerHTML]="'ModeFinancing-2' | translate"></span>
+                            </th>
+                            <th class="popup-th">
+                                <span [innerHTML]="'Total-2' | translate"></span>
+                            </th>
+                            <th class="popup-th">
+                                <span *ngIf="isParipatra2016" [innerHTML]="'GOB_FE2' | translate"></span>
+                                <span *ngIf="!isParipatra2016" [innerHTML]="'Gob22' | translate"></span>
+                            </th>
+                            <th class="popup-th" *ngIf="projectSummary.isForeignAid">
+                                PA<br/>
+                                RPA
+                            </th>
+                            <th class="popup-th">
+                                <span [innerHTML]="'OwnFund2' | translate"></span>
+                            </th>
+                            <th class="popup-th">
+                                <span [innerHTML]="'Others_FE2' | translate"></span><br>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let modeValue of modelOfFinanceList; let i = index">
+                            <td class="popup-td"
+                                style="text-align: center !important;">{{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ? numberPipe.convertToBanglaNumber(i + 1) : i + 1}}</td>
+                            <td class="popup-td">
+                            <span
+                                *ngFor="let c of configModeList;">{{c.id == modeValue.modeId ? ((projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ? c.nameBn : c.nameEn) : ''}}
+                            </span>
+                            </td>
+                            <td class="popup-td" style="text-align: right !important;">
+                                {{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ? numberPipe.convertToBanglaNumber(modeValue.totalAmount.toFixed(2)) : modeValue.totalAmount.toFixed(2)}}
+                            </td>
+                            <td class="popup-td" style="text-align: right !important;">
+                                {{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(modeValue.gobAmount.toFixed(2)) : modeValue.gobAmount.toFixed(2)}}
+                                <br>
+                                ({{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(modeValue.feGobAmount.toFixed(2)) : modeValue.feGobAmount.toFixed(2)}}
+                                )
+                            </td>
+                            <td style="text-align: right !important;" class="popup-td"
+                                *ngIf="projectSummary.isForeignAid">
+                                {{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(modeValue.paAmount.toFixed(2)) : modeValue.paAmount.toFixed(2)}}
+                                <br>
+                                ({{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(modeValue.rpaAmount.toFixed(2)) : modeValue.rpaAmount.toFixed(2)}}
+                                )
+                            </td>
+                            <td style="text-align: right !important;" class="popup-td">
+                                {{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(modeValue.ownFundAmount.toFixed(2)) : modeValue.ownFundAmount.toFixed(2)}}
+                                <br>
+                                ({{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(modeValue.feOwnFundAmount.toFixed(2)) : modeValue.feOwnFundAmount.toFixed(2)}}
+                                )
+                            </td>
+                            <td style="text-align: right !important;" class="popup-td">
+                                {{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(modeValue.otherAmount.toFixed(2)) : modeValue.otherAmount.toFixed(2)}}
+                                <br>
+                                ({{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(modeValue.feOtherAmount.toFixed(2)) : modeValue.feOtherAmount.toFixed(2)}}
+                                )
+                            </td>
+                        </tr>
+                        <tr style="font-weight: bold" *ngIf="totalModeOfFinance">
+                            <td colspan="2">
+                                <span [innerHTML]="'Total-2' | translate"></span>
+                            </td>
+                            <td style="text-align: right !important;" class="popup-td">
+                                {{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(totalModeOfFinance.totalAmount?.toFixed(2)) : totalModeOfFinance.totalAmount?.toFixed(2)}}
+                            </td>
+                            <td style="text-align: right !important;" class="popup-td">
+                                {{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(totalModeOfFinance.gobAmount?.toFixed(2)) : totalModeOfFinance.gobAmount?.toFixed(2)}}
+                                <br>
+                                ({{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(totalModeOfFinance.feGobAmount?.toFixed(2)) : totalModeOfFinance.feGobAmount?.toFixed(2)}}
+                                )
+                            </td>
+                            <td style="text-align: right !important;" class="popup-td"
+                                *ngIf="projectSummary.isForeignAid">
+                                {{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(totalModeOfFinance.paAmount?.toFixed(2)) : totalModeOfFinance.paAmount?.toFixed(2)}}
+                                <br>
+                                ({{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(totalModeOfFinance.rpaAmount?.toFixed(2)) : totalModeOfFinance.rpaAmount?.toFixed(2)}}
+                                )
+                            </td>
+                            <td style="text-align: right !important;" class="popup-td">
+                                {{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(totalModeOfFinance.ownFundAmount?.toFixed(2)) : totalModeOfFinance.ownFundAmount?.toFixed(2)}}
+                                <br>
+                                ({{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(totalModeOfFinance.feOwnFundAmount?.toFixed(2)) : totalModeOfFinance.feOwnFundAmount?.toFixed(2)}}
+                                )
+                            </td>
+                            <td style="text-align: right !important;" class="popup-td">
+                                {{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(totalModeOfFinance.otherAmount?.toFixed(2)) : totalModeOfFinance.otherAmount?.toFixed(2)}}
+                                <br>
+                                ({{(projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && projectSummary?.isForeignAid == false) ?
+                                numberPipe.convertToBanglaNumber(totalModeOfFinance.feOtherAmount?.toFixed(2)) : totalModeOfFinance.feOtherAmount?.toFixed(2)}}
+                                )
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end" class="mb-1 mr-1">
+            <button (click)="closeDialog()" mat-flat-button color="accent" type="button" mat-dialog-close>
+                <span [innerHTML]="'Cancel' | translate"></span>
+            </button>
+        </mat-dialog-actions>
+
+    </div>
+</ng-template>

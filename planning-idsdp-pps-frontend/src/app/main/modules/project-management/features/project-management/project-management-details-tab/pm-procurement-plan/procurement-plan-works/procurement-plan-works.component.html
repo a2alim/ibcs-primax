@@ -1,0 +1,400 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 max-w-full">
+            <!-- Main -->
+
+            <!--============================== transaction spinner ===================-->
+            <div *ngIf="spinner">
+                <app-common-loader-spinner></app-common-loader-spinner>
+            </div>
+            <!--============================== // transaction spinner ===================-->
+
+            <div>
+                <div class="max-w-8xl">
+                    <mat-card class="tab-color">
+                        <div style="overflow-x:auto;">
+                            <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                                <div class="tblOverflow mt-5">
+
+                                    <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()">
+                                        <div style="overflow-x: auto;">
+                                            <table mat-table [dataSource]="dataSource"
+                                                class="formTable mat-elevation-z8" formArrayName="list">
+                                                <!-- Row definitions -->
+                                                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                                                <tr mat-header-row *matHeaderRowDef="subHeader"></tr>
+                                                <tr mat-row
+                                                    *matRowDef="let row; let i = index; columns: displayColumns;">
+                                                </tr>
+
+                                                <!-- Sub-header row -->
+                                                <ng-container matColumnDef="num1">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num1' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num2">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num2' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num3">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num3' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num4">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num4' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num5">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num5' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num6">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num6' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num7">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num7' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num8">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num8' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num9">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num9' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num10">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num10' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num11">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num11' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num12">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num12' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num13">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num13' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num14">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num14' | translate}}
+                                                    </th>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="num15">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'num15' | translate}}
+                                                    </th>
+                                                </ng-container>
+                                                <!-- /Sub-header row -->
+
+                                                <!-- Column definitions -->
+                                                <ng-container matColumnDef="sl">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'sl' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let element; let i = index;">
+                                                        {{(!projectSummary?.isForeignAid &&
+                                                        projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                        numberPipe.convertToBanglaNumber(i + 1) : (i + 1)}}
+                                                    </td>
+                                                </ng-container>
+
+
+                                                <ng-container matColumnDef="packageNumCol">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'packegeNo' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <input matInput type="text" value=""
+                                                                formControlName="packageName" required>
+                                                            <!-- <mat-error>Field is required</mat-error>                                                                         -->
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="tappGoodsCol">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'package_as_per_dpp_tpp_work' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <textarea formControlName="tappGoods" matInput></textarea>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="unitId">
+                                                    <th class="sub-header col-size" mat-header-cell *matHeaderCellDef>
+                                                        {{'unit' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <mat-select formControlName="unitId">
+                                                                <mat-option [value]=""> --- Select ---
+                                                                </mat-option>
+                                                                <mat-option *ngFor="let data of unitTypeList"
+                                                                    [value]=data.id>
+                                                                    {{(!projectSummary?.isForeignAid &&
+                                                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase()
+                                                                    == 'DPP') ? data.unitTypeNameBng :
+                                                                    data.unitTypeNameEng}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="quantityCol">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'quantity' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <input NumbersOnly matInput type="number"
+                                                                formControlName="quantity"
+                                                                (input)="calculateCostAndQty()">
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="procurementMethodIdCol">
+                                                    <th class="sub-header col-size" mat-header-cell *matHeaderCellDef>
+                                                        {{'procurement_method' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <mat-select formControlName="procurementMethodId">
+                                                                <mat-option [value]=""> --- Select ---
+                                                                </mat-option>
+                                                                <mat-option *ngFor="let data of procMethodsList"
+                                                                    [value]=data.id>
+                                                                    {{(!projectSummary?.isForeignAid &&
+                                                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase()
+                                                                    == 'DPP') ? data.nameBn : data.nameEn}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="procurementTypeIdCol">
+                                                    <th class="sub-header col-size" mat-header-cell *matHeaderCellDef>
+                                                        {{'procurement_type' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <mat-select formControlName="procurementTypeId">
+                                                                <mat-option [value]=""> --- Select ---
+                                                                </mat-option>
+                                                                <mat-option *ngFor="let data of procTypeList"
+                                                                    [value]=data.id>
+                                                                    {{(!projectSummary?.isForeignAid &&
+                                                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase()
+                                                                    == 'DPP') ? data.nameBn : data.nameEn}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="contractApproveAuthoriityCol">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'contract_approving_authority' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <input matInput type="text" value=""
+                                                                formControlName="contractApproveAuthoriity">
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="sourceOfFundCol">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'source_of_fund' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <input matInput type="text" value=""
+                                                                formControlName="sourceOfFund">
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="estdCostCol">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'estd_cost' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <input matInput TwoDigitDecimalNumber
+                                                                formControlName="estdCostAmount"
+                                                                (input)="calculateCostAndQty()">
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="invitationForTenderWorkCol">
+                                                    <th class="sub-header date-col-size" mat-header-cell
+                                                        *matHeaderCellDef>
+                                                        {{'invitation_for_prequal_work' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <input (click)="picker.open()" [matDatepicker]="picker"
+                                                                formControlName="invitationForTenderWork" matInput
+                                                                readonly required>
+                                                            <mat-datepicker-toggle [for]="picker" matSuffix>
+                                                            </mat-datepicker-toggle>
+                                                            <mat-datepicker #picker></mat-datepicker>
+
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="invitationForTenderCol">
+                                                    <th class="sub-header date-col-size" mat-header-cell
+                                                        *matHeaderCellDef>
+                                                        {{'invitation_for_tender' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <input (click)="picker1.open()" [matDatepicker]="picker1"
+                                                                formControlName="invitationForTender" matInput readonly
+                                                                required>
+                                                            <mat-datepicker-toggle [for]="picker1" matSuffix>
+                                                            </mat-datepicker-toggle>
+                                                            <mat-datepicker #picker1></mat-datepicker>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="signingOfContractCol">
+                                                    <th class="sub-header date-col-size" mat-header-cell
+                                                        *matHeaderCellDef>
+                                                        {{'signing_of_contract' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <input (click)="picker2.open()" [matDatepicker]="picker2"
+                                                                formControlName="signingOfContract" matInput readonly
+                                                                required>
+                                                            <mat-datepicker-toggle [for]="picker2" matSuffix>
+                                                            </mat-datepicker-toggle>
+                                                            <mat-datepicker #picker2></mat-datepicker>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="completionOfContractCol">
+                                                    <th class="sub-header date-col-size" mat-header-cell
+                                                        *matHeaderCellDef>
+                                                        {{'completion_of_contract' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let row; let index = index"
+                                                        [formGroupName]="index">
+                                                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                                            <input (click)="picker3.open()" [matDatepicker]="picker3"
+                                                                formControlName="completionOfContract" matInput readonly
+                                                                required>
+                                                            <mat-datepicker-toggle [for]="picker3" matSuffix>
+                                                            </mat-datepicker-toggle>
+                                                            <mat-datepicker #picker3></mat-datepicker>
+                                                        </mat-form-field>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="action">
+                                                    <th class="sub-header" mat-header-cell *matHeaderCellDef>
+                                                        {{'action' | translate}}</th>
+                                                    <td mat-cell *matCellDef="let element; let i = index">
+                                                        <div class="buttons">
+                                                            <button type="button" mat-icon-button
+                                                                class="toggle-sidebar-folded" fxHide.lt-lg>
+                                                                <mat-icon (click)="confirmationDelete(i)" color="warn">
+                                                                    delete</mat-icon>
+                                                            </button>
+
+                                                        </div>
+                                                    </td>
+                                                </ng-container>
+
+                                            </table>
+                                        </div>
+
+                                        <div class="md:flex">
+                                            <div class="w-full sm:w-auto md:w-1/2 lg:w-1/2">
+                                                <div class="mt-5">
+                                                    <mat-label style=" text-align: center; font-weight: bold;">
+                                                        {{'works_procurement' | translate}}
+                                                    </mat-label>
+                                                    <div style="width: 230px">
+                                                        <span>{{'bdt' | translate}}</span>
+                                                        <mat-form-field class="text-right w-full readOnly">
+                                                            <input formControlName="totalAmountView" readonly
+                                                                matInput />
+                                                            <input formControlName="totalAmount" type="hidden" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="flex sm:justify-start md:justify-end w-full sm:w-auto md:w-1/2 lg:w-1/2">
+                                                <div class="mt-5">
+                                                    <button class="mb-1 mt-1" type="button" (click)="addRow()"
+                                                        color="primary" mat-raised-button>
+                                                        {{'add_new_row' | translate}}
+                                                    </button>
+
+                                                    <button class="ml-3 mb-1 mt-1" type="submit" color="primary"
+                                                        [disabled]="spinner" mat-raised-button>
+                                                        {{'save' | translate}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

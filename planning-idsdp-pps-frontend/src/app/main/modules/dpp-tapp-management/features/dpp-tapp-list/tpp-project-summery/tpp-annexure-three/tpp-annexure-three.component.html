@@ -1,0 +1,214 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header *ngIf="isParipatra2016" [title]="projectName" class="crop-text"
+                                 [subTitle]="'sub_title' | translate"></app-list-header>
+                <app-list-header *ngIf="!isParipatra2016" [title]="projectName" class="crop-text"
+                                 [subTitle]="'sub_title22' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{'homePage' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+
+    <!-- Main -->
+    <div>
+        <div class="max-w-8xl">
+            <mat-card class="tab-color">
+                <div style="overflow-x:auto;">
+                    <mat-card>
+                        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                            <form>
+                                <div *ngIf="isParipatra2016" class="p-5" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <form class="form">
+                                            <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                                <table class="mat-elevation-z8">
+                                                    <!-- Table Body-->
+                                                    <tbody class="projectInfo">
+                                                    <tr>
+                                                        <th class="text-left">Project Title (English)</th>
+                                                        <td>:</td>
+                                                        <td>{{projectName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Project Total Cost (Taka in Lac)</th>
+                                                        <td>:</td>
+                                                        <td>{{totalAmount}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Date of Commencement</th>
+                                                        <td>:</td>
+                                                        <td>{{commencementDate | date: 'dd-MM-yyyy'}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Date of Completion</th>
+                                                        <td>:</td>
+                                                        <td>{{completionDate | date: 'dd-MM-yyyy'}}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                    <!-- Table Body End-->
+                                                </table>
+                                                <!--Table End-->
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div *ngIf="!isParipatra2016" class="viw_work">
+                                    <table style="border: none; width: 100%;">
+                                        <tr style="border: none;">
+                                            <td style="font-weight: bold; text-align: left; border: none; width: 20%;">{{'nameofTheProject' | translate}}</td>
+                                            <td style="text-align: left; border: none;">:
+                                                {{projectSummary?.isForeignAid ? projectSummary?.titleEn : projectSummary?.titleBn}}
+                                            </td>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <td style="font-weight: bold; text-align: left; border: none; width: 20%;">{{'sposoringMinistry' | translate}}</td>
+                                            <td style="text-align: left; border: none;">:
+                                                {{projectSummary?.isForeignAid ? agencyModel?.ministryDivisionDTO?.nameEn : agencyModel?.ministryDivisionDTO?.nameBn}}
+                                            </td>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <td style="font-weight: bold; text-align: left; border: none; width: 20%;"> {{'implimentingAgency' | translate}}</td>
+                                            <td style="text-align: left; border: none;">:
+                                                {{projectSummary?.isForeignAid ? agencyModel?.nameEn : agencyModel?.nameBn}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <form  [formGroup]="form" class="form mt-5">
+                                        <div style="padding: 10px;">
+                                            <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                                <!--Table Start-->
+                                                <table class="mat-elevation-z8">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="top-header">{{'sl' | translate}}</th>
+                                                            <th *ngIf="isParipatra2016" class="top-header">{{'consultants' |translate}}</th>
+                                                            <th *ngIf="!isParipatra2016" class="top-header">{{'consultants22' |translate}}</th>
+                                                            <th *ngIf="!isParipatra2016" class="top-header">{{'numPost22'| translate}}</th>
+                                                            <th class="top-header">{{'edu_Qualification'|translate}}</th>
+                                                            <th class="top-header">{{'experience'|translate}}</th>
+                                                            <th class="top-header">{{'responsibilities'|translate}}</th>
+                                                            <th *ngIf="!isParipatra2016" class="top-header">{{'remarks22'|translate}}</th>
+                                                            <th class="top-header">{{'action'|translate}}</th>
+                                                        </tr>
+                                                        <tr *ngIf="isParipatra2016">
+                                                            <th class="sub-header"> {{'num1' | translate}}</th>
+                                                            <th class="sub-header"> {{'num2' | translate}}</th>
+                                                            <th class="sub-header"> {{'num3' | translate}}</th>
+                                                            <th class="sub-header"> {{'num4' | translate}}</th>
+                                                            <th class="sub-header"> {{'num5' | translate}}</th>
+                                                            <th class="sub-header"> {{'num6' | translate}}</th>
+                                                        </tr>
+                                                        <tr *ngIf="!isParipatra2016">
+                                                            <th class="sub-header"> {{'nu1' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu2' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu3' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu4' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu5' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu6' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu7' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu8' | translate}}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <!-- Table Body-->
+                                                    <tbody style="background-color: white">
+                                                        <ng-container formArrayName="consultantsList">
+                                                            <ng-container *ngFor="let lessonForm of consultantsList.controls; let i = index">
+                                                                <tr class="lesson-form-row" [formGroup]="lessonForm">
+                                                                    <!-- TODO: Those value dynamically come from server-->
+                                                                    <td>{{projectSummary?.isForeignAid ? i+1 : numberPipe.convertToBanglaNumber(i + 1)}}</td>
+                                                                    <td>
+                                                                        <mat-form-field class="w-full">
+                                                                            <input formControlName="consultants" appearance="outline" autocomplete="off"
+                                                                                   matInput required>
+                                                                            <input style="display: none" formControlName="projectConceptMasterId"
+                                                                                   value="{{pcMasterId}}" matInput required>
+                                                                            <input style="display: none" formControlName="projectConceptUuid"
+                                                                                   value="{{conceptUuid}}" matInput required>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td *ngIf="!isParipatra2016">
+                                                                        <mat-form-field class="w-full">
+                                                                            <input formControlName="numberOfPost" type="number" matInput>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <mat-form-field class="w-full">
+                                                                            <textarea formControlName="educationalQualification" matInput required></textarea>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <mat-form-field appearance="outline" class="example-full-width">
+                                                                            <textarea formControlName="experience" matInput required></textarea>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <mat-form-field appearance="outline" class="example-full-width">
+                                                                            <textarea formControlName="responsibilities" matInput required></textarea>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td *ngIf="!isParipatra2016">
+                                                                        <mat-form-field appearance="outline" class="example-full-width">
+                                                                            <textarea formControlName="remarks" matInput></textarea>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button (click)="deleteRow(i)" *ngIf="i !==0" mat-icon-button class="toggle-sidebar-folded" fxHide.lt-lg>
+                                                                            <mat-icon matTooltip="Delete" color="warn">delete</mat-icon>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </tbody>
+                                                    <!-- Table Body End-->
+                                                </table>
+                                                <!--Table End-->
+                                                <div class="btnLftRit">
+                                                    <div class="left">
+                                                        <button class="mt-4" (click)="addRow()" color="primary" mat-raised-button>
+                                                            {{'add_new_row' | translate}}
+                                                        </button>
+                                                    </div>
+                                                    <div class="right">
+                                                        <button class="mt-4" [disabled]="spinner" (click)="onSubmit()" color="primary" mat-raised-button>
+                                                            {{'Save' | translate}}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-card>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,250 @@
+<div style="width: 100%">
+    <!-- Header -->
+
+    <!--Loder-->
+    <div *ngIf="spinner || spinner1 || spinner2 || spinner3  || spinner4 || spinner5"
+        class="flex items-center justify-center no-print">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <h1 class="p-2" style="color: red; font-family: 'AdorshoLipi'" *ngIf="!canSave"><strong>{{'ProposalReq' | translate}}</strong></h1>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+            <ng-container>
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <h1>{{'formTitle' | translate}}</h1>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <form [formGroup]="budgetForm" class="p-4 border3 form-bg-color">
+
+                    <!-- -----------1st Row----------- -->
+                    <div class="md:flex row">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700 capitalize">
+                                {{'itemOfExpenditure2' | translate}} <strong class="required">*</strong>
+                            </span>
+                        </div>
+
+                        <div #checkE class="w-full sm:w-auto md:w-80 lg:w-80">
+                            <mat-form-field class="w-full">
+                                <mat-select formControlName="itemOfExpenditureId" name="itemOfExpenditure" required
+                                    (selectionChange)="onChangeExpenditureItem($event,'1')">
+                                    <mat-option *ngFor="let item of itemOfExpenditures" [value]="item.id">
+                                        {{item.expItemsName}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="budgetForm.invalid"> {{'itemOfExpenditure' | translate}} {{ 'required'
+                                    | translate }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="showExpenditureItem">
+                        <div class="md:flex row">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700 capitalize">
+                                    {{'ExpenditurName' | translate}} <strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div #checkE class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <mat-form-field class="w-full">
+                                    <input formControlName="expenditureName" matInput [max]="totalExpenditureAmount">
+                                    <mat-error *ngIf="budgetForm.invalid">{{'ExpenditurName' | translate}}{{ 'required'|
+                                        translate }}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <!-- -----------/1st Row----------- -->
+
+                    <div class="md:flex">
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700 capitalize">
+                                {{'expenditureTaka' | translate}} <strong class="required">*</strong>
+                            </span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                            <mat-form-field class="w-full">
+                                <input formControlName="expenditureAmount" matInput min="0" required type="number">
+                                <mat-error *ngIf="budgetForm.invalid">{{'expenditureTaka' | translate}} {{ 'required' |
+                                    translate }}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <div class="w-full font-bold text-gray-500 text-right">{{'totalExpenditureAmountLeft' | translate}}: {{calExpAmount()}}</div>
+
+                    <div class="flex justify-end mt-3 mr-2">
+
+                        <button class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" (click)="previousTab()"
+                            mat-flat-button style="background-color: green; color: #FFFFFF">
+                            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                            <span>{{ "back" | translate }}</span>
+                        </button>
+
+                        <button class="px-5 mr-2" color="accent" mat-flat-button type="reset" (click)="reseat()">
+                            <mat-icon class="mr-1">refresh</mat-icon>
+                            {{'reset' | translate}}
+                        </button>
+
+                        <button (click)="saveData()" class="px-5" color="primary" mat-flat-button
+                            [disabled]="spinner || spinner1 || spinner2 || spinner3  || spinner4 || spinner5 || !canSave">
+                            <mat-icon class="mr-1">save</mat-icon>
+                            <ng-container *ngIf="!trainingBudget.id">
+                                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                                <span>{{ "Save" | translate }}</span>
+                            </ng-container>
+
+                            <ng-container *ngIf="trainingBudget.id">
+                                <mat-icon *ngIf="saveIcon" class="mr-1">{{editIcon}}</mat-icon>
+                                <span>{{ "Update" | translate }}</span>
+                            </ng-container>
+                        </button>
+
+                        <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF"
+                            type="button" color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn ml-2">
+                            {{ "Next" | translate }}
+                            <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </ng-container>
+
+            <!-- List Grid -->
+
+            <!-- <div class="md:flex tbl-title">
+                <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                    <div class="md:flex tbl-title">
+                        <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-6">
+                            <h1 class="header1">
+                                <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                                {{'Proposal_Budget_List' | translate}}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-40 lg:w-40 md:text-left md:pt-3">
+                    <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                        <input #input (keyup)="applyFilter($event)" [placeholder]="'search'|translate" matInput />
+                        <button mat-button mat-icon-button matPrefix>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div> -->
+
+            <!-- Data Table -->
+            <!-- <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+
+                <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                    <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+
+                        <ng-container matColumnDef="position">
+                            <th *matHeaderCellDef class="w-16" mat-header-cell> {{'Sl' | translate}} </th>
+                            <td *matCellDef="let element; let i = index" class="text-center" mat-cell>
+                                {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="itemOfExpenditure">
+                            <th *matHeaderCellDef mat-header-cell style="text-transform: none;"> {{'itemOfExpenditure2'|
+                                translate}} </th>
+                            <td *matCellDef="let element" mat-cell> {{ element.itemOfExpenditure }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="expenditureTaka">
+                            <th *matHeaderCellDef mat-header-cell> {{'expenditureTaka' | translate }} </th>
+                            <td *matCellDef="let element" class="pl-2" mat-cell> {{element.expenditureAmount | number}}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="action">
+                            <th *matHeaderCellDef class="pl-4 w-32" mat-header-cell> {{'Action' | translate}} </th>
+                            <td *matCellDef="let element" class="text-center" mat-cell>
+                                <div class="buttons">
+
+                                    <button (click)="editRow(element.id)" class="toggle-sidebar-folded" fxHide.lt-lg
+                                        mat-icon-button matTooltip="Edit">
+                                        <mat-icon color="accent">edit
+                                        </mat-icon>
+                                    </button>
+
+                                    <button (click)="openDialog(element.id)" class="toggle-sidebar-folded" fxHide.lt-lg
+                                        mat-icon-button matTooltip="Delete">
+                                        <mat-icon color="warn">delete</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+
+                        <tr *matHeaderRowDef="displayedColumns " mat-header-row></tr>
+                        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+                    </table>
+                </div>
+
+                <mat-paginator #paginatorRef (page)="onChangePage($event)" [length]="totalElements"
+                    [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize">
+                </mat-paginator>
+
+            </div> -->
+
+
+
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+
+                <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                    <table class="mat-elevation-z8 w-full">
+
+                        <tr>
+                            <th style="text-align: center;">{{'Sl' | translate}}</th>
+                            <th>{{'itemOfExpenditure2'|translate}}</th>
+                            <th style="text-align: right;">{{'expenditureTaka' | translate }}</th>
+                            <th style="text-align: center;">{{'Action' | translate}}</th>
+                        </tr>
+
+                        <tr *ngFor="let item of researchBudgetResponses; let i='index'">
+                            <td style="text-align: center;">{{i+1}}</td>
+                            <td>{{item.itemOfExpenditure}}</td>
+                            <td style="text-align: right;">{{item.expenditureAmount}}</td>
+                            <td style="text-align: center;">
+                                <button (click)="editRow(item.id)" class="toggle-sidebar-folded" fxHide.lt-lg
+                                    mat-icon-button matTooltip="Edit">
+                                    <mat-icon color="accent">edit
+                                    </mat-icon>
+                                </button>
+
+                                <button (click)="openDialog(item.id)" class="toggle-sidebar-folded" fxHide.lt-lg
+                                    mat-icon-button matTooltip="Delete">
+                                    <mat-icon color="warn">delete</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                          <td style="text-align: center;">{{'Total' | translate}}</td>
+                          <td></td>
+                          <td style="text-align: right;">{{getTotal()}}</td>
+                          <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </mat-card>
+
+
+    </div>
+    <!-- Main End -->
+</div>

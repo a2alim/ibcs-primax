@@ -1,0 +1,168 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="titleEn" class="crop-text"
+                                 [subTitle]="'breadcrumb' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <mat-icon>keyboard_backspace</mat-icon>&nbsp;
+                        {{'homePage' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">{{'page_title' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div
+                                        class="leading-5 truncate text-secondary">{{'breadcrumb' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                {{"homePage" | translate}}
+                            </button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!-- Body Start -->
+
+    <div class="flex-auto p-6 sm:p-10 outside-body" *ngIf="!show">
+        <mat-card>
+            <h2 style="color: red">{{'ObjectiveCostEmpty' | translate}}</h2>
+        </mat-card>
+    </div>
+    <div class="flex-auto p-6 sm:p-10 outside-body" *ngIf="show">
+        <button
+            class="px-8 mb-4"
+            mat-flat-button
+            [color]="'primary'"
+            type="button"
+            (click)="addRowFinancialYear()">
+            {{'add_year' | translate }}
+        </button>
+
+        <button *ngIf="enableCalculateContingencyBtn"
+            class="px-8 mb-4 ml-3"
+            mat-flat-button
+            [color]="'primary'"
+            type="button">
+            {{'calculate_contingency' | translate }}
+        </button>
+
+        <div class="max-w-8xl">
+            <!-- Horizontal stepper -->
+            <form
+                class="p-4 shadow rounded overflow-hidden"
+                style="background: #F0FDF4"
+                [formGroup]="horizontalStepperForm">
+                <mat-horizontal-stepper
+                    style="background: #F0FDF4"
+                    class="a"
+                    [linear]="false"
+                    #horizontalStepper
+                    (selectionChange)="selectionChanged($event)">
+                    <mat-step
+                        [formGroupName]="'step1'"
+                        [stepControl]="horizontalStepperForm.get('step1')"
+                        #horizontalStepperStep>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title">{{ "tabTitle_1" | translate }}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div style="width: 100%">
+                            <app-tapp-revenue-component-beta
+                                [financialYearsInfoJson]="financialYearsInfo"
+                                (nextStep)="goForward(horizontalStepper)"
+                                (fiscalYearOutput)="currentFiscalYears($event)">
+                            </app-tapp-revenue-component-beta>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step2'"
+                        [stepControl]="horizontalStepperForm.get('step2')"
+                        #horizontalStepperStep1>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title">{{"tabTitle_2" | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-tapp-capital-component
+                                [financialYearsInfoJson]="financialYearsInfo"
+                                (nextStep)="goForward(horizontalStepper)">
+                            </app-tapp-capital-component>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step3'"
+                        [stepControl]="horizontalStepperForm.get('step3')"
+                        #horizontalStepperStep3>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title">{{ "tabTitle_3" | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-tapp-physical-contingency
+                                [financialYearsInfoJson]="financialYearsInfo"
+                                (nextStep)="goForward(horizontalStepper)">
+                            </app-tapp-physical-contingency>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step4'"
+                        [stepControl]="horizontalStepperForm.get('step4')"
+                        #horizontalStepperStep2>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title">{{ "tabTitle_4" | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-tapp-grand-total
+                                [financialYearsInfoJson]="financialYearsInfo">
+                            </app-tapp-grand-total>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+
+    </div>
+    <!-- Body End -->
+</div>

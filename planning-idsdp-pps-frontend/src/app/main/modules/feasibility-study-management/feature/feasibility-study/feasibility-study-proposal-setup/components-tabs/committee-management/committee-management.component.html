@@ -1,0 +1,360 @@
+<div class="flex flex-col bg-card shadow rounded overflow-hidden mb-10">
+    <div class="heading">
+        <h1>{{'committeeManagement' | translate}}</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="p-8 pb-4">
+        <form [formGroup]="committeeFormGroup">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="30%"
+                           style="margin-top: -15px;">{{'committeeName' | translate}} :
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.sm="50%" fxFlex.xs="50%">
+                    <input formControlName="committeeName" matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="30%"
+                           style="margin-top: -15px;">{{'description' | translate}} :
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.sm="50%" fxFlex.xs="50%">
+                    <input formControlName="description" matInput>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="30%"
+                           style="margin-top: -15px;">{{'dateOfFormation' | translate}} :
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.sm="50%" fxFlex.xs="50%">
+                    <input (click)="picker1.open()" [matDatepicker]="picker1" [min]="startDate" [max]="endDate"
+                           formControlName="dateOfFormation"
+                           matInput readonly>
+                    <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="30%"
+                           style="margin-top: -15px;">{{'Attachment' | translate}} :
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="40%" fxFlex.sm="50%" fxFlex.xs="50%">
+                    <p *ngIf="committeeFormGroup.value.uuid && committeeFormGroup.value.attachmentId"
+                       [class.attachment-width]="isAttachmentNameEnable">{{this.attachmentName}}</p>
+                    <ngx-mat-file-input [accept]="'.pdf'" formControlName="attachmentId"
+                                        (change)="selectFile($event.target.files)"
+                                        placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                    <mat-icon matSuffix>folder</mat-icon>
+                </mat-form-field>
+                <div class="attachment-button" fxFlex="20%" fxFlex.sm="20%" fxFlex.xs="20%">
+                    <button
+                        *ngIf="committeeFormGroup.value.uuid && committeeFormGroup.value.attachmentId && attachmentUrl!==''"
+                        mat-icon-button class="toggle-sidebar-folded"
+                        fxHide.lt-lg>
+                        <mat-icon matTooltip="Download Attachment"
+                                  (click)="download()"
+                                  color="primary">file_download
+                        </mat-icon>
+                    </button>
+                    <button *ngIf="committeeFormGroup.value.uuid && committeeFormGroup.value.attachmentId && attachmentUrl!==''" (click)="delete()" fxFlex="2%" fxFlex.md="2%" fxFlex.sm="2%" fxFlex.xs="2%">
+                        <mat-icon class="pb-2 ml-1 warn">delete</mat-icon>
+                    </button>
+                </div>
+                <div fxFlex="20%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="30%"
+                           style="margin-top: -15px;">{{'member' | translate }} :
+                </mat-label>
+                <button (click)="openMemberInfo()" [color]="'primary'" fxFlex="15%" fxFlex.sm="40%" fxFlex.xs="40%"
+                        mat-flat-button>{{'add' | translate}}
+                </button>
+                <div fxFlex="65%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div *ngIf="memberInfo" class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+    <div class="heading mb-5">
+        <h1>{{'memberInformation' | translate}}</h1>
+    </div>
+    <div class="p-4 pb-4">
+        <div style="overflow-x:auto;">
+            <form [formGroup]="committeeFormGroup">
+                <table [dataSource]="memberDataSource" class="mat-elevation-z8" mat-table
+                       formArrayName="members">
+                    <!-- Row definitions -->
+                    <tr mat-header-row *matHeaderRowDef="displayColumnsMember"></tr>
+                    <tr mat-row *matRowDef="let row; let i = index; columns: displayColumnsMember;"></tr>
+
+                    <!-- Column definitions -->
+                    <ng-container matColumnDef="sl">
+                        <th mat-header-cell *matHeaderCellDef>{{'sl' | translate}}</th>
+                        <td mat-cell *matCellDef="let element; let i = index;">
+                            {{i + 1}}
+                        </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="memberName">
+                        <th mat-header-cell *matHeaderCellDef>{{'memberName' | translate}}</th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                            <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                <input matInput type="text" value="" formControlName="memberName" required>
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="designation">
+                        <th mat-header-cell *matHeaderCellDef>{{'designation' | translate}}</th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                            <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                <input matInput type="text" value="" formControlName="designation" required>
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="phone">
+                        <th mat-header-cell *matHeaderCellDef>{{'phone' | translate}}</th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                            <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                <input matInput type="text" value="" formControlName="phone" required>
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef>{{'email' | translate}}</th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                            <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                <input matInput type="email" [email]="true" value="" formControlName="email" required>
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="role">
+                        <th mat-header-cell *matHeaderCellDef>{{'role' | translate}}</th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                            <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                                <input matInput type="text" value="" formControlName="role" required>
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>{{'action' | translate}}</th>
+                        <td mat-cell *matCellDef="let element; let i = index">
+                            <div class="buttons">
+                                <div class="toggle-sidebar-folded"
+                                     mat-icon-button
+                                     fxHide.lt-lg>
+                                    <mat-icon matTooltip="Add New" (click)="addMember()" color="primary">add</mat-icon>
+                                </div>
+
+                                <div mat-icon-button class="toggle-sidebar-folded"
+                                     fxHide.lt-lg>
+                                    <mat-icon matTooltip="Delete" (click)="deleteMemberDialog(i)"
+                                              color="warn">delete
+                                    </mat-icon>
+                                </div>
+
+                            </div>
+                        </td>
+                    </ng-container>
+                </table>
+                <div style="text-align: center; margin-top: 5%">
+                    <button (click)="saveAndExitMemberInfo()" [color]="'primary'" class="px-6 ml-3" mat-flat-button
+                    >
+                        {{'save' | translate}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--<pre>{{ form.value | json }}</pre>-->
+<div
+    fxLayout="row wrap"
+    fxLayoutAlign="space-between center"
+    class="mt-5">
+    <div fxFlex="30%">
+        <h1 class="header1">
+            Committee Management List
+        </h1>
+    </div>
+
+    <div>
+        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+            <!--<mat-label>Filter</mat-label>-->
+            <input
+                matInput
+                (keyup)="applyFilter($event)"
+                placeholder="Search"
+                #input/>
+            <button mat-button matPrefix mat-icon-button>
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+</div>
+
+<div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+    <div
+        class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+        <!--<mat-card>-->
+        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+            <table
+                mat-table
+                [dataSource]="committeeDataSource"
+                class="mat-elevation-z8 bg-transparent"
+                matSort>
+                <!-- ID Column -->
+                <ng-container matColumnDef="sl">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef
+                        class="text-alignment">
+                        {{'sl' | translate}}
+                    </th>
+                    <td mat-cell *matCellDef="let row, let i = index;">{{(i + 1) + (page * size)}}</td>
+                </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="committeeName">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef
+                        class="text-alignment">
+                        {{'committeeName' | translate}}
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        {{ row.committeeName }}
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="description">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef
+                        class="text-alignment">
+                        {{'description' | translate}}
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        {{ row.description }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dateOfFormation">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef
+                        class="text-alignment">
+                        {{'dateOfFormation' | translate}}
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        {{ row.dateOfFormation | date:'dd-MM-yyyy' }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="attachment">
+                    <th mat-header-cell *matHeaderCellDef>Attachment</th>
+                    <td mat-cell *matCellDef="let row; let index = index">
+                        <div class="buttons">
+                            <button *ngIf="row.attachmentId" mat-icon-button class="toggle-sidebar-folded"
+                                    fxHide.lt-lg>
+                                <mat-icon matTooltip="Download Attachment"
+                                          (click)="downloadListAttachment(row.attachmentId)"
+                                          color="primary">file_download
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>
+                        {{'action' | translate}}
+                    </th>
+
+                    <td mat-cell *matCellDef="let row">
+                        <div class="buttons">
+                            <button
+                                mat-icon-button
+                                class="toggle-sidebar-folded"
+                                matTooltip="Edit"
+                                fxHide.lt-lg (click)="edit(row)">
+                                <mat-icon
+                                    color="accent">edit
+                                </mat-icon>
+                            </button>
+
+                            <button
+                                [disabled]="disableDelete"
+                                mat-icon-button
+                                class="toggle-sidebar-folded"
+                                matTooltip="Delete"
+                                fxHide.lt-lg (click)="openDialog(row)">
+                                <mat-icon
+                                    color="warn">delete
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <!-- Table Action Buttons End-->
+
+                <tr
+                    mat-header-row
+                    *matHeaderRowDef="commiteeDisplayedColumns"></tr>
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: commiteeDisplayedColumns"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="6">
+                        No data matching the filter "{{ input.value }}"
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <mat-paginator
+            [length]="total"
+            [pageSize]="size"
+            [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+            (page)="onChangePage($event)">
+        </mat-paginator>
+    </div>
+</div>
+
+<div>
+    <br/><br/><br/>
+    <div fxLayout="row wrap" fxLayoutAlign="end">
+        <button class="mr-2" mat-flat-button color="accent" type="button" (click)="back()">Back
+        </button>
+        <button *ngIf="!committeeUpdate" class="mr-2" mat-flat-button color="primary" type="button"
+                (click)="saveAndNext()">{{'Save&Next' |
+            translate}}</button>&nbsp;&nbsp;
+        <button *ngIf="!committeeUpdate" class="mr-2" mat-flat-button style="background-color: green; color: #FFFFFF"
+                type="button"
+                (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+        <button *ngIf="committeeUpdate" class="mr-2" mat-flat-button color="primary" type="button"
+                (click)="saveAndNext()">{{'Save&Next' | translate}}</button>&nbsp;&nbsp;
+        <button *ngIf="committeeUpdate" class="mr-2" mat-flat-button style="background-color: green; color: #FFFFFF"
+                type="button"
+                (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+    </div>
+</div>
+
+

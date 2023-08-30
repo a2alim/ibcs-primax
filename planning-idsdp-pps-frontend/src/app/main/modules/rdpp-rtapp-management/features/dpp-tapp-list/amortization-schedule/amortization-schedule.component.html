@@ -1,0 +1,293 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="projectName" class="crop-text"
+                                 [subTitle]="'sub_title' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{'ProjectMainPage' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">
+                                    {{'heading' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">
+                                        <a routerLink="/rdpp-rtapp">{{'subHeading' | translate}}</a> >{{'subHeading2' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        &lt;!&ndash;  Button for back to Project Home Page&ndash;&gt;
+                        <div class="flex justify-end" style="margin-top: -50px; color: #FFFFFF !important;">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                {{'ProjectMainPage' | translate}}
+                            </button>
+                        </div>
+                        &lt;!&ndash;  /Button for back to Project Home Page&ndash;&gt;
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <!-- Header close-->
+    <!-- Main -->
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+
+            <div style=" background-color: white" *ngIf="gobAmount">
+
+                <div>
+                    <!--  Form Start-->
+                    <form [formGroup]="frmGroup" name="frmGroup" class="p-5">
+                        <div class="heading">
+                            <span class="inline-block align-middle">
+                                {{'page_name' | translate}}
+                            </span>
+                        </div>
+
+                        <div class="p-8 pb-4">
+                            <mat-card>
+                                <!--Start Input Div -->
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label class="pb-5" fxFlex="16%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="100%">{{ "project_name" | translate }}
+                                    </mat-label>
+                                    <mat-form-field  fxFlex="84%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%" class="readOnly">
+                                        <input formControlName="projectName" value="{{projectName}}" title="{{projectName}}" matInput readonly
+                                                />
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- loanPortion Field -->
+                                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                                    <!-- Sector Field-->
+                                    <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <mat-label class="pb-5" fxFlex="32%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                       fxFlex.xs="100%">{{ "total_investment" | translate }}
+                                            </mat-label>
+                                            <mat-form-field fxFlex="68%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%" class="readOnly">
+                                                <input class="numberField" autocomplete="off" formControlName="totalInvestment" matInput
+                                                       readonly  />
+                                            </mat-form-field>
+                                            <div fxFlex="4%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sub Sector Division Field-->
+                                    <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <mat-label class="pb-5 pl-3" fxFlex="40%"  fxFlex.md="30%" fxFlex.sm="30%"
+                                                       fxFlex.xs="100%">{{ "loan_portion" | translate }}
+                                            </mat-label>
+                                            <mat-form-field fxFlex="60%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%" class="readOnly">
+                                                <input class="numberField" autocomplete="off"  formControlName="loanPortion" value="{{loanPortion}}"  matInput readonly
+                                                />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- / LoanPortion Field -->
+
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <!-- Project Code Field-->
+                                    <div fxFlex="32%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <mat-label class="pb-5" fxFlex="50%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                       fxFlex.xs="100%">{{ "loan_period" | translate }}
+                                            </mat-label>
+                                            <mat-form-field fxFlex="50%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                            fxFlex.xs="100%">
+                                                <input NumbersOnly class="numberField" type="number" placeholder="বছর" autocomplete="off" formControlName="loanPeriod"   matInput/>
+                                                <mat-error>Loan Period is required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div fxFlex="2%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+
+                                    <!-- Project Type Field-->
+                                    <div fxFlex="32%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <mat-label class="pb-5" fxFlex="50%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                                {{ "rate_of_interest" | translate }}
+                                            </mat-label>
+                                            <mat-form-field fxFlex="50%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                                <input TwoDigitDecimalNumber class="numberField" autocomplete="off" formControlName="rateOfInterest"   matInput />
+                                                <mat-error>Rate of Interest is required</mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div fxFlex="2%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+
+                                    <!-- Priority Field-->
+                                    <div fxFlex="32%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <mat-label class="pb-5" fxFlex="50%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                                {{ "grace_period" | translate }}
+                                            </mat-label>
+                                            <mat-form-field fxFlex="50%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                                <input NumbersOnly type="number" class="numberField" placeholder="বছর" autocomplete="off" formControlName="gracePeriod"  matInput />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- LoanPeriod Field -->
+
+
+
+                            </mat-card>
+                            <div class="p-5 text-right">
+                                <button [disabled]="spinner" (click)="onSubmit()" class="m-2" color="primary" mat-raised-button>Save</button>
+                            </div>
+                        </div>
+                        <!--Action Bar-->
+
+                    </form>
+                    <!--  / Form end-->
+
+                    <!--Start table for dispalay calculation value-->
+
+                    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th [innerHTML]="'year' | translate"></th>
+                                    <th [innerHTML]="'beginning_principal_amount' | translate"></th>
+                                    <th [innerHTML]="'yearly_fixed_amount' | translate"></th>
+                                    <th [innerHTML]="'yearly_interest' | translate"></th>
+                                    <th [innerHTML]="'total_payment' | translate"></th>
+                                    <th [innerHTML]="'ending_principal_balance' | translate"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody *ngFor="let abc of gracePeriods" style="background-color: rgb(252, 242, 225);">
+                                <tr>
+
+                                    <td>
+                                        {{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.year) : abc.year}}
+<!--                                        <mat-form-field appearance="outline" style="text-align: center;">-->
+<!--                                            <input matInput type="text" value="{{abc.year}}" readonly/>-->
+<!--                                        </mat-form-field>-->
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <input class="rightPadding" matInput type="text" value="{{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.beginingPrincipalAmount) : abc.beginingPrincipalAmount}}" readonly/>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <input class="rightPadding" matInput value="{{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.yearlyFixedAmount) : abc.yearlyFixedAmount}}" type="text" readonly/>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <input class="rightPadding" matInput value="{{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.yearlyInterestPaid) : abc.yearlyInterestPaid}}" type="text" readonly/>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <input class="rightPadding" matInput value="{{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.totalPayment) : abc.totalPayment}}" type="text" readonly/>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <input class="rightPadding" matInput value="{{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.endingPrincipalBalance) : abc.endingPrincipalBalance}}" type="text" readonly/>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngFor="let abc of loanPeriods">
+                                <tr>
+
+                                    <td>
+                                        {{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.year) : abc.year}}
+<!--                                        <mat-form-field appearance="outline" style="text-align: center;">-->
+<!--                                            <input matInput type="text" value="{{abc.year}}" readonly/>-->
+<!--                                        </mat-form-field>-->
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <input class="rightPadding" matInput value="{{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.beginingPrincipalAmount) : abc.beginingPrincipalAmount}}" type="text" readonly/>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <input class="rightPadding" matInput value="{{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.yearlyFixedAmount) : abc.yearlyFixedAmount}}" type="text" readonly/>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <input class="rightPadding" matInput value="{{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.yearlyInterestPaid) : abc.yearlyInterestPaid}}" type="text" readonly/>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <input class="rightPadding" matInput value="{{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.totalPayment) : abc.totalPayment}}" type="text" readonly/>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field appearance="outline">
+                                            <input class="rightPadding" matInput value="{{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(abc.endingPrincipalBalance) : abc.endingPrincipalBalance}}" type="text" readonly/>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- / End table -->
+                </div>
+
+            </div>
+
+            <div *ngIf="!gobAmount">
+                <p style="font-size: 25px">{{'validationPage' | translate}}</p>
+            </div>
+
+
+        </mat-card>
+    </div>
+</div>

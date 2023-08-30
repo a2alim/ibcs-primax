@@ -1,0 +1,13 @@
+version: '3'
+services:
+    planning-idsdp-uaa-ui:
+        image: 'planning-idsdp-uaa-ui'
+        container_name: uaa-ui
+        environment:
+            - TZ=Asia/Dhaka
+        ports:
+            - "4200:3000"
+        restart: always
+        build:
+            context: "./"
+            dockerfile: "Dockerfile"

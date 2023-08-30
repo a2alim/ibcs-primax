@@ -1,0 +1,220 @@
+<div class="body">
+    <form #myForm="ngForm">
+        <!-- Form Body -->
+
+        <!-- CARD ONE-->
+        <div class="heading mt-2 cap">
+            <h1>{{'tab_1_title' | translate}}</h1>
+        </div>
+        <mat-card class="tab-color">
+
+
+            <!-- Row 1-->
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto  md:w-20 lg:w-20 ml-2 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'nameOfProposal' | translate}}
+                    </span>
+                    <strong class="required">*</strong>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-90 lg:w-80">
+                    <mat-form-field class="w-full">
+
+                        <mat-select (selectionChange)="onChangeProposalNew($event.value)"
+                            [(ngModel)]="newPaymentModel.proposalId" [ngModelOptions]="{standalone: true}"
+                            placeholder="Select One" required #proposalId="ngModel">
+                            <mat-option *ngFor="let proposal of proposals" [value]="proposal.id">
+                                {{proposal.trainingName}}</mat-option>
+                        </mat-select>
+
+                        <mat-hint *ngIf="(proposalId.touched || myForm.submitted) && proposalId.errors?.required"
+                            style="color: crimson !important;">
+                            {{'Required' | translate}}
+                        </mat-hint>
+
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto  md:w-20 lg:w-20  ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'installmentType' | translate}}
+                    </span>
+                    <strong class="required">*</strong>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-90 lg:w-80">
+                    <mat-form-field class="w-full">
+                        <mat-select [(ngModel)]="newPaymentModel.installmentType" [ngModelOptions]="{standalone: true}"
+                            placeholder="Select One" required #installmentType="ngModel">
+                            <mat-option *ngFor="let agreementInstallment of agreementInstallments"
+                                [value]="agreementInstallment.name"> {{agreementInstallment.name}}</mat-option>
+                        </mat-select>
+
+                        <mat-hint
+                            *ngIf="(installmentType.touched || myForm.submitted) && installmentType.errors?.required"
+                            style="color: crimson !important;">
+                            {{'Required' | translate}}
+                        </mat-hint>
+
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <!-- -----------3rd Row----------- -->
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left md:pt-3 ml-2 pr-2">
+                    <span class="text-gray-700">
+                        {{'Memorandum_No' | translate}} <strong class="required">*</strong>
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input [(ngModel)]="newPaymentModel.memorandumNo" [ngModelOptions]="{standalone: true}" matInput
+                            required #memorandumNo="ngModel">
+
+                        <mat-hint *ngIf="(memorandumNo.touched || myForm.submitted) && memorandumNo.errors?.required"
+                            style="color: crimson !important;">
+                            {{'Required' | translate}}
+                        </mat-hint>
+
+                    </mat-form-field>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-20 ml-2 lg:w-20 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'Sending_Date' | translate}} <strong class="required">*</strong>
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [matDatepicker]="datepicker1" [(ngModel)]="newPaymentModel.sendingDate"
+                            [ngModelOptions]="{standalone: true}" required #sendingDate="ngModel">
+                        <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker1></mat-datepicker>
+
+                        <mat-hint *ngIf="(sendingDate.touched || myForm.submitted) && sendingDate.errors?.required"
+                            style="color: crimson !important;">
+                            {{'Required' | translate}}
+                        </mat-hint>
+
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- -----------/3rd Row----------- -->
+
+            <!-- -----------4rd Row----------- -->
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left md:pt-3 ml-2 pr-2">
+                    <span class="text-gray-700">
+                        {{'Source_No' | translate}}
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input [(ngModel)]="newPaymentModel.sourceNo" [ngModelOptions]="{standalone: true}" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-20 ml-2 lg:w-20 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'Source_Date' | translate}}
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [matDatepicker]="datepicker2" [(ngModel)]="newPaymentModel.sourceDate"
+                            [ngModelOptions]="{standalone: true}">
+                        <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- -----------/4rd Row----------- -->
+
+            <!--Pre-Template Group-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto  md:w-20 lg:w-20 ml-2 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'TemplateType' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-90 lg:w-80">
+                    <mat-form-field class="w-full">
+                        <mat-select (selectionChange)="onChangeTemplateType($event, 'top')">
+                            <mat-option *ngFor="let s of templateTypeList" [value]="s.id">{{s.templateType}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!--Pre-Template-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto  md:w-20 lg:w-20 ml-2 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'PredefinedTemplate' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-90 lg:w-80">
+                    <mat-form-field class="w-full">
+                        <mat-select (selectionChange)="onChangePredefinedTemplateType($event, 'top')">
+                            <mat-option *ngFor="let s of predefinedTemplates" [value]="s.id">{{s.subject}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- CK Editor-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto  md:w-20 lg:w-20 ml-2 ml-2 md:text-left pr-2 md:pt-3">
+
+                </div>
+                <div class="w-full sm:w-auto md:w-90 lg:w-80">
+                    <!-- <mat-form-field class="w-full"> -->
+                    <!-- <textarea matInput name="otherExpertAreas" [ngModelOptions]="{standalone: true}" [(ngModel)]="proposalModel.previousExperience" rows="5"></textarea> -->
+                    <ckeditor [(ngModel)]="newPaymentModel.letterText" [ngModelOptions]="{standalone: true}"></ckeditor>
+
+                    <!-- </mat-form-field> -->
+                </div>
+            </div>
+
+        </mat-card>
+
+
+        <!-- Bottom Button -->
+        <div class="flex justify-end mt-8">
+            
+            <button (click)="onSubmite(false)" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary"
+                mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span *ngIf="!isEditable">{{ "save" | translate }}</span>
+                <span *ngIf="isEditable">{{ "update" | translate }}</span>
+            </button>
+
+            <button (click)="onSubmite(true)" class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" color="primary"
+                mat-flat-button type="button">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span *ngIf="!isEditable">{{ "save_and_next" | translate }}</span>
+                <span *ngIf="isEditable">{{ "update_and_next" | translate }}</span>
+            </button>
+
+            <!--            <button (click)="nextTab()" class="px-3 mr-2 toggle-sidebar-folded nextBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="button">-->
+            <!--                {{ "next" | translate }}-->
+            <!--                <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>-->
+            <!--            </button>-->
+        </div>
+    </form>
+</div>

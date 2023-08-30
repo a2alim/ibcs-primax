@@ -1,0 +1,146 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;"> Annexure - IV :
+                                    Implementation/Work Schedule
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">Home> Annexure - IV :
+                                        Implementation/Work Schedule
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex justify-end" style="margin-top: -50px; color: #FFFFFF !important;">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                {{"homePage" | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+    <!-- Body -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+            <div>
+                <form class="form">
+                    <div style="padding: 10px; background-color: white">
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+
+                            <div class="p-5" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div>
+                                        <form class="form">
+                                            <div cdkScrollable
+                                                 class="overflow-x-auto sm:overflow-y-auto">
+                                                <table class="mat-elevation-z8">
+
+                                                    <!-- Table Body-->
+                                                    <tbody class="projectInfo">
+                                                    <tr>
+                                                        <th class="text-left">Project Title (English)</th>
+                                                        <td>:</td>
+                                                        <td>{{projectTitle}}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>Project Total Cost (Taka in Lac)</th>
+                                                        <td>:</td>
+                                                        <td>{{totalCost}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Date of Commencement</th>
+                                                        <td>:</td>
+                                                        <td>{{commencementDate | date: 'dd-MM-yyyy'}}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>Date of Completion</th>
+                                                        <td>:</td>
+                                                        <td>{{completionDate | date: 'dd-MM-yyyy'}}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                    <!-- Table Body End-->
+                                                </table>
+                                                <!--Table End-->
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ml-5 mt-5 align-center" style="width: 560px;">
+                                <mat-form-field class="fuse-mat-dense flex-auto">
+                                    <mat-label>
+                                        Attach Implementation/Work Schedule
+                                    </mat-label>
+                                    <!-- [accept]="'.pdf'" -->
+                                    <ngx-mat-file-input formControlName="attachment"
+                                                        (change)="selectedFile($event.target.files)"
+                                                        placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                    <mat-icon matSuffix>folder</mat-icon>
+                                </mat-form-field>
+
+                                <div class="md:flex mr-13">
+                                    <div class="w-full sm:w-auto md:w-1/2 lg:w-1/2">
+                                        <div align="start" *ngIf="formInformation.id" class="flex flex-wrap content-start">
+                                            <a target="_blank" [href]="displayFileName" title="Download File">
+                                                <mat-icon class="mr-2" color="primary">
+                                                    <span class="material-icons-outlined">file_download</span>
+                                                </mat-icon>
+                                            </a>
+                                            <button color="warning" (click)="openDeleteDialog(formInformation.attachment.id)" title="Delete File">
+                                                <mat-icon matSuffix style="color:#d23c3c">delete</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="w-full sm:w-auto md:w-1/2 lg:w-1/2">
+                                        <div align="end" *ngIf="!formInformation.id">
+                                            <button class="mb-1" (click)="saveMethod()" color="primary"
+                                                    [disabled]="spinner"
+                                                    mat-raised-button>Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </mat-card>
+    </div>
+</div>

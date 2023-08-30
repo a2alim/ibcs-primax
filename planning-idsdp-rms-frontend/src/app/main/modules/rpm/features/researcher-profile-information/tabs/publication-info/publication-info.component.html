@@ -1,0 +1,287 @@
+<div class="body">
+
+
+
+    <div class="md:flex">
+        <div class="inline-block mt-2">
+            <input type="radio" [value]="2" id="graduationResultSelectPoint" name="graduationResultSelectPoint"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="isApplicable" (change)="radioChange(isApplicable)">
+            <label>&nbsp;{{'Applicable' | translate}}</label>
+        </div>
+
+        <div class="inline-block mt-2 ml-5">
+            <input type="radio" [value]="1" id="graduationResultSelectPoint" name="graduationResultSelectPoint"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="isApplicable" (change)="radioChange(isApplicable)">
+            <label>&nbsp;{{'Notapplicable' | translate}}</label>
+        </div>
+
+    </div>
+
+
+    <form name="frmGroup" #myForm="ngForm">
+
+        <ng-container *ngIf="isApplicable==2">
+
+            <!-- Form Body -->
+            <div class="flex justify-end">
+                <div class="addMoreBtn" mat-raised-button color="primary" (click)="addNewForm()">
+                    <mat-icon *ngIf="addNewIcon" class="mr-1" style="color:#f3efe8">{{addNewIcon}}</mat-icon>
+                    {{'add_more' | translate}}
+                </div>
+            </div>
+
+            <!-- CARD ONE-->
+            <div *ngFor="let publicationInfoFormModel of publicationInfoFormModelList; let i = index">
+
+                <ng-container *ngIf="publicationInfoFormModel.isDeleted===false">
+
+                    <div class="heading mt-2">
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2 md:pt-3">
+
+                                {{'tab_4_title' | translate}}
+
+                            </div>
+                            <div class="flex w-full justify-end sm:w-auto md:w-20 lg:w-20">
+                                <button mat-raised-button color="accent" (click)="deleteFormByIndex(i)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <mat-card class="tab-color">
+                        <!-- Row 1-->
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'article_title' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <mat-form-field class="w-full">
+                                    <input #articleTitle="ngModel" matInput [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="publicationInfoFormModel.articleTitle" required>
+                                    <mat-hint
+                                        *ngIf="(articleTitle.touched || myForm.submitted) && articleTitle.errors?.required"
+                                        style="color: crimson !important;">
+                                        Article title is required!
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'published_in' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <mat-select #publishedIn="ngModel" placeholder="Select One"
+                                        [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="publicationInfoFormModel.publishedIn" required>
+                                        <mat-option value="National">National</mat-option>
+                                        <mat-option value="International">International</mat-option>
+                                    </mat-select>
+                                    <mat-hint
+                                        *ngIf="(publishedIn.touched || myForm.submitted) && publishedIn.errors?.required"
+                                        style="color: crimson !important;">Published In (Journal) is required!
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'role_in_team' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <mat-select #roleInTeam="ngModel" placeholder="Select One"
+                                        [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="publicationInfoFormModel.roleInTeam" required>
+                                        <mat-option value="Team Leader">Team Leader</mat-option>
+                                        <mat-option value="Team Member">Team Member</mat-option>
+                                        <mat-option value="Lead Author">Lead Author</mat-option>
+                                        <mat-option value="Co-author">Co-Author</mat-option>
+                                    </mat-select>
+                                    <mat-hint
+                                        *ngIf="(roleInTeam.touched || myForm.submitted) && roleInTeam.errors?.required"
+                                        style="color: crimson !important;">Role in team is required!
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <!-- Row 2-->
+                        <div class="md:flex">
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'journal_paper_nature' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+
+                                <mat-form-field class="w-full">
+                                    <mat-select #journalPaper="ngModel" placeholder="Select One"
+                                                [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="publicationInfoFormModel.journalPaperNature" required>
+                                        <mat-option *ngFor="let p of journalPaperNatureTypeList" [value]="p.id">
+                                            {{p.typeName}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-hint
+                                        *ngIf="(journalPaper.touched || myForm.submitted) && journalPaper.errors?.required"
+                                        style="color: crimson !important;">Journal paper nature is required!
+                                    </mat-hint>
+                                </mat-form-field>
+
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'publication_date' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                                    <input #publicationDate="ngModel" matInput [max]="maxDate" [matDatepicker]="datepicker"
+                                        [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="publicationInfoFormModel.publicationDate" required>
+
+                                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #datepicker></mat-datepicker>
+                                    <mat-hint
+                                        *ngIf="(publicationDate.touched || myForm.submitted) && publicationDate.errors?.required"
+                                        style="color: crimson !important;">Publication Date is required!
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+
+
+                        </div>
+
+                        <!-- Row 3-->
+                        <div class="md:flex">
+
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'ORCHID' | translate}}
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <input matInput [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="publicationInfoFormModel.orchid" type="number">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'ISSN' | translate}}
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <input matInput [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="publicationInfoFormModel.issn">
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <!-- Row 4-->
+                        <div class="md:flex">
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'ISBN' | translate}}
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <input matInput [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="publicationInfoFormModel.isbn">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-1 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'upload_relevant_doc' | translate}}
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30 ml-castom">
+                                <mat-form-field (change)="uploadFile($event.target.files,'certificate_image',i)"
+                                    class="w-full">
+                                    <ngx-mat-file-input [accept]="'.*'">
+                                    </ngx-mat-file-input>
+                                    <mat-icon matSuffix>folder</mat-icon>
+                                    <mat-error>File is {{ 'required' | translate }}</mat-error>
+                                    <mat-hint>Image Size Maximum 1MB, JPG, PNG</mat-hint>
+                                    <div *ngIf="imgSpinner" class="flex items-center justify-center">
+                                        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+                                            class="absolute top-0 left-1/2 w-12 h-12 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                                <span class="text-color-green">Uploaded File : </span>
+                                {{ImageSpliter(publicationInfoFormModel.fileUploadModel.fileName?publicationInfoFormModel.fileUploadModel.fileName:'')}}
+                            </div>
+
+                        </div>
+
+                    </mat-card>
+
+                </ng-container>
+            </div>
+
+
+        </ng-container>
+
+        <div class="flex justify-end mt-8">
+
+            <button mat-flat-button [color]="'primary'" (click)="previousTab()" type="submit"
+                class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{ "previous" | translate }}
+            </button>
+
+            <!-- <ng-container *ngIf="isApplicable==2"> -->
+                <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit" (click)="save(isApplicable)"
+                    color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span>{{ "save" | translate }}</span>
+                </button>
+
+                <button mat-flat-button (click)="saveAndNext(isApplicable)" type="submit" color="primary"
+                    class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span> {{ "save_and_next" | translate }}</span>
+                </button>
+            <!-- </ng-container> -->
+
+            <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF" type="button"
+                color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                {{ "next" | translate }}
+                <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+            </button>
+
+        </div>
+
+
+    </form>
+
+</div>

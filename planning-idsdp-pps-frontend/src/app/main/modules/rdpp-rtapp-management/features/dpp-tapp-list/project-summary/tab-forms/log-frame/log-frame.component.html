@@ -1,0 +1,491 @@
+<div class="body-log-frame">
+    <div style="overflow-x: auto">
+        <!--============================== transaction spinner ===================-->
+        <div *ngIf="spinner">
+            <app-common-loader-spinner></app-common-loader-spinner>
+        </div>
+        <!--============================== // transaction spinner ===================-->
+        <form [formGroup]="frmGroup">
+            <!--1st Flex Layout Div Start -->
+            <div class="heading">
+                <span class="inline-block align-middle">
+                    {{ "Log_frame" | translate }}
+                </span>
+            </div>
+            <div class="p-8 pb-4">
+                <mat-card>
+                    <!--2nd Flex Layout Div Start -->
+                    <div class="md:flex">
+                        <div
+                            class="w-full sm:w-auto md:w-1/3 lg:w-1/3 md:text-left pr-2 leading-10"
+                        >
+                            {{ "Planned_date" | translate }}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3">
+                            <mat-form-field class="w-full">
+                                <input (click)="picker1" [matDatepicker]="picker1"
+                                       formControlName="plannedDate"
+                                       matInput readonly required>
+                                <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!--3rd Flex Layout Div Start -->
+
+                    <div class="md:flex">
+                        <div
+                            class="w-full sm:w-auto md:w-1/3 lg:w-1/3 md:text-left pr-2 leading-10"
+                        >
+                            {{ "Date_of_log_frame" | translate }}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/3 lg:w-1/3">
+                            <mat-form-field class="w-full">
+                                <input (click)="picker2.open()" [matDatepicker]="picker2"
+                                       formControlName="dateOfLogFrame"
+                                       matInput readonly required>
+                                <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- Table -->
+            <!-- -------------Goal Form---------- -->
+            <mat-card class="p-8 pb-4">
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable style="background-color: white">
+                    <table class="mat-elevation-z8">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th [innerHTML]="'Narrative_summery' | translate"></th>
+                                <th [innerHTML]="'Objectively_verifiable' | translate"></th>
+                                <th [innerHTML]="'Means_verifications' | translate"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="w-full-td">
+                                    {{ "Goal" | translate }}
+                                </td>
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+                                        <button *ngIf="frmGroup.get('goalNS').value" (click)="openDialog('goalNS', 'Narrative_summery')"
+                                        class="btn background-green  text-white" mat-button type="button">
+                                            <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                            {{"Narrative_summery1" | translate}}
+                                        </button>
+
+                                        <button *ngIf="!frmGroup.get('goalNS').value" (click)="openDialog('goalNS', 'Narrative_summery')"
+                                        class=" background-blue btn text-white"  mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Narrative_summery1" | translate}}
+                                        </button>
+
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+                                        <button *ngIf="frmGroup.get('goalOVI').value" (click)="openDialog('goalOVI','Objectively_verifiable')"
+                                            class="btn btn-home background-green text-white"   mat-button type="button">
+                                            <mat-icon svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                            {{"Objectively_verifiable1" | translate}}
+                                        </button>
+
+                                        <button *ngIf="!frmGroup.get('goalOVI').value" (click)="openDialog('goalOVI', 'Objectively_verifiable')"
+                                        class=" background-blue btn text-white" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Objectively_verifiable1" | translate}}
+                                        </button>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+                                        <button *ngIf="frmGroup.get('goalMOV').value"  (click)="openDialog('goalMOV','Means_verifications')"
+                                            class="btn btn-home background-green  text-white" mat-button type="button">
+                                            <mat-icon class="text-white"  svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                            {{"Means_verifications1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('goalMOV').value"  (click)="openDialog('goalMOV','Means_verifications')"
+                                            class="btn btn-home background-blue text-white" mat-button type="button">
+                                            <mat-icon class="text-white"  svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                            {{"Means_verifications1" | translate}}
+                                        </button>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+
+            <!-- -------------Objective/Purpose Form---------- -->
+            <mat-card class="p-8 pb-4">
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table class="mat-elevation-z8">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th [innerHTML]="'Narrative_summery' | translate"></th>
+                                <th [innerHTML]="'Objectively_verifiable' | translate"></th>
+                                <th [innerHTML]="'Means_verifications' | translate"></th>
+                                <th [innerHTML]="'Important_assumptions' | translate"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="w-full-td">
+                                    {{
+                                    "Objective" | translate
+                                    }}
+                                </td>
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+                                        <button  *ngIf="frmGroup.get('objectiveNS').value" (click)="openDialog('objectiveNS', 'Narrative_summery')"
+                                            class="btn btn-home text-white background-green "  mat-button type="button">
+                                            <mat-icon class="text-white"  svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                            {{"Narrative_summery1" | translate}}
+                                        </button>
+                                        <button  *ngIf="! frmGroup.get('objectiveNS').value" (click)="openDialog('objectiveNS', 'Narrative_summery')"
+                                        class="btn btn-home background-blue text-white"   mat-button type="button">
+                                        <mat-icon class="text-white"  svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Narrative_summery1" | translate}}
+                                    </button>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+                                        <button *ngIf="frmGroup.get('objectiveOVI').value" (click)="openDialog('objectiveOVI', 'Objectively_verifiable')"
+                                            class="btn btn-home text-white background-green" mat-button type="button">
+                                            <mat-icon class="text-white"  svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                            {{"Objectively_verifiable1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('objectiveOVI').value" (click)="openDialog('objectiveOVI', 'Objectively_verifiable')"
+                                        class="btn btn-home background-blue text-white" mat-button type="button">
+                                        <mat-icon class="text-white"  svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Objectively_verifiable1" | translate}}
+                                    </button>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+                                        <button *ngIf="frmGroup.get('objectiveMOV').value" (click)="openDialog('objectiveMOV', 'Means_verifications')"
+                                            class="btn btn-home text-white background-green" mat-button type="button">
+                                            <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                            {{"Means_verifications1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('objectiveMOV').value" (click)="openDialog('objectiveMOV', 'Means_verifications')"
+                                            class="btn btn-home text-white background-blue" mat-button type="button">
+                                            <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                            {{"Means_verifications1" | translate}}
+                                        </button>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+                                        <button *ngIf="frmGroup.get('objectiveIA').value" (click)="openDialog('objectiveIA', 'Important_assumptions')"
+                                        class="btn btn-home text-white background-green" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Important_assumptions1" | translate}}
+                                        </button>
+
+                                        <button *ngIf="!frmGroup.get('objectiveIA').value" (click)="openDialog('objectiveIA', 'Important_assumptions')"
+                                        class="btn btn-home text-white background-blue" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Important_assumptions1" | translate}}
+                                    </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+
+            <!-- -------------Output---------- -->
+            <mat-card class="p-8 pb-4">
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table class="mat-elevation-z8">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th [innerHTML]="'Narrative_summery' | translate"></th>
+                                <th [innerHTML]="'Objectively_verifiable' | translate"></th>
+                                <th [innerHTML]="'Means_verifications' | translate"></th>
+                                <th [innerHTML]="'Important_assumptions' | translate"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="w-full-td">
+                                    {{ "Output" | translate }}
+                                </td>
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+
+                                        <button *ngIf="frmGroup.get('outputNS').value" (click)="openDialog('outputNS', 'Narrative_summery')"
+                                        class="btn btn-home text-white background-green" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Narrative_summery1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('outputNS').value" (click)="openDialog('outputNS', 'Narrative_summery')"
+                                        class="btn btn-home text-white background-blue" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Narrative_summery1" | translate}}
+                                        </button>
+
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+
+                                        <button *ngIf="frmGroup.get('outputOVI').value" (click)="openDialog('outputOVI', 'Objectively_verifiable')"
+                                        class="btn btn-home text-white background-green" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Objectively_verifiable1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('outputOVI').value" (click)="openDialog('outputOVI', 'Objectively_verifiable')"
+                                        class="btn btn-home text-white background-blue" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Objectively_verifiable1" | translate}}
+                                        </button>
+
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+                                        <button *ngIf="frmGroup.get('outputMOV').value" (click)="openDialog('outputMOV', 'Means_verifications')"
+                                        class="btn btn-home text-white background-green" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Means_verifications1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('outputMOV').value" (click)="openDialog('outputMOV', 'Means_verifications')"
+                                        class="btn btn-home text-white background-blue" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Means_verifications1" | translate}}
+                                        </button>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+
+                                        <button *ngIf="frmGroup.get('outputIA').value" (click)="openDialog('outputIA', 'Important_assumptions')"
+                                        class="btn btn-home text-white background-green" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Means_verifications1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('outputIA').value" (click)="openDialog('outputIA', 'Important_assumptions')"
+                                        class="btn btn-home text-white background-blue" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Important_assumptions1" | translate}}
+                                        </button>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+
+            <!-- -------------Input---------- -->
+            <mat-card class="p-8 pb-4">
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table class="mat-elevation-z8">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th [innerHTML]="'Narrative_summery' | translate"></th>
+                                <th [innerHTML]="'Objectively_verifiable' | translate"></th>
+                                <th [innerHTML]="'Means_verifications' | translate"></th>
+                                <th [innerHTML]="'Important_assumptions' | translate"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="w-full-td">
+                                    {{ "Input" | translate }}
+                                </td>
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+
+                                        <button *ngIf="frmGroup.get('inputNS').value" (click)="openDialog('inputNS', 'Narrative_summery')"
+                                        class="btn btn-home text-white background-green" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Narrative_summery1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('inputNS').value" (click)="openDialog('inputNS', 'Narrative_summery')"
+                                        class="btn btn-home text-white background-blue" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Narrative_summery1" | translate}}
+                                        </button>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+
+                                        <button *ngIf="frmGroup.get('inputOVI').value" (click)="openDialog('inputOVI', 'Objectively_verifiable')"
+                                        class="btn btn-home text-white background-green" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Objectively_verifiable1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('inputOVI').value" (click)="openDialog('inputOVI', 'Objectively_verifiable')"
+                                        class="btn btn-home text-white background-blue" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Objectively_verifiable1" | translate}}
+                                        </button>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+
+                                        <button *ngIf="frmGroup.get('inputMOV').value" (click)="openDialog('inputMOV', 'Means_verifications')"
+                                        class="btn btn-home text-white background-green" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Means_verifications1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('inputMOV').value" (click)="openDialog('inputMOV', 'Means_verifications')"
+                                        class="btn btn-home text-white background-blue" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Means_verifications1" | translate}}
+                                        </button>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <div class="w-full flex justify-center items-center">
+
+                                        <button *ngIf="frmGroup.get('inputIA').value" (click)="openDialog('inputIA', 'Important_assumptions')"
+                                        class="btn btn-home text-white background-green" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Important_assumptions1" | translate}}
+                                        </button>
+                                        <button *ngIf="!frmGroup.get('inputIA').value" (click)="openDialog('inputIA', 'Important_assumptions')"
+                                        class="btn btn-home text-white background-blue" mat-button type="button">
+                                        <mat-icon class="text-white" svgIcon="heroicons_outline:pencil-alt"></mat-icon>&nbsp;
+                                        {{"Important_assumptions1" | translate}}
+                                        </button>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+        </form>
+
+
+        <div style="padding: 15px;padding-bottom: 0;font-size: 17px;">
+            <p>{{'link14' | translate}}
+                ({{'as_per1' | translate}}<a class="AnnexureLink" (click)="navigateToAnnexureI()"><u>{{'ann-I' | translate}}</u></a>)
+            </p>
+        </div>
+
+        <div style="padding: 15px;padding-bottom: 0;font-size: 17px;">
+            <p>{{'link15' | translate}} ({{'as_per2' | translate}}
+                <a class="AnnexureLink" (click)="navigateToAnnexureIIIa()"><u>{{'ann-IIIa' | translate}}</u></a>,
+                <a class="AnnexureLink" (click)="navigateToAnnexureIIIb()"><u>{{'ann-IIIb' | translate}}</u></a>
+                {{'and' | translate}}
+                <a class="AnnexureLink" (click)="navigateToAnnexureIIIc()"><u>{{'ann-IIIc' | translate}}</u></a>)
+            </p>
+        </div>
+
+        <div style="padding: 15px;padding-bottom: 0;font-size: 17px;">
+            <p>{{'link16' | translate}}
+                ({{'as_per1' | translate}}<a class="AnnexureLink" (click)="navigateToAnnexureII()"><u>{{'ann-II' | translate}}</u></a>)
+            </p>
+        </div>
+
+        <div style="padding: 15px;padding-bottom: 0;font-size: 17px;">
+            <p>{{'link17' | translate}}
+                ({{'as_per1' | translate}}<a class="AnnexureLink" (click)="navigateToDPP()"><u>{{'dpp' | translate}}</u></a>)
+            </p>
+        </div>
+
+
+        <div>
+            <div class="flex justify-end mt-8">
+    <!--            <button-->
+    <!--                [color]="'accent'"-->
+    <!--                mat-flat-button-->
+    <!--                class="px-8 mr-2 toggle-sidebar-folded"-->
+    <!--                :matTooltip="{{ 'Back' | translate }}"-->
+    <!--                matStepperPrevious-->
+    <!--                type="button">-->
+    <!--                {{ "Back" | translate }}-->
+    <!--            </button>-->
+    <!--            <button-->
+    <!--                [disabled]="spinner"-->
+    <!--                (click)="saveAndNext()"-->
+    <!--                class="px-8 mr-2 toggle-sidebar-folded"-->
+    <!--                :matTooltip="{{ 'SaveNext' | translate }}"-->
+    <!--                mat-flat-button-->
+    <!--                [color]="'primary'"-->
+    <!--                type="button">-->
+    <!--                {{ "SaveNext" | translate }}-->
+    <!--            </button>-->
+                <button
+                    [disabled]="spinner"
+                    (click)="saveAndExit()"
+                    class="px-8 mr-2 toggle-sidebar-folded"
+                    :matTooltip="{{ 'SaveExit' | translate }}"
+                    mat-flat-button
+                    style="background-color: green; color: #FFFFFF"
+                    type="button">
+                    {{ "Save" | translate }}
+                </button>
+    <!--            <button-->
+    <!--                class="px-8 toggle-sidebar-folded"-->
+    <!--                :matTooltip="{{ 'Next' | translate }}"-->
+    <!--                mat-flat-button-->
+    <!--                style="background-color: green; color: #FFFFFF"-->
+    <!--                matStepperNext-->
+    <!--                type="button">-->
+    <!--                {{ "Next" | translate }}-->
+    <!--            </button>-->
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #logFrameCkEditor>
+        <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+            <div class="sub-heading font-semibold">
+                <h1>{{title | translate}}</h1>
+            </div>
+            <mat-dialog-content class="mat-typography">
+                <ckeditor [config]="minEditorConfig" [(ngModel)]="ckEditorData"></ckeditor>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <button class="mr-2" mat-flat-button color="accent" type="button" [mat-dialog-close]="false"
+                    mat-dialog-close>{{'Cancel' | translate}}</button>
+
+                <button class="mr-2" mat-flat-button color="primary" type="button" [mat-dialog-close]="true"
+                    cdkFocusInitial>{{'Save' | translate}}</button>
+            </mat-dialog-actions>
+
+        </div>
+    </ng-template>
+</div>
+

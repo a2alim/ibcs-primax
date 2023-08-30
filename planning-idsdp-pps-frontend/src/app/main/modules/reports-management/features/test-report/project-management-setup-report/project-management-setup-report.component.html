@@ -1,0 +1,304 @@
+<!-- <div class="container">
+
+    <div fxLayout="row" class="flex items-center justify-end mb-5 mr-15 ml-15 mt-4">
+        <button mat-raised-button color="primary" (click)="exportAsPdf()">Download Pdf
+        </button>
+        <button class="ml-3" mat-raised-button color="primary" (click)="exportAsXLSX()">Download Excel
+        </button>
+    </div>
+
+
+
+    <diV class="report-table-raper" id="pdfTable" #pdfTable>
+
+        <div class="table-wrap">
+            <h1 class="annexure-head"><strong>Annexure - II</strong></h1>            
+            <h5 class="top-head"><strong>Project Management Setup</strong></h5>
+            <table class="border-none">
+                <tbody>
+
+                    <tr>
+                        <td style="width: 17px;"><strong>1)</strong></td>
+                        <td><span>Personnel to be deputed from revenue setup</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>2)</strong></td>
+                        <td><span>Personnel to be recruited directly for execution of the project</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>3)</strong></td>
+                        <td><span>Personnel to be recruited by outsourcing</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <h5 class="head-text"><strong>Table Showing the Manpower Recruitment of Each Category:</strong></h5>
+
+            <table class="border table-distence">
+
+                <tr>
+                    <th>Name of the Post</th>
+                    <th>No. of Post</th>
+                    <th>Qualification</th>
+                    <th>Mode Of Recruitment</th>
+                    <th>Pay Scale/ Consolidated Pay</th>
+                    <th>Pay Grade</th>
+                    <th>Responsibilities/ Acountabilities</th>
+                    <th>Remarks</th>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                </tr>
+
+                <tr *ngFor="let item of existingSetupList">
+                    <td>{{item.nameOfThePost}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.qualification}}</td>
+                    <td>{{item.modeOfRecruitment}}</td>
+                    <td>{{item.scale_amount}}</td>
+                    <td>{{item.payGrade}}</td>
+                    <td>{{item.responsibility}}</td>
+                    <td>{{item.remarks}}</td>
+                </tr>
+
+            </table>
+
+            <table class="border table-distence">
+
+                <tr>
+                    <th>Name of the Post</th>
+                    <th>No. of Post</th>
+                    <th>Qualification</th>
+                    <th>Mode Of Recruitment</th>
+                    <th>Pay Scale/ Consolidated Pay</th>
+                    <th>Pay Grade</th>
+                    <th>Responsibilities/ Acountabilities</th>
+                    <th>Remarks</th>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                </tr>
+
+                <tr *ngFor="let item of executionSetupList">
+                    <td>{{item.nameOfThePost}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.qualification}}</td>
+                    <td>{{item.modeOfRecruitment}}</td>
+                    <td>{{item.scale_amount}}</td>
+                    <td>{{item.payGrade}}</td>
+                    <td>{{item.responsibility}}</td>
+                    <td>{{item.remarks}}</td>
+                </tr>
+
+            </table>
+
+            <table class="border table-distence">
+
+                <tr>
+                    <th>Name of the Post</th>
+                    <th>No. of Post</th>
+                    <th>Qualification</th>
+                    <th>Mode Of Recruitment</th>
+                    <th>Pay Scale/ Consolidated Pay</th>
+                    <th>Pay Grade</th>
+                    <th>Responsibilities/ Acountabilities</th>
+                    <th>Remarks</th>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                </tr>
+
+                <tr *ngFor="let item of outSourcingList">
+                    <td>{{item.nameOfThePost}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.qualification}}</td>
+                    <td>{{item.modeOfRecruitment}}</td>
+                    <td>{{item.scale_amount}}</td>
+                    <td>{{item.payGrade}}</td>
+                    <td>{{item.responsibility}}</td>
+                    <td>{{item.remarks}}</td>
+                </tr>
+
+            </table>
+        </div>
+    </diV>
+</div> -->
+<!-- 
+<diV class="report-table-raper">
+
+    <div class="table-wrap">
+
+        <h1 class="annexure-head">
+            <strong>Annexure - II</strong>
+        </h1>
+
+        <h5 class="top-head">
+            <strong>Project Management Setup</strong>
+        </h5>
+
+        <table class="border-none">
+            <tbody>
+
+                <tr>
+                    <td style="width: 17px;"><strong>1)</strong></td>
+                    <td><span>Personnel to be deputed from revenue setup</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>2)</strong></td>
+                    <td><span>Personnel to be recruited directly for
+                            execution of the project</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>3)</strong></td>
+                    <td><span>Personnel to be recruited by outsourcing</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <h5 class="head-text">
+            <strong>Table Showing the Manpower Recruitment of Each Category:</strong>
+        </h5>
+
+        <table class="border table-distence">
+            <thead>
+                <tr>
+                    <th>Name of the Post</th>
+                    <th>No. of Post</th>
+                    <th>Qualification</th>
+                    <th>Mode Of Recruitment</th>
+                    <th>Pay Scale/ Consolidated Pay</th>
+                    <th>Pay Grade</th>
+                    <th>Responsibilities/ Acountabilities</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+            </tr>
+
+            <tr>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+            </tr>
+
+        </table>
+
+        <table class="border table-distence">
+
+            <tr>
+                <th>Name of the Post</th>
+                <th>No. of Post</th>
+                <th>Qualification</th>
+                <th>Mode Of Recruitment</th>
+                <th>Pay Scale/ Consolidated Pay</th>
+                <th>Pay Grade</th>
+                <th>Responsibilities/ Acountabilities</th>
+                <th>Remarks</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+            </tr>
+
+            <tr>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+            </tr>
+
+        </table>
+
+        <table class="border table-distence">
+
+            <tr>
+                <th>Name of the Post</th>
+                <th>No. of Post</th>
+                <th>Qualification</th>
+                <th>Mode Of Recruitment</th>
+                <th>Pay Scale/ Consolidated Pay</th>
+                <th>Pay Grade</th>
+                <th>Responsibilities/ Acountabilities</th>
+                <th>Remarks</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+            </tr>
+
+            <tr>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+            </tr>
+
+        </table>
+    </div>
+</diV> -->

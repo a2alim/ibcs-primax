@@ -1,0 +1,250 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<!--  Form Start-->
+<form [formGroup]="formGroup" name="frmGroup" class="p-5" #inputForm="ngForm">
+    <mat-card>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!--Start Input for name -->
+            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "taskDetails" | translate }}<span class="required">*</span>
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input formControlName="taskDetails" autocomplete="off" placeholder="Enter Task Details" matInput required />
+                        <mat-error>{{'tderror' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for name -->
+
+            <!--Start Input for Designation -->
+            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "location" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input formControlName="location" autocomplete="off" placeholder="Enter Location" matInput />
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for Designation -->
+
+
+        </div>
+
+
+        <!-- second row Insert-->
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!--Start Input for name -->
+            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "startDate" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input (click)="picker1.open()" [matDatepicker]="picker1" placeholder="Enter Start Date"
+                               formControlName="startDate" matInput [disabled]="isEndDateDisabled" >
+                        <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for name -->
+
+            <!--Start Input for Designation -->
+            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "startTime" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input [ngxTimepicker]="editableDial" placeholder="Enter Start Time"
+                               formControlName="startTime" matInput readonly >
+                        <ngx-material-timepicker #editableDial [enableKeyboardInput]="true"></ngx-material-timepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for Designation -->
+
+
+        </div>
+        <!-- Second row Insert-->
+
+
+     <!-- Third row Insert-->
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!--Start Input for name -->
+            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "endDate" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input (click)="picker2.open()" [matDatepicker]="picker2" placeholder="Enter End Date"
+                               formControlName="endDate" matInput [disabled]="isEndDateDisabled" >
+                        <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for name -->
+
+            <!--Start Input for Designation -->
+            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "endTime" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input [ngxTimepicker]="editableDial2" placeholder="Enter End Time"
+                               formControlName="endTime" matInput readonly >
+                        <ngx-material-timepicker #editableDial2 [enableKeyboardInput]="true"></ngx-material-timepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for Designation -->
+        </div>
+        <!-- Third row Insert-->
+
+
+
+
+        <!-- Fourth row Insert-->
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!--Start Input for name -->
+            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "remarks" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <textarea formControlName="remarks" autocomplete="off" placeholder="Enter Remarks" matInput  rows="5"> </textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for name -->
+
+
+            <div fxFlex="40%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{"selectFile" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{pmViewSelectionModel.attachmentName}}
+                        <ngx-mat-file-input formControlName="attachmentName" [accept]="'.pdf'"
+                                            (change)="handleFileInput($event.target.files)" placeholder="Select File">
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>folder</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- Fourth row Insert-->
+
+        <div class="flex justify-end mt-3 mr-2">
+
+            <button class="px-5 mr-2" mat-flat-button color="accent" (click)="formReset()" type="reset">
+                <mat-icon class="mr-1">refresh</mat-icon>
+                {{'reset' | translate}}
+            </button>
+            <button mat-flat-button (click)="onClickSave()" type="button" color="primary"
+                    class="px-3 mb-5 ml-5 toggle-sidebar-folded" [disabled]="spinner">
+                <mat-icon class="mr-1">save</mat-icon>
+                <span> {{ "save" | translate }}</span>
+            </button>
+        </div>
+
+
+    </mat-card>
+</form>
+<!-- Form end-->
+
+
+
+<div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+    <!--<mat-card>-->
+    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+
+            <ng-container matColumnDef="sl">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'sl'|translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element; let i = index">{{i+1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="taskDetails">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'taskDetails'|translate}} </th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.taskDetails}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="location">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'location'|translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.location}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'startDate'|translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.startDate| date:"dd/MM/yyyy"}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="startTime">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'startTime' |translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.startTime }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="endDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'endDate' |translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.endDate | date:"dd/MM/yyyy"}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="endTime">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'endTime' |translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.endTime }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="remarks">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'remarks' |translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.remarks }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'action'|translate}}</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <button (click)="onClickEdit(element)" class="ml-3 action-btn" type="button">
+                        <mat-icon aria-hidden="false" [color]="'primary'" aria-label="Example home icon">edit</mat-icon>
+                    </button>
+                    <button (click)="onClickDelete(element)" class="ml-3 action-btn" type="button">
+                        <mat-icon aria-hidden="false" [color]="'warn'" aria-label="Example home icon">delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <!-- Initialized Table Header And Dataset-->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="total" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+    </div>
+</div>
+
+<!--Start Bottom Button -->
+<div class="flex justify-end mt-8">
+    <button mat-flat-button type="button" [disabled]="spinner" [color]="'primary'" class="px-3 mr-2" (click)="nextTab()">
+        <span>{{ "save&next" | translate }}</span>
+        <mat-icon class="mr-1">fast_forward</mat-icon>
+    </button>
+
+    <button mat-flat-button [disabled]="spinner" type="button" [color]="'warn'" class="px-3 mr-2" (click)="goToHome()">
+        <span> {{ "save&exit" | translate }}</span>
+        <mat-icon class="mr-1">heroicons_outline</mat-icon>
+    </button>
+</div>
+<!--end Bottom Button -->

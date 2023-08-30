@@ -1,0 +1,199 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;"> Project TAPP ( Annexure - V)
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">Home> Annexure - V
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex justify-end" style="margin-top: -50px; color: #FFFFFF !important;">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                {{"homePage" | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header close-->
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+    <!-- Main -->
+    <div>
+
+        <mat-card class="tab-color">
+            <div class="max-w-8xl">
+
+                <div style="overflow-x:auto;">
+                    <mat-card>
+                        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+
+                            <div class="p-5" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div>
+                                        <form class="form">
+                                            <div>
+                                                <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                                    <!--<p>{{'project_cost' | translate}}</p>
+                                                        &lt;!&ndash;Table Start&ndash;&gt;-->
+                                                    <table class="mat-elevation-z8">
+
+                                                        <!-- Table Body-->
+                                                        <tbody class="projectInfo">
+                                                        <tr>
+                                                            <th class="text-left">Project Title (English</th>
+                                                            <td>:</td>
+                                                            <td>{{projectTitle}}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th>Project Total Cost (Taka in Lac)</th>
+                                                            <td>:</td>
+                                                            <td>{{totalCost}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Date of Commencement</th>
+                                                            <td>:</td>
+                                                            <td>{{commencementDate | date: 'dd-MM-yyyy'}}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th>Date of Completion</th>
+                                                            <td>:</td>
+                                                            <td>{{completionDate | date: 'dd-MM-yyyy'}}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                        <!-- Table Body End-->
+                                                    </table>
+                                                    <!--Table End-->
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- 1) Personnels to be deputed to project from existing setup -->
+                            <div>
+                                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+                                    <div style="padding: 10px;">
+                                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                            <!--Table Start-->
+                                            <table class="mat-elevation-z8">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="top-header">{{'sl' | translate}}</th>
+                                                        <th class="top-header">Designation</th>
+                                                        <th class="top-header">Educational Qualifications</th>
+                                                        <th class="top-header">Experiences</th>
+                                                        <th class="top-header">Tasks to be Performed</th>
+                                                        <th class="top-header">Action</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="sub-header"> {{'num1' | translate}}</th>
+                                                        <th class="sub-header"> {{'num2' | translate}}</th>
+                                                        <th class="sub-header"> {{'num3' | translate}}</th>
+                                                        <th class="sub-header"> {{'num4' | translate}}</th>
+                                                        <th class="sub-header"> {{'num5' | translate}}</th>
+                                                        <th class="sub-header"> {{'num6' | translate}}</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <!-- Table Body-->
+                                                <tbody>
+                                                    <ng-container formArrayName="list">
+                                                        <ng-container
+                                                            *ngFor="let formRows of list.controls; let i = index"
+                                                            [formGroupName]="i">
+
+                                                            <tr>
+                                                                <td>{{i + 1}}</td>
+
+                                                                <td>
+                                                                    <mat-form-field class="w-full">
+                                                                        <input formControlName="designation" appearance="outline" autocomplete="off" matInput required>
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                                <td>
+                                                                    <mat-form-field class="example-full-width">
+                                                                        <textarea formControlName="educationalQualifications" matInput></textarea>
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                                <td>
+                                                                    <mat-form-field class="example-full-width">
+                                                                        <textarea formControlName="experiences" matInput></textarea>
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                                <td>
+                                                                    <mat-form-field class="example-full-width">
+                                                                        <textarea formControlName="tasksPerformed" matInput></textarea>
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                                <td>
+                                                                    <mat-icon (click)="deleteRow(i)" color="warn">
+                                                                        delete_forever
+                                                                    </mat-icon>
+                                                                </td>
+
+                                                            </tr>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </tbody>
+
+                                                <!-- Table Body End-->
+                                            </table>
+                                            <!--Table End-->
+
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-end mt-5">
+                                        <button class="mb-1 mt-1" type="button" (click)="addNewRow()" color="primary"
+                                            mat-raised-button>
+                                            Add New Row
+                                        </button>
+                                        <button class="ml-3 mb-1 mt-1" type="submit" color="primary"
+                                            mat-raised-button>
+                                            Save
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

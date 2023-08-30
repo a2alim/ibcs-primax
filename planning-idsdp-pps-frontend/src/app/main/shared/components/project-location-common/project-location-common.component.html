@@ -1,0 +1,225 @@
+<!--<div fxLayout="row" fxLayoutAlign="center center" *ngIf="show">-->
+<!--    <mat-spinner></mat-spinner>-->
+<!--</div>-->
+<div *ngIf="show">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<div *ngIf="!show">
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <!-- Checked button for showing only checked item-->
+            <!--<mat-checkbox fxFlex="80%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%"
+                          (change)="onlyCheckedChanged($event.checked)">
+                <span>{{'OnlySelectedItem' | translate}}</span>
+            </mat-checkbox>-->
+            <mat-checkbox fxFlex="80%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%"
+                          (change)="selectAllOverBangladesh($event.checked)">
+                <span>{{'allOverBangladesh' | translate}}</span>
+            </mat-checkbox>
+            <button *ngIf="showGis" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%" mat-flat-button
+                    color="accent" type="button">
+                {{'GISMap' | translate}}
+            </button>
+        </div>
+        <br/>
+
+        <!-- Sub Header-->
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%" style="border-bottom: 1px dotted">
+                <mat-label><strong>{{'Divisions' | translate}}</strong></mat-label>
+            </div>
+            <div fxFlex="1%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="1%"></div>
+            <div fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="24%" style="border-bottom: 1px dotted">
+                <mat-label><strong>{{'District' | translate}}</strong></mat-label>
+            </div>
+            <div fxFlex="1%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="1%"></div>
+            <div fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%" style="border-bottom: 1px dotted">
+                <mat-label><strong>{{'UpazilaCityCorporation' | translate}}</strong></mat-label>
+            </div>
+            <div fxFlex="1%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="1%"></div>
+            <div [hidden]="true" fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%" style="border-bottom: 1px dotted">
+                <mat-label><strong>{{'Municipality' | translate}}</strong></mat-label>
+            </div>
+        </div>
+
+        <br/>
+
+        <!-- Showing all location -->
+        <div *ngIf="!onlyChecked" fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <!-- Division column -->
+            <div fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%">
+                <div class="label1 font">
+                    <mat-checkbox class="check" [checked]="allDivision" (change)="checkedAll($event.checked, null, 'd', 0)"></mat-checkbox>&nbsp;
+                    <mat-label><strong>{{'Divisions' | translate}}</strong></mat-label>
+                </div>
+                <mat-nav-list>
+                    <mat-list-item class="font" *ngFor="let d of data; let j = index" [attr.data-index]="j">
+                        &nbsp;&nbsp;<mat-checkbox [checked]="d.checked"
+                                                  (change)="checkedChanged($event.checked, d, 'd')"></mat-checkbox>&nbsp;
+<!--                        <span>{{d.nameEn}}</span>-->
+                        <span>{{isEnLabel ? d?.nameEn : d?.nameBn}}</span>
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-nav-list>
+            </div>
+            <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="1%"></div>
+            <!-- Zilla column -->
+            <div fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%">
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let sd of selectedDivisions; let i = index" [attr.data-index]="i"
+                                         (opened)="zillaPanelOpenState= true"
+                                         (closed)="zillaPanelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="label1 font">
+                                <mat-checkbox class="check" [checked]="sd.checked"
+                                              (change)="checkedAll($event.checked, sd, 'z', i)"
+                                              (click)="$event.stopPropagation();"></mat-checkbox>&nbsp;
+                                <mat-label><strong>
+<!--                                    {{sd.nameEn}}-->
+                                    {{isEnLabel ? sd?.nameEn : sd?.nameBn}}
+                                </strong></mat-label>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-nav-list>
+                            <mat-list-item class="font" *ngFor="let z of sd.zillaList; let j = index" [attr.data-index]="j">
+                                <mat-checkbox [checked]="z.checked"
+                                              (change)="checkedChanged($event.checked, z, 'z')"></mat-checkbox>&nbsp;
+<!--                                {{z.nameEn}}-->
+                                {{isEnLabel ? z?.nameEn : z?.nameBn}}
+                                <mat-divider></mat-divider>
+                            </mat-list-item>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="1%"></div>
+            <!-- Upazila column -->
+            <div fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%">
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let sz of selectedZilla; let i = index" [attr.data-index]="i"
+                                         (opened)="upaZilaPanelOpenState = true"
+                                         (closed)="upaZilaPanelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="label1 font">
+                                <mat-checkbox class="check" [checked]="sz.checked"
+                                              (change)="checkedAll($event.checked, sz, 'u', i)"></mat-checkbox>&nbsp;
+                                <mat-label><strong>
+<!--                                    {{sz.nameEn}}-->
+                                    {{isEnLabel ? sz?.nameEn : sz?.nameBn}}
+                                </strong></mat-label>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-nav-list>
+                            <mat-list-item class="font" *ngFor="let u of sz.upaZillaList; let j = index" [attr.data-index]="j">
+                                <mat-checkbox [checked]="u.checked"
+                                              (change)="checkedChanged($event.checked, u, 'u')"></mat-checkbox>&nbsp;
+<!--                                {{u.nameEn}}-->
+                                {{isEnLabel ? u?.nameEn : u?.nameBn}}
+                                <mat-divider></mat-divider>
+                            </mat-list-item>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="1%"></div>
+            <!-- Municipality column -->
+            <div [hidden]="true" fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%">
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let su of selectedUpazilla; let i = index" [attr.data-index]="i"
+                                         (opened)="municipalityPanelOpenState = true"
+                                         (closed)="municipalityPanelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="label1 font">
+                                <mat-checkbox  class="check" [checked]="su.checked"
+                                              (change)="checkedAll($event.checked, su, 'm', i)"></mat-checkbox>&nbsp;
+                                <mat-label><strong>
+<!--                                    {{su.nameEn}}-->
+                                    {{isEnLabel ? su?.nameEn : su?.nameBn}}
+                                </strong></mat-label>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-nav-list>
+                            <mat-list-item class="font" *ngFor="let m of su.municipalityList; let j = index" [attr.data-index]="j">
+                                &nbsp;&nbsp;<mat-checkbox [checked]="m.checked"
+                                                          (change)="checkedChanged($event.checked, m, 'm')"></mat-checkbox>&nbsp;
+<!--                                {{m.nameEn}}-->
+                                {{isEnLabel ? m?.nameEn : m?.nameBn}}
+                                <mat-divider></mat-divider>
+                            </mat-list-item>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+
+
+        <!-- Showing only checked location -->
+        <div *ngIf="onlyChecked" fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <!-- Division column -->
+            <div fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%">
+                <div>
+                    <mat-label class="label1"><strong>{{'Divisions' | translate}}</strong></mat-label>
+                </div>
+                <mat-nav-list>
+                    <mat-list-item *ngFor="let d of selectedDivisions">
+<!--                        {{d.nameEn}}-->
+                        {{isEnLabel ? d?.nameEn : d?.nameBn}}
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-nav-list>
+            </div>
+            <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="1%"></div>
+            <!-- Zilla column -->
+            <div fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%">
+                <div *ngFor="let sd of selectedDivisions">
+                    <mat-label *ngIf="getData(sd.zillaList).length > 0" class="label1"><strong>
+<!--                        {{sd.nameEn}}-->
+                        {{isEnLabel ? sd?.nameEn : sd?.nameBn}}
+                    </strong></mat-label>
+                    <mat-nav-list>
+                        <mat-list-item *ngFor="let z of getData(sd.zillaList)">
+<!--                            {{z.nameEn}}-->
+                            {{isEnLabel ? z?.nameEn : z?.nameBn}}
+                            <mat-divider></mat-divider>
+                        </mat-list-item>
+                    </mat-nav-list>
+                </div>
+            </div>
+            <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="1%"></div>
+            <!-- Upazila column -->
+            <div fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%">
+                <div *ngFor="let sz of selectedZilla">
+                    <mat-label *ngIf="getData(sz.upaZillaList).length > 0" class="label1"><strong>
+<!--                        {{sz.nameEn}}-->
+                        {{isEnLabel ? sz?.nameEn : sz?.nameBn}}
+                    </strong></mat-label>
+                    <mat-nav-list>
+                        <mat-list-item *ngFor="let uz of getData(sz.upaZillaList);">
+<!--                            {{uz.nameEn}}-->
+                            {{isEnLabel ? uz?.nameEn : uz?.nameBn}}
+                            <mat-divider></mat-divider>
+                        </mat-list-item>
+                    </mat-nav-list>
+                </div>
+            </div>
+            <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="1%"></div>
+            <!-- Municipality column -->
+            <div [hidden]="true" fxFlex="24%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="49%">
+                <div *ngFor="let su of selectedUpazilla">
+                    <mat-label *ngIf="getData(su.municipalityList).length > 0" class="label1"><strong>
+<!--                        {{su.nameEn}}-->
+                        {{isEnLabel ? su?.nameEn : su?.nameBn}}
+                    </strong></mat-label>
+                    <mat-nav-list>
+                        <mat-list-item *ngFor="let m of getData(su.municipalityList);">
+<!--                            {{m.nameEn}}-->
+                            {{isEnLabel ? m?.nameEn : m?.nameBn}}
+                            <mat-divider></mat-divider>
+                        </mat-list-item>
+                    </mat-nav-list>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+
+</div>

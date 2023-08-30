@@ -1,0 +1,153 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <div>
+                <div>
+                    <button
+                        class="px-3 mr-2 profile-button"
+                        mat-flat-button
+                        (click)="goToProfile()"
+                        type="button">
+                        <mat-icon class="mr-1">book</mat-icon>
+                        {{'Profile' | translate}}
+                    </button>
+                    &nbsp;&nbsp;
+                    <button
+                        class="px-3 mr-2 proposal-button"
+                        mat-flat-button
+                        (click)="goToProposal()"
+                        type="button">
+                        <mat-icon class="mr-1">tab</mat-icon>
+                        {{'Proposal' | translate}}
+                    </button>
+                    <button
+                        class="px-3 mr-2 back-button"
+                        [color]="'primary'"
+                        (click)="previousTab()"
+                        mat-flat-button
+                        type="button">
+                        <mat-icon class="mr-1">{{previousIcon}}</mat-icon>
+                        {{'Previous' | translate}}
+                    </button>
+                </div>
+                <div class="flex-auto mt-6">
+
+                    <mat-card class="propose-body">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                <strong>{{'ResearchTitle' | translate}} :</strong>
+                            </mat-label>
+                            <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                {{researcherProposal?.researchTitle}}</p>
+                        </div>
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                <strong>{{'ResearchCatType' | translate}} :</strong>
+                            </mat-label>
+                            <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                {{researcherProposal?.researchCategoryType.categoryName}}</p>
+                        </div>
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                <strong>{{'FiscalYear' | translate}} :</strong>
+                            </mat-label>
+                            <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                {{researcherProposal?.fiscalYear.fiscalYear}}</p>
+                        </div>
+
+                    </mat-card>
+                </div>
+
+                <br/>
+
+                <div>
+                    <mat-card>
+                        <form>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                                <mat-label style="margin-top: -15px" fxFlex="15%" fxFlex.md="25%" fxFlex.sm="40%"
+                                           fxFlex.xs="100%">
+                                    {{'Subject' | translate}} :
+                                    <strong class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="85%" fxFlex.md="75%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input matInput required [(ngModel)]="submissionLetter.subject"
+                                           [ngModelOptions]="{standalone: true}">
+                                    <mat-error>{{'SubjectReq' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="15%" fxFlex.md="25%" fxFlex.sm="40%"
+                                           fxFlex.xs="100%">
+                                    {{'BodyContent' | translate}} :
+                                    <strong class="required">*</strong>
+                                </mat-label>
+
+                                <div fxFlex="85%" fxFlex.md="75%" fxFlex.sm="60%" fxFlex.xs="100%">
+
+                                    <div class="custom-file-upload-div">
+                                        <label for="file-upload" class="custom-file-upload">
+                                            <mat-icon class="custom-image-icon">image</mat-icon>
+                                        </label>
+                                        <input #file type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file.files,'objectivesEn')"
+                                               id="file-upload"/>
+                                    </div>
+
+                                    <ckeditor [(ngModel)]="submissionLetter.letterBody"
+                                              [ngModelOptions]="{standalone: true}"[config]="mediumEditorConfig">
+                                    </ckeditor>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end mt-3 mr-2">
+
+                                <button
+                                    *ngIf="submissionLetter?.mailSend !== 1"
+                                    mat-flat-button
+                                    style="background-color: green; color: #FFFFFF"
+                                    type="submit"
+                                    (click)="onSubmit(false)"
+                                    class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                                    <span>{{ "Save" | translate }}</span>
+                                </button>
+
+                                <button
+                                    *ngIf="submissionLetter?.mailSend !== 1"
+                                    mat-flat-button
+                                    (click)="onSubmit(true)"
+                                    type="button"
+                                    color="primary"
+                                    class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                                    <mat-icon class="mr-1">mail</mat-icon>
+                                    <span> {{ "SaveAndSend" | translate }}</span>
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </mat-card>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- Main End -->
+</div>

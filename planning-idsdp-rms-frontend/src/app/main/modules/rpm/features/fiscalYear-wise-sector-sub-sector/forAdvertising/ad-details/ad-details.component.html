@@ -1,0 +1,215 @@
+<div class="width-100" >
+    <!-- Header -->
+    <app-form-header [ngClass]="langVal == 'bn' ? 'nikosh font-20':'' " [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <div *ngIf="spinner2" class="flex items-center justify-center">
+        <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color mt-4">
+
+            <div  class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <h1 [ngClass]="langVal == 'bn' ? 'nikosh font-20 md:mt-2':'md:mt-2' " >{{'details' | translate}}</h1>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <div class="flex md:justify-end">
+                                <!-- <button
+                                    class="px-3 mr-2 primaryBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    (click)="sendToEnothiFile()"
+                                    type="button">
+                                    <mat-icon *ngIf="sendToEnothi" class="mr-1">{{sendToEnothi}}</mat-icon>
+                                    {{'sendToEnothi' | translate}}
+                                </button> -->
+
+                                <button
+                                    class="px-3 mr-2 previousIcon"
+                                    mat-flat-button
+                                    color="accent"
+                                    (click)="back()"
+                                    type="button">
+                                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                    {{'previous' | translate}}
+                                </button>
+
+                                <button [disabled]="spinner2"
+                                    class="px-3 mr-2 downloadBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    (click)="download('field-sub-field-selection')"
+                                    type="button">
+                                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                                    {{'download' | translate}}
+                                </button>
+
+                                <!-- <button
+                                    class="px-3 mr-2 printBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    (click)="back()"
+                                    type="button">
+                                    <mat-icon *ngIf="noteIcon" class="mr-1">{{noteIcon}}</mat-icon>
+                                    {{'forAdd' | translate}}
+                                </button> -->
+
+                                <button
+                                    [useExistingCss]="true"
+                                    printTitle="Sector-Sub Sector"
+                                    class="px-3 printBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    printSectionId="printDiv" ngxPrint
+                                    type="button">
+                                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                    {{'print' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card Body -->
+        <div class="border3 form-bg-color">
+            <div class="md:flex p-4">
+                <div class="w-full sm:w-auto md:w-full lg:w-full">
+                    <div id="printDiv">
+                        <table class="tbl-details">
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="text-center relative text-bold text-lg pb-5" style="text-align: center !important;">
+                                        গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>
+                                        পরিকল্পনা মন্ত্রণালয় <br>
+                                        পরিকল্পনা বিভাগ <br>
+                                        সামাজিক বিজ্ঞান গবেষণ পরিষদ <br>
+                                        <u>ssrc.portal.gov.bd</u><br>
+
+                                        <span *ngIf="data?.letterFor == 'Draft Copy'; else FinalLetter" [ngClass]="langVal == 'bn' ? 'nikosh font-20':'' " class="text-bold text-yellow-700 border-yellow-400 pl-3 pr-3" style="border: 1px solid;">
+                                            {{'draftCopy' | translate}}
+                                        </span>
+                                        <ng-template #FinalLetter>
+                                            <span [ngClass]="langVal == 'bn' ? 'nikosh font-20':'' " class="text-bold text-green-700 border-green-400 pl-3 pr-3" style="border: 1px solid;">
+                                                {{'finalCopy' | translate}}
+                                            </span>
+                                        </ng-template>
+
+
+                                        <div class="flex md:justify-end absolute"  style=" top: 7px; right: 20px;">
+                                            <img ng-src="assets/images/logo/bangbondhuImg.jpg" src="assets/images/logo/bangbondhuImg.jpg" style="width: 100px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="pb-5">
+                                    {{'stFiscalYearIdLn' | translate}} : {{fiscalYear |  enToBn:langVal}},
+                                    {{'advertisementStartDateLn' | translate}} : {{(replaceNumbers(data?.advertisementStartDate) | date: 'dd/MM/yyyy') | enToBn:langVal}},
+                                    {{'advertisementEndDateLn' | translate}} : {{(data?.advertisementEndDate | date: 'dd/MM/yyyy') | enToBn:langVal}},
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="pb-5">
+                                    <div class="budgetAmount">{{'trainingInst' | translate}}</div>
+                                    {{'advertisementStartDateLn' | translate}} : {{(replaceNumbers(data?.tiApplicationStartDate) | date: 'dd/MM/yyyy') | enToBn:langVal}},
+                                    {{'advertisementEndDateLn' | translate}} : {{(data?.tiApplicationEndDate | date: 'dd/MM/yyyy') | enToBn:langVal}} <br/>
+                                    {{'tiBudgetAmount' | translate}} : {{data?.tiBudgetAmount | enToBn:langVal}}{{'zero' | translate}},
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2" class="pb-5">
+                                    <div class="budgetAmount">{{'catWiseBudAmount' | translate}}</div>
+                                    {{'PhDCategory' | translate}} : {{data?.phdCatBudgetAmount | enToBn:langVal}}{{'zero' | translate}},
+                                    {{'MPhilCategory' | translate}} : {{data?.mphilCatBudgetAmount | enToBn:langVal}}{{'zero' | translate}},
+                                    {{'FellowshipCategory' | translate}} : {{data?.fellowCatBudgetAmount | enToBn:langVal}}{{'zero' | translate}},
+                                    {{'PromotionalCategory' | translate}} : {{data?.promoCatBudgetAmount | enToBn:langVal}}{{'zero' | translate}},
+                                    {{'InstitutionalCategory' | translate}} : {{data?.instCatBudgetAmount | enToBn:langVal}}{{'zero' | translate}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="pb-5">
+                                        <div [innerHtml]="data?.paragraph1 | ngHtml">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="pb-5">
+                                        <table class="fieldTbl">
+                                            <tr class="text-center text-bold">
+                                                <td style="width: 50px; text-align: center !important;">{{'sl' | translate}}</td>
+                                                <td style="width: 150px; text-align: center !important;">{{'field' | translate}}</td>
+                                            </tr>
+                                            <tr *ngFor="let val of fieldSubFieldList; let i = index">
+                                                <td style="text-align: center !important;">
+                                                    {{i+1 | enToBn:langVal}}
+                                                </td>
+                                                <td>
+                                                    {{val.sectorTypeName}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div [innerHtml]="data?.paragraph2 | ngHtml"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="pt-5">
+                                        <table class="subFielbTbl">
+                                            <tr>
+                                                <td colspan="3" style="border: none; font-weight: bold;">
+                                                    বিষয়: {{fiscalYear | enToBn}} অর্থবছরে গবেষণা মঞ্জুরি প্রদানের লক্ষ্যে গবেষণা প্রস্তাবনা (প্রমোশনাল, এমফিল, পিএইচডি, ফেলোশীপ ও প্রাতিষ্ঠানিক ক্যাটাগরি) আহ্বান
+                                                </td>
+                                            </tr>
+                                            <tr class="text-center text-bold">
+                                                <td style="width: 80px; text-align: center !important;">{{'sl' | translate}}</td>
+                                                <td style="width: 150px; text-align: center !important;">{{'field' | translate}}</td>
+                                                <td style="text-align: center !important;">{{'sub_field' | translate}}</td>
+                                            </tr>
+                                            <tr *ngFor="let item of fieldSubFieldList; let i = index">
+                                                <td style="text-align: center !important;">
+                                                    {{i+1 | enToBn:langVal}}
+                                                </td>
+                                                <td>
+                                                    {{item.sectorTypeName}}
+                                                </td>
+                                                <td>
+                                                    <!-- {{item.subFieldName}} -->
+                                                    <span *ngFor="let val of item?.subSector; let k = index" [attr.data-index]="k">
+                                                        {{val.subFieldName}}<span *ngIf="k < (item.subSector.length)-1">,</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="flex justify-end mt-3">
+                        <button
+                            class="px-5 previous-button"
+                            mat-flat-button
+                            color="accent"
+                            (click)="back()"
+                            type="button">
+                            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                            {{'previous' | translate}}
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>
+
+

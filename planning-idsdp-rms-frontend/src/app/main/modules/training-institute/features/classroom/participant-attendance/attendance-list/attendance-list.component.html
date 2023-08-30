@@ -1,0 +1,124 @@
+<div style="width: 100%">
+    <!-- Header -->
+
+    <app-form-header [subTitle]="'headerSubTitle' | translate" [title]="'header' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin" style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="flex justify-end mb-3">
+                <button [routerLink]="['/attendance-list/add']" class="ml-3" color="primary" mat-raised-button>
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                    {{'addNew' | translate}}
+                </button>
+            </div>
+
+            <!-- CARD ONE-->
+
+            <mat-card class="tab-color">
+                <div class="md:flex tbl-title md:justify-end">
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'header' | translate}}
+                        </h1>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-40 lg:w-40 md:text-right">
+                        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                            <!--<mat-label>Filter</mat-label>-->
+                            <input #input (keyup)="applyFilter($event)" [placeholder]="'search'|translate" matInput/>
+                            <button mat-button mat-icon-button matPrefix>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <!--<mat-card>-->
+                    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                        <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sl">
+                                <th *matHeaderCellDef class="w-16" mat-header-cell> {{'sl' | translate}} </th>
+                                <td *matCellDef="let row; let i = index;" mat-cell>
+                                    {{(i + 1) + (page * size)}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="courseTitle">
+                                <th *matHeaderCellDef mat-header-cell> {{'courseTitle' | translate}} </th>
+                                <td *matCellDef="let element" mat-cell> {{ element.courseTitle }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="session">
+                                <th *matHeaderCellDef mat-header-cell> {{'sessionTbl' | translate}} </th>
+                                <td *matCellDef="let element" mat-cell> {{ element.session }} </td>
+                            </ng-container>
+
+                            <!-- second Party Name Column -->
+                            <ng-container matColumnDef="speaker">
+                                <th *matHeaderCellDef mat-header-cell> {{'speakerTbl' | translate}} </th>
+                                <!--                                <td *matCellDef="let element" mat-cell> {{ element.trainer.name }} </td>-->
+                                <td *matCellDef="let element" mat-cell> <span style="text-align: left !important;" [innerHtml]="element.speakerName"></span> </td>
+                            </ng-container>
+                            <ng-container matColumnDef="topic">
+                                <th *matHeaderCellDef mat-header-cell> {{'topicTbl' | translate}} </th>
+                                <td *matCellDef="let element" mat-cell> {{ element.topicName }} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="date">
+                                <th *matHeaderCellDef mat-header-cell> {{'date' | translate}} </th>
+                                <td *matCellDef="let element" mat-cell> {{element.date | date:'dd/MM/yyyy'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="savedStatus">
+                                <th *matHeaderCellDef mat-header-cell> {{'savedStatus' | translate}} </th>
+                                <!--                                <td *matCellDef="let element"-->
+                                <!--                                    mat-cell> {{ element.editable ? "Draft Saved" : "Final Saved" }}</td>-->
+                                <td *matCellDef="let element" mat-cell> {{ element.isDraft }}</td>
+                            </ng-container>
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th *matHeaderCellDef class="pl-4 w-32" mat-header-cell> {{'action' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <div class="buttons">
+                                        <button (click)="viewDetails(element.id)" class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button matTooltip="visibility">
+                                            <mat-icon color="accent">visibility
+                                            </mat-icon>
+                                        </button>
+                                        <ng-container *ngIf="element.editable">
+                                        <button (click)="editParticipantAttendance(element.id)" [disabled]="!element.editable" class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button matTooltip="Edit">
+                                            <mat-icon color="primary">edit
+                                            </mat-icon>
+                                        </button>
+                                        <button (click)="openDialog(element.id)" [disabled]="!element.editable" class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button matTooltip="Delete">
+                                            <mat-icon color="warn">delete
+                                            </mat-icon>
+                                        </button>
+                            </ng-container>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator (page)="onChangePage($event)" [length]="total" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="size">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

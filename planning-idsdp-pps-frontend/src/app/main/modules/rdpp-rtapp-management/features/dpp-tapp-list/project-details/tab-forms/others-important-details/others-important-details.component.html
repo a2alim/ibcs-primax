@@ -1,0 +1,151 @@
+<div class="body">
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+
+    <form [formGroup]="formGroup" name="formGroup">
+
+        <div>
+            <div class="heading">
+            <span class="inline-block align-middle">
+              {{'Other_important_details' | translate}}
+            </span>
+
+            </div>
+
+            <mat-card>
+
+                <div>
+                    <div class="sub-heading">
+            <p>
+              {{'Sustainability_benefit' | translate}}
+                        <span *ngIf="!editor2" (click)="toggleShow2()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor2" (click)="toggleShow2()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+            </p>
+                    </div>
+                    <div *ngIf="editor2" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload0" class="custom-file-upload">
+                                <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'sustainabilityBenefit')"
+                                id="file-upload0" />
+                        </div>
+
+                        <ckeditor formControlName="sustainabilityBenefit"></ckeditor>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <div class="sub-heading">
+            <p>
+              {{'Steering_committee_tor' | translate}}
+
+                        <span *ngIf="!editor3" (click)="toggleShow3()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor3" (click)="toggleShow3()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+            </p>
+                    </div>
+                    <div *ngIf="editor3" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload1" class="custom-file-upload">
+                                <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                            <input #file1 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file1.files,'steeringCommitteeTor')" id="file-upload1" />
+                        </div>
+                        <ckeditor formControlName="steeringCommitteeTor"></ckeditor>
+
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <div class="sub-heading">
+            <p>
+              {{'Implementation_committee_tor' | translate}}
+
+                        <span *ngIf="!editor4" (click)="toggleShow4()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor4" (click)="toggleShow4()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+            </p>
+                    </div>
+                    <div *ngIf="editor4" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload3" class="custom-file-upload">
+                                <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                            <input #file3 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file3.files,'implementationCommitteeTor')" id="file-upload3" />
+                        </div>
+
+                        <ckeditor formControlName="implementationCommitteeTor"></ckeditor>
+                    </div>
+                </div>
+
+                <br>
+
+                <div>
+                    <div class="sub-heading">
+            <p>
+              {{'Others' | translate}}
+                        <span *ngIf="!editor5" (click)="toggleShow5()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor5" (click)="toggleShow5()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+            </p>
+                    </div>
+                    <div *ngIf="editor5" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload2" class="custom-file-upload">
+                                <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                            <input #file2 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file2.files,'others')" id="file-upload2" />
+                        </div>
+
+                        <ckeditor formControlName="others"></ckeditor>
+                    </div>
+                </div>
+                </mat-card>
+        </div>
+    </form>
+    <div class="flex justify-end mt-8">
+        <button
+            class="px-8 mr-2"
+            mat-flat-button
+            [color]="'accent'"
+            type="button"
+            matStepperPrevious>
+            {{'back' | translate}}
+        </button>
+        <button
+            [disabled]="buttonDisable || spinner"
+            class="px-8 mr-2"
+            mat-flat-button
+            [color]="'primary'"
+            type="button"
+            (click)="onSubmit()"
+            matStepperNext>
+            {{'save' | translate}}
+        </button>
+    </div>
+</div>

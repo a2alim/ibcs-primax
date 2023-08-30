@@ -1,0 +1,20 @@
+version: '3'
+services:
+  planning-idsdp-pps-rdpp-rtapp-backend:
+    image: 'planning-idsdp-pps-rdpp-rtapp-backend'
+    container_name: pps-rdpp-rtapp-backend
+    environment:
+      - TZ=Asia/Dhaka
+    ports:
+      - "8097:8097"
+    #Volume mounted for database for the storage
+    volumes:
+      - planning-idsdp-pps-rdpp-rtapp-backend:/var/lib/docker/volumes/planning-idsdp-pps-rdpp-rtapp-backend/_data
+      - /docker_volume/pps-rdpp-rtapp-backend/static:/src/main/resources/static/files/
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+    restart: always
+#Volumes for DB data
+volumes:
+  planning-idsdp-pps-rdpp-rtapp-backend:

@@ -1,0 +1,115 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header class="no-print" [title]="'header' | translate" [subTitle]="'headerOfSubtitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;" class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <div class="flex justify-end mb-3 no-print">
+                <button (click)="back()" class="px-3 mr-2 previousIcon" color="accent" mat-flat-button type="button">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'back' | translate}}
+                </button>
+
+                <button (click)="print()" class="px-3 mr-2 printBtn" color="accent" mat-flat-button type="button">
+                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                    {{'print' | translate}}
+                </button>
+                <button mat-raised-button style="background: #17a2b8 !important;color: white;" class="downloadBtn" class="ml-1 mr-1" [routerLink]="['/']">
+                    <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+                    {{'download' | translate}}
+                </button>
+
+
+            </div>
+            <mat-card class="tab-color" id="printPage">
+
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <!--<mat-card>-->
+                    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sl">
+                                <th mat-header-cell *matHeaderCellDef class="w-16"> {{'Sl' | translate}} </th>
+                                <td mat-cell *matCellDef="let row; let i = index;" class="text-center">
+                                    {{(i + 1) + (page * size)}}
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="participantName">
+                                <th mat-header-cell *matHeaderCellDef> {{'participantName' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center"> {{element.name}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="courseTitle">
+                                <th mat-header-cell *matHeaderCellDef> {{'courseTitle' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                    <!--                                    {{element.courseTitle}}-->
+                                    {{ element.proposalModel.trainingName }}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="sex">
+                                <th mat-header-cell *matHeaderCellDef> {{'sex' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                    {{element.gender}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="mobileNo">
+                                <th mat-header-cell *matHeaderCellDef> {{'mobileNo' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                    {{element.phoneNo}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef> {{'email' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                    {{element.email}}
+                                </td>
+                            </ng-container>
+
+                            <!-- Action Column -->
+                            <!-- <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'Action' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                    <div class="buttons">
+                                        <button (click)="viewDetails(element.uuid)" mat-icon-button class="toggle-sidebar-folded" matTooltip="visibility" fxHide.lt-lg>
+                                            <mat-icon color="primary">visibility
+                                            </mat-icon>
+                                        </button>
+                                        <button (click)="edit(element.id)" mat-icon-button class="toggle-sidebar-folded" matTooltip="Edit" fxHide.lt-lg>
+                                            <mat-icon color="accent">edit
+                                            </mat-icon>
+                                        </button>
+                                        <button (click)="delete(element.id)" class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button matTooltip="delete">
+                                            <mat-icon color="warn">delete
+                                            </mat-icon>
+                                        </button>
+
+                                    </div>
+                                </td>
+                            </ng-container> -->
+
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </div>
+            </mat-card>
+
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

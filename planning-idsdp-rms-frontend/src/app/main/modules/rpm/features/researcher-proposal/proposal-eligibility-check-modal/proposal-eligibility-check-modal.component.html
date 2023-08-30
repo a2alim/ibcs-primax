@@ -1,0 +1,457 @@
+<!--Loder-->
+<div *ngIf="spinner" class="flex items-center justify-center">
+    <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+        class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+    </div>
+</div>
+
+<!-- Main Start -->
+<ng-conteiner *ngIf="!openMessage">
+    <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <mat-label class="heading w-full">
+            {{'CheckEligibilityBtn' | translate}}
+        </mat-label>
+    </div>
+
+    <mat-card>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        {{'ResearchCategory' | translate}}
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                        fxFlex.xs="100%">
+                        <mat-select [(ngModel)]="selectedCategory" [ngModelOptions]="{standalone: true}" required
+                            (selectionChange)="onChangeCategory()" [disabled]="isInstitutional">
+                            <mat-option *ngFor="let c of categoryList" [value]="c.categoryName">{{c.categoryName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+        </div>
+
+        <ng-container *ngIf="selectedCategory === categoryType.FELLOWSHIP">
+
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <mat-label style="margin-top: -15px">{{'Phd' | translate}}</mat-label>&nbsp;&nbsp;
+                            <mat-checkbox class="pb-2" [checked]="eligibility.isPhd" disabled></mat-checkbox>
+                        </div>
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <mat-label style="margin-top: -15px">{{'MPhil' | translate}}</mat-label>&nbsp;&nbsp;
+                            <mat-checkbox class="pb-2" [checked]="eligibility.isMphil" disabled></mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                            fxFlex.xs="100%">
+                            {{'ResearchExperience' | translate}}
+                        </mat-label>
+                        <mat-form-field fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                            <input matInput [(ngModel)]="eligibility.researcherExperience"
+                                [ngModelOptions]="{standalone: true}" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+
+        </ng-container>
+
+        <ng-container *ngIf="selectedCategory === categoryType.INSTITUTIONAL">
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                            fxFlex.xs="100%">
+                            {{'Phd' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                            fxFlex.xs="100%">
+                            <input matInput [(ngModel)]="eligibility.phd" [ngModelOptions]="{standalone: true}"
+                                readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                            fxFlex.xs="100%">
+                            {{'MPhil' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                            fxFlex.xs="100%">
+                            <input matInput [(ngModel)]="eligibility.mphil" [ngModelOptions]="{standalone: true}"
+                                readonly>
+                        </mat-form-field>
+                    </div>
+                </div> -->
+
+
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                            fxFlex.xs="100%">
+                            {{'Msc' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                            fxFlex.xs="100%">
+                            <input matInput [(ngModel)]="eligibility.masters" [ngModelOptions]="{standalone: true}"
+                                readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                            fxFlex.xs="100%">
+                            {{'Msc' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                            fxFlex.xs="100%">
+                            <input matInput [(ngModel)]="eligibility.masters" [ngModelOptions]="{standalone: true}"
+                                readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+            </div> -->
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <mat-label style="margin-top: -15px">
+                        {{'InfrastructureFacilities' | translate}}
+                    </mat-label>&nbsp;&nbsp;&nbsp;
+                    <mat-radio-group [(ngModel)]="eligibility.infrastructureFacility"
+                        [ngModelOptions]="{standalone: true}" (change)="validityCheck()">
+                        <mat-radio-button [value]='1'>Yes</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button [value]='0'>No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+
+
+        </ng-container>
+
+        <ng-container *ngIf="selectedCategory === categoryType.MPHIL">
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                            fxFlex.xs="100%">
+                            {{'MPhilRegNo' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                            fxFlex.xs="100%">
+                            <input matInput [(ngModel)]="eligibility.mPhilRegNo" [ngModelOptions]="{standalone: true}"
+                                (keyup)="validityCheck()">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                            fxFlex.xs="100%">
+                            {{'RegDate' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                            fxFlex.xs="100%">
+                            <input matInput [matDatepicker]="datepicker" (dateChange)="validityCheck()"
+                                [(ngModel)]="eligibility.regYear" (click)="datepicker.open()" readonly [max]="maxDate">
+                            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+
+        </ng-container>
+
+        <ng-container *ngIf="selectedCategory === categoryType.PHD">
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                            fxFlex.xs="100%">
+                            {{'PhdRegNo' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                            fxFlex.xs="100%">
+                            <input matInput [(ngModel)]="eligibility.phdRegNo" [ngModelOptions]="{standalone: true}"
+                                (keyup)="validityCheck()">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                            fxFlex.xs="100%">
+                            {{'RegDate' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%"
+                            fxFlex.xs="100%">
+                            <input matInput [matDatepicker]="datepicker1" (dateChange)="validityCheck()"
+                                [(ngModel)]="eligibility.regYear" (click)="datepicker1.open()" readonly [max]="maxDate">
+                            <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+
+        </ng-container>
+
+        <ng-container *ngIf="selectedCategory === categoryType.PROMOTIONAL">
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="70%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                            {{'EmpType' | translate}}
+                        </mat-label>
+                        <mat-radio-group fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%"
+                            [(ngModel)]="eligibility.empType" [ngModelOptions]="{standalone: true}"
+                            (change)="validityCheck()" disabled>
+                            <mat-radio-button [value]='1'>{{'Govt' | translate}}</mat-radio-button>&nbsp;&nbsp;
+                            <mat-radio-button [value]='2'>{{'Private' | translate}}</mat-radio-button>&nbsp;&nbsp;
+                            <mat-radio-button [value]='0'>{{'Others' | translate}}</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                            {{'Graduate' | translate}}
+                        </mat-label>
+                        <mat-checkbox fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%"
+                            [checked]="eligibility.isGraduate" disabled></mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                            fxFlex.xs="100%">
+                            {{'Age' | translate}}
+                        </mat-label>
+                        <mat-form-field fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                            <input matInput [(ngModel)]="eligibility.age" [ngModelOptions]="{standalone: true}" readonly
+                                (keyup)="validityCheck()">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+            </div>
+
+
+        </ng-container>
+
+        <div class="flex justify-end mt-3 mr-2">
+
+            <button mat-flat-button type="button" class="px-3 mr-2 cancel-button" (click)="close()">
+                <mat-icon class="mr-1" *ngIf="closeIcon">{{closeIcon}}</mat-icon>
+                <span> {{ 'Close' | translate }}</span>
+            </button>
+
+            <!-- <button mat-flat-button (click)="addNewProposal()" color="primary" [disabled]="!createProposal"
+            class="px-3 mr-2 save-button" type="submit">
+            <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+            <span> {{ 'Create' | translate }}</span>
+        </button> -->
+
+            <button type="button" mat-flat-button [color]="'primary'" (click)="eligibilityChecker()">
+                <mat-icon matSuffix class="secondary-text">published_with_changes</mat-icon>
+                &nbsp;{{'CheckEligibilityBtn'|translate}}
+            </button>
+
+        </div>
+
+    </mat-card>
+    <!-- Main End -->
+</ng-conteiner>
+
+
+<!-- Main Start -->
+<ng-conteiner *ngIf="openMessage">
+    <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <mat-label class="heading w-full">
+            {{'ResearchProposalEligibilityChecker' | translate}}
+        </mat-label>
+    </div>
+
+    <mat-card>
+
+        <ng-container *ngIf="!createProposal">
+            <p class="align-center">
+                <b style="font-size: 15px; color: #ed2641;">{{'Sorry'|translate}}
+                </b>
+            </p>
+        </ng-container>
+
+        <ng-container *ngIf="createProposal">
+            <p class="align-center">
+                <b style="font-size: 15px; color: seagreen;">
+                    {{'Congratulations'|translate}}
+                </b>
+            </p>
+        </ng-container>
+
+
+
+        <br>
+
+        <p class="align-center">
+            <b style="font-size: 15px; color: seagreen;">{{'Details'|translate}}</b>
+        </p>
+
+        <p class="align-center">
+            <b style="font-size: 15px; color: seagreen;">{{'For'|translate}}</b>
+        </p>
+
+        <br>
+
+
+
+        <ng-container *ngIf="selectedCategory === categoryType.PROMOTIONAL">
+            <p class="align-center">
+                <b style="font-size: 15px; color: rgb(26, 22, 223);">{{'EligibilityforPromotional'|translate}}
+                </b>
+            </p>
+        </ng-container>
+
+        <ng-container *ngIf="selectedCategory === categoryType.PHD">
+            <p class="align-center">
+                <b style="font-size: 15px; color: rgb(26, 22, 223);">{{'EligibilityForPhD'|translate}}
+                </b>
+            </p>
+        </ng-container>
+
+
+        <ng-container *ngIf="selectedCategory === categoryType.INSTITUTIONAL">
+            <p class="align-center">
+                <b style="font-size: 15px; color: rgb(26, 22, 223);">{{'EligibilityforInstitutionalResearch'|translate}}
+                </b>
+            </p>
+        </ng-container>
+
+        <ng-container *ngIf="selectedCategory === categoryType.MPHIL">
+            <p class="align-center">
+                <b style="font-size: 15px; color: rgb(26, 22, 223);">{{'EligibilityforMPhil'|translate}}
+                </b>
+            </p>
+        </ng-container>
+
+        <ng-container *ngIf="selectedCategory === categoryType.FELLOWSHIP">
+            <p class="align-center">
+                <b style="font-size: 15px; color: rgb(26, 22, 223);">{{'EligibilityforFellowship'|translate}}
+                </b>
+            </p>
+        </ng-container>
+
+        <div class="md:flex justify-center mt-4">
+            <div class="sm:w-100 md:w-60 lg:w-60 md:text-left p-2 text-base text-stone-900"
+                style="border:1px solid #CCC">
+                <div *ngIf="selectedCategory === categoryType.PROMOTIONAL">
+                    <div>                       
+                        {{'PROMOTIONAL_MSG_1'|translate}}
+                    </div>
+                    <div>                       
+                        {{'PROMOTIONAL_MSG_2'|translate}}
+                    </div>
+                </div>
+
+                <ng-container *ngIf="selectedCategory === categoryType.PHD">
+                    <div>                       
+                        {{'PHD_MSG_1'|translate}}
+                    </div>
+                    <div>                        
+                        {{'PHD_MSG_2'|translate}}
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="selectedCategory === categoryType.INSTITUTIONAL">
+                    <div>                       
+                        {{'INSTITUTIONAL_MSG_1'|translate}}
+                    </div>
+                    <div class="ml-10 ">                       
+                        {{'INSTITUTIONAL_MSG_2'|translate}}
+                    </div>
+                    <div class="ml-10 ">                        
+                        {{'INSTITUTIONAL_MSG_3'|translate}}
+                    </div>
+                    <!-- <div class="ml-10 ">                        
+                        {{'INSTITUTIONAL_MSG_4'|translate}}
+                    </div> -->
+                </ng-container>
+
+                <ng-container *ngIf="selectedCategory === categoryType.MPHIL">
+                    <div>                        
+                        {{'MPHIL_MSG_1'|translate}}
+                    </div>
+                    <div>                        
+                        {{'MPHIL_MSG_2'|translate}}
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="selectedCategory === categoryType.FELLOWSHIP">
+                    <div>                        
+                        {{'FELLOWSHIP_MSG_1'|translate}}
+                    </div>
+                    <div class="ml-10 ">                        
+                        {{'FELLOWSHIP_MSG_2'|translate}}
+                    </div>
+                    <div class="ml-10 ">                        
+                        {{'FELLOWSHIP_MSG_3'|translate}}
+                    </div>
+                    <div class="ml-10 ">                        
+                        {{'FELLOWSHIP_MSG_4'|translate}}
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+
+        <div class="flex justify-center mt-3 mr-2">
+
+            <button mat-flat-button type="button" class="px-3 mr-2 cancel-button" (click)="close()">
+                <mat-icon class="mr-1" *ngIf="closeIcon">{{closeIcon}}</mat-icon>
+                <span> {{ 'Close' | translate }}</span>
+            </button>
+
+            <button mat-flat-button (click)="addNewProposal()" color="primary" [disabled]="!createProposal"
+                class="px-3 mr-2 save-button" type="submit">
+                <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                <span> {{ 'Create' | translate }}</span>
+            </button>
+
+        </div>
+
+
+
+    </mat-card>
+    <!-- Main End -->
+</ng-conteiner>

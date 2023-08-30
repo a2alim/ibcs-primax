@@ -1,0 +1,9 @@
+<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+<!--    <mat-label fxFlex="25%" fxFlex.xs="30%" fxFlex.sm="30%">{{labelName}}:</mat-label>-->
+    <input class="input" matInput fxFlex="90%" fxFlex.xs="90%" fxFlex.sm="90%" [placeholder]="labelName" readonly
+           [value]="selectedFile?.name">
+    <mat-icon matSuffix xFlex="10%" fxFlex.xs="10%" fxFlex.sm="10%" type="button" matTooltip="Choose File"
+              onClick="document.getElementById('file').click(); return false;">folder
+    </mat-icon>
+    <input #fileInput (change)="onFileSelected($event)" accept='.pdf' id="file" style="visibility: hidden" type="file">
+</div>

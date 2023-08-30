@@ -1,0 +1,305 @@
+<!-- body -->
+<div class="body">
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+    <form [formGroup]="formGroup" name="formGroup">
+        <div>
+            <div class="heading">
+                <span class="inline-block align-middle m-1">
+                    {{ "Background_information" | translate }}
+                </span>
+            </div>
+
+            <mat-card>
+                <div>
+                    <div class="sub-heading">
+                        <p>
+                            {{ "Background_statement" | translate }}
+
+                        <span *ngIf="!editor1" (click)="toggleShow1()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor1" (click)="toggleShow1()" title>
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        </p>
+                    </div>
+                    <div *ngIf="editor1" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload0" class="custom-file-upload">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                             <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'backgroundStatement')"  id="file-upload0" />
+                        </div>
+
+                        <ckeditor
+                            formControlName="backgroundStatement"
+                        ></ckeditor>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <div class="sub-heading">
+                        <p>
+                            {{ "Linkages" | translate }}
+
+                        <span *ngIf="!editor2" (click)="toggleShow2()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor2" (click)="toggleShow2()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        </p>
+                    </div>
+                    <div *ngIf="editor2" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload1" class="custom-file-upload">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                             <input #file1 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file1.files,'linkages')"  id="file-upload1" />
+                        </div>
+
+                        <ckeditor formControlName="linkages"></ckeditor>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <div class="sub-heading">
+                        <p>
+                            {{ "Poverty_situation" | translate }}
+
+                        <span *ngIf="!editor3" (click)="toggleShow3()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor3" (click)="toggleShow3()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        </p>
+                    </div>
+                    <div *ngIf="editor3" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload2" class="custom-file-upload">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                             <input #file2 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file2.files,'povertySituation')"  id="file-upload2" />
+                        </div>
+
+                        <ckeditor formControlName="povertySituation"></ckeditor>
+                    </div>
+                </div>
+
+                <br />
+            </mat-card>
+            <div class="mt-5">
+                <div class="heading">
+                    <span class="inline-block align-middle">
+                        {{ "Project_description" | translate }}
+                    </span>
+                </div>
+            </div>
+
+            <mat-card>
+                <div>
+                    <div class="sub-heading">
+                        <p>
+                            {{ "Objective" | translate }}
+
+                        <span *ngIf="!editor4" (click)="toggleShow4()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor4" (click)="toggleShow4()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        </p>
+                    </div>
+                    <div *ngIf="editor4" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload3" class="custom-file-upload">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                             <input #file3 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file3.files,'objective')"  id="file-upload3" />
+                        </div>
+
+                        <ckeditor formControlName="objective"></ckeditor>
+                    </div>
+                </div>
+
+                <br>
+
+                <div>
+                    <div class="sub-heading">
+                        <p>
+                            {{ "Outcomes" | translate }}
+
+                        <span *ngIf="!editor5" (click)="toggleShow5()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor5" (click)="toggleShow5()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        </p>
+                    </div>
+                    <div *ngIf="editor5" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload4" class="custom-file-upload">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                             <input #file4 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file4.files,'outcomes')"  id="file-upload4" />
+                        </div>
+
+                        <ckeditor formControlName="outcomes"></ckeditor>
+                    </div>
+                </div>
+
+                <br>
+
+                <div>
+                    <div class="sub-heading">
+                        <p>
+                            {{ "Output" | translate }}
+
+                        <span *ngIf="!editor6" (click)="toggleShow6()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor6" (click)="toggleShow6()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        </p>
+                    </div>
+                    <div *ngIf="editor6" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload5" class="custom-file-upload">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                             <input #file5 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file5.files,'output')"  id="file-upload5" />
+                        </div>
+
+                        <ckeditor formControlName="output"></ckeditor>
+                    </div>
+                </div>
+
+                <br>
+
+                <div>
+                    <div class="sub-heading">
+                        <p>
+                            {{ "Activities" | translate }}
+
+                        <span *ngIf="!editor7" (click)="toggleShow7()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor7" (click)="toggleShow7()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        </p>
+                    </div>
+                    <div *ngIf="editor7" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload6" class="custom-file-upload">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                             <input #file6 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file6.files,'activities')"  id="file-upload6" />
+                        </div>
+
+                        <ckeditor formControlName="activities"></ckeditor>
+                    </div>
+                </div>
+
+                <br>
+
+                <div>
+                    <div class="sub-heading">
+                        <p>
+                            {{ "Sex_disaggregated" | translate }}
+
+                        <span *ngIf="!editor8" (click)="toggleShow8()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor8" (click)="toggleShow8()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        </p>
+                    </div>
+                    <div *ngIf="editor8" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload7" class="custom-file-upload">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                             <input #file7 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file7.files,'sexDisaggregated')"  id="file-upload7" />
+                        </div>
+
+                        <ckeditor formControlName="sexDisaggregated"></ckeditor>
+                    </div>
+                </div>
+
+                <br>
+
+                <div>
+                    <div class="sub-heading">
+                        <p>
+                            {{ "Population" | translate }}
+
+                        <span *ngIf="!editor9" (click)="toggleShow9()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor9" (click)="toggleShow9()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        </p>
+                    </div>
+                    <div *ngIf="editor9" style="position: relative;">
+
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload8" class="custom-file-upload">
+                            <mat-icon class="custom-image-icon">image</mat-icon>
+                            </label>
+                             <input #file8 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file8.files,'populationCoverage')"  id="file-upload8" />
+                        </div>
+
+                        <ckeditor formControlName="populationCoverage"></ckeditor>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </form>
+    <!-- save, back button -->
+    <div class="flex justify-end mt-8">
+        <button class="px-8 mr-2" class="px-8 mr-2 toggle-sidebar-folded" :matTooltip="{{ 'SaveNext' | translate }}" mat-flat-button [color]="'primary'" type="button"  (click)="onSubmit()">
+            {{ "SaveNext" | translate }}
+        </button>
+        <button class="px-8" class="px-8 mr-2 toggle-sidebar-folded" :matTooltip="{{ 'SaveExit' | translate }}" mat-flat-button (click)="onSubmitAndExit()" style="background-color: green; color: #FFFFFF" type="button">
+            {{ "SaveExit" | translate }}
+        </button>
+
+        <button
+            class="px-8 mr-2 toggle-sidebar-folded"
+            :matTooltip="{{ 'Next' | translate }}"
+            mat-flat-button
+            style="background-color: green; color: #FFFFFF"
+            matStepperNext
+            type="button">
+            {{ "Next" | translate }}
+        </button>
+
+    </div>
+</div>

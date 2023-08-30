@@ -1,0 +1,34 @@
+<div>
+
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+
+
+    <div class="heading">
+        <h1>{{'ProjectLocation' | translate}}</h1>
+    </div>
+    <!-- Common location UI -->
+    <app-project-location-common class="pl-4" [conceptUuid]="conceptUuid" [locations]="projectLocation" (sendData)="addData($event)"></app-project-location-common>
+    <div>
+        <br/><br/><br/>
+        <div fxLayout="row wrap" fxLayoutAlign="end" *ngIf="canEdit">
+            <!-- Back Button -->
+            <button class="mr-2" mat-flat-button color="accent" type="button"
+                    (click)="back()">Back</button>
+            <!-- Save & next Button -->
+            <button class="mr-2" mat-flat-button color="primary" type="button" [disabled]="!form?.value.division || spinner"
+                    (click)="saveAndNext()">{{'Save&Next' | translate}}</button>
+            <!-- Save & exit Button -->
+            <button class="mr-2" mat-flat-button class="mr-2" style="background-color: green; color: #FFFFFF" type="button" [disabled]="!form?.value.division || spinner"
+                    (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+
+
+<!--            <button mat-flat-button style="background-color: green; color: #FFFFFF" type="button"-->
+<!--                    (click)="nextTab()">{{'Next' | translate}}</button>-->
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,110 @@
+<div style="width: 100%;">
+    <!-- Header -->
+
+
+    <app-form-header *ngIf="this.feedbackBetweenEvaluatorAndResearcher.sendTo == 'Researcher'" [title]="'SendFeedBackToResearcher' | translate"></app-form-header>
+    <app-form-header *ngIf="this.feedbackBetweenEvaluatorAndResearcher.sendTo == 'Evaluator'" [title]="'SendFeedBackToEvaluator' | translate"></app-form-header>
+
+
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+
+        <div class="max-w-8xl">
+            <div>
+                <div>
+                    <mat-card>
+                        <form>
+
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                                <mat-label style="margin-top: -15px" fxFlex="15%" fxFlex.md="25%" fxFlex.sm="40%"
+                                    fxFlex.xs="100%">
+                                    {{'SendTo' | translate}} :
+                                    <strong class="required">*</strong>
+                                </mat-label>
+
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="85%" fxFlex.md="75%"
+                                    fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input matInput required
+                                        [(ngModel)]="feedbackBetweenEvaluatorAndResearcher.receiverMailAddress"
+                                        [ngModelOptions]="{standalone: true}" requerd>
+                                    <mat-error>{{'SubjectReq' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                                <mat-label style="margin-top: -15px" fxFlex="15%" fxFlex.md="25%" fxFlex.sm="40%"
+                                    fxFlex.xs="100%">
+                                    {{'Subject' | translate}} :
+                                    <strong class="required">*</strong>
+                                </mat-label>
+
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="85%" fxFlex.md="75%"
+                                    fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input matInput required [(ngModel)]="feedbackBetweenEvaluatorAndResearcher.subject"
+                                        [ngModelOptions]="{standalone: true}" requerd>
+                                    <mat-error>{{'SubjectReq' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                                <mat-label style="margin-top: -15px" fxFlex="15%" fxFlex.md="25%" fxFlex.sm="40%"
+                                    fxFlex.xs="100%">
+                                    {{'BodyContent' | translate}} :
+                                    <strong class="required">*</strong>
+                                </mat-label>
+
+
+                                <div fxFlex="85%" fxFlex.md="75%" fxFlex.sm="60%" fxFlex.xs="100%">
+
+                                    <div class="custom-file-upload-div">
+                                        <label for="file-upload" class="custom-file-upload">
+                                            <mat-icon class="custom-image-icon">image</mat-icon>
+                                        </label>
+                                        <input #file type="file" accept='image/*'
+                                            (change)="uploadImageAsBase64(file.files,'objectivesEn')"
+                                            id="file-upload" />
+                                    </div>
+
+
+                                    <ckeditor [(ngModel)]="feedbackBetweenEvaluatorAndResearcher.mailBody"
+                                        [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" requerd>
+                                        <mat-error>{{'BodyReq' | translate}}</mat-error>
+                                    </ckeditor>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end mt-3 mr-2">
+
+                                <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit"
+                                    class="px-3 mr-2 toggle-sidebar-folded saveBtn" (click)="onSubmit()">
+                                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                                    <span>{{ "Save" | translate }}</span>
+                                </button>
+
+                                <button mat-flat-button type="button"
+                                    style="background-color: #f37a7a !important; color: #eee2e2"
+                                    class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" (click)="onClose(true)">
+                                    <mat-icon class="mr-1" *ngIf="closeIcon">{{closeIcon}}</mat-icon>
+                                    <span> {{ "close" | translate }}</span>
+                                </button>
+
+                            </div>
+
+                        </form>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main End -->
+</div>

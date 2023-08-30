@@ -1,0 +1,331 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [ngClass]="langVal == 'bn' ? 'nikosh font-20':'' " [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <!-- {{letterList | json}} -->
+    <div class="text-center mt-3 flex-auto body-color">
+        <div class="flex justify-end">
+            <span *ngFor="let val of letterList; let i = index">
+                <div *ngIf="val.letterFor == 'Draft Copy'; else Final" class="flex justify-center">
+                    <div (click)="viewDetails(val)" class="draftBtn">{{'draftCopy' | translate}}</div>
+                    <mat-icon *ngIf="editIcon" (click)="editLetter(val,i)"
+                        class="mt-1 cursor-pointer hover:text-yellow-600 text-yellow-700 font-bold align-middle mr-1">
+                        {{editIcon}}</mat-icon>
+                    <!-- <mat-icon *ngIf="deleteIcon" (click)="delete(val.id)" class="mt-1 cursor-pointer hover:text-red-700 text-red-600 font-bold align-middle mr-1">{{deleteIcon}}</mat-icon> -->
+                </div>
+                <ng-template #Final>
+                    <div class="md:ml-4 flex justify-center">
+                        <span (click)="viewDetails(val)" class="finalBtn mr-2">{{'finalCopy' | translate}}</span>
+                        <button class="mr-1" (click)="editLetter(val,i)" mat-raised-button color="primary">
+                            {{'edit' | translate}}
+                        </button>
+                        <!--                        <mat-icon *ngIf="editIcon" (click)="editLetter(val,i)" class="mt-1 cursor-pointer hover:text-yellow-600 text-yellow-700 font-bold align-middle mr-1">{{editIcon}}</mat-icon>-->
+                        <!-- <mat-icon *ngIf="deleteIcon" (click)="delete(val.id)" class="mt-1 cursor-pointer hover:text-red-700 text-red-600 font-bold align-middle mr-1">{{deleteIcon}}</mat-icon> -->
+                    </div>
+                </ng-template>
+            </span>
+            <button class="px-3 md:ml-1 mr-7 backBtn" mat-flat-button color="accent" (click)="previous()" type="back">
+                <mat-icon *ngIf="refreshIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{'back' | translate}}
+            </button>
+        </div>
+    </div>
+    <!-- Main Start -->
+    <div class="flex-auto mt-0 ml-7 mr-7 mb-7 body-color">
+        <mat-card class="tab-color">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1>{{'formTitle' | translate}}</h1>
+                    <div>{{'stFiscalYearIdLn' | translate}} : {{fiscalYear}}</div>
+                </div>
+            </div>
+            <!-- Card Body -->
+            <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()" #inputForm="ngForm" class="p-4 border3 form-bg-color">
+                <!-- ----------- Row 1----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'letterForLn' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select formControlName="letterFor">
+                                <mat-option value="">--Select--</mat-option>
+                                <mat-option value="Draft Copy">Draft Copy</mat-option>
+                                <mat-option value="Final Copy">Final Copy</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="frmGroup.get('letterFor').hasError('customError')">
+                                {{ frmGroup.get('letterFor').errors.customError.value }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'memorandumNoLn' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="memorandumNo" type="number">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- ----------- /Row 1----------- -->
+                <!-- ----------- Row 2----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'advertisementStartDateLn' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [matDatepicker]="datepicker1" name="advertisementStartDate"
+                                formControlName="advertisementStartDate" (click)="datepicker1.open()">
+                            <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker1></mat-datepicker>
+                            <mat-error *ngIf="frmGroup.get('advertisementStartDate').hasError('customError')">
+                                {{ frmGroup.get('advertisementStartDate').errors.customError.value }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left md:pt-3">
+                        <span class="text-gray-700">
+                            {{'advertisementEndDateLn' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [matDatepicker]="datepicker2" name="advertisementEndDate"
+                                formControlName="advertisementEndDate" (click)="datepicker2.open()">
+                            <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker2></mat-datepicker>
+                            <mat-error *ngIf="frmGroup.get('advertisementEndDate').hasError('customError')">
+                                {{ frmGroup.get('advertisementEndDate').errors.customError.value }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- ----------- /Row 2----------- -->
+                <!-- --------------Research Category------------ -->
+                <div class="catWiseBudget">
+                    <div class="budgetTitle">{{'catWiseBudAmount' | translate}}</div>
+                    <div class="md:flex pl-2 pr-2">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'PhDCategory' | translate}} <strong class="required">*</strong>
+                                <input type="hidden" formControlName="phdCatId">
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="phdCatBudgetAmount">
+                                <mat-error *ngIf="frmGroup.get('phdCatBudgetAmount').hasError('customError')">
+                                    {{ frmGroup.get('phdCatBudgetAmount').errors.customError.value }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left md:pt-3">
+                            {{'MPhilCategory' | translate}} <strong class="required">*</strong>
+                            <input type="hidden" formControlName="mphilCatId">
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30" style="position:relative">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="mphilCatBudgetAmount">
+                                <mat-error *ngIf="frmGroup.get('mphilCatBudgetAmount').hasError('customError')">
+                                    {{ frmGroup.get('mphilCatBudgetAmount').errors.customError.value }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="md:flex pl-2 pr-2">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'FellowshipCategory' | translate}} <strong class="required">*</strong>
+                                <input type="hidden" formControlName="fellowCatId">
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="fellowCatBudgetAmount">
+                                <mat-error *ngIf="frmGroup.get('fellowCatBudgetAmount').hasError('customError')">
+                                    {{ frmGroup.get('fellowCatBudgetAmount').errors.customError.value }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left md:pt-3">
+                            {{'PromotionalCategory' | translate}} <strong class="required">*</strong>
+                            <input type="hidden" formControlName="promoCatId">
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30" style="position:relative">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="promoCatBudgetAmount">
+                                <mat-error *ngIf="frmGroup.get('promoCatBudgetAmount').hasError('customError')">
+                                    {{ frmGroup.get('promoCatBudgetAmount').errors.customError.value }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="md:flex pl-2 pr-2">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'InstitutionalCategory' | translate}} <strong class="required">*</strong>
+                                <input type="hidden" formControlName="instCatId">
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="instCatBudgetAmount">
+                                <mat-error *ngIf="frmGroup.get('instCatBudgetAmount').hasError('customError')">
+                                    {{ frmGroup.get('instCatBudgetAmount').errors.customError.value }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50 md:ml-2 md:text-left md:pt-3"></div>
+                    </div>
+                </div>
+                <!-- --------------/Research Category------------ -->
+
+                <!-- --------------For Training Institute------------ -->
+                <div class="catWiseBudget mt-4 mb-4">
+                    <div class="budgetTitle">{{'forTrainingInst' | translate}}</div>
+                    <div class="md:flex pl-2 pr-2">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'tiApplicationStart_Date' | translate}} <strong class="required">*</strong>
+                                <input type="hidden" formControlName="phdCatId">
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput [matDatepicker]="datepicker3" name="tiApplicationStartDate"
+                                    formControlName="tiApplicationStartDate" (click)="datepicker3.open()">
+                                <mat-datepicker-toggle matSuffix [for]="datepicker3"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker3></mat-datepicker>
+                                <mat-error *ngIf="frmGroup.get('tiApplicationStartDate').hasError('customError')">
+                                    {{ frmGroup.get('tiApplicationStartDate').errors.customError.value }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left md:pt-3">
+                            {{'tiApplicationEnd_Date' | translate}} <strong class="required">*</strong>
+                            <input type="hidden" formControlName="mphilCatId">
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30" style="position:relative">
+                            <mat-form-field class="w-full">
+                                <input matInput [matDatepicker]="datepicker4" name="tiApplicationEndDate"
+                                    formControlName="tiApplicationEndDate" (click)="datepicker4.open()">
+                                <mat-datepicker-toggle matSuffix [for]="datepicker4"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker4></mat-datepicker>
+                                <mat-error *ngIf="frmGroup.get('tiApplicationEndDate').hasError('customError')">
+                                    {{ frmGroup.get('tiApplicationEndDate').errors.customError.value }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="md:flex pl-2 pr-2">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'tiBudget_Amount' | translate}} <strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="tiBudgetAmount">
+                                <mat-error *ngIf="frmGroup.get('tiBudgetAmount').hasError('customError')">
+                                    {{ frmGroup.get('tiBudgetAmount').errors.customError.value }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left md:pt-3">
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30" style="position:relative">
+                        </div>
+                    </div>
+                </div>
+                <!-- --------------/For Training Institute------------ -->
+
+                <!-- ----------- Row 3----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto mb-3 md:w-full lg:w-full">
+                        <span class="text-gray-700">
+                            {{'paragraph1Ln' | translate}} <strong class="required">*</strong>
+                        </span>
+                        <ckeditor #ckeditorf formControlName="paragraph1" [config]="mediumEditorConfig"></ckeditor>
+                        <mat-error *ngIf="frmGroup.get('paragraph1').hasError('customError')">
+                            {{ frmGroup.get('paragraph1').errors.customError.value }}
+                        </mat-error>
+                        <!-- <mat-form-field class="w-full">
+                            <textarea formControlName="paragraph1" matInput></textarea>
+                        </mat-form-field> -->
+                    </div>
+                </div>
+                <!-- ----------- /Row 3----------- -->
+                <!-- ----------- Row 4----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto mb-3 md:w-full lg:w-full">
+                        <span class="text-gray-700">
+                            {{'paragraph2Ln' | translate}} <strong class="required">*</strong>
+                        </span>
+                        <ckeditor #ckeditorf formControlName="paragraph2" [config]="mediumEditorConfig">
+                        </ckeditor>
+                        <mat-error *ngIf="frmGroup.get('paragraph2').hasError('customError')">
+                            {{ frmGroup.get('paragraph2').errors.customError.value }}
+                        </mat-error>
+                    </div>
+                </div>
+                <!-- ----------- /Row 4----------- -->
+                <!-- ----------- Row 5----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'nitimalaUrlLn' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="nitimalaUrl">
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20  md:ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'nitimalaYearLn' | translate}}
+                            <!-- {{'uploadFileLn' | translate}} -->
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="nitimalaYear">
+                        </mat-form-field>
+                        <!-- <mat-form-field class="w-full">
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="uploadFile">
+                            </ngx-mat-file-input>
+                        </mat-form-field> -->
+                    </div>
+                </div>
+                <!-- ----------- /Row 5----------- -->
+                <div class="flex justify-end mt-3 mr-2">
+                    <button class="px-3 mr-2 backBtn" mat-flat-button color="accent" (click)="previous()" type="back">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        {{'back' | translate}}
+                    </button>
+                    <button class="px-3 mr-2" mat-flat-button color="accent" (click)="formReset()" type="reset">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+                    <button class="px-3" mat-flat-button color="primary" type="submit">
+                        <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <div *ngIf="formTitle=='Edit'; else temp ">{{'update' | translate}}</div>
+                        <ng-template #temp>{{'save' | translate}}</ng-template>
+                    </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>

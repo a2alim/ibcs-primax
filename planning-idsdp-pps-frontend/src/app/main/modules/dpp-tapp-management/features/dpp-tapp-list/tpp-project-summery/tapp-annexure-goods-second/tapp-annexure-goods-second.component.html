@@ -1,0 +1,422 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header *ngIf="isParipatra2016"[title]="projectTitle" class="crop-text"
+                                 [subTitle]="'sub_title' | translate">
+                </app-list-header>
+                <app-list-header *ngIf="!isParipatra2016" [title]="projectTitle" class="crop-text"
+                                 [subTitle]="'sub_title22' | translate">
+                </app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{'homePage' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+    <!-- Main -->
+    <div>
+        <div class="max-w-8xl">
+            <mat-card class="tab-color">
+                <div style="overflow-x:auto;">
+                    <mat-card>
+                        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                            <form>
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <div>
+                                                <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                                    <table class="mat-elevation-z8">
+                                                            <!-- Table Body-->
+                                                        <tbody class="projectInfo">
+                                                        <tr>
+                                                            <th>
+                                                                {{'ministry' |translate}}
+                                                            </th>
+                                                            <td>:
+                                                                {{isForeignAid ? agencyModel?.ministryDivisionDTO?.nameEn : agencyModel?.ministryDivisionDTO?.nameBn}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                                {{'agency' |translate}}
+                                                            </th>
+                                                            <td>:
+                                                                {{isForeignAid ? agencyModel?.nameEn : agencyModel?.nameBn}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                                {{'entityName' |translate}}
+                                                            </th>
+                                                            <td>
+                                                                :
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>
+                                                                {{'projectName' |translate}}
+                                                            </th>
+                                                            <td>
+                                                                :
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                        <!-- Table Body End-->
+                                                    </table>
+                                                    <!--Table End-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <div>
+                                                <form class="form">
+                                                    <div>
+                                                        <div cdkScrollable
+                                                            class="overflow-x-auto sm:overflow-y-auto">
+                                                            <p class="proCostTitle">
+                                                                {{"project_cost" | translate}}
+                                                            </p>
+                                                            <!--Table Start-->
+                                                            <table id="projectCostsInfo" class="mat-elevation-z8">
+                                                                <thead>
+                                                                    <tr class="text-right">
+                                                                        <th class="sub-header" style="
+                                                                        width: 100px;">
+                                                                            {{"total" | translate}}
+                                                                        </th>
+                                                                        <th class="sub-header">
+                                                                            {{isForeignAid ? projectCost.totalAmount : numberPipe.convertToBanglaNumber(projectCost.totalAmount)}}
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <!-- Table Body-->
+                                                                <!-- Table Body-->
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{"gob" | translate}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{isForeignAid ? projectCost.gobAmount : numberPipe.convertToBanglaNumber(projectCost.gobAmount)}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr *ngIf="isForeignAid">
+                                                                        <td>
+                                                                            {{"pa" | translate}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{projectCost.paAmount}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{"ownFund" | translate}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{isForeignAid ? projectCost.ownFeAmount : numberPipe.convertToBanglaNumber(projectCost.ownFeAmount)}}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <!-- Table Body End-->
+                                                            </table>
+                                                            <!--Table End-->
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <form [formGroup]="frmGroup" class="form mt-5">
+                                        <div>
+                                            <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                                <!--Table Start-->
+                                                <table class="mat-elevation-z8 formTable">
+                                                    <thead>
+                                                        <tr>
+<!--                                                            <th style="width: 50px" class="top-header" rowspan="2">{{'sl' | translate}}</th>-->
+                                                            <th class="top-header" rowspan="2">
+                                                                {{'packegeNo' | translate}}</th>
+                                                            <th style="width: 250px" class="top-header" rowspan="2">
+                                                                {{'tapp_service' | translate}}<br>
+                                                            </th>
+                                                            <th class="top-header" rowspan="2">{{'unit' | translate}}
+                                                            </th>
+                                                            <th class="top-header" rowspan="2">
+                                                                {{'quantity' | translate}}</th>
+                                                            <th class="top-header" rowspan="2" colspan="2">
+                                                                {{'procurement_method' | translate}}</th>
+<!--                                                            <th class="top-header" rowspan="2">-->
+<!--                                                                {{'procurement_type' | translate}}</th>-->
+                                                            <th class="top-header" rowspan="2" *ngIf="!isParipatra2016">
+                                                                {{'contract_approving_authority22' | translate}}
+                                                            </th>
+                                                            <th class="top-header" rowspan="2" *ngIf="isParipatra2016">
+                                                                {{'contract_approving_authority' | translate}}
+                                                            </th>
+                                                            <th class="top-header" rowspan="2">
+                                                                {{'source_of_fund' | translate}}</th>
+                                                            <th class="top-header" rowspan="2">
+                                                                {{'estd_cost' | translate}}</th>
+                                                            <th class="top-header" colspan="4">{{'dates' | translate}}</th>
+                                                            <th class="top-header" rowspan="2">{{'action' | translate}}
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="sub-header date-col-size">{{'invitation-serv' | translate}}
+                                                            </th>
+                                                            <th class="sub-header date-col-size">{{'issue_of_RFP' | translate}}</th>
+                                                            <th class="sub-header date-col-size">{{'signing_of_contract' | translate}}
+                                                            </th>
+                                                            <th class="sub-header date-col-size">
+                                                                {{'completion_of_contract_service' | translate}}</th>
+                                                        </tr>
+                                                        <tr class="boldBorder" *ngIf="isParipatra2016">
+                                                            <th class="sub-header"> {{'num1' | translate}}</th>
+                                                            <th class="sub-header"> {{'num2' | translate}}</th>
+                                                            <th class="sub-header"> {{'num3' | translate}}</th>
+                                                            <th class="sub-header"> {{'num4' | translate}}</th>
+                                                            <th class="sub-header"> {{'num5' | translate}}</th>
+                                                            <th class="sub-header"> {{'num6' | translate}}</th>
+                                                            <th class="sub-header"> {{'num7' | translate}}</th>
+                                                            <th class="sub-header"> {{'num8' | translate}}</th>
+                                                            <th class="sub-header"> {{'num9' | translate}}</th>
+                                                            <th class="sub-header"> {{'num10' | translate}}</th>
+                                                            <th class="sub-header"> {{'num11' | translate}}</th>
+                                                            <th class="sub-header"> {{'num12' | translate}}</th>
+                                                            <th class="sub-header"> {{'num13' | translate}}</th>
+                                                            <th class="sub-header"> {{'num14' | translate}}</th>
+<!--                                                            <th class="sub-header"> {{'num15' | translate}}</th>-->
+                                                        </tr>
+                                                        <tr class="boldBorder" *ngIf="!isParipatra2016">
+                                                            <th class="sub-header"> {{'nu1' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu2' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu3' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu4' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu5' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu6' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu7' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu8' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu9' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu10' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu11' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu12' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu13' | translate}}</th>
+                                                            <th class="sub-header"> {{'nu14' | translate}}</th>
+<!--                                                            <th class="sub-header"> {{'nu15' | translate}}</th>-->
+                                                        </tr>
+                                                    </thead>
+                                                    <!-- Table Body-->
+                                                    <tbody formArrayName="list">
+                                                        <ng-container
+                                                            *ngFor="let formRows of list.controls; let i = index"
+                                                            [formGroupName]="i">
+                                                            <tr>
+<!--                                                                <td>{{i+1}}</td>-->
+                                                                <td>
+                                                                    <mat-form-field appearance="fill">
+                                                                        <input formControlName="packageName"
+                                                                            appearance="outline" autocomplete="off"
+                                                                            matInput required />
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field>
+                                                                        <textarea formControlName="packageDppTppService" matInput required></textarea>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field class="w-full">
+                                                                        <mat-select formControlName="unitId">
+                                                                            <mat-option [value]=""> --- Select ---
+                                                                            </mat-option>
+                                                                            <mat-option
+                                                                                *ngFor="let data of unitTypeList"
+                                                                                [value]=data.id>
+                                                                                {{isForeignAid ? data.unitTypeNameEng : data.unitTypeNameBng}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field class="w-full">
+                                                                        <input formControlName="quantity" type="number" (input)="calculateCostAndQty()" appearance="outline"
+                                                                            autocomplete="off" matInput required>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field>
+                                                                        <mat-select
+                                                                            formControlName="procurementMethodId">
+                                                                            <mat-option [value]=""> --- Select ---
+                                                                            </mat-option>
+                                                                            <mat-option
+                                                                                *ngFor="let data of procMethodsList"
+                                                                                [value]=data.id>
+                                                                                {{isForeignAid ? data.nameEn : data.nameBn}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field>
+                                                                        <mat-select formControlName="procurementTypeId">
+                                                                            <mat-option [value]=""> --- Select ---
+                                                                            </mat-option>
+                                                                            <mat-option
+                                                                                *ngFor="let data of procTypeList"
+                                                                                [value]=data.id>
+                                                                                {{isForeignAid ? data.nameEn : data.nameBn}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field class="w-full">
+                                                                        <input
+                                                                            formControlName="contractApproveAuthoriity"
+                                                                            appearance="outline" autocomplete="off"
+                                                                            matInput required>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field class="w-full">
+                                                                        <input formControlName="sourceOfFund"
+                                                                            appearance="outline" autocomplete="off"
+                                                                            matInput required>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field class="w-full">
+                                                                        <input formControlName="estdCostAmount" (input)="calculateCostAndQty()" appearance="outline"
+                                                                            autocomplete="off" matInput required>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field class="w-full"
+                                                                        style="width:145px !important">
+                                                                        <input (click)="picker1.open()"
+                                                                            [matDatepicker]="picker1"
+                                                                            formControlName="invitationForEoi" matInput
+                                                                            readonly required
+                                                                            [max]="formRows.get('issueOfRfp').value">
+                                                                        <mat-datepicker-toggle [for]="picker1" matSuffix>
+                                                                        </mat-datepicker-toggle>
+                                                                        <mat-datepicker #picker1></mat-datepicker>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field class="w-full"
+                                                                        style="width:145px !important">
+                                                                        <input (click)="picker2.open()"
+                                                                            [matDatepicker]="picker2"
+                                                                            formControlName="issueOfRfp" matInput
+                                                                            readonly required
+                                                                            [max]="formRows.get('signingOfContract').value"
+                                                                            [min]="formRows.get('invitationForEoi').value">
+                                                                        <mat-datepicker-toggle [for]="picker2" matSuffix>
+                                                                        </mat-datepicker-toggle>
+                                                                        <mat-datepicker #picker2></mat-datepicker>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field class="w-full"
+                                                                        style="width:145px !important">
+                                                                        <input (click)="picker3.open()"
+                                                                            [matDatepicker]="picker3"
+                                                                            formControlName="signingOfContract" matInput
+                                                                            readonly required
+                                                                            [max]="formRows.get('completionOfContract').value"
+                                                                            [min]="formRows.get('issueOfRfp').value">
+                                                                        <mat-datepicker-toggle [for]="picker3" matSuffix>
+                                                                        </mat-datepicker-toggle>
+                                                                        <mat-datepicker #picker3></mat-datepicker>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field class="w-full"
+                                                                        style="width:145px !important">
+                                                                        <input (click)="picker4.open()"
+                                                                            [matDatepicker]="picker4"
+                                                                            formControlName="completionOfContract" matInput
+                                                                            readonly required
+                                                                            [min]="formRows.get('signingOfContract').value">
+                                                                        <mat-datepicker-toggle [for]="picker4" matSuffix>
+                                                                        </mat-datepicker-toggle>
+                                                                        <mat-datepicker #picker4></mat-datepicker>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" mat-icon-button class="toggle-sidebar-folded"
+                                                                        fxHide.lt-lg>
+                                                                        <mat-icon (click)="confirmationDelete(i)" color="warn">delete</mat-icon>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-container>
+                                                    </tbody>
+                                                    <!-- Table Body End-->
+                                                </table>
+                                                <!--Table End-->
+                                            </div>
+                                        </div>
+                                        <div class="md:flex">
+                                            <div class="w-full sm:w-auto md:w-1/2 lg:w-1/2">
+                                                <div class="mt-5">
+                                                    <mat-label style=" text-align: center; font-weight: bold;">
+                                                        {{'grand_total' | translate}}
+                                                    </mat-label>
+                                                    <div style="width: 230px">
+                                                        <!-- <span>BDT</span> -->
+                                                        <mat-form-field class="text-right w-full readOnly">
+                                                            <input formControlName="totalAmountView" readonly
+                                                                autocomplete="off" matInput value="0.0" />
+                                                            <input formControlName="totalAmount" type="hidden" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex sm:justify-start md:justify-end w-full sm:w-auto md:w-1/2 lg:w-1/2">
+                                                <div class="mt-5">
+                                                    <button class="mb-1 mt-1" type="button" (click)="addRow()"
+                                                        color="primary" mat-raised-button>
+                                                        {{'add_new_row' | translate}}
+                                                    </button>
+                                                    <button class="ml-3 mb-1 mt-1" type="submit" color="primary"
+                                                            [disabled]="spinner" (click)="onSubmit()"
+                                                        mat-raised-button>
+                                                        {{'save' | translate}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-card>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

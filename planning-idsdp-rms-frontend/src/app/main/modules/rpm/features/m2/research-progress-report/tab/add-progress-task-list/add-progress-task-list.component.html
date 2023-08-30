@@ -1,0 +1,143 @@
+<div  class="flex flex-col bg-card shadow rounded overflow-hidden">
+    <div class="heading">
+        <h1>{{'tab2' | translate}}</h1>
+    </div>
+</div>
+<!-- Card Body -->
+
+<form [formGroup]="frmGroup" (ngSubmit)="onSubmit()" #inputForm="ngForm" class="p-4 border3 form-bg-color">
+    
+    <!-- ----------- Row 1----------- --> 
+    <div class="md:flex">
+        <div class="w-full sm:w-auto md:w-20 lg:w-20  md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'taskTitleLn' | translate}} <strong class="required">*</strong>
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <input matInput formControlName="taskTitle">
+                <mat-error *ngIf="frmGroup.get('taskTitle').hasError('customError')">
+                    {{ frmGroup.get('taskTitle').errors.customError.value }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'proposalPageNoLn' | translate}} <strong class="required">*</strong>
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <input matInput formControlName="proposalPageNo">
+                <mat-error *ngIf="frmGroup.get('proposalPageNo').hasError('customError')">
+                    {{ frmGroup.get('proposalPageNo').errors.customError.value }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+    </div> 
+    <!-- ----------- /Row 1----------- -->
+    <!-- ----------- Row 2----------- --> 
+    <div class="md:flex">
+        <div class="w-full sm:w-auto md:w-20 lg:w-20  md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'researcherNoteLn' | translate}} <strong class="required">*</strong>
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <input matInput formControlName="researcherNote">
+                <mat-error *ngIf="frmGroup.get('researcherNote').hasError('customError')">
+                    {{ frmGroup.get('researcherNote').errors.customError.value }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'supervisorOrEvaluatorNoteLn' | translate}} 
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <input matInput formControlName="supervisorOrEvaluatorNote">
+            </mat-form-field>
+        </div>
+        
+    </div> 
+    <!-- ----------- /Row 2----------- -->
+    <!-- ----------- Row 3----------- --> 
+    <div class="md:flex">
+        <div class="w-full sm:w-auto md:w-20 lg:w-20  md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'isCompletedLn' | translate}} 
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <mat-checkbox [color]="'primary'" formControlName="isCompleted">Yes
+                </mat-checkbox>
+            </mat-form-field>
+        </div>
+        
+        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:ml-2 md:text-left pr-2 md:pt-3"> 
+            <span class="text-gray-700">
+                {{'isEditableLn' | translate}} 
+            </span>
+            
+        </div>
+
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <mat-checkbox [color]="'primary'" formControlName="isEditable">Yes
+                </mat-checkbox>
+            </mat-form-field>
+        </div>
+        
+    </div> 
+    <!-- ----------- /Row 3----------- -->
+
+    <div class="flex justify-end mt-3">
+        <button
+            class="px-3 mr-2 previousBtn"
+            mat-flat-button
+            color="accent"
+            (click)="back()"
+            type="button">
+            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+            {{'previous' | translate}}
+        </button>
+
+        <button
+            class="px-3 mr-2"
+            mat-flat-button
+            color="accent"
+            (click)="formReset()"
+            type="reset">
+            <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+            {{'reset' | translate}}
+        </button>
+
+        <button
+            class="px-3"
+            mat-flat-button
+            color="primary"
+            type="submit"
+            ><mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <div *ngIf="formTitle=='Edit'; else temp ">{{'update' | translate}}</div>
+            <ng-template #temp>{{'save' | translate}}</ng-template>                        
+        </button>
+    </div>
+</form>

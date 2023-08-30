@@ -1,0 +1,189 @@
+<div class="body">
+    <form [formGroup]="formGroup" name="formGroup">
+<!--CK Editor PreApraijal-->
+        <mat-card>
+            <div>
+                <div class="sub-heading">
+                    <p>
+                        <span *ngIf="isParipatra2016">{{ 'FA_16.0' | translate }}</span>
+                        <span *ngIf="!isParipatra2016">{{ 'FA_16.0_22' | translate }}</span><br>
+                        <mat-radio-button (click)="toggleShow1('yes')">
+                            <b>{{ 'yes' | translate }}</b>
+                        </mat-radio-button>
+                        &nbsp;&nbsp;
+                        <mat-radio-button (click)="toggleShow1('no')">
+                            <b>{{ 'no' | translate }}</b>
+                        </mat-radio-button>
+                        <span *ngIf="!editor1" (click)="toggleShow1()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="editor1" (click)="toggleShow1()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollaplse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                        <label for="file-upload3">
+                           <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                        </label>
+                            <input #file3 type="file" accept='image/*' (change)="uploadImageAsBase64(file3.files,'weatherAppraisalStudy')" id="file-upload3"/>
+                        </span>
+                    </p>
+                </div>
+                <div *ngIf="editor1" style="position: relative;">
+                    <ckeditor  [config]="mediumEditorConfig" formControlName="weatherAppraisalStudy">
+                    </ckeditor>
+                </div>
+            </div>
+        </mat-card>
+    <!-- End CK Editor PreApraijal-->
+        <br>
+        <mat-card>
+            <div>
+                <p class="head pd">{{'Attach_summary_of_finding' | translate}}</p>
+            </div>
+            <div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%" class="fileInput" class="ml-10 mt-5">
+                <div fxLayout="row wrap" >
+                    <mat-form-field fxFlex="90%" fxFlex.xs="100%" fxFlex.sm="70%">
+                        <span *ngIf="summaryFindingAttachmentName" class="w-full">{{summaryFindingAttachmentName}}</span>
+                        <ngx-mat-file-input (change)="uploadFile($event.target.files, 'attachSummaryFinding')"
+                            [accept]="'.pdf'" formControlName="attachSummaryFinding" placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                        <mat-icon matSuffix>folder</mat-icon>
+                    </mat-form-field>
+                    <button *ngIf="summaryFindingAttachmentId" fxFlex="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="5%">
+                        <mat-icon matTooltip="{{'down' | translate}}" (click)="summaryFindingAttachmentDownload()" color="primary">file_download</mat-icon>
+                    </button>
+                    <button *ngIf="summaryFindingAttachmentId"  fxFlex="4%" fxFlex.md="4%" fxFlex.sm="4%" fxFlex.xs="4%">
+                            <mat-icon matTooltip="{{'delete' | translate}}" (click)="deleteAttachment()" class="pb-2 ml-2 warn">delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-card>
+        <br>
+        <mat-card>
+            <div>
+                <span *ngIf="isParipatra2016">{{'FA_17.0' | translate}}</span>
+                <span *ngIf="!isParipatra2016">{{'FA_17.0_22' | translate}}</span>
+                <button (click)="openFinancialDialog()" mat-raised-button color="primary" style="margin-left: 10px;">{{'Button_financial_analysis' | translate}}</button>
+                <button (click)="openEconomicDialog()" mat-raised-button color="primary" style="margin-left: 10px;">{{'Button_economi_analysis' | translate}}</button>
+            </div>
+        </mat-card>
+        <!-- financial analysis table -->
+        <br>
+        <div style="overflow-x:auto;">
+            <table class="mat-elevation-z8">
+                <thead>
+                    <tr class="sub-heading" style="text-align: center;">
+                        <th class="top-header">{{'TH_analysis' | translate}}</th>
+                        <th class="top-header">{{'TH_NPV' | translate}}</th>
+                        <th class="top-header">{{'TH_BCR' | translate}}</th>
+                        <th class="top-header">{{'TH_IRR' | translate}}</th>
+                        <th class="top-header">{{'ThAttachment' | translate}}</th>
+                        <th class="top-header">{{'down' | translate}}</th>
+                    </tr>
+                </thead>
+                <!-- Table Body-->
+                <tbody>
+                    <tr class="heightRow">
+                        <!-- TODO: Those value dynamically come from server-->
+                        <td>
+                            {{'TR_Financial_Analysis' | translate}}
+                        </td>
+                        <td>
+                            <mat-form-field class="w-full">
+                                <input appearance="outline" autocomplete="off" matInput
+                                    formControlName="financialNpv" TwoDigitDecimalNumber>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-full">
+                                <input appearance="outline" autocomplete="off" matInput
+                                    formControlName="financialBcr" TwoDigitDecimalNumber>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-full">
+                                <input appearance="outline" autocomplete="off" matInput
+                                    formControlName="fiancialIrr" TwoDigitDecimalNumber>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="fuse-mat-dense flex-auto w-full">
+                                <ngx-mat-file-input (change)="uploadFile($event.target.files, 'financialAttachment')"
+                                    [accept]="'.pdf'" formControlName="financialAttachment"
+                                    placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="financialAttachmentId">
+                            <div class="buttons">
+                                <button *ngIf="financialAttachmentId" class="toggle-sidebar-folded" mat-icon-button
+                                    fxHide.lt-lg>
+                                    <mat-icon matTooltip="{{'down' | translate}}"
+                                        (click)="financialAttachmentDownload()" color="primary">file_download</mat-icon>
+                                </button>
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="heightRow">
+                        <!-- TODO: Those value dynamically come from server-->
+                        <td>
+                            {{'TR_Economic_Analysis' | translate}}
+                        </td>
+                        <td>
+                            <mat-form-field class="w-full">
+                                <input appearance="outline" autocomplete="off" matInput formControlName="economicNpv">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-full">
+                                <input appearance="outline" autocomplete="off" matInput formControlName="economicBcr">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="w-full">
+                                <input appearance="outline" autocomplete="off" matInput formControlName="economicIrr">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="fuse-mat-dense flex-auto w-full">
+                                <ngx-mat-file-input (change)="uploadFile($event.target.files, 'economicAttachment')"
+                                    [accept]="'.pdf'" formControlName="economicAttachment" placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="economicAttachmentId">
+                            <div class="buttons">
+                                <button *ngIf="economicAttachmentId" class="toggle-sidebar-folded" mat-icon-button
+                                    fxHide.lt-lg>
+                                    <mat-icon matTooltip="{{'down' | translate}}" (click)="economicAttachmentDownload()" color="primary">file_download</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <!-- Table Body End-->
+            </table>
+        </div>
+        <div class="flex justify-end mt-8">
+            <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
+                {{'back' | translate}}
+            </button>
+            <button [disabled]="buttonDisable" class="px-8 mr-2" mat-flat-button [color]="'primary'" type="button"
+                    (click)="onSubmit()">
+                {{'save' | translate}}
+            </button>
+            <button [disabled]="buttonDisable" class="px-8 mr-2" mat-flat-button [color]="'primary'" type="button"
+                (click)="onSubmit()" matStepperNext>
+                {{'saveNext' | translate}}
+            </button>
+            <button [disabled]="buttonDisable" class="px-8 mr-2" mat-flat-button
+                style="background-color: green; color: #FFFFFF" (click)="onSubmitAndExit()" type="button">
+                {{'saveExit' | translate}}
+            </button>
+            <button class="px-8 mr-2 toggle-sidebar-folded" :matTooltip="{{ 'Next' | translate }}" mat-flat-button
+                style="background-color: green; color: #FFFFFF" matStepperNext type="button">
+                {{ "Next" | translate }}
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,266 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <div *ngIf="spinner || !goLetterInfo" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1>{{'formTitle' | translate}}</h1>
+                </div>
+            </div>
+            <!-- Card Body -->
+            <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()" #inputForm="ngForm" class="p-4 border3 form-bg-color">
+
+                <div style="padding: 10px;">
+                    <h1 style="text-align: center; font-size: larger; font-weight: bold; font-size: 25px; font-style: italic">
+                        <span>{{'createGoLetter' | translate}}</span></h1>
+                </div>
+                <div class="flex justify-between md:mt-5">
+                    <div style="float: left" class="text-align-centre text-align-justify">
+                        <h1 style="text-align: left; font-size: larger; font-weight: bold;">
+                            <span>{{'installmentInformation' | translate}}</span></h1>
+                        <div class="mt-3">
+                            <p>
+                                <span style="font-weight: bold;">{{'installmentFor' | translate}}
+                                    :</span> {{rData?.installmentProcess?.installmentType?.installmentType}}
+                            </p>
+                            <p>
+                                <span style="font-weight: bold;">{{'amount' | translate}}:</span> {{rData?.totalAmount}}
+                                /=
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="text-align-centre text-align-justify">
+                        <h1 style="text-align: left; font-size: larger; font-weight: bold;">
+                            <span>{{'researcherInformation' | translate}}</span></h1>
+                        <div class="mt-3">
+                            <p>
+                                <span style="font-weight: bold;">{{'researchTitle' | translate}}
+                                    :</span> {{rData?.installmentProcess?.m1ResearcherProposalId?.researchTitle}}
+                            </p>
+                            <p>
+                                <span style="font-weight: bold;">{{'category' | translate}}
+                                    :</span> {{rData?.installmentProcess?.researchCategoryType?.categoryName}}
+                            </p>
+                            <p>
+                                <span style="font-weight: bold;">{{'fiscalYear' | translate}}
+                                    :</span> {{rData?.installmentProcess?.fiscalYearResponse?.fiscalYear}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- -----------4rd Row----------- -->
+                <div class="md:flex" style="margin-top: 50px;">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'grantAmount' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input type="number" (keypress)="prevent($event)" matInput formControlName="grantAmount"
+                                   placeholder="Write Your Grant Amount... "/>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'receivedAmount' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input type="number" (keypress)="prevent($event)" matInput formControlName="receivedAmount"
+                                   placeholder="Write Your Received Amount... "/>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'chequeNumber' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="chequeNumber" placeholder="Write Your Cheque Number... "/>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'chequeDate' | translate}}
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput [matDatepicker]="datepicker1"
+                                   formControlName="chequeDate"
+                            >
+                            <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker1>
+
+                            </mat-datepicker>
+                            <mat-error>required.</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'tokenNumber' | translate}}
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="tokenNo" placeholder="Write Your Token Number... "/>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'subject' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="subject" placeholder="Write Your Subject Here... "/>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'templateType' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select placeholder="Select One"
+                                        formControlName="templateType"
+                                        [compareWith]="compareFn"
+                                        (selectionChange)="selectTemplateType($event.value)">
+                                <mat-option *ngFor="let templateType of templateType"
+                                            [value]="templateType">{{templateType.templateType}}</mat-option>
+                            </mat-select>
+                            <mat-error>required!</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'predefineTemplate' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select placeholder="Select One"
+                                        formControlName="predefineTemplate"
+                                        (selectionChange)="selectPredefinedTemplate($event.value)">
+                                <mat-option *ngFor="let predifinedTemplate of predifinedTemplate"
+                                            [value]="predifinedTemplate">{{predifinedTemplate.subject}}</mat-option>
+                            </mat-select>
+                            <mat-error>required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- -----------5rd Row----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'mailBody' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <ckeditor #ckeditor2 formControlName="mailBody" [config]="mediumEditorConfig"></ckeditor>
+                    </div>
+                </div>
+
+                <div class="md:flex mt-6">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'receivedStatus' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select placeholder="Select Received Status" formControlName="receivedStatus">
+                                <mat-option
+                                    value="{{receivedStatuses.RECEIVED}}">{{receivedStatuses.RECEIVED}}</mat-option>
+                                <mat-option
+                                    value="{{receivedStatuses.NOT_RECEIVED}}">{{receivedStatuses.NOT_RECEIVED}}</mat-option>
+                            </mat-select>
+                            <mat-error>required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'status' | translate}}<strong class="required">*</strong>
+                    </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-checkbox formControlName="status" class="example-margin"></mat-checkbox>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-3">
+                    <div class="mr-5">
+                        <button class="px-5 pr-4" mat-raised-button color="accent" (click)="back()">
+                            <mat-icon class="mr-1" style="color: white">navigate_before</mat-icon>
+                            <div>{{'back' | translate}}</div>
+                        </button>
+                    </div>
+
+                    <div class="mr-5">
+                        <button class="px-5 pr-4" mat-raised-button color="accent" type="button" (click)="reset()">
+                            <mat-icon class="mr-1" style="color: white">{{refreshIcon}}</mat-icon>
+                            {{'reset' | translate}}
+                        </button>
+                    </div>
+
+                    <div *ngIf="formTitle == 'Save'" class="mr-5">
+                        <button class="px-5" mat-raised-button color="primary" type="submit">
+                            <mat-icon class="mr-1">save</mat-icon>
+                            <div>{{'save' | translate}}</div>
+                        </button>
+                    </div>
+                    <div *ngIf="formTitle == 'Edit'" class="mr-5">
+                        <button class="px-5" mat-raised-button color="warn" type="submit">
+                            <mat-icon class="mr-1">update</mat-icon>
+                            <div>{{'update' | translate}}</div>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>
+
+
+

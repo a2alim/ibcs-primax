@@ -1,0 +1,172 @@
+<div style="width: 100%">
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;" class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <!-- Header -->
+    <app-form-header class="no-print" [title]="'viewHeaderTitle' | translate" [subTitle]="'viewHeaderSubTitle' | translate"></app-form-header>
+
+    <div class="flex md:justify-end md:mr-3 mt-1 no-print">
+        <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent" (click)="backToCourseSchedule()" type="button">
+            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+            {{'previous' | translate}}
+        </button>
+
+        <button class="px-3 mr-2 printBtn" mat-flat-button color="accent" (click)="print()" type="button">
+            <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+            {{'print' | translate}}
+        </button>
+
+        <button class="px-3 mr-2 downloadBtn" mat-flat-button color="accent" (click)="download('training_institute_nstallment_repor')" type="button">
+            <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+            {{'download' | translate}}
+        </button>
+    </div>
+
+    <div class="contentDiv flex-auto m-4 body-color" id="printPage">
+
+        <mat-card style="background: white !important;">
+            <div class="w-full sm:w-auto md:w-full lg:w-full">
+
+                <div style="font-size: 16px;" class="mb-5">
+
+                    <div style="text-align: left !important;">
+                        স্মারক নং- {{partialFinalPaymentData?.memorandumNo }}
+                    </div> 
+
+                    <div style="text-align: right !important;">
+                        তারিখ : {{partialFinalPaymentData?.sendingDate }}
+                    </div>
+
+                </div>
+
+                <div style="font-size: 16px;">
+                    ডঃ উত্তম কুমার দাশ <br> উপসচিব<br> পরিকল্পনা বিভাগ, পরিকল্পনা মন্ত্রণালয় <br> গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
+                </div>
+
+                <div class="font-semibold mt-4" style="font-size: 16px;">                   
+                    সূত্র : {{partialFinalPaymentData?.sourceNo}} তারিখ {{partialFinalPaymentData?.sourceDate }}
+                </div>
+
+                <div class="font-semibold mt-4" style="font-size: 16px;">                   
+                    বিষয়: {{partialFinalPaymentData?.trainingInstituteProfileModel.trainingInstituteName }} প্রশিক্ষণ কর্মশালার জন্য {{partialFinalPaymentData?.installmentType }} কিস্তি ___ অর্থ বরাদ্দ প্রসঙ্গে ।
+                </div>
+
+                <div class="mt-5" style="font-size: 16px;">
+                    মহোদয়
+                </div>
+
+                <div class="mt-3" style="font-size: 16px;">
+                    {{partialFinalPaymentData?.trainingInstituteProfileModel.trainingInstituteName }} এর গবেষণার
+                    জন্য {{partialFinalPaymentData?.installmentAmount | number }} টাকা অনুমোদন করা হয়েছে ( স্মারক
+                    নং: {{partialFinalPaymentData?.chalanNo }} ) । গবেষণা প্রশিক্ষণ
+                    কর্মশালাটি গত {{ convertDate(partialFinalPaymentData?.installmentDate) }} আরম্ভ
+                    এবং {{convertDate(partialFinalPaymentData?.installmentDate) }} সনদ প্রদানের মাধ্যমে শেষ হয়েছে ।
+                </div>
+
+                <div class="mt-3" style="font-size: 16px;">
+                    গবেষণার জন্য বরাদ্দকৃত {{partialFinalPaymentData?.installmentType }} কিস্তির অর্থ {{partialFinalPaymentData?.installmentAmount | number }} টাকা প্রদানের জন্য {{partialFinalPaymentData?.installmentType }} কিস্তির বিল এবং সংক্ষিপ্ত প্রতিবেদন সংযুক্ত করা
+                    হল । আপনার বিবেচনার জন্য অনুরধ করছি ।
+                </div>
+
+                <div class="mt-3" style="font-size: 16px;">
+                    নিবেদক, <br> _______ <br> ____ <br> <br> সংযুক্তি <br> ১ । {{partialFinalPaymentData?.installmentType }} কিস্তির বিল <br> ২ । সংক্ষিপ্ত প্রতিবেদন
+                </div>
+
+                <div class="">
+                </div>
+
+            </div>
+
+            <div class="mt-5 font-semibold text-gray-700">
+                <!-- <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>
+                    <div class="ml-7 text-gray-900">{{'data' | translate}}</div>
+                </div> -->
+                <!-- <mat-card> -->
+                <table class="researchInfo">
+
+                    <tr>
+                        <th>
+                            {{'sl' | translate}}
+                        </th>
+                        <th>
+                            {{'itemOfExpenditure' | translate}}
+                        </th>
+                        <th>
+                            {{'totalBudget' | translate}}
+                        </th>
+                        <th>
+                            {{'expenditureAmount' | translate}}
+                        </th>
+                        <th>
+                            {{'vatAndTaxPercentage' | translate}}
+                        </th>
+                        <th>
+                            {{'vatAndTaxAmount' | translate}}
+                        </th>
+                        <th>
+                            {{'netPaymentAmount' | translate}}
+                        </th>
+                        <th>
+                            {{'voucherNumber' | translate}}
+                        </th>
+                    </tr>
+
+                    <tr *ngFor="let data of partialFinalPaymentData?.paymentBillVoucherModels; let i = index" [attr.data-index]="i">
+
+                        <td class="text-center align-middle w-11">
+                            {{ i + 1 }}
+                        </td>
+
+                        <td>
+                            {{getItemOfExpenditure(data.trainingBudgetModel.itemOfExpenditureId)}}
+                        </td>
+
+                        <td>
+                            {{ data.trainingBudgetModel.expenditureAmount | number}}
+                        </td>
+
+                        <td>
+                            {{ data.expenditureAmount | number }}
+                        </td>
+
+                        <td>
+                            {{ data.vatAndTaxPercentage }} %
+                        </td>
+                        <td>
+                            {{ data.vatAndTaxAmount }}
+                        </td>
+                        <td>
+                            {{ data.netPaymentAmount | number }}
+                        </td>
+                        <td>
+                            {{ data.voucherNumber }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Grant Total</td>
+                        <td> {{ grantTotalBudget | number }} </td>
+                        <td>{{ grantTotalExpenditureAmount |number }}</td>
+                        <td> {{ grantTotalVatAndTaxPercentage }} %</td>
+                        <td>{{ grantTotalVatAndTaxAmount |number }}</td>
+                        <td colspan="2"> {{ grantTotalNetPaymentAmount | number }}</td>
+                    </tr>
+                </table>
+                <!-- </mat-card> -->
+            </div>
+            <div class="mt-5 font-semibold text-gray-700">
+
+                <!-- <table class="researchInfo">
+                    <tr>
+                        <th></th>
+                    </tr>
+                </table> -->
+            </div>
+
+            <!-- <img class="mt-4" *ngFor="let img of partialFinalPaymentData?.paymentVoucherModels; let i = index;" alt="Not Found" src="{{minioFileDownloadEndPointHost + img?.boucherImage?.bucketName+'/'+img?.boucherImage?.fileName}}"> -->
+        </mat-card>
+        
+    </div>
+    <!-- Main End -->
+</div>

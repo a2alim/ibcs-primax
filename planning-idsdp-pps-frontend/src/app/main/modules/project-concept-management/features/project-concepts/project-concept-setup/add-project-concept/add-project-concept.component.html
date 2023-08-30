@@ -1,0 +1,221 @@
+<div style="width: 100%; background: white">
+    <div class="flex flex-col flex-auto min-w-0">
+        <div
+            class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+            <div class="flex-1 min-w-0">
+
+                <!--New Header-->
+                <div class="header flex justify-between items-center">
+                    <app-list-header [title]="'headerTitle' | translate" class="crop-text"
+                                     [subTitle]="'headerSubTitle' | translate"></app-list-header>
+                    <div class="mr-12">
+                        <button class="btn btn-list"
+                                (click)="navigateToList()"
+                                mat-button
+                                type="button">
+                            {{'ProjectMainPage' | translate}}
+                        </button>
+                    </div>
+                </div>
+                <!--//New Header-->
+
+                <!-- Header -->
+                <!--<div class="dark bg-card dark:border-b">
+                    <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                        <div class="m-5">
+                            &lt;!&ndash; Avatar and name &ndash;&gt;
+                            <div class="flex flex-auto items-center min-w-0">
+                                <div class="flex flex-col min-w-0 ml-4">
+                                    <div
+                                        class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">{{'page_title' | translate}}</div>
+                                    <div class="flex items-center">
+                                        <div class="leading-5 truncate text-secondary"><a
+                                            (click)="navigateToList()">{{'breadcrumb1' | translate}}</a> {{'breadcrumb2' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            &lt;!&ndash; Actions &ndash;&gt;
+                            <div class="flex justify-end" style="margin-top: -50px; color: #4b4b4b !important;">
+                                <button
+                                    (click)="navigateToList()"
+                                    mat-button
+                                    type="button">
+                                    {{'ProjectMainPage' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="flex-auto p-5 sm:p-5 outside-body">
+
+            <div class="max-w-8xl">
+
+                <!-- Horizontal stepper -->
+                <form *ngIf="horizontalStepperForm"
+                      class="p-4 shadow rounded overflow-hidden"
+                      style="background: #F0FDF4"
+                      [formGroup]="horizontalStepperForm">
+                    <mat-horizontal-stepper
+                        style="background: #F0FDF4"
+                        [linear]="false"
+                        #horizontalStepper
+                        (selectionChange)="selectionChanged($event)">
+                        <mat-step
+                            [formGroupName]="'step1'"
+                            [stepControl]="horizontalStepperForm.get('step1')"
+                            #horizontalStepperStep1>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title"
+                                     matTooltip="Project Summary" matTooltipPosition="above">
+                                    <!--                                {{'ProjectSummary' | translate}}-->
+                                    <span>Project</span><br>
+                                    <span>Summary</span>
+                                </div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div style="width: 100%">
+                                <app-project-summary [id]="projectConceptMasterId" [canEdit]="canEdit"
+                                                     (projectConceptMasterId)="getProjectSummaryId($event)"
+                                                     (nextStep)="goForward(horizontalStepper)">
+                                </app-project-summary>
+                            </div>
+                        </mat-step>
+
+                        <mat-step
+                            [formGroupName]="'step2'"
+                            [stepControl]="horizontalStepperForm.get('step2')">
+                            <ng-template matStepLabel>
+                                <!--                            <div class="tab-header-title"-->
+                                <!--                                 title="{{'ProjectLocation' | translate}}">{{'ProjectLocation' | translate}}-->
+                                <!--                            </div>-->
+                                <div class="tab-header-title"
+                                     matTooltip="Project Location" matTooltipPosition="above">
+                                    <span>Project</span> <br>
+                                    <span>Location</span>
+                                </div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-project-location
+                                    [projectConceptId]="projectConceptMasterId" [canEdit]="canEdit"
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-project-location>
+                            </div>
+                        </mat-step>
+
+                        <mat-step
+                            [formGroupName]="'step3'"
+                            [stepControl]="horizontalStepperForm.get('step3')">
+                            <ng-template matStepLabel>
+                                <!--                            <div class="tab-header-title"-->
+                                <!--                                 title="{{'LinkagesAndTarget' | translate}}">{{'LinkagesAndTarget' | translate}}</div>-->
+                                <div class="tab-header-title"
+                                     matTooltip="Linkages and Target" matTooltipPosition="above">
+                                    <span>Linkages And</span><br>
+                                    <sapn>Target</sapn>
+
+                                </div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-linkages-and-target [projectConceptMasterId]="projectConceptMasterId" [canEdit]="canEdit"
+                                                         (nextStep)="goForward(horizontalStepper)"
+                                                         (backPrevious)="goBack(horizontalStepper)"></app-linkages-and-target>
+                            </div>
+                            <div class="flex justify-end mt-8">
+                            </div>
+                        </mat-step>
+
+
+                        <mat-step
+                            [formGroupName]="'step4'"
+                            [stepControl]="horizontalStepperForm.get('step4')"
+                            #horizontalStepperStep2>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title"
+                                     matTooltip="Mode of Finance" matTooltipPosition="above">
+                                    <span>Mode of</span><br>
+                                    <span>Finance</span>
+
+                                </div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-mode-of-finance
+                                    [projectConceptMasterId]="projectConceptMasterId" [canEdit]="canEdit"
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-mode-of-finance>
+                            </div>
+                            <div class="flex justify-end mt-8">
+                            </div>
+                        </mat-step>
+
+                        <mat-step
+                            [formGroupName]="'step5'"
+                            [stepControl]="horizontalStepperForm.get('step5')"
+                            #horizontalStepperStep1>
+                            <ng-template matStepLabel>
+                                <!--                            <div class="tab-header-title"-->
+                                <!--                                 title="{{'Justification' | translate}}">{{'Justification' | translate}}</div>-->
+                                <div class="tab-header-title"
+                                     matTooltip="Justification" matTooltipPosition="above">
+                                    <!--                                {{'Justification' | translate}}-->
+                                    <span>Justification</span>
+                                </div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-justification
+                                    [projectConceptMasterId]="projectConceptMasterId" [canEdit]="canEdit"
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (backPreviousPage)="goBack(horizontalStepper)">
+                                </app-justification>
+                            </div>
+                        </mat-step>
+
+                        <mat-step
+                            [formGroupName]="'step6'"
+                            [stepControl]="horizontalStepperForm.get('step6')"
+                            #horizontalStepperStep1>
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title"
+                                     matTooltip="Scope of Work" matTooltipPosition="above">
+                                    <!--                                {{'ScopeOfWork' | translate}}-->
+                                    <span>Scope of</span><br>
+                                    <span>Work</span>
+                                </div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-scope-of-work
+                                    [projectConceptMasterId]="projectConceptMasterId" [canEdit]="canEdit"
+                                    (nextStep)="save()"
+                                    (backPreviousPage)="goBack(horizontalStepper)">
+
+                                </app-scope-of-work>
+                            </div>
+                        </mat-step>
+
+                    </mat-horizontal-stepper>
+                </form>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

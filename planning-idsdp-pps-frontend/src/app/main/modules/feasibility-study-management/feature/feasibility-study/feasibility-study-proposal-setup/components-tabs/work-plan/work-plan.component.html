@@ -1,0 +1,157 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<div style="overflow-x:auto;">
+        <form [formGroup]="form">
+            <table mat-table  [dataSource]="workPlanDataSource" class="mat-elevation-z8" formArrayName="workPlan">
+                <!-- Row definitions -->
+                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                <tr mat-row *matRowDef="let row; let i = index; columns: displayColumns;"></tr>
+
+                <!-- Column definitions -->
+                <ng-container matColumnDef="sl">
+                    <th mat-header-cell *matHeaderCellDef>{{'sl' | translate}}</th>
+                    <td mat-cell *matCellDef="let element; let i = index;">
+                        {{i + 1}}
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="taskDetails">
+                    <th mat-header-cell *matHeaderCellDef>{{'taskDetails'| translate}}<strong class="required">*</strong></th>
+                    <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                            <input matInput required type="text" value="" formControlName="taskDetails">
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="committee">
+                    <th *matHeaderCellDef mat-header-cell>{{'committee' | translate}}</th>
+                    <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                            <mat-select formControlName="committeeId" required>
+                                <mat-option value="">Select</mat-option>
+                                <mat-option *ngFor="let type of committeeList" [value]=type.id>
+                                    {{type.committeeName}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="vendor">
+                    <th *matHeaderCellDef mat-header-cell>{{'vendor' | translate}}</th>
+                    <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                            <mat-select formControlName="vendorId" required>
+                                <mat-option value="">Select</mat-option>
+                                <mat-option *ngFor="let type of vendorList" [value]=type.id>
+                                    {{type.vendorName}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="startDate">
+                    <th mat-header-cell *matHeaderCellDef>{{'startDate' | translate}}</th>
+                    <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+
+                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                            <input readonly (click)="picker1.open()" [matDatepicker]="picker1" formControlName="startDate" matInput required [min]="startDateFs" [max]="endDateFs" (dateChange)="startDateChange($event,index)">
+                            <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="endDate">
+                    <th mat-header-cell *matHeaderCellDef>{{'endDate' | translate}}</th>
+                    <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                            <input readonly (click)="picker2.open()" [matDatepicker]="picker2" formControlName="endDate" matInput required [min]="endDate[index]" [max]="endDateFs" >
+                            <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>{{'status' | translate}}<strong class="required">*</strong></th>
+                    <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                        <mat-form-field class="fuse-mat-dense flex-auto mt-5">
+                            <mat-select formControlName="status" required>
+                                <mat-option value="">Select</mat-option>
+                                <mat-option [value]="'In Progress'">
+                                    In Progress
+                                </mat-option>
+                                <mat-option [value]="'Done'">
+                                    Done
+                                </mat-option>
+                                <mat-option [value]="'Not Done'">
+                                   Not Done
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>{{'action' | translate}}</th>
+                    <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
+                        <div class="buttons">
+                            <div class="toggle-sidebar-folded"
+                                    mat-icon-button
+                                    fxHide.lt-lg>
+                                <mat-icon matTooltip="Add New" (click)="addRow()" color="primary">add</mat-icon>
+                            </div>
+
+                            <div *ngIf="!canUpdate" mat-icon-button class="toggle-sidebar-folded"
+                                    fxHide.lt-lg>
+                                <mat-icon matTooltip="Delete" (click)="openDialog(i, 'deleteCurrentRow')" color="warn">delete</mat-icon>
+                            </div>
+
+                            <div *ngIf="canUpdate" mat-icon-button class="toggle-sidebar-folded"
+                                    fxHide.lt-lg>
+                                <mat-icon matTooltip="Delete" (click)="openDialog(i, 'deleteRowFromDB')" color="warn">delete</mat-icon>
+                            </div>
+
+                        </div>
+                    </td>
+                </ng-container>
+
+            </table>
+
+           <input formControlName="startDate">
+        </form>
+</div>
+
+<div>
+    <br/><br/><br/>
+    <div fxLayout="row wrap" fxLayoutAlign="end">
+        <button class="mr-2" mat-flat-button color="accent" type="button"
+                (click)="backPrevious()">Back</button>
+        <button class="mr-2" *ngIf="!canUpdate" [disabled]="spinner" mat-flat-button color="primary" type="button"
+                (click)="saveAndNext()">Save & Next</button>
+        <button class="mr-2" *ngIf="!canUpdate" [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+        <button class="mr-2" *ngIf="canUpdate" [disabled]="spinner" mat-flat-button color="primary" type="button"
+                (click)="updateAndNext()">Save & Next</button>
+        <button class="mr-2" *ngIf="canUpdate" [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF" color="primary" type="button"
+                (click)="updateAndExit()">{{'Save&Exit' | translate}}</button>
+    </div>
+</div>
+
+
+<!--<pre>{{ rows.value | json }}</pre>-->
+

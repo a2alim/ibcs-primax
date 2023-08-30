@@ -1,0 +1,395 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7"
+        class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- <div *ngIf="spinner2" class="flex items-center justify-center">
+        <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div> -->
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <div>
+
+                <div class="flex-auto mt-6 body-color">
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="heading w-full">
+                            {{'researcherProposalList' | translate}}
+                        </mat-label>
+                    </div>
+
+                    <mat-card>
+
+                        <ng-container *ngIf="loginUserInfo.userType=='Rms_DO'">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                                <div class="w-full grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+                                    <div class="w-full">
+                                        <div>
+                                            {{'financialYearName' | translate}}
+                                        </div>
+                                        <mat-form-field class="w-full">
+                                            <mat-select (ngModelChange)="onSelectFiscalYear($event)"
+                                                [(ngModel)]="selectedFiscalYear">
+                                                <mat-option *ngFor="let f of fiscalYearList" [value]="f.id">
+                                                    {{f.fiscalYear}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="w-full">
+                                        <div>
+                                            {{'researchCategory' | translate}}
+                                        </div>
+                                        <mat-form-field class="w-full">
+                                            <mat-select (ngModelChange)="onSelectResearchCategoryType($event)"
+                                                [(ngModel)]="selectedResearchCategoryType">
+                                                <mat-option *ngFor="let rc of researchCategoryTypeList" [value]="rc.id">
+                                                    {{rc.categoryName}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="w-full">
+                                        <div>
+                                            {{'Sector' | translate}}
+                                        </div>
+                                        <mat-form-field class="w-full">
+                                            <mat-select (ngModelChange)="onSelectResearchField($event)"
+                                                        [(ngModel)]="selectedResearchFieldType">
+                                                <mat-option *ngFor="let sector of sectors" [value]="sector.id">
+                                                    {{sector.fieldName}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="flex w-full sm:justify-end md:justify-start md:mt-6">
+                                        <div class="inline-block">
+                                            <button class="px-1 mr-1 previousBtn" mat-flat-button color="accent"
+                                                type="button">
+                                                <mat-icon *ngIf="searchIcon" class="mr-1">{{searchIcon}}</mat-icon>
+                                                {{'search' | translate}}
+                                            </button>
+                                        </div>
+
+                                        <div class="inline-block">
+                                            <button [disabled]="spinner2" (click)="downloadPdf('linkup-proposal-with-evaluator')"
+                                                class="px-1 mr-1 downloadBtn" mat-flat-button color="accent"
+                                                type="button">
+                                                <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+                                                {{'download' | translate}}
+                                            </button>
+                                        </div>
+                                        <!-- <div class="inline-block">
+                                            <button class="px-1 mr-1 downloadBtn" mat-flat-button color="accent"
+                                                type="button" (click)="onClickkViewDetails()"
+                                                [disabled]="spinner || researchCategoryTypeList.length == 0">
+                                                <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+                                                {{'viewDetails' | translate}}
+                                            </button>
+                                        </div> -->
+                                    </div>
+
+
+                                </div>
+                                <!-- search drop down area end -->
+
+                            </div>
+                        </ng-container>
+
+
+                        <table class="OrganizationTbl">
+                            <tr>
+                                <th class="text-alignment text-center">
+                                    {{'Sl' | translate}}
+                                </th>
+                                <th class="text-alignment">
+                                    {{'researchTitle' | translate}}
+                                </th>
+                                <!--<th class="text-alignment">
+                                    {{'researchCategory' | translate}}
+                                </th>
+                                <th class="text-alignment">
+                                    {{'researcherName' | translate}}
+                                </th>
+
+                                <th class="text-alignment">
+                                    {{'field' | translate}}
+                                </th>
+                                <th class="text-alignment">
+                                    {{'subField' | translate}}
+                                </th>-->
+                                <th class="text-alignment">
+                                    {{'evaluatorName2' | translate}}
+                                </th>
+                                <th class="text-alignment">
+                                    {{'evaluatorName' | translate}}
+                                </th>
+                                <th class="text-alignment">
+                                    {{'evaluatorName3' | translate}}
+                                </th>
+                                <th class="text-alignment">
+                                    {{'action' | translate}}
+                                </th>
+                            </tr>
+
+                            <tr *ngFor="let item of researcherProposalList; let i = index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="cursor-pointer" (click)="showResearcherProposal(item?.proposalUuid)">
+                                    <div><span class="font-bold">{{'researchTitle' | translate}}
+                                        :</span> {{item.researchTitle}}</div>
+                                    <div><span class="font-bold">{{'researcherName' | translate}}
+                                        :</span> {{item.researcherProfilePersonalInfoDto?.userDto?.name}}</div>
+                                    <div><span class="font-bold">{{'researchCategory' | translate}}
+                                        :</span> {{item.researchCategoryType?.categoryName}}</div>
+                                    <div><span class="font-bold">{{'field' | translate}}
+                                        :</span> {{item.sector?.fieldName}}</div>
+                                    <div><span class="font-bold">{{'subField' | translate}}
+                                        :</span> {{item.subSector?.subFieldName}}</div>
+                                </td>
+<!--                                <td>{{item.researchCategoryType?.categoryName}}</td>-->
+<!--                                <td>{{item.researcherProfilePersonalInfoDto?.userDto?.name}}</td>-->
+<!--                                <td>{{item.sector?.fieldName}}</td>-->
+<!--                                <td>{{item.subSector?.subFieldName}}</td>-->
+
+                                <ng-container *ngIf="loginUserInfo.userType=='Rms_DO'">
+                                    <td>
+                                        <!-- [disabled]="((item?.mailStatusForProMarks==1 ?true:false && item.reviewStatusForProMarks !=3))" -->
+                                        <mat-select [(ngModel)]="item.stProfileOfExpertEvaluatorsIdForProMarks"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let e of evaluatorForProfileMarksList" [value]="e.id">
+                                                {{e.name}}
+                                            </mat-option>
+                                        </mat-select>
+
+                                        <mat-select [(ngModel)]="item.reviewStatusForProMarks"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <mat-option [value]="1">Pending</mat-option>
+                                            <mat-option [value]="2">Received</mat-option>
+                                            <mat-option [value]="3">Rejected</mat-option>
+                                        </mat-select>
+
+                                        <button (click)="goToSendEmail(item,i,true,'EvaluatorForProMarks')"
+                                            mat-icon-button class="toggle-sidebar-folded " matTooltip="Visibility"
+                                            fxHide.lt-lg [disabled]="spinner">
+                                            <mat-icon color="accent" *ngIf="visibilityIcon">{{visibilityIcon}}
+                                            </mat-icon>
+                                        </button>
+
+                                        <!-- [disabled]="item?.mailStatusForProMarks==1 ?true:false" -->
+                                        <button (click)="goToSendEmail(item,i,false,'EvaluatorForProMarks')"
+                                            mat-icon-button class="toggle-sidebar-folded" matTooltip="Create Mail"
+                                            fxHide.lt-lg>
+                                            <mat-icon class="yellow-color" *ngIf="emailIcon"> {{emailIcon}}</mat-icon>
+                                        </button>
+                                    </td>
+
+                                    <td>
+                                        <mat-select [(ngModel)]="item.stProfileOfExpertEvaluatorsId"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let e of evaluatorForResearcherList" [value]="e.id">
+                                                {{e.name}}
+                                            </mat-option>
+                                        </mat-select>
+
+                                        <mat-select [(ngModel)]="item.reviewStatus"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <mat-option [value]="1">Pending</mat-option>
+                                            <mat-option [value]="2">Received</mat-option>
+                                            <mat-option [value]="3">Rejected</mat-option>
+                                        </mat-select>
+
+                                        <button (click)="goToSendEmail(item,i,true,'Evaluator')" mat-icon-button
+                                            class="toggle-sidebar-folded " matTooltip="Visibility" fxHide.lt-lg
+                                            [disabled]="spinner">
+                                            <mat-icon color="accent" *ngIf="visibilityIcon">{{visibilityIcon}}
+                                            </mat-icon>
+                                        </button>
+
+                                        <button (click)="goToSendEmail(item,i,false,'Evaluator')" mat-icon-button
+                                            class="toggle-sidebar-folded" matTooltip="Create Mail" fxHide.lt-lg>
+                                            <mat-icon class="yellow-color" *ngIf="emailIcon"> {{emailIcon}}</mat-icon>
+                                        </button>
+                                    </td>
+
+
+                                    <td>
+                                        <mat-select [(ngModel)]="item.stProfileOfExpertEvaluatorsIdForResearch"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let e of evaluatorForResearch" [value]="e.id">
+                                                {{e.name}}
+                                            </mat-option>
+                                        </mat-select>
+
+                                        <mat-select [(ngModel)]="item.reviewStatusForResearch"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <mat-option [value]="1">Pending</mat-option>
+                                            <mat-option [value]="2">Received</mat-option>
+                                            <mat-option [value]="3">Rejected</mat-option>
+                                        </mat-select>
+
+                                        <button (click)="goToSendEmail(item,i,true,'EvaluatorForResearch')"
+                                            mat-icon-button class="toggle-sidebar-folded " matTooltip="Visibility"
+                                            fxHide.lt-lg [disabled]="spinner">
+                                            <mat-icon color="accent" *ngIf="visibilityIcon">{{visibilityIcon}}
+                                            </mat-icon>
+                                        </button>
+
+                                        <button (click)="goToSendEmail(item,i,false,'EvaluatorForResearch')"
+                                            mat-icon-button class="toggle-sidebar-folded" matTooltip="Create Mail"
+                                            fxHide.lt-lg>
+                                            <mat-icon class="yellow-color" *ngIf="emailIcon"> {{emailIcon}}</mat-icon>
+                                        </button>
+                                    </td>
+
+                                </ng-container>
+
+
+                                <td *ngIf="loginUserInfo.userType=='Rms_Evaluator'">
+                                    <ng-conainer
+                                        *ngIf="item.stProfileOfExpertEvaluatorsIdForProMarks && (loginUserInfo.id==item.evaluatorsForProMarksUserId)">
+
+                                        <mat-select [(ngModel)]="item.stProfileOfExpertEvaluatorsIdForProMarks"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let e of evaluatorForProfileMarksList" [value]="e.id">
+                                                {{e.name}}
+                                            </mat-option>
+                                        </mat-select>
+
+                                        <mat-select [(ngModel)]="item.reviewStatusForProMarks"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <mat-option [value]="1">Pending</mat-option>
+                                            <mat-option [value]="2">Received</mat-option>
+                                            <mat-option [value]="3">Rejected</mat-option>
+                                        </mat-select>
+
+                                        <button (click)="goToSendEmail(item,i,true,'EvaluatorForProMarks')"
+                                            mat-icon-button class="toggle-sidebar-folded " matTooltip="Visibility"
+                                            fxHide.lt-lg [disabled]="spinner">
+                                            <mat-icon color="accent" *ngIf="visibilityIcon">{{visibilityIcon}}
+                                            </mat-icon>
+                                        </button>
+
+                                        <!-- <button (click)="goToSendEmail(item,i,false,'EvaluatorForProMarks')"
+                                            mat-icon-button class="toggle-sidebar-folded" matTooltip="Create Mail"
+                                            fxHide.lt-lg [disabled]="item?.mailStatusForProMarks==1 ?true:false">
+                                            <mat-icon class="yellow-color" *ngIf="emailIcon"> {{emailIcon}}</mat-icon>
+                                        </button> -->
+                                    </ng-conainer>
+                                </td>
+
+
+                                <td *ngIf="loginUserInfo.userType=='Rms_Evaluator'">
+                                    <ng-container
+                                        *ngIf="item.stProfileOfExpertEvaluatorsId && (loginUserInfo.id==item.evaluatorsUserId)">
+                                        <mat-select [(ngModel)]="item.stProfileOfExpertEvaluatorsId"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [disabled]="item?.mailStatus==1 ?true:false">
+                                            <mat-option *ngFor="let e of evaluatorForResearcherList" [value]="e.id">
+                                                {{e.name}}
+                                            </mat-option>
+                                        </mat-select>
+
+                                        <mat-select [(ngModel)]="item.reviewStatus"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [disabled]="item.reviewStatusTemp == 3">
+                                            <mat-option [value]="1">Pending</mat-option>
+                                            <mat-option [value]="2">Received</mat-option>
+                                            <mat-option [value]="3">Rejected</mat-option>
+                                        </mat-select>
+
+                                        <button (click)="goToSendEmail(item,i,true,'Evaluator')" mat-icon-button
+                                            class="toggle-sidebar-folded " matTooltip="Visibility" fxHide.lt-lg
+                                            [disabled]="spinner">
+                                            <mat-icon color="accent" *ngIf="visibilityIcon">{{visibilityIcon}}
+                                            </mat-icon>
+                                        </button>
+                                    </ng-container>
+                                </td>
+
+
+                                <!-- new evaluator -->
+                                <td *ngIf="loginUserInfo.userType=='Rms_Evaluator'">
+                                    <ng-container
+                                        *ngIf="item.stProfileOfExpertEvaluatorsIdForResearch && (loginUserInfo.id==item.evaluatorsForResearchUserId)">
+                                        <mat-select [(ngModel)]="item.stProfileOfExpertEvaluatorsIdForResearch"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [disabled]="item?.mailStatusForResearch==1 ?true:false">
+                                            <mat-option *ngFor="let e of evaluatorForResearch" [value]="e.id">
+                                                {{e.name}}
+                                            </mat-option>
+                                        </mat-select>
+
+                                        <mat-select [(ngModel)]="item.reviewStatusForResearch"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [disabled]="item.reviewStatusForResearchTemp == 3">
+                                            <mat-option [value]="1">Pending</mat-option>
+                                            <mat-option [value]="2">Received</mat-option>
+                                            <mat-option [value]="3">Rejected</mat-option>
+                                        </mat-select>
+
+                                        <button (click)="goToSendEmail(item,i,true,'EvaluatorForResearch')"
+                                            mat-icon-button class="toggle-sidebar-folded " matTooltip="Visibility"
+                                            fxHide.lt-lg [disabled]="spinner">
+                                            <mat-icon color="accent" *ngIf="visibilityIcon">{{visibilityIcon}}
+                                            </mat-icon>
+                                        </button>
+
+                                    </ng-container>
+                                </td>
+                                <!-- new evaluator -->
+
+                                <td class="text-center w-2.2">
+
+                                    <!-- <button (click)="goToSendEmail(item,i,true)" mat-icon-button
+                                        class="toggle-sidebar-folded " matTooltip="Visibility" fxHide.lt-lg
+                                        [disabled]="spinner">
+                                        <mat-icon color="accent" *ngIf="visibilityIcon">{{visibilityIcon}}</mat-icon>
+                                    </button> -->
+
+                                    <ng-container *ngIf="!item.linkupProposalWithEvaluatorsId">
+                                        <button (click)="onSaveOrUpdate(item,i)" mat-icon-button
+                                            class="toggle-sidebar-folded " matTooltip="Save" fxHide.lt-lg
+                                            [disabled]="spinner">
+                                            <mat-icon *ngIf="saveIcon" class="mr-1 text-green">{{saveIcon}}</mat-icon>
+                                        </button>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="item.linkupProposalWithEvaluatorsId">
+                                        <button (click)="onSaveOrUpdate(item,i)" mat-icon-button
+                                            class="toggle-sidebar-folded" matTooltip="Update" fxHide.lt-lg>
+                                            <mat-icon *ngIf="saveIcon" class="mr-1 text-blue-900">{{editIcon}}
+                                            </mat-icon>
+                                        </button>
+                                    </ng-container>
+
+
+                                    <!-- <button (click)="goToSendEmail(item,i,false)" mat-icon-button
+                                        class="toggle-sidebar-folded" matTooltip="Create Mail" fxHide.lt-lg
+                                        [disabled]="item?.mailStatus==1 ?true:false">
+                                        <mat-icon class="yellow-color" *ngIf="emailIcon"> {{emailIcon}}</mat-icon>
+                                    </button> -->
+                                </td>
+                            </tr>
+                        </table>
+
+                    </mat-card>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main End -->
+
+</div>

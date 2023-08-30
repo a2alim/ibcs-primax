@@ -1,0 +1,353 @@
+<div style="width: 100%">
+    <!-- Header -->
+
+    <app-form-header [subTitle]="'headerOfSubtitle' | translate" [title]="'header' | translate"></app-form-header>
+
+    <div *ngIf="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7"
+        class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="flex justify-end mb-3">
+
+                <button (click)="openSendMailDialog()" *ngIf="userType === 'Rms_DO'" color="secondary"
+                    mat-raised-button>
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{uploadIcon}}</mat-icon>
+                    {{'uploadEDoc' | translate}}
+                </button>
+
+                <button (click)="goToEDocView()" *ngIf="userType === 'Rms_DO'" class="ml-3" color="primary"
+                    mat-raised-button>
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{viewIcon}}</mat-icon>
+                    {{'viewEDoc' | translate}}
+                </button>
+
+            </div>
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+
+                <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mt-4 mb-4"
+                    *ngIf="userType === 'Rms_DO'">
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'FiscalYear'|translate}}</mat-label>
+                            <mat-select (selectionChange)="onSelectFiscalYear($event)"
+                                [(ngModel)]="sendDataForGrid.fiscalYearId" [ngModelOptions]="{standalone: true}"
+                                placeholder="Search By fiscal Year">
+                                <mat-option *ngFor="let f of fiscalYears" [value]="f.id">{{f.fiscalYear}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'TrainingInstitute'|translate}}</mat-label>
+                            <mat-select (selectionChange)="onSelectTrainingInstitute($event)"
+                                [(ngModel)]="sendDataForGrid.profileId" [ngModelOptions]="{standalone: true}"
+                                placeholder="Search By Training Institute">
+                                <mat-option *ngFor="let f of traningInstituteList" [value]="f.profileId">
+                                    {{f.instituteName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+
+                        <ng-container *ngIf="!sendDataForGrid.profileId">
+                            <mat-form-field class="w-full">
+                                <mat-label>{{'TrainingTitle'|translate}}</mat-label>
+                                <mat-select (selectionChange)="onSelectTrainingTitle($event)"
+                                    [(ngModel)]="sendDataForGrid.proposalId" [ngModelOptions]="{standalone: true}"
+                                    placeholder="Search By Training Title">
+                                    <mat-option *ngFor="let f of proposalList" [value]="f.id">{{f.trainingName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="sendDataForGrid.profileId">
+                            <mat-form-field class="w-full">
+                                <mat-label>{{'TrainingTitle'|translate}}</mat-label>
+                                <mat-select (selectionChange)="onSelectTrainingTitle($event)"
+                                    [(ngModel)]="sendDataForGrid.proposalId" [ngModelOptions]="{standalone: true}"
+                                    placeholder="Search By Training Title">
+                                    <mat-option *ngFor="let f of proposalListNew" [value]="f.id">
+                                        {{f.trainingName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'IsShortListed'|translate}}</mat-label>
+                            <mat-select [(ngModel)]="sendDataForGrid.isShortListed"
+                                [ngModelOptions]="{standalone: true}" placeholder="Search By Short List">
+                                <mat-option *ngFor="let f of isShortList" [value]="f.value">{{f.label}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{'ApprovalStatus'|translate}}</mat-label>
+
+                            <mat-select [(ngModel)]="sendDataForGrid.approvalStatus"
+                                [ngModelOptions]="{standalone: true}" placeholder="Search By Approval Statusr">
+                                <mat-option *ngFor="let f of proposalStatusList" [value]="f.value">{{f.label}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+
+                    <br>
+                    <div class="flex w-full sm:justify-end md:justify-start">
+
+                        <div class="inline-block">
+                            <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" type="button"
+                                [disabled]="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7"
+                                (click)="onSubmit()">
+                                <mat-icon class="mr-1">search</mat-icon>
+                                {{'search' | translate}}
+                            </button>
+                        </div>
+
+                        <div class="inline-block">
+                            <button class="px-3 mr-2" (click)="reset()" color="accent" mat-flat-button type="reset"
+                                [disabled]="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7"
+                                (click)="onSubmit()">
+                                <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                                {{'reset' | translate}}
+                            </button>
+                        </div>
+
+                        <!--<div class="inline-block">
+                            <button (click)="goToENothiView()" *ngIf="userType === 'Rms_DO'" class="px-3 mr-2"
+                                color="primary" mat-raised-button>
+                                <mat-icon *ngIf="addNewIcon" class="mr-1">{{viewIcon}}</mat-icon>
+                                {{'viewDetails' | translate}}
+                            </button>
+                        </div>-->
+
+                        <div class="inline-block">
+                            <button
+                                [disabled]="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7"
+                                (click)="onSubmit()" class="px-3 mr-2 downloadBtn" mat-flat-button color="accent"
+                                type="button">
+                                <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+                                {{'download' | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- <div class="md:flex tbl-title mt-5">
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 md:text-left md:pt-1 lg:mx-0 mr-1">
+                        <mat-form-field class="fuse-mat-dense flex-auto mr-1" fxFlex="50%" fxFlex.md="50%"
+                            fxFlex.sm="50%" fxFlex.xs="100%">
+                            <mat-select (selectionChange)="getNominatedInstitutes()" [(ngModel)]="fiscalYearId"
+                                [ngModelOptions]="{standalone: true}" placeholder="Search By fiscal Year">
+                                <mat-option value="">All</mat-option>
+                                <mat-option *ngFor="let f of fiscalYears" [value]="f.id">{{f.fiscalYear}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%"
+                            fxFlex.xs="100%">
+                            <mat-select (selectionChange)="filterByInstitute()" [(ngModel)]="selectedTrainingInstitute"
+                                [ngModelOptions]="{standalone: true}" placeholder="Search By Training Institute">
+                                <mat-option value="">Select Training Institute</mat-option>
+                                <mat-option *ngFor="let f of trainingInstitutes" [value]="f.trainingInstituteName">
+                                    {{f.trainingInstituteName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 md:text-left md:pt-1 lg:mx-1 mr-1">
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%"
+                            fxFlex.xs="100%">
+                            <mat-select (selectionChange)="getNominatedInstitutes()" [(ngModel)]="isShortListed"
+                                [ngModelOptions]="{standalone: true}" placeholder="By Short List">
+                                <mat-option value="">All</mat-option>
+                                <mat-option value="true">Yes</mat-option>
+                                <mat-option value="false">No</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div
+                            class="w-full sm:w-auto md:w-50 lg:w-50 md:text-left md:pt-1 lg:mx-2 mr-4 flex justify-end">
+
+                            <button (click)="goToENothiView()" *ngIf="userType === 'Rms_DO'" class="ml-3"
+                                color="primary" mat-raised-button>
+                                <mat-icon *ngIf="addNewIcon" class="mr-1">{{viewIcon}}</mat-icon>
+                                {{'viewDetails' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="md:flex tbl-title">
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 md:text-left md:pt-1 lg:mx-2 mr-4">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'cardLeftTitle' | translate}}
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-1">
+                    <!--<mat-card>-->
+                    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                        <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sl">
+                                <th *matHeaderCellDef class="w-16" mat-header-cell> {{'sl' | translate}} </th>
+                                <td *matCellDef="let row; let i = index;" mat-cell>
+                                    {{(i + 1) + (page * size)}}
+                                </td>
+                            </ng-container>
+
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="proposedTrainerName">
+                                <th *matHeaderCellDef mat-header-cell style="text-align: left !important;">
+                                    {{'Traning_Title_Institute_Fiscal_Year' | translate}} </th>
+                                <td *matCellDef="let element" mat-cell style="text-align: left !important;">
+                                    <span class="font-semibold text-cyan-400 cursor-pointer"
+                                        (click)="goToProposal(element.uuid, element.id)">{{'Traning_Title' |
+                                        translate}}:
+                                        {{element.trainingName}}
+                                    </span>
+                                    <br>
+                                    <span class="font-nomal  text-green-600 cursor-pointer"
+                                        (click)="goToProfile(element)">{{'Institute'|
+                                        translate}} : {{element.trainingInstituteName}}
+                                    </span>
+                                    <br>
+                                    <span class="text-amber-500 font-nomal"> {{'FiscalYear' | translate}} :
+                                        {{ getFiscalYearName(element.fiscalYearId) }}
+                                    </span>
+                                </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="trainingDuration">
+                                <th *matHeaderCellDef mat-header-cell> {{'trainingDuration' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{element.trainingDuration}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="programDate">
+                                <th *matHeaderCellDef mat-header-cell> {{'programDate' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell> {{element.programDate}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="sortList">
+                                <th *matHeaderCellDef mat-header-cell> {{'sortList' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <div *ngIf="userType === 'Rms_DO'; else elseDiv" >
+                                        <mat-checkbox (change)="shortListedConfirmationDialog($event.checked, element.id)"
+                                            [checked]="element.isShortListed"
+                                            [disabled]="userType === 'Rms_Training_Institute' || spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7"
+                                            class="example-margin">
+                                            <p *ngIf="!element.isShortListed">No</p>
+                                            <p *ngIf="element.isShortListed">Yes</p>
+                                        </mat-checkbox>
+                                    </div>
+                                    <ng-template #elseDiv>
+                                        <p *ngIf="!element.isShortListed">No</p>
+                                        <p *ngIf="element.isShortListed">Yes</p>
+                                    </ng-template>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="eDocumentStatus">
+                                <th *matHeaderCellDef mat-header-cell> {{'Approval_Status' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <div  *ngIf="userType === 'Rms_DO'; else elseDiv">
+                                        <mat-select (selectionChange)="changeENothiStatusDialog($event.value, element.id)"
+                                            [(value)]="element.proposalStatusInt"
+                                            [disabled]="userType === 'Rms_Training_Institute' || spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7"
+                                            placeholder="Select E-Nothi Status">
+                                            <!-- <mat-option value="RUNNING">Running</mat-option>
+                                            <mat-option value="APPROVED">Approved</mat-option>
+                                            <mat-option value="REJECTED">Rejected</mat-option>
+                                            <mat-option value="COMPLETED">Completed</mat-option>
+                                            <mat-option value="NOT_SUBMITTED">Not Submitted</mat-option> -->
+                                            <ng-container *ngFor="let f of proposalStatusList">
+                                                <mat-option [value]="f.value" *ngIf="f.value !=9">{{f.label}}
+                                                </mat-option>
+                                            </ng-container>
+                                        </mat-select>
+                                    </div>
+                                    <ng-template #elseDiv>
+                                        <ng-container *ngFor="let f of proposalStatusList">
+                                            <span *ngIf="(f.value == element.proposalStatusInt) && f.value !=9">{{f.label}}</span>
+                                        </ng-container>
+                                    </ng-template>
+
+
+                                </td>
+                            </ng-container>
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th *matHeaderCellDef class="pl-4 w-32" mat-header-cell> {{'Action' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <div class="buttons">
+
+                                        <button (click)="viewDetails(element.uuid, element.id, element.userId)"
+                                            class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button
+                                            matTooltip="View Proposal">
+                                            <mat-icon color="primary">visibility
+                                            </mat-icon>
+                                        </button>
+
+                                        <button (click)="viewCompletionReport(element)" class="toggle-sidebar-folded"
+                                            fxHide.lt-lg mat-icon-button matTooltip="View Completion Report" *ngIf="element.isFinalSubmitted">
+                                            <mat-icon color="primary">visibility
+                                            </mat-icon>
+                                        </button>
+
+                                        <button (click)="goToCompletionReport(element)" class="toggle-sidebar-folded"
+                                            fxHide.lt-lg mat-icon-button matTooltip="Submit Completion Report"
+                                            *ngIf="userType === 'Rms_Training_Institute' && (element.proposalStatusInt==3)">
+                                            <mat-icon color="primary">insert_drive_file
+                                            </mat-icon>
+                                        </button>
+
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator #paginatorRef [length]="totalElements" [pageSize]="pageSize"
+                        [pageSizeOptions]="[5, 10, 25, 100]" (page)="onChangePage($event)">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

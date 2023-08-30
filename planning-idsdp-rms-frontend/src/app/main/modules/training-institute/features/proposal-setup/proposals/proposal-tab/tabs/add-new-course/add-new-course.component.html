@@ -1,0 +1,48 @@
+<div style="width: 100%">
+    <!-- Header -->
+<!--    <app-form-header *ngIf="!isEditable" [subTitle]="'subHeader' | translate" [title]="'mainHeader' | translate"></app-form-header>-->
+<!--    <app-form-header *ngIf="isEditable" [subTitle]="'subEHeader' | translate" [title]="'mainEHeader' | translate"></app-form-header>-->
+
+    <!--    <div *ngIf="spinner" class="flex items-center justify-center">-->
+    <!--        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"-->
+    <!--             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <!-- Horizontal stepper -->
+            <form class="bg-card shadow rounded ounded-2xl overflow-hidden ">
+                <mat-horizontal-stepper #horizontalStepper (selectionChange)="selectionChanged($event)" [linear]="false" class="tab-bar tab-color">
+
+                    <mat-step>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title" title="{{'tab_0_title' | translate}}">{{'tab_0_title' | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-course-title (backPrevious)="goBack(horizontalStepper)" (nextStep)="goForward(horizontalStepper)" [courseId]="courseId" [newCourseModel]="newCourseModel"></app-course-title>
+                        </div>
+                    </mat-step>
+
+                    <mat-step>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title" title="{{'tab_0_2_title' | translate}}">{{'tab_0_2_title' | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-add-course-schedule (backPrevious)="goBack(horizontalStepper)" (nextStep)="goForward(horizontalStepper)" [courseId]="courseId"   [isEditable]="isEditable" [newCourseModel]="newCourseModel"></app-add-course-schedule>
+                        </div>
+                    </mat-step>
+
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+
+    </div>
+    <!-- Main End -->
+</div>

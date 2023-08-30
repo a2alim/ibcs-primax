@@ -1,0 +1,82 @@
+<!-- body  -->
+<div class="body">
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+    <form [formGroup]="formGroup">
+    <mat-card>
+    <div>
+        <p>{{'Annex_21.0' | translate}} ({{'as_per1' | translate}}<a class="AnnexureLink" routerLink="/dpp-tapp/detailed-estimated-cost"><u>{{'attachV' | translate}}</u></a>)</p>
+    </div>
+    <br>
+    <div>
+        <p class="head">{{'Annex_22.0' | translate}}
+
+            <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="100%" class="fileInput">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-form-field fxFlex="90%" fxFlex.xs="100%" fxFlex.sm="70%">
+                        <ngx-mat-file-input [accept]="'.pdf'" formControlName="otherAttachment"
+                                            placeholder="Basic outline placeholder" (change)="selectFile($event.target.files)">
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>folder</mat-icon>
+                    </mat-form-field>
+                    <button *ngIf="isAttachmentEnable" fxFlex="2%" fxFlex.md="2%" fxFlex.sm="2%" fxFlex.xs="2%">
+                        <mat-icon matTooltip="{{'down' | translate}}" (click)="download()" color="primary">file_download</mat-icon>
+                    </button>
+                    <button  fxFlex="4%" fxFlex.md="4%" fxFlex.sm="4%"
+                                fxFlex.xs="4%">
+                            <mat-icon (click)="deleteAttachment()" class="pb-2 ml-2 warn">delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+    </div>
+    <br>
+    <div>
+        <p>{{'Annex_23.0' | translate}} ({{'as_per1' | translate}}<a class="AnnexureLink" routerLink="/dpp-tapp/amortization_schedule/{{conceptUuid}}"><u>{{'attachVI' | translate}}</u></a>)</p>
+    </div>
+</mat-card>
+</form>
+    <!-- Save, Back Button -->
+    <div class="flex justify-end mt-8">
+        <button
+            class="px-8 mr-2"
+            mat-flat-button
+            [color]="'accent'"
+            type="button"
+            matStepperPrevious>
+            {{'back' | translate}}
+        </button>
+        <button
+            [disabled]="buttonDisable"
+            class="px-8 mr-2"
+            mat-flat-button
+            [color]="'primary'"
+            type="button"
+            (click)="onSubmit()"
+            matStepperNext>
+            {{'saveNext' | translate}}
+        </button>
+        <button
+            [disabled]="buttonDisable"
+            class="px-8 mr-2"
+            mat-flat-button
+            style="background-color: green; color: #FFFFFF"
+            (click)="onSubmitAndExit()"
+            type="button">
+            {{'saveExit' | translate}}
+        </button>
+        <button
+            class="px-8 mr-2 toggle-sidebar-folded"
+            :matTooltip="{{ 'Next' | translate }}"
+            mat-flat-button
+            style="background-color: green; color: #FFFFFF"
+            matStepperNext
+            type="button">
+            {{ "Next" | translate }}
+        </button>
+
+    </div>
+</div>

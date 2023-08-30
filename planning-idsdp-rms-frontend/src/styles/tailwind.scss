@@ -1,0 +1,128 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Main Tailwind file for injecting utilities.
+/* ----------------------------------------------------------------------------------------------------- */
+@tailwind utilities;
+
+@font-face {
+    font-family: 'nikosh';
+    src: local('nikosh'), url(Nikosh.ttf) format('ttf');
+  }
+
+  @font-face {
+    font-family: 'AdorshoLipi';
+    src: url('./AdorshoLipi.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+.nikosh{
+  font-family: serif, 'nikosh' !important;
+}
+// Times New Roman
+.nikoshFont{
+  font-family: "arial", Times, serif, 'AdorshoLipi', 'nikosh' !important;
+}
+
+.AdorshoLipi{
+  font-family: "arial", Times, serif, AdorshoLipi !important;
+}
+.font-16{
+  font-size: 16px !important;
+}
+.font-17{
+  font-size: 17px !important;
+}
+.font-18{
+  font-size: 18px !important;
+}
+.font-20{
+  font-size: 20px !important;
+}
+body {
+  @apply nikoshFont; 
+}
+
+table.tbl-details th,
+table.tbl-details td {
+  @apply nikoshFont;
+  @apply font-16;
+}
+
+.header1,
+.heading,
+.mat-card{
+  @apply nikoshFont;
+  @apply font-16;
+}
+
+.field-selection-tbl th, 
+.field-selection-tbl td {
+  @apply nikoshFont
+}
+.field-selection-tbl td {
+  @apply font-16;
+}
+table th{
+  @apply nikoshFont;
+  @apply font-16;
+}
+
+.mat-horizontal-stepper-header-container,
+.mat-step-label,
+.fuse-vertical-navigation-item{
+  @apply nikoshFont;
+  @apply font-16;
+}
+form label {
+  @apply nikoshFont;
+}
+
+.mat-button-wrapper,
+.mat-select,
+.mat-option-text,
+.mat-form-field{
+  @apply nikoshFont;
+}
+
+.mat-tooltip {
+  background: rgb(43, 67, 112)!important;
+  font-size: 0.8rem !important;
+  color:#FFFFFF !important;
+  @apply AdorshoLipi;
+}
+
+.NitimalaDiv{  
+  border: 1px solid #8b7b07;
+  padding-top: 4px;
+
+  .NitimalaBook{
+    background-image: url('../assets/images/NitimalaBook.jpg');
+    height: 57px;
+    background-repeat: no-repeat;
+    background-size: 48px 64px;
+    bottom: 2px;
+    top: 7px;
+    border: 3px solid #8b7b07;
+    border-radius: 5px;
+    background-position: center;
+    width: 50px;
+    margin: 0 auto;
+  }
+
+  :hover.NitimalaBook {
+    background-size: 48px 68px;
+  } 
+
+  .NitimalaText{
+    color: #8b7b07;
+    font-weight: bold;
+    border-top: 1px solid #8b7b07;
+    border-radius: 2px;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  .NitimalaText:hover {
+    background: linear-gradient(1deg, #51a6e3, #d3c374c7);
+    color: #FFFFFF;
+  }
+}

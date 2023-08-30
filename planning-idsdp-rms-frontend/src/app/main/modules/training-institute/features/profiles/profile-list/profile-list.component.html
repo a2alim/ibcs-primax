@@ -1,0 +1,116 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'sub' | translate"></app-form-header>
+
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+
+
+
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+                <div class="md:flex tbl-title">
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'profileList' | translate}}
+                        </h1>
+
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-right">
+                        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                            <!--<mat-label>Filter</mat-label>-->
+                            <input #input (keyup)="applyFilter($event)" [placeholder]="'search'|translate" matInput />
+                            <button mat-button mat-icon-button matPrefix>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <!--<mat-card>-->
+                    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="position">
+                                <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl_no' | translate}} </th>
+                                <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                                    {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="trainingInstituteName">
+                                <th mat-header-cell *matHeaderCellDef> {{'trainingInstituteName' | translate}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.trainingInstituteName}}</td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="headOfInstituteName">
+                                <th mat-header-cell *matHeaderCellDef> {{'headOfInstituteName' | translate}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.headOfInstituteName}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="designation">
+                                <th mat-header-cell *matHeaderCellDef> {{'designation' | translate}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.designation}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef> {{'email' | translate}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.email}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="mobileNumber">
+                                <th mat-header-cell *matHeaderCellDef> {{'mobileNumber' | translate}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.mobileNumber}}</td>
+                            </ng-container>
+
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                    <div class="buttons">
+                                        <button (click)="showProfile(element)"
+                                                mat-icon-button class="toggle-sidebar-folded" matTooltip="visibility"
+                                                fxHide.lt-lg>
+                                            <mat-icon color="accent">visibility
+                                            </mat-icon>
+                                        </button>
+<!--                                        <button *ngIf="userDetails.userType == 'Rms_Researcher'" (click)="editProfile(element)" mat-icon-button-->
+<!--                                                class="toggle-sidebar-folded" matTooltip="Edit" fxHide.lt-lg>-->
+<!--                                            <mat-icon color="accent">edit-->
+<!--                                            </mat-icon>-->
+<!--                                        </button>-->
+
+<!--                                        <button *ngIf="userDetails.userType == 'Rms_Researcher'" (click)="openProfileDeleteDialog(element.uuid)" mat-icon-button-->
+<!--                                                class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>-->
+<!--                                            <mat-icon color="warn">delete-->
+<!--                                            </mat-icon>-->
+<!--                                        </button>-->
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator #paginatorRef [length]="totalElements" [pageSize]="pageSize"
+                                   [pageSizeOptions]="[5, 10, 25, 100]" (page)="onChangePage($event)">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

@@ -1,0 +1,206 @@
+<div style="width: 100%">
+    <div *ngIf="spinner" class="flex items-center justify-center no-print">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;" class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <!-- Header -->
+    <app-form-header class="no-print" [title]="'head' | translate" [subTitle]="'sub' | translate"></app-form-header>
+    <iframe width="0" height="0"></iframe>
+    <div class="flex md:justify-end md:mr-3 mt-1 no-print">
+        <button class="px-3 mr-2 previousIcon no-print" mat-flat-button color="accent" (click)="backToTrainersList()" type="button">
+            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+            {{'previous' | translate}}
+        </button>
+
+<!--        <button class="px-3 mr-2 saveBtn no-print" mat-flat-button color="accent" (click)="editProfile()" type="button">
+            <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+            {{'submit' | translate}}
+        </button>-->
+
+        <button class="px-3 mr-2 printBtn no-print no-print" mat-flat-button color="accent" (click)="print()" type="button">
+            <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+            {{'print' | translate}}
+        </button>
+
+        <button class="px-3 mr-2 downloadBtn no-print" mat-flat-button color="accent" (click)="download()" type="button">
+            <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+            {{'download' | translate}}
+        </button>
+    </div>
+
+    <!-- Main Start -->
+    <div class="contentDiv flex-auto m-4 body-color" id="printPage">
+        <!--Personal Info-->
+
+        <mat-card style="background: none !important;">
+            <div class="w-full sm:w-auto md:w-full lg:w-full">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">perm_data_setting</mat-icon>
+                    <div class="ml-7 text-gray-900 capitalize pp">{{'personalInfo' | translate}}</div>
+                </div>
+
+                <!-- <div class="grid grid-cols-2">
+                    <div class="grid grid-cols-2">
+                        <div class="h-10">Name</div>
+                        <div class="h-10"> {{trainerData?.name}}</div>
+                        <div class="h-10">Name</div>
+                        <div class="h-10"> {{trainerData?.name}}</div>
+                    </div>
+                    <div style=" border: 5px solid #CCC; padding: 3px; vertical-align: top; ">
+                        <img alt="Not Found" src="{{minioFileDownloadEndPointHost+this.trainerData?.profileImage?.bucketName+'/'
+             +this.trainerData?.profileImage?.fileName}}" style="width: 250px;">
+                    </div>
+
+
+                </div> -->
+                <!-- <div class="grid grid-cols-1">
+
+                </div> -->
+                <table class="personalInfoTbl">
+                    <tr class="mt-3">
+                        <td class="w-20 text-left font-semibold">{{ 'name' | translate }}</td>
+                        <td class="w-60 font-nomal"> {{trainerData?.name}}</td>
+                        <td></td>
+                        <!--                        <td class="w-20" rowspan="7">
+
+                                                    <div style=" border: 5px solid #CCC; padding: 3px; vertical-align: top; ">
+                                                        <img alt="Not Found" src="{{minioFileDownloadEndPointHost+this.trainerData?.profileImage?.bucketName+'/'
+                                                             +this.trainerData?.profileImage?.fileName}}" style=" max-height: 200px ;">
+                                                    </div>
+                                                </td>-->
+                    </tr>
+
+                    <tr class="mt-3">
+                        <td class="text-left font-semibold">{{ 'currentPosition' | translate }}</td>
+                        <td>{{trainerData?.currentPosition}}</td>
+                    </tr>
+
+                    <tr class="mt-3">
+                        <td class="text-left font-semibold">{{ 'gender' | translate }}</td>
+                        <td style="text-transform: lowercase;">{{trainerData?.gender}}</td>
+                    </tr>
+
+                    <!--                    <tr>
+                                            <td class="text-left font-semibold">{{ 'age' | translate }}</td>
+                                            <td>{{trainerData?.age}}</td>
+                                        </tr>-->
+
+                    <!--                    <tr>
+                                            <td class="text-left font-semibold">{{ 'address' | translate }}</td>
+                                            <td>{{trainerData?.address}}</td>
+                                        </tr>-->
+                    <tr class="mt-3">
+                        <td class="text-left font-semibold">{{ 'lastDegree' | translate }}</td>
+                        <td>{{trainerData?.lastAcademicDegree}}</td>
+                    </tr>
+
+                    <tr class="mt-3">
+                        <td class="text-left font-semibold capitalize">{{ 'phoneMobileNo' | translate }}</td>
+                        <td>{{trainerData?.phone}}</td>
+                        <!-- <td rowspan="4" style="vertical-align: top;">
+                            <div>
+                                <span class="font-semibold"> {{'nidNo'| translate }}</span> <br>
+                                <div>{{trainerData?.nidNumber}}</div>
+                                <mat-icon *ngIf="downloadIcon" (click)="downloadNid()">{{downloadIcon}}</mat-icon>
+
+                            </div>
+
+                        </td> -->
+                    </tr>
+
+                    <tr class="mt-3">
+                        <td class="text-left font-semibold capitalize">{{ 'currentJobInstituteName' | translate }}
+                            <!--  Current Job Institute/University Name -->
+
+                        </td>
+                        <td>{{trainerData?.currentJobInstituteName}}</td>
+                    </tr>
+                    <!--                    <tr>
+                                            <td class="text-left font-semibold"> {{'nidNo'| translate }}</td>
+                                            <td>{{trainerData?.nidNumber}}</td>
+                                        </tr>-->
+                </table>
+            </div>
+
+            <!--- Academic Background List -->
+            <!--<div class="mt-5 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>
+                    <div class="ml-7 text-gray-900 capitalize pp">{{'academicBackgroudndList' | translate}}</div>
+                </div>
+                <mat-card>
+                    <table class="researchInfo">
+
+                        <tr>
+                            <th class="capitalize">
+                                {{'instituteName' | translate}}
+                            </th>
+                            <th>
+                                {{'subject' | translate}}
+                            </th>
+                            <th>
+                                {{'examination' | translate}}
+                            </th>
+                            <th>
+                                {{'result' | translate}}
+                            </th>
+                            <th class="capitalize">
+                                {{'passsingYear' | translate}}
+                            </th>
+                            <th>
+                                {{'board' | translate}}
+                            </th>
+                            &lt;!&ndash;                            <th>&ndash;&gt;
+                            &lt;!&ndash;                                {{'action' | translate}}&ndash;&gt;
+                            &lt;!&ndash;                            </th>&ndash;&gt;
+                        </tr>
+
+                        <tr *ngFor="let trainer of trainerData?.trainersAcademicBackgroundList">
+
+                            <td class="text-center align-middle w-11">
+                                <div>
+                                    {{trainer?.instituteName}}
+
+                                </div>
+                            </td>
+
+                            <td class="text-center align-middle">
+                                <div>
+                                    {{trainer?.subject}}
+
+                                </div>
+                            </td>
+
+                            <td class="text-center align-middle">
+                                <div>
+                                    {{trainer?.examinationName}}
+                                </div>
+                            </td>
+                            <td class="text-center align-middle">
+                                <div>
+                                    {{findResultNameById(trainer?.resultId)}}
+                                </div>
+                            </td>
+                            <td class="text-center align-middle">
+                                <div>
+                                    {{trainer?.passingYear}}
+                                </div>
+                            </td>
+                            <td class="text-center align-middle">
+                                <div>
+                                    {{trainer?.board}}
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </mat-card>
+            </div>-->
+
+
+        </mat-card>
+
+
+    </div>
+    <!-- Main End -->
+</div>

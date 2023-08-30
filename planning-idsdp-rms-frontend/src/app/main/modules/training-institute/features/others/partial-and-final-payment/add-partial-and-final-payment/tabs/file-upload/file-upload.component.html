@@ -1,0 +1,55 @@
+<div class="heading mt-2">
+    <h1>{{'tab_3_title' | translate}}</h1>
+</div>
+<mat-card class="tab-color">
+
+    <!-- Row 10-->
+    <div *ngFor="let row of tempPaymentVoucherModels; let idx = index;" class="md:flex">
+        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+            <span class="text-gray-700">
+                    {{'serialNo' | translate}}
+                </span>
+        </div>
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field class="w-full">
+                <input [(ngModel)]="tempPaymentVoucherModels[idx].serialNo" [ngModelOptions]="{standalone: true}" matInput type="number">
+            </mat-form-field>
+        </div>
+        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+            <span class="text-gray-700">
+                            {{'uploadImage' | translate}}
+                <strong class="required">*</strong>
+                        </span>
+        </div>
+        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+            <mat-form-field (change)="uploadFile($event.target.files, idx)" class="w-full" required>
+                {{ isEditable ? showFileName(tempPaymentVoucherModels[idx]?.boucherImage.fileName) : '' }}
+                <ngx-mat-file-input required [accept]="'image/png, image/jpeg'">
+                </ngx-mat-file-input>
+                <mat-icon matSuffix>folder</mat-icon>
+                <mat-error> {{'uploadImage' | translate}} {{ 'required' | translate }}</mat-error>
+                <mat-hint>{{ 'imgHint' | translate }}</mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="flex justify-end mt-8">
+
+        <button (click)="addNewVoucherUploadRow()" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+            <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+        </button>
+
+    </div>
+</mat-card>
+
+<!-- Bottom Button -->
+<div class="flex justify-end mt-8">
+    <button (click)="previousTab()" class="px-3 mr-2 toggle-sidebar-folded" mat-flat-button style="background: #4c72c7 !important;color: white;" type="button">
+        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+        {{ "previous" | translate }}
+    </button>
+
+    <button (click)="saveAndUpdate()" class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" color="primary" mat-flat-button type="button">
+        <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+        <span>{{ "save" | translate }}</span>
+    </button>
+</div>

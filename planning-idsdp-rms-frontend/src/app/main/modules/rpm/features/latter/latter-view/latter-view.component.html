@@ -1,0 +1,205 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!--    {{latterModelResponse | json}}-->
+    <!-- Main Start -->
+    <div class="flex-auto m-6 mt-3 body-color" id="print">
+        <mat-card id="profileOuterBody" class="tab-color mt-4">
+
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <h1 class="md:mt-2">{{'preview' | translate}}</h1>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <div class="flex md:justify-end">
+                                <ng-container *ngIf="!latterModelResponse?.mailStatus">
+                                    <button class="px-3 mr-4 sendBtn" (click)="sendMail()" mat-flat-button
+                                        color="accent" type="button">
+                                        <mat-icon *ngIf="sendIcon" class="mr-1">{{sendIcon}}</mat-icon>
+                                        {{'send' | translate}}
+                                    </button>
+                                </ng-container>
+
+                                <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent" type="button"
+                                    (click)="previous()">
+                                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                    {{'previous' | translate}}
+                                </button>
+                                <button [disabled]="spinner2" (click)="download('award-letter','rms-reports/awardLettet')" class="px-3 mr-2 downloadBtn"
+                                    mat-flat-button color="accent" type="button">
+                                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                                    {{'download' | translate}}
+                                </button>
+                                <button class="px-3 printBtn" mat-flat-button color="accent" (click)="printDiv('print')"
+                                    type="button">
+                                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                    {{'print' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border3 mt-5">
+                <!-- <div class="p-2 flex flex-row gap-3 items-center">
+                    <div class="flex-auto w-64">
+                        <table class="w-full info-table">
+                            <tbody>
+                            <tr>
+                                <td class="p-1 font-semibold" style="width: 15%">{{'ResearchTitle' | translate}}</td>
+                                <td style="width: 2%">:</td>
+                                <td style="width: 38%">{{latterModelResponse?.researchTitle}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 font-semibold">{{'ResearchCategory' | translate}}</td>
+                                <td>:</td>
+                                <td>{{latterModelResponse?.researchCategoryTypeResponseDto?.categoryName}}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 font-semibold">{{'Sector' | translate}}</td>
+                                <td>:</td>
+                                <td>{{latterModelResponse?.sectorTypeResponseDto?.fieldName}}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 font-semibold">{{'Sub-Sector' | translate}}</td>
+                                <td>:</td>
+                                <td>{{latterModelResponse?.subSectorResponseDto?.subFieldName}}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 font-semibold">{{'FiscalYear' | translate}}</td>
+                                <td>:</td>
+                                <td>{{latterModelResponse?.fiscalResponseDto?.fiscalYear}}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 font-semibold">{{'SDGsGoal' | translate}}</td>
+                                <td>:</td>
+                                <td>{{showSdgsGoalS(latterModelResponse?.stSdgsGoalsId)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 font-semibold">{{'Email' | translate}}</td>
+                                <td>:</td>
+                                <td>{{latterModelResponse?.emailAddress}}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 font-semibold">{{'MobileNumber' | translate}}</td>
+                                <td>:</td>
+                                <td>{{latterModelResponse?.mobileNo}}</td>
+                            </tr>                         
+                            <tr>
+                                <td class="p-1 font-semibold">{{'RegistrationNumber' | translate}} </td>
+                                <td>:</td>
+                                <td>{{latterModelResponse?.regNumber}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex flex-col w-96 items-center justify-center space-y-3">
+                        <div>
+                            <img
+                                src="{{latterModelResponse?.minio+latterModelResponse?.userImageUrl}}"
+                                alt="Image not found!" style=" width: 300px; height: 280px;">
+                        </div>
+                        <div>
+                            <img src="{{latterModelResponse?.minio+latterModelResponse?.signatureImageUr}}" style=" width: 300px; height: 80px;">
+                        </div>
+                    </div>
+                </div> -->
+
+
+
+                <mat-card>
+
+                    <div class="mt-5">
+                        <div class="text-align-centre header-font-size">
+                            <p style="font-size: 120%;"><strong>{{'GovernmentPeopleRepublicBangladesh' |translate}}</strong></p>
+                            <p><strong>{{'MinistryOfPlanning' | translate}}</strong></p>
+                            <p><strong>{{'PlanningDivision' | translate}}</strong></p>
+                            <p><strong>{{'SocialScienceResearchCouncil' | translate}}</strong></p>
+                            <p><strong>{{'SherEbanglaNagarDhaka' | translate}}</strong></p>
+                            <p><strong><u>{{'webSite' | translate}}</u></strong></p>
+                        </div>
+
+                        <div class="mt-5">
+                            <table class="w-full">
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="2" style="width: 80%;"><span>
+                                                <strong>{{'MemorandumNo'|translate}}
+                                                </strong>:</span>
+                                            {{latterModelResponse?.memorandumNo}}
+                                        </td>
+
+                                        <td rowspan="2" style=" width: 8%; text-align: center; ">
+                                            <span><strong>{{'Date'|translate}} </strong></span>
+                                        </td>
+
+                                        <td> {{latterModelResponse?.nothiDateEn}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: 1px solid #595959;">
+                                            {{latterModelResponse?.nothiDateBn}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="3">
+                                            <strong>{{latterModelResponse?.userDto?.name}}</strong> <br>
+                                            <span *ngIf="latterModelResponse?.isInstitutional==false">
+                                                {{latterModelResponse?.preDivisionDto.nameEn}}
+                                                {{latterModelResponse?.preDistrictDto.nameEn}} ,
+                                                {{latterModelResponse?.preUpzilaDto.nameEn}}
+                                            </span>
+                                            <span *ngIf="latterModelResponse?.isInstitutional==true">
+                                                {{latterModelResponse?.instAddressDetails}}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <br>
+                                    <tr class="mt-5">
+                                        <td colspan="3">
+                                            <span><strong>{{'Subject'|translate}}</strong>:</span>
+                                            {{latterModelResponse?.subject}}
+                                        </td>
+                                    </tr>
+                                    <br>
+                                    <tr>
+                                        <td colspan="3" class="text-justify">
+                                            <span [innerHTML]="latterModelResponse?.mailBody"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </mat-card>
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>

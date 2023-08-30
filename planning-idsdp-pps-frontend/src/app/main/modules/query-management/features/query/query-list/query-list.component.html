@@ -1,0 +1,160 @@
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<div style="width: 100%" *ngIf="formGroup">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    {{'queryListHeader' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">{{'queryListHeaderBreadcrumb' |
+                                        translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+            <div style="overflow-x:auto;">
+                <!--<mat-card>-->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                    <!--<div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>-->
+                    <div class="heading">
+                        <h1><strong>{{'search' | translate}}</strong></h1>
+                    </div>
+                    <!-- Search Block Start -->
+                    <form [formGroup]="formGroup">
+                        <!-- Searching Fields Start -->
+                        <div class="p-5" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="15%" fxFlex.xs="50%" fxFlex.sm="50%" style="margin-top: -15px;">
+                                {{'questionSource' | translate}}
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="26%" fxFlex.xs="50%"
+                                            fxFlex.sm="50%">
+                                <mat-select formControlName="ministryDivisionId" (selectionChange)="searchByCriteria()">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option *ngFor="let ministryDivision of ministryList" [value]="ministryDivision.id">
+                                        {{ministryDivision.nameEn}}
+                                    </mat-option>
+                                </mat-select>
+                                <!--<mat-error>Question is required!</mat-error>-->
+                            </mat-form-field>
+
+                            <mat-label fxFlex="15%" fxFlex.xs="50%" fxFlex.sm="50%" style="margin-top: -15px;">
+                                {{'questionType' | translate}}
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="26%" fxFlex.xs="50%"
+                                            fxFlex.sm="50%">
+                                <mat-select formControlName="questionTypeId" (selectionChange)="searchByCriteria()">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option *ngFor="let questionType of questionTypeList" [value]="questionType.id">
+                                        {{questionType.nameEn}}
+                                    </mat-option>
+                                </mat-select>
+                                <!--<mat-error>Question Type is required!</mat-error>-->
+                            </mat-form-field>
+                            <!-- Searching Fields End -->
+
+                            <!-- Add Button for redirect to Create page Start-->
+                            <!--<div class="flex items-center justify-end mb-5">
+                                <button mat-raised-button style="align-items: end" [routerLink]="['/query/add-new']"
+                                        color="primary">{{'createButton' | translate}}
+                                </button>
+                            </div>-->
+                        </div>
+                    </form>
+                    <!-- Search Block End -->
+                </div>
+                <!--</div>-->
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-5">
+                    <div fxFlex="30%">
+                        <button mat-raised-button style="align-items: end" [routerLink]="['/query/add']" color="primary">{{'createButton' | translate}}</button>
+                    </div>
+
+                    <div>
+                        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                            <!--<mat-label>Filter</mat-label>-->
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input/>
+                            <button mat-button matPrefix mat-icon-button><mat-icon>search</mat-icon></button>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Main -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-3">
+                    <!--<mat-card>-->
+                    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 bg-transparent">
+                            <!-- Table Columns Start-->
+                            <ng-container matColumnDef="slNo">
+                                <th style="text-align: center;" class="heading" mat-header-cell *matHeaderCellDef>{{'slNo' | translate}}</th>
+                                <td style="text-align: center;" mat-cell *matCellDef="let element; let i = index;">{{(i+1) + (page * size)}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="questionTitle">
+                                <th style="text-align: center;" mat-header-cell *matHeaderCellDef>{{'questionTitle' | translate}}</th>
+                                <td mat-cell *matCellDef="let element"> {{element.questionTitle}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="questionSource">
+                                <th style="text-align: center;" mat-header-cell *matHeaderCellDef>{{'questionSource' | translate}}</th>
+                                <td mat-cell *matCellDef="let element"> {{element.ministryDivisionName}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="questionType">
+                                <th style="text-align: center;" mat-header-cell *matHeaderCellDef>{{'questionType' | translate}}</th>
+                                <td mat-cell *matCellDef="let element"> {{element.questionTypeName}}</td>
+                            </ng-container>
+                            <!-- Table Columns End-->
+
+                            <!-- Table Action Buttons Start-->
+                            <ng-container matColumnDef="action">
+                                <th style="text-align: center;" mat-header-cell *matHeaderCellDef>{{'action' | translate}}</th>
+                                <td style="text-align: center;" mat-cell *matCellDef="let element">
+                                    <div class="buttons">
+                                        <button mat-icon-button class="toggle-sidebar-folded" matTooltip="Edit"
+                                                fxHide.lt-lg>
+                                            <mat-icon (click)="edit(element)" color="accent">edit</mat-icon>
+                                        </button>
+                                        <button mat-icon-button class="toggle-sidebar-folded" matTooltip="Delete"
+                                                fxHide.lt-lg>
+                                            <mat-icon (click)="openDialog(element)" color="warn">delete
+                                            </mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <!-- Table Action Buttons End-->
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <!-- Table End-->
+                    </div>
+                    <mat-paginator
+                        [length]="total"
+                        [pageSize]="size"
+                        [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                        (page)="onChangePage($event)">
+                    </mat-paginator>
+                </div>
+                <!--</mat-card>-->
+                <!--</mat-card>-->
+            </div>
+        </mat-card>
+    </div>
+</div>

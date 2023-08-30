@@ -1,0 +1,104 @@
+<div class="width-100" >
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color mt-4">
+
+            <div  class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1>{{'formTitlev' | translate}}</h1>
+                </div>
+            </div>
+            <!-- Card Body -->
+
+
+            <div class="border3 form-bg-color">
+                <div class="md:flex p-4">
+                    <div class="w-full sm:w-auto md:w-full lg:w-full">
+                        <table class="tbl-details">
+
+                            <tr>
+                                <th>{{'stFiscalYearId' | translate}}</th>
+                                <td>
+                                    <ng-container *ngFor="let f of fiscalYearList">
+
+                                        <span *ngIf="editData.stFiscalYearId==f.id" >{{f.fiscalYear}}</span>
+
+                                    </ng-container>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{'sendTo' | translate}}</th>
+                                <td>{{editData.sendTo}} </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{'subject' | translate}}</th>
+                                <td>{{editData.subject}}</td>
+                            </tr>
+
+                            <tr>
+                                <th>{{'detail' | translate}}</th>
+                                <td [innerHTML]="editData.letterBodyContent"></td>
+                            </tr>
+
+                            <tr>
+                                <th>{{'fileName' | translate}}</th>
+                                <td>
+                                    <button *ngIf="isDOwnloadable"
+                                    class="px-3 mr-2 downloadBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    (click)="downloadFile()"
+                                    type="button">
+                                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                                    {{'download' | translate}}
+                                </button>
+                                </td>
+
+                            </tr>
+                       </table>
+                    </div>
+                </div>
+            </div>
+
+
+                <div class="flex justify-end mt-3">
+                    <button
+                        class="px-3 mr-2 previousBtn"
+                        mat-flat-button
+                        color="accent"
+                        (click)="back()"
+                        type="button">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        {{'previous' | translate}}
+                    </button>
+
+
+                    <button [disabled]="editData.sendingStatus==2 ?true:false"
+                        class="px-3"
+                        mat-flat-button
+                        color="primary"
+                        (click)="openDialog()"
+                        ><mat-icon *ngIf="sendItem" class="mr-1">{{sendItem}}</mat-icon>
+                        <div *ngIf="formTitle=='Edit'; else temp ">{{'update' | translate}}</div>
+                        <ng-template #temp>{{'send' | translate}}</ng-template>
+                    </button>
+                </div>
+
+        </mat-card>
+
+
+    </div>
+    <!-- Main End -->
+</div>
+
+

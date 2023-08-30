@@ -1,0 +1,230 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<!--  Form Start-->
+<form [formGroup]="formGroup" name="frmGroup" class="p-5" #inputForm="ngForm">
+    <mat-card>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!--Start Input for Economic Code -->
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "EconomicCode" | translate }}<span class="required">*</span>
+                    </mat-label>
+
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <mat-select formControlName="economicCode" (selectionChange)="getSubEconomicCode($event)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let ecode of economicCodes" [value]="ecode.value">
+                                {{ecode.nameEn}}</mat-option>
+                        </mat-select>
+                        <mat-error>{{'EconomicCodeisRequired' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for Economic Code -->
+
+            <!--Start Input for Description -->
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "EconomicCodeDescription" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input formControlName="economicCodeDescription" autocomplete="off"
+                            placeholder="Enter Description" matInput />
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for Description -->
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!-- Start Input for Economic Sub Code -->
+            <div fxFlex="50%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{"EconomicSubCode" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <!-- <input class="numberField" autocomplete="off" placeholder="Enter Economic Sub Code"
+                            formControlName="economicSubCode" matInput /> -->
+                        <mat-select formControlName="economicSubCode">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let subEcode of subEconomicCodes" [value]="subEcode.value">
+                                {{subEcode.nameEn}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- end Input for Economic Sub Code -->
+
+            <!-- Start Input for Attachment -->
+            <div fxFlex="50%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{"Attachment" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{expenditureModel.attachmentName}}
+                        <ngx-mat-file-input formControlName="attachment" [accept]="'.pdf'"
+                            (change)="handleFileInput($event.target.files)" placeholder="Select File">
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>folder</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- End Input for Attachment -->
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!-- Start Input for Date -->
+            <div fxFlex="50%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{"Date" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input (click)="picker.open()" [matDatepicker]="picker" placeholder="Enter Date"
+                            formControlName="expenditureDate" matInput>
+                        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- end Input for Date -->
+
+            <!-- Start Input for Remarks -->
+            <div fxFlex="50%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{"Remarks" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input class="numberField" autocomplete="off" placeholder="Enter Remarks"
+                            formControlName="remarks" matInput />
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- End Input for Remarks -->
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!-- Start Input for Date -->
+            <div fxFlex="50%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{"Amount" | translate }}<span class="required">*</span>
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input class="numberField" autocomplete="off" placeholder="Enter Amount"
+                            formControlName="expenditureAmount" matInput type="number" />
+                        <mat-error>{{'AmountisRequired' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- end Input for Date -->
+        </div>
+
+
+        <div class="flex justify-end mt-3 mr-2">
+            <button class="px-5 mr-2" mat-flat-button color="accent" (click)="formReset()" type="reset">
+                <mat-icon class="mr-1">refresh</mat-icon>
+                {{'reset' | translate}}
+            </button>
+
+            <button class="px-5" mat-flat-button color="primary" type="button" (click)="onClickSave()"
+                [disabled]="spinner">
+                <mat-icon class="mr-1">save</mat-icon>
+                <span> {{ "save" | translate }}</span>
+            </button>
+        </div>
+
+    </mat-card>
+</form>
+<!-- Form end-->
+
+<div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+    <!--<mat-card>-->
+    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+
+            <ng-container matColumnDef="sl">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'sl'|translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element; let i = index">{{i+1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="economicCode">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'EconomicCode'|translate}} </th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{showEconomicCode(element.economicCode)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="economicCodeDescription">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'EconomicCodeDescription'|translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.economicCodeDescription}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="economicSubCode">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'EconomicSubCode'|translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{showSubEconomicCode(element.economicSubCode)}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expenditureDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Date'|translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.expenditureDate |date:"dd/MM/yyyy"}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="remarks">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Remarks' |translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.remarks}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expenditureAmount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Amount' |translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.expenditureAmount}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'action'|translate}}</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <button (click)="download(element)" mat-icon-button matTooltip="Download" fxHide.lt-lg>
+                        <mat-icon color="warn">get_app</mat-icon>
+                    </button>
+                    <button (click)="onClickEdit(element)" class="ml-3 action-btn" type="button">
+                        <mat-icon aria-hidden="false" [color]="'primary'" aria-label="Example home icon">edit</mat-icon>
+                    </button>
+                    <button (click)="onClickDelete(element)" class="ml-3 action-btn" type="button" [disabled]="spinner">
+                        <mat-icon aria-hidden="false" [color]="'warn'" aria-label="Example home icon">delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <!-- Initialized Table Header And Dataset-->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="total" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+    </div>
+</div>
+
+<!--Start Bottom Button -->
+<div class="flex justify-end mt-8">
+
+    <button mat-flat-button type="button" [disabled]="spinner" [color]="'primary'" class="px-3 mr-2"
+        (click)="nextTab()">
+        <span>{{ "save&next" | translate }}</span>
+        <mat-icon class="mr-1">fast_forward</mat-icon>
+    </button>
+
+    <button mat-flat-button [disabled]="spinner" type="button" [color]="'warn'" class="px-3 mr-2" (click)="goToHome()">
+        <span> {{ "save&exit" | translate }}</span>
+        <mat-icon class="mr-1">heroicons_outline</mat-icon>
+    </button>
+</div>
+<!--end Bottom Button -->

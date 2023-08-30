@@ -1,0 +1,191 @@
+<!--Loder-->
+<div *ngIf="spinner" class="flex items-center justify-center">
+    <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+         class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+    </div>
+</div>
+
+<!-- Main Start -->
+<div style="width: 100%;" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <mat-label class="heading w-full">
+        {{'EvaluatorGrantAmount' | translate}}
+    </mat-label>
+</div>
+
+<mat-card>
+
+    <form>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        {{'EvaluatorName' | translate}}
+                        <strong class="required">*</strong>
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="70%" fxFlex.sm="60%"
+                                    fxFlex.xs="100%">
+                        <mat-select [(ngModel)]="grantAmount.stProfileOfExpertEvaluatorsId" [ngModelOptions]="{standalone: true}">
+                            <mat-option *ngFor="let e of evaluatorList" [value]="e.id">{{e.name}}</mat-option>
+                        </mat-select>
+                        <mat-error>{{'EvaluatorNameReq' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        {{'GrantAmount' | translate}}
+                        <strong class="required">*</strong>
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="70%" fxFlex.sm="60%" fxFlex.xs="100%">
+                        <input matInput type="number" [(ngModel)]="grantAmount.grantAmount" [ngModelOptions]="{standalone: true}">
+                        <mat-error>{{'GrantAmountReq' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+            <mat-label style="margin-top: -15px" fxFlex="19%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                {{'ResearchTitle' | translate}}
+                <strong class="required">*</strong>
+            </mat-label>
+            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="70%" fxFlex.sm="80%" fxFlex.xs="100%">
+                <mat-select [(ngModel)]="grantAmount.researcherProposalId" [ngModelOptions]="{standalone: true}">
+                    <ng-container *ngFor="let r of researcherProposals">
+                        <mat-option *ngIf="!r.added"  [value]="r.proposal.id">{{r.proposal.researchTitle}}</mat-option>
+                    </ng-container>
+                </mat-select>
+                <mat-error>{{'ResearchTitleReq' | translate}}</mat-error>
+            </mat-form-field>
+            <div fxFlex="1%"></div>
+        </div>
+        <div class="flex justify-end mt-3 mr-2">
+            <button
+                *ngIf="!update"
+                mat-flat-button
+                type="submit"
+                (click)="add()"
+                [disabled]="!(grantAmount.researcherProposalId && grantAmount.stProfileOfExpertEvaluatorsId && grantAmount.grantAmount)"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded">
+                <mat-icon class="mr-1">add</mat-icon>
+                <span>{{ "Add" | translate }}</span>
+            </button>
+            <button
+                *ngIf="update"
+                mat-flat-button
+                type="submit"
+                (click)="updateData()"
+                [disabled]="!(grantAmount.researcherProposalId && grantAmount.stProfileOfExpertEvaluatorsId && grantAmount.grantAmount)"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded">
+                <mat-icon class="mr-1">edit</mat-icon>
+                <span>{{ "Update" | translate }}</span>
+            </button>
+        </div>
+    </form>
+
+
+    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+        <!--<mat-card>-->
+        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                <!-- Position Column -->
+                <ng-container matColumnDef="sl">
+                    <th mat-header-cell *matHeaderCellDef class="w-16"> {{'Sl' | translate}} </th>
+                    <td mat-cell *matCellDef="let row, let i = index;">
+                        {{this.paginator.pageIndex == 0 ? i + 1 : 1 + i + this.paginator.pageIndex * this.paginator.pageSize}}
+                    </td>
+
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="evaluatorName">
+                    <th mat-header-cell *matHeaderCellDef> {{'EvaluatorName' | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.evaluator.name}} </td>
+                </ng-container>
+
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="grantAmount">
+                    <th mat-header-cell *matHeaderCellDef> {{'GrantAmount' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" class="text-align-right"> {{element.grantAmount}} </td>
+                </ng-container>
+
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="researchTitle">
+                    <th mat-header-cell *matHeaderCellDef> {{'ResearchTitle' | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.researcherProposalDto.researchTitle}} </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'Action' | translate}} </th>
+                    <td mat-cell *matCellDef="let element, let i = index;" class="text-center">
+                        <div class="buttons">
+                            <button (click)="edit(element, i)" mat-icon-button class="toggle-sidebar-folded"
+                                    matTooltip="Edit" fxHide.lt-lg>
+                                <mat-icon color="accent">edit</mat-icon>
+                            </button>
+                            <button (click)="delete(element, i)" mat-icon-button class="toggle-sidebar-folded"
+                                    matTooltip="Delete" fxHide.lt-lg>
+                                <mat-icon style="color: red">delete</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Initialized Table Header And Dataset-->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <!-- mat-paginator -->
+
+        <mat-paginator
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            (page)="onChangePage($event)">
+        </mat-paginator>
+    </div>
+
+
+    <div class="flex justify-end mt-3 mr-2">
+
+        <button
+            mat-flat-button
+            [color]="'primary'"
+            (click)="previousTab()"
+            type="submit"
+            class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+            {{ "Previous" | translate }}
+        </button>
+        <button
+            mat-flat-button
+            style="background-color: green; color: #FFFFFF"
+            type="submit"
+            (click)="onSubmit(false)"
+            color="primary"
+            class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <span>{{ "Save" | translate }}</span>
+        </button>
+
+        <button
+            mat-flat-button
+            (click)="onSubmit(true)"
+            type="button"
+            color="primary"
+            class="px-3 mr-2 toggle-sidebar-folded saveAndExitBtn">
+            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <span> {{ "SaveAndExit" | translate }}</span>
+        </button>
+    </div>
+
+</mat-card>
+<!-- Main End -->

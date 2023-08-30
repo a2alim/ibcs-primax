@@ -1,0 +1,231 @@
+
+<table *ngIf="projectType.toLowerCase() === 'TAPP'.toLowerCase()" class="m-10">
+    <tr>
+        <td
+            colspan="2"
+            style="
+                text-align: center;
+                font-size: 25px;
+                font-weight: bold;
+                color: #196561;
+                background: #ffffff;
+            "
+        >
+            TAPP
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <div
+                class="listAnchor"
+                [routerLink]="['/dpp-tapp/tpp-project-summery']"
+            >
+                TAPP (Project Part-A)
+            </div>
+        </td>
+        <td (click)="getProjectSummaryId('tpp-project-details')">
+            <div class="listAnchor">
+                TAPP Project Details (15-21)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div
+                class="listAnchor"
+                [routerLink]="['/dpp-tapp/tpp-annexure-one']"
+            >
+                TAPP Annexure- I: Year Wise Breakdown <br/>of Component
+                wise-Estimated Cost.
+            </div>
+        </td>
+        <td (click)="getReference()">
+            <div
+                class="listAnchor"
+            >
+                TAPP Annexure-II: Terms of Reference.
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td (click)="getConsultant()">
+            <div
+                class="listAnchor"
+            >
+                TAPP Annexure-III: (Consultants).
+            </div>
+        </td>
+        <td (click)="getProjectSummaryId('tpp-annexure-four')">
+            <div class="listAnchor">
+                TAPP Annexure - IV : Implementation/Work Schedule
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <div
+                class="listAnchor"
+                [routerLink]="['/dpp-tapp/tpp-annexure-five']"
+            >
+                TAPP Annexure - V : Tasks and Qualifications of
+                <br/>Counterpart Personnel to be Attached with the Consultants
+            </div>
+        </td>
+        <td (click)="getAnnexSix()">
+            <div
+                class="listAnchor"
+            >
+                TAPP Annexure - VI : Tasks and Qualifications of<br/>
+                Support Staff to be Recruited
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td (click)="getProjectSummaryId('tpp-annexure-seven')">
+            <div class="listAnchor">
+                TAPP Annexure - VII : Letter of Agreement<br> with Implementing Agencies/Development Partners
+            </div>
+        </td>
+        <td (click)="getProjectSummaryId('tpp-annexure-goods-first')">
+            <div class="listAnchor">
+                TAPP Annexure - VIII (a): GOODS
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td (click)="getProjectSummaryId('tpp-annexure-service')">
+            <div class="listAnchor">
+                TAPP Annexure - VIII (b): SERVICES
+            </div>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <!-- /TAPP Table -->
+</table>
+
+<!-- ------------DPP Table-------------- -->
+<table *ngIf="projectType.toLowerCase() === 'DPP'.toLowerCase()" class="m-10">
+
+    <tr>
+        <td
+            colspan="2"
+            style="
+                text-align: center;
+                font-size: 25px;
+                font-weight: bold;
+                color: #196561;
+                background: #ffffff;
+            "
+        >
+           DPP
+        </td>
+    </tr>
+    <tr>
+        <td (click)="loadProjectSummery()">
+            <div class="listAnchor">
+                Part-A (Project Summary)
+            </div>
+        </td>
+        <td (click)="getProjectSummaryId('add-project-details')">
+            <div class="listAnchor">
+                Part-B (Project Details)
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td (click)="getLocationWiseCostBreakdown()">
+            <div class="listAnchor">
+                Annexure- I: Location wise cost breakdown
+            </div>
+        </td>
+        <td  (click)="getProjectManagementSetup()">
+            <div class="listAnchor" >
+                Annexure- II: Project management setup
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td (click)="getProjectSummaryId('add-annexuregoods')">
+            <div class="listAnchor" >
+                Annexure - III (a): GOODS
+            </div>
+        </td>
+        <td (click)="getProjectSummaryId('add-annexurewokrs')">
+            <div class="listAnchor">
+                Annexure - III (b): WORKS
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td (click)="getProjectSummaryId('add-annexureservices')">
+            <div class="listAnchor">
+                Annexure - III (c): SERVICES
+            </div>
+        </td>
+        <td>
+            <div
+                class="listAnchor"
+                [routerLink]="['/dpp-tapp/year-wise-fin-plan-bn']"
+            >
+                Annexure- IV: Year Wise Financial & Physical Target Plan Bangla
+                Font
+            </div>
+        </td>
+
+
+    </tr>
+
+    <tr>
+        <td>
+            <div
+                class="listAnchor"
+                [routerLink]="['/dpp-tapp/year-wise-fin-plan']"
+            >
+                Annexure- IV: Year Wise Financial &<br/>
+                Physical Target Plan English Font
+            </div>
+        </td>
+        <td>
+            <div
+                class="listAnchor"
+                [routerLink]="['/dpp-tapp/detailed-estimated-cost']"
+            >
+                Annexure - V (a): Detailed Estimated Cost
+            </div>
+        </td>
+
+
+    </tr>
+
+    <tr>
+        <td>
+            <div
+                class="listAnchor"
+                [routerLink]="['/dpp-tapp/add-new-annual-phasing-cost/'+conceptId]"
+            >
+                Annexure- V (b):<br/>
+                Detailed Annual Phasing of Cost
+            </div>
+        </td>
+        <td (click)="getAmortizationScheduleTotal()">
+            <div
+                class="listAnchor"
+            >
+                Annexure - VI: Amortization Schedule
+            </div>
+        </td>
+
+
+
+    </tr>
+    <!-- /DPP Table -->
+
+</table>
+<!-- ------------/DPP Table-------------- -->

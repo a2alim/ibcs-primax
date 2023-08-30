@@ -1,0 +1,28 @@
+export const locale = {
+    lang: 'bn',
+    data: {
+        'componentDescription': 'Component Description',
+        'financialInformation': 'Financial Information (Taka In Lac)',
+        'economicCode': 'Economic Code',
+        'economicSubCode': 'Economic Sub Code',
+        'description': 'Description',
+        'total': 'Total',
+        'gob': 'GoB',
+        'fe': 'FE',
+        'pa': 'PA',
+        'rpa': 'RPA',
+        'rpaGob': 'GoB',
+        'specialAccount': 'Special Account',
+        'dpa': 'DPA',
+        'dpaThroughPd': 'DPA Through PD',
+        'throughPd': 'Through PD',
+        'dpaThroughDp': 'DPA Through DP',
+        'throughDp': 'Through DP',
+        'ownFund': 'Own Fund',
+        'others': 'Others',
+        'economicSubCodeWiseComponenet': 'Economic Sub-Code Wise Component',
+        'estimatedCost': 'Estimated Cost',
+        'projectAid': 'Project Aid',
+        'action': 'Action',
+    }
+};

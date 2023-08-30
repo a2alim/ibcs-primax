@@ -1,0 +1,126 @@
+<div class="width-100">
+    <!-- Header -->
+    <!-- <ng-container *ngIf="feedback.type=='Evaluator'">
+        <app-form-header [title]="'headerTitle' | translate"></app-form-header>
+    </ng-container>
+
+    <ng-container *ngIf="feedback.type=='Researcher'">
+        <app-form-header [title]="'headerTitle2' | translate"></app-form-header>
+    </ng-container> -->
+
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+
+    <div class="body m-5">
+
+        <!-- CARD ONE-->
+        <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+            <ng-container *ngIf="feedback.type=='Evaluator'">
+                <mat-label class="heading w-full">
+                    {{'EvaluatorFeedback' | translate}}
+                </mat-label>
+            </ng-container>
+
+            <ng-container *ngIf="feedback.type=='Researcher'">
+                <mat-label class="heading w-full">
+                    {{'headerTitle2' | translate}}
+                </mat-label>
+            </ng-container>
+
+        </div>
+        <mat-card class="tab-color">
+
+            <div class="mt-5">
+                <form>
+
+                    <ng-container *ngIf="feedback.type=='Evaluator'">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="40%"
+                                fxFlex.xs="100%">
+                                <strong>{{'PageNoOfResearchPaper' | translate}} :</strong>
+                                <strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="70%"
+                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                <input class="text-align-right" matInput type="number" required
+                                    [(ngModel)]="feedback.pageNo1" [ngModelOptions]="{standalone: true}"
+                                    (keyup)="checkValidation()">
+                                <mat-error>{{'PageNoOfResearchPaperReq' | translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="100%"
+                                fxFlex.xs="100%">
+                                <strong>{{'Feedback' | translate}} :</strong>
+                                <strong class="required">*</strong>
+                            </mat-label>
+                            <ckeditor [(ngModel)]="feedback.evaluatorFeedback" [config]="minEditor"
+                                [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" required fxFlex="80%" fxFlex.md="70%"
+                                fxFlex.sm="100%" fxFlex.xs="100%" (editorChange)="checkValidation()">
+                            </ckeditor>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="feedback.type=='Researcher'">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="40%"
+                                fxFlex.xs="100%">
+                                <strong>{{'PageNoOfResearchPaper' | translate}} :</strong>
+                                <strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="70%"
+                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                <input class="text-align-right" matInput type="number" required
+                                    [(ngModel)]="feedback.pageNo2" [ngModelOptions]="{standalone: true}"
+                                    (keyup)="checkValidation()">
+                                <mat-error>{{'PageNoOfResearchPaperReq' | translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="100%"
+                                fxFlex.xs="100%">
+                                <strong>{{'Feedback' | translate}} :</strong>
+                                <strong class="required">*</strong>
+                            </mat-label>
+                            <ckeditor [(ngModel)]="feedback.researcherFeedback" [config]="minEditor"
+                                [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" required fxFlex="80%" fxFlex.md="70%"
+                                fxFlex.sm="100%" fxFlex.xs="100%" (editorChange)="checkValidation()">
+                            </ckeditor>
+                        </div>
+                    </ng-container>
+
+                </form>
+            </div>
+
+            <div class="flex justify-end mt-3 mr-2">
+
+                <button mat-flat-button type="submit" [disabled]="saveDisable" (click)="onSubmit()"
+                    class="px-3 mr-2 toggle-sidebar-folded save-button">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span>{{ "Save" | translate }}</span>
+                </button>
+
+
+                <button mat-flat-button type="button" style="background-color: #f37a7a !important; color: #eee2e2"
+                    class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" (click)="onClose(true)">
+                    <mat-icon class="mr-1" *ngIf="closeIcon">{{closeIcon}}</mat-icon>
+                    <span> {{ "close" | translate }}</span>
+                </button>
+
+
+            </div>
+
+        </mat-card>
+    </div>
+
+    <!-- Main End -->
+</div>

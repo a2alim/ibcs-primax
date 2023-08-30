@@ -1,0 +1,154 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<div class="flex flex-col bg-card shadow rounded overflow-hidden">
+    <div class="heading">
+        <h1 class="header1">{{'VisitPlan' | translate}}</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="p-8 pb-4">
+        <form [formGroup]="form">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="30%"
+                           style="margin-top: -15px;">{{'TaskDetails' | translate}}:
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="50%" fxFlex.sm="50%">
+                    <input matInput formControlName="taskDetails">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="30%"
+                           style="margin-top: -15px;">{{'StartDateTime' | translate}}:
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="50%" fxFlex.sm="50%">
+                    <input (click)="picker1.open()" [matDatepicker]="picker1" formControlName="startDate" matInput readonly [min]="startDateFs" [max]="endDateFs" (dateChange)="startDateChange($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="30%"
+                           style="margin-top: -15px;">{{'EndDateTime' | translate}}:
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="50%" fxFlex.sm="50%">
+                    <input (click)="picker2.open()" [matDatepicker]="picker2" formControlName="endDate" matInput readonly [min]="endDate" [max]="endDateFs">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="30%"
+                           style="margin-top: -15px;">{{'Location' | translate}}:
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="50%" fxFlex.sm="50%">
+                    <input matInput formControlName="location">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="30%"
+                           style="margin-top: -15px;">{{'Remarks' | translate}}:
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="50%" fxFlex.sm="50%">
+                    <input matInput formControlName="remarks">
+                </mat-form-field>
+            </div>
+            <div class="flex items-center justify-end mb-5">
+                <button class="px-8 mr-2"
+                        (click)="resetForm()"
+                        mat-flat-button
+                        [color]="'accent'"
+                        type="button">
+                    Reset
+                </button>
+                <button *ngIf="!this.form.value.uuid"
+                        (click)="onSubmit()"
+                        class="px-6 ml-3"
+                        mat-flat-button
+                        [disabled]="spinner"
+                        color="primary"
+                        type="submit">
+                    {{'AddNew' | translate}}
+                </button>
+                <button *ngIf="this.form.value.uuid"
+                        (click)="onSubmit()"
+                        class="px-6 ml-3"
+                        mat-flat-button
+                        [disabled]="spinner"
+                        color="primary"
+                        type="submit">
+                    {{'Update' | translate}}
+                </button>
+            </div>
+
+        </form>
+        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                <table mat-table [dataSource]="dataSource" mat-table class="mat-elevation-z8 bg-transparent">
+                    <!-- Row definitions -->
+                    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                    <tr mat-row *matRowDef="let row; let i = index; columns: displayColumns;"></tr>
+                    <ng-container matColumnDef="sl">
+                        <th mat-header-cell *matHeaderCellDef>{{'Sl' | translate}}.</th>
+                        <td mat-cell *matCellDef="let element; let i = index;">
+                            {{i + 1}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="taskDetails">
+                        <th mat-header-cell *matHeaderCellDef> {{'TaskDetails' | translate}}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.taskDetails}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="startDate">
+                        <th mat-header-cell *matHeaderCellDef> {{'StartDateTime' | translate}}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.startDate | date:'dd-MM-yyyy'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="endDate">
+                        <th mat-header-cell *matHeaderCellDef> {{'EndDateTime' | translate}}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.endDate | date:'dd-MM-yyyy'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="location">
+                        <th mat-header-cell *matHeaderCellDef> {{'Location' | translate}}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="remarks">
+                        <th mat-header-cell *matHeaderCellDef> {{'Remarks' | translate}}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.remarks}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef> Action</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="buttons">
+                                <button mat-icon-button class="toggle-sidebar-folded"
+                                        fxHide.lt-lg>
+                                    <mat-icon (click)="edit(element)" color="accent">edit</mat-icon>
+                                </button>
+
+                                <button mat-icon-button class="toggle-sidebar-folded"
+                                        fxHide.lt-lg>
+                                    <mat-icon (click)="openDialog(element)" color="warn">delete</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+                </table>
+            <mat-paginator
+                [length]="total"
+                [pageSize]="size"
+                [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                (page)="onChangePage($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</div>
+
+<div>
+    <br /><br /><br />
+    <div fxLayout="row wrap" fxLayoutAlign="end">
+        <button class="mr-2" mat-flat-button color="accent" type="button" (click)="back()">Back
+        </button>
+        <button *ngIf="!visitPlanUpdated" class="mr-2" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                (click)="saveAndExit()">Save</button>
+        <button *ngIf="visitPlanUpdated" class="mr-2" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                (click)="saveAndExit()">Save</button>
+    </div>
+</div>

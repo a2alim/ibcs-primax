@@ -1,0 +1,212 @@
+<div *ngIf="spinner" class="flex items-center justify-center">
+    <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+        class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+    </div>
+</div>
+
+<!--<h1 class="p-2" style="color: red;" *ngIf="!canSave"><strong>{{'ResearcherProposalReq' | translate}}</strong></h1>-->
+
+<div>
+
+    <div class="flex justify-end mb-2">
+        <div class="addMoreBtn" style="color:#f3efe8" mat-raised-button color="primary" (click)="addNewRow()">{{'AddMore' |translate}}</div>
+    </div>
+
+
+    <ng-container *ngFor="let plans of actionPlans; let i = index;">
+        <ng-container *ngIf="plans.isDeleted !== 1">
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'ActivityPlan' | translate}} {{i + 1}}
+                    <span (click)="deleteNewRelativeForm(i)">
+                        <mat-icon class="exp-icon">delete</mat-icon>
+                    </span>
+                </mat-label>
+            </div>
+            <mat-card>
+                <!-- <form #f="ngForm">
+                    <table width="100%" class="actionTbl">
+                            <tr>
+                                <th>Plan Name</th>
+                                <th style="width:100px">Total Days</th>
+                                <th>Is Agree</th>
+                            </tr>
+                            <tr *ngFor="let plans of actionPlanList; let i = index;">
+                                <td>
+                                    <input matInput [(ngModel)]="plans.actionPlanName" [ngModelOptions]="{standalone: true}" #actionPlanName="ngModel">
+                                </td>
+                                <td class="text-center">
+                                    <input matInput [(ngModel)]="plans.totalDays" [ngModelOptions]="{standalone: true}" #totalDays="ngModel">
+                                </td>
+                                <td>
+                                    <mat-checkbox class="displayNone" [(ngModel)]="plans.isAgree"
+                                        [ngModelOptions]="{standalone: true}">
+                                    </mat-checkbox>
+                                </td>
+                            </tr>
+                            
+                    </table>
+                </form> -->
+                <form #f="ngForm">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                    fxFlex.xs="100%">{{'ActivityName' | translate}}
+                                    <strong class="required">*</strong>
+                                </mat-label>
+
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                    fxFlex.sm="60%" fxFlex.xs="100%">
+
+                                    <input matInput required [(ngModel)]="plans.taskName"
+                                        [ngModelOptions]="{standalone: true}" #taskName="ngModel">
+
+                                    <mat-hint
+                                        *ngIf="(taskName.touched || f.submitted || formSubmit) && taskName.errors?.required"
+                                        style="color: crimson !important;">
+                                        {{'ActivityNameReq' | translate}}
+                                    </mat-hint>
+
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                    fxFlex.xs="100%">{{'StartDate' | translate}}
+                                    <strong class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                    fxFlex.sm="60%" fxFlex.xs="100%">
+
+                                    <input (click)="picker1.open()" [matDatepicker]="picker1" matInput readonly required
+                                        [(ngModel)]="plans.startDate" [ngModelOptions]="{standalone: true}"
+                                        #startDate="ngModel">
+
+                                    <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+
+                                    <mat-hint
+                                        *ngIf="(startDate.touched || f.submitted || formSubmit) && startDate.errors?.required"
+                                        style="color: crimson !important;">
+                                        {{'StartDateReq' | translate}}
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                    fxFlex.xs="100%">{{'EndDate' | translate}}
+                                    <strong class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                    fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input (click)="picker2.open()" [matDatepicker]="picker2" matInput readonly required
+                                        [(ngModel)]="plans.endDate" [ngModelOptions]="{standalone: true}"
+                                        #endDate="ngModel">
+                                    <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                    <mat-hint
+                                        *ngIf="(endDate.touched || f.submitted || formSubmit) && endDate.errors?.required"
+                                        style="color: crimson !important;">
+                                        {{'EndDateReq' | translate}}
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                    fxFlex.xs="100%">{{'Remarks' | translate}}
+
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                    fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input matInput [(ngModel)]="plans.remarks" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <!--<div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                           fxFlex.xs="100%">
+                                    {{'IsEditable' | translate}}
+                                </mat-label>
+                                <mat-radio-group [(ngModel)]="plans.isEditable" [ngModelOptions]="{standalone: true}"
+                                                 required fxFlex="50%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <mat-radio-button [value]='1'>Yes</mat-radio-button>&nbsp;&nbsp;
+                                    <mat-radio-button [value]='0'>No</mat-radio-button>
+                                </mat-radio-group>
+                            </div>-->
+                        </div>
+                    </div>
+                </form>
+                <!--    </mat-card>-->
+            </mat-card>
+        </ng-container>
+        <br />
+    </ng-container>
+
+    <div class="flex justify-end mt-3 mr-2">
+
+        <button mat-flat-button [color]="'primary'" (click)="previousTab()" type="submit"
+            class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+            {{ "Previous" | translate }}
+        </button>
+
+        <!-- [disabled]="!canSave" -->
+        <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit" (click)="onSubmit(false)"
+            color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <span>{{ "Save" | translate }}</span>
+        </button>
+
+        <!-- [disabled]="!canSave"  -->
+        <button mat-flat-button (click)="onSubmit(true)" type="button" color="primary"
+            class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <span> {{ "SaveAndNext" | translate }}</span>
+        </button>
+
+        <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF" type="button"
+            color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+            {{ "Next" | translate }}
+            <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+        </button>
+
+        <!-- Reset Button -->
+        <!--<button
+            (click)="reset()"
+            class="px-8"
+            mat-flat-button
+            color="accent"
+            type="button">
+            {{'Reset' | translate}}
+        </button>&nbsp;&nbsp;-->
+
+        <!-- Save Button -->
+        <!--        <button-->
+        <!--            (click)="onSubmit()"-->
+        <!--            class="px-8"-->
+        <!--            mat-flat-button-->
+        <!--            color="primary"-->
+        <!--            type="button"-->
+        <!--            [disabled]="!canSave">-->
+        <!--            {{'Save' | translate}}-->
+        <!--        </button>-->
+    </div>
+</div>
+
+<!-- Main End -->

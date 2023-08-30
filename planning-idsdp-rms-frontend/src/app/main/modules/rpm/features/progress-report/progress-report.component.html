@@ -1,0 +1,49 @@
+<div class="width-100">
+    <div>
+        <app-form-header [title]="'headerTitle' | translate"
+                         [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    </div>
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <!-- Horizontal stepper -->
+            <form
+                class="bg-card shadow rounded rounded-2xl overflow-hidden ">
+                <mat-horizontal-stepper
+                    [linear]="false"
+                    class="tab-bar tab-color"
+                    #horizontalStepper
+                    (selectionChange)="selectionChanged($event)">
+
+                    <mat-step>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 title="{{'ResearchInformation' | translate}}">{{'ResearchInformation' | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-research-information (nextStep)="goForward(horizontalStepper)"
+                                               (backPrevious)="goBack(horizontalStepper)"></app-research-information>
+                        </div>
+                    </mat-step>
+
+                    <mat-step>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 title="{{'TaskList' | translate}}">{{'TaskList' | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-task-list (nextStep)="goForward(horizontalStepper)"
+                                                (backPrevious)="goBack(horizontalStepper)"></app-task-list>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+
+    </div>
+    <!-- Main End -->
+</div>

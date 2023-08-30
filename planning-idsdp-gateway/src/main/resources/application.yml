@@ -1,0 +1,100 @@
+spring:
+  application:
+    name: planning-idsdp-gateway
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      routes:
+        - id: planning-idsdp-uaa
+          uri: lb://planning-idsdp-uaa
+          predicates:
+            - Path= /oauth/**, /api/**, /image/**
+        - id: planning-idsdp-configuration-backend
+          uri: lb://planning-idsdp-configuration-backend
+          predicates:
+            - Path= /pps-configuration/**
+        - id: planning-idsdp-pps-pc-backend
+          uri: lb://planning-idsdp-pps-pc-backend
+          predicates:
+            - Path= /pps-pc/**
+        - id: planning-idsdp-pps-dpptapp-backend
+          uri: lb://planning-idsdp-pps-dpptapp-backend
+          predicates:
+            - Path= /pps-dpp-tapp/**
+        - id: planning-idsdp-pps-fs-backend
+          uri: lb://planning-idsdp-pps-fs-backend
+          predicates:
+            - Path= /pps-fs/**
+        - id: planning-idsdp-pps-query-backend
+          uri: lb://planning-idsdp-pps-query-backend
+          predicates:
+            - Path= /pps-query/**
+        - id: planning-idsdp-enothi-backend
+          uri: lb://planning-idsdp-enothi-backend
+          predicates:
+            - Path= /enothi/**
+        - id: planning-idsdp-sso-backend
+          uri: lb://planning-idsdp-sso-backend
+          predicates:
+            - Path= /sso/**
+        - id: cloud-config-server
+          uri: lb://cloud-config-server
+          predicates:
+            - Path= /cloud-config-server/**
+        - id: planning-reports-backend
+          uri: lb://planning-reports-backend
+          predicates:
+            - Path= /pps-report/**
+        - id: planning-idsdp-rms-configuration-backend
+          uri: lb://planning-idsdp-rms-configuration-backend
+          predicates:
+            - Path= /rms-configuration/**
+        - id: planning-idsdp-npm-configuration-backend
+          uri: lb://planning-idsdp-npm-configuration-backend
+          predicates:
+            - Path= /npm-configuration/**
+        - id: planning-idsdp-files-storage-server
+          uri: lb://planning-idsdp-files-storage-server
+          predicates:
+            - Path= /minio/**
+        - id: planning-idsdp-rms-rpm-backend
+          uri: lb://planning-idsdp-rms-rpm-backend
+          predicates:
+            - Path= /rms-rpm/**
+        - id: planning-idsdp-npm-sdg-backend
+          uri: lb://planning-idsdp-npm-sdg-backend
+          predicates:
+            - Path= /npm-sdg/**
+        - id: planning-idsdp-npm-drf-backend
+          uri: lb://planning-idsdp-npm-drf-backend
+          predicates:
+            - Path= /npm-drf/**
+        - id: planning-idsdp-rms-ti-backend
+          uri: lb://planning-idsdp-rms-ti-backend
+          predicates:
+            - Path= /rms-ti/**
+        - id: planning-idsdp-pps-rdpp-rtapp-backend
+          uri: lb://planning-idsdp-pps-rdpp-rtapp-backend
+          predicates:
+            - Path= /pps-rdpp-rtapp/**
+        - id: planning-idsdp-pps-project-management-backend
+          uri: lb://planning-idsdp-pps-project-management-backend
+          predicates:
+            - Path= /pps-project-management/**
+        - id: planning-idsdp-notification-backend
+          uri: lb://planning-idsdp-notification-backend
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
+            - DedupeResponseHeader=Access-Control-Allow-Credentials, RETAIN_UNIQUE
+          predicates:
+            - Path= /notification/**
+        - id: planning-idsdp-external-backend
+          uri: lb://planning-idsdp-external-backend
+          predicates:
+            - Path= /external/**
+server:
+  port: 8081
+  max-http-header-size: 10MB
+
+

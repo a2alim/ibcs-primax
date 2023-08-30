@@ -1,0 +1,52 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+
+    <div class="body m-5">
+
+        <!-- CARD ONE-->
+        <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <mat-label class="heading w-full">
+                {{'ResearcherPresentation' | translate}}
+            </mat-label>
+        </div>
+        <mat-card class="tab-color">
+
+            <!-- Data Table -->
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                </div>
+                <!-- mat-paginator -->
+            </div>
+
+            <div class="flex justify-end mt-3 mr-2">
+
+<!--                <button-->
+<!--                    mat-flat-button-->
+<!--                    style="background-color: green; color: #FFFFFF"-->
+<!--                    type="submit"-->
+<!--                    [disabled]="saveDisable"-->
+<!--                    (click)="onSubmit()"-->
+<!--                    color="primary"-->
+<!--                    class="px-3 mr-2 toggle-sidebar-folded saveBtn">-->
+<!--                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>-->
+<!--                    <span>{{ "Save" | translate }}</span>-->
+<!--                </button>-->
+            </div>
+
+        </mat-card>
+    </div>
+
+    <!-- Main End -->
+</div>

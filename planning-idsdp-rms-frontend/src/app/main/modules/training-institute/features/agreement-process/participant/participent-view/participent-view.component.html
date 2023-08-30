@@ -1,0 +1,196 @@
+<div style="width: 100%">
+    <div *ngIf="spinner" class="flex items-center justify-center no-print">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;" class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
+    </div>
+    <!-- Header -->
+    <app-form-header [subTitle]="'headerOfSubtitleView' | translate" [title]="'headerView' | translate"></app-form-header>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="md:flex no-print">
+            <div class="flex w-full md:justify-end">
+                <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent" (click)="backResearcherprofilelist()" type="button">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'previous' | translate}}
+                </button>
+
+                <button class="px-3  mr-2 printBtn" mat-flat-button color="accent" (click)="print()" type="button">
+                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                    {{'print' | translate}}
+                </button>
+
+                <button class="px-3 downloadBtn" mat-flat-button color="accent" (click)="download('perticipentLIst_view')" type="button">
+                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                    {{'download' | translate}}
+                </button>
+
+
+            </div>
+        </div>
+        <mat-card class="tab-color mt-4" id="printPage">
+
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <h3 class="md:mt-2">{{ 'courseTitle' | translate}} : {{tabData.courseTitle}}
+                                <span> </span></h3>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border3 form-bg-color">
+                <div class="md:flex p-4">
+                    <div class="w-full sm:w-auto md:w-full lg:w-full">
+                        <table class="tbl-details">
+                            <tr>
+                                <th class="w-20">{{ 'name' | translate }}</th>
+                                <td class="w-60">{{tabData.name}} </td>
+                                <td class="w-20" rowspan="5" style=" border: 5px solid #CCC; padding: 3px; vertical-align: top; ">
+                                    <img alt="Not Found" src="{{minioFileDownloadEndPointHost+this.tabData?.image?.bucketName+'/'
+                                     +this.tabData?.image?.fileName}}" style=" max-height: 200px ;" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th class="w-20">{{ 'bd' | translate }}</th>
+                                <td>{{convertDate(tabData.dateOfBirth)}} </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'gender' | translate }}</th>
+                                <td>{{tabData.gender}} </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'presentAddress' | translate }}</th>
+                                <td>{{tabData.presentAddress}} </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'permanentAddress' | translate }}</th>
+                                <td>{{tabData.permanentAddress}} </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'nidNo' | translate }}</th>
+                                <td>{{tabData.nidNo}} </td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'phoneNo' | translate }}</th>
+                                <td>{{tabData.phoneNo}} </td>
+                                <td rowspan="2" style="vertical-align: top;">                                    
+                                    <div>
+                                        <span class="font-semibold"> {{'nidNo'| translate }}</span> <br>
+                                        <div>{{tabData?.nidNo}}</div>
+                                        <mat-icon (click)="downloadNid()" *ngIf="downloadIcon"
+                                                  class="pointer">{{downloadIcon}}</mat-icon>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'email' | translate }}</th>
+                                <td colspan="2">{{tabData.email}} </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'howKnow' | translate }}</th>
+                                <td colspan="2">{{tabData.howYouKnowThisProgram}}</td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'socialLink' | translate }}</th>
+                                <td colspan="2">{{tabData.facebookOrTwitterLink}} </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!--- Education Information --->
+            <div class="flex-auto mt-6 body-color">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div class="heading w-full">
+                        {{ 'jobInfo' | translate }}
+                    </div>
+                </div>
+                <mat-card>
+                    <table class="researchInfo">
+                        <thead>
+                            <th class="text-center"> {{ 'orgName' | translate }}</th>
+                            <th class="text-center">{{ 'designation' | translate }}</th>
+                            <th class="text-center">{{ 'orgAddress' | translate }}</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="text-center">{{tabData.organizationName}}</td>
+                                <td class="text-center">{{tabData.designation}}</td>
+                                <td class="text-center">{{tabData.organizationAddress}}</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </mat-card>
+            </div>
+            <!--- /Education Information --->
+
+            <!--- Training Information --->
+            <div class="flex-auto mt-6 body-color">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div class="heading w-full">
+                        {{'academicBackgroundL' | translate }}
+                    </div>
+                </div>
+                <mat-card>
+                    <table class="researchInfo">
+                        <thead>
+                            <th class="text-center">{{ 'Sl' | translate }}</th>
+                            <th class="text-center"> {{'subject' | translate }}</th>
+                            <th class="text-center"> {{'examination' | translate }}</th>
+                            <th class="text-center">{{'result' | translate }}</th>
+                            <th class="text-center">{{'passingYear' | translate }}</th>
+                            <th class="text-center">{{'instituteName' | translate }}</th>
+                            <th class="text-center">{{'board' | translate }}</th>
+                            <th class="text-center">{{ 'dls' | translate }}</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let acmDataList of tabData.academicBackGroundViews;let i=index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">{{acmDataList.subject}}</td>
+                                <td class="text-center">{{acmDataList.examination}}</td>
+                                <td class="text-center">{{acmDataList.result | resultName}}</td>
+                                <td class="text-center">{{acmDataList.passingYear}}</td>
+                                <td class="text-center">{{acmDataList.instituteName}}</td>
+                                <td class="text-center">{{acmDataList.board}}</td>
+                                <td>
+                                    <button (click)="download()">download</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </mat-card>
+            </div>
+
+            <!-- <div class="flex justify-end mt-3">
+                <button class="px-5 previous-button" mat-flat-button color="accent" (click)="backResearcherprofilelist()" type="button">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'previous' | translate}}
+                </button>
+            </div> -->
+        </mat-card>
+
+    </div>
+    <!-- Main End -->
+</div>

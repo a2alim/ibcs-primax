@@ -1,0 +1,14 @@
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="bool" style="background-color: #1e293b;width: 100%;    flex-direction: row;place-content: center;align-items: center;box-sizing: border-box;display: flex;">
+    <!-- <img src="./../assets/images/logo/bd.png" style="width: 5%;"> -->
+    <div fxLayout="column" style="color: white; font-size: x-large">Waiting for RMS</div>
+    <div fxLayout="column" class="box">
+        <div class="container">
+          <span class="circle"></span>
+          <span class="circle"></span>
+          <span class="circle"></span>
+          <span class="circle"></span>
+        </div>
+      </div>
+</div>
+
+<router-outlet *ngIf="!bool"></router-outlet>

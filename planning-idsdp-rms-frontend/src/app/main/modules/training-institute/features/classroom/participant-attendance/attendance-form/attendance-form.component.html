@@ -1,0 +1,210 @@
+<div style="width: 100%">
+    <app-form-header [subTitle]="'headerSub' | translate" [title]="'headerTitle' | translate"></app-form-header>
+    <div class="flex-auto m-7 body-color">
+        <form #myForm="ngForm">
+
+            <!-- CARD ONE-->
+            <div class="heading mt-2">
+                <h1>{{'headerTitle' | translate}}</h1>
+            </div>
+
+            <mat-card class="tab-color">
+
+                <!-- Row 1-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'courseTitle' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <!-- <input matInput name="commonTypes" > -->
+                            <mat-select (selectionChange)="selectCourse($event.value)" [(ngModel)]="attendanceResponse.proposalId" [ngModelOptions]="{standalone: true}" placeholder="Select One" required>
+                                <mat-option *ngFor="let i of proposalModels" [value]="i.id"> {{i.trainingName}}</mat-option>
+                            </mat-select>
+                            <mat-error>{{'courseTitle' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                               {{'date' | translate}}<strong class="required">*</strong>
+                            </span>
+                    </div>
+                    <!-- Date Picker-->
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+
+                            <input [(ngModel)]="attendanceResponse.date" [matDatepicker]="datepicker" matInput name="dateOfBirth" required>
+                            <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker>
+
+                            </mat-datepicker>
+                            <mat-error>{{'date' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Row 2-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'session' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+<!--                    {{courseModel|json}}-->
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <!-- <input matInput name="commonTypes" > -->
+                            <mat-select (selectionChange)="selectSession($event.value)" [(ngModel)]="selectedSession.id" [ngModelOptions]="{standalone: true}" placeholder="Select One" required>
+                                <mat-option *ngFor="let session of courseModel" [value]="session.id"> {{ session.session }} </mat-option>
+                            </mat-select>
+                            <mat-error>{{'session' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'speaker' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <!-- <input matInput name="commonTypes" > -->
+                            <mat-select disabled (selectionChange)="selectSpeaker($event.value)" [(ngModel)]="selectedSpeaker" [ngModelOptions]="{standalone: true}" placeholder="Select One" required multiple>
+                                <mat-option *ngFor="let i of speakersList" [value]="i.id"> {{i.name}}</mat-option>
+                            </mat-select>
+                            <mat-error>{{'speaker' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Row 3-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'topic' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input [(ngModel)]="selectedSession.topic" [ngModelOptions]="{standalone: true}" matInput disabled>
+                            <mat-error>topic required!</mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                       {{'upload_relevant_doc' | translate}}
+                    </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+
+                        <mat-form-field (change)="uploadFile($event.target.files,'certificate_image')" class="w-full">
+                            {{imageName}}
+                            <ngx-mat-file-input  [accept]="'.*'">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                            <mat-error>File is {{ 'required' | translate }}</mat-error>
+                            <mat-hint>Image Size Maximum 1MB, JPG, PNG</mat-hint>
+                        </mat-form-field>
+                    </div>
+                   <!-- <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+
+                    </div>-->
+                </div>
+
+
+                <br>
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <!--<mat-card>-->
+                    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                        <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sl">
+                                <th *matHeaderCellDef class="w-16" mat-header-cell> {{'sl' | translate}} </th>
+                                <td *matCellDef="let row; let i = index;" mat-cell>
+                                    {{(i + 1)}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="participantName">
+                                <th *matHeaderCellDef mat-header-cell> {{'participantName' | translate}} </th>
+                                <td *matCellDef="let element" mat-cell> {{ element.participantName }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="phoneNo">
+                                <th *matHeaderCellDef mat-header-cell> {{'phoneNo' | translate}} </th>
+                                <td *matCellDef="let element" mat-cell> {{ element.phoneNo}} </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="present">
+                                <th *matHeaderCellDef mat-header-cell> {{'present' | translate}} </th>
+                                <td *matCellDef="let element; let i = index" mat-cell>
+                                    <mat-radio-group [(ngModel)]="participantAttendanceModels[i].isPresent" [ngModelOptions]="{standalone: true}" aria-label="Select an option" class="text-center">
+                                        <mat-radio-button [value]="true" class="mr-4">{{'Yes' | translate}}</mat-radio-button>
+                                        <mat-radio-button [value]="false" class="mr-4">{{'No' | translate}}</mat-radio-button>
+                                    </mat-radio-group>
+                                </td>
+                            </ng-container>
+
+                            <!-- second Party Name Column -->
+                            <!--                            <ng-container matColumnDef="speaker">-->
+                            <!--                                <th *matHeaderCellDef mat-header-cell> {{'speaker' | translate}} </th>-->
+                            <!--                                <td *matCellDef="let element" mat-cell> {{element.name}} </td>-->
+                            <!--                            </ng-container>-->
+                            <ng-container matColumnDef="speakerComment">
+                                <th *matHeaderCellDef mat-header-cell> {{'speakerComment' | translate}} </th>
+                                <td *matCellDef="let element; let i = index" mat-cell>
+                                    <mat-form-field class="w-full mt-3">
+                                        <input [(ngModel)]="participantAttendanceModels[i].speakerComment" [ngModelOptions]="{standalone: true}" matInput>
+                                        <mat-error>Applicant age is required!</mat-error>
+                                    </mat-form-field>
+
+                                </td>
+                            </ng-container>
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <!-- <mat-paginator (page)="onChangePage($event)" [length]="total" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="size">
+                    </mat-paginator> -->
+                </div>
+
+                <!-- Bottom Button -->
+                <div class="flex justify-end mt-8">
+
+                    <button (click)="save(true)" [disabled]="!(attendanceResponse.proposalId | required) ||
+                    !(selectedSession.id | required)  ||
+                    !(attendanceResponse.date | required)" class="px-3 mr-2" color="accent" mat-flat-button type="reset">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        {{'draft' | translate}}
+                    </button>
+                    <!--<button (click)="save(false)" [disabled]="!(attendanceResponse.proposalId | required) ||
+                    !(selectedSession.id | required) || !(selectedSpeaker.id | required) ||
+                    !(attendanceResponse.date | required)" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span>{{ "saveSubmit" | translate }}</span>
+                    </button>-->
+
+                    <button (click)="save(false)" [disabled]="!(attendanceResponse.proposalId | required) ||
+                    !(selectedSession.id | required)  ||
+                    !(attendanceResponse.date | required)" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span>{{ "saveSubmit" | translate }}</span>
+                    </button>
+
+                </div>
+
+            </mat-card>
+
+        </form>
+    </div>
+</div>

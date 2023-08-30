@@ -1,0 +1,104 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header *ngIf="isParipatra2016" [title]="titleEn" class="crop-text"
+                                 [subTitle]="'sub_title' | translate">
+                </app-list-header>
+                <app-list-header *ngIf="!isParipatra2016" [title]="titleEn" class="crop-text"
+                                 [subTitle]="'sub_title22' | translate">
+                </app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{'homePage' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">Annexure - VII : Letter of
+                                    Agreement with Implementing Agencies/Development Partners
+                                </div>
+                                <div class="flex items-center">
+                                    <div
+                                        class="leading-5 truncate text-secondary"> <a routerLink="/dpp-tapp">Home </a> > Annexure - VII : Letter of
+                                        Agreement with Implementing Agencies/Development Partners
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                style="margin-top: 25px; margin-bottom: -15px;"
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+&lt;!&ndash;                                <mat-icon>home</mat-icon>&nbsp;&ndash;&gt;
+                                Project Dashboard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+
+    <mat-card>
+        <mat-card class="tab-color">
+            <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()">
+            <div class="body">
+
+                <!-- ObjectivesAndTargets Div start -->
+                <div class="md:flex ck-editor-header sub-heading">
+                    <span style="width: 50%;">Letter of Agreement</span>
+                    <span style="width: 50%;text-align: right">
+                        <label for="file-upload0"><mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon></label>
+                        <input #file0 type="file" accept='image/*' (change)="uploadImageAsBase64(file0.files,'letterOfAgreement')" id="file-upload0"/>
+                    </span>
+                </div>
+                <div class="md:flex">
+                    <div class="w-full" style="position: relative;">
+
+                        <!--                    <div class="custom-file-upload-div">-->
+                        <!--                        <label for="file-upload4" class="custom-file-upload">-->
+                        <!--                        <mat-icon class="custom-image-icon">image</mat-icon>-->
+                        <!--                        </label>-->
+                        <!--                         <input #file4 type="file" accept='image/*'-->
+                        <!--                            (change)="uploadImageAsBase64(file4.files,'objectivesTargets')"  id="file-upload4" />-->
+                        <!--                    </div>-->
+
+                        <ckeditor [config]="minEditorConfig" formControlName="letterOfAgreement"></ckeditor>
+                    </div>
+                </div>
+                <div class="mt-3 mr-5" align="end">
+                    <button [disabled]="spinner" class="mb-3" color="primary" type="submit" mat-raised-button>Save</button>
+                </div>
+            </div>
+        </form>
+        </mat-card>
+    </mat-card>
+
+</div>

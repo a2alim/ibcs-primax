@@ -1,0 +1,71 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitlem' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin" style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-5 body-color">
+
+        <div class="max-w-8xl">
+            <mat-card>
+                <form>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="30%" fxFlex.md="25%" fxFlex.sm="40%" fxFlex.xs="100%" style="margin-top: -15px">
+                            {{'Subject' | translate}} :
+                            <strong class="required">*</strong>
+                        </mat-label>
+
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="75%" fxFlex.sm="60%" fxFlex.xs="100%">
+                            <input [(ngModel)]="linkupProposalWithEvaluatorsObj.subject" [ngModelOptions]="{standalone: true}" matInput requerd required>
+                            <mat-error>{{'SubjectReq' | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <mat-label fxFlex="30%" fxFlex.md="25%" fxFlex.sm="40%" fxFlex.xs="100%" style="margin-top: -15px" class="capitalize">
+                            {{'fiscalYear' | translate}} :
+                        </mat-label>
+                        <mat-form-field (selectionchange)="changeFiscalYear()" [(ngModel)]="selectedFiscalYear" [ngModelOptions]="{standalone: true}" class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="75%" fxFlex.sm="60%" fxFlex.xs="100%">
+                            <mat-select placeholder="Select Fiscal Year">
+                                <mat-option *ngFor="let f of fiscalYears" [value]="f.id">{{f.fiscalYear}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex justify-end mt-3 mr-2">
+
+                        <!--                                <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit"-->
+                        <!--                                        class="px-3 mr-2 toggle-sidebar-folded saveBtn" (click)="onSubmit(false)" [disabled]="linkupProposalWithEvaluatorsObj.mailStatus==1">-->
+                        <!--                                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>-->
+                        <!--                                    <span>{{ "Save" | translate }}</span>-->
+                        <!--                                </button>-->
+
+                        <!--                                <button mat-flat-button type="button" color="primary"-->
+                        <!--                                        class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" (click)="onSubmit(true)" [disabled]="linkupProposalWithEvaluatorsObj.mailStatus==1">-->
+                        <!--                                    <span> {{ "SaveAndSend" | translate }}</span>-->
+                        <!--                                    <mat-icon class="ml-2" *ngIf="sendIcon">{{sendIcon}}</mat-icon>-->
+                        <!--                                </button>-->
+
+                        <button (click)="onSubmit(true)" [disabled]="linkupProposalWithEvaluatorsObj.mailStatus==1" class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" color="primary" mat-flat-button type="button">
+                            <span> {{ "Send" | translate }}</span>
+                            <mat-icon *ngIf="sendIcon" class="ml-2">{{sendIcon}}</mat-icon>
+                        </button>
+
+                        <button (click)="onClose(true)" class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" mat-flat-button style="background-color: #f37a7a !important; color: #eee2e2" type="button">
+                            <mat-icon *ngIf="closeIcon" class="mr-1">{{closeIcon}}</mat-icon>
+                            <span> {{ "close" | translate }}</span>
+                        </button>
+
+                    </div>
+
+                </form>
+            </mat-card>
+        </div>
+
+    </div>
+    <!-- Main End -->
+</div>

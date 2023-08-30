@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rms_promotional_category" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e0165cf8-063f-47c1-9739-6140875ff001">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rms_proposal_marks_DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<subDataset name="Researcher Quality Information" uuid="101530bb-ebd2-4d75-96fb-e2f01aeef1c5">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="proposal_and_marks_info.xml"/>
+		<queryString language="json">
+			<![CDATA[marks_info.items]]>
+		</queryString>
+		<field name="proposalId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalId"/>
+			<fieldDescription><![CDATA[proposalId]]></fieldDescription>
+		</field>
+		<field name="proposalUuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalUuid"/>
+			<fieldDescription><![CDATA[proposalUuid]]></fieldDescription>
+		</field>
+		<field name="stResearchCatTypeId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="stResearchCatTypeId"/>
+			<fieldDescription><![CDATA[stResearchCatTypeId]]></fieldDescription>
+		</field>
+		<field name="fiscalYearId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="fiscalYearId"/>
+			<fieldDescription><![CDATA[fiscalYearId]]></fieldDescription>
+		</field>
+		<field name="userId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="userId"/>
+			<fieldDescription><![CDATA[userId]]></fieldDescription>
+		</field>
+		<field name="profileMarks" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="profileMarks"/>
+			<fieldDescription><![CDATA[profileMarks]]></fieldDescription>
+		</field>
+		<field name="proposalMarks" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalMarks"/>
+			<fieldDescription><![CDATA[proposalMarks]]></fieldDescription>
+		</field>
+		<field name="userDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="userDto"/>
+			<fieldDescription><![CDATA[userDto]]></fieldDescription>
+		</field>
+		<field name="researchCategoryType" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchCategoryType"/>
+			<fieldDescription><![CDATA[researchCategoryType]]></fieldDescription>
+		</field>
+		<field name="fiscalYearDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="fiscalYearDto"/>
+			<fieldDescription><![CDATA[fiscalYearDto]]></fieldDescription>
+		</field>
+		<field name="userDto.designation" class="java.lang.String"/>
+		<field name="userDto.mobileNumber" class="java.lang.String"/>
+		<field name="userDto.name" class="java.lang.String"/>
+		<field name="divisionDto" class="java.lang.String"/>
+		<field name="districtDto" class="java.lang.String"/>
+		<field name="upzilaDto" class="java.lang.String"/>
+		<field name="preDivisionDto" class="java.lang.String"/>
+		<field name="preDistrictDto" class="java.lang.String"/>
+		<field name="preUpzilaDto" class="java.lang.String"/>
+		<field name="userDto.emailId" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="Researchers Proposal List" uuid="4212e7e7-1faa-4d03-bb89-bbae4e934880">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rms_proposal_marks_DataAdapter.xml"/>
+		<queryString language="json">
+			<![CDATA[]]>
+		</queryString>
+		<field name="proposalId" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalId"/>
+			<fieldDescription><![CDATA[proposalId]]></fieldDescription>
+		</field>
+		<field name="proposalUuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalUuid"/>
+			<fieldDescription><![CDATA[proposalUuid]]></fieldDescription>
+		</field>
+		<field name="researcherProfilePersonalInfoMasterId" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="researcherProfilePersonalInfoMasterId"/>
+			<fieldDescription><![CDATA[researcherProfilePersonalInfoMasterId]]></fieldDescription>
+		</field>
+		<field name="stProfileOfExpertEvaluatorsIdForProMarksl" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="stProfileOfExpertEvaluatorsIdForProMarksl"/>
+			<fieldDescription><![CDATA[stProfileOfExpertEvaluatorsIdForProMarksl]]></fieldDescription>
+		</field>
+		<field name="stFiscalYearId" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="stFiscalYearId"/>
+			<fieldDescription><![CDATA[stFiscalYearId]]></fieldDescription>
+		</field>
+		<field name="stFiscalYear" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="stFiscalYear"/>
+			<fieldDescription><![CDATA[stFiscalYear]]></fieldDescription>
+		</field>
+		<field name="stResearchCatTypeId" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="stResearchCatTypeId"/>
+			<fieldDescription><![CDATA[stResearchCatTypeId]]></fieldDescription>
+		</field>
+		<field name="stResearchCatType" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="stResearchCatType"/>
+			<fieldDescription><![CDATA[stResearchCatType]]></fieldDescription>
+		</field>
+		<field name="stSectorTypeId" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="stSectorTypeId"/>
+			<fieldDescription><![CDATA[stSectorTypeId]]></fieldDescription>
+		</field>
+		<field name="stSubSectorsId" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="stSubSectorsId"/>
+			<fieldDescription><![CDATA[stSubSectorsId]]></fieldDescription>
+		</field>
+		<field name="researchTitle" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchTitle"/>
+			<fieldDescription><![CDATA[researchTitle]]></fieldDescription>
+		</field>
+		<field name="profileId" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="profileId"/>
+			<fieldDescription><![CDATA[profileId]]></fieldDescription>
+		</field>
+		<field name="profileUuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="profileUuid"/>
+			<fieldDescription><![CDATA[profileUuid]]></fieldDescription>
+		</field>
+		<field name="userId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="userId"/>
+			<fieldDescription><![CDATA[userId]]></fieldDescription>
+		</field>
+		<field name="isDeleted" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isDeleted"/>
+			<fieldDescription><![CDATA[isDeleted]]></fieldDescription>
+		</field>
+		<field name="approvalStatus" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="approvalStatus"/>
+			<fieldDescription><![CDATA[approvalStatus]]></fieldDescription>
+		</field>
+		<field name="approvedBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="approvedBy"/>
+			<fieldDescription><![CDATA[approvedBy]]></fieldDescription>
+		</field>
+		<field name="profileMarks" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="profileMarks"/>
+			<fieldDescription><![CDATA[profileMarks]]></fieldDescription>
+		</field>
+		<field name="proposalMarks" class="java.lang.Integer">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalMarks"/>
+			<fieldDescription><![CDATA[proposalMarks]]></fieldDescription>
+		</field>
+		<field name="stProfileOfExpertEvaluatorsId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="stProfileOfExpertEvaluatorsId"/>
+			<fieldDescription><![CDATA[stProfileOfExpertEvaluatorsId]]></fieldDescription>
+		</field>
+		<field name="isInstitutional" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isInstitutional"/>
+			<fieldDescription><![CDATA[isInstitutional]]></fieldDescription>
+		</field>
+		<field name="isFinalSubmit" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isFinalSubmit"/>
+			<fieldDescription><![CDATA[isFinalSubmit]]></fieldDescription>
+		</field>
+		<field name="userDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="userDto"/>
+			<fieldDescription><![CDATA[userDto]]></fieldDescription>
+		</field>
+		<field name="pageableRequestBodyDTO" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="pageableRequestBodyDTO"/>
+			<fieldDescription><![CDATA[pageableRequestBodyDTO]]></fieldDescription>
+		</field>
+		<field name="orderBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="orderBy"/>
+			<fieldDescription><![CDATA[orderBy]]></fieldDescription>
+		</field>
+		<field name="field" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="field"/>
+			<fieldDescription><![CDATA[field]]></fieldDescription>
+		</field>
+		<field name="subField" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="subField"/>
+			<fieldDescription><![CDATA[subField]]></fieldDescription>
+		</field>
+		<field name="userDto.emailId" class="java.lang.String"/>
+		<field name="userDto.mobileNumber" class="java.lang.String"/>
+		<field name="userDto.designation" class="java.lang.String"/>
+		<field name="userDto.divisionDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="divisionDto"/>
+		</field>
+		<field name="userDto.districtDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="districtDto"/>
+		</field>
+		<field name="userDto.upzilaDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="upzilaDto"/>
+		</field>
+		<field name="userDto.preDivisionDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="preDivisionDto"/>
+		</field>
+		<field name="userDto.preDistrictDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="preDistrictDto"/>
+		</field>
+		<field name="userDto.preUpzilaDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="preUpzilaDto"/>
+		</field>
+		<field name="userDto.name" class="java.lang.String"/>
+	</subDataset>
+	<queryString language="json">
+		<![CDATA[]]>
+	</queryString>
+	<field name="proposalId" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="proposalId"/>
+		<fieldDescription><![CDATA[proposalId]]></fieldDescription>
+	</field>
+	<field name="proposalUuid" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="proposalUuid"/>
+		<fieldDescription><![CDATA[proposalUuid]]></fieldDescription>
+	</field>
+	<field name="researcherProfilePersonalInfoMasterId" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="researcherProfilePersonalInfoMasterId"/>
+		<fieldDescription><![CDATA[researcherProfilePersonalInfoMasterId]]></fieldDescription>
+	</field>
+	<field name="stProfileOfExpertEvaluatorsIdForProMarksl" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="stProfileOfExpertEvaluatorsIdForProMarksl"/>
+		<fieldDescription><![CDATA[stProfileOfExpertEvaluatorsIdForProMarksl]]></fieldDescription>
+	</field>
+	<field name="stFiscalYearId" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="stFiscalYearId"/>
+		<fieldDescription><![CDATA[stFiscalYearId]]></fieldDescription>
+	</field>
+	<field name="stResearchCatTypeId" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="stResearchCatTypeId"/>
+		<fieldDescription><![CDATA[stResearchCatTypeId]]></fieldDescription>
+	</field>
+	<field name="stSectorTypeId" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="stSectorTypeId"/>
+		<fieldDescription><![CDATA[stSectorTypeId]]></fieldDescription>
+	</field>
+	<field name="stSubSectorsId" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="stSubSectorsId"/>
+		<fieldDescription><![CDATA[stSubSectorsId]]></fieldDescription>
+	</field>
+	<field name="researchTitle" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="researchTitle"/>
+		<fieldDescription><![CDATA[researchTitle]]></fieldDescription>
+	</field>
+	<field name="profileId" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="profileId"/>
+		<fieldDescription><![CDATA[profileId]]></fieldDescription>
+	</field>
+	<field name="profileUuid" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="profileUuid"/>
+		<fieldDescription><![CDATA[profileUuid]]></fieldDescription>
+	</field>
+	<field name="userId" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="userId"/>
+		<fieldDescription><![CDATA[userId]]></fieldDescription>
+	</field>
+	<field name="isDeleted" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="isDeleted"/>
+		<fieldDescription><![CDATA[isDeleted]]></fieldDescription>
+	</field>
+	<field name="approvalStatus" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="approvalStatus"/>
+		<fieldDescription><![CDATA[approvalStatus]]></fieldDescription>
+	</field>
+	<field name="approvedBy" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="approvedBy"/>
+		<fieldDescription><![CDATA[approvedBy]]></fieldDescription>
+	</field>
+	<field name="profileMarks" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="profileMarks"/>
+		<fieldDescription><![CDATA[profileMarks]]></fieldDescription>
+	</field>
+	<field name="proposalMarks" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="proposalMarks"/>
+		<fieldDescription><![CDATA[proposalMarks]]></fieldDescription>
+	</field>
+	<field name="stProfileOfExpertEvaluatorsId" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="stProfileOfExpertEvaluatorsId"/>
+		<fieldDescription><![CDATA[stProfileOfExpertEvaluatorsId]]></fieldDescription>
+	</field>
+	<field name="isInstitutional" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="isInstitutional"/>
+		<fieldDescription><![CDATA[isInstitutional]]></fieldDescription>
+	</field>
+	<field name="isFinalSubmit" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="isFinalSubmit"/>
+		<fieldDescription><![CDATA[isFinalSubmit]]></fieldDescription>
+	</field>
+	<field name="pageableRequestBodyDTO" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="pageableRequestBodyDTO"/>
+		<fieldDescription><![CDATA[pageableRequestBodyDTO]]></fieldDescription>
+	</field>
+	<field name="orderBy" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="orderBy"/>
+		<fieldDescription><![CDATA[orderBy]]></fieldDescription>
+	</field>
+	<field name="field" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="field"/>
+		<fieldDescription><![CDATA[field]]></fieldDescription>
+	</field>
+	<field name="stResearchCatType" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="stResearchCatType"/>
+		<fieldDescription><![CDATA[stResearchCatType]]></fieldDescription>
+	</field>
+	<field name="subField" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="subField"/>
+		<fieldDescription><![CDATA[subField]]></fieldDescription>
+	</field>
+	<field name="stFiscalYear" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="stFiscalYear"/>
+		<fieldDescription><![CDATA[stFiscalYear]]></fieldDescription>
+	</field>
+	<field name="userDto" class="java.lang.String">
+		<fieldDescription><![CDATA[userDto]]></fieldDescription>
+	</field>
+	<field name="userDto.emailId" class="java.lang.String"/>
+	<field name="userDto.mobileNumber" class="java.lang.String"/>
+	<field name="userDto.designation" class="java.lang.String"/>
+	<field name="userDto.divisionDto" class="java.lang.String">
+		<fieldDescription><![CDATA[userDto.divisionDto]]></fieldDescription>
+	</field>
+	<field name="userDto.districtDto" class="java.lang.String"/>
+	<field name="userDto.upzilaDto" class="java.lang.String"/>
+	<field name="userDto.preDivisionDto" class="java.lang.String"/>
+	<field name="userDto.preDistrictDto" class="java.lang.String"/>
+	<field name="userDto.preUpzilaDto" class="java.lang.String"/>
+	<field name="userDto.name" class="java.lang.String"/>
+	<field name="userDto.preAnotherDetails" class="java.lang.String"/>
+	<field name="userDto.anotherDetails" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="140" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="80" width="800" height="34" uuid="7f36aa2b-a943-4773-bb10-7d701d2f2f7c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Subject"+" : "+($F{stFiscalYear}!=null?$F{stFiscalYear}:" ")+" "+"Research and Credential Verification Activities of the Researchers Deposited in the Financial Year"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="114" width="800" height="25" backcolor="#FFFFFF" uuid="86d6e9f2-9114-411d-bb4e-a260079f2d0f"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[("Category"+" : "+($F{stResearchCatType}!=null?$F{stResearchCatType}:" All"))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="800" height="80" uuid="3c01d4d7-4f3d-4368-97f2-e7af7068c3c8"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Government of the People's Republic of Bangladesh"
++"\n"+"Ministry of Planning"
++"\n"+"Department of Planning "
++"\n"+"Social Science Research Council"
++"\n"+"Sher-e-Bangla Nagar, Dhaka"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="50">
+			<staticText>
+				<reportElement x="470" y="0" width="111" height="50" uuid="051f1589-8913-49f7-9b8f-01a84b366524"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Research Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="741" y="0" width="59" height="50" uuid="b6bff1a5-4a87-449d-bd62-0eff4e84b8a1"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Number Obtained]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="329" y="0" width="71" height="50" uuid="f5d0256e-074d-4ba3-8d39-0fef198088c9"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fields]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="21" height="50" uuid="cf2c8f49-871f-4fb2-9d5c-04d7a76fdede"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="0" width="249" height="50" uuid="d8cda596-d5b1-422e-9e48-86065edef492"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Researcher's Name,Current Address, Permanent Address, Telephone and Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="581" y="0" width="90" height="50" uuid="4ce1722a-63db-4eaa-b40a-e5560868084e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number of Qualifications, Experience and Skills Obtained]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="70" height="50" uuid="e7a76377-56af-4ded-a56d-7627d49fb7c8"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sub-Field]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="671" y="0" width="70" height="50" uuid="a41c6a0b-bc66-4341-a3e0-2a0218b6755d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number Obtained By the Evaluator]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="59" height="50" uuid="50939bde-5c56-491c-b8a9-33858e7b0faf"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Category]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="741" y="0" width="59" height="30" isPrintWhenDetailOverflows="true" uuid="5f930cee-8828-444b-9ff8-ca7dd2bca70f"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Integer( $F{proposalMarks}.intValue() + $F{profileMarks}.intValue() )]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="329" y="0" width="71" height="30" isPrintWhenDetailOverflows="true" uuid="42cf6bed-f0bf-4a9c-ae9f-2aaad1aa409d"/>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field}!=null?$F{field}:""]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="400" y="0" width="70" height="30" isPrintWhenDetailOverflows="true" uuid="7c7c567e-4e2f-4066-8e11-99c3be873347"/>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subField}!=null?$F{subField}:""]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="21" y="0" width="249" height="30" isPrintWhenDetailOverflows="true" uuid="468e3db0-982d-4d2e-9d1a-265190974c2a"/>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled">
+					<font fontName="Nirmala UI" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true'>"+"Name"+"</style>"+" :"+($F{userDto.name}!= null?$F{userDto.name}:"")+"\n"+"Designation"+" :"+($F{userDto.designation}!= null?$F{userDto.designation}:" ")+"\n"+"Mobile"+" :"+
+($F{userDto.mobileNumber}!= null? $F{userDto.mobileNumber}:"")+"\n"+"E-Mail"+" :"+($F{userDto.emailId}!= null?$F{userDto.emailId}:"")+"\n"+"<style isBold='true'>"+"Current Address" + "</style>"+"\n"+"Division"+" :"+($F{userDto.preDivisionDto}!= null?$F{userDto.preDivisionDto}:"")+"\n"+"District"+" :"+($F{userDto.preDistrictDto}!= null?$F{userDto.preDistrictDto}:"")+"\n"+"Upazila"+" :"+($F{userDto.preUpzilaDto}!= null?$F{userDto.preUpzilaDto}:"")+"\n"
++"<style isBold='true'>"+"Address"+" :"+"(Village/Mahalla/Union)"+"</style>"
++"\n"+($F{userDto.preAnotherDetails}!=null?$F{userDto.preAnotherDetails}:"")
++"\n"+"<style isBold='true'>"+"Permanent Address" + "</style>"+"\n"+"Division"+" :"+
+($F{userDto.divisionDto}!=null?$F{userDto.divisionDto}:"")+"\n"+"District"+" :"+
+($F{userDto.districtDto}!= null?$F{userDto.districtDto}:"")+"\n"+"Upazila"+" :"+($F{userDto.upzilaDto}!= null?$F{userDto.upzilaDto}:"")
++"\n"+"<style isBold='true'>"+"Address"+" :"+"(Village/Mahalla/Union)"+"</style>"
++"\n"+($F{userDto.anotherDetails}!=null?$F{userDto.anotherDetails}:"")]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="671" y="0" width="70" height="30" isPrintWhenDetailOverflows="true" uuid="2f5a8397-1376-4da2-8ebe-de085ff3941c"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proposalMarks}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="21" height="30" isPrintWhenDetailOverflows="true" uuid="c3a1aa10-c2ef-425b-aca1-11fbb6f17734"/>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="470" y="0" width="111" height="30" isPrintWhenDetailOverflows="true" uuid="1cdab780-663a-40fa-b04a-2523f1da67bf"/>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{researchTitle}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="581" y="0" width="90" height="30" isPrintWhenDetailOverflows="true" uuid="5810f9f1-67c8-4b7f-bd6a-a743f295fbe4"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{profileMarks}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="270" y="0" width="59" height="30" isPrintWhenDetailOverflows="true" uuid="fa6408d3-ec30-491a-b6b1-5098acdded3e"/>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stResearchCatType}!=null?$F{stResearchCatType}:""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,77 @@
+<div class="w-full">
+    <!-- header area -->
+    <app-ims-header [title]="'Guide Line'" [subTitle]="'Information Management System / Guide Line'"></app-ims-header>
+
+    <mat-card class="m-3">
+        <div class="border-green-400 border-2 min-h-48">
+            <div class="h-40 body-color mb-2">
+                <h1 class="font-bold text-3xl pl-5 py-5 text-white">Guideline</h1>
+                <div  class="flex justify-between gap-x-2 px-10 body-color">
+                    <ng-container *ngFor="let module of moduleList; let i=index">
+                        <div (click)="selectModule(module.uuid)"
+                            class="{{module.uuid == moduleId ? 'active-color': ''}} bg-gray-400
+                            border-black border-2 text-white p-2 font-medium mb-5 pointer">
+                            {{module.moduleFullName}}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="overflow-y-scroll" style="max-height: 80vh;">
+                <ng-container *ngFor="let guideline of guidelineList; let i=index">
+                    <mat-card class="m-5">
+                        <div class="flex justify-between">
+                            <div>
+                                <h3 class="underline text-xl font-medium">{{guideline.title}}</h3>
+                                <p>{{guideline.description}}</p>
+                            </div>
+                            <div class="flex justify-end">
+                                <button (click)="openDetailsDialog(guideline)" mat-flat-button style="background-color: #0d9488 !important;">
+                                    <mat-icon style="color: white !important" >remove_red_eye</mat-icon>
+                                </button>
+                                <button (click)="viewAttachment(guideline.attachmentUrl)" class="ml-2 flex justify-center items-center" mat-flat-button color="primary">
+                                    <mat-icon class="mr-2 material-icons-outlined" color="primary">file_download</mat-icon>
+                                    <span>Download</span>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-card>
+                </ng-container>
+            </div>
+            <div class="flex justify-center bg-red-200 h-20 align-middle" *ngIf="!isLoading && guidelineList.length<1">
+                <p class="text-red-500 text-3xl p-5 font-bold">Guideline not found !!</p>
+            </div>
+            <div class="flex justify-center" *ngIf="isLoading" >
+                <mat-progress-spinner [diameter]="100" [mode]="'indeterminate'"></mat-progress-spinner>
+            </div>
+        </div>
+    </mat-card>
+
+    <ng-template #guidelineModal>
+        <div class="border-green-600 border-2">
+            <div class="flex justify-between pb-5 sub-heading">
+                <p class="text-3xl font-medium">Guideline Details</p>
+                <button mat-icon-button class="bg-red-300" [mat-dialog-close]="true">
+                    <mat-icon class="icon-size-5 text-current text-red-500"
+                        [svgIcon]="'heroicons_solid:x'">
+                    </mat-icon>
+                </button>
+            </div>
+            <div class="overflow-y-scroll" style="max-height: 80vh;">
+                <mat-card class="h-auto p-5 m-5">
+                    <div>
+                        <h3 class="underline text-xl font-medium">{{guideline.title}}</h3>
+                        <p>{{guideline.description}}</p>
+                        <a (click)="viewAttachment(guideline.attachmentUrl)" class="hover:underline hover:text-purple-700 text-purple-500">
+                            Download Guideline Details
+                        </a>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </ng-template>
+
+    <!-- footer area -->
+    <div>
+        <app-ims-footer></app-ims-footer>
+    </div>
+</div>

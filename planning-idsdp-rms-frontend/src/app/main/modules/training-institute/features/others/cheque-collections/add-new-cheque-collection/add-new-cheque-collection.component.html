@@ -1,0 +1,299 @@
+<div style="width: 100%">
+    <app-form-header [subTitle]="'headerSubTitle' | translate" [title]="'headerTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7 || spinner8 || spinner9 || spinner10" class="flex items-center justify-center">
+        <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
+    
+    <div class="flex-auto m-7 body-color">
+        <form #myForm="ngForm">
+            <!-- CARD ONE-->
+            <div class="heading mt-2">
+                <h1 style="font-size: 20px !important;">{{'addNewFormTitle' | translate}}</h1>
+            </div>
+
+            <mat-card class="tab-color">
+                <!-- Row 1-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700 text capitalize">
+                            {{'selectInstitute' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <mat-select [(ngModel)]="chequeCollectionRequest.instituteId" 
+                                (selectionChange)="changeInstituteName($event.value)"
+                                [(value)]="chequeCollectionRequest.instituteId" 
+                                name="itemOfExpenditure" required>
+                                <mat-option *ngFor="let f of trainingInstitutes" [value]="f.id">{{f.trainingInstituteName}}</mat-option>
+                            </mat-select>
+                            <mat-error> {{'selectInstitute' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>                    
+                </div>
+
+                <!-- row 2 -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                           <span class="normal"> {{'titleOfResearch' | translate}}</span><strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select (selectionChange)="onProposalChange($event.value)" [(ngModel)]="chequeCollectionRequest.proposalId" [(value)]="chequeCollectionRequest.proposalId" name="titleOfResearch" required>
+                                <!-- <mat-option *ngFor="let proposal of proposals" [value]="proposal.id">{{ proposal.trainingName }}</mat-option> -->
+                                <mat-option *ngFor="let proposal of proposalsList" [value]="proposal.id">{{ proposal.trainingName }}</mat-option>
+                            </mat-select>
+                            <mat-error>{{'titleOfResearch' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'chequeImage' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field (change)="uploadFile($event.target.files,'cheque')" class="w-full">
+                            {{ isEditable ? ((chequeCollectionRequest?.chequeImage?.fileName
+                            < 15) ? chequeCollectionRequest?.chequeImage?.fileName : chequeCollectionRequest?.chequeImage?.fileName.substring(0, 15) + '...') : '' }} <!-- {{ attachment===n ull ? '' : attachment | slice:attachment.length-15:attachment.length }}-->
+                                <ngx-mat-file-input [(ngModel)]="chequeImg" [ngModelOptions]="{standalone: true}" [accept]="'image/png, image/jpeg'" required>
+                                </ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>{{'chequeImage' | translate}} {{ 'required' | translate }}</mat-error>
+                                <mat-hint>{{ 'imgHint' | translate }}</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- row 3 -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700 text capitalize">
+                            {{'receiverPhoneNumber' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #pmn="ngModel" [(ngModel)]="chequeCollectionRequest.chequeReceiverPhoneNo" name="chequeReceiverPhoneNo" matInput required>
+                            <mat-hint style="color: crimson !important;" *ngIf="pmn.dirty && !(pmn.value | phoneMobileNo)">{{'valid' | translate}} {{'receiverPhoneNumber' | translate}} {{ 'required' | translate }}</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            <span class="normal"> {{'signatureImage' | translate}}</span>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field (change)="uploadFile($event.target.files,'signature')" class="w-full">
+                            {{ isEditable ? ((chequeCollectionRequest?.signatureImageOfCollectingPerson?.fileName
+                            < 15) ? chequeCollectionRequest?.signatureImageOfCollectingPerson?.fileName : chequeCollectionRequest?.signatureImageOfCollectingPerson?.fileName.substring(0, 15) + '...') : '' }} <ngx-mat-file-input [(ngModel)]="sigImg" [ngModelOptions]="{standalone: true}"
+                                [accept]="'image/png, image/jpeg'">
+                                </ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-hint>{{ 'imgHint' | translate }}</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Row 4-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'chequeNumber' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input [(ngModel)]="chequeCollectionRequest.chequeNo" name="chequeNo" matInput required type="number">
+                            <mat-error>{{'chequeNumber' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                           {{'nid' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #nid_number="ngModel" [(ngModel)]="chequeCollectionRequest.receiverNid" [ngModelOptions]="{standalone: true}" matInput type="number">
+                            <mat-hint *ngIf="nid_number.dirty && !(nid_number.value | nid_number)" class="nid-error" style="color: crimson !important;">
+                                Invalid Number. Please provide a valid 10 digit, 13 digit or 17 digit number.
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Row 5-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                           {{'checkAmount' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input [(ngModel)]="chequeCollectionRequest.chequeAmount" name="cham" matInput required type="number">
+                            <mat-error>{{'checkAmount' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'chequeDate' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" class="example-form-field" style="width: 100%;">
+
+                            <input [(ngModel)]="chequeCollectionRequest.chequeDate" placeholder="dd/mm/yyyy" [matDatepicker]="chequeDate" matInput name="chequeDate" required>
+                            <!--   [(ngModel)]="personalInfoFormModel.dateOfBirth" -->
+                            <mat-datepicker-toggle [for]="chequeDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #chequeDate>
+
+                            </mat-datepicker>
+                            <mat-error>{{'chequeDate' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Row 6-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'collectionDate' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" class="example-form-field" style="width: 100%;">
+
+                            <input [(ngModel)]="chequeCollectionRequest.collectionDate" placeholder="dd/mm/yyyy" [matDatepicker]="datepicker" matInput name="collectionDate" required>
+                            <!--   [(ngModel)]="personalInfoFormModel.dateOfBirth" -->
+                            <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker>
+
+                            </mat-datepicker>
+                            <mat-error>{{'collectionDate' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'installmentType' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">                            
+                            <mat-select [(ngModel)]="chequeCollectionRequest.installmentType" name="installmentType" placeholder="Select One" required>                                
+                                <mat-option *ngFor="let installment of agreementInstallments" [value]="installment.installmentName">
+                                    {{ installment.installmentName }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>{{'installmentType' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <!-- Row 7-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'tokenNumber' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input [(ngModel)]="chequeCollectionRequest.tokenNo" name="tokenNo" matInput ng-maxlength="8" required type="number">
+                            <mat-error>{{'tokenNumber' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                                {{'template_type' | translate}}
+                            </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <mat-select (selectionChange)="changeTemplateType($event)" placeholder="Select One">
+                                <mat-option *ngFor="let f of templateType" [value]="f.id">{{f.templateType}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>{{'template_type' | translate}} {{'required' | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="md:flex">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                                {{'pre_defined_template_list' | translate}}
+                            </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <mat-select (selectionChange)="selectionchangeForSemener($event,'p1')" required>
+                                <mat-option *ngFor="let f of preDefineTemplateList" [value]="f">{{f.subject}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>{{'pre_defined_template_list' | translate}} {{'required' | translate}}</mat-error>
+
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <!-- Row 8-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'acknowledgementLetter' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 pb-2">                        
+                        <ckeditor [(ngModel)]="chequeCollectionRequest.acknowledgementLetter" name="acknowledgementLetter" [config]="mediumEditorConfig"></ckeditor>
+                      
+                    </div>
+                </div>
+                <div class="md:flex ml-2 mt-3 mb-3">
+                    <div class="pr-2 md:pt-3">
+                        {{'receiveCheque' | translate}}
+                        <mat-checkbox [(ngModel)]="chequeCollectionRequest.chequeReceived" [ngModelOptions]="{standalone: true}" class="example-margin"></mat-checkbox>
+                    </div>
+                </div>
+
+                <br>
+                <div class="flex justify-end mt-8">
+
+                    <button [routerLink]="['/cheque-collection']" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        <span>{{ "previous" | translate }}</span>
+                    </button>
+
+                    <button (click)="formReset()" class="px-3 mr-2" color="accent" mat-flat-button type="reset">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+
+
+                    <button (click)="save()" [disabled]="                           
+                            !(chequeCollectionRequest.chequeReceiverPhoneNo | required) ||
+                            !(chequeCollectionRequest.chequeReceiverPhoneNo | phoneMobileNo) || 
+                            (!(chequeCollectionRequest.receiverNid | nid_number) && (chequeCollectionRequest.receiverNid != undefined))" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF"
+                        type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span *ngIf="!isEditable">{{ "save" | translate }}</span>
+                        <span *ngIf="isEditable">{{ "update" | translate }}</span>
+                    </button>
+                </div>
+
+            </mat-card>
+
+        </form>
+    </div>
+</div>

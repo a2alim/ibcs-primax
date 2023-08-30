@@ -1,0 +1,161 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<div class="body">
+    <div class="flex flex-col flex-auto min-w-0">
+        <!-- Main -->
+        <div class="sub-heading">
+                    <span  *ngIf="isParipatra2016" class="inline-block align-middle">
+                        {{ "Estimated_cost" | translate }}
+                    </span>
+                    <span  *ngIf="!isParipatra2016" class="inline-block align-middle">
+                        {{ "Estimated_cost22" | translate }}
+                    </span>
+        </div>
+
+        <mat-card>
+            <span style="float: right">{{'takaInLac' | translate}}</span>
+            <table class="tables">
+                <thead>
+                <tr>
+                    <th rowspan="2">{{'Financial_year' | translate}}</th>
+                    <th rowspan="2">{{'Total' | translate}}</th>
+                    <th rowspan="2" [innerHTML]="'GOB' | translate"></th>
+                    <th *ngIf="isForeignAid" colspan="2">{{'Project_aid' | translate}}</th>
+                    <th rowspan="2" [innerHTML]="'Own_fund' | translate"></th>
+                    <th rowspan="2">{{'other' | translate}}</th>
+                </tr>
+                <tr *ngIf="isForeignAid">
+                    <th>{{'RPA' | translate}}</th>
+                    <th>{{'DPA' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="boldBorder">
+                    <th>{{'Num1' | translate}}</th>
+                    <th>{{'Num2' | translate}}</th>
+                    <th>{{'Num3' | translate}}</th>
+                    <th>{{'Num4' | translate}}</th>
+                    <th>{{'Num5' | translate}}</th>
+                    <th *ngIf="isForeignAid">{{'Num6' | translate}}</th>
+                    <th *ngIf="isForeignAid">{{'Num7' | translate}}</th>
+
+                </tr>
+                <ng-container *ngIf="grandList.length > 0">
+                    <tr *ngFor="let g of grandList">
+                        <td style="text-align: center">{{isForeignAid ? g.fiscalYear : numberPipe.convertToBanglaNumber(g.fiscalYear)}}</td>
+                        <td>{{isForeignAid ? g.tappAnnualPhasingCostTotal.totalAmount.toFixed(2) : numberPipe.convertToBanglaNumber(g.tappAnnualPhasingCostTotal.totalAmount.toFixed(2))}}</td>
+                        <td>
+                            {{isForeignAid ? g.tappAnnualPhasingCostTotal.gobAmount.toFixed(2) : numberPipe.convertToBanglaNumber(g.tappAnnualPhasingCostTotal.gobAmount.toFixed(2))}}<br/>
+                            ({{isForeignAid ? g.tappAnnualPhasingCostTotal.gobFeAmount.toFixed(2) : numberPipe.convertToBanglaNumber(g.tappAnnualPhasingCostTotal.gobFeAmount.toFixed(2))}})
+                        </td>
+                        <td *ngIf="isForeignAid">{{g.rpa.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid">{{g.dpa.toFixed(2)}}</td>
+                        <td>
+                            {{isForeignAid ? g.tappAnnualPhasingCostTotal.ownFundAmount.toFixed(2) : numberPipe.convertToBanglaNumber(g.tappAnnualPhasingCostTotal.ownFundAmount.toFixed(2))}}<br/>
+                            ({{isForeignAid ? g.tappAnnualPhasingCostTotal.ownFundFeAmount.toFixed(2) : numberPipe.convertToBanglaNumber(g.tappAnnualPhasingCostTotal.ownFundFeAmount.toFixed(2))}})
+                        </td>
+                        <td>{{isForeignAid ? g.tappAnnualPhasingCostTotal.otherAmount.toFixed(2) : numberPipe.convertToBanglaNumber(g.tappAnnualPhasingCostTotal.otherAmount.toFixed(2))}}</td>
+                    </tr>
+
+                </ng-container>
+                </tbody>
+            </table>
+        </mat-card>
+
+        <!--1st CK Editor -->
+
+        <div class="sub-heading mt-5">
+                    <span *ngIf="isParipatra2016" class="inline-block align-middle">
+                        {{ "Lessons_learnt" | translate }}
+                    </span>
+                    <span *ngIf="!isParipatra2016" class="inline-block align-middle">
+                        {{ "Lessons_learnt22" | translate }}
+                    </span>
+        </div>
+
+        <mat-card>
+
+            <div class="sub-heading">
+                 <span class="inline-block align-middle">
+                        {{ "Indicate_issues" | translate }}
+                    </span>
+                <span *ngIf="!isShowIndicateIssues" (click)="expand(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'Indicate_issues' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                <span *ngIf="isShowIndicateIssues" (click)="collapse(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'Indicate_issues' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                <span style="float: right">
+                    <label for="file-upload0"><mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon></label>
+                    <input #file0 type="file" accept='image/*' (change)="uploadImageAsBase64(file0.files,'indicateIssues')" id="file-upload0"/>
+                </span>
+            </div>
+            <div *ngIf="isShowIndicateIssues" class="ck-editor" style="position: relative;">
+                <ckeditor [config]="mediumEditorConfig" [(ngModel)]="indicateIssues"></ckeditor>
+            </div>
+
+            <br>
+            <!--2nd CK Editor -->
+            <div class="sub-heading">
+                 <span class="inline-block align-middle">
+                        {{ "Indicate_issues_not_work" | translate }}
+                    </span>
+                <span *ngIf="!isShowIndicateIssuesNotWork" (click)="expand(2)">
+                                <mat-icon class="exp-icon" matTooltip="{{'Indicate_issues_not_work' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                <span *ngIf="isShowIndicateIssuesNotWork" (click)="collapse(2)">
+                                <mat-icon class="exp-icon" matTooltip="{{'Indicate_issues_not_work' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                <span style="float: right">
+                    <label for="file-upload0"><mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon></label>
+                    <input #file2 type="file" accept='image/*' (change)="uploadImageAsBase64(file2.files,'indicateIssuesNotWork')" id="file-upload2"/>
+                </span>
+            </div>
+            <div *ngIf="isShowIndicateIssuesNotWork" class="ck-editor" style="position: relative;">
+
+<!--                <div class="custom-file-upload-div">-->
+<!--                    <label for="file-upload2" class="custom-file-upload">-->
+<!--                    <mat-icon class="custom-image-icon">image</mat-icon>-->
+<!--                    </label>-->
+<!--                     <input #file2 type="file" accept='image/*'-->
+<!--                        (change)="uploadImageAsBase64(file2.files,'indicateIssuesNotWork')"  id="file-upload2" />-->
+<!--                </div>-->
+
+                <ckeditor [config]="mediumEditorConfig"
+                    [(ngModel)]="indicateIssuesNotWork">
+                </ckeditor>
+            </div>
+        </mat-card>
+
+        <div class="flex justify-end mt-8">
+            <button [color]="'accent'" class="px-8 mr-2 toggle-sidebar-folded" matTooltip="Back"
+                    mat-flat-button matStepperPrevious type="button">
+                {{ "back" | translate }}
+            </button>
+
+            <button (click)="saveAndNext('save')" [disabled]="spinner" class="px-8 mr-2 toggle-sidebar-folded"
+                    matTooltip="save" mat-flat-button [color]="'primary'" type="button">
+                {{ "save" | translate }}
+            </button>
+
+            <button (click)="saveAndNext('next')" [disabled]="spinner" class="px-8 mr-2 toggle-sidebar-folded"
+                    matTooltip="Save & Next" mat-flat-button [color]="'primary'" type="button">
+                {{ "saveNnext" | translate }}
+            </button>
+
+            <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit" [disabled]="spinner" (click)="saveAndNext('list')"
+                    class="px-8 mr-2 toggle-sidebar-folded" matTooltip="Save & Exit">
+                {{ "saveNexit" | translate }}
+            </button>
+
+            <button class="px-8 mr-2 toggle-sidebar-folded" matTooltip="Next" mat-flat-button style="background-color: green; color: #FFFFFF"
+                    type="button" matStepperNext>
+                {{ "next" | translate }}
+            </button>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,316 @@
+<div class="width-100">
+    <!-- Header -->
+    <!--    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>-->
+
+    <!--Loder-->
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto mt-7 body-color">
+        <mat-card class="tab-color -mt-4">
+
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1>{{'formTitle' | translate}}</h1>
+                </div>
+            </div>
+            <!-- Card Body -->
+
+            <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()" #inputForm="ngForm" class="p-4 border3 form-bg-color">
+
+                <!-- -----------1st Row----------- -->
+                <div class="md:flex row">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'name' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="name">
+                            <mat-error *ngIf="frmGroup.get('name').hasError('customError')">
+                                {{ frmGroup.get('name').errors.customError.value }}
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <!-- -----------/1st Row----------- -->
+
+                <div class="md:flex row">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'institute' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="institute">
+                            <mat-error *ngIf="frmGroup.get('institute').hasError('customError')">
+                                {{ frmGroup.get('institute').errors.customError.value }}
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3 ml-2">
+                        <span class="text-gray-700">
+                            {{'designation' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="designation">
+                            <mat-error *ngIf="frmGroup.get('designation').hasError('customError')">
+                                {{ frmGroup.get('designation').errors.customError.value }}
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="md:flex row">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'mobileNo' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="mobileNo">
+                            <mat-error *ngIf="frmGroup.get('mobileNo').hasError('required')">
+                                Mobile no is required
+                            </mat-error>
+                            <mat-error *ngIf="frmGroup.get('mobileNo').hasError('maxlength')">
+                                Mobile no should maximum 11 digit
+                            </mat-error>
+
+                            <mat-error *ngIf="frmGroup.get('mobileNo').hasError('minlength')">
+                                Mobile no should minimum 11 digit
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3 ml-2">
+                        <span class="text-gray-700">
+                            {{'gender' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select placeholder="Select Gender" formControlName="gender">
+                                <mat-option value="">Select</mat-option>
+                                <mat-option value="Male">Male</mat-option>
+                                <mat-option value="Female">Female</mat-option>
+                                <mat-option value="Other">Other</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="frmGroup.get('gender').hasError('customError')">
+                                {{ frmGroup.get('gender').errors.customError.value }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                </div>
+
+
+                <div class="md:flex row">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'email' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="email" type="email"
+                                pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                            <mat-error *ngIf="frmGroup.get('email').hasError('required')">
+                                Email is required
+                            </mat-error>
+                            <mat-error *ngIf="frmGroup.get('email').hasError('email')">
+                                Please enter a valid email address
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3 ml-2">
+                        <span class="text-gray-700">
+                            {{'lastAcademicDeg' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="lastAcademicDeg">
+                            <mat-error *ngIf="frmGroup.get('lastAcademicDeg').hasError('customError')">
+                                {{ frmGroup.get('lastAcademicDeg').errors.customError.value }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+
+
+                <!-- -----------2nd Row----------- -->
+
+                <!-- -----------/2nd Row----------- -->
+
+                <div class="flex justify-end mt-3 mr-2">
+                    <button (click)="previousTab()" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary"
+                        mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        <span>{{ "back" | translate }}</span>
+                    </button>
+
+                    <button class="px-5 mr-2" mat-flat-button color="accent" (click)="formReset()" type="reset">
+                        <mat-icon *ngIf="refreshBtn" class="mr-1">{{refreshBtn}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+
+                    <button [disabled]="spinner" class="px-5 mr-2" mat-flat-button color="primary" type="submit">
+                        <mat-icon *ngIf="saveBtn" class="mr-1">{{saveBtn}}</mat-icon>
+                        <div *ngIf="formTitle=='Edit'; else temp ">{{'update' | translate}}</div>
+                        <ng-template #temp>{{'save' | translate}}</ng-template>
+                    </button>
+
+                    <button mat-flat-button (click)="goToProfile()" style="background-color: green; color: #FFFFFF"
+                        type="submit" color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                        <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+                        <div *ngIf="formTitle=='Edit'; else temp2 ">{{'updateandview' | translate}}</div>
+                        <ng-template #temp2>{{'saveandview' | translate}}</ng-template>
+                    </button>
+
+                </div>
+            </form>
+
+
+            <!-- List Grid -->
+            <div class="md:flex tbl-title">
+                <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-6">
+                    <h1 class="header1">
+                        <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                        {{'searchTitle' | translate}}
+                    </h1>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-40 lg:w-40 md:text-left md:pt-3">
+                    <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                        <input matInput (keyup)="applyFilter($event)" [placeholder]="'search'|translate" #input />
+                        <button mat-button matPrefix mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl' | translate}} </th>
+                            <td class="text-center" mat-cell *matCellDef="let element; let i = index">
+                                {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> {{'name' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="institute">
+                            <th mat-header-cell *matHeaderCellDef> {{'institute' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.institute}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="designation">
+                            <th mat-header-cell *matHeaderCellDef> {{'designation' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.designation}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="mobileNo">
+                            <th mat-header-cell *matHeaderCellDef> {{'mobileNo' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="gender">
+                            <th mat-header-cell *matHeaderCellDef> {{'gender' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef> {{'email' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="lastAcademicDeg">
+                            <th mat-header-cell *matHeaderCellDef> {{'lastAcademicDeg' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.lastAcademicDeg}} </td>
+                        </ng-container>
+
+                        <!--                        &lt;!&ndash; Name Column &ndash;&gt;-->
+                        <!--                        <ng-container matColumnDef="active"  >-->
+                        <!--                            <th mat-header-cell *matHeaderCellDef class="w-32"> {{'status' | translate}} </th>-->
+                        <!--                            <td class="text-center" mat-cell *matCellDef="let element">-->
+                        <!--                                <span class="active" *ngIf="element.active; else elseDiv">Active</span>-->
+                        <!--                                <ng-template #elseDiv><span class="inactive">Inactive</span></ng-template>-->
+                        <!--                            </td>-->
+                        <!--                        </ng-container>-->
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}} </th>
+                            <td class="text-center" mat-cell *matCellDef="let element">
+                                <div class="buttons">
+                                    <button (click)="editRow(element)" mat-icon-button class="toggle-sidebar-folded"
+                                        matTooltip="Edit" fxHide.lt-lg>
+                                        <mat-icon *ngIf="editBtn" color="accent">{{editBtn}}
+                                        </mat-icon>
+                                    </button>
+
+                                    <button (click)="openDialog(element.uuid)" mat-icon-button
+                                        class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>
+                                        <mat-icon *ngIf="deleteBtn" color="warn">{{deleteBtn}}
+                                        </mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <!-- Initialized Table Header And Dataset-->
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+                <!-- mat-paginator -->
+                <mat-paginator #paginatorRef [length]="totalElements" [pageSize]="pageSize"
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+        </mat-card>
+
+
+    </div>
+    <!-- Main End -->
+</div>

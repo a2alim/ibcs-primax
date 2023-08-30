@@ -1,0 +1,15 @@
+
+ <div fxLayout="row" fxLayoutAlign="center center" *ngIf="bool" style="background-color: #1e293b;width: 100%;">
+    <!-- <img src="./../assets/images/logo/bd.png" style="width: 5%;"> -->
+    <div fxLayout="column" style="color: white; font-size: x-large">Waiting for PPS</div>
+    <div fxLayout="column" class="box">
+        <div class="container">
+          <span class="circle"></span>
+          <span class="circle"></span>
+          <span class="circle"></span>
+          <span class="circle"></span>
+        </div>
+      </div>
+</div>
+
+<router-outlet *ngIf="!bool"></router-outlet>

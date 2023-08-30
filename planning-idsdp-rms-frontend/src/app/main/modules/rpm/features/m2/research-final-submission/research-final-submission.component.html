@@ -1,0 +1,132 @@
+<div class="width-100">
+  <!-- Header -->
+  <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+  <div *ngIf="spinner" class="flex items-center justify-center">
+    <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+      class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+    </div>
+  </div>
+
+  <!-- Main Start -->
+  <div class="flex-auto m-3 body-color">
+    <div class="flex md:justify-end md:mr-3 ml-2 mb-3">
+      <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent" (click)="onClickPrevious()" type="button">
+        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+        {{'previous' | translate}}
+      </button>
+      <button (click)="onClickView()" class="px-3" mat-flat-button color="primary" type="submit"
+        [matTooltip]="'detailsFinalReportOfResearchSubmission' | translate">
+        <mat-icon *ngIf="viewIcon" class="mr-1">{{viewIcon}}</mat-icon>
+        <div>{{'viewDetails' | translate}}</div>
+      </button>
+    </div>
+    <mat-card class="tab-color">
+      <!-- Card Body -->
+      <!-- *ngIf="userDetails.userType == 'Rms_DO'" -->
+      <form [formGroup]="finalSubmissionForm" (ngSubmit)="saveOrUpdate(finalSubmissionForm.value)"
+        #rchFinalSubmissionForm="ngForm">
+
+        <div class="grid grid-cols-1 gap-2 mt-2">
+          <div>
+            <mat-form-field class="w-full">
+              <mat-label>{{'researchTitle'|translate}}</mat-label>
+              <input matInput type="text" formControlName="m1ResearcherTitle" readonly>
+              <input type="hidden" formControlName="m1ResearcherProposalId" readonly>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="w-full">
+              <mat-label>{{'submissionDate'|translate}}</mat-label>
+              <input class="w-50" matInput (click)="datepicker.open()" [matDatepicker]="datepicker" formControlName="submissionDate">
+              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker></mat-datepicker>
+              <mat-error class="text-red-500">Submission Date is required.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-2 mt-2">
+          <div class="ck_border_color1">
+            <mat-label>{{'objectSummary'|translate}}</mat-label>
+            <ckeditor #ckeditor formControlName="objectSummary" [config]="mediumEditorConfig" required></ckeditor>
+            <!-- <mat-error *ngIf="frmGroup.get('letterBodyContent').hasError('customError')">
+                            {{ frmGroup.get('letterBodyContent').errors.customError.value }}
+                        </mat-error> -->
+          </div>
+          <div class="mt-5 ck_border_color2">
+            <mat-label>{{'introduction'|translate}}</mat-label>
+            <ckeditor #ckeditor formControlName="introduction" [config]="mediumEditorConfig" required></ckeditor>
+          </div>
+
+          <div class="mt-5 ck_border_color3">
+            <mat-label>{{'background'|translate}}</mat-label>
+            <ckeditor #ckeditor formControlName="background" [config]="mediumEditorConfig" required></ckeditor>
+          </div>
+
+          <div class="mt-5 ck_border_color4">
+            <mat-label>{{'methodFollowedInTheResearch'|translate}}</mat-label>
+            <ckeditor #ckeditor formControlName="methodFollowedInTheResearch" [config]="mediumEditorConfig"required></ckeditor>
+          </div>
+
+          <div class="mt-5">
+            <mat-label>{{'findings'|translate}}</mat-label>
+            <ckeditor #ckeditor formControlName="findings" [config]="mediumEditorConfig"></ckeditor>
+          </div>
+          <div class="mt-5">
+            <mat-label>{{'discussion'|translate}}</mat-label>
+            <ckeditor #ckeditor formControlName="discussion" [config]="mediumEditorConfig"></ckeditor>
+          </div>
+
+          <div class="mt-5">
+            <mat-label>{{'policy'|translate}}</mat-label>
+            <ckeditor #ckeditor formControlName="policy" [config]="mediumEditorConfig"></ckeditor>
+          </div>
+
+          <div class="mt-5">
+            <mat-label>{{'generalRecommendation'|translate}}</mat-label>
+            <ckeditor #ckeditor formControlName="generalRecommendation" [config]="mediumEditorConfig"></ckeditor>
+          </div>
+
+          <div class="mt-5">
+            <mat-form-field class="w-full">
+              <mat-label [matTooltip]="'whyHashTag2' | translate" class="example-button">{{'hashTag'|translate}}</mat-label>
+              <input matInput type="text" formControlName="hashTag" [placeholder]="'whyHashTag2'|translate"
+              >
+            </mat-form-field>
+          </div>
+
+          <div class="mt-5">
+            <mat-form-field class="w-full">
+              <mat-label [matTooltip]="'whyHashTag2' | translate" class="example-button">{{'hashTagBn'|translate}}</mat-label>
+              <input matInput type="text" formControlName="hashTagBn" [placeholder]="'whyHashTag2'|translate"
+              >
+            </mat-form-field>
+          </div>
+
+          <div class="mt-5 ck_border_color5">
+            <mat-label>{{'conclusion'|translate}}</mat-label>
+            <ckeditor #ckeditor formControlName="conclusion" [config]="mediumEditorConfig" required></ckeditor>
+          </div>
+        </div>
+        <!-- -----------Button Row----------- -->
+        <div class="flex justify-end mt-3">
+          <button class="px-3 mr-2" mat-flat-button color="accent" (click)="resetFormValue()" type="reset"
+            [matTooltip]="'reset' | translate">
+            <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+            {{'reset' | translate}}
+          </button>
+          <button class="px-3" mat-flat-button color="primary" type="submit" [disabled]="spinner"
+            [matTooltip]="'save' | translate">
+            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <div *ngIf="!id">{{'save' | translate}}</div>
+            <div *ngIf="id">{{'update' | translate}}</div>
+          </button>
+        </div>
+        <!-- -----------Button Row----------- -->
+      </form>
+    </mat-card>
+  </div>
+  <!-- Main End -->
+</div>

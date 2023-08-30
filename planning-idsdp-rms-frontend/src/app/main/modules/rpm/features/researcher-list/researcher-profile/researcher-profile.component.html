@@ -1,0 +1,317 @@
+<div class="width-100">
+
+    <div *ngIf="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5"
+        class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Header -->
+    <app-form-header [title]="'Dashboard' | translate"></app-form-header>
+
+    <div class="flex md:justify-end md:mr-2 mt-3">
+
+        <button class="px-3 mr-3 editBtn" mat-raised-button color="primary" (click)="editProfile()">
+            <mat-icon class="mr-1">{{viewIcon}}</mat-icon>
+            {{'View_Profile' | translate}}
+        </button>
+
+        <!-- [disabled]="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || !status1" -->
+        <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" type="button"
+            (click)="goToResearcherProposalList()">
+            <mat-icon class="mr-1">list</mat-icon>
+            {{'researchProposalList' | translate}}
+        </button>
+
+    </div>
+
+    <!-- Main Start -->
+    <div class="contentDiv flex-auto m-4 mt-0 body-color">
+        <mat-card style="background: none !important;">
+
+            <ng-container *ngIf="!status1">
+                <div class="relative py-3 pl-4 pr-10 leading-normal text-yellow-700 bg-yellow-200  rounded-lg"
+                    role="alert">
+                    <div class="text-lg font-semibold text-yellow-600">
+                        {{'newProposalNotAvailable' | translate}}
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="isFinalSubmit">
+                <div class="relative py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-200  rounded-lg mt-2"  role="alert">
+                    <div class="text-lg font-semibold text-red-600"> {{'profileInfo' | translate}}
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="status1">
+                <div class="relative py-3 pl-4 pr-10 leading-normal text-green-700 bg-green-200  rounded-lg mt-2"
+                    role="alert">
+                    <div class="text-lg font-semibold text-green-600">{{'proposalFirstString' | translate}}  
+                        {{advertisementStartDate | date: 'dd-MM-yyyy' | enToBn:langVal}} {{'proposalSecondString' | translate}}  
+                        {{advertisementEndDate | date: 'dd-MM-yyyy' | enToBn:langVal}} {{'proposalThirdString' | translate}}  
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="statusData.id && status < 100">
+                <div class="relative py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-200  rounded-lg mt-2"
+                    role="alert">
+                    <div class="text-lg font-semibold text-red-600">{{'profileCompleted' | translate}}</div>
+                </div>
+            </ng-container>
+
+            <div class="mt-4">
+                <ul class="list-inside hover:list-inside">
+                    <ng-container *ngIf="!userDetails.isInstitutional">
+                        <li style=" color: #1D8348; "> {{'PersonalInformation' | translate }} ({{statusData.id ? '20%' : '0%'}})</li>
+                        
+                        <li style=" color: #DC7633; "> {{'EducationInformation' | translate }} ({{statusData.educationInfoId ? '20%' :
+                            '0%'}})</li>
+                        <li style=" color: #2E86C1; "> {{'PublicationInformation' | translate }} ({{statusData.publicationInfoId ? '10%'
+                            : '0%'}})</li>
+                        <li style=" color: #E74C3C; "> {{'ProfessionalExperience' | translate }} ({{statusData.professionalExpId ? '15%'
+                            : '0%'}})</li>
+                        <li style=" color: #78281F; "> {{'ResearchExperience' | translate }} ({{statusData.researchExpId ? '15% ':
+                            '0%'}})</li>
+                        <li style=" color: #6C3483; "> {{'TrainingInformation' | translate }} ({{statusData.trainingInfoId ? '10%' :
+                            '0%'}})</li>
+                        <li style=" color: #0bf370; "> {{'EmergencyContactPerson' | translate }} ({{statusData.relativeInfoId ? '10%' :
+                            '0%'}})</li>
+                    </ng-container>
+
+                    <ng-container *ngIf="userDetails.isInstitutional">
+                        <li style=" color: #1D8348; "> {{'InstituteInformation2' | translate}} ({{statusData.id ? '70%' : '0%'}})</li>
+                        <li style=" color: #DC7633; "> {{'WorkingOrganization' | translate}} ({{statusData.rscWorkingInOrgId ? '30%' :
+                            '0%'}})</li>
+                    </ng-container>
+                </ul>
+            </div>
+
+            <!-- ---------------Profile Completion------------- -->
+
+            <!-- 40 = Red, 50 = Yellow, 70 = Blue and 100 = Green -->
+            <ng-container *ngIf="status <=40">
+                <div class="mt-5 mb-5 w-full bg-gray-200 rounded-full dark:bg-gray-700"
+                    style=" margin: 0 auto; ">
+                    <div class="bg-red-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                        [style.width.%]="[status]">
+                        {{status}}%
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="status > 40 && status <= 50">
+                <div class="mt-5 mb-5 w-full bg-gray-200 rounded-full dark:bg-gray-700"
+                    style=" margin: 0 auto; ">
+                    <div class="bg-yellow-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                        [style.width.%]="[status]">
+                        {{status}}%
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="status > 50 && status <= 70">
+                <div class="mt-5 mb-5 w-full bg-gray-200 rounded-full dark:bg-gray-700"
+                    style=" margin: 0 auto; ">
+                    <div class="bg-purple-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                        [style.width.%]="[status]">
+                        {{status}}%
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="status > 70 && status <= 99">
+                <div class="mt-5 mb-5 w-full bg-gray-200 rounded-full dark:bg-gray-700"
+                    style=" margin: 0 auto; ">
+                    <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                        [style.width.%]="[status]">
+                        {{status}}%
+                    </div>
+                </div>
+            </ng-container>
+            
+            <ng-container *ngIf="status==100">
+                <div class="mt-5 mb-5 w-full bg-gray-200 rounded-full dark:bg-gray-700"
+                    style=" margin: 0 auto; ">
+                    <div class="bg-green-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                        [style.width.%]="[status]">
+                        {{status}}%
+                    </div>
+                </div>
+            </ng-container>
+            <!-- ---------------/Profile Completion------------- -->
+
+
+            <!--- Research Information -->
+            <div class="mt-6 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">perm_data_setting</mat-icon>
+                    <div class="ml-7 text-gray-900">{{'researchInfo' | translate}}</div>
+                </div>
+                <mat-card>
+                    <table class="researchInfo">
+                        <tr>
+                            <th>
+                                {{'sl' | translate}}
+                            </th>
+                            <th>
+                                {{'researchTitleNew' | translate}}
+                            </th>
+                            <th>
+                                {{'supervisorEvaluator' | translate}}
+                            </th>
+                            <th>
+                                {{'researchCategory' | translate}}
+                            </th>
+                            <th>
+                                {{'researchStatus' | translate}}
+                            </th>
+                        </tr>
+
+                        <tr *ngFor="let contact of researcherData.researcherProposalList; let i = index">
+
+                            <td class="text-center align-middle w-11">
+                                {{i+1 | enToBn:langVal}}
+                            </td>
+
+                            <td>
+                                <div class="font-bold">
+                                    <span class="font-semibold cursor-pointer text-cyan-400">{{'researchTitleLn' |
+                                        translate}} :
+                                        {{contact?.researchTitle}}
+                                    </span>
+
+                                    <span *ngIf="userDetails.isInstitutional"
+                                        class="font-semibold text-sm text-amber-600">
+                                        (Inst.Proposal)
+                                    </span>
+
+                                    <br>
+                                    <span class="text-amber-500 font-nomal"> {{'stFiscalYearIdLn' | translate}} :
+                                        {{showFiscalYear(contact?.fiscalYear?.id)}}
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td style=" vertical-align: top; ">
+                                <div class="font-bold">{{contact?.researcherSupervisorInfoResponseDto?.supervisorName}}</div>
+                            </td>
+
+                            <td class="text-pink-600 font-semibold text-center">
+                                {{contact?.researchCategoryType?.categoryName}}
+                            </td>
+
+                            <td class="font-semibold text-center">
+
+                                <ng-container [ngSwitch]="contact.approvalStatus">
+                                    <ng-container *ngSwitchCase="1">
+                                        <span class="text-green-600"> Approved </span>
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="2">
+                                        <span class="text-yellow-600"> Not Approved </span>
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="3">
+                                        <span class="text-yellow-600"> Pending </span>
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="4">
+                                        <span class="text-yellow-600"> Cancelled Proposal</span>
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="5">
+                                        <span class="text-yellow-600"> Completed</span>
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="6">
+                                        <span class="text-yellow-600"> Defaulter</span>
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="7">
+                                        <span class="text-yellow-600"> Waiting for Final Report</span>
+                                    </ng-container>
+                                </ng-container>
+
+                            </td>
+                        </tr>
+
+                    </table>
+                </mat-card>
+            </div>
+            <!--- /Research Information -->
+
+            <!--- Grant Information -->
+            <!-- <div class="mt-5 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>
+                    <div class="ml-7 text-gray-900">{{'grantInfo' | translate}}</div>
+                </div>
+                <mat-card>
+                    <table class="researchInfo">
+
+                        <tr>
+                            <th>
+                                {{'sl' | translate}}
+                            </th>
+                            <th>
+                                {{'researchTitleLn' | translate}}
+                            </th>
+                            <th>
+                                {{'grantAmount' | translate}}
+                            </th>
+                            <th>
+                                {{'receivedAmount' | translate}}
+                            </th>
+                            <th>
+                                {{'receivingAmount' | translate}}
+                            </th>
+
+                        </tr>
+
+                        <tr *ngFor="let contact of [0,1,2]; let i = index">
+
+                            <td class="text-center align-middle w-11">
+                                {{i+1}}
+                            </td>
+
+                            <td>
+                                <div class="font-bold">
+                                    Do you want to do research in SSRC? And verify whether your qualifications are
+                                    compatible for research.
+                                </div>
+                            </td>
+
+                            <td class="text-green-600 text-right">
+                                {{'300000' | number}}.00
+                            </td>
+
+                            <td class="text-right">
+                                {{'150000' | number}}.00
+                            </td>
+
+                            <td class="font-semibold text-right">
+                                <span *ngIf="i == 0; else received" class="text-pink-600">
+                                    {{'150000' | number}}.00
+                                </span>
+                                <ng-template #received>
+                                    <span> {{'150000' | number}}.00</span>
+                                </ng-template>
+                            </td>
+                        </tr>
+
+                        <tr class="grantTotal">
+                            <td class="text-right" colspan="2">Total Amount</td>
+                            <td>{{'900000' | number}}.00</td>
+                            <td>{{'450000' | number}}.00</td>
+                            <td>{{'450000' | number}}.00</td>
+                        </tr>
+
+                    </table>
+                </mat-card>
+            </div> -->
+            <!--- /Grant Information -->
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>

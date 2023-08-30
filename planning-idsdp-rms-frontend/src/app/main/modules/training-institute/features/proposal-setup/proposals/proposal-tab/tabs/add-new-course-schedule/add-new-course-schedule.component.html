@@ -1,0 +1,242 @@
+<div *ngIf="spinner || spinner1 || spinner3  || spinner4" class="flex items-center justify-center no-print">
+    <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+        style="border-top-color:transparent; position: absolute;z-index: 9999;">
+    </div>
+</div>
+
+<h1 class="p-2" style="color: red; font-family: 'AdorshoLipi';" *ngIf="!canSave"><strong>{{'ProposalReq' | translate}}</strong></h1>
+
+<div class="heading mt-2">
+    <h1>{{'cardHeader1_t3_1' | translate}}</h1>
+</div>
+
+<mat-card class="tab-color">
+    <form [formGroup]="form">
+        <!-- Row 10-->
+        <div class="md:flex">
+            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                <span class="text-gray-700">
+                    {{'session' | translate}}
+                    <strong class="required">*</strong>
+                </span>
+            </div>
+            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+
+                <mat-form-field class="w-full">
+                    <input formControlName="session" matInput required>
+                    <mat-error *ngIf="form.invalid">{{'session' | translate}} {{ 'required' | translate }}</mat-error>
+                </mat-form-field>
+            </div>
+
+
+            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                <span class="text-gray-700">
+                    {{'speaker' | translate}}<strong class="required">*</strong>
+                </span>
+            </div>
+            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                <mat-form-field class="w-full">
+                    <mat-select formControlName="speakers" multiple required>
+                        <mat-option *ngFor="let speaker of speakerList" [value]="speaker.id">{{speaker.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.invalid"> {{'speaker' | translate}} {{ 'required' | translate }}</mat-error>
+                </mat-form-field>
+
+            </div>
+
+
+
+
+        </div>
+        <div class="md:flex">
+            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                <span class="text-gray-700">
+                    {{'topic' | translate}}<strong class="required">*</strong>
+                </span>
+            </div>
+            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                <mat-form-field class="w-full">
+                    <input formControlName="topic" matInput required>
+                    <mat-error *ngIf="form.invalid">{{'topic' | translate}} {{ 'required' | translate }}</mat-error>
+                </mat-form-field>
+
+            </div>
+            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                <span class="text-gray-700">
+                    {{'date' | translate}}
+                    <strong class="required">*</strong>
+                </span>
+            </div>
+            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                    <input formControlName="date" [matDatepicker]="datepicker" matInput name="date" required (dateChange)="onDateChange()">
+                    <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                    </mat-datepicker>
+                    <mat-error *ngIf="form.invalid"> {{'date' | translate}} is required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- <div class="md:flex">
+
+    </div> -->
+        <div class="md:flex">
+
+
+            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                <span class="text-gray-700">
+                    {{'day' | translate}}<strong class="required">*</strong>
+                </span>
+            </div>
+            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                <mat-form-field class="w-full">
+                    <input formControlName="day" placeholder="Ex: Sunday, Monday" matInput required>
+                    <mat-error *ngIf="form.invalid">{{'day' | translate}} {{ 'required' | translate }}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                <span class="text-gray-700">
+                    {{'time' | translate}}<strong class="required">*</strong>
+                </span>
+            </div>
+            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                <!-- Time (Exa: 5:00-6.00 pm) * -->
+                <mat-form-field class="w-full">
+                    <input formControlName="time" matInput required placeholder=" (ex. 5.00 - 6.00 PM)">
+                    <mat-error *ngIf="form.invalid">{{'time' | translate}} {{ 'required' | translate }}</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-8">
+
+            <button (click)="previousTab()" [color]="'primary'" class="px-3 mr-2 toggle-sidebar-folded previousBtn"
+                mat-flat-button type="submit">
+                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{ "previous" | translate }}
+            </button>
+
+            <button class="px-5 mr-2" color="accent" mat-flat-button type="reset" (click)="reseat()">
+                <mat-icon class="mr-1">refresh</mat-icon>
+                {{'reset' | translate}}
+            </button>
+
+            <button (click)="onSubmit(form)"
+                [disabled]="!canSave || spinner || spinner1 || spinner3  || spinner4"
+                class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button
+                style="background-color: green; color: #FFFFFF" type="submit">
+
+                <ng-container *ngIf="!courseSchedule.id">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span>{{ "Save" | translate }}</span>
+                </ng-container>
+
+                <ng-container *ngIf="courseSchedule.id">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{editIcon}}</mat-icon>
+                    <span>{{ "Update" | translate }}</span>
+                </ng-container>
+            </button>
+
+            <!-- <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF" type="button"
+                color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn ml-2">
+                {{ "Next" | translate }}
+                <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+            </button> -->
+
+        </div>
+    </form>
+</mat-card>
+
+
+<div class="md:flex tbl-title">
+    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+        <div class="md:flex tbl-title">
+            <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-6">
+                <h1 class="header1">
+                    <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                    {{'tableTitle' | translate}}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full sm:w-auto md:w-40 lg:w-40 md:text-left md:pt-3">
+        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+            <input #input (keyup)="applyFilter($event)" [placeholder]="'search'|translate" matInput />
+            <button mat-button mat-icon-button matPrefix>
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+</div>
+
+<!-- Data Table -->
+<div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto my-4">
+    <!--<mat-card>-->
+    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+        <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+            <!-- Position Column -->
+            <ng-container matColumnDef="session">
+                <th *matHeaderCellDef class="w-16" mat-header-cell> {{'session' | translate}} </th>
+                <td *matCellDef="let element" mat-cell> {{element.session}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="speaker">
+                <th *matHeaderCellDef mat-header-cell> {{'speaker' | translate}} </th>
+                <td *matCellDef="let element" mat-cell> <span [innerHTML]="getSpeakers(element.speakers)"></span> </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="topic">
+                <th *matHeaderCellDef mat-header-cell> {{'topic' | translate}} </th>
+                <td *matCellDef="let element" mat-cell> {{element.topic}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th *matHeaderCellDef mat-header-cell> {{'date' | translate}} </th>
+                <td *matCellDef="let element" mat-cell> {{convertDate(element.date)}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="day">
+                <th *matHeaderCellDef mat-header-cell> {{'day' | translate}} </th>
+                <td *matCellDef="let element" mat-cell> {{element.day}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="time">
+                <th *matHeaderCellDef mat-header-cell> {{'time' | translate}} </th>
+                <td *matCellDef="let element" mat-cell> {{element.time}} </td>
+            </ng-container>
+
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+                <th *matHeaderCellDef class="pl-4 w-32" mat-header-cell> {{'action' | translate}} </th>
+                <td *matCellDef="let element" class="text-center" mat-cell>
+                    <div class="buttons">
+                        <button (click)="editSchedule(element.id)" class="toggle-sidebar-folded" fxHide.lt-lg
+                            mat-icon-button matTooltip="Edit">
+                            <mat-icon color="accent">edit
+                            </mat-icon>
+                        </button>
+                        <button (click)="openDialog(element.uuid)" class="toggle-sidebar-folded" fxHide.lt-lg
+                            mat-icon-button matTooltip="visibility">
+                            <mat-icon color="warn">delete
+                            </mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Initialized Table Header And Dataset-->
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        </table>
+    </div>
+    <mat-paginator #paginatorRef (page)="onChangePage($event)" [length]="totalElements"
+        [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize">
+    </mat-paginator>
+</div>

@@ -1,0 +1,788 @@
+<div style="width: 100%; background: white;">
+    <!--    <div
+            class="relative flex flex-0 items-center w-full h-13 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+            <button
+                mat-icon-button
+                (click)="toggleNavigation('mainNavigation')">
+                <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+            </button>
+            <div class="flex items-center pl-2 ml-auto space-x-2">
+                <div>
+                    <mat-button-toggle-group [value]="selectedLanguage" appearance="legacy" aria-label="Font Style"
+                                             name="fontStyle">
+                        <mat-button-toggle (click)="setLanguage('en')" class.actu value="en">En</mat-button-toggle>
+                        <mat-button-toggle value="bn" (click)="setLanguage('bn')">Bn</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+            </div>
+        </div>-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="'headerTitle' | translate" class="crop-text"
+                                 [subTitle]="'headerSubTitle' | translate"></app-list-header>
+
+                <div class="pr-6">
+                    <a class="btn btn-home flex justify-center items-center" href="{{navigationPage}}">
+                        <mat-icon class="text-white">home</mat-icon>
+                        <p class="pt-1">Home</p>
+                    </a>
+                </div>
+            </div>
+            <!--//New Header-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="text-xl sm:text-3xl font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style="padding-bottom: 2px">
+                                    Feasibility Study/Survey Management
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary text-sm md:text-base">Home > Feasibility Study/Survey
+                                        List
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <ng-container *ngIf="this.userGroup.groupStatus === 'AGENCY-DESK'">
+                            <div class="flex justify-end " style="margin-top: -50px; color: #4b4b4b !important;">
+                                <button class="action-btn" mat-raised-button
+                                        [routerLink]="['/feasibility-study/create-new-feasibility-study']"
+                                        color="primary">
+                                    &lt;!&ndash;<mat-icon style="vertical-align: middle;color: #fff" svgIcon="heroicons_outline:plus-circle"></mat-icon>&ndash;&gt;
+                                    Create New Feasibility Study
+                                </button>
+                            </div>
+                        </ng-container>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-end" style="margin-top: -60px; color: #4b4b4b !important;">
+        <a href="{{navigationPage}}" mat-button type="button">
+            <mat-icon>maps_home_work</mat-icon>&nbsp;
+        </a>
+    </div>-->
+
+    <!--    <div fxLayout="row" class="flex items-center justify-end mb-5 mr-15 ml-15 mt-4">
+            <button [routerLink]="['/project-concept/add-project-concept']" mat-raised-button
+                    color="primary">Add Project Concept
+            </button>
+        </div>
+        <div class="flex flex-col bg-card shadow rounded overflow-hidden mr-15 ml-15 mt-4">
+            <div class="heading">
+                <h1>
+                    <mat-icon style="vertical-align: middle;color: #fff"
+                              svgIcon="heroicons_outline:identification"></mat-icon>
+                    Movement News
+                </h1>
+            </div>
+            <form class="mr-2 ml-2">
+                <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap" style="padding: 10px;">
+                    <div style="background-color: #e0effd;padding: 7px;width: 100%;margin-bottom: 10px;">
+                        <mat-icon style="vertical-align: middle;margin-right: 10px;color: #000"
+                                  svgIcon="heroicons_solid:chevron-double-right"></mat-icon>
+                        <label>"Integrated Digital Service Delivery Platform (IDSDP) Move To Concern To Plannig
+                            Ministry..."</label>
+                    </div>
+                    <div style="background-color: #fbdef8;padding: 7px;width: 100%;margin-bottom: 10px;">
+                        <mat-icon style="vertical-align: middle;margin-right: 10px;color: #000"
+                                  svgIcon="heroicons_solid:chevron-double-right"></mat-icon>
+                        <label>"Integrated Digital Service Delivery Platform (IDSDP) Move To Concern To Plannig
+                            Ministry..."</label>
+                    </div>
+                    <div style="background-color: #e0effd;padding: 7px;width: 100%;margin-bottom: 10px;">
+                        <mat-icon style="vertical-align: middle;margin-right: 10px;color: #000"
+                                  svgIcon="heroicons_solid:chevron-double-right"></mat-icon>
+                        <label>"Integrated Digital Service Delivery Platform (IDSDP) Move To Concern To Plannig
+                            Ministry..."</label>
+                    </div>
+                    <div style="background-color: #fbdef8;padding: 7px;width: 100%;margin-bottom: 10px;">
+                        <mat-icon style="vertical-align: middle;margin-right: 10px;color: #000"
+                                  svgIcon="heroicons_solid:chevron-double-right"></mat-icon>
+                        <label>"Integrated Digital Service Delivery Platform (IDSDP) Move To Concern To Plannig
+                            Ministry..."</label>
+                    </div>
+                    <div style="background-color: #e0effd;padding: 7px;width: 100%;">
+                        <mat-icon style="vertical-align: middle;margin-right: 10px;color: #000"
+                                  svgIcon="heroicons_solid:chevron-double-right"></mat-icon>
+                        <label>"Integrated Digital Service Delivery Platform (IDSDP) Move To Concern To Plannig
+                            Ministry..."</label>
+                    </div>
+                </div>
+                <div fxLayout="row" class="flex items-center justify-end mb-3 mr-2">
+                    <button mat-raised-button color="accent" [routerLink]="['/feasibility-study/movement-news']">View More</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="flex flex-col bg-card shadow rounded overflow-hidden mr-15 ml-15 mt-4">
+            <div class="heading">
+                <h1>
+                    <mat-icon svgIcon="heroicons_outline:chart-bar" style="vertical-align: middle;color: #fff"></mat-icon>
+                    Project Movement Status
+                </h1>
+            </div>
+            <form class="mr-2 ml-2">
+                <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap">
+                    <ng-container *ngFor="let project of projectMovementList,let i = index">
+                        <button [style.backgroundColor]="colorList[i]" mat-raised-button
+                                class="btn-movement" fxFlex="28%"
+                                fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">{{project.movementTitleEn}}
+                        </button>
+                        <span *ngIf="(i+1)%3==0" fxFlex="3%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"><mat-icon
+                            svgIcon="heroicons_outline:arrow-narrow-down"></mat-icon></span>
+                        <span *ngIf="(i+1)%3!=0" fxFlex="3%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"><mat-icon
+                            svgIcon="heroicons_outline:arrow-narrow-right"></mat-icon></span>
+                    </ng-container>
+                </div>
+            </form>
+        </div>-->
+
+    <div class="list-page-outside-body">
+        <!-- Actions -->
+        <!--<div class="flex-auto overflow-hidden m-5">
+            <ng-container *ngIf="this.userGroup.groupStatus === 'AGENCY-DESK'">
+                <div class="flex justify-end " style="color: #4b4b4b !important;">
+                    <button class="action-btn p-2 text-sm sm:text-base" mat-raised-button
+                            [routerLink]="['/feasibility-study/create-new-feasibility-study']"
+                            color="primary">
+                        &lt;!&ndash;<mat-icon style="vertical-align: middle;color: #fff" svgIcon="heroicons_outline:plus-circle"></mat-icon>&ndash;&gt;
+                        Create New Feasibility Study
+                    </button>
+                </div>
+            </ng-container>
+        </div>-->
+
+        <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+            <div class="heading">
+                <div class="flex items-center">
+                    <h1>
+                        <mat-icon svgIcon="heroicons_outline:adjustments"
+                                  style="vertical-align: middle;color: #000000;"></mat-icon>
+                        Criteria Based Searching
+                    </h1>
+                    <div class="flex-auto overflow-hidden">
+                        <ng-container *ngIf="this.userGroup.groupStatus === 'AGENCY-DESK'">
+                            <div class="flex justify-end">
+                                <button class="btn btn-add flex items-center justify-center"
+                                        [routerLink]="['/feasibility-study/create-new-feasibility-study']">
+                                    <mat-icon class="text-white">add</mat-icon>
+                                    <p>Create Feasibility Study</p>
+                                </button>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <form [formGroup]="form" class="mr-15 ml-15 mb-3">
+                <!--            <div fxLayout="row wrap" fxLayoutAlign="start center" class="mr-15 ml-15">-->
+                <!--                <div fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">-->
+                <!--                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+                <!--                        <mat-label fxFlex="40%" fxFlex.md="30%" fxFlex.sm="30%"-->
+                <!--                                   fxFlex.xs="30%">Project Type-->
+                <!--                        </mat-label>-->
+                <!--                        <mat-form-field class="fuse-mat-dense flex-auto mt-5" fxFlex="60%" fxFlex.md="70%"-->
+                <!--                                        fxFlex.sm="70%"-->
+                <!--                                        fxFlex.xs="70%">-->
+                <!--                            <mat-select formControlName="projectType" (ngModelChange)="searchByCriteria()">-->
+                <!--                                <mat-option value="">Select</mat-option>-->
+                <!--                                <mat-option *ngFor="let projectType of projectTypeList" [value]="projectType.id">-->
+                <!--                                    {{projectType.nameEn}}-->
+                <!--                                </mat-option>-->
+                <!--                            </mat-select>-->
+
+                <!--                        </mat-form-field>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                <div fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">-->
+                <!--                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+                <!--                        <mat-label fxFlex="40%" fxFlex.md="30%" fxFlex.sm="30%"-->
+                <!--                                   fxFlex.xs="30%">Sector Division-->
+                <!--                        </mat-label>-->
+                <!--                        <mat-form-field class="fuse-mat-dense flex-auto mt-5" fxFlex="60%" fxFlex.md="70%"-->
+                <!--                                        fxFlex.sm="70%" fxFlex.xs="70%">-->
+                <!--                            <mat-select formControlName="sectorDivision"-->
+                <!--                                        (ngModelChange)="searchByCriteria()">-->
+                <!--                                <mat-option value="">Select</mat-option>-->
+                <!--                                <mat-option *ngFor="let sector of sectorDivisionList" [value]="sector.id">-->
+                <!--                                    {{sector.sectorDivisionNameEn}}-->
+                <!--                                </mat-option>-->
+                <!--                            </mat-select>-->
+                <!--                        </mat-form-field>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+
+                <!--                <div fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">-->
+                <!--                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+                <!--                        <mat-label fxFlex="40%" fxFlex.md="30%" fxFlex.sm="30%"-->
+                <!--                                   fxFlex.xs="30%">Funding Type-->
+                <!--                        </mat-label>-->
+                <!--                        <mat-form-field class="fuse-mat-dense flex-auto mt-5" fxFlex="60%" fxFlex.md="70%"-->
+                <!--                                        fxFlex.sm="70%"-->
+                <!--                                        fxFlex.xs="70%">-->
+                <!--                            <mat-select formControlName="fundingType" (ngModelChange)="searchByCriteria()">-->
+                <!--                                <mat-option value="">Select</mat-option>-->
+                <!--                                <mat-option [value]="'GoB'">GoB</mat-option>-->
+                <!--                                <mat-option [value]="'PA'">PA</mat-option>-->
+                <!--                            </mat-select>-->
+                <!--                        </mat-form-field>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-2">
+                    <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                       fxFlex.xs="30%">Project Name
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                            fxFlex.sm="70%"
+                                            fxFlex.xs="70%">
+                                <input formControlName="projectName" matInput placeholder="Enter Project Name">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxFlex="10%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+                    <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                       fxFlex.xs="30%">Sector
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                            fxFlex.sm="70%" fxFlex.xs="70%">
+                                <mat-select formControlName="sector">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option *ngFor="let sector of sectorList" [value]="sector.id">
+                                        {{sector.sectorNameEn}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                       fxFlex.xs="30%">Amount
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                            fxFlex.sm="70%" fxFlex.xs="70%">
+                                <input formControlName="lowAmount" matInput placeholder="Number" type="number">
+                            </mat-form-field>
+                            <mat-label fxFlex="10%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                       style="text-align: center;">To
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="30%" fxFlex.md="70%"
+                                            fxFlex.sm="70%" fxFlex.xs="70%">
+                                <input formControlName="highAmount" matInput placeholder="Number" type="number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxFlex="10%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+                    <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                       fxFlex.xs="30%">Status
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto mt-2" fxFlex="70%" fxFlex.md="70%"
+                                            fxFlex.sm="70%" fxFlex.xs="70%">
+                                <mat-select formControlName="status">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option value="AGENCY_DESK">AGENCY DESK</mat-option>
+                                    <mat-option value="AGENCY_HEAD">AGENCY HEAD</mat-option>
+                                    <mat-option value="MINISTRY_HEAD">MINISTRY HEAD</mat-option>
+                                    <mat-option value="MINISTRY_DESK">MINISTRY DESK</mat-option>
+                                    <mat-option value="PLANNING_COMMISSION_HEAD">PLANNING COMMISSION HEAD</mat-option>
+                                    <mat-option value="PLANNING_COMMISSION_DESK">PLANNING COMMISSION DESK</mat-option>
+                                    <mat-option value="PLANNING_MINISTER">PLANNING MINISTER</mat-option>
+                                    <mat-option value="APPROVED_BY_PLANNING_MINISTER">APPROVED BY PLANNING MINISTER
+                                    </mat-option>
+                                    <mat-option value="ECNEC">ECNEC</mat-option>
+                                    <mat-option value="APPROVED_BY_ECNEC">APPROVED BY ECNEC</mat-option>
+                                    <mat-option value="APPROVED_BY_MINISTRY">APPROVED BY MINISTRY</mat-option>
+                                    <mat-option value="MINISTERIAL_MEETING_NOTICE">MINISTERIAL MEETING NOTICE
+                                    </mat-option>
+                                    <mat-option value="MINISTERIAL_MEETING_HELD">MINISTERIAL MEETING HELD</mat-option>
+                                    <!--                                <mat-option *ngFor="let approvalStatus of approvalStatusList"-->
+                                    <!--                                            [value]="approvalStatus.uuid">-->
+                                    <!--                                    {{approvalStatus.approvalStatusName}}-->
+                                    <!--                                </mat-option>-->
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="flex justify-end mr-3 mt-1">
+                    <button (click)="clearSearchForm()" class="action-btn" mat-flat-button [color]="'accent'"
+                            type="button">Clear
+                    </button>
+                    <button (click)="searchByCriteria()" class="ml-3 action-btn" mat-flat-button [color]="'accent'"
+                            type="button">Search
+                    </button>
+                </div>-->
+                <div class="flex justify-end space-x-2 mr-3 mt-1">
+                    <button (click)="clearSearchForm()" class="btn btn-clear flex justify-center items-center"
+                            type="button">
+                        <mat-icon class="text-white">clear_all</mat-icon>
+                        <p>Clear</p>
+                    </button>
+                    <button (click)="searchByCriteria()" class="btn btn-search flex justify-center items-center"
+                            type="button">
+                        <mat-icon class="text-white">search</mat-icon>
+                        <p>Search</p>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!--<div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+            <div class="mr-2 ml-2">
+                <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap">
+                    <ng-container *ngFor="let approvalStatus of approvalStatusList,let i = index">
+                        <button [style.backgroundColor]="approvalStatusColorList[i]" mat-raised-button
+                                class="btn-approval-status">{{approvalStatus.approvalStatusName}} ({{15}})
+                        </button>
+                    </ng-container>
+                </div>
+            </div>
+        </div>-->
+
+        <!--<div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mr-5"
+             style="margin-bottom: -25px;margin-top: -26px;">
+            <div fxFlex="60%"><h1 class="header1"></h1></div>
+            <div fxFlex="40%">
+                <mat-form-field class="fuse-mat-dense flex-auto" style="width: 100%;">
+                    <input style="color: #000000 !important;text-align: left" matInput placeholder="Search"
+                           (keyup)="applyFilter($event)" #input>
+                </mat-form-field>
+            </div>
+        </div>-->
+
+        <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+            <!--heading-->
+            <div class="heading">
+                <div class="flex items-center relative">
+                    <h1>
+                        <mat-icon svgIcon="heroicons_outline:adjustments"
+                                  style="vertical-align: middle;color: #000000;"></mat-icon>
+                        List of Project
+                    </h1>
+                    <div class="ml-3 justify-start">
+                        <form class="border w-100 bg-gray-200 rounded-md">
+                            <input class="w-90"
+                                   style="font-size:14px; margin: 8px;  padding:5px 5px 5px 5px; color: #000000 !important;text-align: left"
+                                   matInput placeholder="Search" [(ngModel)]="searchText"
+                                   (keyup)="applyFilter($event)" #input>
+                        </form>
+                    </div>
+                    <div class="flex-auto overflow-hidden absolute right-0">
+                        <div class="flex justify-end">
+                            <button class="btn btn-download flex items-center justify-center"
+                            (click)="downloadPdfView()">
+                                <mat-icon class="text-white">download</mat-icon>
+                                <p>Download</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<mat-card>-->
+            <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                <table
+                    mat-table
+                    [dataSource]="dataSource"
+                    class="mat-elevation-z8 bg-transparent"
+                    matSort>
+
+                    <!--                <ng-container matColumnDef="list">-->
+                    <!--                    <th colspan="8" class="table-head-style" mat-header-cell *matHeaderCellDef>-->
+                    <!--                        <div fxLayout="row" class="searchRow">-->
+                    <!--                            <div>-->
+                    <!--                                <mat-icon style="color: #fff;">format_list_bulleted</mat-icon>-->
+                    <!--                                <label style="vertical-align: top;margin-top: 3px;margin-left: 6px;">Feasibility Study List</label>-->
+                    <!--                            </div>-->
+                    <!--                            <div>-->
+                    <!--                                <mat-form-field style="width: 250px; color: black"-->
+                    <!--                                                class="fuse-mat-dense flex-auto mt-5">-->
+                    <!--                                    <input matInput (keyup)="applyFilter($event)" placeholder="search" #input>-->
+                    <!--                                    <button mat-button matPrefix mat-icon-button>-->
+                    <!--                                        <mat-icon>search</mat-icon>-->
+                    <!--                                    </button>-->
+                    <!--                                </mat-form-field>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+
+                    <!--                    </th>-->
+                    <!--                </ng-container>-->
+
+
+                    <ng-container matColumnDef="thSl">
+                        <th [attr.rowspan]="2" class="table-head-style" mat-header-cell *matHeaderCellDef
+                            style="padding-left: 0px !important;">Sl
+                        </th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="thProjectName">
+                        <th [attr.rowspan]="4" class="table-head-style" mat-header-cell *matHeaderCellDef
+                            style="padding-left: 5px;width: 45%">Project Information
+                        </th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="thProjectCost">
+                        <th [attr.colspan]="5" class="table-head-style" mat-header-cell *matHeaderCellDef>Project Cost
+                            (Taka
+                            In Lac)
+                        </th>
+                    </ng-container>
+
+                    <!--                <ng-container matColumnDef="thAction">-->
+                    <!--                    <th [attr.rowspan]="1" class="table-head-style" mat-header-cell *matHeaderCellDef style="padding-right: 0px;!important;">Action</th>-->
+                    <!--                </ng-container>-->
+
+                    <!--                <ng-container matColumnDef="thTotal">-->
+                    <!--                    <th class="table-head-style" mat-header-cell *matHeaderCellDef>Total</th>-->
+                    <!--                </ng-container>-->
+
+                    <!--                <ng-container matColumnDef="thGOB">-->
+                    <!--                    <th class="table-head-style" mat-header-cell *matHeaderCellDef>GOB <br> (FE)</th>-->
+                    <!--                </ng-container>-->
+
+                    <!--                <ng-container matColumnDef="thPA">-->
+                    <!--                    <th class="table-head-style" mat-header-cell *matHeaderCellDef>PA <br> (RPA)</th>-->
+                    <!--                </ng-container>-->
+
+                    <!--                <ng-container matColumnDef="thFE">-->
+                    <!--                    <th class="table-head-style" mat-header-cell *matHeaderCellDef>Own Fund <br> (FE)</th>-->
+                    <!--                </ng-container>-->
+
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="sl">
+                        <td mat-cell *matCellDef="let row, let i= index">
+                            <!-- {{ i + 1 }} -->
+                            {{this.paginator.pageIndex == 0 ? i + 1 : 1 + i + this.paginator.pageIndex * this.paginator.pageSize}}
+                        </td>
+                    </ng-container>
+
+                    <!-- Progress Column -->
+                    <ng-container matColumnDef="projectName">
+                        <td mat-cell *matCellDef="let row" style="text-align: left;padding-left: 5px;width: 42%">
+                            <div (click)="createFsClick(row)" style="cursor: pointer;">
+                                <span style="color: #0d9488;">{{ row.titleEn }}</span> <span
+                                style="color:#4b60bd;"> ({{row.projectTypeDTO.nameEn}})</span>
+                            </div>
+                            <div style="color: #333333">{{ row?.agencyDTO?.nameEn }}</div>
+                            <div style="color: #333333">{{ row?.agencyDTO?.ministryDivisionDTO?.nameEn }}</div>
+                            <div style="color: #333333">
+                                Sector Division: <span
+                                style="color: #0d9488;">{{ row.sectorDivisionName }}</span>
+                            </div>
+                            <div style="color: #333333">
+                                Create Date: <span
+                                style="color: #0d9488;">{{ datePipe.transform(row.createdDate, 'dd/MM/yyyy')}}</span>
+                            </div>
+                            <div style="color: #333333">
+                                Date of Commencement: <span style="color: #0d9488;">{{ row.commencementDate }}</span>
+                                Date
+                                of Completion: <span style="color: #0d9488;">{{ row.completionDate }}</span>
+                            </div>
+                            <!--                        <div style="color: #333333">Status: <span style="color: #ef8c23;font-weight: 500">{{row?.status?row.status.replace('_',' '):''}}</span></div>-->
+                            <div style="color: #333333">Status: <span
+                                style="color: #ef8c23;font-weight: 500">{{row?.movementStatus}}</span></div>
+                        </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="total">
+                        <td mat-cell *matCellDef="let row" class="amount-value">
+                            <div></div>
+                            <div style="color: #333333">Total</div>
+                            <br>
+                            <div><span style="color: #4b60bd">{{ row.totalAmount.toFixed(2) }}</span></div>
+                            <div></div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="gob">
+                        <td mat-cell *matCellDef="let row" class="amount-value">
+                            <div></div>
+                            <div style="color: #333333">GoB</div>
+                            <div style="color: #333333">(FE)</div>
+                            <br>
+                            <div style="color: #4b60bd">{{ row.gobAmount.toFixed(2) }}
+                                <br>({{ row.feGobAmount.toFixed(2) }})
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="pa">
+                        <td mat-cell *matCellDef="let row" class="amount-value">
+                            <div></div>
+                            <div style="color: #333333">PA</div>
+                            <div style="color: #333333">(RPA)</div>
+                            <br>
+                            <div style="color: #4b60bd">{{ row.paAmount?.toFixed(2) }}
+                                <br>({{ row.rpaAmount?.toFixed(2) }})
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ownFund">
+                        <td mat-cell *matCellDef="let row" class="amount-value" style="width: 53px;">
+                            <div></div>
+                            <div style="color: #333333">Own Fund</div>
+                            <div style="color: #333333">(FE)</div>
+                            <br>
+                            <div style="color: #4b60bd">{{ row.ownFundAmount?.toFixed(2) }}
+                                <br>({{ row.feOwnFundAmount?.toFixed(2)}})
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="other">
+                        <td mat-cell *matCellDef="let row" class="amount-value">
+                            <div></div>
+                            <div style="color: #333333">Other</div>
+                            <div style="color: #333333">(FE)</div>
+                            <br>
+                            <div style="color: #4b60bd">{{ row.otherAmount?.toFixed(2) }}
+                                <br>({{ row.feOtherAmount?.toFixed(2)}})
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <!-- Action Column -->
+                    <!--                <ng-container matColumnDef="action">-->
+                    <!--                    <td mat-cell *matCellDef="let row" style="width: 135px;padding-right: 2px; padding-left: 2px;">-->
+                    <!--                            <div>-->
+                    <!--                                <div class="action2" *ngIf="actionPermission?.includes('Create Fs Proposal')">-->
+                    <!--                                <button [disabled]="isFeasibilityReportCreated[row.id]" (click)="isFeasibilityProposalCreated[row.id] ? projectConceptForProposal(row) : openDialogFsProposal(row)" style="width: 110px;" mat-flat-button [color]="'accent'" type="button">FS Proposal</button>-->
+                    <!--                                </div>-->
+                    <!--                                <div class="action2" style="border-left: 1px solid #CCC; margin-top: 5px; " *ngIf="actionPermission?.includes('View Fs Dashboard')">-->
+                    <!--                                    <button-->
+                    <!--                                    mat-icon-button-->
+                    <!--                                    class="toggle-sidebar-folded"-->
+                    <!--                                    matTooltip="View" [disabled]="isFeasibilityReportCreated[row.id]"-->
+                    <!--                                    fxHide.lt-lg (click)="viewDashboard(row)">-->
+                    <!--                                        <mat-icon color="primary" svgIcon="heroicons_outline:eye"></mat-icon>-->
+                    <!--                                    </button>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="actionBtn">-->
+                    <!--                                    <div class="action2" *ngIf="actionPermission?.includes('Create Fs Report')">-->
+                    <!--                                        <button [disabled]="isFeasibilityProposalCreated[row.id]" (click)="isFeasibilityReportCreated[row.id] ? projectConcept(row) : openDialog(row)" style="width: 110px; " [style.margin-left]="isFeasibilityReportCreated[row.id] ? '0px' : '-46px'" mat-flat-button color="primary" type="button">FS Report</button>-->
+                    <!--                                    </div>-->
+                    <!--&lt;!&ndash;                                    <div class="action2">&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                        <button&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            mat-icon-button&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            class="toggle-sidebar-folded"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            matTooltip="Edit"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            fxHide.lt-lg (click)="edit(row)">&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            <mat-icon&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                color="accent">edit&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            </mat-icon>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                        </button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+                    <!--                                <div class="action2" style="border-left: 1px solid #CCC; margin-top: 5px; "  *ngIf="isFeasibilityReportCreated[row.id]">-->
+                    <!--                                    <button-->
+                    <!--                                        mat-icon-button-->
+                    <!--                                        class="toggle-sidebar-folded"-->
+                    <!--                                        matTooltip="View" *ngIf="isFeasibilityReportCreated[row.id]"-->
+                    <!--                                        fxHide.lt-lg (click)="openDialogFsReport(row)">-->
+                    <!--                                        <mat-icon color="primary" svgIcon="heroicons_outline:eye"></mat-icon>-->
+                    <!--                                    </button>-->
+                    <!--                                </div>-->
+
+                    <!--                            </div>-->
+                    <!--                    </td>-->
+                    <!--                </ng-container>-->
+                    <!-- Table Action Buttons End-->
+                    <!--                <tr mat-header-row *matHeaderRowDef="['list']"></tr>-->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                    <!--                <tr mat-header-row *matHeaderRowDef="['thTotal', 'thGOB', 'thPA', 'thFE']"></tr>-->
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">
+                            No data matching the filter
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <mat-paginator
+                [length]="total"
+                [pageSize]="size"
+                [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                (page)="onChangePage($event)">
+            </mat-paginator>
+        </div>
+
+    </div>
+
+</div>
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callCreateFsDialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading" style="padding: 0px !important;">
+            <button style="float: right" mat-icon-button class="close-button" [mat-dialog-close]="true"
+                    (click)="closeReportDownloadDialog()">
+                <mat-icon class="close-icon" color="warn">close</mat-icon>
+            </button>
+        </div>
+        <mat-dialog-content class="mat-typography">
+
+            <div *ngIf="actionPermission?.includes('View Fs Dashboard')" style="text-align: center; margin-top: 15px;" >
+                <!-- <b> Please click the button. </b> -->
+             </div>
+             <br>
+
+            <table>
+                <tr>
+                    <td>
+
+                        <button
+                            [disabled]="isFeasibilityReportCreated[fsProject?.id] || !actionPermission?.includes('Create Fs Proposal')
+                            || this.userGroup.groupStatus != 'AGENCY-DESK' || fsProject.movementStatus != 'AGENCY DESK'"
+                            (click)="isFeasibilityProposalCreated[fsProject?.id] ? projectConceptForProposal(fsProject) : openDialogFsProposal(fsProject)"
+                            style="width: 150px;     padding: 10px;" mat-flat-button
+                            [color]="'accent'" type="button">
+                            <!-- <mat-icon svgIcon="heroicons_outline:pencil-alt"></mat-icon> -->
+                        Edit FS Proposal
+                        </button>
+                    </td>
+                    <!-- <td>
+                        <button  *ngIf="actionPermission?.includes('Create Fs Proposal')"
+                        [disabled]="isFeasibilityReportCreated[fsProject?.id] "
+                        (click)="isFeasibilityProposalCreated[fsProject?.id] ? projectConceptForProposal(fsProject) : openDialogFsProposal(fsProject)"
+                        style="width: 150px;     padding: 10px;" mat-flat-button
+                        [color]="'accent'" type="button">
+                        <mat-icon svgIcon="heroicons_outline:pencil-alt"></mat-icon>
+                        &nbsp;&nbsp; FS Proposal
+                        </button>
+                    </td> -->
+                    <td>
+                        <button   mat-icon-button
+                        class="toggle-sidebar-folded" matTooltip="View SDPP Feasibility Study Dashboard"
+                        [disabled]="isFeasibilityReportCreated[fsProject?.id] || !actionPermission?.includes('View Fs Dashboard')" fxHide.lt-lg
+                        (click)="viewDashboard(fsProject)" mat-flat-button [color]="'accent'" type="button"
+                        style="width: 150px;   padding: 10px;">
+                        <!-- <mat-icon color="white" svgIcon="heroicons_outline:eye"></mat-icon> -->
+                        View FS Proposal
+
+                        </button>
+                    </td>
+                    <!-- <td>
+                        <button *ngIf="actionPermission?.includes('View Fs Dashboard')"  mat-icon-button
+                        class="toggle-sidebar-folded" matTooltip="View SDPP Feasibility Study Dashboard"
+                        [disabled]="isFeasibilityReportCreated[fsProject?.id]" fxHide.lt-lg
+                        (click)="viewDashboard(fsProject)" mat-flat-button [color]="'accent'" type="button"
+                        style="width: 150px;   padding: 10px;">FS Proposal &nbsp;&nbsp;
+                        <mat-icon color="primary" svgIcon="heroicons_outline:eye"></mat-icon>
+                        </button>
+                    </td>
+                     -->
+                </tr>
+                <br>
+                <tr>
+                    <td>
+                        <button
+                        [disabled]="isFeasibilityProposalCreated[fsProject?.id] || !actionPermission?.includes('Create Fs Report')
+                        || this.userGroup.groupStatus != 'AGENCY-DESK' || fsProject.movementStatus != 'AGENCY DESK'"
+                        (click)="isFeasibilityReportCreated[fsProject?.id] ? projectConcept(fsProject) : openDialog(fsProject)"
+                        style="width: 150px; padding: 10px; " mat-flat-button color="primary"
+                        type="button">
+                         <!-- <mat-icon svgIcon="heroicons_outline:pencil-alt"></mat-icon> -->
+                         Edit FS Report
+                        </button>
+                    </td>
+                    <!-- <td>
+                        <button *ngIf="actionPermission?.includes('Create Fs Report')"
+                        [disabled]="isFeasibilityProposalCreated[fsProject?.id]"
+                        (click)="isFeasibilityReportCreated[fsProject?.id] ? projectConcept(fsProject) : openDialog(fsProject)"
+                        style="width: 150px; padding: 10px; " mat-flat-button color="primary"
+                        type="button">
+                         <mat-icon svgIcon="heroicons_outline:pencil-alt"></mat-icon>
+                         &nbsp;&nbsp; FS Report
+                        </button>
+                    </td> -->
+
+
+
+                    <td>
+                        <button
+                        [disabled]="!isFeasibilityReportCreated[fsProject?.id]"
+                        mat-icon-button class="toggle-sidebar-folded"
+                        matTooltip="View" fxHide.lt-lg (click)="openDialogFsReport(fsProject)"
+                        mat-flat-button [color]="'accent'"
+                        type="button"
+                        style="width: 150px;   padding: 10px;">
+                        <!-- <mat-icon class="white-icon svg" color svgIcon="heroicons_outline:eye"></mat-icon> -->
+                         View FS Report
+
+                        </button>
+                    </td>
+                    <!-- <td>
+                        <button *ngIf="isFeasibilityReportCreated[fsProject?.id]"
+                        mat-icon-button class="toggle-sidebar-folded"
+                        matTooltip="View" fxHide.lt-lg (click)="openDialogFsReport(fsProject)"
+                        mat-flat-button [color]="'accent'"
+                        type="button"
+                        style="width: 150px;   padding: 10px;"> FS Report &nbsp;&nbsp;
+                        <mat-icon color="primary" svgIcon="heroicons_outline:eye"></mat-icon>
+                        </button>
+                    </td> -->
+                </tr>
+            </table>
+
+            <br><br>
+
+
+<!--
+            <div class="flex justify-center gap-4" style="padding: 10px;">
+                <button *ngIf="actionPermission?.includes('Create Fs Proposal')"
+                        [disabled]="isFeasibilityReportCreated[fsProject?.id]"
+                        (click)="isFeasibilityProposalCreated[fsProject?.id] ? projectConceptForProposal(fsProject) : openDialogFsProposal(fsProject)"
+                        style="width: 110px;vertical-align: bottom;margin-right: 10px;" mat-flat-button
+                        [color]="'accent'" type="button">FS Proposal
+                </button>
+                <button *ngIf="actionPermission?.includes('View Fs Dashboard')" mat-icon-button
+                        class="toggle-sidebar-folded" matTooltip="View SDPP Feasibility Study Dashboard"
+                        [disabled]="isFeasibilityReportCreated[fsProject?.id]" fxHide.lt-lg
+                        (click)="viewDashboard(fsProject)">
+                    <mat-icon color="primary" svgIcon="heroicons_outline:eye"></mat-icon>
+                </button>
+                <br><br>
+                <button *ngIf="actionPermission?.includes('Create Fs Report')"
+                        [disabled]="isFeasibilityProposalCreated[fsProject?.id]"
+                        (click)="isFeasibilityReportCreated[fsProject?.id] ? projectConcept(fsProject) : openDialog(fsProject)"
+                        style="width: 110px;vertical-align: bottom;margin-right: 10px;" mat-flat-button color="primary"
+                        type="button">FS Report
+                </button>
+                <button *ngIf="isFeasibilityReportCreated[fsProject?.id]" mat-icon-button class="toggle-sidebar-folded"
+                        matTooltip="View" fxHide.lt-lg (click)="openDialogFsReport(fsProject)">
+                    <mat-icon color="primary" svgIcon="heroicons_outline:eye"></mat-icon>
+                </button>
+            </div> -->
+        </mat-dialog-content>
+    </div>
+</ng-template>

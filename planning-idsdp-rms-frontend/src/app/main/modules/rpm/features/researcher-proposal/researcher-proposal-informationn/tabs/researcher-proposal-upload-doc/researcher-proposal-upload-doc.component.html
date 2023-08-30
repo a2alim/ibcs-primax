@@ -1,0 +1,136 @@
+<div *ngIf="spinner" class="flex items-center justify-center">
+    <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+        class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+    </div>
+</div>
+<!--<h1 class="p-2" style="color: red;" *ngIf="!canSave"><strong>{{'ResearcherProposalReq' | translate}}</strong></h1>-->
+<div class="body">
+    <div class="flex justify-end mb-2">
+        <div class="addMoreBtn" mat-raised-button color="primary" (click)="addNewRow()">{{'AddMore' |translate}}
+        </div>
+    </div>
+    <ng-container *ngFor="let uploadDocs of uploadDocsList; let i = index;">
+        <ng-container *ngIf="uploadDocs.deleted !== 1">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'Document' | translate}} {{i + 1 | enToBn:langVal}}
+                    <span (click)="deleteFormByIndex(uploadDocs, i)">
+                        <mat-icon class="exp-icon">delete</mat-icon>
+                    </span>
+                </mat-label>
+            </div>
+            <!-- CARD ONE-->
+            <mat-card>
+                <form #f="ngForm">
+                    <!-- Row 1-->
+                    <div class="md:flex">
+                        <!-- <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'DocumentType' | translate}}<strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <mat-select #stDocumentTypeId="ngModel" [(ngModel)]="uploadDocs.stDocumentTypeId"
+                                    [ngModelOptions]="{standalone: true}" required>
+                                    <mat-option *ngFor="let i of documentTypeList" [value]="i.id">{{i.typeName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-hint
+                                    *ngIf="(stDocumentTypeId.touched || f.submitted || formSubmit) && stDocumentTypeId.errors?.required"
+                                    style="color: crimson !important;">
+                                    {{'Document type is required !.'|translate}}
+                                </mat-hint>
+                            </mat-form-field>
+                        </div> -->
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'DocName' | translate}}<strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                            <mat-form-field class="w-full">
+                                <input #docName="ngModel" matInput [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="uploadDocs.docName" required>
+                                <mat-hint
+                                    *ngIf="(docName.touched || f.submitted || formSubmit||(docName.dirty && !(docName.value | required))) && docName.errors?.required"
+                                    style="color: crimson !important;">
+                                    {{'Document name is required !.'|translate}}
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- Row 1-->
+                    <!-- Row 2-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'BriefOnDocument' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                            <ckeditor #briefDoc="ngModel" [(ngModel)]="uploadDocs.briefOnDocument" [ngModelOptions]="{standalone: true}"
+                                fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            </ckeditor>
+                        </div>
+                    </div>
+                    <br />
+                    <!-- Row 2-->
+                    <!-- Row 3-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'FileName' | translate}}<strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                {{uploadDocs?.fileName}}
+                                <ngx-mat-file-input [accept]="'.pdf'"
+                                    (change)="handleFileInput($event.target.files,i,uploadDocs.id)" required
+                                    #file="ngModel" [(ngModel)]="uploadDocs.fileName"
+                                    [ngModelOptions]="{standalone: true}">
+                                </ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-hint *ngIf="(file.touched || f.submitted || formSubmit) && file.errors?.required"
+                                    style="color: crimson !important;">
+                                    <!-- File name is required !. -->
+                                    {{'File is required !.'|translate}}
+                                </mat-hint>
+                            </mat-form-field>
+                            <div class="text-gray-500 text-sm">
+                                {{'DocumentSize' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row 3-->
+                </form>
+            </mat-card>
+        </ng-container>
+        <br />
+    </ng-container>
+    <!-- Bottom Button -->
+    <div class="flex justify-end mt-8">
+        <button mat-flat-button [color]="'primary'" (click)="previousTab()" type="submit"
+            class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+            {{ "Previous" | translate }}
+        </button>
+        <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit" (click)="save(false)"
+            color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <span>{{ "Save" | translate }}</span>
+        </button>
+        <button mat-flat-button (click)="save(true)" type="button" color="primary"
+            class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+            <span> {{ "SaveAndNext" | translate }}</span>
+        </button>
+        <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF" type="button"
+            color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+            {{ "Next" | translate }}
+            <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+        </button>
+    </div>
+</div>

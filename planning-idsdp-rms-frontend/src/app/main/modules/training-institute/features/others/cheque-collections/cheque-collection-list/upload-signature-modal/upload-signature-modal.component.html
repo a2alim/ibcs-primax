@@ -1,0 +1,64 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header [title]="'modalHeaderTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+             style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-5 body-color">
+
+        <div class="max-w-8xl">
+            <mat-card>
+                <form>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="30%" fxFlex.md="25%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                   style="margin-top: -15px">
+                            {{'imageLabel' | translate}} :
+                            <strong class="required">*</strong>
+                        </mat-label>
+
+                        <!--                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="75%"-->
+                        <!--                                        fxFlex.sm="60%" fxFlex.xs="100%">-->
+                        <mat-form-field (change)="uploadFile($event.target.files,'signature-document')"
+                                        class="fuse-mat-dense flex-auto"
+                                        fxFlex="70%" fxFlex.md="75%"
+                                        fxFlex.sm="60%" fxFlex.xs="100%">
+                            {{linkupProposalWithEvaluatorsObj?.fileName}}
+                            <ngx-mat-file-input [accept]="'.*'">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <!--                        </mat-form-field>-->
+                    </div>
+
+
+                    <div class="flex justify-end mt-3 mr-2">
+
+                        <button (click)="onSubmit(true)" [disabled]="linkupProposalWithEvaluatorsObj.mailStatus==1 || !filePresent"
+                                class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn"
+                                color="primary" mat-flat-button
+                                type="button">
+                            <span> {{ "Send" | translate }}</span>
+                            <mat-icon *ngIf="sendIcon" class="ml-2">{{sendIcon}}</mat-icon>
+                        </button>
+
+                        <button (click)="onClose(true)" class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn"
+                                mat-flat-button
+                                style="background-color: #f37a7a !important; color: #eee2e2" type="button">
+                            <mat-icon *ngIf="closeIcon" class="mr-1">{{closeIcon}}</mat-icon>
+                            <span> {{ "close" | translate }}</span>
+                        </button>
+
+                    </div>
+
+                </form>
+            </mat-card>
+        </div>
+
+    </div>
+    <!-- Main End -->
+</div>

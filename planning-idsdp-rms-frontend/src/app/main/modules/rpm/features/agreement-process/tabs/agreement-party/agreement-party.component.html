@@ -1,0 +1,235 @@
+<div class="width-100">
+    <div class="flex-auto m-7 body-color">
+        <div *ngIf="spinner" class="flex items-center justify-center">
+            <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+        </div>
+        <form #f="ngForm">
+            <!-- CARD ONE-->
+            <div>
+                <div class="heading mt-2">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2">
+                            {{'1stdParty' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <mat-card class="tab-color">
+                    <form #f="ngForm">
+                        <!-- Row 1-->
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'first_party_user_id' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <mat-select [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="agreementPartyFormModel.firstPartyUserId"
+                                        #firstPartyUserId="ngModel" required>
+                                        <mat-option *ngFor="let f of userList2" [value]="f.id">{{f.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-hint
+                                        *ngIf="(firstPartyUserId.touched || f.submitted) && firstPartyUserId.errors?.required"
+                                        style="color: crimson !important;">
+                                        {{'Required !.' | translate}}
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'first_party_witness_user_id' | translate}}
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <mat-select [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="agreementPartyFormModel.firstPartyWitnessUserId">
+                                        <mat-option *ngFor="let f of userList2" [value]="f.id">{{f.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error>required!</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card>
+                <div class="heading mt-2">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2">
+                            {{'2ndParty' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <mat-card class="tab-color">
+                    <!-- Row 2-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'second_party_user_id' | translate}}<strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input disabled matInput [(ngModel)]="secondPartyUserName"
+                                    [ngModelOptions]="{standalone: true}" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'second_party_witness_name' | translate}}<strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput [(ngModel)]="agreementPartyFormModel.secondPartyWitnessName"
+                                    [ngModelOptions]="{standalone: true}" #secondPartyWitnessName="ngModel" required>
+                                <mat-hint
+                                    *ngIf="(secondPartyWitnessName.touched || f.submitted) && secondPartyWitnessName.errors?.required"
+                                    style="color: crimson !important;">
+                                    {{'Required !.' | translate}}
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- Row 2-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'second_party_witness_designation' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput [(ngModel)]="agreementPartyFormModel.secondPartyWitnessDesignation"
+                                    [ngModelOptions]="{standalone: true}">
+                                <mat-error>required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'second_party_witness_address' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput [(ngModel)]="agreementPartyFormModel.secondPartyWitnessAddress"
+                                    [ngModelOptions]="{standalone: true}">
+                                <mat-error>required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'second_party_witness_nid' | translate}}<strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput [(ngModel)]="agreementPartyFormModel.secondPartyWitnessNid"
+                                    [ngModelOptions]="{standalone: true}" #nid_number="ngModel">
+
+                                <mat-hint *ngIf="nid_number.dirty && !(nid_number.value | nid_number)"
+                                    style="color: crimson !important;">
+                                    {{'InvalidNIDNumber' | translate}}
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'second_party_witness_mobile_no' | translate}}<strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput [(ngModel)]="agreementPartyFormModel.secondPartyWitnessMobileNo"
+                                    [ngModelOptions]="{standalone: true}" #phoneMobileNo="ngModel" >
+
+                                <mat-hint *ngIf="phoneMobileNo.dirty && !(phoneMobileNo.value | phoneMobileNo)"
+                                    style="color: crimson !important;">
+                                    {{'Valid' | translate}} {{'phoneMobileNo' | translate}} {{ 'required' | translate }}
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'second_party_witness_tin_no' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput [(ngModel)]="agreementPartyFormModel.secondPartyWitnessTinNO"
+                                    [ngModelOptions]="{standalone: true}">
+                                <mat-error>required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3"></div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30"></div>
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'second_party_witness_email' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput [(ngModel)]="agreementPartyFormModel.secondPartyWitnessEmail"
+                                    [ngModelOptions]="{standalone: true}" #email="ngModel"
+                                    pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" type="email">
+                                <mat-hint *ngIf="(email.touched || f.submitted || email.dirty)&& email.invalid"
+                                    style="color: crimson !important;">E-mail is invalid!
+                                </mat-hint>
+                                <mat-hint *ngIf="(email.touched || f.submitted) && email.errors?.required"
+                                    style="color: crimson !important;">
+                                    {{'Required !.' | translate}}
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'second_party_witness_signature_img' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full" (change)="handleFileInput($event.target.files,1)">
+                                {{ signatureImageName === null ? '' : signatureImageName |
+                                slice:signatureImageName.length-15:signatureImageName.length }}
+                                <ngx-mat-file-input [accept]="'.*'">
+                                </ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <!--                                <mat-error>File is required!</mat-error>-->
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- Bottom Button -->
+                    <div class="flex justify-end mt-8">
+                        <button mat-flat-button [color]="'primary'" (click)="previousTab()" type="submit"
+                            class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                            {{ "previous" | translate }}
+                        </button>
+                        <button [disabled]="!(phoneMobileNo.value | phoneMobileNo) || spinner" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit"
+                            (click)="save()" color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                            <span>{{ "save" | translate }}</span>
+                        </button>
+                        <button [disabled]="!(phoneMobileNo.value | phoneMobileNo) || spinner" mat-flat-button (click)="saveAndNext()" type="button" color="primary"
+                            class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                            <span> {{ "save_and_next" | translate }}</span>
+                        </button>
+                        <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF"
+                            type="button" color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                            {{ "next" | translate }}
+                            <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+                        </button>
+                    </div>
+                </mat-card>
+            </div>
+            <!-- Bottom Button -->
+        </form>
+    </div>
+</div>

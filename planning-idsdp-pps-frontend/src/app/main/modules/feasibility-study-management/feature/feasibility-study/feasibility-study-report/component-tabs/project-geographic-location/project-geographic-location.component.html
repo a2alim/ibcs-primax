@@ -1,0 +1,31 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<div class="heading">
+    <h1>{{'ProjectGeographicLocation' | translate}}</h1>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="show">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!show">
+    <app-project-location-common class="pl-4" [conceptUuid]="conceptUuid" [locations]="projectLocation" (sendData)="addData($event)"></app-project-location-common>
+    <div>
+        <br /><br /><br />
+        <div fxLayout="row wrap" fxLayoutAlign="end">
+            <button class="mr-2" mat-flat-button color="accent" type="button" (click)="back()">Back
+            </button>
+            <button class="mr-2" *ngIf="!update" [disabled]="spinner" mat-flat-button color="primary" type="button" [disabled]="!form?.value.division"
+                    (click)="saveAndNext()">{{'Save&Next' | translate}}</button>&nbsp;&nbsp;
+            <button class="mr-2" *ngIf="!update" [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF" type="button" [disabled]="!form?.value.division"
+                    (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+            <button class="mr-2" *ngIf="update" [disabled]="spinner" mat-flat-button color="primary" type="button" [disabled]="!form?.value.division"
+                    (click)="updateAndNext()">{{'update&Next' | translate}}</button>
+            <button class="mr-2" *ngIf="update" [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF" color="primary" type="button" [disabled]="!form?.value.division"
+                    (click)="updateAndExit()">{{'update&Exit' | translate}}</button>
+        </div>
+    </div>
+</div>
+
+

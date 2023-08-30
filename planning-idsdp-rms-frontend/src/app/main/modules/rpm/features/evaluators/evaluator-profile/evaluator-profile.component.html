@@ -1,0 +1,223 @@
+<div class="width-100">
+    <div *ngIf="spinner2">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div style="color: red;font-min-size: large"></div>
+        <mat-card id="profileOuterBody" class="tab-color mt-4">
+
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <h3 class="md:mt-2"> {{'headerTitle' | translate}} </h3>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <div class="flex justify-end">
+                                <!-- <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent"
+                                        type="button">
+                                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                    {{'previous' | translate}}
+                                </button> -->
+
+                                 <ng-container *ngIf="isEvaluator == true">
+                                    <button (click)="editProfile(evaluatorInfo)" mat-raised-button color="primary" class="mr-3">
+                                        <mat-icon *ngIf="editIcon" class="mr-1">{{editIcon}}</mat-icon>
+                                        {{'EditProfile' | translate}}
+                                    </button>
+                                </ng-container>
+
+                                <!-- <button [disabled]="spinner2" class="px-3 mr-2 downloadBtn" mat-flat-button
+                                        color="accent" type="button">
+                                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                                    {{'download' | translate}}
+                                </button> -->
+
+                                <!-- <button class="px-3 printBtn" mat-flat-button color="accent" (click)="printDiv('print')"
+                                        type="button">
+                                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                    {{'print' | translate}}
+                                </button> -->
+
+                                <button
+                                    [useExistingCss]="true"
+                                    printTitle="Sector-Sub Sector"
+                                    class="px-3 printBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    printSectionId="printDiv" ngxPrint
+                                    type="button">
+                                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                    {{'print' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="printDiv">
+                <div class="border3">
+                    <div class="md:flex p-4">
+                        <div class="w-full sm:w-auto md:w-full lg:w-full">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                                <div fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <table class="tbl-details">
+                                        <tr>
+                                            <th class="w-40"><strong> {{'Name'| translate}} </strong></th>
+                                            <th class="w-5">:</th>
+                                            <td class="w-55">{{evaluatorInfo?.name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th><strong> {{'PresentProfession'| translate}} </strong></th>
+                                            <th>:</th>
+                                            <td>{{evaluatorInfo.presentProfession}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th><strong> {{'PresentOfficeAddress' | translate}} </strong></th>
+                                            <th>:</th>
+                                            <td>{{evaluatorInfo.presentOfficeNameAddress}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th><strong> {{'ThesisGroup'| translate}} </strong></th>
+                                            <th>:</th>
+                                            <td colspan="2" *ngIf="evaluatorInfo.thesisGroup">Yes</td>
+                                            <td colspan="2" *ngIf="!evaluatorInfo.thesisGroup">No</td>
+                                        </tr>
+                                        <tr>
+                                            <th><strong>{{'ResearchExp'| translate}}</strong></th>
+                                            <th>:</th>
+                                            <td colspan="2">{{evaluatorInfo.totalResearchExpYear}} <span>Years</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th><strong>{{'nationalPubNo'| translate}}</strong></th>
+                                            <th>:</th>
+                                            <td colspan="2">
+                                                5
+                                                <!-- {{evaluatorInfo.totalResearchExpYear}} -->
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th><strong>{{'interNaPubNo'| translate}}</strong></th>
+                                            <th>:</th>
+                                            <td colspan="2">
+                                                10
+                                                <!-- {{evaluatorInfo.totalResearchExpYear}} -->
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><strong> {{'NID' | translate}}</strong></th>
+                                            <th>:</th>
+                                            <td colspan="2">{{evaluatorInfo.nidNumber}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th><strong> {{'TIN' | translate}}</strong> </th>
+                                            <th>:</th>
+                                            <td colspan="2">{{evaluatorInfo.tinNumber}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th><strong> {{'E-mail' | translate}}</strong></th>
+                                            <th>:</th>
+                                            <td colspan="2">{{evaluatorInfo.emailAddress}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th><strong> {{'DateOfBirth'| translate}} </strong></th>
+                                            <th>:</th>
+                                            <td colspan="2">{{evaluatorInfo.dateOfBirth | date}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th><strong> {{'MobileNumber'| translate}} </strong></th>
+                                            <th>:</th>
+                                            <td colspan="2">{{evaluatorInfo.mobileNo}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th><strong> {{'OtherExpertArea'| translate}} </strong></th>
+                                            <th>:</th>
+                                            <td colspan="2">{{evaluatorInfo.otherExpertAreas}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="flex justify-self-start mt-3">
+                    <button class="px-5" mat-flat-button color="primary" type="button">
+                        {{'evaluate' | translate}}
+                    </button>
+                </div> -->
+
+
+                <!--- Education Information --->
+                <div class="flex-auto mt-6 body-color">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div class="heading w-full">
+                            {{'EducationInformation'| translate}}
+                        </div>
+                    </div>
+                    <mat-card>
+                        <table class="tbl-details data-tb">
+                            <thead>
+                            <th class="text-center" style="width: 15%"> {{'Educationlevel' | translate}} </th>
+                            <th class="text-center" style="width: 20%"> {{'SubjectArea' | translate}} </th>
+                            <th class="text-center" style="width: auto"> {{'UniversityInstitute' | translate}} </th>
+                            <th class="text-center" style="width: auto"> {{'Result' | translate}} </th>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let val of evaluatorInfo.educations; index as i">
+
+                                <td class="text-center" style="width: 15%"></td>
+                                <td class="text-center" style="width: 20%">{{val.subject}}</td>
+                                <td class="text-center" style="width: auto">{{val.universityOrInstitute}}</td>
+                                <td class="text-center" style="width: auto">{{val.result}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </mat-card>
+                </div>
+                <!--- /Education Information --->
+
+                <!--- Suitable for Field Sub-Field --->
+                <div class="flex-auto mt-6 body-color">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div class="heading w-full">
+                             {{'SuitableForFieldSubField' | translate}}
+                        </div>
+                    </div>
+                    <mat-card>
+                        <table class="tbl-details data-tb">
+                            <thead>
+                            <th class="text-center" style="width: 30%">{{'Field'|translate}}</th>
+                            <!--<th class="text-center"> {{'SubField' | translate}} </th>-->
+                            <tbody>
+                            <tr *ngFor="let val of evaluatorInfo.sectorSubSectors; index as i">
+                                <td class="text-center" style="width: 15%">
+                                    {{getSectorName(val.sector)}}
+                                </td>
+                                <!--<td class="text-center">
+                                    {{getSubSectorName(val.subSector)}}
+                                </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-card>
+
+    </div>
+    <!-- Main End -->
+</div>

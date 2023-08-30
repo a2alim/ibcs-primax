@@ -1,0 +1,25 @@
+<div style="width: 100%; background-color: white;z-index: 99">
+
+    <div class="flex flex-col flex-auto min-w-0" style="user-select: none;">
+        <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+            <div class="flex-1 min-w-0">
+                <div class="header flex justify-between items-center" style="height: 40px;">
+                    <app-list-header [title]="'Project Location Map'" class="crop-text"
+                                     [subTitle]="''"></app-list-header>
+                    <div class="pr-6">
+                        <div class="btn btn-home flex justify-center items-center" (click)="navigateToDashboard()" style="padding: 0.1rem 0.5rem;">
+                            <mat-icon class="text-white">home</mat-icon>
+                            <p class="pt-1">Dashboard</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full flex justify-center" class="h-full w-full">
+        <iframe [src]="gisUrl" title="GIS Map View" class="h-full w-full"></iframe>
+    </div>
+</div>
+
+

@@ -1,0 +1,522 @@
+<div class="body">
+
+
+    <div *ngIf="spinner || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7 || spinner8 || spinner9"
+        class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <form #myForm="ngForm">
+        <!-- Form Body -->
+
+        <!-- CARD ONE-->
+        <div class="heading mt-2">
+            <h1>{{'cardHeader1' | translate}}</h1>
+        </div>
+
+        <mat-card class="tab-color">
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                <mat-label class="mr-1" style="margin-top: -15px; margin-left: 1%;" fxFlex="19%" fxFlex.md="40%"
+                    fxFlex.sm="40%" fxFlex.xs="100%">
+                    {{'subject' | translate}}<strong class="required">*</strong>
+                </mat-label>
+
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="100%" fxFlex.sm="100%"
+                    fxFlex.xs="100%">
+                    <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="seminarModelForCreate.subject"
+                        required #subject="ngModel">
+
+                    <mat-hint *ngIf="(subject.touched || myForm.submitted) && subject.errors?.required"
+                        style="color: crimson !important;">
+                        {{'Required' | translate}}
+                    </mat-hint>
+
+                </mat-form-field>
+
+                <div fxFlex="1%"></div>
+
+            </div>
+
+            <!-- Row 1-->
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'st_fiscal_year' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <mat-select [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="seminarModelForCreate.stFiscalYearId" #stFiscalYearId="ngModel">
+                            <mat-option *ngFor="let f of fiscalYearList" [value]="f.id">{{f.fiscalYear}}
+                            </mat-option>
+                        </mat-select>
+
+                        <mat-hint
+                            *ngIf="(stFiscalYearId.touched || myForm.submitted) && stFiscalYearId.errors?.required"
+                            style="color: crimson !important;">
+                            {{'Required' | translate}}
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'letter_type' | translate}} <strong class="required">*</strong>
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                        <mat-select placeholder="Select One" [(ngModel)]="seminarModelForCreate.letterType"
+                            [ngModelOptions]="{standalone: true}" required #letterType="ngModel">
+                            <mat-option value="Seminar">{{'Seminar'}}</mat-option>
+                            <mat-option value="Workshop">{{'Workshop'}}</mat-option>
+                        </mat-select>
+
+                        <mat-hint *ngIf="(letterType.touched || myForm.submitted) && letterType.errors?.required"
+                            style="color: crimson !important;">
+                            {{'Required' | translate}}
+                        </mat-hint>
+
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Row 2-->
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'DateEn' | translate}}
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="seminarModelForCreate.nothiDateEn">
+                    </mat-form-field>
+                </div>
+
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'DateBn' | translate}}
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="seminarModelForCreate.nothiDateBn">
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <!-- Row 6-->
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'memorandumNo' | translate}}
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="seminarModelForCreate.memorandumNo">
+                    </mat-form-field>
+                </div>
+
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'room_name' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="seminarModelForCreate.roomName" required #roomName="ngModel">
+                        <mat-hint *ngIf="(letterType.roomName || myForm.submitted) && roomName.errors?.required"
+                            style="color: crimson !important;">
+                            {{'Required' | translate}}
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Row 7-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'day_name' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="seminarModelForCreate.dayName">
+                    </mat-form-field>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'room_no' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="seminarModelForCreate.roomNo">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Row 8-->
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'bhavan_no' | translate}}
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="seminarModelForCreate.bhavanNo">
+                    </mat-form-field>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'seminarDate' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input matInput [matDatepicker]="datepicker1" [(ngModel)]="seminarModelForCreate.seminarDate"
+                            [ngModelOptions]="{standalone: true}">
+                        <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker1>
+                        </mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <!-- Row 9-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'template_type' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                    <mat-form-field class="w-full">
+                        <mat-select placeholder="Select One" (selectionChange)="changeTemplateType($event)">
+                            <mat-option *ngFor="let f of templateType" [value]="f.id">{{f.templateType}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>Fiscal year is required!</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'pre_defined_template_list' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                    <mat-form-field class="w-full">
+                        <mat-select (selectionChange)="selectionchangeForSemener($event, 'p1')">
+                            <mat-option *ngFor="let f of preDefineTemplateList" [value]="f">{{f.subject}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'paragraph_one' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                    <ckeditor [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" [(ngModel)]="seminarModelForCreate.paragraphOne">
+                    </ckeditor>
+                </div>
+            </div>
+
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'paragraph_two' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-80 lg:w-80 mt-2">
+                    <div class="w-full sm:w-auto">
+                        <ckeditor [ngModelOptions]="{standalone: true}"[config]="mediumEditorConfig"
+                            [(ngModel)]="seminarModelForCreate.paragraphTwo">
+                        </ckeditor>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <br />
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'MemberInSeminar' | translate}}:
+                    <span *ngIf="!canExpand" (click)="expand(true)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="canExpand" (click)="expand(false)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                </mat-label>
+            </div> -->
+
+            <div *ngIf="canExpand">
+                <br />
+
+                <div class="flex-auto mt-6 body-color">
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="heading w-full">
+                            {{'MemberInSeminar' | translate}}
+                        </mat-label>
+                    </div>
+
+                    <mat-card>
+                        <form #f2="ngForm">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                                <mat-label class="mr-1" style="margin-top: -15px; margin-left: 1%;" fxFlex="19%"
+                                    fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                    {{'User' | translate}}
+                                </mat-label>
+
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="100%"
+                                    fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <mat-select (selectionChange)="onChangeUser($event)"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="memberInSeminarModel.userId">
+                                        <mat-option value="">--Select--</mat-option>
+                                        <mat-option *ngFor="let u of userList" [value]="u.id">
+                                            {{u.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <div fxFlex="1%"></div>
+
+                            </div>
+
+                            <div class="md:flex">
+
+                                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                        {{'Name' | translate}} <strong class="required">*</strong>
+                                    </span>
+                                </div>
+
+                                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                    <mat-form-field class="w-full">
+                                        <input matInput [(ngModel)]="memberInSeminarModel.name"
+                                            [ngModelOptions]="{standalone: true}" #name="ngModel" required>
+
+                                        <mat-hint *ngIf="(name.touched || f2.submitted) && name.errors?.required"
+                                            style="color: crimson !important;">
+                                            {{'Required' | translate}}
+                                        </mat-hint>
+
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                        {{'EmailId' | translate}} <strong class="required">*</strong>
+                                    </span>
+                                </div>
+
+                                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                    <mat-form-field class="w-full">
+                                        <input matInput [(ngModel)]="memberInSeminarModel.emailId"
+                                            [ngModelOptions]="{standalone: true}" required type="email"
+                                            #emailId="ngModel">
+
+                                        <mat-hint
+                                            *ngIf="(emailId.touched || f2.submitted || (emailId.dirty && !(emailId.value | email))) && emailId.errors?.required"
+                                            style="color: crimson !important;">
+                                            {{'Required' | translate}}
+                                        </mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="md:flex">
+
+                                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                        {{'MobileNumber' | translate}}<strong class="required">*</strong>
+                                    </span>
+                                </div>
+
+                                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                    <mat-form-field class="w-full">
+                                        <input matInput [(ngModel)]="memberInSeminarModel.mobileNumber"
+                                            [ngModelOptions]="{standalone: true}" required type="number"
+                                            #mobileNumber="ngModel" required>
+
+                                        <mat-hint
+                                            *ngIf="mobileNumber.dirty && !(mobileNumber.value | phoneMobileNo) || (f2.submitted && mobileNumber.errors?.required)"
+                                            style="color: crimson !important;">
+                                            {{'Required' | translate}}
+                                        </mat-hint>
+
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                        {{'designation' | translate}}
+                                    </span>
+                                </div>
+
+                                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                    <mat-form-field class="w-full">
+                                        <input matInput [(ngModel)]="memberInSeminarModel.designation"
+                                            [ngModelOptions]="{standalone: true}">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                            <div class="flex justify-end mt-3 mr-2">
+
+                                <button mat-flat-button type="submit" (click)="addNewMember()" color="primary"
+                                    class="px-3 mr-2 toggle-sidebar-folded">
+                                    <mat-icon class="mr-1">add</mat-icon>
+                                    <span>{{ "Add" | translate }}</span>
+                                </button>
+
+                            </div>
+
+                        </form>
+                    </mat-card>
+                </div>
+
+
+                <div class="flex-auto mt-6 body-color">
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="heading w-full">
+                            {{'MemberInSeminarList' | translate}}
+                        </mat-label>
+                    </div>
+
+                    <mat-card>
+                        <table class="OrganizationTbl">
+                            <tr>
+                                <th class="text-alignment text-center" style="width: 5%;">
+                                    {{'SL' | translate}}
+                                </th>
+
+                                <th class="text-alignment">
+                                    {{'Name' | translate}}
+                                </th>
+
+                                <th class="text-alignment">
+                                    {{'EmailId' | translate}}
+                                </th>
+
+                                <th class="text-alignment">
+                                    {{'MobileNumber' | translate}}
+                                </th>
+
+                                <th class="text-alignment">
+                                    {{'designation' | translate}}
+                                </th>
+
+                                <th class="text-alignment">
+                                    {{'action' | translate}}
+                                </th>
+                            </tr>
+
+                            <tr *ngFor="let item of memberInSeminarList; let i = index">
+
+                                <ng-container *ngIf="item.isDeleted !=1">
+                                    <td class="text-center">
+                                        <mat-form-field class="w-full">
+                                            <input matInput [(ngModel)]="item.serial"
+                                                [ngModelOptions]="{standalone: true}" required>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>{{item.name}}</td>
+                                    <td>{{ item.emailId }}</td>
+                                    <td>{{ item.mobileNumber}}</td>
+                                    <td>{{ item.designation}}</td>
+
+                                    <td>
+                                        <button (click)="onDelete(item,i)" mat-icon-button class="toggle-sidebar-folded"
+                                            matTooltip="Delete" fxHide.lt-lg>
+                                            <mat-icon color="warn">delete
+                                            </mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
+
+                            </tr>
+                        </table>
+                    </mat-card>
+                </div>
+
+            </div>
+
+        </mat-card>
+
+        <!-- Bottom Button -->
+        <div class="flex justify-end mt-8">
+            <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit"
+                (click)="saveAndUpdate()" color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn"
+                [disabled]="spinner || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7 || spinner8 || spinner9">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span>{{ "save" | translate }}</span>
+            </button>
+
+            <button mat-flat-button (click)="saveAndNext()" type="button" color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn"
+                [disabled]="spinner || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7 || spinner8 || spinner9">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span> {{ "save_and_next" | translate }}</span>
+            </button>
+
+            <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF" type="button"
+                color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                {{ "next" | translate }}
+                <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+            </button>
+        </div>
+
+    </form>
+</div>

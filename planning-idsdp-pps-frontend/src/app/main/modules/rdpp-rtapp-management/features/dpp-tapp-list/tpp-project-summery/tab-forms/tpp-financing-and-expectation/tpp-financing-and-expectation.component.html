@@ -1,0 +1,497 @@
+<div *ngIf="show">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<div class="body">
+    <p class="heading mb-2">{{ "Estimated_cost_summary" | translate }}</p>
+    <div class="cards">
+        <!-- for English View GOB No-->
+        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+            <table class="tables" >
+                <tr>
+                    <td style="vertical-align: top;">
+                        <table class="tables" >
+                            <thead style="height: 225px;">
+                                <tr>
+                                    <th rowspan="5">{{'Economic_code' | translate}}</th>
+                                    <th rowspan="5">{{'Economic_sub_code' | translate}}</th>
+                                    <th rowspan="5">{{'Component_description' | translate}}</th>
+                                    <th colspan="10" style="height: 40px;">{{'gradualProgression' | translate}}{{cumulativeDate}} )</th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="4">{{'Unit' | translate}}</th>
+                                    <th rowspan="4">{{'Quantity' | translate}}</th>
+                                    <th colspan="8" style="height: 40px;">{{'cost' | translate}}</th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="3">{{'total' | translate}}</th>
+                                    <th rowspan="3">{{'GOB' | translate}}</th>
+                                    <th colspan="4">{{'pa' | translate}}</th>
+                                    <th rowspan="3">{{'ownCurr' | translate}}</th>
+                                    <th rowspan="3" style="height: 155px;">{{'Others' | translate}}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">{{'Rpa' | translate}}</th>
+                                    <th colspan="2">{{'Dpa' | translate}}</th>
+                                </tr>
+                                <tr>
+                                    <th>{{'Through_gob' | translate}}</th>
+                                    <th>{{'sa' | translate}}</th>
+                                    <th>{{'Through_pd' | translate}}</th>
+                                    <th>{{'Special_dp' | translate}}</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <!-- revenue list data  -->
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="13" style="text-align: left !important; height: 40px !important;">
+                                        {{'Revenue_component' |  translate}}</td>
+                                </tr>
+                                <tr *ngFor="let revData of revenueItemList"
+                                    class="text-right" style="height: 80px; ">
+                                    <td class="txt-left">{{revData?.economicCode?.economicCode}}</td>
+                                    <td class="txt-left">{{revData?.subEconomicCode?.subEconomicCode}}</td>
+                                    <td class="txt-left " >{{revData?.description}}</td>
+                                    <td class="txt-left" >{{revData?.unitTypeDTO?.unitTypeNameEng}}</td>
+                                    <td class="txt-left" >{{revData?.qty}}</td>
+                                    <td class="txt-left" >{{revData?.totalAmount?.toFixed(2)}}</td>
+                                    <td class="txt-left" >
+                                        {{revData?.gobAmount?.toFixed(2)}}<br>
+                                        ({{revData?.gobFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left" >{{revData?.gobThruAmount?.toFixed(2)}}</td>
+                                    <td class="txt-left" >{{revData?.spAcAmount?.toFixed(2)}}</td>
+                                    <td class="txt-left">{{revData?.thruPdAmount?.toFixed(2)}}</td>
+                                    <td class="txt-left" >{{revData?.thruDpAmount?.toFixed(2)}}</td>
+
+                                    <td class="txt-left" >
+                                        {{revData?.ownFundAmount?.toFixed(2)}}<br>
+                                        ({{revData?.ownFundFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left" >
+                                        {{revData?.otherAmount?.toFixed(2)}}<br>
+                                        ({{revData?.otherFeAmount?.toFixed(2)}})
+                                    </td>
+                                </tr>
+
+                                <!-- revenue sub-total data -->
+                                <tr>
+                                    <td colspan="5" style="text-align: left;">{{'Sub_total_Revenue' | translate}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{revenueSubTotal?.totalAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{revenueSubTotal?.gobAmount?.toFixed(2)}}<br>
+                                        ({{revenueSubTotal?.gobFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left">
+                                        {{revenueSubTotal?.gobThruAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{revenueSubTotal?.spAcAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{revenueSubTotal?.thruPdAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{revenueSubTotal?.thruDpAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{revenueSubTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                        ({{revenueSubTotal?.ownFundFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left">
+                                        {{revenueSubTotal?.otherAmount?.toFixed(2)}}<br>
+                                        ({{revenueSubTotal?.otherFeAmount?.toFixed(2)}})
+                                    </td>
+                                </tr>
+
+                                <!-- capital list data -->
+                                <tr style="background-color: #d8d5d5 !important; height: 40px;">
+                                    <td colspan="13" style="text-align: left !important; ">{{'Capital_component' | translate}}</td>
+                                </tr>
+                                <tr *ngFor="let capitalData of capitalItemList"
+                                    class="text-right" style="height: 80px; ">
+                                    <td class="txt-left">{{capitalData?.economicCode?.economicCode }}</td>
+                                    <td class="txt-left">{{capitalData?.subEconomicCode?.subEconomicCode }}</td>
+                                    <td class="txt-left rowTextSize">{{capitalData?.description}}</td>
+                                    <td class="txt-left">{{capitalData?.unitTypeDTO?.unitTypeName}}</td>
+                                    <td class="txt-left">{{capitalData?.qty}}</td>
+                                    <td class="txt-left">{{capitalData?.totalAmount?.toFixed(2)}}</td>
+                                    <td class="txt-left">
+                                        {{capitalData?.gobAmount?.toFixed(2)}}<br>
+                                        ({{capitalData?.gobFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left">{{capitalData?.gobThruAmount?.toFixed(2)}}</td>
+                                    <td class="txt-left">{{capitalData?.spAcAmount?.toFixed(2)}}</td>
+                                    <td class="txt-left">{{capitalData?.thruPdAmount?.toFixed(2)}}</td>
+                                    <td class="txt-left">{{capitalData?.thruDpAmount?.toFixed(2)}}</td>
+                                    <td class="txt-left">
+                                        {{capitalData?.ownFundAmount?.toFixed(2)}}<br>
+                                        ({{capitalData?.ownFundFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left">
+                                        {{capitalData?.otherAmount?.toFixed(2)}}<br>
+                                        ({{capitalData?.otherFeAmount?.toFixed(2)}})
+                                    </td>
+                                </tr>
+
+                                <!-- capital sub-total data -->
+                                <tr>
+                                    <td colspan="5" style="text-align: left;">{{'Sub_total_Capital' | translate}}
+                                    </td>
+                                    <td class="txt-left">{{capitalSubTotal?.totalAmount?.toFixed(2)}}</td>
+                                    <td class="txt-left">{{capitalSubTotal?.gobAmount?.toFixed(2)}}<br>
+                                        ({{capitalSubTotal?.gobFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left">
+                                        {{capitalSubTotal?.gobThruAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{capitalSubTotal?.spAcAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{capitalSubTotal?.thruPdAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{capitalSubTotal?.thruDpAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">{{capitalSubTotal?.ownFundAmount?.toFixed(2) }}<br>
+                                        ({{capitalSubTotal?.ownFundFeAmount?.toFixed(2) }})
+                                    </td>
+                                    <td class="txt-left">{{capitalSubTotal?.otherAmount?.toFixed(2) }}<br>
+                                        ({{capitalSubTotal?.otherFeAmount?.toFixed(2) }})
+                                    </td>
+                                </tr>
+
+                                <!-- contingency data  -->
+                                <tr>
+                                    <td colspan="5" style="text-align: left;">{{'Physical_contingency' | translate}}
+                                    </td>
+
+                                    <td class="txt-left" data-label="Total Cost">
+                                        {{contingencyItemList[0]?.totalAmount}}
+                                    </td>
+                                    <td class="txt-left" data-label="GoB (FE)">
+                                        {{contingencyItemList[0]?.gobAmount?.toFixed(2)}}<br>
+                                        ({{contingencyItemList[0]?.gobFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left">
+                                        {{contingencyItemList[0]?.gobThruAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{contingencyItemList[0]?.spAcAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{contingencyItemList[0]?.thruPdAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{contingencyItemList[0]?.thruDpAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left" data-label="Own Fund (FE)">
+                                        {{contingencyItemList[0]?.ownFundAmount?.toFixed(2)}}<br>
+                                        ({{contingencyItemList[0]?.ownFundFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left" data-label="Other (FE)">
+                                        {{contingencyItemList[0]?.otherAmount?.toFixed(2)}}<br>
+                                        ({{contingencyItemList[0]?.otherFeAmount?.toFixed(2)}})
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" style="text-align: left;">{{'Price_contingency' | translate}}
+                                    </td>
+                                    <td class="txt-left" data-label="Total Cost">
+                                        {{contingencyItemList[1]?.totalAmount}}
+                                    </td>
+                                    <td class="txt-left" data-label="GoB (FE)">
+                                        {{contingencyItemList[1]?.gobAmount?.toFixed(2)}}<br>
+                                        ({{contingencyItemList[1]?.gobFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left">
+                                        {{contingencyItemList[1]?.gobThruAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{contingencyItemList[1]?.spAcAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{contingencyItemList[1]?.thruPdAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{contingencyItemList[1]?.thruDpAmount?.toFixed(2)}}
+                                    </td>
+                                    <td  class="txt-left"data-label="Own Fund (FE)">
+                                        {{contingencyItemList[1]?.ownFundAmount?.toFixed(2)}}<br>
+                                        ({{contingencyItemList[1]?.ownFundFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left"data-label="Other (FE)">
+                                        {{contingencyItemList[1]?.otherAmount?.toFixed(2)}}<br>
+                                        ({{contingencyItemList[1]?.otherFeAmount?.toFixed(2)}})
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="5" style="text-align: left;">{{'Grand_total' | translate}}</td>
+                                    <td class="txt-left" data-label="Total Cost">
+                                        {{(this.revenueSubTotal ? this.revenueSubTotal.totalAmount : 0) +
+                                        (this.capitalSubTotal ? this.capitalSubTotal.totalAmount : 0) +
+                                        (this.contingencyItemList[0] ? this.contingencyItemList[0].totalAmount : 0) +
+                                        (this.contingencyItemList[1] ? this.contingencyItemList[1].totalAmount : 0)}}
+                                    </td>
+                                    <td class="txt-left" data-label="GoB (FE)">
+                                        {{  grandTotal?.gobAmount?.toFixed(2)}}<br>
+                                        ({{ grandTotal?.gobFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left">
+                                        {{ grandTotal?.gobThruAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{ grandTotal?.spAcAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{ grandTotal?.thruPdAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{ grandTotal?.thruDpAmount?.toFixed(2)}}
+                                    </td>
+                                    <td class="txt-left" data-label="Own Fund (FE)">
+                                        {{ grandTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                        ({{ grandTotal?.ownFundFeAmount?.toFixed(2)}})
+                                    </td>
+                                    <td class="txt-left" data-label="Other (FE)">
+                                        {{ grandTotal?.otherAmount?.toFixed(2)}}<br>
+                                        ({{ grandTotal?.otherFeAmount?.toFixed(2)}})
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+
+                    <!-- fiscal year -->
+                    <ng-container *ngFor="let fiscalYear of fiscalYearList; let i=index">
+                        <td style="vertical-align: top;" >
+                           <table class="tables" style="">
+                                <thead style="height: 225px; ">
+                                    <tr>
+                                        <th colspan="19" style="height: 40px;">{{'tobeIncurred' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="19" style="height: 40px;">{{fiscalYear?.fiscalYear}}</th>
+                                    </tr>
+                                    <tr>
+                                        <!-- <th rowspan="4" style="height: 155px;">{{'Unit' | translate}}</th> -->
+                                        <th rowspan="4">{{'Quantity' | translate}}</th>
+                                        <th colspan="8">{{'cost' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="3">{{'total' | translate}}</th>
+                                        <th rowspan="3">{{'GOB' | translate}}</th>
+                                        <th colspan="4">{{'pa' | translate}}</th>
+                                        <th rowspan="3">{{'ownCurr' | translate}}</th>
+                                        <th rowspan="3">{{'Others' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">{{'Rpa' | translate}}</th>
+                                        <th colspan="2">{{'Dpa' | translate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'Through_gob' | translate}}</th>
+                                        <th>{{'sa' | translate}}</th>
+                                        <th>{{'Through_pd' | translate}}</th>
+                                        <th>{{'Special_dp' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- revenue   -->
+                                    <tr style="background-color: #d8d5d5 !important;">
+                                        <td colspan="6" style="text-align: left !important; height: 40px !important;">&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 80px; " *ngFor="let revenueData of fiscalYearWiseRevenueCostList[i]?.values">
+
+                                        <!-- <td>{{revenueData?.unitTypeDTO?.unitTypeNameEng}}</td> -->
+                                        <td>{{revenueData?.quantity}}</td>
+                                        <td class="txt-left"> {{revenueData?.totalAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{revenueData?.gobAmount?.toFixed(2)}}<br>
+                                            ({{revenueData?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left"> {{revenueData?.gobThruAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{revenueData?.spAcAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left"> {{revenueData?.thruPdAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{revenueData?.thruDpAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{revenueData?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{revenueData?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">{{revenueData?.otherAmount?.toFixed(2)}}<br>
+                                            ({{revenueData?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+                                    <!-- sub-total revenue  -->
+                                    <tr>
+                                        <!-- <td></td> -->
+                                        <td>{{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.quantity}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.totalAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.gobAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left"> {{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.gobThruAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.spAcAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left"> {{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.thruPdAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.thruDpAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">{{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.otherAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseRevenueCostList[i]?.tappAnnualPhasingCostTotal?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+
+                                   <!-- capital   -->
+                                    <tr style="background-color: #d8d5d5 !important;">
+                                        <td colspan="13" style="text-align: left !important; height: 40px !important;"> &nbsp; </td>
+                                    </tr>
+                                    <tr style="height: 80px; " *ngFor="let capitalData of fiscalYearWiseCapitalCostList[i]?.values">
+                                        <!-- <td>{{capitalData?.unitTypeDTO?.unitTypeNameEng}}</td> -->
+                                        <td>{{capitalData?.quantity}}</td>
+                                        <td class="txt-left"> {{capitalData?.totalAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{capitalData?.gobAmount?.toFixed(2)}}<br>
+                                            ({{capitalData?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left"> {{capitalData?.gobThruAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{capitalData?.spAcAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left"> {{capitalData?.thruPdAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{capitalData?.thruDpAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{capitalData?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{capitalData?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">{{capitalData?.otherAmount?.toFixed(2)}}<br>
+                                            ({{capitalData?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+                                    <!-- sub-total capital  -->
+                                    <tr>
+                                        <!-- <td></td> -->
+                                        <td>{{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.quantity}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.totalAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.gobAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left"> {{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.gobThruAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.spAcAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left"> {{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.thruPdAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.thruDpAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">{{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.otherAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseCapitalCostList[i]?.tappAnnualPhasingCostTotal?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+
+                                    <!-- contengency -->
+                                    <tr>
+                                        <!-- <td> </td> -->
+                                        <td>{{fiscalYearWiseContingencyCostList[i]?.values[0]?.quantity}}</td>
+                                        <td class="txt-left"> {{fiscalYearWiseContingencyCostList[i]?.values[0]?.totalAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseContingencyCostList[i]?.values[0]?.gobAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseContingencyCostList[i]?.values[0]?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left"> {{fiscalYearWiseContingencyCostList[i]?.values[0]?.gobThruAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseContingencyCostList[i]?.values[0]?.spAcAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left"> {{fiscalYearWiseContingencyCostList[i]?.values[0]?.thruPdAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseContingencyCostList[i]?.values[0]?.thruDpAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseContingencyCostList[i]?.values[0]?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseContingencyCostList[i]?.values[0]?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">{{fiscalYearWiseContingencyCostList[i]?.values[0]?.otherAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseContingencyCostList[i]?.values[0]?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- <td> </td> -->
+                                        <td>{{fiscalYearWiseContingencyCostList[i]?.values[1]?.quantity}}</td>
+                                        <td class="txt-left"> {{fiscalYearWiseContingencyCostList[i]?.values[1]?.totalAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseContingencyCostList[i]?.values[1]?.gobAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseContingencyCostList[i]?.values[1]?.gobFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left"> {{fiscalYearWiseContingencyCostList[i]?.values[1]?.gobThruAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseContingencyCostList[i]?.values[1]?.spAcAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left"> {{fiscalYearWiseContingencyCostList[i]?.values[1]?.thruPdAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseContingencyCostList[i]?.values[1]?.thruDpAmount?.toFixed(2)}}</td>
+                                        <td class="txt-left">{{fiscalYearWiseContingencyCostList[i]?.values[1]?.ownFundAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseContingencyCostList[i]?.values[1]?.ownFundFeAmount?.toFixed(2)}})
+                                        </td>
+                                        <td class="txt-left">{{fiscalYearWiseContingencyCostList[i]?.values[1]?.otherAmount?.toFixed(2)}}<br>
+                                            ({{fiscalYearWiseContingencyCostList[i]?.values[1]?.otherFeAmount?.toFixed(2)}})
+                                        </td>
+                                    </tr>
+
+                                    <!-- Grand_total  -->
+                                    <tr>
+                                       <!-- <td> </td> -->
+                                       <td>{{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.quantity}}</td>
+                                       <td class="txt-left"> {{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.totalAmount?.toFixed(2)}}</td>
+                                       <td class="txt-left">{{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.gobAmount?.toFixed(2)}}<br>
+                                           ({{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.gobFeAmount?.toFixed(2)}})
+                                       </td>
+                                       <td class="txt-left"> {{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.gobThruAmount?.toFixed(2)}}</td>
+                                       <td class="txt-left">{{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.spAcAmount?.toFixed(2)}}</td>
+                                       <td class="txt-left"> {{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.thruPdAmount?.toFixed(2)}}</td>
+                                       <td class="txt-left">{{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.thruDpAmount?.toFixed(2)}}</td>
+                                       <td class="txt-left">{{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.ownFundAmount?.toFixed(2)}}<br>
+                                           ({{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.ownFundFeAmount?.toFixed(2)}})
+                                       </td>
+                                       <td class="txt-left">{{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.otherAmount?.toFixed(2)}}<br>
+                                           ({{fiscalYearWiseGrandTotalList[i]?.tappAnnualPhasingCostTotal?.otherFeAmount?.toFixed(2)}})
+                                       </td>
+                                   </tr>
+                               </tbody>
+                           </table>
+                       </td>
+                    </ng-container>
+
+                </tr>
+            </table>
+        </div>
+        <!-- ================ -->
+        <div style="padding: 15px;padding-bottom: 0;font-size: 17px;">
+            <p>{{'procurement' | translate}} {{'as_per2' | translate}}
+                <a class="AnnexureLink" (click)="navigateToAnnexureIa()"><u>{{'ann-Ia' | translate}}</u></a>
+                {{'and' | translate}}
+                <a class="AnnexureLink" (click)="navigateToAnnexureIb()"><u>{{'ann-Ib' | translate}}</u></a>
+            </p>
+        </div>
+
+        <div style="padding: 15px;padding-bottom: 0;font-size: 17px;">
+            <p>{{'work_schedule' | translate}} {{'as_per1' | translate}}
+                <a class="AnnexureLink" (click)="navigateToAnnexureII()"><u>{{'ann-II' | translate}}</u></a>
+            </p>
+        </div>
+
+        <div style="padding: 15px;padding-bottom: 0;font-size: 17px;">
+            <p>{{'original_tapp' | translate}}
+                <a class="AnnexureLink" (click)="navigateToTAPP()"><u>{{'tapp' | translate}}</u></a>
+            </p>
+        </div>
+    </div>
+    <div class="flex justify-end mt-8">
+        <button
+            [color]="'accent'"
+            class="px-8 mr-2 toggle-sidebar-folded"
+            matTooltip="Back"
+            mat-flat-button
+            matStepperPrevious
+            type="button">
+            Back
+        </button>
+        <button
+            mat-flat-button
+            style="background-color: green; color: #FFFFFF"
+            type="submit"
+            (click)="navigateToDashboard()"
+            class="px-8 mr-2 toggle-sidebar-folded"
+            matTooltip="Save & Exit">
+            Exit
+        </button>
+    </div>
+</div>

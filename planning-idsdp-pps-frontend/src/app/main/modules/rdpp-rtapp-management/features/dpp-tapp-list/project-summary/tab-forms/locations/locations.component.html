@@ -1,0 +1,27 @@
+<div class="body">
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+    <div class="heading">
+        <h1>{{'locationLabel' | translate}}</h1>
+    </div>
+    <app-project-location-common class="pl-4" [conceptUuid]="conceptUuid" [locations]="location" (sendData)="addData($event)"></app-project-location-common>
+    <div>
+
+        <br/>
+        <p><b>{{'annex1' | translate}}
+            <br>
+            (<a class="AnnexureLink" routerLink="/rdpp-rtapp/location-wise-cost-breakdown/{{conceptUuid}}">{{'annex' | translate}}</a>) </b></p>
+        <br/><br/>
+        <div fxLayout="row wrap" fxLayoutAlign="end">
+            <button class="mr-2" mat-flat-button color="primary" type="button"
+                    [disabled]="spinner"
+                    (click)="saveAndNext()">{{'SaveNext' | translate}}</button>
+            <button class="mr-2" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                    [disabled]="spinner"
+                    (click)="saveAndExit()">{{'SaveExit' | translate}}</button>
+        </div>
+    </div>
+</div>

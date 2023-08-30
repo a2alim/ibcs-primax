@@ -1,0 +1,323 @@
+<div class="body">
+
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+
+<form [formGroup]="formGroup" name="formGroup">
+    <mat-card>
+    <div>
+        <div class="heading">
+                <span class="inline-block align-middle m-1">
+                    {{ "Lessons_learnt_from" | translate }}
+                </span>
+        </div>
+
+        <mat-card>
+        <div>
+            <div class="sub-heading">
+            <p>
+              {{'Indicate_issues_make_project' | translate}}
+
+                <span *ngIf="!editor1" (click)="toggleShow1()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                <span *ngIf="editor1" (click)="toggleShow1()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+            </p>
+            </div>
+            <div *ngIf="editor1" style="position: relative;">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload0" class="custom-file-upload">
+                    <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                     <input #file0 type="file" accept='image/*'
+                        (change)="uploadImageAsBase64(file0.files,'indicateIssuesMakeProject')"  id="file-upload0" />
+                </div>
+                <ckeditor formControlName="indicateIssuesMakeProject"></ckeditor>
+            </div>
+        </div>
+        <br>
+
+        <div>
+            <div class="sub-heading">
+            <p>
+              {{'Indicate_issues_not_work' | translate}}
+
+                <span *ngIf="!editor2" (click)="toggleShow2()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                <span *ngIf="editor2" (click)="toggleShow2()">
+                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+            </p>
+            </div>
+            <div *ngIf="editor2" style="position: relative;">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                    <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                     <input #file1 type="file" accept='image/*'
+                        (change)="uploadImageAsBase64(file1.files,'indicateIssuesNotWork')"  id="file-upload1" />
+                </div>
+
+                <ckeditor formControlName="indicateIssuesNotWork"></ckeditor>
+            </div>
+        </div>
+        <br>
+        </mat-card>
+
+        <div>
+
+            <div class="heading mt-5">
+                <span [innerHTML]="'Indicate_basic_item_wise' | translate"></span>
+            </div>
+            <mat-card>
+            <div style="overflow: auto; height: 300px !important;" *ngIf="incicateBasisItem">
+                <table id="indicateTbl" class="table_overflow">
+                    <thead>
+                        <tr>
+                            <th><span [innerHTML]="'Sl_no' | translate"></span></th>
+                            <th><span [innerHTML]="'Major_items' | translate"></span></th>
+                            <th><span [innerHTML]="'Unit' | translate"></span></th>
+                            <th><span [innerHTML]="'Unit_cost' | translate"></span></th>
+                            <th><span [innerHTML]="'Basis' | translate"></span></th>
+                            <th><span [innerHTML]="'Source' | translate"></span></th>
+                            <th><span [innerHTML]="'Date' | translate"></span></th>
+                        </tr>
+                        <tr>
+                            <th>{{'Num1' | translate}}</th>
+                            <th>{{'Num2' | translate}}</th>
+                            <th>{{'Num3' | translate}}</th>
+                            <th>{{'Num4' | translate}}</th>
+                            <th>{{'Num5' | translate}}</th>
+                            <th>{{'Num6' | translate}}</th>
+                            <th>{{'Num7' | translate}}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody style="height: 10% !important;">
+                    <ng-container formArrayName="itemWiseCostEstimatedList">
+                        <ng-container *ngFor="let lessonForm of itemWiseCostEstimatedList.controls; let i = index">
+
+                            <tr class="lesson-form-row" [formGroup]="lessonForm">
+                                <!-- TODO: Those value dynamically come from server-->
+                                <td style="text-align: center">{{i + 1}}</td>
+
+                                <td>
+                                    <mat-form-field class="w-full p-1">
+                                        <input formControlName="majorItem" appearance="outline"
+                                               autocomplete="off" matInput required readonly>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-full p-1">
+                                        <input style="text-align: center" formControlName="unitTypeName" appearance="outline"
+                                               autocomplete="off" matInput  required readonly>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-full p-1">
+                                        <input style="text-align: right" formControlName="unitCost" appearance="outline"
+                                               autocomplete="off" matInput  required readonly>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field
+                                        class="w-full p-1 mt-3"
+                                        autocomplete="off"
+                                        appearance="outline">
+                                <textarea matInput  type="text" formControlName="basis">
+                                </textarea>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field
+                                        class="w-full p-1 mt-3"
+                                        autocomplete="off"
+                                        appearance="outline">
+                                <textarea matInput  type="text" formControlName="source">
+                                </textarea>
+                                    </mat-form-field>
+                                </td>
+                                <td style="padding-left: 5px; padding-right: 5px;">
+                                    <mat-form-field class="w-full p-1">
+                                        <input (click)="picker2.open()" [matDatepicker]="picker2"
+                                               formControlName="itemWiseCostDate"
+                                               matInput readonly required>
+                                        <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+<!--                                    <input class="input-class"-->
+<!--                                              autocomplete="off" type="date"-->
+<!--                                           formControlName="itemWiseCostDate" value=""/>-->
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+
+                    </tbody>
+                </table>
+            </div>
+                <div *ngIf="!incicateBasisItem">
+                    <p style="font-size: 18px;"><b>Major Item Not Found!</b></p>
+                </div>
+            </mat-card>
+        </div>
+        <br>
+
+        <div>
+            <div class="heading">
+                <span [innerHTML]="'Give_comparative_cost' | translate"></span>
+            </div>
+            <mat-card>
+            <div style="overflow: auto; height: 350px !important;" *ngIf="giveComparativeCost">
+                <table id="comparativeTbl" class="table_overflow_y">
+
+                    <thead>
+                    <tr>
+                        <th rowspan="2"><span [innerHTML]="'Sl_no' | translate"></span></th>
+                        <th rowspan="2"><span [innerHTML]="'Major_items' | translate"></span></th>
+                        <th rowspan="2"><span [innerHTML]="'Unit' | translate"></span></th>
+                        <th colspan="3"><span [innerHTML]="'Unit_cost_item' | translate"></span></th>
+                        <th rowspan="2"><span [innerHTML]="'Remark' | translate"></span></th>
+                    </tr>
+                    <tr>
+                        <th><span [innerHTML]="'Proposed_project' | translate"></span></th>
+                        <th><span [innerHTML]="'Similar_going_project' | translate"></span></th>
+                        <th><span [innerHTML]="'Similar_complete_project' | translate"></span></th>
+                    </tr>
+                    <tr>
+                        <th>{{'Num1' | translate}}</th>
+                        <th>{{'Num2' | translate}}</th>
+                        <th>{{'Num3' | translate}}</th>
+                        <th>{{'Num4' | translate}}</th>
+                        <th>{{'Num5' | translate}}</th>
+                        <th>{{'Num6' | translate}}</th>
+                        <th>{{'Num7' | translate}}</th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                    <ng-container formArrayName="costOfMajorItemList">
+                        <ng-container *ngFor="let lessonForm of costOfMajorItemList.controls; let i = index">
+
+                            <tr class="lesson-form-row" [formGroup]="lessonForm">
+                                <!-- TODO: Those value dynamically come from server-->
+                                <td style="text-align: center">{{i + 1}}</td>
+
+                                <td>
+                                    <mat-form-field class="w-full p-1">
+                                        <input formControlName="majorItem" appearance="outline"
+                                               autocomplete="off" matInput  required readonly>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-full p-1">
+                                        <input style="text-align: center" formControlName="unitTypeName" appearance="outline"
+                                               autocomplete="off" matInput  required readonly>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="w-full p-1">
+                                        <input style="text-align: right;" formControlName="proposalProject" appearance="outline"
+                                               autocomplete="off" matInput  required readonly>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field
+                                        class="w-full p-1 mt-3"
+                                        autocomplete="off"
+                                        appearance="outline"
+                                    >
+                                <textarea matInput  type="text" formControlName="similarGoingProject">
+                                </textarea>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field
+                                        class="w-full p-1 mt-3"
+                                        autocomplete="off"
+                                        appearance="outline"
+                                    >
+                                <textarea matInput  type="text" formControlName="similarCompleteProject">
+                                </textarea>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field
+                                        class="w-full p-1 mt-3"
+                                        autocomplete="off"
+                                        appearance="outline"
+                                    >
+                                <textarea matInput  type="text" formControlName="remarks">
+                                </textarea>
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+
+                    </tbody>
+                </table>
+            </div>
+                <div *ngIf="!giveComparativeCost">
+                    <p style="font-size: 18px;"><b>Major Item Not Found!</b></p>
+                </div>
+            </mat-card>
+        </div>
+
+        <br>
+        <p style="padding-left: 10px">{{'similar_ongoing' | translate}}</p>
+        <p style="padding-left: 10px">{{'similar_completed' | translate}}</p>
+        <br>
+    </div>
+    </mat-card>
+</form>
+
+    <div class="flex justify-end mt-8">
+        <button
+            class="px-8 mr-2"
+            mat-flat-button
+            [color]="'accent'"
+            type="button"
+            matStepperPrevious>
+            {{'back' | translate}}
+        </button>
+        <button
+            [disabled]="buttonDisable || spinner"
+            class="px-8 mr-2"
+            mat-flat-button
+            [color]="'primary'"
+            type="button"
+            matStepperNext
+            (click)="onSubmit()">
+            {{'saveNext' | translate}}
+        </button>
+        <button
+            [disabled]="buttonDisable || spinner"
+            class="px-8 mr-2"
+            mat-flat-button
+            style="background-color: green; color: #FFFFFF"
+            (click)="onSubmitAndExit()"
+            type="button">
+            {{'saveExit' | translate}}
+        </button>
+        <button
+            class="px-8 mr-2 toggle-sidebar-folded"
+            :matTooltip="{{ 'Next' | translate }}"
+            mat-flat-button
+            style="background-color: green; color: #FFFFFF"
+            matStepperNext
+            type="button">
+            {{ "Next" | translate }}
+        </button>
+
+    </div>
+</div>

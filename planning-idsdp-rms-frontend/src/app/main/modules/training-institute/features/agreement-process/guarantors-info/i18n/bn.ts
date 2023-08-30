@@ -1,0 +1,61 @@
+export const locale = {
+    lang: 'bn',
+    data: {
+        'header': 'জামানতনামা',
+        'headerOfSubtitle': 'হোম > গ্যারান্টর চুক্তি',
+        'AddMore': 'নতুন গ্যারান্টার যোগ করুন',
+        'tableHeader':'গ্যারান্টারদের তথ্য',
+        'sl':"ক্রমিক নং",
+        'instituteName': 'প্রতিষ্ঠানের নাম',
+        'proposedTranningTitle': 'প্রস্তাবিত প্রশিক্ষণ শিরোনাম',
+        'guarantorName':'গ্যারান্টারের নাম',
+        'mobileNo':'মোবাইল নাম্বার',
+        'refundDays':'ড়িফান্ডের সময়',
+        'fiscaleYear':'অর্থবছর',
+        'active':'একটিভ',
+        'Action': 'অ্যাকশন',
+        'add': 'যোগ করুন',
+        'addNew': 'নতুন গ্যারান্টর যোগ করুন',
+        'search': 'অনুসন্ধান',
+
+        //Add New
+        'headerTitle': 'নতুন গ্যারান্টর যোগ করুন',
+        'headerSubTitle':'হোম> নতুন গ্যারান্টর যোগ করুন',
+        'courseTitle':'প্রশিক্ষণ শিরোনাম',
+        'jonInfo': 'চাকরির তথ্য (যদি থাকে)',
+        'designation':'পদবি',
+        'email':'ই-মেইল',
+        'presentAddress':'বর্তমান ঠিকানা',
+        'permanentAddress':'স্থায়ী ঠিকানা',
+        'refundMony': 'টাকা ফেরত দেওয়ার দিন (যদি প্রয়োজন হয়)',
+        'image': 'চিত্র আপলোড',
+        'nidNumber': 'জাতীয় পরিচয়পত্র নাম্বার',
+        'nidNumber2': 'জাতীয় পরিচয়পত্র নাম্বার',
+        'signature': 'আপলোড সিগনেচার',
+        'nidImage': 'জাতীয় পরিচয় পত্র আপলোড করুন',
+
+        // button
+        'save': 'সেভ করুন',
+        'update': 'আপডেট করুন',
+        'saveAndPreview': 'সেভ করুন এবং দেখুন',
+        'reset': 'মুছুন',
+        'back': 'পূর্ববর্তী',
+        'required': "আবশ্যক!",
+        "phoneMobileNo": "ফোন/মোবাইল নাম্বার",
+        "valid": "সঠিক",
+        "fiscalYear": "অর্থ বছর",
+        "print": "প্রিন্ট করুন",
+        "download": "ডাউনলোড",
+        "submit": "সাবমিট করুন",
+        'td': "প্রশিক্ষণের মেয়াদ",
+        "eFile": "ফাইল আপলোড",
+        "uploadImage": "ফাইল",
+        "upload": "আপলোড",
+        "close": "বন্ধ",
+        'uploadEDoc':'স্বাক্ষর আপলোড করুন',
+        'institute_name_fiscale_year_proposed_tranning_title':'ইনস্টিটিউটের নাম / প্রস্তাবিত প্রশিক্ষণ শিরোনাম / অর্থবছর',
+
+    }
+
+
+};

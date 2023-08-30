@@ -1,0 +1,32 @@
+export class ResearcherProfilePersonalInfo {
+    id: number;
+    uuid: string;
+    regNumber: string;
+    userId: number;
+    dateOfBirth: Date;
+    age: number;
+    fatherName: string;
+    motherName: string;
+    emailAddress: string;
+    mobileNo: string;
+    researchTraining: string;
+    nIDNumber: string;
+    nIDVerificationStatus: string;
+    tINNumber: string;
+    tINVerificationStatus: string;
+    occupation: string;
+    designation: string;
+    totalResearcherNumbers: string;
+    divisionId: string;
+    districtId: string;
+    upzilaId: string;
+    unionId: string;
+    anotherDetails: string;
+    detailsPresentAddress: string;
+    isPending: boolean;
+    isDraftApproval: boolean;
+    isFinalApproval: boolean;
+    isEditable: boolean;
+    isInstitutional: boolean;
+    userDto: { id: number; userId: string; name: string; emailId: string; designation: string; mobileNumber: string; isActive: boolean; };
+}

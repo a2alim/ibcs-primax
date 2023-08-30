@@ -1,0 +1,220 @@
+<div class="width-100">
+
+<!--    <div *ngIf="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5"-->
+<!--         class="flex items-center justify-center">-->
+<!--        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"-->
+<!--             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <!-- Header -->
+    <app-form-header [title]="'Dashboard' | translate"></app-form-header>
+
+    <div class="flex md:justify-end md:mr-2 mt-3">
+
+        <button class="px-3 mr-3 editBtn" mat-raised-button color="primary" (click)="editProfile()">
+            <mat-icon class="mr-1">{{viewIcon}}</mat-icon>
+            {{'View_Profile' | translate}}
+        </button>
+
+        <!-- [disabled]="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || !status1" -->
+        <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" type="button"
+                (click)="goToResearcherProposalList()">
+            <mat-icon class="mr-1">list</mat-icon>
+            {{'researchProposalList' | translate}}
+        </button>
+
+        <button class="px-3 mr-2 printBtn" mat-flat-button color="accent" (click)="print()" type="button">
+            <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+            {{'print' | translate}}
+        </button>
+
+    </div>
+
+    <!-- Main Start -->
+    <div class="contentDiv flex-auto m-4 mt-0 body-color">
+        <mat-card style="background: none !important;">
+
+
+            <ng-container *ngIf="!status1">
+                <div class="relative py-3 pl-4 pr-10 leading-normal text-yellow-700 bg-yellow-200  rounded-lg"
+                     role="alert">
+                    <div class="text-lg font-semibold text-yellow-600">
+                        {{'newProposalNotAvailable' | translate}}
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="status1">
+                <div class="relative py-3 pl-4 pr-10 leading-normal text-green-700 bg-green-200  rounded-lg"
+                     role="alert">
+                    <div class="text-lg font-semibold text-green-600">{{'proposalFirstString' | translate}}
+                        {{advertisementStartDate | date: 'dd-MM-yyyy' | enToBn:langVal}} {{'proposalSecondString' | translate}}
+                        {{advertisementEndDate | date: 'dd-MM-yyyy' | enToBn:langVal}} {{'proposalThirdString' | translate}}
+                    </div>
+                </div>
+            </ng-container>
+
+
+
+            <!--- Academic Background List -->
+            <div class="mt-5 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>
+                    <div class="ml-7 text-gray-900">{{'proposal_list' | translate}}</div>
+                </div>
+                <mat-card>
+                    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                        <!--<mat-card>-->
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                            <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="sl">
+                                    <th mat-header-cell *matHeaderCellDef class="w-16"> {{'Sl' | translate}} </th>
+                                    <td mat-cell class="text-center" *matCellDef="let row; let i = index;">
+                                        {{(i + 1) + (page * size)}}
+                                    </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="proposedTrainerName">
+                                    <th *matHeaderCellDef mat-header-cell> {{'proposedTrainingName' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.trainingName}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="applicantInstituteName">
+                                    <th *matHeaderCellDef mat-header-cell> {{'applicantInstituteName' | translate}} </th>
+                                    <!--                                <td *matCellDef="let element" mat-cell class="text-center"> {{element.createdBy}} </td>-->
+                                    <td *matCellDef="let element" class="text-center" mat-cell>
+                                        <!--                                    {{ getInstituteName(element.createdBy) }} -->
+                                        {{ element.instituteName }}
+                                    </td>
+                                </ng-container>
+
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="trainingDuration">
+                                    <th *matHeaderCellDef mat-header-cell> {{'trainingDuration' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.trainingDuration}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="programDate">
+                                    <th *matHeaderCellDef mat-header-cell> {{'programDate' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.programDate |  date:'dd/MM/yyyy'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="isSubmitted">
+                                    <th *matHeaderCellDef mat-header-cell> {{'isSubmitted' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center" mat-cell> Yes</td>
+                                </ng-container>
+
+
+                                <ng-container matColumnDef="fiscalYear">
+                                    <th *matHeaderCellDef mat-header-cell> {{'fiscalYear' | translate}} </th>
+                                    <td *matCellDef="let element" class="text-center"
+                                        mat-cell> {{ getFiscalYearName(element.fiscalYearId) }}</td>
+                                </ng-container>
+
+                                <!-- Initialized Table Header And Dataset-->
+                                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                                <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                            </table>
+                        </div>
+                        <!-- mat-paginator -->
+                        <mat-paginator (page)="onChangePage($event)" [length]="total" [pageSizeOptions]="[5, 10, 25, 100]"
+                                       [pageSize]="size">
+                        </mat-paginator>
+                    </div>
+                </mat-card>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--- /Research Information -->
+
+            <!--- Grant Information -->
+            <!-- <div class="mt-5 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>
+                    <div class="ml-7 text-gray-900">{{'grantInfo' | translate}}</div>
+                </div>
+                <mat-card>
+                    <table class="researchInfo">
+
+                        <tr>
+                            <th>
+                                {{'sl' | translate}}
+                            </th>
+                            <th>
+                                {{'researchTitleLn' | translate}}
+                            </th>
+                            <th>
+                                {{'grantAmount' | translate}}
+                            </th>
+                            <th>
+                                {{'receivedAmount' | translate}}
+                            </th>
+                            <th>
+                                {{'receivingAmount' | translate}}
+                            </th>
+
+                        </tr>
+
+                        <tr *ngFor="let contact of [0,1,2]; let i = index">
+
+                            <td class="text-center align-middle w-11">
+                                {{i+1}}
+                            </td>
+
+                            <td>
+                                <div class="font-bold">
+                                    Do you want to do research in SSRC? And verify whether your qualifications are
+                                    compatible for research.
+                                </div>
+                            </td>
+
+                            <td class="text-green-600 text-right">
+                                {{'300000' | number}}.00
+                            </td>
+
+                            <td class="text-right">
+                                {{'150000' | number}}.00
+                            </td>
+
+                            <td class="font-semibold text-right">
+                                <span *ngIf="i == 0; else received" class="text-pink-600">
+                                    {{'150000' | number}}.00
+                                </span>
+                                <ng-template #received>
+                                    <span> {{'150000' | number}}.00</span>
+                                </ng-template>
+                            </td>
+                        </tr>
+
+                        <tr class="grantTotal">
+                            <td class="text-right" colspan="2">Total Amount</td>
+                            <td>{{'900000' | number}}.00</td>
+                            <td>{{'450000' | number}}.00</td>
+                            <td>{{'450000' | number}}.00</td>
+                        </tr>
+
+                    </table>
+                </mat-card>
+            </div> -->
+            <!--- /Grant Information -->
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>

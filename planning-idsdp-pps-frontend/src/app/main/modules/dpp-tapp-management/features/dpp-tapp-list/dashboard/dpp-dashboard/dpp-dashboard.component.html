@@ -1,0 +1,1089 @@
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="show">
+    <mat-spinner></mat-spinner>
+</div>
+<!--<div *ngIf="spinner" class="flex items-center justify-center">-->
+<!--    <div style="border-top-color:transparent; position: absolute;z-index: 9999;"-->
+<!--         class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">-->
+<!--    </div>-->
+<!--</div>-->
+<div style="width: 100%; background-color: white">
+    <div class="flex flex-col flex-auto min-w-0">
+        <div
+            class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+            <div class="flex-1 min-w-0">
+
+                <!-- New Header -->
+                <div class="header flex justify-between items-center">
+                    <app-list-header [title]="'headerTitle' | translate" class="crop-text"
+                                     [subTitle]="'headerSubTitle' | translate"></app-list-header>
+
+                    <!-- Actions -->
+                    <div class="flex justify-end pr-12">
+                        <button  class="btn btn-home flex justify-center items-center"  [matTooltip]="'ViewDashboard' | translate" *ngIf="actionPermission?.includes('View Dpp Tapp Dashboard')" (click)="gotToViewDashboard()" mat-button type="button">
+                            <mat-icon style="color: #FFF;" svgIcon="heroicons_outline:eye"></mat-icon>
+                        </button>
+                        &nbsp;
+                        <button  class="btn btn-home flex justify-center items-center"  matTooltip="Project List"
+                                (click)="navigateToList()"
+                                mat-button
+                                type="button">
+                            <mat-icon style="color: #FFF;">dashboard</mat-icon>&nbsp;
+                        </button>
+                    </div>
+                </div>
+                <!-- //New Header -->
+
+                <!-- Header -->
+                <!--<div class="dark bg-card dark:border-b">
+                    <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                        <div class="m-5">
+                            &lt;!&ndash; Avatar and name &ndash;&gt;
+                            <div class="flex flex-auto items-center min-w-0">
+                                <div class="flex flex-col min-w-0 ml-4">
+                                    <div
+                                        class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+    &lt;!&ndash;                                    Integrated Digital Service Delivery Platform (IDSDP)&ndash;&gt;
+                                        {{'DPP.heading1' | translate}}
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="leading-5 truncate text-secondary">
+                                            {{'DPP.heading2' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            &lt;!&ndash; Actions &ndash;&gt;
+
+                            <div class="flex justify-end" style="margin-top: -50px; color: #FFFFFF !important;">
+                                <button [matTooltip]="'ViewDashboard' | translate" *ngIf="actionPermission?.includes('View Dpp Tapp Dashboard')" (click)="gotToViewDashboard()" mat-button type="button">
+                                    <mat-icon svgIcon="heroicons_outline:eye"></mat-icon>
+                                </button>
+                                <button matTooltip="Project List"
+                                    (click)="navigateToList()"
+                                    mat-button
+                                    type="button">
+                                    <mat-icon>dashboard</mat-icon>&nbsp;
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="flex-auto p-6 sm:p-6 outside-body">
+            <div class="max-w-8xl">
+<!--                <div class="flex items-center justify-end mb-3">-->
+<!--                </div>-->
+
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div class="flex-auto mt-0 space-y-1 bg-card shadow rounded overflow-hidden">
+                        <div class="heading"><h1>{{'DPP.projectInfo' | translate}}</h1></div>
+                        <!--                        <div style="display: inline-block;float: right">-->
+                        <!--                            <mat-form-field class="fuse-mat-dense flex-auto" style="vertical-align: middle;margin-left: 10px;">-->
+                        <!--                                <mat-select>-->
+                        <!--                                    <mat-option value="">In Agency Desk</mat-option>-->
+                        <!--                                    <mat-option value="">In Agency Head</mat-option>-->
+                        <!--                                    <mat-option value="">In Ministry Head</mat-option>-->
+                        <!--                                </mat-select>-->
+                        <!--                            </mat-form-field>-->
+                        <!--                        </div>-->
+                        <div>
+                            <div class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'DPP.projectNameEn' | translate}}</div>
+                                <div class="basic-info-right-lbl">{{titleEn}}</div>
+                            </div>
+                            <div class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'DPP.projectNameBn' | translate}}</div>
+                                <div class="basic-info-right-lbl">{{titleBn}}</div>
+                            </div>
+                            <div class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'DPP.projectType' | translate}}</div>
+                                <div *ngIf="isEnLabel" class="basic-info-right-lbl">
+                                    {{projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'dpp' ? "Development Project " : "Technical Assistance Project "}}
+                                    ({{projectSummary?.projectTypeDTO.nameEn}})
+                                </div>
+                                <div *ngIf="!isEnLabel" class="basic-info-right-lbl">
+                                    {{projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'dpp' ? "বিনিয়োগ প্রকল্প " : "কারিগরি প্রকল্প "}}
+                                    ({{projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'tapp' ? "টিপিপি" : projectSummary?.projectTypeDTO.nameBn}})
+                                </div>
+                            </div>
+                            <div *ngIf="userGroupModel?.ministryDivision" class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'Ministry_Name' | translate}}</div>
+                                <div class="basic-info-right-lbl">{{isEnLabel? userGroupModel?.ministryDivision?.nameEn:userGroupModel?.ministryDivision?.nameBn}}</div>
+                            </div>
+                            <div *ngIf="userGroupModel?.agency" class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'Agency_name' | translate}}</div>
+                                <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{userGroupModel?.agency?.nameEn}}</div>
+                                <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{userGroupModel?.agency?.nameBn}}</div>
+                            </div>
+                            <div class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'Sector_division' | translate}}</div>
+                                <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{sectorDivision?.sectorDivisionNameEn}}</div>
+                                <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{sectorDivision?.sectorDivisionNameBn}}</div>
+                            </div>
+                            <div class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'Adp_sector' | translate}}</div>
+                                <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{sector?.sectorNameEn}}</div>
+                                <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{sector?.sectorNameBn}}</div>
+                            </div>
+                            <div class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'Adp_sub_sector' | translate}}</div>
+                                <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{subSector?.subSectorNameEn}}</div>
+                                <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{subSector?.subSectorNameBn}}</div>
+                            </div>
+                            <div class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'DPP.projectStatus' | translate}}</div>
+                                <div *ngIf="dppMasterId != null" class="basic-info-right-lbl"><span class="project-proposal-heading" style="border-radius: 5%;">{{projectStatus}}</span></div>
+                            </div>
+                            <div class="basic-info-row">
+                                <div class="basic-info-left-lbl" style="border-right: 1px solid #c7c7c7;">{{'DPP.Implementation_period' | translate}}</div>
+                                <div class="basic-info-right-lbl" style="border: none !important;">
+                                    <!-- <span *ngIf="year > 0">{{(isEnLabel) ? year : numberPipe.convertToBanglaNumber(year)}} {{'Year' | translate}} </span>
+                                    <span *ngIf="month > 0">{{(isEnLabel) ? month : numberPipe.convertToBanglaNumber(month)}} {{'Month' | translate}}</span> -->
+                                    <span>{{!isEnLabel ? numberPipe.convertToBanglaNumber(projectSummary ? commencementDate : '') : projectSummary ? commencementDate : ''}}</span>
+                                    <span>{{'DPP.to' | translate}}</span>
+                                    <span>{{!isEnLabel ? numberPipe.convertToBanglaNumber(projectSummary ? completionDate : '') : projectSummary ? completionDate : ''}}</span>
+                                </div>
+                            </div>
+                            <div class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'DPP.dateOfCommencement' | translate}}</div>
+                                <div class="basic-info-right-lbl">{{!isEnLabel ? numberPipe.convertToBanglaNumber(projectSummary ? commencementDate : '') : projectSummary ? commencementDate : ''}}</div>
+                            </div>
+                            <div class="basic-info-row">
+                                <div class="basic-info-left-lbl">{{'DPP.dateOfCompletion' | translate}}</div>
+                                <div class="basic-info-right-lbl">{{!isEnLabel ? numberPipe.convertToBanglaNumber(projectSummary ? completionDate : '') : projectSummary ? completionDate : ''}}</div>
+                            </div>
+                            <!--                        <div class="basic-info-row">-->
+                            <!--                            <div class="basic-info-left-lbl">Project Stage</div>-->
+                            <!--                            <div *ngIf="dppMasterId != null" class="basic-info-right-lbl"><span class="heading" style="border-radius: 5%;">{{projectStage}}</span></div>-->
+                            <!--                        </div>-->
+                        </div>
+                    </div>
+                    <div class="flex-auto mt-0 space-y-1 bg-card shadow rounded overflow-hidden">
+                        <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+
+                            <div class="heading  flex flex-wrap"  >
+                                <div style="margin-right: 5%;" > {{"CostInfo" | translate}}</div>
+                                <!-- <div   style="margin-left: 50%;"> {{"tkainLac" | translate}} </div>  -->
+
+                            </div>
+                            <div>
+                                <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap">
+                                    <!--                                <div style="width: 100%;">-->
+                                    <!--                                    <button class="mtbf-btn" style="float: right" color="primary" mat-raised-button>-->
+                                    <!--                                        &lt;!&ndash;                                    MTBF Checking&ndash;&gt;-->
+                                    <!--                                        {{'DPP.mtbf' | translate}}-->
+                                    <!--                                    </button>-->
+                                    <!--                                </div>-->
+                                    <div id="chart" style="width: 100%;height: 100%;margin: 0 auto;">
+
+                                        <apx-chart
+                                            [series]="chartOptions?.series"
+                                            [chart]="chartOptions?.chart"
+                                            [labels]="chartOptions?.labels"
+                                            [colors]="chartOptions?.colors"
+                                            [fill]="chartOptions?.fill"
+                                            [plotOptions]="chartOptions?.plotOptions"
+                                            [dataLabels]="chartOptions?.dataLabels"
+                                            [theme]="chartOptions?.theme"
+                                            [responsive]="chartOptions?.responsive"
+                                        ></apx-chart>
+
+                                        <!--                                    <google-chart *ngIf="financialAmountChartData"-->
+                                        <!--                                        [width]='530'-->
+                                        <!--                                        [height]='230'-->
+                                        <!--                                        [type]="'PieChart'"-->
+                                        <!--                                        [data]="financialAmountChartData"-->
+                                        <!--                                        [options]="{-->
+                                        <!--                                             is3D: true,-->
+                                        <!--                                            colors: projectSummary?.isForeignAid? ['#74bfe8', '#d39720', '#c0ca33', '#9a73bf'] : ['#74bfe8', '#c0ca33', '#9a73bf']-->
+                                        <!--                                         }">-->
+                                        <!--                                    </google-chart>-->
+                                        <!--                                    <apx-chart-->
+                                        <!--                                        [series]="chartOptions?.series"-->
+                                        <!--                                        [chart]="chartOptions?.chart"-->
+                                        <!--                                        [labels]="chartOptions?.labels"-->
+                                        <!--                                        [dataLabels]="chartOptions?.dataLabels"-->
+                                        <!--                                        [title]="chartOptions?.title"-->
+                                        <!--                                        [fill]="chartOptions?.fill"-->
+                                        <!--                                        [states]="chartOptions?.states"-->
+                                        <!--                                        [plotOptions]="chartOptions?.plotOptions"-->
+                                        <!--                                        [stroke]="chartOptions?.stroke"-->
+                                        <!--                                        [theme]="chartOptions?.theme"-->
+                                        <!--                                        [responsive]="chartOptions?.responsive"-->
+                                        <!--                                    ></apx-chart>-->
+                                    </div>
+                                    <div style="width: 100%;text-align: center">
+
+                                        <label class="balance-label"><span *ngIf="!spinner">{{'Total_Allocation' | translate}}</span><br/>
+                                            <span *ngIf="!spinner">({{isEnLabel ? totalAllocationByAgency.toFixed(2) : numberPipe.convertToBanglaNumber(totalAllocationByAgency.toFixed(2))}})</span>
+                                            <mat-progress-spinner *ngIf="spinner" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+                                        </label>
+                                        <label class="balance-label"><span *ngIf="!spinner">{{'Total_Expense' | translate}}</span><br/>
+                                            <span *ngIf="!spinner">({{isEnLabel ? totalExpenseByAgency.toFixed(2) : numberPipe.convertToBanglaNumber(totalExpenseByAgency.toFixed(2))}})</span>
+                                            <mat-progress-spinner *ngIf="spinner" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+                                        </label>
+                                        <label class="balance-label"><span *ngIf="!spinner">{{'Due_Balance' | translate}}</span><br/>
+                                            <span *ngIf="!spinner">({{isEnLabel ? (totalAllocationByAgency-totalExpenseByAgency).toFixed(2): numberPipe.convertToBanglaNumber((totalAllocationByAgency-totalExpenseByAgency).toFixed(2))}})</span>
+                                            <mat-progress-spinner *ngIf="spinner" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+                                        </label>
+
+                                        <!--                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>Total Allocation({{userGroupModel?.agency?.ceilingAmount}})</button>-->
+                                        <!--                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>Total Expense({{totalExpenseByAgency}})</button>-->
+                                        <!--                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>Total Balance({{(userGroupModel?.agency?.ceilingAmount - totalExpenseByAgency)}})</button>-->
+
+                                        <!--                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>-->
+                                        <!--                                        {{'Total_Allocation' | translate}}-->
+                                        <!--                                        ({{(projectSummary?.isForeignAid) ? (userGroupModel?.agency?.ceilingAmount ? userGroupModel?.agency?.ceilingAmount : 0) : numberPipe.convertToBanglaNumber(userGroupModel?.agency?.ceilingAmount ? userGroupModel?.agency?.ceilingAmount : 0)}})-->
+                                        <!--&lt;!&ndash;                                        ({{(projectSummary?.isForeignAid) ? userGroupModel?.agency?.ceilingAmount : numberPipe.convertToBanglaNumber(userGroupModel?.agency?.ceilingAmount)}})&ndash;&gt;-->
+                                        <!--                                    </button>-->
+                                        <!--                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>-->
+                                        <!--                                        {{'Total_Expense' | translate}}-->
+                                        <!--                                        ({{(projectSummary?.isForeignAid) ? (totalExpenseByAgency ? totalExpenseByAgency : 0) : numberPipe.convertToBanglaNumber(totalExpenseByAgency ? totalExpenseByAgency : 0)}})-->
+                                        <!--&lt;!&ndash;                                        ({{(projectSummary?.isForeignAid) ? totalExpenseByAgency : numberPipe.convertToBanglaNumber(totalExpenseByAgency)}})&ndash;&gt;-->
+                                        <!--                                    </button>-->
+                                        <!--                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>-->
+                                        <!--                                        {{'Due_Balance' | translate}}-->
+                                        <!--                                        ({{(projectSummary?.isForeignAid) ? ((userGroupModel?.agency?.ceilingAmount - totalAnnexureAmount) ? (userGroupModel?.agency?.ceilingAmount - totalAnnexureAmount) : 0 ): numberPipe.convertToBanglaNumber((userGroupModel?.agency?.ceilingAmount - totalAnnexureAmount) ? (userGroupModel?.agency?.ceilingAmount - totalAnnexureAmount) : 0)}})-->
+                                        <!--                                        &lt;!&ndash;                                        ({{(projectSummary?.isForeignAid) ? (userGroupModel?.agency?.ceilingAmount - totalExpenseByAgency) : numberPipe.convertToBanglaNumber(userGroupModel?.agency?.ceilingAmount - totalExpenseByAgency)}})&ndash;&gt;-->
+                                        <!--                                    </button>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-3">
+                            <div class="heading">
+                                <h1>{{'DPP.gisMap' | translate}}</h1>
+                            </div>
+                            <div class="">
+                                <div class="mapouter">
+                                    <div class="gmap_canvas">
+                                        <iframe class="gmap_iframe" frameborder="0" scrolling="no" marginheight="0"
+                                                marginwidth="0"
+                                                src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=planning ministry&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                        <a href="https://www.fridaynightfunkin.net/">Friday Night Funkin</a></div>
+                                    <style>.mapouter {
+                                        position: relative;
+                                        text-align: right;
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+
+                                    .gmap_canvas {
+                                        overflow: hidden;
+                                        background: none !important;
+                                        width: 600px;
+                                        height: 400px;
+                                    }
+
+                                    .gmap_iframe {
+                                        width: 100% !important;
+                                        height: 100% !important;
+                                    }</style>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--            <div fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+                <!--                <div fxFlex="53" class="flex flex-col bg-card shadow rounded overflow-hidden">-->
+                <!--                    <div class="heading"><h1>{{'DPP.projectInfo' | translate}}</h1></div>-->
+                <!--&lt;!&ndash;                        <div style="display: inline-block;float: right">&ndash;&gt;-->
+                <!--&lt;!&ndash;                            <mat-form-field class="fuse-mat-dense flex-auto" style="vertical-align: middle;margin-left: 10px;">&ndash;&gt;-->
+                <!--&lt;!&ndash;                                <mat-select>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    <mat-option value="">In Agency Desk</mat-option>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    <mat-option value="">In Agency Head</mat-option>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    <mat-option value="">In Ministry Head</mat-option>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                </mat-select>&ndash;&gt;-->
+                <!--&lt;!&ndash;                            </mat-form-field>&ndash;&gt;-->
+                <!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+                <!--                    <div>-->
+                <!--                        <div class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'DPP.projectNameEn' | translate}}</div>-->
+                <!--                            <div class="basic-info-right-lbl">{{titleEn}}</div>-->
+                <!--                        </div>-->
+                <!--                        <div class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'DPP.projectNameBn' | translate}}</div>-->
+                <!--                            <div class="basic-info-right-lbl">{{titleBn}}</div>-->
+                <!--                        </div>-->
+                <!--                        <div class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'DPP.projectType' | translate}}</div>-->
+                <!--                            <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{projectSummary?.projectTypeDTO.nameEn}}</div>-->
+                <!--                            <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{projectSummary?.projectTypeDTO.nameBn}}</div>-->
+                <!--                        </div>-->
+                <!--                        <div *ngIf="userGroupModel?.ministryDivision" class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'Ministry_Name' | translate}}</div>-->
+                <!--                            <div class="basic-info-right-lbl">{{isEnLabel? userGroupModel?.ministryDivision?.nameEn:userGroupModel?.ministryDivision?.nameBn}}</div>-->
+                <!--                        </div>-->
+                <!--                        <div *ngIf="userGroupModel?.agency" class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'Agency_name' | translate}}</div>-->
+                <!--                            <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{userGroupModel?.agency?.nameEn}}</div>-->
+                <!--                            <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{userGroupModel?.agency?.nameBn}}</div>-->
+                <!--                        </div>-->
+                <!--                        <div class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'Adp_sector' | translate}}</div>-->
+                <!--                            <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{sector?.sectorNameEn}}</div>-->
+                <!--                            <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{sector?.sectorNameBn}}</div>-->
+                <!--                        </div>-->
+                <!--                        <div class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'Adp_sub_sector' | translate}}</div>-->
+                <!--                            <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{subSector?.subSectorNameEn}}</div>-->
+                <!--                            <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{subSector?.subSectorNameBn}}</div>-->
+                <!--                        </div>-->
+                <!--                        <div class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'Sector_division' | translate}}</div>-->
+                <!--                            <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{sectorDivision?.sectorDivisionNameEn}}</div>-->
+                <!--                            <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{sectorDivision?.sectorDivisionNameBn}}</div>-->
+                <!--                        </div>-->
+                <!--                        <div class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'DPP.projectStatus' | translate}}</div>-->
+                <!--                            <div *ngIf="dppMasterId != null" class="basic-info-right-lbl"><span class="heading" style="border-radius: 5%;">{{projectStatus}}</span></div>-->
+                <!--                        </div>-->
+                <!--                        <div class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl" style="border-right: 1px solid #c7c7c7;">{{'DPP.Implementation_period' | translate}}</div>-->
+                <!--                            <div class="basic-info-right-lbl" style="border: none !important;">-->
+                <!--                                <span *ngIf="year > 0">{{(isEnLabel) ? year : numberPipe.convertToBanglaNumber(year)}} {{'Year' | translate}} </span>-->
+                <!--                                <span *ngIf="month > 0">{{(isEnLabel) ? month : numberPipe.convertToBanglaNumber(month)}} {{'Month' | translate}}</span>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                        <div class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'DPP.dateOfCommencement' | translate}}</div>-->
+                <!--                            <div class="basic-info-right-lbl">{{!isEnLabel ? numberPipe.convertToBanglaNumber(projectSummary ? commencementDate : '') : projectSummary ? commencementDate : ''}}</div>-->
+                <!--                        </div>-->
+                <!--                        <div class="basic-info-row">-->
+                <!--                            <div class="basic-info-left-lbl">{{'DPP.dateOfCompletion' | translate}}</div>-->
+                <!--                            <div class="basic-info-right-lbl">{{!isEnLabel ? numberPipe.convertToBanglaNumber(projectSummary ? completionDate : '') : projectSummary ? completionDate : ''}}</div>-->
+                <!--                        </div>-->
+                <!--&lt;!&ndash;                        <div class="basic-info-row">&ndash;&gt;-->
+                <!--&lt;!&ndash;                            <div class="basic-info-left-lbl">Project Stage</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;                            <div *ngIf="dppMasterId != null" class="basic-info-right-lbl"><span class="heading" style="border-radius: 5%;">{{projectStage}}</span></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                <div fxFlex="2"></div>-->
+                <!--                <div fxFlex="45">-->
+                <!--                    <div class="flex flex-col bg-card shadow rounded overflow-hidden" style="height: 320px;">-->
+                <!--                        <div class="heading">-->
+                <!--                            <h1>{{'DPP.costInfo' | translate}}</h1>-->
+                <!--                        </div>-->
+                <!--                        <div>-->
+                <!--                            <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap">-->
+                <!--&lt;!&ndash;                                <div style="width: 100%;">&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    <button class="mtbf-btn" style="float: right" color="primary" mat-raised-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        &lt;!&ndash;                                    MTBF Checking&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        {{'DPP.mtbf' | translate}}&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    </button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+                <!--                                <div id="chart" style="width: 100%;height: 100%;margin: 0 auto;">-->
+
+                <!--                                    <apx-chart-->
+                <!--                                        [series]="chartOptions?.series"-->
+                <!--                                        [chart]="chartOptions?.chart"-->
+                <!--                                        [labels]="chartOptions?.labels"-->
+                <!--                                        [colors]="chartOptions?.colors"-->
+                <!--                                        [fill]="chartOptions?.fill"-->
+                <!--                                        [plotOptions]="chartOptions?.plotOptions"-->
+                <!--                                        [dataLabels]="chartOptions?.dataLabels"-->
+                <!--                                        [theme]="chartOptions?.theme"-->
+                <!--                                        [responsive]="chartOptions?.responsive"-->
+                <!--                                    ></apx-chart>-->
+
+                <!--&lt;!&ndash;                                    <google-chart *ngIf="financialAmountChartData"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [width]='530'&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [height]='230'&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [type]="'PieChart'"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [data]="financialAmountChartData"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [options]="{&ndash;&gt;-->
+                <!--&lt;!&ndash;                                             is3D: true,&ndash;&gt;-->
+                <!--&lt;!&ndash;                                            colors: projectSummary?.isForeignAid? ['#74bfe8', '#d39720', '#c0ca33', '#9a73bf'] : ['#74bfe8', '#c0ca33', '#9a73bf']&ndash;&gt;-->
+                <!--&lt;!&ndash;                                         }">&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    </google-chart>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    <apx-chart&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [series]="chartOptions?.series"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [chart]="chartOptions?.chart"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [labels]="chartOptions?.labels"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [dataLabels]="chartOptions?.dataLabels"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [title]="chartOptions?.title"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [fill]="chartOptions?.fill"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [states]="chartOptions?.states"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [plotOptions]="chartOptions?.plotOptions"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [stroke]="chartOptions?.stroke"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [theme]="chartOptions?.theme"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        [responsive]="chartOptions?.responsive"&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    ></apx-chart>&ndash;&gt;-->
+                <!--                                </div>-->
+                <!--                                <div style="width: 100%;text-align: center">-->
+
+                <!--                                    <label class="balance-label"><span *ngIf="!spinner">{{'Total_Allocation' | translate}}</span><br/>-->
+                <!--                                        <span *ngIf="!spinner">({{isEnLabel ? totalAllocationByAgency.toFixed(2) : numberPipe.convertToBanglaNumber(totalAllocationByAgency.toFixed(2))}})</span>-->
+                <!--                                        <mat-progress-spinner *ngIf="spinner" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>-->
+                <!--                                    </label>-->
+                <!--                                    <label class="balance-label"><span *ngIf="!spinner">{{'Total_Expense' | translate}}</span><br/>-->
+                <!--                                        <span *ngIf="!spinner">({{isEnLabel ? totalExpenseByAgency.toFixed(2) : numberPipe.convertToBanglaNumber(totalExpenseByAgency.toFixed(2))}})</span>-->
+                <!--                                        <mat-progress-spinner *ngIf="spinner" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>-->
+                <!--                                    </label>-->
+                <!--                                    <label class="balance-label"><span *ngIf="!spinner">{{'Due_Balance' | translate}}</span><br/>-->
+                <!--                                        <span *ngIf="!spinner">{{isEnLabel ? (totalAllocationByAgency-totalExpenseByAgency).toFixed(2): numberPipe.convertToBanglaNumber((totalAllocationByAgency-totalExpenseByAgency).toFixed(2))}}</span>-->
+                <!--                                        <mat-progress-spinner *ngIf="spinner" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>-->
+                <!--                                    </label>-->
+
+                <!--&lt;!&ndash;                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>Total Allocation({{userGroupModel?.agency?.ceilingAmount}})</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>Total Expense({{totalExpenseByAgency}})</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>Total Balance({{(userGroupModel?.agency?.ceilingAmount - totalExpenseByAgency)}})</button>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        {{'Total_Allocation' | translate}}&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        ({{(projectSummary?.isForeignAid) ? (userGroupModel?.agency?.ceilingAmount ? userGroupModel?.agency?.ceilingAmount : 0) : numberPipe.convertToBanglaNumber(userGroupModel?.agency?.ceilingAmount ? userGroupModel?.agency?.ceilingAmount : 0)}})&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;                                        ({{(projectSummary?.isForeignAid) ? userGroupModel?.agency?.ceilingAmount : numberPipe.convertToBanglaNumber(userGroupModel?.agency?.ceilingAmount)}})&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    </button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        {{'Total_Expense' | translate}}&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        ({{(projectSummary?.isForeignAid) ? (totalExpenseByAgency ? totalExpenseByAgency : 0) : numberPipe.convertToBanglaNumber(totalExpenseByAgency ? totalExpenseByAgency : 0)}})&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;                                        ({{(projectSummary?.isForeignAid) ? totalExpenseByAgency : numberPipe.convertToBanglaNumber(totalExpenseByAgency)}})&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    </button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    <button style="display: inline-block;margin: 5px;font-size: 12px;" color="primary" mat-raised-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        {{'Due_Balance' | translate}}&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        ({{(projectSummary?.isForeignAid) ? ((userGroupModel?.agency?.ceilingAmount - totalAnnexureAmount) ? (userGroupModel?.agency?.ceilingAmount - totalAnnexureAmount) : 0 ): numberPipe.convertToBanglaNumber((userGroupModel?.agency?.ceilingAmount - totalAnnexureAmount) ? (userGroupModel?.agency?.ceilingAmount - totalAnnexureAmount) : 0)}})&ndash;&gt;-->
+                <!--&lt;!&ndash;                                        &lt;!&ndash;                                        ({{(projectSummary?.isForeignAid) ? (userGroupModel?.agency?.ceilingAmount - totalExpenseByAgency) : numberPipe.convertToBanglaNumber(userGroupModel?.agency?.ceilingAmount - totalExpenseByAgency)}})&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    </button>&ndash;&gt;-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-3" style="height: 320px;">-->
+                <!--                        <div class="heading">-->
+                <!--                            <h1>{{'DPP.gisMap' | translate}}</h1>-->
+                <!--                        </div>-->
+                <!--                        <div class="">-->
+                <!--                            <div class="mapouter">-->
+                <!--                                <div class="gmap_canvas">-->
+                <!--                                    <iframe class="gmap_iframe" frameborder="0" scrolling="no" marginheight="0"-->
+                <!--                                            marginwidth="0"-->
+                <!--                                            src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=planning ministry&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>-->
+                <!--                                    <a href="https://www.fridaynightfunkin.net/">Friday Night Funkin</a></div>-->
+                <!--                                <style>.mapouter {-->
+                <!--                                    position: relative;-->
+                <!--                                    text-align: right;-->
+                <!--                                    width: 100%;-->
+                <!--                                    height: 100%;-->
+                <!--                                }-->
+
+                <!--                                .gmap_canvas {-->
+                <!--                                    overflow: hidden;-->
+                <!--                                    background: none !important;-->
+                <!--                                    width: 600px;-->
+                <!--                                    height: 400px;-->
+                <!--                                }-->
+
+                <!--                                .gmap_iframe {-->
+                <!--                                    width: 100% !important;-->
+                <!--                                    height: 100% !important;-->
+                <!--                                }</style>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5">
+                    <div class="heading" style="height: 60px;">
+                        <div style="display: inline-block;margin-top: 12px"><h1>{{'ProjectDetails' | translate}}</h1></div>
+                        <!--                    <div style="display: inline-block;float: right">-->
+                        <!--                        <h1 style="display: inline-block;vertical-align: super;">Related Meetings</h1>-->
+                        <!--                        <mat-form-field class="fuse-mat-dense flex-auto" style="vertical-align: middle;margin-left: 10px;">-->
+                        <!--                            <mat-select>-->
+                        <!--                                <mat-option value="">In Agency Desk</mat-option>-->
+                        <!--                                <mat-option value="">In Agency Head</mat-option>-->
+                        <!--                                <mat-option value="">In Ministry Head</mat-option>-->
+                        <!--                            </mat-select>-->
+                        <!--                        </mat-form-field>-->
+                        <!--                    </div>-->
+                        <!--                    <div style="display: inline-block;float: right;">-->
+                        <!--                        <h1 style="display: inline-block;vertical-align: super">Administrative Report</h1>-->
+                        <!--                        <mat-form-field class="fuse-mat-dense flex-auto" style="vertical-align: middle;margin-left: 10px;margin-right: 10px;">-->
+                        <!--                            <mat-select>-->
+                        <!--                                <mat-option value="">In Agency Desk</mat-option>-->
+                        <!--                                <mat-option value="">In Agency Head</mat-option>-->
+                        <!--                                <mat-option value="">In Ministry Head</mat-option>-->
+                        <!--                            </mat-select>-->
+                        <!--                        </mat-form-field>-->
+                        <!--                    </div>-->
+                    </div>
+                    <div class="m-2" style="background-color: #e7f6ee;">
+                        <table *ngIf="projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'dpp'" class="project-details">
+                            <tr>
+                                <td (click)="getProjectSummaryId('add-new')"><mat-icon class="icon-size">gpp_good</mat-icon>{{'DPP.part_A' | translate}}</td>
+                                <td (click)="getProjectSummaryId('add-annexureservices')"><mat-icon class="icon-size">miscellaneous_services</mat-icon>{{'DPP.annexure3C' | translate}}</td>
+                            </tr>
+                            <tr>
+                                <td (click)="getProjectSummaryId('add-project-details')"><mat-icon class="icon-size">details</mat-icon>{{'DPP.part_B' | translate}}</td>
+                                <td (click)="getProjectSummaryId('/year-wise-fin-plan','')"><mat-icon class="icon-size">money</mat-icon>{{'DPP.annexure4' | translate}}</td>
+                            </tr>
+                            <tr>
+                                <td (click)="getProjectSummaryId('location-wise-cost-breakdown')"><mat-icon class="icon-size">location_on</mat-icon>{{'DPP.annexure1' | translate}}</td>
+                                <td (click)="getProjectSummaryId('detailed-estimated-cost')"><mat-icon class="icon-size">money</mat-icon>{{'DPP.annexure5A' | translate}}</td>
+                            </tr>
+                            <tr>
+                                <td (click)="getProjectSummaryId('project-management-setup')"><mat-icon class="icon-size">settings</mat-icon>{{'DPP.annexure2' | translate}}</td>
+                                <td (click)="getProjectSummaryId('add-new-annual-phasing-cost')"><mat-icon class="icon-size">location_on</mat-icon>{{'DPP.annexure5B' | translate}}</td>
+                            </tr>
+                            <tr>
+                                <td (click)="getProjectSummaryId('add-annexuregoods')"><mat-icon class="icon-size">pivot_table_chart</mat-icon>{{'DPP.annexure3A' | translate}}</td>
+                                <td (click)="getProjectSummaryId('amortization_schedule')"><mat-icon class="icon-size">details</mat-icon>{{'DPP.annexure6' | translate}}</td>
+                            </tr>
+                            <tr>
+                                <td (click)="getProjectSummaryId('add-annexurewokrs')"><mat-icon class="icon-size">task</mat-icon>{{'DPP.annexure3B' | translate}}</td>
+                                <td *ngIf="!isParipatra2016" (click)="getProjectSummaryId('dpp-mtbf')"><mat-icon class="icon-size">task</mat-icon>{{'DPP.annexure7' | translate}}</td>
+                            </tr>
+                        </table>
+                        <table *ngIf="projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'tapp'" class="project-details">
+                            <tr>
+                                <td (click)="getProjectSummaryId('tapp-project-summery')"><mat-icon class="icon-size">gpp_good</mat-icon>{{'DPP.tapp_part_a' | translate}}</td>
+                                <td (click)="getProjectSummaryId('tapp-annexure-four')"><mat-icon class="icon-size">task</mat-icon>{{'DPP.tapp_annexure4' | translate}}</td>
+                            </tr>
+                            <tr>
+                                <td (click)="getProjectSummaryId('tapp-project-details')"><mat-icon class="icon-size">details</mat-icon>{{'DPP.tapp_part_b' | translate}}</td>
+                                <td (click)="getProjectSummaryId('tapp-annexure-five')"><mat-icon class="icon-size">miscellaneous_services</mat-icon>{{'DPP.tapp_annexure5' | translate}}</td>
+                            </tr>
+                            <tr>
+                                <td (click)="getProjectSummaryId('annexure-i-a')"><mat-icon class="icon-size">location_on</mat-icon>{{'DPP.tapp_annexure1a' | translate}}</td>
+                                <td (click)="getProjectSummaryId('tapp-annexure-six')"><mat-icon class="icon-size">money</mat-icon>{{'DPP.tapp_annexure6' | translate}}</td>
+                            </tr>
+                            <tr *ngIf="isForeignAid">
+                                <td (click)="getProjectSummaryId('tapp-annexure-one')"><mat-icon class="icon-size">location_on</mat-icon>{{'DPP.tapp_annexure1b' | translate}}</td>
+                                <td (click)="getProjectSummaryId('tapp-annexure-seven')"><mat-icon class="icon-size">money</mat-icon>{{'DPP.tapp_annexure7' | translate}}</td>
+                            </tr>
+                            <tr *ngIf="!isForeignAid">
+                                <td (click)="getProjectSummaryId('tapp-annexure-one')"><mat-icon class="icon-size">location_on</mat-icon>{{'DPP.tapp_annexure1b' | translate}}</td>
+                                <td (click)="getProjectSummaryId('tapp-annexure-goods-first')"><mat-icon class="icon-size">location_on</mat-icon>{{'DPP.tapp_annexure8a_22' | translate}}</td>
+                            </tr>
+                            <tr *ngIf="isForeignAid">
+                                <td (click)="getProjectSummaryId('tapp-annexure-two')"><mat-icon class="icon-size">settings</mat-icon>{{'DPP.tapp_annexure2' | translate}}</td>
+                                <td (click)="getProjectSummaryId('tapp-annexure-goods-first')"><mat-icon class="icon-size">location_on</mat-icon>{{'DPP.tapp_annexure8a_22' | translate}}</td>
+                            </tr>
+                            <tr *ngIf="!isForeignAid">
+                                <td (click)="getProjectSummaryId('tapp-annexure-two')"><mat-icon class="icon-size">settings</mat-icon>{{'DPP.tapp_annexure2' | translate}}</td>
+                                <td (click)="getProjectSummaryId('tapp-annexure-service')"><mat-icon class="icon-size">details</mat-icon>{{'DPP.tapp_annexure8b_22' | translate}}</td>
+                            </tr>
+                            <tr>
+                                <td (click)="getProjectSummaryId('tapp-annexure-three')"><mat-icon class="icon-size">pivot_table_chart</mat-icon>{{'DPP.tapp_annexure3' | translate}}</td>
+                                <td (click)="getProjectSummaryId('tapp-annexure-service')" *ngIf="isForeignAid"><mat-icon class="icon-size">details</mat-icon>{{'DPP.tapp_annexure8b_22' | translate}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5" fxFlex="49" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" style="height: 280px;">
+                        <div class="heading" style="min-height: 60px;"><h1 style="margin-top: 12px;">{{'DPP.commentAndObserbation' | translate}}</h1></div>
+                        <div class="comment-btn" style="background-color: #89a583;">
+                            <label style="float: left">{{'DPP.inAgency' | translate}}</label>
+                            <button style="float: right" (click)="showComments('A')"><mat-icon class="icon">comment</mat-icon></button>
+                        </div>
+                        <div class="comment-btn" style="background-color: #7baf8f;">
+                            <label style="float: left">{{'DPP.ministryDivision' | translate}}</label>
+                            <button style="float: right" (click)="showComments('MD')"><mat-icon class="icon">comment</mat-icon></button>
+                        </div>
+                        <div class="comment-btn" style="background-color: #b396b2;">
+                            <label style="float: left">{{'DPP.palnningCommition' | translate}}</label>
+                            <button style="float: right" (click)="showComments('PC')"><mat-icon class="icon">comment</mat-icon></button>
+                        </div>
+                    </div>
+                    <div class="mt-5" fxFlex="2" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5" fxFlex="49" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" style="height: 280px;">
+                        <div class="heading" style="height: 60px;">
+                            <h1 style="display: inline-block;margin-top: 13px">{{'DPP.attachment_other_information' | translate}}</h1>
+                            <div style="display: inline-block;float: right;margin-left: 10px;"><button style="font-size: 12px" (click)="openDialog()" color="primary" mat-raised-button>{{'DPP.addAttacment' | translate}}</button></div>
+                            <div style="display: inline-block;float: right;">
+                                <mat-form-field style="width: 200px; color: black" class="fuse-mat-dense flex-auto">
+                                    <input matInput (keyup)="applyFilter($event)" placeholder="search" #input>
+                                    <!--                                <button mat-button matPrefix mat-icon-button><mat-icon>search</mat-icon></button>-->
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="m-2 overflow-x-auto sm:overflow-y-auto">
+                            <div cdkScrollable>
+                                <table mat-table [dataSource]="dataSource" class="attachment-table mat-elevation-z8 bg-transparent" matSort>
+                                    <!-- ID Column -->
+                                    <ng-container matColumnDef="id">
+                                        <th class="text-alignment"
+                                            mat-header-cell
+                                            *matHeaderCellDef>
+                                            {{'DPP.sl' | translate}}
+                                        </th>
+                                        <td mat-cell *matCellDef="let row, let i = index;">{{this.paginator.pageIndex == 0 ? i + 1 : 1 + i + this.paginator.pageIndex * this.paginator.pageSize}}</td>
+                                        <!--                                        {{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? convertToBanglaNumber(i + 1) :(i+1)}}</td>-->
+                                    </ng-container>
+
+                                    <!-- Progress Column -->
+                                    <ng-container matColumnDef="name">
+                                        <th class="text-alignment"
+                                            mat-header-cell
+                                            *matHeaderCellDef>
+                                            <!--                                                Title-->
+                                            {{'DPP.title' | translate}}
+                                        </th>
+                                        <td style="text-align: left !important;" mat-cell *matCellDef="let row">
+                                            {{ row.name }}
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="fileType">
+                                        <th class="text-alignment"
+                                            mat-header-cell
+                                            *matHeaderCellDef>
+                                            <!--                                                Title-->
+                                            {{'DPP.fileType' | translate}}
+                                        </th>
+                                        <td style="text-align: left !important;" mat-cell *matCellDef="let row">
+                                            {{ row.fileType }}
+                                        </td>
+                                    </ng-container>
+
+                                    <!-- Name Column -->
+                                    <ng-container matColumnDef="progress">
+                                        <th class="text-alignment"
+                                            mat-header-cell
+                                            *matHeaderCellDef>
+                                            <!--                                                Download-->
+                                            {{'DPP.attachDownload' | translate}}
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <button mat-icon-button color="primary" (click)="openUrl(row)">
+                                                <mat-icon>file_download</mat-icon>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+
+                                    <!-- Action Column -->
+                                    <!--                                <ng-container matColumnDef="action">-->
+                                    <!--                                    <th class="text-alignment" mat-header-cell *matHeaderCellDef>-->
+                                    <!--                                        &lt;!&ndash;                                                Action&ndash;&gt;-->
+                                    <!--                                        {{'DPP.action' | translate}}-->
+                                    <!--                                    </th>-->
+
+                                    <!--                                    <td class="text-alignment" mat-cell *matCellDef="let row">-->
+                                    <!--                                        <div class="buttons">-->
+                                    <!--                                            <button (click)="edit(row)"-->
+                                    <!--                                                    mat-icon-button-->
+                                    <!--                                                    class="toggle-sidebar-folded"-->
+                                    <!--                                                    matTooltip="Edit"-->
+                                    <!--                                                    fxHide.lt-lg>-->
+                                    <!--                                                <mat-icon-->
+                                    <!--                                                    color="accent">edit-->
+                                    <!--                                                </mat-icon>-->
+                                    <!--                                            </button>-->
+
+                                    <!--                                            <button-->
+                                    <!--                                                (click)="deleteDialog(row.uuid)"-->
+                                    <!--                                                mat-icon-button-->
+                                    <!--                                                class="toggle-sidebar-folded"-->
+                                    <!--                                                matTooltip="Delete"-->
+                                    <!--                                                fxHide.lt-lg>-->
+                                    <!--                                                <mat-icon-->
+                                    <!--                                                    color="warn">delete-->
+                                    <!--                                                </mat-icon>-->
+                                    <!--                                            </button>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </td>-->
+                                    <!--                                </ng-container>-->
+                                    <!-- Table Action Buttons End-->
+
+                                    <tr mat-header-row
+                                        *matHeaderRowDef="displayedColumns">
+                                    </tr>
+                                    <tr mat-row
+                                        *matRowDef="let row; columns: displayedColumns">
+                                    </tr>
+
+                                    <!-- Row shown when there is no matching data. -->
+                                    <tr class="mat-row" *matNoDataRow>
+                                        <td class="mat-cell" colspan="4">
+                                            <!--                                                No data Found-->
+                                            {{'DPP.dataNotFound' | translate}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <mat-paginator
+                                [length]="total"
+                                [pageSize]="size"
+                                [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                                (page)="onChangePage($event)">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5" fxFlex="49" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" style="background-color: rgb(230,230,230) !important;height: 400px; overflow-y: scroll !important">
+                        <div class="heading"><h1>{{'NothiMovementStatus' | translate}}</h1></div>
+                        <ul class="timesheet" *ngIf="movementStatusList.length>0">
+
+                            <li *ngFor="let movement of movementStatusList; let i=index">
+                                <!-- [ngClass]="i%2==0?'direction-r':'direction-l'" -->
+                                <div>
+                                    <div class="direction-l" >
+                                        <p  style="text-align: center;font-weight: 600;">প্রেরক</p>
+                                        <img *ngIf="i==movementStatusList.length-1" [src]="'http://training.nothi.gov.bd'" class="img-l" >
+                                        <img *ngIf="i<movementStatusList.length-1" [src]="'http://training.nothi.gov.bd'+movementStatusList[i+1].current_desk_user_info?.user_photo" class="img-l" >
+                                        <p *ngIf="i<movementStatusList.length-1" class="desc" style="margin-top: 0%;color: blue;">{{movementStatusList[i+1].current_desk_user_info?.officer_name}}</p>
+                                        <p *ngIf="i<movementStatusList.length-1" class="desc" style="margin-top: 0%;color: blue;">{{movementStatusList[i+1].current_desk_user_info?.office_name}}</p>
+                                    </div>
+                                    <div  class="direction-r">
+
+                                        <div class="flag-wrapper">
+                                            <span class="flag" *ngIf="movement.decision_note!=null">{{movement.decision_note}}</span>
+                                            <span class="flag" *ngIf="movement.nothi_message!=null && movement.decision_note==null">{{movement.nothi_message}}</span>
+                                            <span class="time-wrapper" *ngIf="isEnLabel"><span class="time">{{movement.feedbackDateTime | date}}</span></span>
+                                            <span class="time-wrapper" *ngIf="!isEnLabel"><span class="time">{{isEnLabel ? datePipe.transform(movement.feedbackDateTime, 'dd/MM/yyyy') : numberPipe.convertToBanglaNumber(datePipe.transform(movement.feedbackDateTime, 'dd/MM/yyyy'))}}</span></span>
+                                        </div>
+                                        <div class="desc">
+                                            <p style="font-weight: 600;">মূল প্রাপক</p>
+                                            {{movement.current_desk_user_info?.officer_name}},
+                                            {{movement.current_desk_user_info?.designation_label}}
+                                            <p>{{movement?.current_desk_user_info?.office_name}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-5" fxFlex="2" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+
+                    <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5" fxFlex="49" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" style="height: 400px;overflow-y: scroll !important">
+                        <div class="heading"><h1>{{'ProjectMovementStatus' | translate}}</h1></div>
+                        <div style="margin: 0 auto;margin-top: 15px;margin-bottom: 15px;">
+                            <div *ngFor="let stage of movementStageList">
+                                <div class="project-movement-status-div">
+                                    <mat-icon style="display:inline-block;color: #FFFFFF" svgIcon="heroicons_outline:clock"></mat-icon>
+                                    <div style="display:inline-block;margin-left: 10px;">
+                                        <p>{{isEnLabel ? datePipe.transform(stage.movementDate, 'dd/MM/yyyy') : numberPipe.convertToBanglaNumber(datePipe.transform(stage.movementDate, 'dd/MM/yyyy'))}}</p>
+                                        <p>{{stage.movementTime}}</p>
+                                    </div>
+                                </div>
+                                <img class="stick-line" src="/assets/images/logo/stick.png" alt="">
+                                <label style="margin-top: 30px; vertical-align: top;">{{stage.currentStage}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">-->
+                <!--                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">-->
+                <!--                    <div class="heading">-->
+                <!--&lt;!&ndash;                        <h1>List Page of Attachment</h1>&ndash;&gt;-->
+                <!--                        <h1>{{'DPP.listPageAttachment' | translate}}</h1>-->
+                <!--                    </div>-->
+                <!--                    <div class="mr-8 ml-8 mt-4">-->
+                <!--                        <div>-->
+
+                <!--                            <div-->
+                <!--                                class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">-->
+                <!--                                &lt;!&ndash;<mat-card>&ndash;&gt;-->
+                <!--                                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>-->
+                <!--                                    <table-->
+                <!--                                        mat-table-->
+                <!--                                        [dataSource]="dataSource"-->
+                <!--                                        class="attachment-table mat-elevation-z8 bg-transparent"-->
+                <!--                                        matSort>-->
+                <!--                                        &lt;!&ndash; ID Column &ndash;&gt;-->
+                <!--                                        <ng-container matColumnDef="id">-->
+                <!--                                            <th class="text-alignment"-->
+                <!--                                                mat-header-cell-->
+                <!--                                                *matHeaderCellDef>-->
+                <!--&lt;!&ndash;                                                Sl.&ndash;&gt;-->
+                <!--                                                {{'DPP.sl' | translate}}-->
+                <!--                                            </th>-->
+                <!--                                            <td mat-cell *matCellDef="let row, let i = index">-->
+                <!--                                                {{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? convertToBanglaNumber(i + 1) :(i+1)}}</td>-->
+                <!--                                        </ng-container>-->
+
+                <!--                                        &lt;!&ndash; Progress Column &ndash;&gt;-->
+                <!--                                        <ng-container matColumnDef="name">-->
+                <!--                                            <th class="text-alignment"-->
+                <!--                                                mat-header-cell-->
+                <!--                                                *matHeaderCellDef>-->
+                <!--&lt;!&ndash;                                                Title&ndash;&gt;-->
+                <!--                                                {{'DPP.title' | translate}}-->
+                <!--                                            </th>-->
+                <!--                                            <td style="text-align: left !important;" mat-cell *matCellDef="let row">-->
+                <!--                                                {{ row.title }}-->
+                <!--                                            </td>-->
+                <!--                                        </ng-container>-->
+
+                <!--                                        &lt;!&ndash; Name Column &ndash;&gt;-->
+                <!--                                        <ng-container matColumnDef="progress">-->
+                <!--                                            <th class="text-alignment"-->
+                <!--                                                mat-header-cell-->
+                <!--                                                *matHeaderCellDef>-->
+                <!--&lt;!&ndash;                                                Download&ndash;&gt;-->
+                <!--                                                {{'DPP.attachDownload' | translate}}-->
+                <!--                                            </th>-->
+                <!--                                            <td mat-cell *matCellDef="let row">-->
+                <!--                                                <button mat-icon-button color="primary" (click)="openUrl(row)">-->
+                <!--                                                    <mat-icon>file_download</mat-icon>-->
+                <!--                                                </button>-->
+                <!--                                            </td>-->
+                <!--                                        </ng-container>-->
+
+                <!--                                        &lt;!&ndash; Action Column &ndash;&gt;-->
+                <!--                                        <ng-container matColumnDef="action">-->
+                <!--                                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>-->
+                <!--&lt;!&ndash;                                                Action&ndash;&gt;-->
+                <!--                                                {{'DPP.action' | translate}}-->
+                <!--                                            </th>-->
+
+                <!--                                            <td class="text-alignment" mat-cell *matCellDef="let row">-->
+                <!--                                                <div class="buttons">-->
+                <!--                                                    <button (click)="edit(row)"-->
+                <!--                                                            mat-icon-button-->
+                <!--                                                            class="toggle-sidebar-folded"-->
+                <!--                                                            matTooltip="Edit"-->
+                <!--                                                            fxHide.lt-lg>-->
+                <!--                                                        <mat-icon-->
+                <!--                                                            color="accent">edit-->
+                <!--                                                        </mat-icon>-->
+                <!--                                                    </button>-->
+
+                <!--                                                    <button-->
+                <!--                                                        (click)="deleteDialog(row.uuid)"-->
+                <!--                                                        mat-icon-button-->
+                <!--                                                        class="toggle-sidebar-folded"-->
+                <!--                                                        matTooltip="Delete"-->
+                <!--                                                        fxHide.lt-lg>-->
+                <!--                                                        <mat-icon-->
+                <!--                                                            color="warn">delete-->
+                <!--                                                        </mat-icon>-->
+                <!--                                                    </button>-->
+                <!--                                                </div>-->
+                <!--                                            </td>-->
+                <!--                                        </ng-container>-->
+                <!--                                        &lt;!&ndash; Table Action Buttons End&ndash;&gt;-->
+
+                <!--                                        <tr mat-header-row-->
+                <!--                                            *matHeaderRowDef="displayedColumns">-->
+                <!--                                        </tr>-->
+                <!--                                        <tr mat-row-->
+                <!--                                            *matRowDef="let row; columns: displayedColumns">-->
+                <!--                                        </tr>-->
+
+                <!--                                        &lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;-->
+                <!--                                        <tr class="mat-row" *matNoDataRow>-->
+                <!--                                            <td class="mat-cell" colspan="4">-->
+                <!--&lt;!&ndash;                                                No data Found&ndash;&gt;-->
+                <!--                                                {{'DPP.dataNotFound' | translate}}-->
+                <!--                                            </td>-->
+                <!--                                        </tr>-->
+                <!--                                    </table>-->
+                <!--                                </div>-->
+
+                <!--                                <mat-paginator-->
+                <!--                                    [length]="total"-->
+                <!--                                    [pageSize]="size"-->
+                <!--                                    [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"-->
+                <!--                                    (page)="onChangePage($event)">-->
+                <!--                                </mat-paginator>-->
+                <!--                            </div>-->
+
+
+                <!--                        </div>-->
+
+
+                <!--                        <div class="mt-4 mb-4">-->
+                <!--                            <button (click)="openDialog()" color="primary" mat-raised-button>-->
+                <!--&lt;!&ndash;                                Add Attachment&ndash;&gt;-->
+                <!--                                {{'DPP.addAttacment' | translate}}-->
+                <!--                            </button>-->
+                <!--                        </div>-->
+
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+
+                <!--            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">-->
+                <!--                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">-->
+                <!--                    <div class="heading">-->
+                <!--&lt;!&ndash;                        <h1>Other Attachment List</h1>&ndash;&gt;-->
+                <!--                        <h1>{{'DPP.otherAttachmentList' | translate}}</h1>-->
+                <!--                    </div>-->
+                <!--                    <div class="mr-8 ml-8 mt-4">-->
+                <!--                        <div>-->
+
+                <!--                            <div-->
+                <!--                                class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">-->
+                <!--                                &lt;!&ndash;<mat-card>&ndash;&gt;-->
+                <!--                                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>-->
+                <!--                                    <table-->
+                <!--                                        mat-table-->
+                <!--                                        [dataSource]="dataSourceOtherAttachment"-->
+                <!--                                        class="attachment-table mat-elevation-z8 bg-transparent"-->
+                <!--                                        matSort>-->
+                <!--                                        &lt;!&ndash; ID Column &ndash;&gt;-->
+                <!--                                        <ng-container matColumnDef="id">-->
+                <!--                                            <th class="text-alignment"-->
+                <!--                                                mat-header-cell-->
+                <!--                                                *matHeaderCellDef>-->
+                <!--                                                {{'DPP.sl' | translate}}-->
+                <!--                                            </th>-->
+                <!--                                            <td mat-cell *matCellDef="let row, let i = index">-->
+                <!--                                                {{(!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? convertToBanglaNumber(i + 1) :(i+1)}}</td>-->
+                <!--                                        </ng-container>-->
+
+                <!--                                        &lt;!&ndash; Progress Column &ndash;&gt;-->
+                <!--                                        <ng-container matColumnDef="fileType">-->
+                <!--                                            <th class="text-alignment"-->
+                <!--                                                mat-header-cell-->
+                <!--                                                *matHeaderCellDef>-->
+                <!--                                                {{'DPP.fileType' | translate}}-->
+                <!--                                            </th>-->
+                <!--                                            <td mat-cell *matCellDef="let row">-->
+                <!--                                                {{ row.fileType }}-->
+                <!--                                            </td>-->
+                <!--                                        </ng-container>-->
+
+                <!--                                        <ng-container matColumnDef="fileName">-->
+                <!--                                            <th class="text-alignment"-->
+                <!--                                                mat-header-cell-->
+                <!--                                                *matHeaderCellDef>-->
+                <!--                                                {{'DPP.fileName' | translate}}-->
+                <!--                                            </th>-->
+                <!--                                            <td style="text-align: left !important" *matCellDef="let row">-->
+                <!--                                                {{ row.name }}-->
+                <!--                                            </td>-->
+                <!--                                        </ng-container>-->
+
+                <!--                                        &lt;!&ndash; Name Column &ndash;&gt;-->
+                <!--                                        <ng-container matColumnDef="progress">-->
+                <!--                                            <th class="text-alignment"-->
+                <!--                                                mat-header-cell-->
+                <!--                                                *matHeaderCellDef>-->
+                <!--                                                {{'DPP.attachDownload' | translate}}-->
+                <!--                                            </th>-->
+                <!--                                            <td mat-cell *matCellDef="let row">-->
+                <!--                                                <button mat-icon-button color="primary" (click)="openUrlOtherAttachment(row)">-->
+                <!--                                                    <mat-icon>file_download</mat-icon>-->
+                <!--                                                </button>-->
+                <!--                                            </td>-->
+                <!--                                        </ng-container>-->
+
+                <!--                                        &lt;!&ndash; Table Action Buttons End&ndash;&gt;-->
+
+                <!--                                        <tr mat-header-row-->
+                <!--                                            *matHeaderRowDef="displayedColumnsOtherAttachment">-->
+                <!--                                        </tr>-->
+                <!--                                        <tr mat-row-->
+                <!--                                            *matRowDef="let row; columns: displayedColumnsOtherAttachment">-->
+                <!--                                        </tr>-->
+
+                <!--                                        &lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;-->
+                <!--                                        <tr class="mat-row" *matNoDataRow>-->
+                <!--                                            <td class="mat-cell" colspan="4">-->
+                <!--                                                {{'DPP.dataNotFound' | translate}}-->
+                <!--                                            </td>-->
+                <!--                                        </tr>-->
+                <!--                                    </table>-->
+                <!--                                </div>-->
+                <!--                                <mat-paginator-->
+                <!--                                    [length]="totalOther"-->
+                <!--                                    [pageSize]="sizeOther"-->
+                <!--                                    [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"-->
+                <!--                                    (page)="onChangePageOther($event)">-->
+                <!--                                </mat-paginator>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<fuse-drawer
+    fxFlex="50" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+    style="width: 40%;"
+    fixed
+    transparentOverlay
+    [mode]="'over'"
+    [name]="'commentObservationDrawer'"
+    [position]="'right'"
+    #commentObservationDrawer>
+    <app-comment-observation style="width: 100%"></app-comment-observation>
+</fuse-drawer>-->
+
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callAPIDialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <h1>{{'DPP.uploadAttachment' | translate}}</h1>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <form [formGroup]="frmGroup" class="p-8">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                       fxFlex.xs="100%">
+<!--                                Title-->
+                                {{'DPP.title' | translate}}
+                                <strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                            fxFlex.sm="60%"
+                                            fxFlex.xs="100%">
+                                <input matInput formControlName="title">
+                                <mat-error>Title is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                       fxFlex.xs="100%">
+<!--                                Attachment-->
+                                {{'DPP.attachment' | translate}}
+                                <strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                            class="fuse-mat-dense flex-auto mt-5">
+                                <ngx-mat-file-input formControlName="attachmentId"
+                                                    (change)="uploadFile($event.target.files)" [accept]="'.pdf'"
+                                                    placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>Attachment is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button (click)="resetValue()" mat-flat-button color="accent" type="button" mat-dialog-close>{{'DPP.cancel' | translate}}</button>
+            <button (click)="create()" *ngIf="!frmGroup.value.uuid" [disabled]="!frmGroup.valid" class="mr-2"
+                    mat-flat-button color="primary" type="button"
+                    [mat-dialog-close]="true" cdkFocusInitial>
+<!--                Save-->
+                {{'DPP.save' | translate}}
+            </button>
+            <button (click)="update()" *ngIf="frmGroup.value.uuid" [disabled]="!frmGroup.valid" class="mr-2"
+                    mat-flat-button color="primary" type="button"
+                    [mat-dialog-close]="true" cdkFocusInitial>Update
+            </button>
+        </mat-dialog-actions>
+
+    </div>
+</ng-template>
+
+

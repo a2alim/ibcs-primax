@@ -1,0 +1,224 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;"> Annexure - VI : Tasks and
+                                    Qualifications of Support Staff to be Recruited
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary"> <a routerLink="/rdpp-rtapp">Home </a> > Annexure - VI : Tasks and
+                                        Qualifications of Support Staff to be Recruited
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                style="padding: 0px;"
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                {{"homePage" | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+
+    <!-- Main -->
+    <div>
+        <div class="max-w-8xl">
+            <mat-card class="tab-color">
+                <div style="overflow-x:auto;">
+                    <mat-card>
+                        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                            <form [formGroup]="form" class="form mt-5">
+
+                                <div class="p-5" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <div><b>Project Title (English) :</b> {{projectName}}</div>
+                                        </div>
+
+                                </div>
+                                <!-- 1) Personnels to be deputed to project from existing setup -->
+                                <div>
+
+                                    <div style="padding: 10px;">
+                                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                            <!--Table Start-->
+                                            <mat-card>
+                                            <table class="mat-elevation-z8">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="top-header">{{'sl' | translate}}</th>
+                                                        <th class="top-header">Designation</th>
+                                                        <th class="top-header">Educational Qualifications</th>
+                                                        <th class="top-header">Experiences</th>
+                                                        <th class="top-header">Tasks to be Performed</th>
+                                                        <th class="top-header">Action</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="sub-header"> {{'num1' | translate}}</th>
+                                                        <th class="sub-header"> {{'num2' | translate}}</th>
+                                                        <th class="sub-header"> {{'num3' | translate}}</th>
+                                                        <th class="sub-header"> {{'num4' | translate}}</th>
+                                                        <th class="sub-header"> {{'num5' | translate}}</th>
+                                                        <th class="sub-header"> {{'num6' | translate}}</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <!-- Table Body-->
+                                                <tbody>
+                                                    <ng-container formArrayName="tappSupportStuffList">
+                                                        <ng-container
+                                                            *ngFor="let lessonForm of tappSupportStuffList.controls; let i = index">
+                                                            <tr class="lesson-form-row" [formGroup]="lessonForm">
+                                                                <!-- TODO: Those value dynamically come from server-->
+                                                                <td>{{i + 1}}</td>
+
+                                                                <td>
+                                                                    <mat-form-field class="w-full">
+                                                                        <input formControlName="designation"
+                                                                            appearance="outline" autocomplete="off"
+                                                                            matInput required>
+                                                                    </mat-form-field>
+                                                                </td>
+
+                                                                <td>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="example-full-width " style="margin-top: 3px;">
+                                                                        <textarea formControlName="educationalQualification"
+                                                                            matInput></textarea>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="example-full-width">
+                                                                        <textarea formControlName="experience"
+                                                                            matInput></textarea>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="example-full-width">
+                                                                        <textarea formControlName="taskPerformed"
+                                                                            matInput></textarea>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <button mat-icon-button class="toggle-sidebar-folded"
+                                                                            fxHide.lt-lg>
+                                                                        <mat-icon matTooltip="Delete" (click)="openDialog(i)" color="warn">delete</mat-icon>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-container>
+                                                    </ng-container>
+
+                                                </tbody>
+
+                                                <!-- Table Body End-->
+                                            </table>
+                                            <!--Table End-->
+                                            </mat-card>
+                                            <div class="mt-5">
+                                                <button class="mb-1" (click)="addRow()" color="primary"
+                                                    mat-raised-button>
+                                                    Add New
+                                                    Support Staff
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--Start Input Div -->
+                                    <mat-card class="m-2">
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <!-- Project Code Field-->
+                                            <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <mat-label class="pb-5 ml-2" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                               fxFlex.xs="100%">A. GOB fund
+                                                    </mat-label>
+                                                    <mat-form-field fxFlex="60%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                                    fxFlex.xs="100%">
+                                                        <input TwoDigitDecimalNumber class="numberField" autocomplete="off" formControlName="gobFund" matInput/>
+                                                        <mat-error>Numeric value is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <!-- Project Type Field-->
+                                            <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <mat-label class="pb-5 ml-2" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                                        B. RPA fund
+                                                    </mat-label>
+                                                    <mat-form-field fxFlex="60%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                                        <input TwoDigitDecimalNumber class="numberField" autocomplete="off" formControlName="rpaFund" matInput/>
+                                                        <mat-error>Numeric value is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <!-- Priority Field-->
+                                            <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <mat-label class="pb-5 ml-2" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                                        C. DPA fund
+                                                    </mat-label>
+                                                    <mat-form-field fxFlex="60%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                                        <input TwoDigitDecimalNumber class="numberField" autocomplete="off" formControlName="dpaFund" matInput  />
+                                                        <mat-error>Numeric value is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                    <mat-label class="pb-5 ml-2" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                                        D. Others
+                                                    </mat-label>
+                                                    <mat-form-field fxFlex="60%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                                        <input TwoDigitDecimalNumber class="numberField" autocomplete="off" formControlName="others" matInput  />
+                                                        <mat-error>Numeric value is required</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card>
+                                    <div align="end">
+                                        <button class="mt-4" [disabled]="spinner" (click)="onSubmit()" color="primary" mat-raised-button>
+                                            Save
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </mat-card>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  planning-idsdp-getway:
+    image: 'planning-idsdp-getway'
+    ports:
+      - "8081:8081"
+    restart: always
+    #Volume mounted for database for the storage
+    volumes:
+      - planning-idsdp-getway:/var/lib/docker/volumes/planning-idsdp-getway/_data
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+#Volumes for DB data
+volumes:
+  planning-idsdp-getway:

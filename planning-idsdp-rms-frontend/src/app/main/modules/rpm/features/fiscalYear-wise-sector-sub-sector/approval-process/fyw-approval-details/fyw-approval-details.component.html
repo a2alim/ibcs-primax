@@ -1,0 +1,242 @@
+<div class="width-100" >
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+            <!-- Card Body -->
+
+            <div class="flex md:justify-end">
+                <button
+                    class="px-2 previousBtn"
+                    mat-flat-button
+                    color="accent"
+                    (click)="back()"
+                    type="button">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'Previous' | translate}}
+                </button>
+            </div>
+
+            <!-- List Grid -->
+<!-- {{approvalDataModel | json}} -->
+            <div class="mt-5 boxInfo nikoshFont bg-yellow-50 font-17">
+                <div class="font-bold text-yellow-600 flex" style="border-bottom: 1px solid #CCC;">
+                    <mat-icon class="mr-1">article</mat-icon>
+                    {{'Document_Information' | translate}}
+                </div>
+
+                <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2 mt-2 font-17">
+                    <div class="sm:pb-4 sm:border-b md:border-b-0 md:border-r lg:border-r">
+
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2">
+                                <span class="text-gray-700 font-semibold"> {{'Subject' | translate}}</span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80 font-semibold underline decoration-1">
+                                {{approvalDataModel?.subject}}
+                            </div>
+                        </div>
+
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2">
+                                <span class="text-gray-700 font-semibold"> {{'FiscalYear' | translate}}</span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                {{approvalDataModel?.fiscalYear | enToBn:langVal}}
+                            </div>
+                        </div>
+
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2">
+                                <span class="text-gray-700 font-semibold"> {{'Note' | translate}} </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                    <span [innerHtml]="approvalDataModel?.note | ngHtml"></span>
+                            </div>
+                        </div>
+
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2">
+                                <span class="text-gray-700 font-semibold"> {{'Sender' | translate}}</span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                {{CreatedByName}}
+                            </div>
+                        </div>
+
+                        <div class="md:flex ">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2">
+                                <span class="text-gray-700 font-semibold"> {{'Files' | translate}} </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <button
+                                class="px-2 bg-yellow-600"
+                                mat-flat-button
+                                color="accent"
+                                (click)="downloadFile(approvalDataModel?.fileDownloadUrl)"
+                                type="button">
+                                <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                                {{'DownloadFile' | translate}}
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center sm:pb-4">
+                        <div *ngIf="approvalDataModel.isSent; else NotSentToEnothi" class="w-ful">
+                            <div class="w-full text-center pr-2">
+
+                                <div class="flex text-white px-6 py-3 border-0 rounded relative mb-4 bg-teal-500">
+                                    <span class="text-xl inline-block mr-5 align-middle">
+                                        <mat-icon class="text-white">notifications</mat-icon>
+                                    </span>
+                                    <span class="inline-block align-middle mr-8 italic">
+                                        {{'hasSendToNothi' | translate}}
+                                    </span>
+                                </div>
+
+                                <div *ngIf="approvalDataModel?.internalApproval"  class="px-6 py-3 mt-3 border-0 rounded relative mb-4 text-green-700 bg-green-200 ">
+                                    <span class="text-xl inline-block mr-1 align-middle">
+                                        <mat-icon class="text-green-700">notifications</mat-icon>
+                                    </span>
+                                    <span class="inline-block align-middle mr-8 italic">
+                                        {{'internalApprovalDone' | translate}}
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <ng-template #NotSentToEnothi>
+                            <div class="w-full text-center pr-2">
+                                <div class="text-gray-700 font-semibold"> {{'sendToEnothi' | translate}} </div>
+                                <button
+                                    *ngIf="!approvalDataModel.isSent"
+                                    class="px-2 downloadBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    (click)="sendToEnothi()"
+                                    type="button">
+                                    <mat-icon class="mr-1">mail_outline</mat-icon>
+                                    {{'sendToEnothiBtn' | translate}}
+                                </button>
+
+                                <div *ngIf="approvalDataModel?.internalApproval"  class="flex px-6 py-3 mt-3  border-0 rounded relative mb-4 text-green-700 bg-green-200 ">
+                                    <span class="text-xl inline-block mr-1 align-middle">
+                                        <mat-icon class="text-green-700">notifications</mat-icon>
+                                    </span>
+                                    <span class="inline-block align-middle mr-8 italic">
+                                        {{'internalApprovalDone' | translate}}
+                                    </span>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div> <!-- ---/boxInfo----  -->
+
+            <div *ngIf="movementStatusList.length > 0; else emptyDiv">
+                <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2 mt-2 font-17">
+                    <div *ngFor="let movement of movementStatusList; let i=index" class="boxInfo nikoshFont bg-green-200" >
+
+                        <div class="font-bold text-green-700 flex" style="border-bottom: 1px solid #CCC;">
+                                <mat-icon class="mr-1">comment</mat-icon>
+                                {{'Feedback_No' | translate}} {{i+1 | enToBn:langVal}}
+                        </div>
+                        <div class="md:flex">
+                            <div class="w-full">
+                                <div>
+                                    <img style="width:80px; height:70px;" [src]="'http://training.nothi.gov.bd'+movement?.current_desk_user_info?.user_photo">
+                                </div>
+                                <div>
+                                    <span *ngIf="movement?.current_desk_user_info?.officer_name">
+                                        <span class="text-gray-700 font-semibold">{{'Name' | translate}} </span>
+                                    {{movement?.current_desk_user_info?.officer_name}}<br></span>
+
+                                    <span *ngIf="movement?.current_desk_user_info?.designation_label">
+                                        <span class="text-gray-700 font-semibold">{{'designation' | translate}}</span>
+                                    {{movement?.current_desk_user_info?.designation_label}} <br></span>
+
+                                    <span *ngIf="movement?.nothi_message">
+                                        <span class="text-gray-700 font-semibold">{{'nothiMessage' | translate}} : </span>
+                                    {{movement?.nothi_message}}
+                                    <br></span>
+
+                                     <span *ngIf="movement?.decision_note">
+                                        <span class="text-gray-700 font-semibold">{{'decisionNote' | translate}} : </span>
+                                     {{movement?.decision_note}}
+                                     <br></span>
+
+                                     <span *ngIf="movement?.feedbackDateTime">
+                                        <span class="text-gray-700 font-semibold">{{'feedbackDate' | translate}} : </span>
+                                     {{movement?.feedbackDateTime | date}}
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2">
+                                <span class="text-gray-700 font-semibold">
+                                    {{'Note' | translate}}
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                Social Science Research Council Social Science Research Council Social Science Research Council
+                                Social Science Research Council Social Science Research Council Social Science Research Council
+                                Social Science Research Council Social Science Research Council Social Science Research Council
+                            </div>
+                        </div> -->
+                    </div> <!-- ---/boxInfo----  -->
+                </div>
+            </div>
+            <ng-template  #emptyDiv>
+                <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2 mt-2 font-17"></div>
+            </ng-template >
+
+        </mat-card>
+    </div>
+
+</div>
+
+<!-- ------------------------Confirmation Modal----------------------- -->
+  <div *ngIf="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+    <div class="relative my-6 w-auto md:w-30">
+      <!--content-->
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex justify-center border-b border-solid border-slate-200 rounded-t p-3 text-3xl font-semibold">
+         {{'confirmationBox' | translate}}
+        </div>
+        <!--body-->
+            <div class="relative p-6 flex-auto">
+                <div class="w-full mb-2" style="font-size: 16px !important;">
+                    {{'confirmation' | translate}}
+                    <span *ngIf="confirmation2">{{'confirmation2' | translate}}</span>
+                </div>
+
+                <div class="flex justify-end mt-4">
+                    <button
+                        class="px-3 mr-2"
+                        mat-flat-button
+                        color="accent"
+                        type="button"
+                        (click)="toggleModal()"
+                        ><mat-icon class="mr-1">cancel</mat-icon>
+                        {{'closeBtn' | translate}}
+                    </button>
+                    <button
+                        class="px-3"
+                        mat-flat-button
+                        color="primary"
+                        type="button"
+                        (click)="confirm()"
+                        ><mat-icon class="mr-1">recommend</mat-icon>
+                        {{'confirmationBtn' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+<!-- ------------------------/Confirmation Modal----------------------- -->

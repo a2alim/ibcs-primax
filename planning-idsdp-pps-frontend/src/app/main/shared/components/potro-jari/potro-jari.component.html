@@ -1,0 +1,25 @@
+<div>
+    <div class="heading">
+        <strong>{{'PotroJari' | translate}}</strong>
+    </div>
+
+    <mat-dialog-content>
+        <form *ngIf="form" [formGroup]="form">
+            <div class="mt-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">{{'Attachment' | translate}}<strong
+                        class="required">*</strong>
+                </mat-label>
+                <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" class="fuse-mat-dense flex-auto mt-5">
+                    <ngx-mat-file-input  (change)="uploadFile($event.target.files)" [accept]="'.pdf'"
+                        placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                    <mat-icon matSuffix>folder</mat-icon>
+                    <mat-error>Attachment is required!</mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button class="cancel-button" mat-dialog-close>{{'Cancel' | translate}}</button>
+        <button mat-button class="save-button" (click)="submit()" [disabled]=" !file" cdkFocusInitial>{{'Save' | translate}}</button>
+    </mat-dialog-actions>
+</div>

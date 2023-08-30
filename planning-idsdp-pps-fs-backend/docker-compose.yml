@@ -1,0 +1,16 @@
+version: '3'
+services:
+  planning-idsdp-pps-fs-backend:
+    image: 'planning-idsdp-pps-fs-backend'
+    ports:
+      - "8086:8086"
+    restart: always
+    #Volume mounted for database for the storage
+    volumes:
+      - planning-idsdp-pps-fs-backend:/var/lib/docker/volumes/planning-idsdp-pps-fs-backend/_data
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+#Volumes for DB data
+volumes:
+  planning-idsdp-pps-fs-backend:

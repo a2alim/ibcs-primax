@@ -1,0 +1,1070 @@
+<div style="width: 100%">
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="'ডিপিপি/টিএপিপি ম্যানেজমেন্ট / কার্যপত্র প্রস্তুতকরণ' | translate" class="crop-text"
+                                 [subTitle]="'হোম > কার্যপত্র প্রস্তুতকরণ' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                        {{'go_back' | translate }}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">ডিপিপি/টিএপিপি ম্যানেজমেন্ট / কার্যপত্র প্রস্তুতকরণ</div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary"><span>হোম </span> > <span></span>কার্যপত্র প্রস্তুতকরণ</div>
+                                </div>
+                            </div>
+                        </div>
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>backspace</mat-icon>&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!show || isLoading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="show && form" class="list-page-outside-body">
+
+        <div>
+            <mat-card>
+                <form [formGroup]="frmGroup" name="frmGroup" class="p-5">
+                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="28%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="100%">
+                            কার্যপত্রের ধরনঃ
+                        </mat-label>
+                        <mat-form-field fxFlex="72%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                            <mat-select (selectionChange)="onChangePaperType($event)" formControlName="pscWorkingPaperType" required>
+                                <mat-option value="select">নির্বাচন করুন </mat-option>
+                                <mat-option *ngIf="userGroup?.groupStatus === 'MINISTRY-DESK'" value="PSC">প্রকল্প যাচাই কমিটি</mat-option>
+                                <mat-option *ngIf="userGroup?.groupStatus === 'MINISTRY-DESK' && projectSummary?.projectTypeDTO.nameEn.toUpperCase() === 'DPP'" value="DPEC">ডিপিইসি </mat-option>
+                                <mat-option *ngIf="userGroup?.groupStatus === 'PLANNING-DESK' && projectSummary?.projectTypeDTO.nameEn.toUpperCase() === 'TAPP'" value="SPEC">এসপিইসি </mat-option>
+                                <mat-option *ngIf="userGroup?.groupStatus === 'PLANNING-DESK' && projectSummary?.projectTypeDTO.nameEn.toUpperCase() === 'DPP'" value="PEC"> পিইসি </mat-option>
+                                <mat-option *ngIf="userGroup?.groupStatus === 'MINISTRY-DESK' && projectSummary?.projectTypeDTO.nameEn.toUpperCase() === 'TAPP'" value="DSPEC">ডিএসপিইসি </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                </form>
+            </mat-card>
+        </div>
+
+        <div *ngIf="pscPaperType">
+            <form class="form" [formGroup]="form">
+
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                    <mat-card>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-2">
+                            <mat-label fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">১| প্রকল্পের নামঃ</mat-label>
+                            <mat-label fxFlex="80%" fxFlex.md="20%" fxFlex.sm="70%" fxFlex.xs="100%">{{objectiveCost?.projectTitleBn}}</mat-label>
+                        </div>
+                    </mat-card>
+                </div>
+
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                    <div class="sub-heading">
+                        <h1>২| উদ্যোগী মন্ত্রণালয় ও বাস্তবায়নকারী সংস্থাঃ</h1>
+                    </div>
+                    <mat-card>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-2">
+                            <mat-label fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">(ক) উদ্যোগী মন্ত্রণালয়ঃ</mat-label>
+                            <mat-label class="readOnly" fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">{{agencyModel?.ministryDivisionDTO?.nameBn}}</mat-label>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-2">
+                            <mat-label fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">(খ) বাস্তবায়নকারী সংস্থাঃ</mat-label>
+                            <mat-label fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">{{agencyModel?.nameBn}}</mat-label>
+                        </div>
+                        <!--                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-2">-->
+                        <!--                            <mat-label fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">২| প্রকল্পের বাস্তবায়নকাল:</mat-label>-->
+                        <!--                            <mat-label fxFlex="80%" fxFlex.md="20%" fxFlex.sm="70%" fxFlex.xs="100%">{{numberPipe.convertToBanglaNumber(objectiveCost?.dateCommencement+' - '+ objectiveCost?.dateCompletion)}}</mat-label>-->
+                        <!--                        </div>-->
+                    </mat-card>
+                </div>
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                    <mat-card>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-2">
+                            <mat-label fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">৩| প্রকল্পের বাস্তবায়নকালঃ</mat-label>
+                            <mat-label fxFlex="80%" fxFlex.md="20%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                <span>{{numberPipe.convertToBanglaNumber(objectiveCost?.dateCommencement | date: 'dd/MM/yyyy')}}</span>
+                                <span>&nbsp; - &nbsp;</span>
+                                <span>{{numberPipe.convertToBanglaNumber(objectiveCost?.dateCompletion | date: 'dd/MM/yyyy')}}</span>
+<!--                                <span *ngIf="year > 0">{{numberPipe.convertToBanglaNumber(year)}} বছর</span>-->
+<!--                                <span *ngIf="year > 0">&nbsp; &nbsp;</span>-->
+<!--                                <span *ngIf="month > 0">{{numberPipe.convertToBanglaNumber(month)}} মাস</span>-->
+                            </mat-label>
+                        </div>
+                    </mat-card>
+                </div>
+
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                    <div class="sub-heading">
+                        <h1>৪| প্রকল্পের প্রাক্কলিত ব্যয় (লক্ষ টাকায়)</h1>
+                    </div>
+                    <mat-card>
+                        <table style="width: 100%;">
+                            <tr>
+                                <th>অর্থায়ন</th>
+                                <th>মূল</th>
+                                <!--                            <th>প্রথম সংশোধিত প্রযোজ্য ক্ষেত্রে</th>-->
+                                <!--                            <th>দ্বিতীয় সংশোধিত প্রযোজ্য ক্ষেত্রে</th>-->
+                                <th>মোট</th>
+                            </tr>
+                            <tr>
+                                <td>মোট</td>
+                                <td>{{numberPipe.convertToBanglaNumber(projectSummary?.totalAmount.toFixed(2))}}</td>
+                                <!--                            <td></td>-->
+                                <!--                            <td></td>-->
+                                <td>{{numberPipe.convertToBanglaNumber(projectSummary?.totalAmount.toFixed(2))}}</td>
+                            </tr>
+                            <tr>
+                                <td>জিওবি</td>
+                                <td>{{numberPipe.convertToBanglaNumber(projectSummary?.gobAmount.toFixed(2))}}</td>
+                                <!--                            <td></td>-->
+                                <!--                            <td></td>-->
+                                <td>{{numberPipe.convertToBanglaNumber(projectSummary?.gobAmount.toFixed(2))}}</td>
+                            </tr>
+                            <tr>
+                                <td>প্রকল্প সাহায্য</td>
+                                <td>{{numberPipe.convertToBanglaNumber(projectSummary?.paAmount.toFixed(2))}}</td>
+                                <!--                            <td></td>-->
+                                <!--                            <td></td>-->
+                                <td>{{numberPipe.convertToBanglaNumber(projectSummary?.paAmount.toFixed(2))}}</td>
+                            </tr>
+                            <tr>
+                                <td>নিজস্ব তহবিল</td>
+                                <td>{{numberPipe.convertToBanglaNumber(projectSummary?.ownFundAmount.toFixed(2))}}</td>
+                                <!--                            <td></td>-->
+                                <!--                            <td></td>-->
+                                <td>{{numberPipe.convertToBanglaNumber(projectSummary?.ownFundAmount.toFixed(2))}}</td>
+                            </tr>
+                            <tr>
+                                <td>অন্যান্য</td>
+                                <td>{{numberPipe.convertToBanglaNumber(projectSummary?.otherAmount.toFixed(2))}}</td>
+                                <!--                            <td></td>-->
+                                <!--                            <td></td>-->
+                                <td>{{numberPipe.convertToBanglaNumber(projectSummary?.otherAmount.toFixed(2))}}</td>
+                            </tr>
+                        </table>
+                    </mat-card>
+                </div>
+                <!-----  Start Table9   --------->
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5" *ngIf="projectSummary?.projectTypeDTO?.nameEn.toLowerCase()==='tapp' && projectSummary.isForeignAid">
+                <div class="sub-heading">
+                    <h1>৫| প্রকল্পের অর্থায়নের ধরন ও উৎস:</h1>
+                </div>
+                <mat-card class="p-5 mb-5">
+                        <table style="width: 100%">
+                            <tr>
+                                <th style="width: 10px;" rowspan="2">
+                                    <span>অর্থায়ন</span>
+                                </th>
+                                <th rowspan="2">
+                                    <span>ধরনের(সমতুল্যপরিমাণ)</span>
+                                </th>
+                                <th colspan="2">ইন ক্যাশ</th>
+                                <th rowspan="2">মোট</th>
+                                <th rowspan="2">
+                                    <span> অর্থায়নের ধরণ <br>(বিনিয়োগ/লোন/ক্রেডিট/অনুদান)</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>দেশীয়</th>
+                                <th>বৈদেশিক</th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    জিওবি
+                                </td>
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.gobEA.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.gobLocal.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.gobFe.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.gobTotal.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{tappModeFinanceDTO.gobSource}}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    প্রকল্প সাহায্য
+                                </td>
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.developmentEA.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.developmentLocal.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.developmentFe.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.developmentTotal.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{tappModeFinanceDTO.developmentSource}}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    নিজস্ব তহবিল
+                                </td>
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.ownFundEA.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.ownFundLocal.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.ownFundFe.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.ownFundTotal.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{tappModeFinanceDTO.ownFundSource}}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    অন্যান্য উৎস
+                                </td>
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.othersSpecifyEA.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.othersSpecifyLocal.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.othersSpecifyFe.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.othersSpecifyTotal.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{tappModeFinanceDTO.gobFe}}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    সর্বমোট
+                                </td>
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.grandTotalEa.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.grandTotalLocal.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.grandTotalFe.toFixed(2))}}
+                                </td>
+
+                                <td>
+                                    {{numberPipe.convertToBanglaNumber(tappModeFinanceDTO.grandTotalTotal.toFixed(2))}}
+                                </td>
+
+                                <td>
+
+                                </td>
+                            </tr>
+                        </table>
+                </mat-card>
+        </div>
+
+                <!-----   End Table9 ------------>
+                <div *ngIf="projectSummary?.projectTypeDTO?.nameEn.toLowerCase()==='dpp' || !projectSummary?.isForeignAid"
+                     class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                    <div class="sub-heading">
+                        <h1>৫| প্রকল্পের অর্থায়নের ধরণ ও উৎসঃ</h1>
+                    </div>
+                    <mat-card>
+                        <table style="width: 100%;">
+                            <tr>
+                                <th>ধরন/উৎস</th>
+                                <th>জিওবি <br> (বৈদেশিক মূদ্রা)</th>
+                                <th *ngIf="projectSummary?.isForeignAid">PA <br> (RPA)</th>
+                                <th>নিজস্ব অর্থায়ন <br> (বৈদেশিক মূদ্রা)</th>
+                                <th>অন্যান্য <br> (বৈদেশিক মূদ্রা)</th>
+                                <th *ngIf="projectSummary?.isForeignAid">PA Sources</th>
+                            </tr>
+                            <tr *ngIf="!projectSummary?.isForeignAid">
+                                <td class="text-center">১</td>
+                                <td class="text-center">২</td>
+                                <td class="text-center">৩</td>
+                                <td class="text-center">৪</td>
+                            </tr>
+                            <tr *ngIf="projectSummary?.isForeignAid">
+                                <td class="text-center">১</td>
+                                <td class="text-center">২</td>
+                                <td class="text-center">৩</td>
+                                <td class="text-center">৪</td>
+                                <td class="text-center">৫</td>
+                                <td class="text-center">৬</td>
+                            </tr>
+                            <tr *ngFor="let mode of objectiveCost?.modeFinanceList; let i = index">
+                                <td>{{ mode.modeSource }}<br>{{mode.modeSourceVal}}</td>
+                                <td>{{ numberPipe.convertToBanglaNumber(mode.gob.toFixed(2)) }}<br>{{numberPipe.convertToBanglaNumber(mode.gobFe.toFixed(2))}}</td>
+                                <td *ngIf="projectSummary?.isForeignAid">{{ numberPipe.convertToBanglaNumber(mode.pa.toFixed(2)) }}<br>{{numberPipe.convertToBanglaNumber(mode.paRpa.toFixed(2))}}</td>
+                                <td>{{ numberPipe.convertToBanglaNumber(mode.ownFund.toFixed(2)) }}<br>{{numberPipe.convertToBanglaNumber(mode.ownFundFe.toFixed(2))}}</td>
+                                <td>{{ numberPipe.convertToBanglaNumber(mode.others.toFixed(2))}}<br>{{numberPipe.convertToBanglaNumber(mode.othersFe.toFixed(2))}}</td>
+                                <td *ngIf="projectSummary?.isForeignAid">{{mode.paSources}}</td>
+                            </tr>
+                            <tr *ngIf="objectiveCost?.modeFinanceList.length > 0">
+                                <td>মোট</td>
+                                <td>{{numberPipe.convertToBanglaNumber(grandGob?.toFixed(2))}}<br>{{numberPipe.convertToBanglaNumber(grandGobFe?.toFixed(2))}}</td>
+                                <td *ngIf="projectSummary?.isForeignAid">{{numberPipe.convertToBanglaNumber(grandPa?.toFixed(2))}}<br>{{numberPipe.convertToBanglaNumber(grandPaRpa?.toFixed(2))}}</td>
+                                <td>{{numberPipe.convertToBanglaNumber(grandOwnFund?.toFixed(2))}}<br>{{numberPipe.convertToBanglaNumber(grandOwnFundFe?.toFixed(2))}}</td>
+                                <td>{{numberPipe.convertToBanglaNumber(grandOthers?.toFixed(2))}}<br>{{numberPipe.convertToBanglaNumber(grandOthersFe?.toFixed(2))}}</td>
+                                <td *ngIf="projectSummary?.isForeignAid"></td>
+                            </tr>
+                        </table>
+
+                    </mat-card>
+                </div>
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                    <div class="sub-heading">
+                        <h1>৬| প্রকল্প এলাকাঃ</h1>
+                    </div>
+                    <mat-card>
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                            <!--Table Start-->
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th style="width: 5%" class="top-header">ক্রমিক</th>
+                                    <th style="width: 10%" class="top-header">বিভাগ</th>
+                                    <th style="width: 10%" class="top-header">জেলা</th>
+                                    <th style="width: 20%" class="top-header">উপজেলা/সিটি কর্পোরেশন/পৌরসভা</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let up of upazilas; let i = index">
+                                    <td style="width: 5%"  *ngIf="up.dSpan !== 0" [rowSpan]="up.dSpan">{{up.sl}}</td>
+                                    <td style="width: 10%" *ngIf="up.dSpan !== 0" [rowSpan]="up.dSpan">
+                                        <!-- {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up.upazila.zilla?.division?.nameBn : up.upazila.zilla?.division?.nameEn}} -->
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up?.division?.nameBn : up?.division?.nameEn}}
+                                    </td>
+                                    <td style="width: 10%" *ngIf="up.zSpan !== 0" [rowSpan]="up.zSpan">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up?.zilla?.nameBn : up?.zilla?.nameEn}}
+                                        <!-- {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up.upazila.zilla?.nameBn : up.upazila.zilla?.nameEn}} -->
+                                    </td>
+                                    <td style="width: 20%">
+                                        <!-- {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up.upazila.nameBn : up.upazila.nameEn}} -->
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up?.upazila?.nameBn : up?.upazila?.nameEn}}
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                    <mat-card>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">৭| বার্ষিক উন্নয়ন কর্মসূচিতে অবস্থান ও বরাদ্দঃ
+                                <span *ngIf="!lbl6" (click)="expand(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                                <span *ngIf="lbl6" (click)="collapse(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                                <span style="float: right">
+                                    <label for="file-upload0">
+                                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                  matTooltipPosition="above">image</mat-icon>
+                                    </label>
+                                        <input #file0 type="file" accept='image/*'
+                                       (change)="uploadImageAsBase64(file0.files,'sanctionSchedule')" id="file-upload0"/>
+                                </span>
+                            </mat-label>
+                        </div>
+                        <div *ngIf="lbl6" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                            <ckeditor formControlName="sanctionSchedule" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                        </div>
+                        <br/>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">৮| প্রকল্পের উদ্দেশ্যঃ
+                                <span *ngIf="!lbl7" (click)="expand(2)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                                <span *ngIf="lbl7" (click)="collapse(2)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                                <span style="float: right">
+                                    <label for="file-upload1">
+                                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                  matTooltipPosition="above">image</mat-icon>
+                                    </label>
+                                        <input #file1 type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file1.files,'projectPurpose')" id="file-upload1"/>
+                                </span>
+                            </mat-label>
+                        </div>
+                        <div *ngIf="lbl7" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                            <ckeditor formControlName="projectPurpose" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                        </div>
+                        <br/>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">৯| প্রকল্পের মূল কার্যক্রম/আউটপুট:
+                                <span *ngIf="!lbl8" (click)="expand(3)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                                <span *ngIf="lbl8" (click)="collapse(3)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                                <span style="float: right">
+                                    <label for="file-upload2">
+                                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                  matTooltipPosition="above">image</mat-icon>
+                                    </label>
+                                        <input #file2 type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file2.files,'mainActivity')" id="file-upload2"/>
+                                </span>
+                            </mat-label>
+                        </div>
+                        <div *ngIf="lbl8" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                            <ckeditor formControlName="mainActivity" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                        </div>
+                        <br/>
+
+
+<!--                        ======================Annexure 5 A data loaded here ==================-->
+
+<!--                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+<!--                            <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">৯| প্রকল্পের মূল কার্যক্রম/আউটপুটঃ-->
+<!--                                <span *ngIf="!lbl8" (click)="expand(3)">-->
+<!--                            </span>-->
+<!--                            </mat-label>-->
+<!--                        </div>-->
+
+<!--                        <br/>-->
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                                ১০| প্রকল্পের অঙ্গভিত্তিক ব্যয় বিভাজনঃ
+                            </mat-label>
+                        </div>
+<!--                        <div *ngIf="lbl9" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">-->
+<!--                            <ckeditor formControlName="partWiseExpense" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>-->
+<!--                        </div>-->
+
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto "
+                             style=" background-color: white">
+                            <table class="tables">
+                                <thead>
+                                <tr>
+                                    <th rowspan="3">ইকনমিক কোড</th>
+                                    <th rowspan="3">ইকনমিক সাব-কোড</th>
+                                    <th rowspan="3">ইকনমিক সাব - কোড বর্ণনা (বিস্তারিত)</th>
+                                    <th rowspan="3">একক</th>
+                                    <th rowspan="3">একক দর</th>
+                                    <th rowspan="3">পরিমাণ</th>
+                                    <th rowspan="3">জিওবি (বৈদেশিক মূদ্রা)</th>
+                                    <th colspan="4" *ngIf="isForeignAid">Project Aid</th>
+                                    <th rowspan="3">নিজস্ব অর্থায়ন (বৈদেশিক মূদ্রা)</th>
+                                    <th rowspan="3">অন্যান্য (বৈদেশিক মূদ্রা)</th>
+                                    <th *ngIf="isForeignAid" rowspan="3">মোট খরচ * = (৭+৮+৯+১০+১১+১২+১৩)Total Cost*</th>
+                                    <th *ngIf="!isForeignAid" rowspan="3">মোট খরচ * = (৭+৮+৯)Total Cost</th>
+                                    <th rowspan="3">মোট প্রাক্কলিত ব্যয়ের(%)</th>
+
+                                </tr>
+                                <tr>
+
+                                    <th *ngIf="isForeignAid" colspan="2">RPA</th>
+                                    <th *ngIf="isForeignAid" colspan="2">DPA</th>
+
+                                </tr>
+                                <tr>
+                                    <th *ngIf="isForeignAid">Through GoB</th>
+                                    <th *ngIf="isForeignAid">Special Amount **</th>
+                                    <th *ngIf="isForeignAid">Through PD</th>
+                                    <th *ngIf="isForeignAid">Special DP</th>
+
+                                </tr>
+                                <tr *ngIf="isForeignAid" class="boldBorder">
+                                    <th>১</th>
+                                    <th>২</th>
+                                    <th>৩</th>
+                                    <th>৪</th>
+                                    <th>৫</th>
+                                    <th>৬</th>
+                                    <th>৭</th>
+                                    <th>৮</th>
+                                    <th>৯</th>
+                                    <th>১০</th>
+                                    <th>১১</th>
+                                    <th>১২</th>
+                                    <th>১৩</th>
+                                    <th>১৪</th>
+                                    <th>১৪</th>
+                                </tr>
+
+                                <tr *ngIf="!isForeignAid" class="boldBorder">
+                                    <th>১</th>
+                                    <th>২</th>
+                                    <th>৩</th>
+                                    <th>৪</th>
+                                    <th>৫</th>
+                                    <th>৬</th>
+                                    <th>৭</th>
+                                    <th>৮</th>
+                                    <th>৯</th>
+                                    <th>১০</th>
+                                    <th>১১</th>
+                                </tr>
+
+
+
+                                </thead>
+                                <tbody>
+
+                                <!--                    ========================== revenue component ========================-->
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="15"
+                                        style="text-align: left !important;">(ক) রাজস্ব</td>
+                                </tr>
+                                <tr *ngFor="let data of revenueList" class="text-center">
+                                    <td class="txt-left">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.economicCode.economicCode) : data?.economicCode.economicCode}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.subEconomicCode.subEconomicCode) : data?.subEconomicCode.subEconomicCode}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{data?.description}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? data?.unitType.unitTypeNameBng : data?.unitType.unitTypeNameEng}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.unitCost.toFixed(2)) : data?.unitCost.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.qty) : data?.qty}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.gobAmount.toFixed(2)) : data?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.gobFeAmount.toFixed(2)) : data?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        {{data?.gobThruAmount}}
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        {{data?.spAcAmount}}
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        {{data?.thruPdAmount}}
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        {{data?.thruDpAmount}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.ownFundAmount.toFixed(2)) : data?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.ownFundFeAmount.toFixed(2)) : data?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.otherAmount.toFixed(2)) : data?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.otherFeAmount.toFixed(2)) : data?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.totalCostCalculated.toFixed(2)) : data?.totalCostCalculated.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.totalProjectCost.toFixed(2)) : data?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <!--                        ======================= revenue component sub total ============================-->
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="6" style="text-align: left;">উপমোট (রাজস্ব)</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.gobAmount.toFixed(2)) : revenueTotal?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.gobFeAmount.toFixed(2)) : revenueTotal?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{revenueTotal?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{revenueTotal?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{revenueTotal?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{revenueTotal?.thruDpAmount}}</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.ownFundAmount.toFixed(2)) : revenueTotal?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.ownFundFeAmount.toFixed(2)) : revenueTotal?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.otherAmount.toFixed(2)) : revenueTotal?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.otherFeAmount.toFixed(2)) : revenueTotal?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.totalAmount.toFixed(2)) : revenueTotal?.totalAmount.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenueTotal?.totalProjectCost.toFixed(2)) : revenueTotal?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="15"
+                                        style="text-align: left !important;">(খ) মুলধন</td>
+                                </tr>
+                                <tr *ngFor="let data of capitalList" class="text-center">
+                                    <td class="txt-left">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.economicCode.economicCode) : data?.economicCode.economicCode}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.subEconomicCode.subEconomicCode) : data?.subEconomicCode.subEconomicCode}}
+                                    </td>
+                                    <td class="txt-left">
+                                        {{data?.description}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? data?.unitType.unitTypeNameBng : data?.unitType.unitTypeNameEng}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.unitCost.toFixed(2)) : data?.unitCost.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.qty) : data?.qty}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.gobAmount.toFixed(2)) : data?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.gobFeAmount.toFixed(2)) : data?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        {{data?.gobThruAmount}}
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        {{data?.spAcAmount}}
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        {{data?.thruPdAmount}}
+                                    </td>
+                                    <td *ngIf="isForeignAid">
+                                        {{data?.thruDpAmount}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.ownFundAmount.toFixed(2)) : data?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.ownFundFeAmount.toFixed(2)) : data?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.otherAmount.toFixed(2)) : data?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.otherFeAmount.toFixed(2)) : data?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.totalCostCalculated.toFixed(2)) : data?.totalCostCalculated.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(data?.totalProjectCost.toFixed(2)) : data?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="6" style="text-align: left;">উপমোট (মুলধন)</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.gobAmount.toFixed(2)) : capitalTotal?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.gobFeAmount.toFixed(2)) : capitalTotal?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{capitalTotal?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{capitalTotal?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{capitalTotal?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{capitalTotal?.thruDpAmount}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.ownFundAmount.toFixed(2)) : capitalTotal?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.ownFundFeAmount.toFixed(2)) : capitalTotal?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.otherAmount.toFixed(2)) : capitalTotal?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.otherFeAmount.toFixed(2)) : capitalTotal?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.totalAmount.toFixed(2)) : capitalTotal?.totalAmount.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capitalTotal?.totalProjectCost.toFixed(2)) : capitalTotal?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <!--                    ========================= physical contingency =======================-->
+
+                                <tr *ngIf="physicalContingencyTotal != null">
+                                    <td colspan="6" style="text-align: left;">(গ) ফিজিক্যাল কন্টেনজেন্সি</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.gobAmount.toFixed(2)) : physicalContingencyTotal?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.gobFeAmount.toFixed(2)) : physicalContingencyTotal?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{physicalContingencyTotal?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{physicalContingencyTotal?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{physicalContingencyTotal?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{physicalContingencyTotal?.thruDpAmount}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.ownFundAmount.toFixed(2)) : physicalContingencyTotal?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.ownFundFeAmount.toFixed(2)) : physicalContingencyTotal?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.otherAmount.toFixed(2)) : physicalContingencyTotal?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.otherFeAmount.toFixed(2)) : physicalContingencyTotal?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Total Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.totalAmount.toFixed(2)) : physicalContingencyTotal?.totalAmount.toFixed(2)}}
+                                    </td>
+                                    <td data-label="% of Total Project Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.totalProjectCost.toFixed(2)) : physicalContingencyTotal?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <!--                    ====================== physical contingency when null =================-->
+
+                                <tr *ngIf="physicalContingencyTotal == null">
+                                    <td colspan="6" style="text-align: left;">(গ) ফিজিক্যাল কন্টেনজেন্সি</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{blankVal?.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{blankVal?.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{blankVal?.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{blankVal?.toFixed(2)}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Total Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}}
+                                    </td>
+                                    <td data-label="% of Total Project Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <!--                    ======================= price contingency ========================-->
+
+                                <tr *ngIf="priceContingencyTotal != null">
+                                    <td colspan="6" style="text-align: left;">(ঘ) প্রাইস কন্টেনজেন্সি</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.gobAmount.toFixed(2)) : priceContingencyTotal?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.gobFeAmount.toFixed(2)) : priceContingencyTotal?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{priceContingencyTotal?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{priceContingencyTotal?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{priceContingencyTotal?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{priceContingencyTotal?.thruDpAmount}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.ownFundAmount.toFixed(2)) : priceContingencyTotal?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.ownFundFeAmount.toFixed(2)) : priceContingencyTotal?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.otherAmount.toFixed(2)) : priceContingencyTotal?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.otherFeAmount.toFixed(2)) : priceContingencyTotal?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Total Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.totalAmount.toFixed(2)) : priceContingencyTotal?.totalAmount.toFixed(2)}}
+                                    </td>
+                                    <td data-label="% of Total Project Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.totalProjectCost.toFixed(2)) : priceContingencyTotal?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <!--                    ========================= price contingency when null ====================-->
+                                <tr *ngIf="priceContingencyTotal == null">
+                                    <td colspan="6" style="text-align: left;">(ঘ) প্রাইস কন্টেনজেন্সি</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{blankVal?.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{blankVal?.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{blankVal?.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{blankVal?.toFixed(2)}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Total Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}}
+                                    </td>
+                                    <td data-label="% of Total Project Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal?.toFixed(2)) : blankVal?.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="6" style="text-align: left;">সর্ব মোট (ক+খ+গ+ঘ)</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.gobAmount.toFixed(2)) : grantTotal?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.gobFeAmount.toFixed(2)) : grantTotal?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{grantTotal?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{grantTotal?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{grantTotal?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{grantTotal?.thruDpAmount}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.ownFundAmount.toFixed(2)) : grantTotal?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.ownFundFeAmount.toFixed(2)) : grantTotal?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.otherAmount.toFixed(2)) : grantTotal?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.otherFeAmount.toFixed(2)) : grantTotal?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Total Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.totalAmount.toFixed(2)) : grantTotal?.totalAmount.toFixed(2)}}
+                                    </td>
+                                    <td data-label="% of Total Project Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.totalProjectCost.toFixed(2)) : grantTotal?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <br/>
+<!--                        <div *ngIf="projectSummary.projectTypeDTO.nameEn.toUpperCase() === 'TAPP'">-->
+<!--                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+<!--                                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">১১| প্রকল্প সংশোধনের কারণ (সংশোধিত প্রকল্পের ক্ষেত্রে):-->
+<!--                                    <span *ngIf="!lbl10" (click)="expand(5)">-->
+<!--                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>-->
+<!--                            </span>-->
+<!--                                    <span *ngIf="lbl10" (click)="collapse(5)">-->
+<!--                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>-->
+<!--                            </span>-->
+<!--                                    <span style="float: right">-->
+<!--                                    <label for="file-upload4">-->
+<!--                                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"-->
+<!--                                                  matTooltipPosition="above">image</mat-icon>-->
+<!--                                    </label>-->
+<!--                                        <input #file4 type="file" accept='image/*'-->
+<!--                                               (change)="uploadImageAsBase64(file4.files,'projectReason')" id="file-upload4"/>-->
+<!--                                </span>-->
+<!--                                </mat-label>-->
+<!--                            </div>-->
+<!--                            <div *ngIf="lbl10" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">-->
+<!--                                <ckeditor formControlName="projectReason" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">১১| প্রকল্প সংশোধনের কারণ (সংশোধিত প্রকল্পের ক্ষেত্রে) -ঃ &nbsp; <span>প্রযোজ্য নয়</span>
+
+                                </mat-label>
+                            </div>
+
+                        </div>
+
+                    </mat-card>
+                </div>
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                    <div class="sub-heading">
+                        <h1 *ngIf="userGroup.groupStatus === 'PLANNING-DESK'">১২| পরিকল্পনা কমিশনের বিশ্লেষণ</h1>
+                        <h1 *ngIf="userGroup.groupStatus === 'MINISTRY-DESK'">১২| পরিকল্পনা মন্ত্রণালয়ের বিশ্লেষণ</h1>
+                    </div>
+                    <mat-card>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">(ক) প্রকল্পের প্রেক্ষাপট, লক্ষ্য ও উদ্দেশ্য বিশ্লেষণঃ
+                                <span *ngIf="!lbl11ka" (click)="expand(6)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                                <span *ngIf="lbl11ka" (click)="collapse(6)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                                <span style="float: right">
+                                    <label for="file-upload5">
+                                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                  matTooltipPosition="above">image</mat-icon>
+                                    </label>
+                                        <input #file5 type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file5.files,'analysisBackground')" id="file-upload5"/>
+                                </span>
+                            </mat-label>
+                        </div>
+                        <div *ngIf="lbl11ka" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                            <ckeditor formControlName="analysisBackground" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                        </div>
+                        <br/>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">খ) প্রকল্পের উদ্দেশ্যর সাথে পঞ্চবার্ষিক পরিকল্পনা ও প্রেক্ষিত পরিকল্পনার লক্ষ্য ও উদ্দেশ্য এবং জাতিসংঘ আন্তর্জাতিক সংস্থা কর্তৃক গৃহীত উন্নয়ন লক্ষ্যমাত্রার সঙ্গতি বিশ্লেষণঃ
+                                <span *ngIf="!lbl11kha" (click)="expand(7)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                                <span *ngIf="lbl11kha" (click)="collapse(7)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                                <span style="float: right">
+                                    <label for="file-upload6">
+                                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                  matTooltipPosition="above">image</mat-icon>
+                                    </label>
+                                        <input #file6 type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file6.files,'consistencyAnalysis')" id="file-upload6"/>
+                                </span>
+                            </mat-label>
+                        </div>
+                        <div *ngIf="lbl11kha" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                            <ckeditor formControlName="consistencyAnalysis" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                        </div>
+                        <br/>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">(গ) উপর্যুক্ত বিশ্লেষণে প্রকল্পটি নীতিগতভাবে গ্রহণযোগ্য প্রতীয়মান হলে নিম্নের বিষয়সমূহ বিশ্লেষণঃ
+                                <span *ngIf="!lbl11ga" (click)="expand(8)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                                <span *ngIf="lbl11ga" (click)="collapse(8)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                                <span style="float: right">
+                                    <label for="file-upload7">
+                                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                  matTooltipPosition="above">image</mat-icon>
+                                    </label>
+                                        <input #file7 type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file7.files,'projectPrinciple')" id="file-upload7"/>
+                                </span>
+                            </mat-label>
+                        </div>
+                        <div *ngIf="lbl11ga" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                            <ckeditor formControlName="projectPrinciple" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                        </div>
+                        <br/>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">(ঘ) প্রকল্পের প্রস্তাবিত জনবলের ধরণ সংখ্যা যোগ্যতা, নিয়োগের ধরণ ইত্যাদি বিষয়সমূহ বিশ্লেষণঃ
+                                <span *ngIf="!lbl11gha" (click)="expand(9)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                                <span *ngIf="lbl11gha" (click)="collapse(9)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                                <span style="float: right">
+                                    <label for="file-upload8">
+                                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                  matTooltipPosition="above">image</mat-icon>
+                                    </label>
+                                        <input #file8 type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file8.files,'analysisType')" id="file-upload8"/>
+                                </span>
+                            </mat-label>
+                        </div>
+                        <div *ngIf="lbl11gha" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                            <ckeditor formControlName="analysisType" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                        </div>
+                        <br/>
+<!--                        <div>-->
+<!--                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+<!--                                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">(ঙ) সংশোধিত প্রকল্পের ক্ষেত্রে প্রকল্প সংশোধনের যৌক্তিকতা বিশ্লেষণ:-->
+<!--                                    <span *ngIf="!lbl11umo" (click)="expand(10)">-->
+<!--                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>-->
+<!--                            </span>-->
+<!--                                    <span *ngIf="lbl11umo" (click)="collapse(10)">-->
+<!--                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>-->
+<!--                            </span>-->
+<!--                                    <span style="float: right">-->
+<!--                                    <label for="file-upload9">-->
+<!--                                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"-->
+<!--                                                  matTooltipPosition="above">image</mat-icon>-->
+<!--                                    </label>-->
+<!--                                        <input #file9 type="file" accept='image/*'-->
+<!--                                               (change)="uploadImageAsBase64(file9.files,'rationalityAnalysis')" id="file-upload9"/>-->
+<!--                                </span>-->
+<!--                                </mat-label>-->
+<!--                            </div>-->
+<!--                            <div *ngIf="lbl11umo" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">-->
+<!--                                <ckeditor formControlName="rationalityAnalysis" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>-->
+<!--                            </div>-->
+<!--                            <br/>-->
+<!--                        </div>-->
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">(ঙ) প্রাসঙ্গিক অন্যান্য বিষয়াবলিঃ
+                                <span *ngIf="!lbl11cha" (click)="expand(11)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                                <span *ngIf="lbl11cha" (click)="collapse(11)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                                <span style="float: right">
+                                    <label for="file-upload10">
+                                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                  matTooltipPosition="above">image</mat-icon>
+                                    </label>
+                                        <input #file10 type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file10.files,'relatedOtherSubjects')" id="file-upload10"/>
+                                </span>
+                            </mat-label>
+                        </div>
+                        <div *ngIf="lbl11cha" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                            <ckeditor formControlName="relatedOtherSubjects" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="flex justify-end m-5">
+
+                    <button *ngIf="this.form.value.id" (click)="karjopotrro_Report()" mat-flat-button [color]="'accent'" type="button" class="mr-5">
+                        <mat-icon class="pr-2">print</mat-icon>
+                        <!-- {{'downloadWorkingPaper' | translate}} -->
+                        কার্যপত্র ডাউনলোড করুন
+                    </button>
+                    <button *ngIf="!this.form.value.id" (click)="save()" mat-flat-button [color]="'accent'" type="button">
+                        <!-- {{'save' | translate}} -->
+                        সংরক্ষণ করুন
+                    </button>
+                    <button *ngIf="this.form.value.id" (click)="save()" mat-flat-button [color]="'accent'" type="butto/n">
+                        <!-- {{'update' | translate}} -->
+                        হালনাগাদ করুন
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

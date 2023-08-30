@@ -1,0 +1,92 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+
+    <div class="body m-5">
+
+        <!-- CARD ONE-->
+        <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <mat-label class="heading w-full">
+                {{'ResearcherFeedback' | translate}}
+            </mat-label>
+        </div>
+        <mat-card>
+            <h1 class="pb-5"><strong>{{'ResearchTitle' | translate}} :</strong> {{proposal?.researchTitle}}</h1>
+            <table class="width-100">
+                <thead>
+                <tr>
+                    <th class="col-1">{{'Sl' | translate}}</th>
+                    <th class="col-2">{{'EvaluatorName' | translate}}/{{'Feedback' | translate}}</th>
+                    <th class="col-3">{{'ResearcherName' | translate}}/{{'Feedback' | translate}}</th>
+                    <th class="col-4">{{'PageNo' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let f of feedbackList; let i = index">
+                    <td class="text-align-centre col-1">{{i + 1}}</td>
+                    <td class="col-2">
+                        {{f.stProfileOfExpertEvaluatorsId ? f.expertEvaluatorResponseDto.name : f.newMemberResponseDto.evaluatorName}}
+                        <br/>
+                        <strong>{{'PageNoOfResearchPaper' | translate}}:</strong> {{f.pageNo1}}<br/>
+                        <strong>{{'Feedback' | translate}}: </strong><span [innerHTML]="f.evaluatorFeedback"></span>
+                    </td>
+                    <td class="col-3">
+                        <ckeditor class="p-1" [config]="minEditor" [(ngModel)]="f.researcherFeedback" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" (editorChange)="checkedValidation()"></ckeditor>
+                    </td>
+                    <td class="text-align-centre col-4">
+<!--                        <mat-form-field>-->
+                            <input class="input-border-size text-align-right" matInput type="number" required [(ngModel)]="f.pageNo2" [ngModelOptions]="{standalone: true}" (keyup)="checkedValidation()">
+<!--                        </mat-form-field>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <div class="flex justify-end mt-3 mr-2">
+                <button
+                    class="px-3 mr-2 previousIcon"
+                    mat-flat-button
+                    color="accent"
+                    type="button"
+                    (click)="previousTab()">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'Previous' | translate}}
+                </button>
+
+                <button
+                    mat-flat-button
+                    type="submit"
+                    [disabled]="saveDisable"
+                    (click)="onSubmit()"
+                    class="px-3 mr-2 toggle-sidebar-folded save-button">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span>{{ "Save" | translate }}</span>
+                </button>
+
+                <!-- <button
+                     *ngIf="presentation?.id"
+                     mat-flat-button
+                     type="submit"
+                     (click)="startPresentation()"
+                     color="primary"
+                     class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                     <mat-icon class="mr-1">play_arrow</mat-icon>
+                     <span>{{ "StartPresentation" | translate }}</span>
+                 </button>-->
+            </div>
+        </mat-card>
+
+    </div>
+
+    <!-- Main End -->
+</div>

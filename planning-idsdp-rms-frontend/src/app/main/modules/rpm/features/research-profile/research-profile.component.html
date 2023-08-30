@@ -1,0 +1,345 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header [title]="'informationOfReasearch' | translate" [subTitle]="'informationOfReasearch' | translate"></app-form-header>
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+            <div class="flex flex-row">
+                <div class="flex flex-col px-3 pb-2 w-30 p-2 m-1">
+                    <span style="font-weight: bold;">{{'research_title' | translate}}:</span>
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-70 p-2 m-1">
+                    It's demo title
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-30 p-2 m-1">
+                    <span style="font-weight: bold;">{{'name' | translate}}:</span>
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-70 p-2 m-1">
+                    Dr. Abul kalam Azad
+                </div>
+            </div>
+            <div class="flex flex-row">
+                <div class="flex flex-col px-3 pb-2 w-30 p-2 m-1">
+                    <span style="font-weight: bold;">{{'fiscal_year' | translate}}:</span>
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-70 p-2 m-1">
+                    2020-2021
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-30 p-2 m-1">
+                    <span style="font-weight: bold;">{{'designation' | translate}}:</span>
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-70 p-2 m-1">
+                    Software Engineer
+                </div>
+            </div>
+            <div class="flex flex-row">
+                <div class="flex flex-col px-3 pb-2 w-30 p-2 m-1">
+                    <span style="font-weight: bold;">{{'amount' | translate}}:</span>
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-70 p-2 m-1">
+                    30,000.00
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-30 p-2 m-1">
+                    <span style="font-weight: bold;">{{'email' | translate}}:</span>
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-70 p-2 m-1">
+                    admin@gmail.com
+                </div>
+            </div>
+            <div class="flex flex-row">
+                <div class="flex flex-col px-3 pb-2 w-30 p-2 m-1">
+                    <span style="font-weight: bold;">{{'category' | translate}}:</span>
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-70 p-2 m-1">
+                    newCategory
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-30 p-2 m-1">
+                    <span style="font-weight: bold;">{{'mobile_no' | translate}}:</span>
+                </div>
+                <div class="flex flex-col px-3 pb-2 w-70 p-2 m-1">
+                    01755612612
+                </div>
+            </div>
+
+            <div class="flex flex-row">
+                <div class="flex flex-col px-3 pb-3 w-100">
+                    <div class="flex flex-row py-1">
+                        <div class="flex justify-between rounded bg-blue-200 p-2 font-weight: 600 w-100">
+                            <h5> >> Agreement Information</h5> <img src="assets/icons/pdf_icon.png" class="w-8 object-contain">
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-1">
+                        <div class="flex justify-between rounded bg-blue-200 p-2 font-weight: 600 w-100">
+                            <h5> >> Profile Information</h5> <img src="assets/icons/pdf_icon.png" class="w-8 object-contain">
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-1">
+                        <div class="flex justify-between rounded bg-blue-200 p-2 font-weight: 600 w-100 ">
+                            <h5> >> Proposal Information</h5> <img src="assets/icons/pdf_icon.png" class="w-8 object-contain">
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-1">
+                        <div class="flex justify-between rounded bg-blue-200 p-2 font-weight: 600 w-100 ">
+                            <h5> >> Profile Marks</h5> <img src="assets/icons/pdf_icon.png" class="w-8 object-contain">
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-1">
+                        <div class="flex justify-between rounded bg-blue-200 p-2 font-weight: 600 w-100 ">
+                            <h5> >> Proposal Marks</h5> <img src="assets/icons/pdf_icon.png" class="w-8 object-contain">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col pl-3 pb-3 w-100 pl-2 pr-2 pb-2">
+                    <div class="flex flex-col bg-green-200 font-bold rounded-t-lg p-2">
+                        Presentation
+                    </div>
+                    <div class="border-2 border-t-0 border-light-blue-500 border-opacity-100">
+
+                        <div class="flex flex-row py-1">
+                            <div class="flex flex-col pl-2 pb-2 pt-2 w-100">
+                                <div class="flex justify-center bg-blue-300 p-2 font-weight: 600 w-100 ">
+                                    <h5>Date</h5>
+                                </div>
+                            </div>
+                            <div class="flex flex-col pb-2 pt-2 w-100">
+                                <div class="flex justify-center bg-blue-300 p-2 font-weight: 600 w-100 ">
+                                    <h5>Type</h5>
+                                </div>
+                            </div>
+                            <div class="flex flex-col pr-2 pb-2 pt-2 w-100">
+                                <div class="flex justify-center bg-blue-300 p-2 font-weight: 600 w-100 ">
+                                    <h5>Download</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-row py-1">
+                            <div class="flex flex-grow pl-2 pb-1 w-100">
+                                <div class="flex justify-center bg-blue-200 p-2 font-weight: 600 w-100 ">
+                                    <h5>03/04/2021</h5>
+                                </div>
+                            </div>
+                            <div class="flex flex-grow pb-1 w-100">
+                                <div class="flex justify-center bg-blue-200 p-2 font-weight: 600 w-100 ">
+                                    <h5>First Presentation</h5>
+                                </div>
+                            </div>
+                            <div class="flex flex-grow pr-2 pb-1 w-100">
+                                <div class="flex justify-center bg-blue-200 p-2 font-weight: 600 w-100 ">
+                                    <img src="assets/icons/pdf_icon.png" class="w-8 object-contain">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-row py-1">
+                            <div class="flex flex-grow pl-2 pb-1 w-100">
+                                <div class="flex justify-center bg-blue-200 p-2 font-weight: 600 w-100 ">
+                                    <h5>04/04/2021</h5>
+                                </div>
+                            </div>
+                            <div class="flex flex-grow pb-1 w-100">
+                                <div class="flex justify-center bg-blue-200 p-2 font-weight: 600 w-100 ">
+                                    <h5>Second Presentation</h5>
+                                </div>
+                            </div>
+                            <div class="flex flex-grow pr-2 pb-1 w-100">
+                                <div class="flex justify-center bg-blue-200 p-2 font-weight: 600 w-100 ">
+                                    <img src="assets/icons/pdf_icon.png" class="w-8 object-contain">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-row py-1">
+                            <div class="flex flex-grow pl-2 pb-1 w-100">
+                                <div class="flex justify-center bg-blue-200 p-2 font-weight: 600 w-100 ">
+                                    <h5>05/04/2021</h5>
+                                </div>
+                            </div>
+                            <div class="flex flex-grow pb-1 w-100">
+                                <div class="flex justify-center bg-blue-200 p-2 font-weight: 600 w-100 ">
+                                    <h5>Third Presentation</h5>
+                                </div>
+                            </div>
+                            <div class="flex flex-grow pr-2 pb-1 w-100">
+                                <div class="flex justify-center bg-blue-200 p-2 font-weight: 600 w-100 ">
+                                    <img src="assets/icons/pdf_icon.png" class="w-8 object-contain">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Grant Information -->
+            <div class="flex flex-col pl-3 pb-3 w-100 pl-2 pr-2 pb-2">
+                <div class="flex flex-col bg-green-200 font-bold rounded-t-lg p-2">
+                    Grant Information
+                </div>
+                <div class="border-2 border-t-0 border-light-blue-500 border-opacity-100">
+                    <div class="flex flex-row py-1">
+                        <div class="flex flex-col pl-2 pt-2 w-100">
+                            <div class="flex justify-center bg-gray-300 p-2 font-weight: 600 w-100 ">
+                                <h5>SL</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-col pt-2 w-100">
+                            <div class="flex justify-center bg-gray-300 p-2 font-weight: 600 w-100 ">
+                                <h5>Title</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-col pt-2 w-100">
+                            <div class="flex justify-center bg-gray-300 p-2 font-weight: 600 w-100 ">
+                                <h5>Received Date</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-col pt-2 w-100">
+                            <div class="flex justify-center bg-gray-300 p-2 font-weight: 600 w-100 ">
+                                <h5>Amount</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-col pr-2 pt-2 w-100">
+                            <div class="flex justify-center bg-gray-300 p-2 font-weight: 600 w-100 ">
+                                <h5>Download</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-1">
+                        <div class="flex flex-grow pl-2 pt-2 w-100">
+                            <div class="flex justify-center bg-gray-200 p-2 font-weight: 600 w-100 ">
+                                <h5>1</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-gray-200 p-2 font-weight: 600 w-100 ">
+                                <h5>First Installment</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-gray-200 p-2 font-weight: 600 w-100 ">
+                                <h5>08/09/2021</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-gray-200 p-2 font-weight: 600 w-100 ">
+                                <h5>30,000.00</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pr-2 pt-2 w-100">
+                            <div class="flex justify-center bg-gray-200 p-2 font-weight: 600 w-100 ">
+                                <img src="assets/icons/pdf_icon.png" class="w-8 object-contain">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-1">
+                        <div class="flex flex-grow pl-2 pt-2 w-100">
+                            <div class="flex justify-center bg-gray-200 p-2 font-weight: 600 w-100 ">
+                                <h5>2</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-gray-200 p-2 font-weight: 600 w-100 ">
+                                <h5>Second Installment</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-gray-200 p-2 font-weight: 600 w-100 ">
+                                <h5>09/09/2021</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-gray-200 p-2 font-weight: 600 w-100 ">
+                                <h5>40,000.00</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pr-2 pt-2 w-100">
+                            <div class="flex justify-center bg-gray-200 p-2 font-weight: 600 w-100 ">
+                                <img src="assets/icons/pdf_icon.png" class="w-8 object-contain">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-1">
+                        <div class="flex flex-grow pl-2 pt-2 w-100">
+                            <div class="flex justify-center bg-gray-100 p-2 font-weight: 600 w-100 ">
+                                <h5></h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-gray-100 p-2 font-weight: 600 w-100 ">
+                                <h5></h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-end bg-gray-100 p-2 font-weight: 600 w-100 ">
+                                <h5>Sub Total:</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-gray-100 p-2 font-weight: 600 w-100 ">
+                                <h5>70,000.00</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pr-2 pt-2 w-100">
+                            <div class="flex justify-center bg-gray-100 p-2 font-weight: 600 w-100 ">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-1">
+                        <div class="flex flex-grow pl-2 pt-2 w-100">
+                            <div class="flex justify-center bg-green-100 p-2 font-weight: 600 w-100 ">
+                                <h5></h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-green-100 p-2 font-weight: 600 w-100 ">
+                                <h5></h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-end bg-green-100 p-2 font-weight: 600 w-100 ">
+                                <h5>Total Grant Amount:</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-green-100 p-2 font-weight: 600 w-100 ">
+                                <h5>2,00,000.00</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pr-2 pt-2 w-100">
+                            <div class="flex justify-center bg-green-100 p-2 font-weight: 600 w-100 ">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-1 pb-2">
+                        <div class="flex flex-grow pl-2 pt-2 w-100">
+                            <div class="flex justify-center bg-green-300 p-2 font-weight: 600 w-100 ">
+                                <h5></h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-green-300 p-2 font-weight: 600 w-100 ">
+                                <h5></h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-end bg-green-300 p-2 font-weight: 600 w-100 ">
+                                <h5>Receivable Ammount:</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pt-2 w-100">
+                            <div class="flex justify-center bg-green-300 p-2 font-weight: 600 w-100 ">
+                                <h5>1,30,000.00</h5>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow pr-2 pt-2 w-100">
+                            <div class="flex justify-center bg-green-300 p-2 font-weight: 600 w-100 ">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>

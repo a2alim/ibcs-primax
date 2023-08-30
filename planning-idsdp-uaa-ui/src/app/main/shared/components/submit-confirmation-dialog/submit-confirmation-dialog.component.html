@@ -1,0 +1,21 @@
+<h2 mat-dialog-title *ngIf="title">{{title}}</h2>
+<h2 mat-dialog-title *ngIf="!title">{{'Confirmation' | translate}}</h2>
+<mat-dialog-content>
+    <p>{{message}}</p>
+    <mat-form-field class="w-full fuse-mat-dense flex-auto">
+        <input id="password" matInput type="password" placeholder="password"
+               [(ngModel)]="otp" #passwordField>
+           <button mat-icon-button type="button"
+                (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                matSuffix>
+            <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+                      [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+            <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+                      [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+        </button>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button class="no-button" (click)="confirm(false)">{{'No' | translate}}</button>
+    <button mat-button class="yes-button" cdkFocusInitial (click)="confirm(true)">{{'Yes' | translate}}</button>
+</mat-dialog-actions>

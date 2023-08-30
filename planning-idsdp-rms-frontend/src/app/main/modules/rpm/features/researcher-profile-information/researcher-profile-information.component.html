@@ -1,0 +1,414 @@
+<div class="width-100">
+    <!-- Header -->
+    <div *ngIf="loginUserInfo.userType === 'Rms_DO'">
+        <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate">
+        </app-form-header>
+    </div>
+
+    <div *ngIf="loginUserInfo.userType === 'Rms_Researcher'">
+        <app-form-header [title]="'headerTitle2' | translate" [subTitle]="'headerSubTitle2' | translate">
+        </app-form-header>
+    </div>
+
+
+
+    <!--    <div *ngIf="spinner" class="flex items-center justify-center">-->
+    <!--        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"-->
+    <!--             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+
+            <!-- Horizontal/ vertical stepper -->
+            <form class="bg-card shadow rounded ounded-2xl overflow-hidden ">
+                <ng-template [ngIf]="smallScreen" [ngIfElse]="BigScreen">
+                    <mat-vertical-stepper orientation="vertical" [linear]="false" class="tab-bar tab-color"
+                        #horizontalStepper (selectionChange)="selectionChanged($event)">
+
+                        <!-- <mat-step>
+                            <ng-container *ngIf="!loginUserInfo.isInstitutional">
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_1_title' | translate}}">{{'tab_1_title' |
+                                        translate}}</div>
+                                </ng-template>
+                            </ng-container>
+
+                            <ng-container *ngIf="loginUserInfo.isInstitutional">
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'inst_title' | translate}}">{{'inst_title' |
+                                        translate}}</div>
+                                </ng-template>
+                            </ng-container>
+
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+
+                                <ng-container *ngIf="!loginUserInfo.isInstitutional">
+                                    <app-personal-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-personal-info>
+                                </ng-container>
+
+
+                                <ng-container *ngIf="loginUserInfo.isInstitutional">
+                                    <app-institutional-personal-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-institutional-personal-info>
+                                </ng-container>
+
+                            </div>
+                        </mat-step> -->
+                        <!-- -----------------For Institutional Researcher-----------------  -->
+                        <ng-container *ngIf="loginUserInfo.isInstitutional">
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'inst_title' | translate}}">
+                                        {{'inst_title' | translate}}
+                                    </div>
+                                </ng-template>
+                                <p class="my-6 font-medium"></p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-institutional-personal-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-institutional-personal-info>
+                                </div>
+                            </mat-step>
+
+                            <mat-step #horizontalStepperStep2>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_4_title' | translate}}">{{'tab_4_title'
+                                        | translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    M2 = {{publicationInfo}}
+                                    <app-publication-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-publication-info>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'RscWorkingInOrg' | translate}}">
+                                        {{'RscWorkingInOrg' | translate}}
+                                    </div>
+                                </ng-template>
+                                <p class="my-6 font-medium"></p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-institutional-working-organization (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-institutional-working-organization>
+                                </div>
+                            </mat-step>
+
+                        </ng-container>
+                        <!-- -----------------/For Institutional Researcher-----------------  -->
+
+                        <!-- -----------------For Individual Researcher-----------------  -->
+                        <ng-container *ngIf="!loginUserInfo.isInstitutional">
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_1_title' | translate}}">{{'tab_1_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium"> </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-personal-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-personal-info>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_3_title' | translate}}">{{'tab_3_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-education-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-education-info>
+                                </div>
+                            </mat-step>
+
+                            <mat-step #horizontalStepperStep2>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_4_title' | translate}}">{{'tab_4_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    M = {{publicationInfo}}
+                                    <app-publication-info [isApplicable]="publicationInfo" (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-publication-info>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_5_title' | translate}}">{{'tab_5_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-professional-expriance (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-professional-expriance>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_6_title' | translate}}">{{'tab_6_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-research-expriance (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-research-expriance>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_7_title' | translate}}">{{'tab_7_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-profile-training-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-profile-training-info>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_2_title' | translate}}">{{'tab_2_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-relative-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-relative-info>
+                                </div>
+                            </mat-step>
+                        </ng-container>
+                        <!-- -----------------/For Individual Researcher-----------------  -->
+
+                    </mat-vertical-stepper>
+                </ng-template>
+                <ng-template #BigScreen>
+                    <mat-horizontal-stepper orientation="vertical" [linear]="false" class="tab-bar tab-color"
+                        #horizontalStepper (selectionChange)="selectionChanged($event)">
+
+                        <!-- <mat-step>
+                            <ng-container *ngIf="!loginUserInfo.isInstitutional">
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_1_title' | translate}}">{{'tab_1_title' |
+                                        translate}}</div>
+                                </ng-template>
+                            </ng-container>
+
+                            <ng-container *ngIf="loginUserInfo.isInstitutional">
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'inst_title' | translate}}">{{'inst_title' |
+                                        translate}}</div>
+                                </ng-template>
+                            </ng-container>
+
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+
+                                <ng-container *ngIf="!loginUserInfo.isInstitutional">
+                                    <app-personal-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-personal-info>
+                                </ng-container>
+
+
+                                <ng-container *ngIf="loginUserInfo.isInstitutional">
+                                    <app-institutional-personal-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-institutional-personal-info>
+                                </ng-container>
+
+                            </div>
+                        </mat-step> -->
+                        <ng-container *ngIf="loginUserInfo.isInstitutional">
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'inst_title' | translate}}">
+                                        {{'inst_title' | translate}}
+                                    </div>
+                                </ng-template>
+                                <p class="my-6 font-medium"></p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-institutional-personal-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-institutional-personal-info>
+                                </div>
+
+                            </mat-step>
+
+
+                            <mat-step #horizontalStepperStep2>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_4_title' | translate}}">{{'tab_4_title'
+                                        | translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <!-- M3 = {{publicationInfo}} -->
+                                    <app-publication-info [pNotApplicable]="publicationInfo" (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-publication-info>
+                                </div>
+                            </mat-step>
+
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'RscWorkingInOrg' | translate}}">
+                                        {{'RscWorkingInOrg' | translate}}
+                                    </div>
+                                </ng-template>
+                                <p class="my-6 font-medium"></p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-institutional-working-organization (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-institutional-working-organization>
+                                </div>
+                            </mat-step>
+                        </ng-container>
+
+                        <ng-container *ngIf="!loginUserInfo.isInstitutional">
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_1_title' | translate}}">{{'tab_1_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium"> </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-personal-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-personal-info>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_3_title' | translate}}">{{'tab_3_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-education-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-education-info>
+                                </div>
+                            </mat-step>
+
+                            <mat-step #horizontalStepperStep2>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_4_title' | translate}}">{{'tab_4_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <!-- M4 = {{publicationInfo}} -->
+                                    <app-publication-info [pNotApplicable]="publicationInfo" (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-publication-info>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_5_title' | translate}}">{{'tab_5_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-professional-expriance [proNotApplicable]="proExperience" (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-professional-expriance>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_6_title' | translate}}">{{'tab_6_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-research-expriance [rNotApplicable]="researchExp" (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-research-expriance>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_7_title' | translate}}">{{'tab_7_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-profile-training-info [tNotApplicable]="trainingInfo" (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-profile-training-info>
+                                </div>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title" title="{{'tab_2_title' | translate}}">{{'tab_2_title'
+                                        |
+                                        translate}}</div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-relative-info (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-relative-info>
+                                </div>
+                            </mat-step>
+                        </ng-container>
+
+                    </mat-horizontal-stepper>
+                </ng-template>
+
+
+            </form>
+        </div>
+
+    </div>
+    <!-- Main End -->
+</div>

@@ -1,0 +1,133 @@
+<div class="width-100">
+
+    <div *ngIf="spinner"
+         class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Header -->
+    <app-form-header [title]="'Dashboard' | translate"></app-form-header>
+
+    <div class="flex md:justify-end md:mr-2 mt-3">
+
+        <button *ngIf="!inProfileNotFound" class="px-3 mr-3 editBtn" mat-raised-button color="primary" (click)="viewProfile()">
+            <mat-icon class="mr-1">{{viewIcon}}</mat-icon>
+            {{'View_Profile' | translate}}
+        </button>
+
+        <button *ngIf="inProfileNotFound" class="px-3 mr-3 editBtn" mat-raised-button color="primary" (click)="editProfile()">
+            <mat-icon class="mr-1">{{editIcon}}</mat-icon>
+            {{'updateProfile' | translate}}
+        </button>
+
+        <!-- [disabled]="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || !status1" -->
+        <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" type="button"
+                (click)="goToResearcherProposalList()">
+            <mat-icon class="mr-1">list</mat-icon>
+            {{'researchProposalList' | translate}}
+        </button>
+
+        <button
+            [useExistingCss]="true"
+            printTitle="Proposal Information"
+            class="px-3 printBtn"
+            mat-flat-button
+            color="accent"
+            printSectionId="print" ngxPrint
+            type="button">
+            <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+            {{'print' | translate}}
+        </button>
+
+    </div>
+
+    <!-- Main Start -->
+    <div id="print" class="contentDiv flex-auto m-4 mt-0 body-color">
+        <mat-card style="background: none !important;">
+
+            <ng-container *ngIf="inProfileNotFound">
+                <div class="relative py-3 pl-4 pr-10 leading-normal text-white bg-blue-300  rounded-lg mt-2"  role="alert">
+                    <div class="text-lg font-semibold text-white"> {{'Update_your_profile' | translate}}
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="!status1">
+                <div class="relative py-3 pl-4 pr-10 mt-2 leading-normal text-yellow-700 bg-yellow-200  rounded-lg mt-2"
+                     role="alert">
+                    <div class="text-lg font-semibold text-yellow-600">
+                        {{'newProposalNotAvailable' | translate}}
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="status1">
+                <div class="relative py-3 pl-4 mt-2 pr-10 leading-normal text-green-700 bg-green-200  rounded-lg"
+                     role="alert">
+                    <div class="text-lg font-semibold text-green-600">{{'proposalFirstString' | translate}}
+                        {{advertisementStartDate | date: 'dd-MM-yyyy' | enToBn:langVal}} {{'proposalSecondString' | translate}}
+                        {{advertisementEndDate | date: 'dd-MM-yyyy' | enToBn:langVal}} {{'proposalThirdString' | translate}}
+                    </div>
+                </div>
+            </ng-container>
+
+
+            <!--- Research Information -->
+            <div class="mt-6 font-semibold text-gray-700">
+                <div class="tblTitle relative">
+                    <mat-icon class="text-gray-900 absolute inset-1 flex items-center">perm_data_setting</mat-icon>
+                    <div class="ml-7 text-gray-900">{{'researchInfo' | translate}}</div>
+                </div>
+                <mat-card>
+                    <table class="researchInfo">
+
+                        <tr>
+                            <th>
+                                {{'sl' | translate}}
+                            </th>
+                            <th>
+                                {{'researchTitleNew' | translate}}
+                            </th>
+                            <th>
+                                {{'researchStatus' | translate}}
+                            </th>
+                        </tr>
+
+                        <tr *ngFor="let contact of proposalModelsList; let i = index">
+
+                            <td class="text-center align-middle w-11">
+                                {{i+1 | enToBn:langVal}}
+                            </td>
+
+                            <td>
+                                <div class="font-bold">
+                                    <span class="font-semibold cursor-pointer text-cyan-400">{{'researchTitleLn' |
+                                        translate}} :
+                                        {{contact?.trainingName}}
+                                    </span>
+
+                                    <br>
+                                    <span class="text-amber-500 font-nomal"> {{'stFiscalYearIdLn' | translate}} :
+                                        {{contact?.fiscalYear}}
+                                    </span>
+                                </div>
+                            </td>
+
+
+                            <td class="text-pink-600 font-semibold text-center">
+                                {{contact?.proposalStatus}}
+                            </td>
+
+
+                        </tr>
+
+                    </table>
+                </mat-card>
+            </div>
+
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>

@@ -1,0 +1,146 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<div *ngIf="formIntroduction">
+    <div class="heading">
+        <h1>{{'NAV.Introduction' | translate}}</h1>
+    </div>
+    <mat-card>
+        <form class="form" [formGroup]="formIntroduction">
+            <!--1st Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'NAV.Project_Background' | translate}}
+                    <span *ngIf="!expProjectBackground" (click)="expand(1)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expProjectBackground" (click)="collapse(1)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                </mat-label>
+            </div>
+            <div *ngIf="expProjectBackground" fxLayout="row wrap"  style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload0" class="custom-file-upload">
+                    <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                     <input #file0 type="file" accept='image/*'
+                        (change)="uploadImageAsBase64(file0.files,'projectBackground')"  id="file-upload0" />
+                </div>
+
+                <ckeditor formControlName="projectBackground" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                    fxFlex.md="100%" [config]="mediumEditorConfig"></ckeditor>
+            </div>
+            <!--1st Flex Layout Div End -->
+
+            <!--2nd Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="margin1">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'NAV.Objectives_of_the_Feasibility_Study' | translate}}
+                    <span *ngIf="!expObjectiveOfTheFeasibility" (click)="expand(2)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expObjectiveOfTheFeasibility" (click)="collapse(2)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                </mat-label>
+            </div>
+            <div *ngIf="expObjectiveOfTheFeasibility" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                    <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                     <input #file1 type="file" accept='image/*'
+                        (change)="uploadImageAsBase64(file1.files,'objectiveOfTheFeasibility')"  id="file-upload1" />
+                </div>
+
+                <ckeditor formControlName="objectiveOfTheFeasibility" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                    fxFlex.md="100%" [config]="mediumEditorConfig"></ckeditor>
+            </div>
+            <!--2nd Flex Layout Div End -->
+
+            <!--3rd Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="margin1">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'NAV.Approach_and_Methodology_of_the_Feasibility_Study' | translate}}
+                    <span *ngIf="!expApproachAndMethology" (click)="expand(3)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expApproachAndMethology" (click)="collapse(3)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                </mat-label>
+            </div>
+            <div *ngIf="expApproachAndMethology" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload2" class="custom-file-upload">
+                    <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                     <input #file2 type="file" accept='image/*'
+                        (change)="uploadImageAsBase64(file2.files,'approachAndMethology')"  id="file-upload2" />
+                </div>
+
+                <ckeditor formControlName="approachAndMethology" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                    fxFlex.md="100%" [config]="mediumEditorConfig"></ckeditor>
+            </div>
+            <!--3rd Flex Layout Div End -->
+
+            <!--4th Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="margin1">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'NAV.Organization_of_the_Feasibility_Study' | translate}}
+                    <span *ngIf="!expOrganizationOfFeasibility" (click)="expand(4)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expOrganizationOfFeasibility" (click)="collapse(4)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                </mat-label>
+            </div>
+            <div *ngIf="expOrganizationOfFeasibility" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload3" class="custom-file-upload">
+                    <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                     <input #file3 type="file" accept='image/*'
+                        (change)="uploadImageAsBase64(file3.files,'organizationOfFeasibility')"  id="file-upload3" />
+                </div>
+
+                <ckeditor formControlName="organizationOfFeasibility" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                    fxFlex.md="100%" [config]="mediumEditorConfig"></ckeditor>
+            </div>
+            <!--4th Flex Layout Div End -->
+        </form>
+    </mat-card>
+</div>
+
+<div>
+    <br /><br /><br />
+    <div fxLayout="row wrap" fxLayoutAlign="end">
+        <button class="mr-2" mat-flat-button color="accent" type="button" (click)="back()">Back
+        </button>
+        <button class="mr-2" *ngIf="!update" [disabled]="spinner" mat-flat-button color="primary" type="button"
+            (click)="saveAndNext()">{{'Save&Next' |
+            translate}}</button>&nbsp;&nbsp;
+        <button class="mr-2" *ngIf="!update" [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF"
+            type="button" (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+        <button class="mr-2" *ngIf="update" [disabled]="spinner" mat-flat-button color="primary" type="button"
+            (click)="updateAndNext()">{{'Save&Next' | translate}}</button>
+        <button class="mr-2" *ngIf="update" [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF"
+            color="primary" type="button" (click)="updateAndExit()">{{'Save&Exit' | translate}}</button>
+    </div>
+</div>

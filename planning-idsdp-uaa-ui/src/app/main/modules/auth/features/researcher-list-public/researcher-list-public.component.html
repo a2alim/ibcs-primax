@@ -1,0 +1,283 @@
+<div class="w-full">
+    <!-- Header -->
+    <!-- <app-form-header [title]="'headerTitle'" [subTitle]="'headerSubTitle'"></app-form-header> -->
+
+    <!-- <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div> -->
+
+    
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+            <!-- Card Body -->
+            <div class="w-full text-center font-bold" 
+                style="
+                font-size: 30px;
+                color: #368976;
+                font-family: auto;
+                "> Final Report of Research </div>
+            <form [formGroup]="frmGroup" style="
+                border: 1px solid #d0d9d7;
+                padding: 17px 17px 0px;
+                margin-top: 11px;
+            ">
+
+                <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2 mt-4 mb-4">
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>Fiscal Year</mat-label>
+                            <mat-select formControlName="stFiscalYearId">
+                                <mat-option value="">--All--</mat-option>
+                                <mat-option *ngFor="let f of fiscalYearList" [value]="f.id">{{f.fiscalYear}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>Research Category</mat-label>
+                            <mat-select formControlName="stResearchCatTypeId">
+                                <mat-option value="">--All--</mat-option>
+                                <mat-option *ngFor="let r of researchCategoryTypeList" [value]="r.id">
+                                    {{r.categoryName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>Keyword</mat-label>
+                            <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                formControlName="hashTag" [matAutocomplete]="auto">
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.keyWord">
+                                    {{option.keyWord}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div> 
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>Field</mat-label>
+                            <mat-select formControlName="stSectorTypeId"
+                                (selectionChange)="getSubSectorTypeList($event.value)">
+                                <mat-option value="">--All--</mat-option>
+                                <mat-option *ngFor="let r of sectorTypeList" [value]="r.id">
+                                    {{r.fieldName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <mat-label>Sub-Field</mat-label>
+                            <mat-select formControlName="stSubSectorsId">
+                                <mat-option value="">--All--</mat-option>
+                                <mat-option *ngFor="let r of subSectorTypeList" [value]="r.id">
+                                    {{r.subFieldName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>                                       
+                
+                    <div>
+                        <!-- multiple -->
+                        <mat-form-field class="w-full">
+                            <mat-label>Division</mat-label>
+                            <mat-select placeholder="Select Division" 
+                                (selectionChange)="getDistrictByChangeDivision($event.value)"
+                                formControlName="divisionName">
+                                <mat-option value="">--All--</mat-option>
+                                <mat-option *ngFor="let div of divisionList" [value]="div.en_name">{{div.en_name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <!-- multiple -->
+                            
+                            <mat-label>District</mat-label>
+                            <mat-select placeholder="Select District" 
+                                (selectionChange)="getUpazilaByChangeDistrict($event.value)" formControlName="districtName">
+                                <mat-option value="">--All--</mat-option>
+                                <mat-option *ngFor="let val of viewDistrictList[0]?.list" [value]="val?.en_name">
+                                    {{val?.en_name | titlecase}}
+                                </mat-option>
+                                
+                                <!-- <mat-optgroup *ngFor="let dis of viewDistrictList" [label]="dis?.en_name" [disabled]="dis?.disabled">
+                                    <mat-option *ngFor="let val of dis.list" [value]="val?.en_name">
+                                        {{val?.en_name | titlecase}}
+                                    </mat-option>
+                                </mat-optgroup> -->
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-full">
+                            <!-- multiple -->
+                            <mat-label>Upzila</mat-label>
+                            <mat-select placeholder="Select Upazila" formControlName="upzilaName">
+                                <mat-option value="">--All--</mat-option>
+                                <mat-option *ngFor="let val of viewUpzilaList[0]?.list" [value]="val?.en_name">
+                                    {{val?.en_name | titlecase}}
+                                </mat-option>
+
+                                <!-- <mat-optgroup *ngFor="let dis of viewUpzilaList" [label]="dis?.en_name" [disabled]="dis?.disabled">
+                                    <mat-option *ngFor="let val of dis.list" [value]="val?.en_name">
+                                        {{val?.en_name | titlecase}}
+                                    </mat-option>
+                                </mat-optgroup> -->
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="flex w-full sm:justify-end md:justify-start">
+                        <div class="inline-block" style="
+                            display: flex !important;
+                            align-items: center;
+                            justify-content: center;
+                        ">
+                            <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" type="button"
+                                (click)="onSubmit()">
+                                <mat-icon class="mr-1">search</mat-icon>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <!-- List Grid -->
+            <div class="md:flex tbl-title">
+
+                <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                    <h1 class="header1">
+                        <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                        Research List
+                    </h1>
+                </div>
+
+            </div>
+            <!-- Data Table -->
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                <!--<mat-card>-->
+                <div *ngIf="isEmptyRows" class="relative mb-2 py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-200  rounded-lg mt-2"  role="alert">
+                    <div class="text-lg font-semibold text-red-600"> Data Not Found
+                    </div>
+                </div>
+
+                <div *ngIf="!isEmptyRows" class="overflow-x-auto sm:overflow-y-auto" cdkScrollable> 
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 sm:w-800 md:w-full lg:w-full">
+                        <!-- Sl Column -->
+                        <ng-container matColumnDef="sl">
+                            <th class="w-0 text-center" mat-header-cell *matHeaderCellDef> SL </th>
+                            <td class="text-center" mat-cell *matCellDef="let row; let i = index">
+                                {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="researcher_name">
+
+                            <th class="w-40 text-center" mat-header-cell *matHeaderCellDef>
+                                Research Title / Fiscal Year
+                            </th>
+
+                            <td mat-cell *matCellDef="let row">
+
+                                <span *ngIf="row?.researchTitle" class="font-semibold cursor-pointer text-cyan-400" (click)="detailsFinalReport(1,1,1)">
+                                   Research Title : {{row.researchTitle}}
+                                </span>
+
+                                <span *ngIf="row?.isInstitutional" class="font-semibold text-sm text-amber-600">
+                                    (Inst.Proposal)<br>
+                                </span>
+                                <span *ngIf="row?.fiscalYear" class="text-amber-500 font-nomal"> <br>
+                                    Fiscal Year : {{row?.fiscalYear}}
+                                </span>
+
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="st_research_cat_type_id">
+                            <th class="w-10 text-center" mat-header-cell *matHeaderCellDef> Research Category </th>
+                            <td class="text-center" mat-cell *matCellDef="let row">
+                                <ng-conatiner *ngFor="let rc of researchCategoryTypeList">
+                                    <span *ngIf="rc.id==row.stResearchCatTypeId">{{rc.categoryName}}</span>
+                                </ng-conatiner>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="st_sector_type_id">
+                            <th class="w-20 text-center" mat-header-cell *matHeaderCellDef> 
+                                <span class="text-green-800">Field</span> <br> <span class="text-red-700">Sub-Field</span>
+                            </th>
+                            <td class="text-center" mat-cell *matCellDef="let row">
+                                <span class="text-green-800">{{row?.subSectorResponseDto?.sectorTypeId?.fieldName}}</span>
+                                <span class="text-red-700" *ngIf="row?.subSectorResponseDto?.subFieldName"> 
+                                    <br> {{row?.subSectorResponseDto?.subFieldName}} 
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="location">
+                            <th class="w-20 text-center" mat-header-cell *matHeaderCellDef> Research Area </th>
+                            <td mat-cell *matCellDef="let row">
+                                <span *ngIf="row?.divisionName" class="text-amber-500 font-nomal"> 
+                                    Division : {{row?.divisionName}}
+                                </span><br>
+
+                                <span *ngIf="row?.districtName" class="font-nomal cursor-pointer text-green-600">
+                                    District : {{row.districtName}}
+                                </span>
+                                <br>
+
+                                <span *ngIf="row?.upzilaName" class="font-semibold cursor-pointer text-cyan-400">
+                                    Upzila : {{row.upzilaName}}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="hash_tag">
+                            <th class="w-10 text-center" mat-header-cell *matHeaderCellDef> Keyword </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{row.hashTag}}
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns">
+                        </tr>
+
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns">
+                        </tr>
+
+
+
+                    </table>
+
+                    <!-- mat-paginator -->
+                    <mat-paginator #paginatorRef [length]="totalElements" [pageSize]="pageSize"
+                        [pageSizeOptions]="[20, 30, 40, 50, 100]" (page)="onChangePage($event)">
+                    </mat-paginator>
+                </div>
+                
+                
+            </div>
+
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>

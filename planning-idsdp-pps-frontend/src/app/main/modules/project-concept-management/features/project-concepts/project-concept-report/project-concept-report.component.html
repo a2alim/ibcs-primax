@@ -1,0 +1,270 @@
+<style>
+    td {
+        padding: 6px;
+    }
+
+ .h{
+        padding-bottom: 2px !important;font-weight: bold;
+    } 
+
+    .value{
+        margin-left: 100px !important;
+    } 
+
+    #s {
+        padding-top: 80px;
+    }
+
+    #s1 {
+        padding-left: 130px;
+        padding-top: 65px;
+    }
+    #s2{
+       padding-left: 340px;
+       padding-top: 65px;
+       padding-bottom: 10px;
+    }
+
+    span {
+        border-top: 1px solid #000;
+    }
+</style>
+<!-- <div fxLayout="row" class="flex items-center justify-end mb-5 mr-15 ml-15 mt-4">
+    <button (click)="exportAsPdf()" mat-raised-button color="primary">Download Pdf
+    </button>
+    <button (click)="exportAsXLSX()" class="ml-3" mat-raised-button color="primary">Download Excel
+    </button>
+</div> -->
+
+<diV fxLayout="column" class="flex items-center justify-end mb-5 mr-15 ml-15 mt-4" style="background-color: white !important;">
+  
+    <div fxLayout="row" class="flex items-center justify-end mb-5 mr-15 ml-15 mt-4">
+        <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button
+                                class="btn-project-concept-edit"
+                                style="background-color: #e6922a !important; font-size: small;" 
+                                (click)="exportAsPdf()">
+                                <mat-icon style="margin-right: 5px;">outbox</mat-icon>
+                                Download DPP Related Information
+                            </button>
+    </div>
+    <div id="pdfTable" #pdfTable style="margin-left: 40px;margin-top: 20px;margin-right: 20px;">
+
+
+        <div class="head" style="font-weight: bold;text-align: center;margin-top: 5%;font-size: 13pt;">
+            <h3>PRELIMINARY DEVELOPMENT PROJECT PROFORMA/ PROPOSAL (PDPP)/<br>
+                PRELIMINARY TECHNICAL ASSISTANCE PROJECT PROFORMA/PROPOSAL<br>
+                (PTAPP) FOR AIDED PROJECTS
+            </h3>
+        </div>
+
+        <div class="1" style="font-size:12pt;margin-top: 8px;margin-left: 10%;">
+            <table >
+                <tr>
+                    <td class="h">1.</td>
+                    <td class="h">Project Title :</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{{reportData.projectConceptProposalData.titleEn}}</td>
+                </tr>
+                   
+                <tr>
+                    <td class="h">2.</td>
+                    <td class="h"> &#8560;) Sponsoring Ministry/Division : </td>
+                </tr>
+                 <tr>
+                     <td></td>
+                     <td>{{reportData.projectConceptProposalData.sponsoringMinistryDivision}}</td>
+                 </tr>
+
+                <tr>
+                    <td></td>
+                    <td class="h"> &#8561;) Executing Agency : </td>
+                </tr>
+
+               <tr>
+                 <td></td>
+                <td>{{reportData.projectConceptProposalData.executingAgency}}</td>
+               </tr>
+
+
+                <tr>
+                    <td class="h">3.</td>
+                    <td class="h">Expected Date of Commencement and Completion :</td>
+                   
+                </tr>
+
+               <tr>
+                   <td ></td>
+                   <td> {{reportData.projectConceptProposalData.exp_commencementDate |date:'dd-MMM-yyyy'}} -  {{reportData.projectConceptProposalData.exp_completionDate |date:'dd-MMM-yyyy'}}</td>
+               </tr>
+<!--  -->
+
+                <tr>
+                    <td class="h">4.</td>
+                    <td class="h">Relevance of the Proposal with Concerned Sectoral Allocation :</td>
+                    
+                </tr>  
+                
+                <tr>
+                 <td></td>
+                 <td>
+                    <p [innerHTML]="reportData.projectConceptProposalData.relevanceWithProposal"></p>
+                </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="h">5.</td>
+                    <td class="h">Main Objectives and Brief Description of the Project with Justification :</td>
+                   
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><p [innerHTML]="reportData.projectConceptProposalData.objectivesEn"></p>
+                        <p [innerHTML]="reportData.projectConceptProposalData.justificationDescription"></p>
+                    </td>
+
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="h">6.</td>
+                    <td class="h">Relevance of the Project with the Short/ Medium/ Long Term Policies/
+                        Plans/ Programmes, etc :</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td> <p [innerHTML]="reportData.projectConceptProposalData.relevanceWithShortProgram"></p></td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="h">7.</td>
+                    <td class="h">Relevance with Other Development Programmes of the Concerned Sector :</td>
+                </tr>
+
+                <tr>
+
+                    <td></td>
+                    <td><p [innerHTML]="reportData.projectConceptProposalData.relevanceWithOtherDevelopment"></td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="h">8.</td>
+                    <td class="h">Expected Socio-economic Benefits/Outputs of the Proposed Project :</td>
+                    
+                </tr>
+
+                <tr>
+                <td></td>
+                <td><p [innerHTML]="reportData.projectConceptProposalData.expectedBenefits"></td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="h">9.</td>
+                    <td class="h"> &#8560;) Estimated Amount and Cost of the Proposed Project (Taka in Lac) : </td>                  
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><p [innerHTML]="reportData.projectConceptProposalData.totalAmount"></td>
+                </tr>
+
+
+                <tr>
+                    <td></td>
+                    <td class="h"> &#8561;) Nature of Foreign Assistance (Loan/Grant/Others) : </td>
+                </tr>
+
+                <tr>
+
+                    <td></td>
+                    <td><p [innerHTML]="reportData.projectConceptProposalData.paAmount"></td>
+
+                </tr>
+
+
+                <tr>
+                    <td class="h">10.</td>
+                    <td class="h"> Likely Source of Foreign Assistance :</td>
+                    
+                </tr>
+
+                <tr>
+                    <td></td>
+                   <td>Foreign Aid: {{reportData.projectConceptProposalData.isForeign_aid==true?'Yes':'No'}} <p [innerHTML]=""></p></td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="h">11.</td>
+                    <td class="h"> Is there any proposal to undertake feasibility study for the project? If yes,<br>
+                        what would be the estimated cost, nature and likely institutional<br>
+                        arrangements for such a study? :
+                    </td>
+                    
+                </tr>
+                
+                <tr>
+                    <td></td>
+                    <td>Feasibility Study Required: {{reportData.projectConceptProposalData.isFeasibilityRequired==true?'Yes':'No'}}  <p [innerHTML]="reportData.projectConceptProposalData.descriptionFs"></td>
+
+                </tr>
+
+
+                <tr>
+                    <td>12.</td>
+                    <td class="h"> Other Relevant Information (If any) :</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>Land Required: {{reportData.projectConceptProposalData.isLandRequired==true?'Yes':'No'}}  <p [innerHTML]="reportData.projectConceptProposalData.descriptionLand"></td>
+
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>Public Private Proprietorship Needed (PPP): {{reportData.projectConceptProposalData.isPppRequired==true?'Yes':'No'}}  <p [innerHTML]="reportData.projectConceptProposalData.descriptionPpp"></td>
+
+                </tr>
+
+
+                <tr>
+                    <td></td>
+                    <td id="s"><span> Signature of the Officers Responsible for</span><br>
+                        Preparation of the Proposal with Seal & Date</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td id="s1">Signature of the <span>Head of the Agency</span> with Seal & Date</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td id="s2"><span>Signature of the Secretary of</span><br>the Sponsoring Ministry/Division
+                        with<br>Seal & Date
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</diV>

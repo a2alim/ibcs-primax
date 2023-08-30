@@ -1,0 +1,782 @@
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="show">
+    <mat-spinner></mat-spinner>
+</div>
+
+<!--============================== transaction spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--============================== // transaction spinner ===================-->
+
+<div *ngIf="!show">
+    <div class="max-w-8xl wrapper">
+        <section fxLayout fxLayoutAlign="space">
+
+            <!-- ************* Table Start ******************-->
+        <table>
+            <p     style="height: 73px !important;border-right: none !important;text-align: center;font-size: 18px;">
+                {{'Capital_Component_B' | translate}}
+
+            </p>
+            <tr>
+                <td>
+                    <div>
+                        <table class="RevenueTbl">
+                            <!-- ************* START HEAD ******************-->
+                            <thead class="sticky top-0 z-30 " style="height: 200px !important; ">
+
+                                <tr>
+                                    <th rowspan="4"></th>
+                                    <th rowspan="4">{{'colName.is_major' | translate}}</th>
+                                    <th rowspan="4">{{ "colName.economic_code" | translate }}</th>
+                                    <th rowspan="4">{{ "colName.economic_sub_code" | translate }}</th>
+                                    <th rowspan="4">{{ "colName.code_description" | translate }}</th>
+                                    <th rowspan="4">{{ "colName.Unit" | translate }}</th>
+                                    <th rowspan="4">{{ "colName.Unit_Cost" | translate }}</th>
+                                    <th rowspan="4">{{ "colName.Qty" | translate }}</th>
+                                    <th rowspan="4">{{ "colName.Total_Cost" | translate }}</th>
+
+                                    <th *ngIf="'colName.Thru_GoB' | translate; else whenFalse" colspan="7"
+                                        style="height: 59px !important;">
+                                        {{ "colName.Project_Total" | translate }}
+                                        {{(!projectSummary.isForeignAid &&
+                                        this.projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP')
+                                        ? numberPipe.convertToBanglaNumber(cumulativeDate) : cumulativeDate}}
+                                    </th>
+
+                                    <ng-template #whenFalse>
+                                        <th #whenFalse colspan="3" style="height: 59px !important;">
+                                            {{ "colName.Project_Total" | translate }}
+                                            {{numberPipe.convertToBanglaNumber(cumulativeDate)}}
+                                        </th>
+                                    </ng-template>
+                                </tr>
+                                <tr>
+                                    <th rowspan="3">
+                                        <span [innerHTML]="'colName.GoB_FE' | translate"></span>
+                                    </th>
+                                    <th colspan="4" *ngIf="'colName.Project_Aid' | translate">
+                                        {{ "colName.Project_Aid" | translate }}
+                                    </th>
+                                    <th rowspan="3">
+                                        <span [innerHTML]="'colName.Own_Fund_FE' | translate"></span>
+                                    </th>
+                                    <th rowspan="3">
+                                        <span [innerHTML]="'colName.Other_FE' | translate"></span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" *ngIf="'colName.RPA' | translate">
+                                        {{ "colName.RPA" | translate }}
+                                    </th>
+                                    <th colspan="2" *ngIf="'colName.DPA' | translate">
+                                        {{ "colName.DPA" | translate }}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th *ngIf="'colName.Thru_GoB' | translate">
+                                        {{ "colName.Thru_GoB" | translate }}
+                                    </th>
+                                    <th *ngIf="'colName.Sp_AC' | translate">
+                                        {{ "colName.Sp_AC" | translate }}
+                                    </th>
+                                    <th *ngIf="'colName.Thru_PD' | translate">
+                                        {{ "colName.Thru_PD" | translate }}
+                                    </th>
+                                    <th *ngIf="'colName.Thru_DP' | translate">
+                                        {{ "colName.Thru_DP" | translate }}
+                                    </th>
+                                </tr>
+                                <ng-container
+                                    *ngIf="!projectSummary.isForeignAid && projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP'">
+                                    <tr *ngIf="isForeignAid" class="text-center">
+                                        <td></td>
+                                        <td>১</td>
+                                        <td>২</td>
+                                        <td>৩</td>
+                                        <td>৪</td>
+                                        <td>৫</td>
+                                        <td>৬</td>
+                                        <td>৭</td>
+                                        <td>৮</td>
+                                        <td>৯</td>
+                                        <td>১০</td>
+                                        <td>১১</td>
+                                        <td>১২</td>
+                                        <td>১৩</td>
+                                        <td>১৪</td>
+                                        <td>১৫</td>
+                                    </tr>
+                                    <tr *ngIf="!isForeignAid" class="text-center">
+                                        <td></td>
+                                        <td>১</td>
+                                        <td>২</td>
+                                        <td>৩</td>
+                                        <td>৪</td>
+                                        <td>৫</td>
+                                        <td>৬</td>
+                                        <td>৭</td>
+                                        <td>৮</td>
+                                        <td>৯</td>
+                                        <td>১০</td>
+                                        <td>১১</td>
+                                    </tr>
+                                </ng-container>
+                                <ng-container *ngIf="projectSummary.isForeignAid">
+                                    <tr *ngIf="isForeignAid" class="text-center">
+                                        <td></td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                        <td>6</td>
+                                        <td>7</td>
+                                        <td>8</td>
+                                        <td>9</td>
+                                        <td>10</td>
+                                        <td>11</td>
+                                        <td>12</td>
+                                        <td>13</td>
+                                        <td>14</td>
+                                        <td>15</td>
+                                    </tr>
+                                    <tr *ngIf="!isForeignAid" class="text-center">
+                                        <td></td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                        <td>6</td>
+                                        <td>7</td>
+                                        <td>8</td>
+                                        <td>9</td>
+                                        <td>10</td>
+                                        <td>11</td>
+                                    </tr>
+                                </ng-container>
+                            </thead>
+                            <!-- ************* END HEAD ******************-->
+                            <!-- ************* START BODY ******************-->
+                            <tbody>
+                                <!-- ************* Body Row 1 ******************-->
+                                <tr>
+                                    <td colspan="4">{{ "Capital_Component_B" | translate }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td colspan="4">{{ "Capital_Component" | translate }}</td>
+                                    <ng-container *ngIf="'colName.Thru_GoB' | translate">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </ng-container>
+                                </tr>
+                                <!-- ************* Body Row 1 End ******************-->
+                                <ng-container>
+                                    <!-- ************* Dynamic Row ******************-->
+                                    <ng-container *ngFor="let capital of capitalArray; index as i">
+                                        <tr>
+                                            <!-----------------Initial Action Button-------------------------->
+                                            <td>
+                                                <button [disabled]="capital.details.isFromOriginal" mat-icon-button
+                                                    class="toggle-sidebar-folded" fxHide.lt-lg>
+                                                    <mat-icon [disabled]="capital.details.isFromOriginal"
+                                                        (click)="openDeleteDialog(i, 'c')" color="warn">delete</mat-icon>
+                                                </button>
+                                            </td>
+                                            <!----------------- Basic Column -------------------------->
+                                            <!--major-->
+                                            <td>
+                                                <mat-checkbox class="amateur ml-4 mt-3" color="primary"
+                                                              [checked]="capital.details.isBasis"
+                                                              (change)="onCheckedChangeForBasis($event, i)">
+                                                    {{"isBasis" | translate}}
+                                                </mat-checkbox>
+                                                <mat-checkbox class="amateur ml-4 mt-3" color="primary"
+                                                              [checked]="capital.details.isMajor"
+                                                              (change)="onCheckedChangeForMajor($event, i)">
+                                                    {{"isMajor" | translate}}
+                                                </mat-checkbox>
+                                            </td>
+                                            <td>
+                                                <ng-container *ngIf="capital.details.isFromOriginal">
+                                                    <p class="text-border readOnly">
+                                                        {{findEconomicDetails(capital.details.economicCodeId)}}
+                                                    </p>
+                                                </ng-container>
+                                                <ng-container *ngIf="!capital.details.isFromOriginal">
+                                                    <mat-select-search [formGroup]="capital.form"
+                                                        [controlName]="'economicCodeId'" [required]="true"
+                                                        [data]="economicCodes"
+                                                        (selectionChange)="getSubEconomicCode($event, i)">
+                                                    </mat-select-search>
+                                                </ng-container>
+
+                                                <div class="example-button-row">
+                                                    <mat-icon style="cursor: pointer;margin-top: -7px;" (click)="openDialog(i)"
+                                                        class="ml-3 mr-2" color="primary">
+                                                        <span class="material-icons-outlined">
+                                                            file_upload</span>
+                                                    </mat-icon>
+                                                    <mat-icon style="cursor: pointer;margin-top: -7px;"
+                                                        *ngIf="capital.details.attachmentId" (click)="download(i)" class="mr-2"
+                                                        color="primary">
+                                                        <span class="material-icons-outlined">file_download</span>
+                                                    </mat-icon>
+                                                    <mat-icon style="cursor: pointer;margin-top: -7px;"
+                                                        *ngIf="capital.details.attachmentId" (click)="openDeleteDialog(i, 'a')"
+                                                        color="warn">
+                                                        <span class="material-icons-outlined">
+                                                            delete_outline</span>
+                                                    </mat-icon>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <ng-container *ngIf="capital.details.isFromOriginal">
+                                                    <p class="text-border readOnly">
+                                                        {{findSubEconomicDetails(i, capital.details.subEconomicCodeId)}}
+                                                    </p>
+                                                </ng-container>
+                                                <ng-container *ngIf="!capital.details.isFromOriginal">
+                                                    <mat-select-search [formGroup]="capital.form"
+                                                        [controlName]="'subEconomicCodeId'"
+                                                        [readonly]="capital.details.isFromOriginal" [required]="true"
+                                                        [data]="subEconomicList[i] ? subEconomicList[i].codes : []"
+                                                        (selectionChange)="onSelectedSubEconomicCode($event,i)">
+                                                    </mat-select-search>
+                                                </ng-container>
+                                            </td>
+                                            <td>
+                                                <textarea matInput required [value]="capital.details.description"
+                                                    class="{{capital.details.isFromOriginal ?'readOnly':''}} h-full capital-description"
+                                                    (keyup)="onChangeDescription($event, i)"
+                                                    [readonly]="capital.details.isFromOriginal"></textarea>
+                                            </td>
+                                            <td>
+                                                <ng-container *ngIf="capital.details.isFromOriginal">
+                                                    <p class="text-border readOnly">
+                                                        {{findUnitTypeDetails(capital.details.unitId)}}
+                                                    </p>
+                                                </ng-container>
+                                                <ng-container *ngIf="!capital.details.isFromOriginal">
+                                                    <mat-select-search [formGroup]="capital.form" [controlName]="'unitId'"
+                                                        [required]="true" [data]="unitTypeList">
+                                                    </mat-select-search>
+                                                </ng-container>
+                                            </td>
+                                            <td>
+                                                <input matInput required readonly
+                                                    [value]="capital?.details?.unitCost?.toFixed(2)"
+                                                    class="readOnly field-size-right" />
+                                            </td>
+                                            <td>
+                                                <input NumbersOnly matInput [value]="capital.details.qty"
+                                                    (keyup)="onchangeAmount($event, 'qty', i, i)" required
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                            </td>
+                                            <td>
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput readonly
+                                                    class="readOnly field-size-right" required
+                                                    [value]="capital.details.totalAmount.toFixed(2)">
+                                            </td>
+
+                                            <!-------------- Total Project Part -------------------------->
+                                            <td>
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput required
+                                                    (keyup)="onChangeCapitalTotalAmount($event, 'gobAmount', i)"
+                                                    [value]="capital.details.gobAmount"
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                                <br />
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput
+                                                    (keyup)="onChangeCapitalTotalAmount($event, 'gobFeAmount', i)"
+                                                    [(ngModel)]="capital.details.gobFeAmount" required
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                            </td>
+
+                                            <td *ngIf="'colName.Thru_GoB' | translate">
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput
+                                                    (keyup)="onChangeCapitalTotalAmount($event, 'gobThruAmount', i)"
+                                                    [value]="capital.details.gobThruAmount" required
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                            </td>
+                                            <td *ngIf="'colName.Thru_GoB' | translate">
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput
+                                                    (keyup)="onChangeCapitalTotalAmount($event, 'spAcAmount', i)"
+                                                    [value]="capital.details.spAcAmount" required
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                            </td>
+                                            <td *ngIf="'colName.Thru_GoB' | translate">
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput
+                                                    (keyup)="onChangeCapitalTotalAmount($event, 'thruPdAmount', i)"
+                                                    [value]="capital.details.thruPdAmount" required
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                            </td>
+                                            <td *ngIf="'colName.Thru_GoB' | translate">
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput
+                                                    (keyup)="onChangeCapitalTotalAmount($event, 'thruDpAmount', i)"
+                                                    [value]="capital.details.thruDpAmount" required
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                            </td>
+                                            <td>
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput
+                                                    (keyup)="onChangeCapitalTotalAmount($event, 'ownFundAmount', i)"
+                                                    [value]="capital.details.ownFundAmount" required
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                                <br />
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput
+                                                    (keyup)="onChangeCapitalTotalAmount($event, 'ownFundFeAmount', i)"
+                                                    [(ngModel)]="capital.details.ownFundFeAmount" required
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                            </td>
+                                            <td>
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput
+                                                    (keyup)="onChangeCapitalTotalAmount($event, 'otherAmount', i)"
+                                                    [value]="capital.details.otherAmount" required
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                                <br />
+                                                <input onfocus="this.select()" TwoDigitDecimalNumber matInput
+                                                    (keyup)="onChangeCapitalTotalAmount($event, 'otherFeAmount', i)"
+                                                    [(ngModel)]="capital.details.otherFeAmount" required
+                                                    class="field-size-right {{capital.details.isFromOriginal ?'':'readOnly'}}"
+                                                    [readonly]="!capital.details.isFromOriginal" />
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                    <!-- ************* Dynamic Row End ******************-->
+                                    <!-- ************* Capital Sub Total Row ******************-->
+                                    <tr>
+                                        <td colspan="3" class="text-center">
+                                            <button mat-stroked-button color="warn" class="px-8 m-4" type="button"
+                                                (click)="addRevenueWithFiscalYear()">
+                                                {{ "BtnName.add_capital" | translate }}
+                                            </button>
+                                        </td>
+                                        <td colspan="5" class="text-center" style="vertical-align: middle !important">
+                                            <b>{{ "Capital_sub_total" | translate }}</b>
+                                        </td>
+                                        <td>
+                                            <input type="number" readonly matInput required
+                                                class="readOnly number-align  field-size-right"
+                                                [value]="capitalTotal?.totalAmount.toFixed(2)" />
+                                        </td>
+                                        <td>
+                                            <input type="number" readonly matInput required
+                                                class="readOnly number-align field-size-right"
+                                                [value]="capitalTotal?.gobAmount.toFixed(2)" /><br />
+                                            <input type="number" readonly matInput required
+                                                class="readOnly number-align field-size-right"
+                                                [value]="capitalTotal?.gobFeAmount.toFixed(2)" />
+                                        </td>
+
+                                        <!-- Column number 9 to 12 -->
+                                        <td *ngIf="'colName.Thru_GoB' | translate">
+                                            <input type="number" readonly matInput required
+                                                class="readOnly number-align field-size-right"
+                                                [value]="capitalTotal?.gobThruAmount.toFixed(2)" />
+                                        </td>
+                                        <td *ngIf="'colName.Thru_GoB' | translate">
+                                            <input type="number" readonly matInput required
+                                                class="readOnly number-align field-size-right"
+                                                [value]="capitalTotal?.spAcAmount.toFixed(2)" />
+                                        </td>
+                                        <td *ngIf="'colName.Thru_GoB' | translate">
+                                            <input type="number" readonly matInput required
+                                                class="readOnly number-align field-size-right"
+                                                [value]="capitalTotal?.thruPdAmount.toFixed(2)" />
+                                        </td>
+                                        <td *ngIf="'colName.Thru_GoB' | translate">
+                                            <input readonly matInput required class="readOnly number-align field-size-right"
+                                                [value]="capitalTotal?.thruDpAmount.toFixed(2)" />
+                                        </td>
+                                        <!-- /Column number 9 to 12 -->
+
+                                        <td>
+                                            <input type="number" readonly matInput required
+                                                class="readOnly number-align field-size-right"
+                                                [value]="capitalTotal?.ownFundAmount.toFixed(2)" />
+                                            <br />
+                                            <input type="number" readonly matInput required
+                                                class="readOnly number-align field-size-right"
+                                                [value]="capitalTotal?.ownFundFeAmount.toFixed(2)" />
+                                        </td>
+                                        <td>
+                                            <input type="number" readonly matInput required
+                                                class="readOnly number-align field-size-right"
+                                                [value]="capitalTotal?.otherAmount.toFixed(2)" />
+                                            <br />
+                                            <input type="number" readonly matInput required
+                                                class="readOnly number-align field-size-right"
+                                                [value]="capitalTotal?.otherFeAmount.toFixed(2)" />
+                                        </td>
+                                    </tr>
+                                    <!-- ************* Capital Sub Total Row ******************-->
+                                </ng-container>
+                            </tbody>
+                            <!-- ************* START BODY End******************-->
+                        </table>
+                    </div>
+                </td>
+
+                <!-- ************* Fiscal Year Tabs Start ******************-->
+                <ng-container *ngFor="let fy of fiscalYearWiseCost; let i = index;">
+                    <td>
+                        <div style="border: 1px solid #cccccc">
+                                    <table class="RevenueTbl">
+                                        <thead class="sticky top-0 z-30 " style="height: 200px !important; ">
+                                            <tr>
+                                                <th colspan="9" style="height:  30px !important;">
+                                                    {{ "InField.fiscal_year_next" | translate }} : {{(!projectSummary.isForeignAid
+                                                    && this.projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                                    numberPipe.convertToBanglaNumber(fy.fiscalYear) : fy.fiscalYear}}
+                                                    <button style="vertical-align: inherit;"
+                                                        *ngIf="((fiscalYearWiseCost.length > 1) && (i === 0 || i === (fiscalYearWiseCost.length-1)))"
+                                                        mat-icon-button class="toggle-sidebar-folded" fxHide.lt-lg>
+                                                        <mat-icon (click)="openDeleteDialog(i, 'y')" color="warn"
+                                                            svgIcon="heroicons_outline:x"></mat-icon>
+                                                    </button>
+                                                </th>
+                                                <ng-template #whenBanglaFontActive>
+                                                    <th colspan="4">
+                                                        <input matInput required class="fiscal-year-field-size-right" />
+                                                        <span class="material-icons-outlined" style="vertical-align: middle !important;
+                                                    cursor: pointer;">
+                                                            <mat-icon color="warn" svgIcon="heroicons_outline:x"></mat-icon>
+                                                        </span>
+                                                    </th>
+                                                </ng-template>
+                                            </tr>
+                                            <ng-container *ngIf="'colName.F_Project_Aid' | translate; else whenBanglaFontActive2">
+                                                <tr>
+                                                    <th rowspan="3">{{ "colName.Qty" | translate }}</th>
+                                                    <th rowspan="3">
+                                                        <span [innerHTML]="'colName.F_GoB_FE' | translate"></span>
+                                                    </th>
+                                                    <th colspan="4">
+                                                        {{ "colName.F_Project_Aid" | translate }}
+                                                    </th>
+                                                    <th rowspan="3">
+                                                        <span [innerHTML]="'colName.F_Own_Fund_FE' | translate"> </span>
+                                                    </th>
+                                                    <th rowspan="3">
+                                                        <span [innerHTML]=" 'colName.F_Other_FE' | translate"></span>
+                                                    </th>
+                                                    <th rowspan="3">
+                                                        {{ "colName.F_total" | translate }}
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2">
+                                                        {{ "colName.RPA" | translate }}
+                                                    </th>
+                                                    <th colspan="2">
+                                                        {{ "colName.DPA" | translate }}
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        {{ "colName.F_Thru_GoB" | translate }}
+                                                    </th>
+                                                    <th>
+                                                        {{ "colName.F_Sp_AC" | translate }}
+                                                    </th>
+                                                    <th>
+                                                        {{ "colName.F_Thru_PD" | translate }}
+                                                    </th>
+                                                    <th>
+                                                        {{ "colName.F_Thru_DP" | translate }}
+                                                    </th>
+                                                </tr>
+                                            </ng-container>
+                                            <ng-template #whenBanglaFontActive2>
+                                                <tr>
+                                                    <th>
+                                                        <span [innerHTML]="'colName.Qty' | translate"></span>
+                                                    </th>
+                                                    <th>
+                                                        <span [innerHTML]="'colName.F_GoB_FE' | translate"></span>
+                                                    </th>
+                                                    <th>
+                                                        <span [innerHTML]=" 'colName.F_Own_Fund_FE' | translate"></span>
+                                                    </th>
+                                                    <th>
+                                                        <span [innerHTML]="'colName.F_Other_FE' | translate"></span>
+                                                    </th>
+                                                    <th>
+                                                        {{ "colName.F_total" | translate }}
+                                                    </th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-container
+                                                *ngIf="projectSummary.projectTypeDTO.nameEn.toUpperCase() == 'DPP' && !projectSummary.isForeignAid">
+                                                <tr *ngIf="!isForeignAid" class="text-center">
+                                                    <td>{{numberPipe.convertToBanglaNumber(12 + (5 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(13 + (5 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(14 + (5 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(15 + (5 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(16 + (5 * i))}}</td>
+                                                </tr>
+                                                <tr *ngIf="isForeignAid" class="text-center">
+                                                    <td>{{numberPipe.convertToBanglaNumber(17 + (9 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(18 + (9 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(19 + (9 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(20 + (9 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(21 + (9 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(22 + (9 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(23 + (9 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(24 + (9 * i))}}</td>
+                                                    <td>{{numberPipe.convertToBanglaNumber(25 + (9 * i))}}</td>
+                                                </tr>
+                                            </ng-container>
+                                            <ng-container *ngIf="projectSummary.isForeignAid">
+                                                <tr *ngIf="!isForeignAid" class="text-center">
+                                                    <td>{{(12 + (5 * i))}}</td>
+                                                    <td>{{(13 + (5 * i))}}</td>
+                                                    <td>{{(14 + (5 * i))}}</td>
+                                                    <td>{{(15 + (5 * i))}}</td>
+                                                    <td>{{(16 + (5 * i))}}</td>
+                                                </tr>
+                                                <tr *ngIf="isForeignAid" class="text-center">
+                                                    <td>{{(17 + (9 * i))}}</td>
+                                                    <td>{{(18 + (9 * i))}}</td>
+                                                    <td>{{(19 + (9 * i))}}</td>
+                                                    <td>{{(20 + (9 * i))}}</td>
+                                                    <td>{{(21 + (9 * i))}}</td>
+                                                    <td>{{(22 + (9 * i))}}</td>
+                                                    <td>{{(23 + (9 * i))}}</td>
+                                                    <td>{{(24 + (9 * i))}}</td>
+                                                    <td>{{(25 + (9 * i))}}</td>
+                                                </tr>
+                                            </ng-container>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="9">
+                                                    {{ "Capital_Component" | translate }}
+                                                </td>
+                                                <ng-template>
+                                                    <td colspan="5">
+                                                        {{ "Capital_Component" | translate }}
+                                                    </td>
+                                                </ng-template>
+                                            </tr>
+                                            <!----------------- Dynamic Array List Start --------------------->
+                                            <ng-container *ngFor="let cost of fy.values; let j = index;">
+                                                <tr>
+                                                    <td class="align-top">
+                                                        <input onfocus="this.select()" matInput TwoDigitDecimalNumber
+                                                            [(ngModel)]="cost.quantity"
+                                                            (keyup)="onchangeAmount($event, 'quantity', i, j)" required
+                                                            class="number-align field-size-right" />
+                                                    </td>
+                                                    <td>
+                                                        <input onfocus="this.select()" TwoDigitDecimalNumber
+                                                            [value]="cost.gobAmount"
+                                                            (keyup)="onchangeAmount($event, 'gobAmount', i, j)" required
+                                                            class="number-align  field-size-right" />
+                                                        <br />
+                                                        <input onfocus="this.select()" #ffeText matInput TwoDigitDecimalNumber
+                                                            [(ngModel)]="cost.gobFeAmount"
+                                                            (keyup)="onchangeAmount($event, 'gobFeAmount', i, j)" required
+                                                            class="number-align field-size-right" />
+                                                    </td>
+                                                    <ng-container *ngIf="isForeignAid">
+                                                        <td>
+                                                            <input onfocus="this.select()" TwoDigitDecimalNumber
+                                                                [value]="cost.gobThruAmount"
+                                                                (keyup)="onchangeAmount($event, 'gobThruAmount', i, j)" required
+                                                                class="number-align field-size-right" />
+                                                        </td>
+                                                        <td>
+                                                            <input onfocus="this.select()" matInput TwoDigitDecimalNumber
+                                                                [value]="cost.spAcAmount"
+                                                                (keyup)="onchangeAmount($event, 'spAcAmount', i, j)" required
+                                                                class="number-align field-size-right" />
+                                                        </td>
+                                                        <td>
+                                                            <input onfocus="this.select()" matInput TwoDigitDecimalNumber
+                                                                [value]="cost.thruPdAmount"
+                                                                (keyup)="onchangeAmount($event, 'thruPdAmount', i, j)" required
+                                                                class="number-align field-size-right" />
+                                                        </td>
+                                                        <td>
+                                                            <input onfocus="this.select()" matInput TwoDigitDecimalNumber
+                                                                [value]="cost.thruDpAmount"
+                                                                (keyup)="onchangeAmount($event, 'thruDpAmount', i, j)" required
+                                                                class="number-align field-size-right" />
+                                                        </td>
+                                                    </ng-container>
+
+                                                    <td>
+                                                        <input onfocus="this.select()" matInput TwoDigitDecimalNumber
+                                                            [value]="cost.ownFundAmount"
+                                                            (keyup)="onchangeAmount($event, 'ownFundAmount', i, j)" required
+                                                            class="number-align field-size-right" />
+                                                        <br />
+                                                        <input onfocus="this.select()" matInput TwoDigitDecimalNumber
+                                                            [(ngModel)]="cost.ownFundFeAmount"
+                                                            (keyup)="onchangeAmount($event, 'ownFundFeAmount', i, j)" required
+                                                            class="number-align field-size-right" />
+                                                    </td>
+                                                    <td>
+                                                        <input onfocus="this.select()" matInput TwoDigitDecimalNumber
+                                                            [value]="cost.otherAmount"
+                                                            (keyup)="onchangeAmount($event, 'otherAmount', i, j)" required
+                                                            class="number-align field-size-right" />
+                                                        <br />
+                                                        <input onfocus="this.select()" matInput TwoDigitDecimalNumber
+                                                            [(ngModel)]="cost.otherFeAmount"
+                                                            (keyup)="onchangeAmount($event, 'otherFeAmount', i, j)" required
+                                                            class="number-align field-size-right" />
+                                                    </td>
+                                                    <td>
+                                                        <input onfocus="this.select()" matInput type="number"
+                                                            [value]="cost.totalAmount.toFixed(2)" readonly required
+                                                            class="readOnly number-align field-size-right" />
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                            <!----------------- Dynamic Array List End --------------------->
+                                            <ng-container>
+                                                <tr>
+                                                    <td class="align-top">
+                                                        <input matInput required readonly class="readOnly field-size-right"
+                                                            [value]="fy?.dppAnnualPhasingCostTotal?.qty" /><br />
+                                                    </td>
+                                                    <td>
+                                                        <input matInput required readonly class="readOnly field-size-right"
+                                                            [value]="fy?.dppAnnualPhasingCostTotal?.gobAmount.toFixed(2)" /><br />
+                                                        <input matInput required readonly class="readOnly field-size-right"
+                                                            [value]="fy?.dppAnnualPhasingCostTotal?.gobFeAmount.toFixed(2)" />
+                                                    </td>
+                                                    <ng-container *ngIf="isForeignAid">
+                                                        <td>
+                                                            <input matInput readonly required class="readOnly field-size-right"
+                                                                [value]="fy?.dppAnnualPhasingCostTotal?.gobThruAmount.toFixed(2)" />
+                                                        </td>
+                                                        <td>
+                                                            <input matInput required readonly class="readOnly field-size-right"
+                                                                [value]="fy?.dppAnnualPhasingCostTotal?.spAcAmount.toFixed(2)" />
+                                                        </td>
+                                                        <td>
+                                                            <input matInput required readonly class="readOnly field-size-right"
+                                                                [value]="fy?.dppAnnualPhasingCostTotal?.thruPdAmount.toFixed(2)" />
+                                                        </td>
+                                                        <td>
+                                                            <input matInput required readonly class="readOnly field-size-right"
+                                                                [value]="fy?.dppAnnualPhasingCostTotal?.thruDpAmount.toFixed(2)" />
+                                                        </td>
+                                                    </ng-container>
+                                                    <td>
+                                                        <input matInput required readonly class="readOnly field-size-right"
+                                                            [value]="fy?.dppAnnualPhasingCostTotal?.ownFundAmount.toFixed(2)" />
+                                                        <br />
+                                                        <input matInput required readonly class="readOnly field-size-right"
+                                                            [value]="fy?.dppAnnualPhasingCostTotal?.ownFundFeAmount.toFixed(2)" />
+                                                    </td>
+                                                    <td>
+                                                        <input matInput required readonly class="readOnly field-size-right"
+                                                            [value]="fy?.dppAnnualPhasingCostTotal?.otherAmount.toFixed(2)" />
+                                                        <br />
+                                                        <input matInput required readonly class="readOnly field-size-right"
+                                                            [value]="fy?.dppAnnualPhasingCostTotal?.otherFeAmount.toFixed(2)" />
+                                                    </td>
+                                                    <td>
+                                                        <input matInput required readonly class="readOnly field-size-right"
+                                                            [value]="fy?.dppAnnualPhasingCostTotal?.totalAmount.toFixed(2)" />
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- ************* Fiscal Year Tabs End ******************-->
+
+            </tr>
+        </table>
+            <!-- ************* Table End ******************-->
+
+
+
+        </section>
+
+    </div>
+    <!-- ************* Bottom Buttons List ******************-->
+    <div>
+        <br/>
+        <label style="font-weight: 500">* DOSA, CONTASA, SAFE, Imprest etc</label>
+        <br/><br/>
+        <div fxLayout="row wrap" fxLayoutAlign="end">
+            <button mat-flat-button color="primary" type="button"
+                    [disabled]="spinner"
+                    (click)="onNextTab()">{{ "colName.save_next" | translate }}</button>&nbsp;&nbsp;
+            <button mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                    [disabled]="spinner"
+                    (click)="saveAndExit()">{{ "colName.save_exit" | translate }}
+            </button>
+        </div>
+    </div>
+    <!-- ************* Bottom Buttons End ******************-->
+</div>
+
+
+
+  <!-- ************* Upload Attachment ******************-->
+
+
+<div>
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callAPIDialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <h1>Upload Attachment</h1>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <form [formGroup]="frmGroup" class="p-8">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                       fxFlex.xs="100%">Attachment<strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                            class="fuse-mat-dense flex-auto mt-5">
+                                <ngx-mat-file-input formControlName="attachmentId"
+                                                    (change)="uploadFile($event.target.files)" [accept]="'.pdf'"
+                                                    placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>Attachment is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button (click)="cancelAttachmentUpload()" class="mr-2" mat-flat-button color="accent" type="button" mat-dialog-close>Cancel</button>
+
+            <button class="mr-2" (click)="saveFile()" [disabled]="!frmGroup.valid || spinner"
+                    mat-flat-button color="primary" type="button"
+                    [mat-dialog-close]="true" cdkFocusInitial>Save
+            </button>
+        </mat-dialog-actions>
+
+    </div>
+</ng-template>
+</div>

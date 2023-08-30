@@ -1,0 +1,104 @@
+<div style="width: 100%">
+    <!-- Header -->
+
+    <app-form-header class="no-print" [subTitle]="'headerOfSubtitle' | translate" [title]="'header' | translate">
+    </app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="flex md:justify-end md:mr-3 mt-1 no-print">
+                <button class="px-3 mr-2 previousIcon" [routerLink]="['/progress-verification']" mat-flat-button
+                    color="accent" type="button">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'previous' | translate}}
+                </button>
+
+                <button (click)="download()" class="px-3 mr-2 downloadBtn" color="accent" mat-flat-button type="button">
+                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                    {{'download' | translate}}
+                </button>
+
+                <button class="px-3 mr-2 printBtn" mat-flat-button color="accent" (click)="print()" type="button">
+                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                    {{'print' | translate}}
+                </button>
+
+                <!-- <button class="px-3 mr-2 downloadBtn" mat-flat-button color="accent" (click)="download()" type="button">
+                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                    {{'download' | translate}}
+                </button> 
+               -->
+
+            </div>
+            <!-- CARD ONE-->
+            <mat-card class="mt-3 pa-1" id="printPage">
+                <div class="w-full sm:w-auto md:w-full lg:w-full" id="printPage">
+                    <div class="mx-auto w-full text-center" style="font-size: 16px;">
+                        <h1 class="font-semibold" style="font-size: 25px;text-decoration: underline;">গবেষণা প্রতিষ্ঠান
+                            পরিবীক্ষণ প্রতিবেদন</h1><br>
+
+                        <!-- VIEW OPTION START  -->
+                        <div class="text-justify">
+
+                            <div>
+                                <b>{{ 'institution' |translate }} :</b><br>
+                                {{progressVerificationModel?.trainingInstituteProfileModel?.trainingInstituteName}},
+                                {{progressVerificationModel?.trainingInstituteProfileModel?.presentAddress}}
+                            </div>
+
+                            <div class="mt-3">
+                                <b>{{ 'researchTitle' |translate }} :</b><br>
+                                {{progressVerificationModel?.proposalModel.trainingName}}
+                            </div>
+
+                            <div class="mt-3">
+                                <b>{{ 'dateOfObservation' |translate }} :</b><br>
+                                {{progressVerificationModel?.verificationDate | date:'dd/MM/yyyy'}}
+                            </div>
+
+                            <div class="mt-3">
+                                <b>{{ 'Number of Manpower' |translate }} :</b><br>
+                                {{progressVerificationModel?.numberOfManPower}}
+                            </div>
+
+                            <div class="mt-3">
+                                <b>{{ 'examiner' |translate }} :</b><br>
+                                {{progressVerificationModel?.examiner}}
+                            </div>
+
+                            <div class="mt-3">
+                                <b>{{ 'Organization Acitivity' |translate }} :</b><br>
+                                <div [innerHTML]="progressVerificationModel?.organizationActivity"></div>
+                            </div>
+
+                            <!-- ============================= -->
+
+                            <div class="mt-3">
+                                <b>{{ 'Monitoring' |translate }} :</b><br>
+                                <div [innerHTML]="progressVerificationModel?.monitoring"></div>
+                            </div>
+
+                            <div class="mt-3">
+                                <b>{{ 'Comment' |translate }} :</b><br>
+                                <div [innerHTML]="progressVerificationModel?.comment"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

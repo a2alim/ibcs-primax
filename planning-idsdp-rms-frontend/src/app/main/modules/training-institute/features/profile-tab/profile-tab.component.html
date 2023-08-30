@@ -1,0 +1,92 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'head' | translate" [subTitle]="'sub' | translate"></app-form-header>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <!-- Horizontal stepper -->
+            <form class="bg-card shadow rounded ounded-2xl overflow-hidden ">
+                <ng-template [ngIf]="smallScreen" [ngIfElse]="BigScreen">
+
+                    <mat-vertical-stepper [linear]="false" class="tab-bar tab-color" #horizontalStepper
+                        (selectionChange)="selectionChanged($event)">
+
+                        <mat-step>
+
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'personalInfo' | translate}}">{{'personalInfo' |
+                                    translate}}</div>
+                            </ng-template>
+
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-profile-edit (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-profile-edit>
+                            </div>
+
+                        </mat-step>
+
+
+                        <mat-step>
+
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'formTitle' | translate}}">{{'formTitle' |
+                                    translate}}</div>
+                            </ng-template>
+
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-trainers *ngIf="profileid" (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-trainers>
+                            </div>
+
+                        </mat-step>
+
+                    </mat-vertical-stepper>
+
+                </ng-template>
+
+                <ng-template #BigScreen>
+
+                    <mat-horizontal-stepper [linear]="false" class="tab-bar tab-color" #horizontalStepper
+                        (selectionChange)="selectionChanged($event)">
+
+                        <mat-step>
+
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'personalInfo' | translate}}">{{'personalInfo' |
+                                    translate}}</div>
+                            </ng-template>
+
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-profile-edit (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-profile-edit>
+                            </div>
+
+                        </mat-step>
+
+
+                        <mat-step>
+
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" title="{{'formTitle' | translate}}">{{'formTitle' |
+                                    translate}}</div>
+                            </ng-template>
+                            
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-trainers (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-trainers>
+                            </div>
+
+                        </mat-step>
+
+                    </mat-horizontal-stepper>
+                </ng-template>
+            </form>
+        </div>
+    </div>
+    <!-- Main End -->
+</div>

@@ -1,0 +1,389 @@
+<div style="width: 100%">
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">DPP/TAPP Management</div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">Home > Project Scrutiny Committee Working Plan</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!show">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="show && form" class="list-page-outside-body">
+        <form class="form" [formGroup]="form">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                <div class="heading">
+                    <h1>১| উদ্যোগী মন্ত্রণালয় ও বাস্তবায়নকারী সংস্থা</h1>
+                </div>
+                <mat-card>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-2">
+                        <mat-label fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">(ক) উদ্যোগী মন্ত্রণালয়:</mat-label>
+                        <mat-label class="readOnly" fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">{{objectiveCost?.ministryDivision}}</mat-label>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-2">
+                        <mat-label fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">(খ) বাস্তবায়নকারী সংস্থা:</mat-label>
+                        <mat-label fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">{{objectiveCost?.implementingAgency}}</mat-label>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-2">
+                        <mat-label fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">২| প্রকল্পের বাস্তবায়নকাল:</mat-label>
+                        <mat-label fxFlex="80%" fxFlex.md="20%" fxFlex.sm="70%" fxFlex.xs="100%">{{numberPipe.convertToBanglaNumber(objectiveCost?.dateCommencement+' - '+ objectiveCost?.dateCompletion)}}</mat-label>
+                    </div>
+                </mat-card>
+            </div>
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                <div class="heading">
+                    <h1>প্রকল্প এলাকা</h1>
+                </div>
+                <mat-card>
+                    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                        <!--Table Start-->
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 5%" class="top-header">ক্রমিক</th>
+                                    <th style="width: 10%" class="top-header">বিভাগ</th>
+                                    <th style="width: 10%" class="top-header">জেলা</th>
+                                    <th style="width: 20%" class="top-header">উপজেলা/সিটি কর্পোরেশন/পৌরসভা</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let up of upazilas; let i = index">
+                                <td style="width: 5%"  *ngIf="up.dSpan !== 0" [rowSpan]="up.dSpan">{{up.sl}}</td>
+                                <td style="width: 10%" *ngIf="up.dSpan !== 0" [rowSpan]="up.dSpan">
+                                    {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up.upazila.zilla?.division?.nameBn : up.upazila.zilla?.division?.nameEn}}
+                                </td>
+                                <td style="width: 10%" *ngIf="up.zSpan !== 0" [rowSpan]="up.zSpan">
+                                    {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up.upazila.zilla?.nameBn : up.upazila.zilla?.nameEn}}
+                                </td>
+                                <td style="width: 20%">
+                                    {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up.upazila.nameBn : up.upazila.nameEn}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </mat-card>
+            </div>
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                <div class="heading">
+                    <h1>৩| প্রকল্পের প্রাক্কলিত ব্যয় (লক্ষ টাকা)</h1>
+                </div>
+                <mat-card>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th>অর্থায়ন</th>
+                            <th>মূল</th>
+<!--                            <th>প্রথম সংশোধিত প্রযোজ্য ক্ষেত্রে</th>-->
+<!--                            <th>দ্বিতীয় সংশোধিত প্রযোজ্য ক্ষেত্রে</th>-->
+                            <th>মোট</th>
+                        </tr>
+                        <tr>
+                            <td>মোট</td>
+                            <td>{{projectSummary?.totalAmount}}</td>
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+                            <td>{{projectSummary?.totalAmount}}</td>
+                        </tr>
+                        <tr>
+                            <td>জিওবি</td>
+                            <td>{{projectSummary?.gobAmount}}</td>
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+                            <td>{{projectSummary?.gobAmount}}</td>
+                        </tr>
+                        <tr>
+                            <td>প্রকল্প সাহায্য</td>
+                            <td>{{projectSummary?.paAmount}}</td>
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+                            <td>{{projectSummary?.paAmount}}</td>
+                        </tr>
+                        <tr>
+                            <td>নিজস্ব তহবিল</td>
+                            <td>{{projectSummary?.ownFundAmount}}</td>
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+                            <td>{{projectSummary?.ownFundAmount}}</td>
+                        </tr>
+                        <tr>
+                            <td>অন্যান্য</td>
+                            <td>{{projectSummary?.otherAmount}}</td>
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+                            <td>{{projectSummary?.otherAmount}}</td>
+                        </tr>
+                    </table>
+                </mat-card>
+            </div>
+            <div *ngIf="projectSummary?.projectTypeDTO?.nameEn.toLowerCase()==='dpp'" class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                <div class="heading">
+                    <h1>৪| প্রকল্পের অর্থায়নের ধরণ ও উৎস</h1>
+                </div>
+                <mat-card>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th>ধরন/উৎস</th>
+                            <th>জিওবি <br> (বৈদেশিক মূদ্রা)</th>
+                            <th *ngIf="projectSummary?.isForeignAid">PA <br> (RPA)</th>
+                            <th>নিজস্ব অর্থায়ন <br> (বৈদেশিক মূদ্রা)</th>
+                            <th>অন্যান্য <br> (বৈদেশিক মূদ্রা)</th>
+                            <th *ngIf="projectSummary?.isForeignAid">PA Sources</th>
+                        </tr>
+                        <tr *ngIf="!projectSummary?.isForeignAid">
+                            <td class="text-center">১</td>
+                            <td class="text-center">২</td>
+                            <td class="text-center">৩</td>
+                            <td class="text-center">৪</td>
+                        </tr>
+                        <tr *ngIf="projectSummary?.isForeignAid">
+                            <td class="text-center">১</td>
+                            <td class="text-center">২</td>
+                            <td class="text-center">৩</td>
+                            <td class="text-center">৪</td>
+                            <td class="text-center">৫</td>
+                            <td class="text-center">৬</td>
+                        </tr>
+                        <tr *ngFor="let mode of objectiveCost?.modeFinanceList; let i = index">
+                            <td>{{ mode.modeSource }}<br>{{mode.modeSourceVal}}</td>
+                            <td>{{ mode.gob.toFixed(2) }}<br>{{mode.gobFe.toFixed(2)}}</td>
+                            <td *ngIf="projectSummary?.isForeignAid">{{ mode.pa.toFixed(2) }}<br>{{mode.paRpa.toFixed(2)}}</td>
+                            <td>{{ mode.ownFund.toFixed(2) }}<br>{{mode.ownFundFe.toFixed(2)}}</td>
+                            <td>{{ mode.others.toFixed(2) }}<br>{{mode.othersFe.toFixed(2)}}</td>
+                            <td *ngIf="projectSummary?.isForeignAid">{{mode.paSources}}</td>
+                        </tr>
+                        <tr *ngIf="objectiveCost?.modeFinanceList.length > 0">
+                            <td>মোট</td>
+                            <td>{{grandGob?.toFixed(2)}}<br>{{grandGobFe?.toFixed(2)}}</td>
+                            <td *ngIf="projectSummary?.isForeignAid">{{grandPa?.toFixed(2)}}<br>{{grandPaRpa?.toFixed(2)}}</td>
+                            <td>{{grandOwnFund?.toFixed(2)}}<br>{{grandOwnFundFe?.toFixed(2)}}</td>
+                            <td>{{grandOthers?.toFixed(2)}}<br>{{grandOthersFe?.toFixed(2)}}</td>
+                            <td *ngIf="projectSummary?.isForeignAid"></td>
+                        </tr>
+                    </table>
+                </mat-card>
+            </div>
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                <mat-card>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">৬| বার্ষিক উন্নয়ন কর্মসূচিতে অবস্থান ও বরাদ্দ:
+                            <span *ngIf="!lbl6" (click)="expand(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl6" (click)="collapse(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl6" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                            <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                        </div>
+                        <ckeditor formControlName="sanctionSchedule" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <br/>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">৭| প্রকল্পের উদ্দেশ্য:
+                            <span *ngIf="!lbl7" (click)="expand(2)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl7" (click)="collapse(2)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl7" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                            <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                        </div>
+                        <ckeditor formControlName="projectPurpose" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <br/>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">৮| প্রকল্পের মূল কার্যক্রম/অউতপুত:
+                            <span *ngIf="!lbl8" (click)="expand(3)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl8" (click)="collapse(3)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl8" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                            <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                        </div>
+                        <ckeditor formControlName="mainActivity" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <br/>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">৯| প্রকল্পের অঙ্গভিত্তিক:
+                            <span *ngIf="!lbl9" (click)="expand(4)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl9" (click)="collapse(4)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl9" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                            <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                        </div>
+                        <ckeditor formControlName="partWiseExpense" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <br/>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">১০| প্রকল্প সংশোধনের কারণ সংশোধিত প্রকল্পের ক্ষেত্রে:
+                            <span *ngIf="!lbl10" (click)="expand(5)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl10" (click)="collapse(5)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl10" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                            <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                        </div>
+                        <ckeditor formControlName="projectReason" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                </mat-card>
+            </div>
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+                <div class="heading">
+                    <h1>১০| প্রকল্প সংশোধনের কারণ সংশোধিত প্রকল্পের ক্ষেত্রে</h1>
+                </div>
+                <mat-card>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">(ক) প্রকল্পের প্রেক্ষাপট, লক্ষ্য ও উদ্দেশ্য বিশ্লেষণঃ
+                            <span *ngIf="!lbl11ka" (click)="expand(6)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl11ka" (click)="collapse(6)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl11ka" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                            <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                        </div>
+                        <ckeditor formControlName="analysisBackground" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <br/>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">খ) প্রকল্পের উদ্দেশ্যর সাথে পঞ্ছবার্শিক পরিকল্পনা ও প্রেক্ষিত পরিকল্পনার লক্ষ্য ও উদ্দেশ্য এবং জাতিসংঘ আন্তর্জাতিক সংস্থা কর্তৃক গৃহীত উন্নয়ন লক্ষ্যমাত্রার সঙ্গতি বিশ্লেষণ:
+                            <span *ngIf="!lbl11kha" (click)="expand(7)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl11kha" (click)="collapse(7)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl11kha" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                            <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                        </div>
+                        <ckeditor formControlName="consistencyAnalysis" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <br/>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">(গ) উপর্যুক্ত বিশ্লেষণে প্রকল্পটি নীতিগতভাবে গ্রহণযোগ্য পপ্রতীয়মান হলে নিম্নের বিষয়সমূহ বিশ্লেষণঃ
+                            <span *ngIf="!lbl11ga" (click)="expand(8)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl11ga" (click)="collapse(8)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl11ga" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                            <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                        </div>
+                        <ckeditor formControlName="projectPrinciple" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <br/>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">(ঘ) প্রকল্পের প্রস্তাবিত জনবলের ধরণ সংখ্যা যোগ্যতা, নিয়োগের ধরণ ইত্যাদি বিষয়সমূহ বিশ্লেষণ:
+                            <span *ngIf="!lbl11gha" (click)="expand(9)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl11gha" (click)="collapse(9)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl11gha" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                            <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                        </div>
+                        <ckeditor formControlName="analysisType" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <br/>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">(ঙ) সংশোধিত প্রকল্পের ক্ষেত্রে প্রকল্প সংশোধনের যৌক্তিকতা বিশ্লেষণ:
+                            <span *ngIf="!lbl11umo" (click)="expand(10)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl11umo" (click)="collapse(10)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl11umo" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <div class="custom-file-upload-div">
+                            <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                            <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                        </div>
+                        <ckeditor formControlName="rationalityAnalysis" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <br/>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">(চ) প্রাসঙ্গিক অন্যান্য বিষয়াবলি:
+                            <span *ngIf="!lbl11cha" (click)="expand(11)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="lbl11cha" (click)="collapse(11)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="lbl11cha" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                    <div class="custom-file-upload-div">
+                        <label for="file-upload" class="custom-file-upload"><mat-icon class="custom-image-icon">image</mat-icon></label>
+                        <input #file type="file" accept='image/*' (change)="uploadImageAsBase64(file.files,'objectivesEn')"  id="file-upload" />
+                    </div>
+                    <ckeditor formControlName="relatedOtherSubjects" fxFlex="100%" fxFlex.md="100%" fxFlex.xs="100%"  fxFlex.sm="100%" required [config]="minEditorConfig"></ckeditor>
+                </div>
+                </mat-card>
+            </div>
+            <div class="flex justify-end m-5">
+                <button *ngIf="!this.form.value.id" (click)="save()" mat-flat-button [color]="'accent'" type="button">সংরক্ষন করুন</button>
+                <button *ngIf="this.form.value.id" (click)="save()" mat-flat-button [color]="'accent'" type="button">আপডেট করুন</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,163 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitleFeedback' | translate" [subTitle]="'headerFeedback' | translate"></app-form-header>
+
+ <!-- Main Start -->
+ <div class="flex-auto m-7 body-color">
+    <mat-card class="tab-color">
+        <!-- Card Body -->
+
+        <div class="flex md:justify-end">
+            <button
+                class="px-2 addNewBtn"
+                mat-flat-button
+                color="accent"
+                (click)="add()"
+                type="button">
+                <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                {{'addNew' | translate}}
+            </button>
+        </div>
+
+        <!-- List Grid -->
+        <div class="md:flex tbl-title">
+            <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                <h1 class="header1">
+                    <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                    {{'searchTitleFeedback' | translate}}
+                </h1>
+            </div>
+
+            <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-right">
+                <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                    <!--<mat-label>Filter</mat-label>-->
+                    <input
+                        matInput
+                        (keyup)="applyFilter($event)"
+                        [placeholder]="'search'|translate"
+                        #input/>
+                    <button mat-button matPrefix mat-icon-button>
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+        <!--<mat-card>-->
+            <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                    <!-- Sl Column -->
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl' | translate}} </th>
+                        <td class="text-center" mat-cell *matCellDef="let row; let i = index">
+                            {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                         </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="stFiscalYearId">
+                        <th mat-header-cell *matHeaderCellDef> {{'stFiscalYearId' | translate}} </th>
+                        <td mat-cell *matCellDef="let row">
+                             <ng-container *ngFor="let f of fiscalYearListFull">
+                            <span *ngIf="row.stFiscalYearId==f.id" >{{f.fiscalYear}}</span>
+                            </ng-container></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="personName">
+                        <th mat-header-cell *matHeaderCellDef> {{'personName' | translate}} </th>
+                        <td mat-cell *matCellDef="let row">{{row.personName}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="designation">
+                        <th mat-header-cell *matHeaderCellDef> {{'designation' | translate}} </th>
+                        <td mat-cell *matCellDef="let row">{{row.designation}} </td>
+                    </ng-container>
+
+                    <!-- <ng-container matColumnDef="forType">
+                        <th mat-header-cell *matHeaderCellDef> {{'forType' | translate}} </th>
+                        <td mat-cell *matCellDef="let row">{{row.forType}} </td>
+                    </ng-container> -->
+
+                     <!-- <ng-container matColumnDef="active">
+                        <th mat-header-cell *matHeaderCellDef class="w-32"> {{'status' | translate}} </th>
+                        <td class="text-center" mat-cell *matCellDef="let row">
+                             <span class="active" *ngIf="row.active; else elseDiv">Active</span>
+                             <ng-template #elseDiv><span class="inactive">Inactive</span></ng-template>
+                        </td>
+                    </ng-container> -->
+
+                    <ng-container matColumnDef="mobileNo">
+                        <th mat-header-cell *matHeaderCellDef> {{'mobileNo' | translate}} </th>
+                        <td mat-cell *matCellDef="let row">{{row.mobileNo}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="emailAddress">
+                        <th mat-header-cell *matHeaderCellDef> {{'emailAddress' | translate}} </th>
+                        <td mat-cell *matCellDef="let row">{{row.emailAddress}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fileName">
+                        <th mat-header-cell *matHeaderCellDef> {{'fileName' | translate}} </th>
+                        <td mat-cell *matCellDef="let row">{{row.fileName}} </td>
+                    </ng-container>
+
+                    <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}} </th>
+                            <td class="text-center" mat-cell *matCellDef="let row">
+                                <div class="buttons">
+                                    <button (click)="viewDetails(row)"
+                                            mat-icon-button
+                                            class="toggle-sidebar-folded"
+                                            matTooltip="View Details"
+                                            fxHide.lt-lg>
+                                        <mat-icon *ngIf="viewIcon"
+                                            color="primary">{{viewIcon}}
+                                        </mat-icon>
+                                    </button>
+
+                                    <button (click)="editRow(row)"
+                                            mat-icon-button
+                                            class="toggle-sidebar-folded"
+                                            matTooltip="Edit"
+                                            fxHide.lt-lg  [disabled]="row.sendingStatus==2 ?true:false">
+                                        <mat-icon *ngIf="editIcon"
+                                            color="accent">{{editIcon}}
+                                        </mat-icon>
+                                    </button>
+
+                                    <button (click)="openDialog(row.uuid)"
+                                            mat-icon-button
+                                            class="toggle-sidebar-folded"
+                                            matTooltip="Delete"
+                                            fxHide.lt-lg>
+                                        <mat-icon *ngIf="deleteIcon"
+                                            color="warn">{{deleteIcon}}
+                                        </mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                    <!-- Initialized Table Header And Dataset-->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+        <!-- mat-paginator -->
+            <mat-paginator
+                #paginatorRef
+                [length]="totalElements"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="onChangePage($event)">
+            </mat-paginator>
+        </div>
+    </mat-card>
+
+
+</div>
+<!-- Main End -->
+
+    </div>

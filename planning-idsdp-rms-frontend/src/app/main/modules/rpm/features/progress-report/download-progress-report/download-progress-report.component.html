@@ -1,0 +1,145 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <mat-card id="profileOuterBody" class="tab-color">
+        <div class="flex flex-col bg-card shadow rounded overflow-hidden mt-5 md:mt-5 sm:mt-5">
+            <div class="heading">
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                        <h3 class="md:mt-2">{{'progressReport' | translate}}<span> </span></h3>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                        <div class="flex md:justify-end">
+                            <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent"
+                                    (click)="back()" type="button">
+                                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                {{'previous' | translate}}
+                            </button>
+
+                            <button class="px-3 mr-2 downloadBtn" mat-flat-button
+                                    color="accent" (click)="download()" type="button">
+                                <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                                {{'download' | translate}}
+                            </button>
+
+                            <button class="px-3 mr-2 printBtn" mat-flat-button color="accent" (click)="print('print')"
+                                    type="button">
+                                <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                {{'print' | translate}}
+                            </button>
+
+                            <!--<button class="px-5" mat-raised-button (click)="openDialogForSend()" style="background: Black;color:white">
+                                <mat-icon class="mr-1">{{sendIcon}}</mat-icon>
+                                <div>{{'send' | translate}}</div>
+                            </button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="print">
+            <mat-card class="tab-color">
+                <div class="heading mt-2 px-2 mx-2">
+                    <h1>{{'cardHeader1' | translate}}</h1>
+                </div>
+                <div class="flex border-1 px-2 mx-2 mt-2">
+                    <div class="flex-auto w-30">
+                        {{'researchTitle' | translate}}
+                    </div>
+                    <div class="flex-auto w-60">
+                        {{title}}
+                    </div>
+                </div>
+                <div class="flex border-1 px-2 mx-2">
+                    <div class="flex-auto w-30">
+                        {{'fiscalYear' | translate}}
+                    </div>
+                    <div class="flex-auto w-60">
+                        {{fiscalYear}}
+                    </div>
+                </div>
+                <div class="flex border-1 px-2 mx-2">
+                    <div class="flex-auto w-30">
+                        {{'researchCategory' | translate}}
+                    </div>
+                    <div class="flex-auto w-60">
+                        {{category}}
+                    </div>
+                </div>
+                <div class="flex border-1 px-2 mx-2">
+                    <div class="flex-auto w-30">
+                        {{'researchCompletePercentage' | translate}}
+                    </div>
+                    <div class="flex-auto w-60">
+                        {{percentage}}
+                    </div>
+                </div>
+                <div class="heading mt-4 px-2 mx-2">
+                    <h1>{{'cardHeader2' | translate}}</h1>
+                </div>
+                <div *ngIf="taskLists.length == 0">
+                    <span style="text-align: center; font-weight: 800; padding: 8px; margin-left:400px">List Data Not Found</span>
+                </div>
+                    <div class="px-2 mx-2" *ngIf="taskLists.length > 0">
+                        <table class="table-auto w-full border-2">
+                            <thead class="text-left">
+                                <th class="font-bold px-2 mx-2 w-30 md:w-30">{{'taskTitle' | translate}}</th>
+                                <th></th>
+                                <th></th>
+                                <th class="font-bold px-2 mx-2">{{'deskOfficerNote' | translate}}</th>
+                                <th class="font-bold px-2 mx-2 w-20 md:w-20">{{'status' | translate}}</th>
+                            </thead>
+                            <tbody class="px-2 mx-2">
+                                <tr class="border-2 px-2 mx-2" *ngFor="let task of taskLists; let i = index">
+                                    <td class="px-2 mx-2">
+                                        <div>
+                                            <span style="font-weight:800">Task Title: </span><span>{{task.taskTitle}}</span>
+                                        </div>
+                                        <div>
+                                            <span style="font-weight:800">Page No: </span><span>{{task.proposalPageNo}}</span>
+                                        </div>
+                                        <div>
+                                            <span style="font-weight:800">Note: </span><span>{{task.researcherNote}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-2 mx-2" colspan="3" *ngIf="isShow">{{task.noteOfDo}}</td>
+                                    <td class="px-2 mx-2" *ngIf="isShow">{{task.isCompleted ? 'Completed' : 'Not Complete'}}</td>
+                                    <td class="px-2 mx-2" *ngIf="show" colspan="3">
+                                        <div *ngIf="task.isCompleted">
+                                            <span>{{task.noteOfDo}}</span>
+                                        </div>
+                                        <div style="margin-top:18px;"  *ngIf="!task.isCompleted">
+                                            <mat-form-field class="w-80 md:w-80">
+                                                <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="task.noteOfDo">
+                                            </mat-form-field>
+                                            <button (click)="openDialogForComment(task)" mat-icon-button style="color:green;" matTooltip="Save Note" style="margin-top: -20px">
+                                                <span class="material-icons">save</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td *ngIf="show">
+                                        <div *ngIf="task.isCompleted">
+                                            <span>{{task.isCompleted ? 'Completed' : 'Not Completed'}}</span>
+                                        </div>
+                                        <mat-form-field class="w-80 mt-4" *ngIf="!task.isCompleted">
+                                            <mat-select [ngModelOptions]="{standalone: true}" [(ngModel)]="task.isCompleted" (selectionChange)="openDialogForStatus($event,task)">
+                                                <mat-option [value]="true">Completed</mat-option>
+                                                <mat-option [value]="false">Not Complete</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </mat-card>
+        </div>
+    </mat-card>
+</div>

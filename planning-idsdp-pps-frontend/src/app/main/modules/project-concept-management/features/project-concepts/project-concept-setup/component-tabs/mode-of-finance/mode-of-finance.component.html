@@ -1,0 +1,361 @@
+<div class="flex flex-col bg-card shadow rounded overflow-hidden">
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+    <div class="heading">
+        <h1 class="header1">{{'ModeofFinance(BDTinLac)' | translate}}</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="p-8 pb-4">
+        <form *ngIf="projectSummary && formGroup" [formGroup]="formGroup">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-2" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5">
+                            <strong>{{'EstimatedCost' | translate}}:&nbsp;{{projectSummary?.totalAmount.toFixed(2)}}</strong>
+                        </mat-label>
+                    </div>
+                </div>
+                <div class="pr-2" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5">
+                            <strong>{{'Balance' | translate}}:&nbsp;{{(projectSummary?.totalAmount - modeOfFinanceTotal).toFixed(2)}}</strong>
+                        </mat-label>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-2" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="15%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="30%">{{'Mode' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="85%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">
+                            <mat-select formControlName="modeId">
+                                <!--                                <mat-option value="">Select</mat-option>-->
+                                <mat-option [disabled]="mode.isActive" *ngFor="let mode of configModeList" [value]="mode.id">
+                                    {{mode.nameEn}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="30%">{{'Total' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="70%"
+                                        fxFlex.sm="70%"
+                                        fxFlex.xs="70%">
+                            <input onfocus="this.select()" formControlName="totalAmount" matInput readonly type="number" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="30%" fxFlex.md="30%"
+                                   fxFlex.sm="30%" fxFlex.xs="30%">{{'GoB' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">
+                            <input onfocus="this.select()" formControlName="gobAmount" matInput TwoDigitDecimalNumber
+                                   oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="onGobChange($event)" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                   fxFlex.md="30%">{{'FE' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">
+                            <input onfocus="this.select()" formControlName="feGobAmount" matInput TwoDigitDecimalNumber required
+                                   oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="feGoBChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+            </div>
+            <!--1st Flex Layout Div End -->
+
+            <!--2nd Flex Layout Div Start -->
+            <div *ngIf="projectSummary?.isSelfFund === true" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-2" fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                   fxFlex.md="30%">{{'OwnFund' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">
+                            <input onfocus="this.select()" formControlName="ownFundAmount" matInput TwoDigitDecimalNumber
+                                   oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="onOwnFundChange($event)" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                   fxFlex.md="30%">{{'FE' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">
+                            <input onfocus="this.select()" formControlName="feOwnFundAmount" matInput TwoDigitDecimalNumber required
+                                   oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="feOwnFundBChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+            </div>
+            <!--2nd Flex Layout Div End -->
+
+            <!--3rd Flex Layout Div Start -->
+            <div *ngIf="projectSummary?.isForeignAid === true" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-2" fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                   fxFlex.md="30%">{{'PA' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="70%"
+                                        fxFlex.sm="70%" fxFlex.xs="70%">
+                            <input onfocus="this.select()" formControlName="paAmount" matInput readonly type="number" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                   fxFlex.md="30%">{{'RPA' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">
+                            <input onfocus="this.select()" formControlName="rpaAmount" matInput TwoDigitDecimalNumber
+                                   oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="onRpaChange($event)" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                   fxFlex.md="30%">{{'DPA' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">
+                            <input onfocus="this.select()" formControlName="dpaAmount" matInput TwoDigitDecimalNumber
+                                   oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="onDpaChange($event)" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <!--3rd Flex Layout Div End -->
+
+            <!--4th Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-2" fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                   fxFlex.md="30%">{{'Other' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">
+                            <input onfocus="this.select()" formControlName="otherAmount" matInput TwoDigitDecimalNumber
+                                   oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="onOtherChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="30%"
+                                   fxFlex.md="30%">{{'FE' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                        fxFlex.xs="70%">
+                            <input onfocus="this.select()" TwoDigitDecimalNumber formControlName="feOtherAmount" matInput
+                                   oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="feOtherChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+            </div>
+            <div class="flex items-center justify-end mb-5" *ngIf="canEdit">
+                <button class="px-8 mr-2"
+                        (click)="resetForm()"
+                        mat-flat-button
+                        [color]="'accent'"
+                        type="button">
+                    Reset
+                </button>
+                <button *ngIf="!this.formGroup.value.uuid"
+                        (click)="onSubmit()"
+                        [disabled]="disableSave || spinner"
+                        class="px-6 ml-3"
+                        mat-flat-button
+                        color="primary"
+                        type="submit">
+                    {{'AddNew' | translate}}
+                </button>
+                <button *ngIf="this.formGroup.value.uuid"
+                        (click)="onSubmit()"
+                        [disabled]="disableSave || spinner"
+                        class="px-6 ml-3"
+                        mat-flat-button
+                        color="primary"
+                        type="submit">
+                    {{'Update' | translate}}
+                </button>
+                <!--                        [disabled]="!(formGroup.valid && (projectSummary?.totalAmount - modeOfFinanceTotal) >= formGroup.value.totalAmount)"-->
+            </div>
+        </form>
+        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+            <table mat-table [dataSource]="dataSource" mat-table>
+                <ng-container matColumnDef="sl">
+                    <th style="width: 8%;"
+                        mat-header-cell
+                        *matHeaderCellDef
+                        class="text-alignment">
+                        Sl.
+                    </th>
+                    <td mat-cell *matCellDef="let row, let i = index;">{{this.paginator.pageIndex == 0 ? i + 1 : 1 + i + this.paginator.pageIndex * this.paginator.pageSize}}</td>
+                </ng-container>
+                <ng-container matColumnDef="modeOfFinance">
+                    <th style="width: 20%;" mat-header-cell *matHeaderCellDef> {{'ModeOfFinance' | translate}}</th>
+                    <td mat-cell *matCellDef="let element">
+                        <span *ngFor="let c of configModeList;">{{c.id == element.modeId ? c.nameEn : ''}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="total">
+                    <th style="width: 12%;" mat-header-cell *matHeaderCellDef> {{'Total' | translate}}</th>
+                    <td mat-cell *matCellDef="let element" class="amount-value">
+                        {{ element.totalAmount.toFixed(2) }}
+<!--                        <br>({{ element.totalAmount.toFixed(2) }})-->
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="gob">
+                    <th style="width: 12%;" mat-header-cell *matHeaderCellDef> {{'GoB' | translate}}<br>{{'(FE)' | translate}}</th>
+                    <td mat-cell *matCellDef="let element" class="amount-value">
+                        {{ element.gobAmount.toFixed(2) }}<br>({{ element.feGobAmount.toFixed(2) }})
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="pa">
+                    <th style="width: 12%;" mat-header-cell *matHeaderCellDef> {{'PA' | translate}}<br>{{'(RPA)' | translate}}</th>
+                    <td mat-cell *matCellDef="let element" class="amount-value">
+                        {{ element.paAmount?.toFixed(2) }}<br>({{ element.rpaAmount?.toFixed(2) }})
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="ownFund">
+                    <th style="width: 12%;" mat-header-cell *matHeaderCellDef> {{'OwnFund' | translate}}<br>{{'(FE)' | translate}}</th>
+                    <td mat-cell *matCellDef="let element" class="amount-value">
+                        {{ element.ownFundAmount?.toFixed(2) }}<br>({{ element.feOwnFundAmount?.toFixed(2)}})
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="other">
+                    <th style="width: 12%;" mat-header-cell *matHeaderCellDef> {{'Other' | translate}}</th>
+                    <td mat-cell *matCellDef="let element"
+                        class="amount-value"> {{element.otherAmount?.toFixed(2)}}<br>({{element.feOtherAmount?.toFixed(2)}}) </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th style="width: 12%;" mat-header-cell *matHeaderCellDef> {{'Action' | translate}}</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="buttons">
+                            <button mat-icon-button class="toggle-sidebar-folded"
+                                    fxHide.lt-lg>
+                                <mat-icon (click)="edit(element)" color="accent">edit</mat-icon>
+                            </button>
+
+                            <button mat-icon-button class="toggle-sidebar-folded"
+                                    fxHide.lt-lg>
+                                <mat-icon color="warn" (click)="openDialog(element)">delete</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <table *ngIf="totalModeOfFinance">
+                <tr style="font-weight: bold !important;">
+                    <td style="width: 8%;"></td>
+                    <td style="width: 20%;">Grand Total</td>
+                    <td style="width: 12%;text-align: right">
+                        <span *ngIf="projectSummary.totalAmount == totalModeOfFinance.totalAmount">{{totalModeOfFinance.totalAmount?.toFixed(2)}}</span>
+                        <span style="color: #ff0000;" *ngIf="projectSummary.totalAmount != totalModeOfFinance.totalAmount">{{totalModeOfFinance.totalAmount?.toFixed(2)}}</span>
+                    </td>
+                    <td style="width: 12%;text-align: right">
+                        <span *ngIf="projectSummary.gobAmount == totalModeOfFinance.gobAmount">{{totalModeOfFinance.gobAmount?.toFixed(2)}}</span>
+                        <span style="color: #ff0000;" *ngIf="projectSummary.gobAmount != totalModeOfFinance.gobAmount">{{totalModeOfFinance.gobAmount?.toFixed(2)}}</span>
+                        <br>
+                        (
+                        <span *ngIf="projectSummary.feGobAmount == totalModeOfFinance.feGobAmount">{{totalModeOfFinance.feGobAmount?.toFixed(2)}}</span>
+                        <span style="color: #ff0000;" *ngIf="projectSummary.feGobAmount != totalModeOfFinance.feGobAmount">{{totalModeOfFinance.feGobAmount?.toFixed(2)}}</span>
+                        )
+                    </td>
+                    <td style="width: 12%;text-align: right">
+                        <span *ngIf="projectSummary.paAmount == totalModeOfFinance.paAmount">{{totalModeOfFinance.paAmount?.toFixed(2)}}</span>
+                        <span style="color: red;" *ngIf="projectSummary.paAmount != totalModeOfFinance.paAmount">{{totalModeOfFinance.paAmount?.toFixed(2)}}</span>
+                        <br>
+                        (
+                        <span *ngIf="projectSummary.rpaAmount == totalModeOfFinance.rpaAmount">{{totalModeOfFinance.rpaAmount?.toFixed(2)}}</span>
+                        <span style="color: #ff0000;" *ngIf="projectSummary.rpaAmount != totalModeOfFinance.rpaAmount">{{totalModeOfFinance.rpaAmount?.toFixed(2)}}</span>
+                        )
+                    </td>
+                    <td style="width: 12%;text-align: right">
+                        <span *ngIf="projectSummary.ownFundAmount == totalModeOfFinance.ownFundAmount">{{totalModeOfFinance.ownFundAmount?.toFixed(2)}}</span>
+                        <span style="color: #ff0000;" *ngIf="projectSummary.ownFundAmount != totalModeOfFinance.ownFundAmount">{{totalModeOfFinance.ownFundAmount?.toFixed(2)}}</span>
+                        <br>
+                        (
+                        <span *ngIf="projectSummary.feOwnFundAmount == totalModeOfFinance.feOwnFundAmount">{{totalModeOfFinance.feOwnFundAmount?.toFixed(2)}}</span>
+                        <span style="color: #ff0000;" *ngIf="projectSummary.feOwnFundAmount != totalModeOfFinance.feOwnFundAmount">{{totalModeOfFinance.feOwnFundAmount?.toFixed(2)}}</span>
+                        )
+                    </td>
+                    <td style="width: 12%;text-align: right">
+                        <span *ngIf="projectSummary.otherAmount == totalModeOfFinance.otherAmount">{{totalModeOfFinance.otherAmount?.toFixed(2)}}</span>
+                        <span style="color: #ff0000;" *ngIf="projectSummary.otherAmount != totalModeOfFinance.otherAmount">{{totalModeOfFinance.otherAmount?.toFixed(2)}}</span>
+                        <br>
+                        (
+                        <span  *ngIf="projectSummary.feOtherAmount == totalModeOfFinance.feOtherAmount">{{totalModeOfFinance.feOtherAmount?.toFixed(2)}}</span>
+                        <span style="color: #ff0000;" *ngIf="projectSummary.feOtherAmount != totalModeOfFinance.feOtherAmount">{{totalModeOfFinance.feOtherAmount?.toFixed(2)}}</span>
+                        )
+                    </td>
+                    <td style="width: 12%;"></td>
+                </tr>
+            </table>
+            <mat-paginator
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="onChangePage($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</div>
+
+<div>
+    <br/><br/><br/>
+    <div fxLayout="row wrap" fxLayoutAlign="end" *ngIf="canEdit">
+        <button class="mr-2" mat-flat-button color="accent" type="button"
+                (click)="backPreviousPage()">Back</button>
+        <button class="mr-2" *ngIf="!canUpdate" mat-flat-button color="primary" type="button"
+                (click)="saveAndNext()">{{'Save&Next' | translate}}</button>
+        <button class="mr-2" *ngIf="canUpdate" mat-flat-button color="primary" type="button"
+                (click)="updateAndNext()">{{'Save&Next' | translate}}</button>
+        <button class="mr-2" *ngIf="!canUpdate" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+        <button class="mr-2" *ngIf="canUpdate" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                (click)="updateAndExit()">{{'Save&Exit' | translate}}</button>
+        <!--        <button mat-flat-button style="background-color: green; color: #FFFFFF" type="button"-->
+        <!--                (click)="nextTab()">{{'Next' | translate}}</button>-->
+    </div>
+</div>

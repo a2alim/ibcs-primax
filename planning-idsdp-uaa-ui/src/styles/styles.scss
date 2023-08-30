@@ -1,0 +1,117 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+
+ */
+/* ----------------------------------------------------------------------------------------------------- */
+
+
+//Tailwind class
+@layer components {
+    .btn {
+        @apply px-2 py-1 border rounded-md text-base font-semibold hover:border-transparent hover:text-green-300;
+    }
+
+    .btn-home {
+        @apply px-2 bg-smalt-blue-500 text-white;
+    }
+
+    .btn-add {
+        @apply py-2 bg-smalt-blue text-white
+    }
+
+    .btn-clear {
+        @apply bg-gray-400 px-3 py-2 text-white
+    }
+
+    .btn-search {
+        @apply bg-blue-400 py-2 text-white
+    }
+    .btn-download {
+        @apply py-2 bg-blue-600 text-white
+    }
+    .btn-details {
+        @apply bg-blue-600 text-white;
+    }
+    .btn-list {
+        @apply px-2 bg-smalt-blue-500 text-white;
+    }
+}
+
+.header {
+    background: #13544e;
+    color: #F5F5F4;
+    padding-top: 2px;
+    padding-bottom: 4px;
+}
+
+.heading {
+    color: #000000 !important;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 17px;
+    background: #FEFEFA;
+    // border-bottom: 1px solid #cccccc;
+}
+
+.sub-heading {
+    background-color: #90cec5;
+    color: #000000 !important;
+    padding: 10px;
+}
+
+.body {
+    background-color: #F0FDF4;
+    font-family: Arial, nikosh;
+}
+
+.body-color {
+    background-color: #13544e !important;
+}
+
+.body-color.header{
+    color: white !important;
+}
+
+.text-white {
+    color: white !important;
+}
+
+.success-snackbar {
+    background: #008000 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.error-snackbar {
+    background: #ff0000 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+}
+.warn-snackbar {
+    background: #d79121 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+}
+.success-snackbar {
+    background: #008000 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.my-custom-snackbar {
+	margin: 0 !important;
+	position: absolute;
+	right: 25px;
+	top: 60px;
+ 	background: #008000 !important;
+  }
+

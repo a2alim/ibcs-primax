@@ -1,0 +1,204 @@
+<div class="body">
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+    <form [formGroup]="frmGroup" name="frmGroup" class="p-5">
+        <div style="border: 1px solid #cccccc">
+
+            <div class="m-2">
+                <p *ngIf="isParipatra2016"class="sub-heading text-lg"><b>{{'PM_11_0' | translate}}</b></p>
+                <p *ngIf="!isParipatra2016"class="sub-heading text-lg"><b>{{'PM_11_0' | translate}}</b></p>
+              <span *ngIf="isParipatra2016" class="sub-item">{{'PM_11_1' | translate}}</span>
+                <span *ngIf="!isParipatra2016" class="sub-item">{{'PM_11_1_22' | translate}}</span>
+                <span><p class="sub-item">
+                    (<a class="AnnexureLink"   routerLink="/dpp-tapp/project-management-setup/{{conceptUuid}}">{{'PM_11_1_link' | translate}}</a>)
+                    {{'note' | translate}}</p></span>
+
+                <div *ngIf="isParipatra2016"  class="sub-heading ckEditorHeader text-lg">
+                    <p><b>{{'PM_11_2' | translate}}</b>
+                        <span *ngIf="!isShowImplArrangement" (click)="expand(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'Click To Expand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                        <span *ngIf="isShowImplArrangement" (click)="collapse(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'Click To Collapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        <span style="float: right">
+                    <label for="file-upload1">
+                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                  matTooltipPosition="above">image</mat-icon>
+                    </label>
+                    <input #file2 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file2.files,'implementationArrangement')" id="file-upload1"/>
+                </span>
+                    </p>
+                </div>
+
+                <div *ngIf="!isParipatra2016"  class="sub-heading ckEditorHeader text-lg">
+                    <p><b>{{'PM_11_2_22' | translate}}</b>
+                        <span *ngIf="!isShowImplArrangement" (click)="expand(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'Click To Expand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                        <span *ngIf="isShowImplArrangement" (click)="collapse(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'Click To Collapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                        <span style="float: right">
+                    <label for="file-upload2">
+                        <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                  matTooltipPosition="above">image</mat-icon>
+                    </label>
+                    <input #file2 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file2.files,'implementationArrangement')" id="file-upload2"/>
+                </span>
+                    </p>
+                </div>
+
+                <!-- ------------implementationArrangement CK Editor------------ -->
+                <div *ngIf="isShowImplArrangement" class="ck-editor" style="position: relative;">
+                    <ckeditor [config]="mediumEditorConfig" formControlName="implementationArrangement"></ckeditor>
+                </div>
+            </div>
+        </div>
+
+        <div style="border: 1px solid #cccccc; margin-top: 10px">
+          <p class="sub-heading text-lg"><b>{{'PM_12_0' | translate}}</b></p>
+           <span  *ngIf="isParipatra2016" class="sub-item">{{'PM_12_1' | translate}}</span>
+            <span  *ngIf="!isParipatra2016"  class="sub-item">{{'PM_12_1_22' | translate}}</span>
+            <p><span class="sub-item "><a class="AnnexureLink"
+                                                                         routerLink="/dpp-tapp/add-annexuregoods/{{conceptUuid}}">{{'PM_12_1_link_1' | translate}}</a>, <a
+                class="AnnexureLink"
+                routerLink="/dpp-tapp/add-annexurewokrs/{{conceptUuid}}">{{'PM_12_1_link_2' | translate}}</a> <a
+                class="AnnexureLink"
+                routerLink="/dpp-tapp/add-annexureservices/{{conceptUuid}}">{{'PM_12_1_link_3' | translate}}</a>{{'note' | translate}}</span>
+            </p>
+            <p *ngIf="isParipatra2016" class="sub-item">{{'PM_12_2' | translate}}</p>
+            <p *ngIf="!isParipatra2016" class="sub-item">{{'PM_12_2_22' | translate}}</p>
+            <p><span class="sub-item"> <a class="AnnexureLink" routerLink="/dpp-tapp/year-wise-fin-plan">{{'PM_12_2_link_1' | translate}}) </a> {{'note' | translate}}</span>
+            </p>
+        </div>
+        <div style="margin-top: 10px; border: 1px solid #cccccc">
+            <p *ngIf="isParipatra2016" class="sub-heading text-lg"><b>{{'PM_13_0' | translate}}</b></p>
+            <p *ngIf="!isParipatra2016" class="sub-heading text-lg"><b>{{'PM_13_0_22' | translate}}</b></p>
+
+            <!-- Radio buttons for YES and NO -->
+            <div style="margin-left: 20px">
+                <mat-radio-group [(ngModel)]="isTransferableToRevenueBudget">
+                    <mat-radio-button (click)="chooseOption(true)"
+                                      [checked]="isTransferableToRevenueBudget != null && isTransferableToRevenueBudget"
+                                      name="isTransferableToRevenueBudget" value="true">
+                        <b>{{ 'YES' | translate }}</b>
+                    </mat-radio-button>
+                    &nbsp;&nbsp;
+                    <mat-radio-button (click)="chooseOption(false)"
+                                      [checked]="isTransferableToRevenueBudget != null && !isTransferableToRevenueBudget"
+                                      name="isTransferableToRevenueBudget" value="false">
+                        <b>{{ 'NO' | translate }}</b>
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div class="m-2">
+                <div class="sub-heading">
+                    <span *ngIf="isParipatra2016">{{'PM_13_1' | translate}}</span>
+                    <span *ngIf="!isParipatra2016">{{'PM_13_1_22' | translate}}</span>
+                    <p><span class="sub-item ml-5">{{'PM_13_1_SUB' | translate}}</span>
+                        <span (click)="toggleExpandCollapse(1)"
+                              *ngIf="isTransferableToRevenueBudget != null && isTransferableToRevenueBudget && !isExpanded(1)">
+                            <mat-icon class="exp-icon" matTooltip="{{'Click To Expand' | translate}}"
+                                      matTooltipPosition="above">
+                                expand_more
+                            </mat-icon>
+                        </span>
+                        <span (click)="toggleExpandCollapse(1)"
+                              *ngIf="isTransferableToRevenueBudget != null && isTransferableToRevenueBudget && isExpanded(1)">
+                            <mat-icon class="exp-icon" matTooltip="{{'Click To Collapse' | translate}}"
+                                      matTooltipPosition="above">
+                                expand_less
+                            </mat-icon>
+                        </span>
+
+                        <!-- Image Upload -->
+                        <span *ngIf="isExpanded(1)" style="float: right">
+                            <label for="file-upload13_1">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image
+                                </mat-icon>
+                            </label>
+                            <input #file1 (change)="uploadImageAsBase64(file1.files,'revenueBudget')"
+                                   accept='image/*'
+                                   id="file-upload13_1" type="file"/>
+                        </span>
+                    </p>
+
+                    <!-- CK Editor for PM_13_1 or PM_13_1_22 or PM_13_1_SUB -->
+                    <div *ngIf="isExpanded(1)">
+                        <ckeditor [config]="mediumEditorConfig" formControlName="revenueBudget"></ckeditor>
+                    </div><br>
+                    <span *ngIf="isParipatra2016">{{'PM_13_2' | translate}}</span>
+                    <span *ngIf="!isParipatra2016">{{'PM_13_2_22' | translate}}</span>
+                    <p>
+                        <span class="sub-item ml-5">{{'PM_13_2_SUB' | translate}}</span>
+                        <span (click)="toggleExpandCollapse(2)"
+                              *ngIf="isTransferableToRevenueBudget != null && !isTransferableToRevenueBudget && !isExpanded(2)">
+                            <mat-icon class="exp-icon" matTooltip="{{'Click To Expand' | translate}}"
+                                      matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span (click)="toggleExpandCollapse(2)"
+                              *ngIf="isTransferableToRevenueBudget != null && !isTransferableToRevenueBudget && isExpanded(2)">
+                            <mat-icon class="exp-icon" matTooltip="{{'Click To Collapse' | translate}}"
+                                      matTooltipPosition="above">
+                                expand_less
+                            </mat-icon>
+                        </span>
+                        <span *ngIf="isExpanded(2)" style="float: right">
+                            <label for="file-upload13_2">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">
+                                    image
+                                </mat-icon>
+                            </label>
+                            <input #file2 (change)="uploadImageAsBase64(file2.files,'revenueBudget2')"
+                                   accept="image/*"
+                                   id="file-upload13_2" type="file"/>
+                        </span>
+                    </p>
+
+                    <!-- CK Editor for PM_13_2 or PM_13_2_22 or PM_13_2_SUB -->
+                    <div *ngIf="isExpanded(2)">
+                        <ckeditor [config]="mediumEditorConfig" formControlName="revenueBudget2"></ckeditor>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-8">
+            <!--        <button-->
+            <!--            [color]="'accent'"-->
+            <!--            mat-flat-button-->
+            <!--            class="px-8 mr-2"-->
+            <!--            matStepperPrevious-->
+            <!--            type="button">-->
+            <!--            {{'back' | translate}}-->
+            <!--        </button>-->
+
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                type="submit"
+                [disabled]="spinner"
+                (click)="onSubmit('next')"
+                class="px-8 mr-2 toggle-sidebar-folded"
+                :matTooltip="{{ 'save' | translate }}">
+                {{ "save" | translate }}
+            </button>
+
+
+        </div>
+    </form>
+</div>

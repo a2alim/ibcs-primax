@@ -1,0 +1,67 @@
+<div style="width: 100%">
+    <!-- Header -->
+
+    <app-form-header class="no-print" [subTitle]="'headerOfSubtitle' | translate" [title]="'header' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin" style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="flex md:justify-end md:mr-3 mt-1 no-print">
+                <button [routerLink]="['/cheque-collection']" class="px-3 mr-2 previousIcon" color="accent" mat-flat-button type="button">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'previous' | translate}}
+                </button>
+
+                <button (click)="print()" class="px-3 mr-2 printBtn" color="accent" mat-flat-button type="button">
+                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                    {{'print' | translate}}
+                </button>
+
+                <button (click)="download('chequeCollection')" class="px-3 mr-2 downloadBtn" color="accent" mat-flat-button type="button">
+                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                    {{'download' | translate}}
+                </button>
+            </div>
+            <!-- CARD ONE-->
+            <mat-card class="mt-3 pa-5">
+                <div class="w-full sm:w-auto md:w-full lg:w-full" id="printPage">
+                    <h1 class="font-semibold" style="font-size: 16px;">{{'chequeNumber' | translate}}: {{ chequeCollectionResponse.chequeNo }}</h1>
+                    <br><br>
+                    <div class="mx-auto w-full md:w-60 text-center font-semibold" style="font-size: 20px;">
+                        <h1 style="font-size: 30px;text-decoration: underline;">প্রাপ্তি স্বীকার</h1><br>
+                        <p class="text-justify">
+                            সমাজবিজ্ঞান গবেষণা পরিষদের অর্থায়নে পরিচালক , {{chequeCollectionResponse.trainingInstituteProfileModel.trainingInstituteName }}
+                             কর্তৃক {{chequeCollectionResponse.proposalModel.trainingName}} প্রশিক্ষণ কোর্সের {{ chequeCollectionResponse.installmentType}}
+                              বাবদ {{chequeCollectionResponse.chequeAmount}}
+                            /- প্রধান হিসাবরক্ষক কর্মকর্তা , পরিকল্পনা বিভাগ , হিসাব ভবন , সেগুন বাগিচা , ঢাকা কর্তৃক জারীকৃত {{chequeCollectionResponse.chequeAmount}}
+                            /- টাকার একটি চেক যার নং- {{chequeCollectionResponse.chequeNo}}
+                            , তারিখ: {{chequeCollectionResponse.chequeDate | date:'dd/MM/yyyy'}}
+                            এবং টোকেন নং - {{chequeCollectionResponse.tokenNo}} , তাং - ১২-২৩৪-৪৫ বুঝিয়া পাইলাম।
+                        </p>
+
+                        <br><br>
+                        <p class="text-right">
+                            স্বাক্ষরঃ <br>
+                            <!--                            <img src="{{minioFileDownloadEndPointHost + chequeCollectionResponse.signaturedDocument.bucketName + '/' + chequeCollectionResponse?.signaturedDocument.fileName}}" alt=""/>-->
+                            তারিখঃ {{chequeCollectionResponse.collectionDate | date:'dd/MM/yyyy'}}<br> মোবাইল নম্বরঃ {{chequeCollectionResponse.chequeReceiverPhoneNo}}<br>
+                        </p>
+                        <br>
+                        <p class="text-left">
+                            উপসচিব <br> সমাজবিজ্ঞান গবেষণা পরিষদ <br> পরিকল্পনা বিভাগ <br> শের-ই বাংলা নগর , ঢাকা <br>
+                        </p>
+                        <br><br>
+                    </div>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

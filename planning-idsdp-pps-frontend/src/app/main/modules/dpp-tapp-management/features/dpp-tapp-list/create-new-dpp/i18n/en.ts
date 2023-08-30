@@ -1,0 +1,33 @@
+export const locale = {
+    lang: 'en',
+    data: {
+        'headerTitle': 'DPP-TAPP Management',
+        'headerSubTitle': 'Home > Add DPP/TAPP',
+        'page_title': 'DPP-TAPP Management',
+        'breadcrumb1' : 'Home > ',
+        'breadcrumb2' : 'Add DPP/TAPP',
+        'BasicInformation' : 'Basic Information',
+        'LinkWithProjectConcept' : 'Link with Project Concept',
+        'ProjectMainPage' : 'Project List',
+        'TitleEn' : 'Title (English)',
+        'TitleBn' : 'Title (Bangla)',
+        'ProjectType' : 'Project Type',
+        'MinistryDivision' : 'Ministry Division',
+        'ImplementingAgency' : 'Implementing Agency',
+        'ExpectedImplementationPeriod': 'Expected Implementation Period',
+        'DateOfCommencement': 'Date of Commencement',
+        'DateOfCompletion': 'Date of Completion',
+        'TheWorkingsOfTheGovernmentAndCOFOGSelection': 'ADP Sector/Sub-Sector selection',
+        'SectorDivision': 'Concerned Division of Planning Commission',
+        'ProjectSectorAndSubSectorSection': 'Project Sector and Sub Sector (As Per ADP)',
+        'Sector': 'Sector',
+        'SubSector': 'Sub-Sector',
+        'FundingType': 'Funding Type',
+        'OnlyGoBFund': 'Only GoB Fund',
+        'Save': 'Save',
+        'GreenPageList':'Green Page List',
+        'fiscalYear':'(Fiscal Year: 2023-24, Program Type: ADP)',
+        'completionDate' : 'Completion Date: ',
+        'commencementDate' : 'Commencement Date: '
+    }
+};

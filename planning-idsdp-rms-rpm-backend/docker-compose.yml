@@ -1,0 +1,19 @@
+version: '3'
+services:
+  planning-idsdp-rms-rpm-backend:
+    image: 'planning-idsdp-rms-rpm-backend'
+    container_name: rms-rpm-backend
+    environment:
+      - TZ=Asia/Dhaka
+    ports:
+      - "7002:8080"
+    restart: always
+    #Volume mounted for database for the storage
+    volumes:
+      - planning-idsdp-rms-rpm-backend:/var/lib/docker/volumes/planning-idsdp-rms-rpm-backend/_data
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+#Volumes for DB data
+volumes:
+  planning-idsdp-rms-rpm-backend:

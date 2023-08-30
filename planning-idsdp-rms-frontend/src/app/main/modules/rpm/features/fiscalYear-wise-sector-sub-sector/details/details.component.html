@@ -1,0 +1,109 @@
+<div class="width-100" >
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color mt-4">
+
+            <div  class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <h1 class="md:mt-2">{{'details' | translate}}</h1>
+                            <div>{{'stFiscalYearIdLn' | translate}} : {{fiscalYear}}</div>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <div class="flex md:justify-end">
+                                <button
+                                    class="px-3 mr-2 previousIcon"
+                                    mat-flat-button
+                                    color="accent"
+                                    (click)="back()"
+                                    type="button">
+                                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                    {{'previous' | translate}}
+                                </button>
+
+<!--                                <button-->
+<!--                                    class="px-3 mr-2 downloadBtn"-->
+<!--                                    mat-flat-button-->
+<!--                                    color="accent"-->
+<!--                                    (click)="back()"-->
+<!--                                    type="button">-->
+<!--                                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>-->
+<!--                                    {{'download' | translate}}-->
+<!--                                </button>-->
+
+                                <button
+                                    class="px-3 mr-2 printBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    (click)="requestLetter()"
+                                    type="button">
+                                    <mat-icon *ngIf="noteIcon" class="mr-1">{{noteIcon}}</mat-icon>
+                                    {{'requestLetter' | translate}}
+                                </button>
+
+                                <button
+                                    [useExistingCss]="true"
+                                    printTitle="Sector-Sub Sector"
+                                    class="px-3 printBtn"
+                                    mat-flat-button
+                                    color="accent"
+                                    printSectionId="print" ngxPrint
+                                    type="button">
+                                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                    {{'print' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card Body -->
+        <div class="border3 form-bg-color">
+            <div class="md:flex p-4">
+                <div class="w-full sm:w-auto md:w-full lg:w-full">
+
+                    <div id="print">
+
+                    <table class="tbl-details">
+                        <tr>
+                            <th style="width: 50px;">{{'sl' | translate}}</th>
+                            <th style="width: 200px;">{{'stSectorTypeIdLn' | translate}}</th>
+                            <th>{{'stSubSectorIdLn' | translate}}</th>
+                        </tr>
+                        <tr *ngFor="let item of data; let i = index" [attr.data-index]="i">
+                            <td class="text-center">{{i+1}}</td>
+                            <td>{{item.sectorTypeName}}</td>
+                            <td>
+                               <span *ngFor="let val of item.subSector; let k = index" [attr.data-index]="k">
+                                {{val.subFieldName}}<span *ngIf="k < (item.subSector.length)-1">,</span>
+                               </span>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    <div class="flex justify-end mt-3">
+                        <button
+                            class="px-5 previous-button"
+                            mat-flat-button
+                            color="accent"
+                            (click)="back()"
+                            type="button">
+                            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                            {{'previous' | translate}}
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>
+
+

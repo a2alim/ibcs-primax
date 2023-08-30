@@ -1,0 +1,785 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <div *ngIf="spinner|| spinner5" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <div *ngIf="spinner2" class="flex items-center justify-center">
+        <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <div>
+                <div class="flex-auto mt-2 mb-7 body-color">
+                    <div class="flex md:text-left mb-3" style="float: right;margin-top: -15px">
+                        <div *ngIf="isFinalSubmit && (spinner == false)"
+                            class="relative py-2 pl-4 pr-10 mr-4 leading-normal bg-green-200 rounded-lg" role="alert">
+                            <div class="text-lg font-semibold text-green-600">{{'finalSubmitSuccess' | translate}}</div>
+                        </div>
+                        <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" (click)="back()"
+                            type="button">
+                            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                            {{'previous' | translate}}
+                        </button>
+                        <ng-container *ngIf="userDetails.userType == 'Rms_Researcher' && (isFinalSubmit == false)">
+                            <button [title]="'comments' | translate" class="px-3 mr-2 saveBtn" mat-flat-button
+                                color="accent" [disabled]="spinner5" (click)="openFinalSubmitDialog(true)"
+                                type="button">
+                                <mat-icon class="mr-1">done_all</mat-icon> {{'FinalSubmit' | translate}}
+                            </button>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="userDetails.userType == 'Rms_Researcher' || userDetails.userType == 'Rms_DO'">
+                            <button [disabled]="spinner" class="px-3 mr-2 successBtn" mat-flat-button color="accent"
+                                (click)="goToProfile()" type="button">
+                                <mat-icon *ngIf="viewIcon" class="mr-1">{{viewIcon}}</mat-icon>
+                                {{'go_to_profile' | translate}}
+                            </button>
+                        </ng-container>
+                        <button [disabled]="spinner2" class="px-3 mr-2 downloadBtn" mat-flat-button color="accent"
+                            (click)="downloadPdf('research-proposal')" type="button">
+                            <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                            {{'download' | translate}}
+                        </button>
+                        <button [useExistingCss]="true" printTitle="Sector-Sub Sector" class="px-3 printBtn"
+                            mat-flat-button color="accent" printSectionId="printDiv" ngxPrint type="button">
+                            <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                            {{'print' | translate}}
+                        </button>
+                    </div>
+                </div>
+                <div id="printDiv">
+                    <div class="flex-auto mt-6 body-color">
+                        <div style="width: 100%;" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="heading w-full">
+                                {{'ResearcherProposal' | translate}}
+                            </mat-label>
+                        </div>
+                        <mat-card>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'ResearchTitle' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                            {{data?.researcherProposal.researchTitle}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'Topic_Proposal' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                            {{data?.researcherProposal.proposalTopic}}
+                                        </p>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'ResearchCatType' | translate}}:</strong>
+                                        </mat-label>
+                                        <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                            {{data?.researcherProposal.researchCategoryType.categoryName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <ng-container *ngIf="userDetails.userType != 'Rms_Evaluator'">
+                                            <ng-container
+                                                *ngIf="data?.researcherProposal?.researcherProfilePersonalInfoDto?.isInstitutional">
+                                                <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                    fxFlex.xs="100%">
+                                                    <strong>{{'InstituteName' | translate}} :</strong>
+                                                </mat-label>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="!data?.researcherProposal?.researcherProfilePersonalInfoDto?.isInstitutional">
+                                                <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                    fxFlex.xs="100%">
+                                                    <strong>{{'ResearcherName' | translate}} :</strong>
+                                                </mat-label>
+                                            </ng-container>
+                                            <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                                {{data?.researcherProposal?.researcherProfilePersonalInfoDto?.userDto?.name}}
+                                            </p>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'FiscalYear' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                            {{data?.researcherProposal?.fiscalYear?.fiscalYear}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'Sector' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                            {{data?.researcherProposal?.sector?.fieldName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'SubSector' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                            {{data?.researcherProposal?.subSector?.subFieldName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'SdgsGoals' | translate}} :</strong>
+                                        </mat-label>
+                                        <p class="text-ping-400" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                            fxFlex.xs="100%">
+                                            {{sdgsGoals(data?.researcherProposal?.stSdgsGoalsId)}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'National_Plan_Alignment' | translate}} :</strong>
+                                        </mat-label>
+                                        <p class="text-ping-400" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                            fxFlex.xs="100%">
+                                            {{data?.researcherProposal?.nationalPlanAlignment}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                    <div class="flex-auto mt-6 body-color">
+                        <div style="width: 100%;" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="heading w-full">
+                                {{'ResearchLocation' | translate}}
+                            </mat-label>
+                        </div>
+                        <mat-card>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'DivisionName' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                            {{data?.researcherProposal?.divisionName}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'DistrictName' | translate}} :</strong>
+                                        </mat-label>
+                                        <p class="text-ping-400" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                            fxFlex.xs="100%">
+                                            {{data?.researcherProposal?.districtName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                            <strong>{{'UpazilaName' | translate}} :</strong>
+                                        </mat-label>
+                                        <p class="text-ping-400" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                            fxFlex.xs="100%">
+                                            {{data?.researcherProposal?.upzilaName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                    <div *ngIf="data?.researcherProposalInfo" class="flex-auto mt-6 body-color">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="heading w-full">
+                                {{'Info' | translate}}
+                            </mat-label>
+                        </div>
+                        <mat-card class="text-justify">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'Introduction' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <p [innerHTML]="data?.researcherProposalInfo?.introduction | ngHtml"></p>
+                                </div>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'StatementOfProblem' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <p [innerHTML]="data?.researcherProposalInfo?.statementOfProblem | ngHtml"></p>
+                                </div>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'ObjectivesOfTheStudy' | translate}}: </strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <p [innerHTML]="data?.researcherProposalInfo?.objectivesOfTheStudy | ngHtml"></p>
+                                </div>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'FormulationResearch' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <p [innerHTML]="data?.researcherProposalInfo?.formulationResearch | ngHtml"></p>
+                                </div>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'ConceptualFramework' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <p [innerHTML]="data?.researcherProposalInfo?.conceptualFramework | ngHtml"></p>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'ReviewOfLiterature' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <p [innerHTML]="data?.researcherProposalInfo?.reviewOfLiterature  | ngHtml"></p>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'RationaleOfTheStudy' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <p [innerHTML]="data?.researcherProposalInfo?.rationaleOfTheStudy  | ngHtml"></p>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'ScopeOfTheStudy' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <p [innerHTML]="data?.researcherProposalInfo?.scopeOfTheStudy"></p>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'MethodsOfTheStudy' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <p [innerHTML]="data?.researcherProposalInfo?.methodsOfTheStudy  | ngHtml"></p>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'ExpectedOutput' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <p [innerHTML]="data?.researcherProposalInfo?.expectedOutput  | ngHtml"></p>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'RelationWithSocialPolicy' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <p [innerHTML]="data?.researcherProposalInfo?.relationWithSocialPolicy  | ngHtml"></p>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'TentativeChapterization' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <p [innerHTML]="data?.researcherProposalInfo?.tentativeChapterization  | ngHtml"></p>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'ActionPlanTentativeBudget' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                    <p [innerHTML]="data?.researcherProposalInfo?.actionPlanTentativeBudget  | ngHtml">
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'TentativeBudget' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                    <p [innerHTML]="data?.researcherProposalInfo?.tentativeBudget  | ngHtml"></p>
+                                </div>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'BibliographyReferences' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <p [innerHTML]="data?.researcherProposalInfo?.bibliographyReferences  | ngHtml"></p>
+                            </div>
+                            <div class="mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'AdditionalInfoTopicProposal' | translate}} :</strong>
+                                        </mat-label>
+                                    </div>
+                                </div>
+                                <p [innerHTML]="data?.researcherProposalInfo?.additionalInfoTopicProposal  | ngHtml"></p>
+                            </div>
+                            <!--<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'IsEditable' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherProposal.isEditable === 1 ? 'Yes' : 'No'}}</p>
+                                    </div>
+                                </div>
+                            </div>-->
+                        </mat-card>
+                    </div>
+                    <div *ngIf="data?.researcherProposalInstituteInfo" class="flex-auto mt-6 body-color">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                                {{'InstituteInformation' | translate}}
+                            </mat-label>
+                        </div>
+                        <mat-card>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'InstituteName' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherProposalInstituteInfo?.instituteName}}</p>
+                                    </div>
+                                </div>
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'AddressDetails' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherProposalInstituteInfo?.addressDetails}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'YearOfEstablishment' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherProposalInstituteInfo?.yearOfEstablishment}}</p>
+                                    </div>
+                                </div>
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'RegistrationNo' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherProposalInstituteInfo?.registrationNo}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'TelephoneNo' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherProposalInstituteInfo?.telephoneNo}}</p>
+                                    </div>
+                                </div>
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'EmailAddress' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherProposalInstituteInfo?.emailAddress}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'TinNo' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherProposalInstituteInfo?.tinNo}}</p>
+                                    </div>
+                                </div>
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'TaxTokenImgOfCurrentYear' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherProposalInstituteInfo?.taxTokenImgOfCurrentYear}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'IsEditable' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherProposal.isEditable === 1 ? 'Yes' : 'No'}}</p>
+                                    </div>
+                                </div>
+                            </div>-->
+                        </mat-card>
+                    </div>
+                    <div *ngIf="data?.researcherProposalRscWorkingInOrg?.length > 0" class="flex-auto mt-6 body-color">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="heading w-full">
+                                {{'RscWorkingInOrg' | translate}}
+                            </mat-label>
+                        </div>
+                        <mat-card>
+                            <table class="OrganizationTbl">
+                                <tr>
+                                    <th class="text-alignment text-center">
+                                        {{'SL' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'ResearcherName' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'TelephoneNo' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'MobileNo' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'EmailAddress' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'NidNo' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'Designation' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'EducationQualification' | translate}}
+                                    </th>
+                                </tr>
+                                <tr *ngFor="let item of data?.researcherProposalRscWorkingInOrg; let i = index">
+                                    <td class="text-center">{{(i + 1)}}</td>
+                                    <td>{{ item.researcherName }}</td>
+                                    <td>{{ item.telephoneNo }}</td>
+                                    <td>{{ item.mobileNo }}</td>
+                                    <td>{{ item.emailAddress }}</td>
+                                    <td> {{ item.nidNo }}</td>
+                                    <td>{{ item.designation }}</td>
+                                    <td> {{ item.educationQualification }}</td>
+                                </tr>
+                            </table>
+                        </mat-card>
+                    </div>
+                    <!-- Rese archer Supervisor Information -->
+                    <div *ngIf="data?.researcherSupervisorInfo" class="flex-auto mt-6 body-color">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                                {{'SupervisorInfo' | translate}}
+                            </mat-label>
+                        </div>
+                        <mat-card>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'SupervisorName' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherSupervisorInfo?.supervisorName}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'PresentOfficeName' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherSupervisorInfo?.presentOfficeName}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'PresentOfficeAddress' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherSupervisorInfo?.presentOfficeAddress}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'MobileNo' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherSupervisorInfo?.mobileNo}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'EmailAddress' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherSupervisorInfo?.emailAddress}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'NidNo' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherSupervisorInfo?.nidNumber}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'TinNo' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherSupervisorInfo?.tinNumber}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <!--<div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                            <strong>{{'IsEditable' | translate}} :</strong>
+                                        </mat-label>
+                                        <p fxFlex="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                            {{data?.researcherSupervisorInfo.isEditable === 1 ? 'Yes' : 'No'}}
+                                        </p>
+                                    </div>-->
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                    <div *ngIf="data?.researcherProposalActionPlan?.length > 0" class="flex-auto mt-6 body-color">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="heading w-full">
+                                {{'ActionPlan' | translate}}
+                            </mat-label>
+                        </div>
+                        <mat-card>                            
+                            <div class="text-center relative p-2 leading-normal bg-green-200 rounded-lg" role="alert">
+                                <div class="text-lg font-semibold text-green-600">{{'stDateAndEndDate' | translate}}</div>
+                            </div>
+                            <table class="OrganizationTbl">
+                                <tr>
+                                    <th class="text-alignment text-center">
+                                        {{'SL' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'TaskName' | translate}}
+                                    </th>
+                                    <th class="text-center">
+                                        {{'TotalDays' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'StartDate' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'EndDate' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'isAgree' | translate}}
+                                    </th>
+                                    <!--                                    <th class="text-alignment">-->
+                                    <!--                                        {{'IsEditable' | translate}}-->
+                                    <!--                                    </th>-->
+                                </tr>
+                                <tr *ngFor="let item of data?.researcherProposalActionPlan; let i = index">
+                                    <td class="text-center">{{(i + 1)}}</td>
+                                    <td>{{ item.taskName }}</td>
+                                    <td class="text-center">{{ item.totalDays }}</td>
+                                    <td class="text-center" >
+                                        <div *ngIf="(i == 0) && (item.startDate != null )" style="color: green;font-size: 12px;">Agreement Date</div>
+                                        {{ item.startDate |date:'dd-MM-yyyy' }}
+                                    </td>
+                                    <td class="text-center">{{ item.endDate |date:'dd-MM-yyyy' }}</td>
+                                    <td class="text-center"> {{ item.isAgree == true ? 'Yes' : 'No'}}</td>
+                                </tr>
+                            </table>
+                        </mat-card>
+                    </div>
+
+
+                    <div *ngIf="data?.researcherProposalUploadDoc?.length > 0" class="flex-auto mt-6 body-color">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="heading w-full">
+                                {{'UploadedDocument' | translate}}
+                            </mat-label>
+                        </div>
+                        <mat-card>
+                            <table class="OrganizationTbl">
+                                <tr>
+                                    <th class="text-alignment text-center">
+                                        {{'SL' | translate}}
+                                    </th>                                    
+                                    <th class="text-alignment">
+                                        {{'DocName' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'BriefOnDocument' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'Download'| translate}}
+                                    </th>
+                                </tr>
+                                <tr *ngFor="let item of data?.researcherProposalUploadDoc; let i = index">
+                                    <td class="text-center">{{(i + 1)}}</td>                                    
+                                    <td class="w-30 text-center">{{ item.docName }}</td>
+                                    <td>
+                                        <p [innerHTML]="item?.briefOnDocument | ngHtml"></p>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button (click)="downloadFile(item)" mat-icon-button matTooltip="Download"
+                                            fxHide.lt-lg>
+                                            <mat-icon color="warn">get_app</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </mat-card>
+                    </div>
+                    <div *ngIf="data?.researcherProposalBudgetDetails?.length > 0" class="flex-auto mt-6 body-color">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="heading w-full">
+                                {{'BudgetDetails' | translate}}
+                            </mat-label>
+                        </div>
+                        <mat-card>
+                            <table class="OrganizationTbl">
+                                <tr>
+                                    <th class="text-alignment text-center">
+                                        {{'SL' | translate}}
+                                    </th>
+                                    <th class="text-alignment">
+                                        {{'ExpenditureItem' | translate}}
+                                    </th>
+                                    <th class="text-alignment font-bold" style="width: 10%;">
+                                        {{'TotalAmount' | translate}}
+                                    </th>
+                                </tr>
+                                <tr *ngFor="let item of data?.researcherProposalBudgetDetails; let i = index">
+                                    <td class="text-center">{{(i + 1)}}</td>
+                                    <td>{{ item?.expenditureItem?.expItemsName ? item?.expenditureItem?.expItemsName :
+                                        item.expenditureName}}</td>
+                                    <td class="text-align-right">{{ item.totalAmount }}.00</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-align-right font-bold">{{'TotalAmount' | translate}}
+                                    </td>
+                                    <td class="text-align-right font-bold">{{ getTotal()}}.00</td>
+                                </tr>
+                            </table>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main End -->
+</div>

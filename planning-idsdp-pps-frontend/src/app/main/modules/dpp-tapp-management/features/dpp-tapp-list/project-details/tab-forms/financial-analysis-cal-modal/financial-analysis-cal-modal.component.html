@@ -1,0 +1,287 @@
+<div class="modalBody modal-body border-green-400 rounded-md">
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <div class="bg-color p-1 border-green-400 rounded-md display-center">
+        <table>
+            <tr style="height: 65px !important;">
+                <td style="border:none">Project Life Time:</td>
+                <td style="border:none">
+                    <mat-form-field>
+                        <input type="number" onwheel="this.blur()" class="text-right" appearance="outline"
+                            autocomplete="off" matInput required [(ngModel)]="financialAnalysisObj.projectLifeTime"
+                            (change)="onClickProjectLifeTime()" [readonly]="isProjectLifeTimeDisabled">
+                    </mat-form-field>
+                </td>
+                <td style="border:none" class="pl-5">Discounting Factor 1:</td>
+                <td style="border:none">
+                    <mat-form-field>
+                        <input type="number" onwheel="this.blur()" class="text-right" appearance="outline"
+                            autocomplete="off" id="disFacter1" matInput required
+                            [(ngModel)]="financialAnalysisObj.discFac1" (change)="onChangeDiscFactor1()"
+                            onfocus="this.select()">
+                    </mat-form-field>
+                </td>
+                <td style="border:none" class="pl-5">Discounting Factor 2:</td>
+                <td style="border:none">
+                    <mat-form-field>
+                        <input type="number" onwheel="this.blur()" class="text-right" appearance="outline"
+                            autocomplete="off" id="disFacter2" matInput required
+                            [(ngModel)]="financialAnalysisObj.discFac2" (change)="onChangeDiscFactor2()"
+                            onfocus="this.select()">
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="mt-1 tableFixHead">
+        <table border="1px solid black">
+            <thead>
+                <tr *ngIf="financialAnalysisObj.financialAnalysisList.length" class="table-header">
+                    <th class="pl-3">Year</th>
+                    <th class="pl-3">Capital Cost</th>
+                    <th class="pl-3">Operating Cost</th>
+                    <th class="pl-3">Total Cost</th>
+                    <th class="pl-3">Discounted Value <br>of Total Cost {{discFac1?'('+discFac1+')':''}}</th>
+                    <th class="pl-3">Benefit</th>
+                    <th class="pl-3">Discounted Value <br>of Benefit {{discFac1?'('+discFac1+')':''}}</th>
+                    <th class="pl-3">Discounted Value <br>of Total Cost {{discFac2?'('+discFac2+')':''}}</th>
+                    <th class="pl-3">Benefit</th>
+                    <th class="pl-3">Discounted Value <br>of Benefit {{discFac2?'('+discFac2+')':''}}</th>
+                    <th class="pl-3"></th>
+                </tr>
+            </thead>
+            <tbody id="in_attachments">
+                <tr *ngFor="let obj of financialAnalysisObj.financialAnalysisList; let i=index;">
+                    <td>
+                        <mat-form-field>
+                            <input matInput class="text-right" [value]="obj.fiscalYear" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [(ngModel)]="obj.capitalCost" (keyup)="calTotalCost(obj)" onfocus="this.select()">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [(ngModel)]="obj.operatingCost" (keyup)="calTotalCost(obj)" onfocus="this.select()">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="obj.totalCost.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="obj.discValueOfTotalCost1.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [(ngModel)]="obj.benifit1" (keyup)="calDiscValueOfBenifit1(obj)"
+                                onfocus="this.select()">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="obj.discValueOfBenifit1.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="obj.discValueOfTotalCost2.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [(ngModel)]="obj.benifit2" (keyup)="calDiscValueOfBenifit2(obj)"
+                                onfocus="this.select()">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="obj.discValueOfBenifit2.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <ng-container
+                            *ngIf="obj.noOfFiscalYear && (financialAnalysisObj.financialAnalysisList.length-1)==i">
+                            <mat-icon class="material-icons-outlined" style="color: red; cursor: pointer;"
+                                (click)="onClickCancle(i)">clear</mat-icon>
+                        </ng-container>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table border="0" *ngIf="isProjectLifeTimeDisabled">
+            <tbody>
+                <tr>
+                    <td width="100%">
+                        <div id="add_new_row" wfd-invisible="true">
+                            <a href="javascript:void(0)" (click)="addNewRow()">Add New Row</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table border="1px solid black" class="overflow-x-auto">
+            <tbody id="in_attachments">
+                <tr>
+                    <td class="grand-total-td">Total:</td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="grandTotalObj.totalCapitalCost.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="grandTotalObj.totalOperatingCost.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="grandTotalObj.totalTotalCost.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="grandTotalObj.totalDiscValueOfTotalCost1.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="grandTotalObj.totalBenifit1.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="grandTotalObj.totalDiscValueOfBenifit1.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="grandTotalObj.totalDiscValueOfTotalCost2.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="grandTotalObj.totalBenifit2.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input type="number" onwheel="this.blur()" matInput class="text-right"
+                                [value]="grandTotalObj.totalDiscValueOfBenifit2.toFixed(2)" readonly>
+                        </mat-form-field>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="bg-color p-1 border-green-400 rounded-md display-center">
+        <div class="row" style="width: 100%;">
+            <div class="col-md-6 col-sm-6 dis-fac1-cal dis-fac-input">
+                <table class="table-color">
+                    <tr>
+                        <td>
+                            <mat-checkbox id="checkDiscFactor1" color="primary"
+                                [(ngModel)]="financialAnalysisObj.isSelectDiscFactor1"
+                                (change)="financialAnalysisObj.isSelectDiscFactor2=false">
+                            </mat-checkbox>
+                        </td>
+                        <td>
+                            <b>Discounting Factor
+                                {{financialAnalysisObj.discFac1?'('+financialAnalysisObj.discFac1+')':''}} </b>
+                        </td>
+                        <td style="border:none" class="pl-2">NPV</td>
+                        <td style="border:none">
+                            <mat-form-field class="readOnly">
+                                <input type="number" onwheel="this.blur()" matInput readonly class="text-right"
+                                    [value]="financialAnalysisObj.discFac1Npv.toFixed(2)">
+                            </mat-form-field>
+                        </td>
+                        <td style="border:none" class="pl-2">BCR</td>
+                        <td style="border:none">
+                            <mat-form-field class="readOnly">
+                                <input type="number" onwheel="this.blur()" matInput readonly class="text-right"
+                                    [value]="financialAnalysisObj.discFac1Bcr.toFixed(2)">
+                            </mat-form-field>
+                        </td>
+                        <td style="border:none" class="pl-2">IRR</td>
+                        <td style="border:none">
+                            <mat-form-field class="readOnly">
+                                <input type="number" onwheel="this.blur()" matInput readonly class="text-right"
+                                    [value]="financialAnalysisObj.discFac1Irr.toFixed(2)">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6 col-sm-6 dis-fac2-cal dis-fac-input">
+                <table class="table-color">
+                    <tr>
+                        <td>
+                            <mat-checkbox id="checkDiscFactor2" color="primary"
+                                [(ngModel)]="financialAnalysisObj.isSelectDiscFactor2"
+                                (change)="financialAnalysisObj.isSelectDiscFactor1 = false">
+                            </mat-checkbox>
+                        </td>
+                        <td style="width: 120px !important;">
+                            <b>Discounting Factor
+                                {{financialAnalysisObj.discFac2?'('+financialAnalysisObj.discFac2+')':''}} </b>
+                        </td>
+                        <td style="border:none" class="pl-2">NPV</td>
+                        <td style="border:none">
+                            <mat-form-field class="readOnly">
+                                <input type="number" onwheel="this.blur()" matInput readonly class="text-right"
+                                    [value]="financialAnalysisObj.discFac2Npv.toFixed(2)">
+                            </mat-form-field>
+                        </td>
+                        <td style="border:none" class="pl-2">BCR</td>
+                        <td style="border:none">
+                            <mat-form-field class="readOnly">
+                                <input type="number" onwheel="this.blur()" matInput readonly class="text-right"
+                                    [value]="financialAnalysisObj.discFac2Bcr.toFixed(2)">
+                            </mat-form-field>
+                        </td>
+                        <td style="border:none" class="pl-2">IRR</td>
+                        <td style="border:none">
+                            <mat-form-field class="readOnly">
+                                <input type="number" onwheel="this.blur()" matInput readonly class="text-right"
+                                    [value]="financialAnalysisObj.discFac2Irr.toFixed(2)">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: right; padding-right: 20px; padding-top: 10px;">
+        <button mat-raised-button color="primary" class="ml-2" (click)="onClickClalulate()">Calculate</button>
+        <button mat-raised-button color="primary" class="ml-2" (click)="create()" [disabled]="spinner">Save</button>
+        <button mat-raised-button class="calcle-btn ml-2" (click)="closeDialog(null)">Cancel</button>
+    </div>
+</div>

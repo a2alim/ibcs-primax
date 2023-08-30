@@ -1,0 +1,1557 @@
+<div style="width: 100%; background-color: white">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="'headerTitle' | translate" class="crop-text"
+                                 [subTitle]="'headerSubTitle' | translate"></app-list-header>
+
+
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="backToHome()" mat-button type="button">
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{"homePageText" | translate}}
+                    </button>
+                </div>
+            </div>
+            <!--//New Header-->
+        </div>
+    </div>
+    <div class="list-page-outside-body">
+        <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+
+
+            <!--============================== transaction spinner ===================-->
+            <div *ngIf="spinner">
+                <app-common-loader-spinner></app-common-loader-spinner>
+            </div>
+            <!--============================== // transaction spinner ===================-->
+
+
+            <mat-card>
+                <div>
+                    <mat-card>
+                        <form [formGroup]="formGroup" name="frmGroup" class="p-5">
+                            <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label class="pb-5" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="100%">
+                                        সারসংক্ষেপের ধরনঃ
+                                    </mat-label>
+                                    <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                        <mat-select (selectionChange)="onChangePaperType($event)"
+                                                    formControlName="projectSummariesType" required>
+                                            <mat-option value="select">নির্বাচন করুন</mat-option>
+                                            <mat-option
+                                                *ngIf="(userGroup?.groupStatus == 'ECNEC' || userGroup?.groupStatus == 'ECNEC-DESK' || userGroup?.groupStatus == 'ECNEC-HEAD') && projectSummary?.projectTypeDTO.nameEn.toUpperCase() === 'DPP'"
+                                                value="FOR_ECNEC_DPP_TAPP"
+                                                matTooltip=" {{'dd_1' | translate}}"
+                                                matTooltipPosition="above">{{'dd_1' | translate}}
+                                            </mat-option>
+                                            <mat-option
+                                                *ngIf="(userGroup?.groupStatus == 'PLANNING-HEAD' ||
+                                                userGroup?.groupStatus == 'PLANNING-DESK' ||
+                                                userGroup?.groupStatus == 'PLANNING-MINISTER') && (projectSummary?.projectTypeDTO.nameEn.toUpperCase() === 'DPP' && projectSummary?.sourceModuleType == 'DPP_TAPP')"
+                                                value="FOR_PLANCOM_DPP"
+                                                matTooltip=" {{'dd_2' | translate}}"
+                                                matTooltipPosition="above">{{'dd_2' | translate}}
+                                            </mat-option>
+                                            <mat-option
+                                                *ngIf="(userGroup?.groupStatus == 'PLANNING-HEAD' ||
+                                                userGroup?.groupStatus == 'PLANNING-DESK' ||
+                                                userGroup?.groupStatus == 'PLANNING-MINISTER') && projectSummary?.sourceModuleType == 'FS'"
+                                                value="FOR_PLANCOM_FS"
+                                                matTooltip=" {{'dd_3' | translate}}"
+                                                matTooltipPosition="above">{{'dd_3' | translate}}
+                                            </mat-option>
+                                            <mat-option
+                                                *ngIf="(userGroup?.groupStatus == 'PLANNING-HEAD' ||
+                                                userGroup?.groupStatus == 'PLANNING-DESK' ||
+                                                userGroup?.groupStatus == 'PLANNING-MINISTER') && (projectSummary?.projectTypeDTO.nameEn.toUpperCase() === 'TAPP' && projectSummary?.sourceModuleType == 'DPP_TAPP')"
+                                                value="FOR_PLANCOM_TAPP"
+                                                matTooltip=" {{'dd_4' | translate}}"
+                                                matTooltipPosition="above">{{'dd_4' | translate}}
+                                            </mat-option>
+                                            <mat-option
+                                                *ngIf="(userGroup?.groupStatus == 'MINISTRY-DESK' ||
+                                                userGroup?.groupStatus == 'MINISTRY-HEAD') && projectSummary?.sourceModuleType == 'FS'"
+                                                value="FOR_MINISTRY_FS"
+                                                matTooltip=" {{'dd_5' | translate}}"
+                                                matTooltipPosition="above"> {{'dd_5' | translate}}
+                                            </mat-option>
+                                            <mat-option
+                                                *ngIf="(userGroup?.groupStatus == 'MINISTRY-DESK' ||
+                                                userGroup?.groupStatus == 'MINISTRY-HEAD')  && (projectSummary?.projectTypeDTO.nameEn.toUpperCase() === 'TAPP' && projectSummary?.sourceModuleType == 'DPP_TAPP')"
+                                                value="FOR_MINISTRY_TAPP"
+                                                matTooltip=" {{'dd_6' | translate}}"
+                                                matTooltipPosition="above">{{'dd_6' | translate}}
+                                            </mat-option>
+                                            <mat-option
+                                                *ngIf="isCurrentStage && (userGroup?.groupStatus == 'PLANNING-HEAD' ||
+                                                userGroup?.groupStatus == 'PLANNING-DESK' ||
+                                                userGroup?.groupStatus == 'PLANNING-MINISTER') && projectSummary?.projectTypeDTO.nameEn.toUpperCase() === 'DPP' && projectSummary?.sourceModuleType == 'DPP_TAPP'"
+                                                value="FOR_PLANCOM_DPP_TAPP"
+                                                matTooltip=" {{'dd_7' | translate}}"
+                                                matTooltipPosition="above">{{'dd_7' | translate}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card>
+                </div>
+                <br>
+                <div *ngIf="summariesForm">
+                    <!-- Project Title (Bangla) Div -->
+                    <div class="md:flex">
+                        <div class="w-4 sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-10 text-base">
+                            <span> <strong>{{ "nameofTheProject" | translate }}</strong></span>
+                        </div>
+                        <span>{{projectSummary.titleBn}}</span>
+                    </div>
+                    <!-- MinistryDivision Div -->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-10 text-base">
+                            <strong>{{ "sposoringMinistry" | translate }}</strong>
+                        </div>
+                        <span>{{agencyName}}</span>
+                    </div>
+                    <!-- ImplementingAgency Div -->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-10 text-base">
+                            <span> <strong>{{ "implimentingAgency" | translate }}</strong></span>
+                        </div>
+                        <span>{{ministryDivisionName}}</span>
+                    </div>
+                    <br>
+                    <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-10 text-base">
+                        <b> {{ "total_cost_summary" | translate }}</b>
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-4 text-base">
+                            <span style="padding-left: 10px;"> (ক) মোট:</span>
+                        </div>
+                        <span>{{numberPipe.convertToBanglaNumber((grantTotal.totalAmount/100).toFixed(2))}}</span>
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-4 text-base">
+                            <span style="padding-left: 10px;">(খ) জিওবি:</span>
+                        </div>
+                        <span>{{numberPipe.convertToBanglaNumber((grantTotal.gobAmount/100).toFixed(2))}}</span>
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-4 text-base">
+                            <span style="padding-left: 10px;"> (গ) বৈদেশিক অর্থায়ন:</span>
+                        </div>
+                        <span>{{numberPipe.convertToBanglaNumber(((grantTotal.gobThruAmount+grantTotal.spAcAmount)/100).toFixed(2))}}</span>
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-4 text-base">
+                            <span style="padding-left: 10px;"> (ঘ) নিজস্ব তহবিল:</span>
+                        </div>
+                        <span>{{numberPipe.convertToBanglaNumber((grantTotal.ownFundAmount/100).toFixed(2))}}</span>
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-4 text-base">
+                            <span style="padding-left: 10px;"> (ঙ) অন্যান্য:</span>
+                        </div>
+                        <span>{{numberPipe.convertToBanglaNumber((grantTotal.otherAmount/100).toFixed(2))}}</span>
+                    </div>
+                    <br>
+                <div *ngIf="projectSummary.isForeignAid">
+                    <br>
+                    <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-10 text-base">
+                        <b>বৈদেশিক অর্থায়ন সম্বলিত প্রকল্পের ক্ষেত্রে</b>
+                    </div>
+                    <div>
+                        <div class="md:flex" style="height: 25px;">
+                            <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-4 text-base">
+                                <span style="padding-left: 10px;">(ক) উন্নয়ন সহযোগী দেশ/সংস্থার নাম:</span>
+                            </div>
+                            <span *ngFor="let devPartner of developmentPartnersList; let i = index">
+                                {{devPartner.nameBn}}
+                            </span>
+                        </div>
+
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-1/4 wd md:text-left pr-2 leading-4 text-base">
+                                <span style="padding-left: 10px;">(খ) অর্থায়নের ধরণ:</span>
+                            </div>
+                            <span></span>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                    <div style="padding-left: 5px;">
+                        <strong><h4>প্রকল্পের মেয়াদ </h4></strong>
+                    </div>
+                    <div>
+                        <div>
+                            <p>(ক) আরম্ভ:<span style="padding-left: 24px;">{{numberPipe.convertToBanglaNumber(expCommencementDate)}}</span></p>
+
+                        </div>
+                        <div>
+                            <p>(খ) সমাপ্তি: <span style="padding-left: 20px;">{{numberPipe.convertToBanglaNumber(expCompletionDate)}}</span></p>
+                        </div>
+                    </div>
+
+                    <br>
+                    <form [formGroup]="formGroup" class="space-y-4">
+
+                        <!--18 project_objectives-->
+                        <div *ngIf="isSummaries3 || isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'project_objectives' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor18" (click)="toggleShow18()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor18" (click)="toggleShow18()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'projectObjectives')"
+                                      id="file-upload18"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor18" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="projectObjectives">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--1  descriptionAndLogicality-->
+                        <div *ngIf="isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'project_rationale_adoption' | translate}}</span>
+                                    <!--                                <span><i>{{'project_rationale_adoption' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor1" (click)="toggleShow1()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor1" (click)="toggleShow1()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                           </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'descriptionAndLogicality')"
+                                      id="file-upload0"/>
+                            </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor1" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="descriptionAndLogicality">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--2 mainActivities-->
+                        <div *ngIf="isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'activities_project' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor2" (click)="toggleShow2()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor2" (click)="toggleShow2()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'mainActivities')"
+                                      id="file-upload1"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor2" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="mainActivities">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--3 projectConsistency-->
+                        <div *ngIf="isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'consistency_project' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor3" (click)="toggleShow3()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor3" (click)="toggleShow3()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'projectConsistency')"
+                                      id="file-upload2"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor3" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="projectConsistency">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--4 locationLogicality-->
+                        <!--<div *ngIf="isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'project_area' | translate}}</span>
+                                    &lt;!&ndash;                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>&ndash;&gt;
+
+                                    <span *ngIf="!editor4" (click)="toggleShow4()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor4" (click)="toggleShow4()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'locationLogicality')"
+                                      id="file-upload3"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor4" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="locationLogicality">
+
+                                </ckeditor>
+                            </div>
+                        </div>-->
+
+                        <!--15 locationAndAllocation-->
+                        <!--Location Start-->
+                        <div>
+                                     <span>
+                                    <p class="sub-heading mb-2 text-lg m-px	">{{'project_area' | translate}} </p>
+                                    </span>
+                        </div>
+
+                        <div style="text-align: right;" >
+                            <span>
+                                {{'InLakh' | translate}}
+                            </span>
+                            <table>
+
+                                <thead>
+                                <tr>
+                                    <th style="width: 5%" class="top-header">{{'SlNo' | translate}}</th>
+                                    <th style="width: 10%" class="top-header">{{'Division' | translate}}</th>
+                                    <th style="width: 10%" class="top-header">{{'Zilla' | translate}}</th>
+                                    <th style="width: 20%" class="top-header">{{'UpazilaCityCorporationPourosave' | translate}}</th>
+                                </tr>
+                                <tr style="height: 10px;text-align: center">
+                                    <th class="">{{'01' | translate}}</th>
+                                    <th class="">{{'02' | translate}}</th>
+                                    <th class="">{{'03' | translate}}</th>
+                                    <th class="">{{'04' | translate}}</th>
+                                </tr>
+
+                                </thead>
+                                <tbody>
+
+                                <tr *ngFor="let up of upazilas; let i = index">
+                                    <td style="width: 5%"  *ngIf="up.dSpan !== 0" [rowSpan]="up.dSpan">{{up.sl}}</td>
+                                    <td style="width: 10%" *ngIf="up.dSpan !== 0" [rowSpan]="up.dSpan">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up?.division?.nameBn : up?.division?.nameEn}}
+                                    </td>
+                                    <td style="width: 10%" *ngIf="up.zSpan !== 0" [rowSpan]="up.zSpan">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up?.zilla?.nameBn : up?.zilla?.nameEn}}
+                                    </td>
+                                    <td style="width: 20%">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? up?.upazila?.nameBn : up?.upazila?.nameEn}}
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--  Location End-->
+                        <div *ngIf="isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'project_area_selection' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor15" (click)="toggleShow15()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor15" (click)="toggleShow15()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload15">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'locationAndAllocation')"
+                                      id="file-upload15"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor15" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="locationAndAllocation">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <div *ngIf="isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'feasibility_study' | translate}}</span>
+                                    <span *ngIf="!editor21" (click)="toggleShow21()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                            matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor21" (click)="toggleShow21()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                            matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload21">
+                                            <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                matTooltipPosition="above">image</mat-icon>
+                                        </label>
+                                        <input #file21 type="file" accept='image/*'
+                                            (change)="uploadImageAsBase64(file21.files,'feasibilityStudy')"
+                                            id="file-upload21"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor21" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="feasibilityStudy">
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--  New table  Start -->
+                        <div class="overflow-x-scroll">
+                            <div>
+                                     <span>
+                                    <p class="sub-heading mb-2 text-lg m-px	">{{'Estimated_cost_summary22' | translate}} </p>
+                                    </span>
+                            </div>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th rowspan="3">
+                                        {{'economic' | translate}}
+                                        {{'code22' | translate}}
+
+                                    </th>
+                                    <th rowspan="3">
+                                        {{'econdescription' | translate}}
+                                        {{'econdes_sub' | translate}}
+                                    </th>
+                                    <th rowspan="3">{{'Unit' | translate}}</th>
+                                    <th rowspan="3">{{'Quantity' | translate}}</th>
+                                    <th rowspan="3">{{'Gob_fe' | translate}}</th>
+                                    <th colspan="4" *ngIf="isForeignAid">{{'Project_aid' | translate}}</th>
+                                    <th rowspan="3">{{'Own_fund_fe' | translate}}</th>
+                                    <th rowspan="3">{{'Other_fe' | translate}}</th>
+                                    <th *ngIf="isForeignAid" rowspan="3">{{'Total_cost_en' | translate}}</th>
+                                    <th *ngIf="!isForeignAid" rowspan="3">{{'Total_cost_bn' | translate}}</th>
+                                    <th rowspan="3">{{'Total_project_cost' | translate}}</th>
+                                </tr>
+                                <tr>
+
+                                    <th *ngIf="isForeignAid" colspan="2"> {{'Rpa' | translate}}</th>
+                                    <th *ngIf="isForeignAid" colspan="2">{{'Dpa' | translate}}</th>
+
+                                </tr>
+                                <tr>
+                                    <th *ngIf="isForeignAid">{{'Through_gob' | translate}}</th>
+                                    <th *ngIf="isForeignAid">{{'Special_amount' | translate}}</th>
+                                    <th *ngIf="isForeignAid">{{'Through_pd' | translate}}</th>
+                                    <th *ngIf="isForeignAid">{{'Special_dp' | translate}}</th>
+
+                                </tr>
+                                <tr  class="boldBorder">
+                                    <th>{{'c1' | translate}}</th>
+                                    <th>{{'c2' | translate}}</th>
+                                    <th>{{'c3' | translate}}</th>
+                                    <th>{{'c4' | translate}}</th>
+                                    <th>{{'c5' | translate}}</th>
+                                    <th>{{'c6' | translate}}</th>
+                                    <th>{{'c7' | translate}}</th>
+                                    <th>{{'c8' | translate}}</th>
+                                    <th>{{'c9' | translate}}</th>
+                                    <th *ngIf="isForeignAid">{{'c10' | translate}}</th>
+                                    <th *ngIf="isForeignAid">{{'c11' | translate}}</th>
+                                    <th *ngIf="isForeignAid">{{'c12' | translate}}</th>
+                                    <th *ngIf="isForeignAid">{{'c13' | translate}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="13"
+                                        style="text-align: left !important;font-weight: bold !important;">
+                                        <span>{{'Revenue_component22' | translate}}</span>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let data of revenueList" class="text-right">
+
+                                    <td class="txt-left">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.economicCode.economicCode) :
+                                        data?.economicCode.economicCode}}</td>
+
+
+
+                                    <td class="txt-left">
+                                        {{data?.description}}</td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        data?.unitType.unitTypeNameBng : data?.unitType.unitTypeNameEng}}</td>
+                                    <!--<td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.unitCost.toFixed(2)) : data?.unitCost.toFixed(2)}}</td>-->
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.qty.toFixed(2)) : data?.qty.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.gobAmount.toFixed(2)) : data?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.gobFeAmount.toFixed(2)) : data?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid">{{data?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid">{{data?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid">{{data?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid">{{data?.thruDpAmount}}</td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.ownFundAmount.toFixed(2)) : data?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.ownFundFeAmount.toFixed(2)) : data?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.otherAmount.toFixed(2)) : data?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.otherFeAmount.toFixed(2)) : data?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.totalCostCalculated.toFixed(2)) : data?.totalCostCalculated.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.totalProjectCost.toFixed(2)) : data?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+                                <!--        ====================== revenue subtotal =========================-->
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="4" style="text-align: left;">
+                                        <span>{{'Sub_total_Revenue22' | translate}}</span>
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(revenueTotal?.gobAmount?.toFixed(2)) : revenueTotal?.gobAmount?.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(revenueTotal?.gobFeAmount.toFixed(2)) : revenueTotal?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{revenueTotal?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{revenueTotal?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{revenueTotal?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{revenueTotal?.thruDpAmount}}</td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(revenueTotal?.ownFundAmount.toFixed(2)) : revenueTotal?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(revenueTotal?.ownFundFeAmount.toFixed(2)) : revenueTotal?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(revenueTotal?.otherAmount.toFixed(2)) : revenueTotal?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(revenueTotal?.otherFeAmount.toFixed(2)) : revenueTotal?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(revenueTotal?.totalAmount.toFixed(2)) : revenueTotal?.totalAmount.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(revenueTotal?.totalProjectCost.toFixed(2)) : revenueTotal?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+                                <!--        ========================= capital component ====================-->
+
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="14"
+                                        style="text-align: left !important; font-weight: bold !important;">
+                                        <span>{{'Capital_component22' | translate}}</span>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let data of capitalList" class="text-right">
+
+                                    <td class="txt-left">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.economicCode.economicCode)   :
+                                        data?.economicCode.economicCode }}</td>
+
+
+                                    <td class="txt-left">
+                                        {{data?.description}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        data?.unitType.unitTypeNameBng : data?.unitType.unitTypeNameEng}}</td>
+
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.qty.toFixed(2)) : data?.qty.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.gobAmount.toFixed(2)) : data?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.gobFeAmount.toFixed(2)) : data?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid">{{data?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid">{{data?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid">{{data?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid">{{data?.thruDpAmount}}</td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.ownFundAmount.toFixed(2)) : data?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.ownFundFeAmount.toFixed(2)) : data?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.otherAmount.toFixed(2)) : data?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.otherFeAmount.toFixed(2)) : data?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.totalCostCalculated.toFixed(2)) : data?.totalCostCalculated.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(data?.totalProjectCost.toFixed(2)) : data?.totalProjectCost.toFixed(2)}}
+                                    </td>
+
+                                </tr>
+
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="4" style="text-align: left;">
+                                        <span>{{'Sub_total_Capital22' | translate}}</span>
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(capitalTotal?.gobAmount.toFixed(2)) : capitalTotal?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(capitalTotal?.gobFeAmount.toFixed(2)) : capitalTotal?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{capitalTotal?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{capitalTotal?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{capitalTotal?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{capitalTotal?.thruDpAmount}}</td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(capitalTotal?.ownFundAmount.toFixed(2)) : capitalTotal?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(capitalTotal?.ownFundFeAmount.toFixed(2)) : capitalTotal?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(capitalTotal?.otherAmount.toFixed(2)) : capitalTotal?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(capitalTotal?.otherFeAmount.toFixed(2)) : capitalTotal?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(capitalTotal?.totalAmount.toFixed(2)) : capitalTotal?.totalAmount.toFixed(2)}}
+                                    </td>
+                                    <td>
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                        numberPipe.convertToBanglaNumber(capitalTotal?.totalProjectCost.toFixed(2)) : capitalTotal?.totalProjectCost.toFixed(2)}}
+                                    </td>
+
+                                </tr>
+                                <!--        ===================== physical contingency ========================-->
+
+                                <tr style="background-color: #d8d5d5 !important;" *ngIf="physicalContingencyTotal != null">
+                                    <td colspan="4" style="text-align: left;font-weight: bold !important;">{{'Physical_contingency' | translate}}</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.gobAmount.toFixed(2)) : physicalContingencyTotal?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.gobFeAmount.toFixed(2)) : physicalContingencyTotal?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{physicalContingencyTotal?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{physicalContingencyTotal?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{physicalContingencyTotal?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{physicalContingencyTotal?.thruDpAmount}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.ownFundAmount.toFixed(2)) : physicalContingencyTotal?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.ownFundFeAmount.toFixed(2)) : physicalContingencyTotal?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.otherAmount.toFixed(2)) : physicalContingencyTotal?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.otherFeAmount.toFixed(2)) : physicalContingencyTotal?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Total Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.totalAmount.toFixed(2)) : physicalContingencyTotal?.totalAmount.toFixed(2)}}
+                                    </td>
+                                    <td data-label="% of Total Project Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(physicalContingencyTotal?.totalProjectCost.toFixed(2)) : physicalContingencyTotal?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <!--                    ====================== physical contingency when null =================-->
+
+                                <tr style="background-color: #d8d5d5 !important;" *ngIf="physicalContingencyTotal == null">
+                                    <td colspan="4" style="text-align: left;">{{'Physical_contingency' | translate}}</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{blankVal.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{blankVal.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{blankVal.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{blankVal.toFixed(2)}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Total Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                                    </td>
+                                    <td data-label="% of Total Project Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <!--                    ======================= price contingency ========================-->
+
+                                <tr style="background-color: #d8d5d5 !important;" *ngIf="priceContingencyTotal != null">
+                                    <td colspan="4" style="text-align: left; font-weight: bold !important;">{{'Price_contingency' | translate}}</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.gobAmount.toFixed(2)) : priceContingencyTotal?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.gobFeAmount.toFixed(2)) : priceContingencyTotal?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{priceContingencyTotal?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{priceContingencyTotal?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{priceContingencyTotal?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{priceContingencyTotal?.thruDpAmount}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.ownFundAmount.toFixed(2)) : priceContingencyTotal?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.ownFundFeAmount.toFixed(2)) : priceContingencyTotal?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.otherAmount.toFixed(2)) : priceContingencyTotal?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.otherFeAmount.toFixed(2)) : priceContingencyTotal?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Total Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.totalAmount.toFixed(2)) : priceContingencyTotal?.totalAmount.toFixed(2)}}
+                                    </td>
+                                    <td data-label="% of Total Project Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(priceContingencyTotal?.totalProjectCost.toFixed(2)) : priceContingencyTotal?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+                                <!--                    ========================= price contingency when null ====================-->
+                                <tr style="background-color: #d8d5d5 !important;" *ngIf="priceContingencyTotal == null">
+                                    <td colspan="4" style="text-align: left;">{{'Price_contingency' | translate}}</td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{blankVal.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{blankVal.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{blankVal.toFixed(2)}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{blankVal.toFixed(2)}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Total Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                                    </td>
+                                    <td data-label="% of Total Project Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                                    </td>
+                                </tr>
+
+
+                                <tr style="background-color: #d8d5d5 !important;">
+                                    <td colspan="4" style="text-align: left; font-weight: bold">
+                                        <span>{{'Grand_total22' | translate}}</span>
+                                    </td>
+                                    <td data-label="GoB (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.gobAmount.toFixed(2)) : grantTotal?.gobAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.gobFeAmount.toFixed(2)) : grantTotal?.gobFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td *ngIf="isForeignAid" data-label="Through GoB">{{grantTotal?.gobThruAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Special Account **">{{grantTotal?.spAcAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through PD">{{grantTotal?.thruPdAmount}}</td>
+                                    <td *ngIf="isForeignAid" data-label="Through DP">{{grantTotal?.thruDpAmount}}</td>
+                                    <td data-label="Own Fund (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.ownFundAmount.toFixed(2)) : grantTotal?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.ownFundFeAmount.toFixed(2)) : grantTotal?.ownFundFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Other (FE)">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.otherAmount.toFixed(2)) : grantTotal?.otherAmount.toFixed(2)}}<br>
+                                        ({{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.otherFeAmount.toFixed(2)) : grantTotal?.otherFeAmount.toFixed(2)}})
+                                    </td>
+                                    <td data-label="Total Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.totalAmount.toFixed(2)) : grantTotal?.totalAmount.toFixed(2)}}
+                                    </td>
+                                    <td data-label="% of Total Project Cost">
+                                        {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grantTotal?.totalProjectCost.toFixed(2)) : grantTotal?.totalProjectCost.toFixed(2)}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <!--16 projectLocationAndAllocationADB-->
+                        <div *ngIf="isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'proposal_of_ministry' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor16" (click)="toggleShow16()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor16" (click)="toggleShow16()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload16">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'projectLocationAndAllocationADB')"
+                                      id="file-upload16"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor16" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="projectLocationAndAllocationADB">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--5 pictureOfRealWork-->
+                        <div *ngIf="isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'project_applicable' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor5" (click)="toggleShow5()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor5" (click)="toggleShow5()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'pictureOfRealWork')"
+                                      id="file-upload4"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor5" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="pictureOfRealWork">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--6 analysisOfIncome-->
+                        <div *ngIf="isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'income_expenditure' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor6" (click)="toggleShow6()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor6" (click)="toggleShow6()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'analysisOfIncome')"
+                                      id="file-upload5"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor6" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="analysisOfIncome">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--<div *ngIf="isSummaries1">
+                            <div class="overflow-x-scroll">
+                                <table class="mat-elevation-z8">
+                                    <thead>
+                                    <tr>
+                                        <th rowspan="2" class="top-header">{{'economic_year' | translate}}</th>
+                                        <th rowspan="2" class="top-header">{{'gob' | translate}}</th>
+                                        <th rowspan="2" class="top-header" *ngIf="projectSummary?.isForeignAid== true && projectSummary?.projectTypeDTO?.nameEn.toUpperCase() === 'DPP'" >{{'dev_partner' | translate}}</th>
+                                        <th rowspan="2" class="top-header">{{'own_fund' | translate}}</th>
+                                        <th rowspan="2" class="top-header">{{'others' | translate}}</th>
+                                        <th rowspan="2" class="top-header">{{'total_amount' | translate}}</th>
+                                    </tr>
+                                    </thead>
+
+                                    &lt;!&ndash; Table Body&ndash;&gt;
+                                    <tbody>
+                                    <ng-container formArrayName="tappSupportStuffList">
+                                        <ng-container
+                                            *ngFor="let lessonForm of yearWiseCostList.controls; let i = index">
+                                            <tr class="lesson-form-row" [formGroup]="lessonForm">
+                                                &lt;!&ndash; TODO: Those value dynamically come from server&ndash;&gt;
+                                                <td>
+                                                    <mat-form-field class="w-full mt-2">
+                                                        <input formControlName="fiscalYear"
+                                                               readonly
+                                                               appearance="outline" autocomplete="off"
+                                                               matInput required>
+                                                    </mat-form-field>
+                                                </td>
+
+
+                                                <td>
+                                                    <mat-form-field class="w-full readOnly">
+                                                        <input formControlName="gobApprovedDpp"
+                                                               appearance="outline" autocomplete="off"
+                                                               readonly
+                                                               matInput required>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td *ngIf="projectSummary?.isForeignAid== true && projectSummary?.projectTypeDTO?.nameEn.toUpperCase() === 'DPP'">
+                                                    <mat-form-field class="w-full readOnly">
+                                                        <input formControlName="developmentPartnerApprovedDpp"
+                                                               readonly
+                                                               appearance="outline" autocomplete="off"
+                                                               matInput required>
+                                                    </mat-form-field>
+                                                </td>
+
+                                                <td>
+                                                    <mat-form-field class="w-full readOnly">
+                                                        <input formControlName="ownFundApproveDpp"
+                                                               appearance="outline" autocomplete="off"
+                                                               readonly
+                                                               matInput required>
+                                                    </mat-form-field>
+                                                </td>
+
+                                                <td>
+                                                    <mat-form-field class="w-full readOnly">
+                                                        <input formControlName="othersDpp"
+                                                               appearance="outline" autocomplete="off"
+                                                               readonly matInput required>
+                                                    </mat-form-field>
+                                                </td>
+
+                                                <td>
+                                                    <mat-form-field class="w-full readOnly">
+                                                        <input formControlName="totalDpp"
+                                                               appearance="outline" autocomplete="off"
+                                                               readonly matInput required>
+                                                    </mat-form-field>
+                                                </td>
+
+                                            </tr>
+                                        </ng-container>
+                                    </ng-container>
+
+                                    </tbody>
+                                    &lt;!&ndash; Table Body End&ndash;&gt;
+                                </table>
+                            </div>
+                        </div>-->
+
+<!--                        demo-->
+
+                        <mat-card>
+                            <div>
+                             <span>
+                            <p class="sub-heading mb-2 text-lg m-px	">{{'YearWiseEstimatedCost22' | translate}} </p>
+                            </span>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-full">
+                                    <table id="yearWiseEstCost">
+                                        <tr>
+                                            <th style="text-align: center" rowspan="2">
+                                                {{ "FinancialYear" | translate }}
+                                            </th>
+                                            <th style="text-align: center" rowspan="2">
+                                                <span [innerHTML]="'GOB_FE3' | translate"></span>
+                                            </th>
+                                            <th style="text-align: center" *ngIf="isForeignAid" colspan="2">
+                                                {{ "PA" | translate }}
+                                            </th>
+                                            <th style="text-align: center" *ngIf="isForeignAid" colspan="2">
+                                                {{ "ProjectAid2022" | translate }}
+                                            </th>
+                                            <th style="text-align: center" rowspan="2">
+                                                <span [innerHTML]="'OwnFund322' | translate"></span>
+                                            </th>
+                                            <th style="text-align: center" rowspan="2">
+                                                <span [innerHTML]="'OthersFE3' | translate"></span><br/>
+                                            </th>
+                                            <th style="text-align: center" rowspan="2">
+                                                {{ "Total4" | translate }}
+                                                <br/>
+                                                {{ "ForeignCurrency" | translate }}
+                                            </th>
+                                        </tr>
+                                        <tr style="text-align: center" *ngIf="isForeignAid">
+                                            <th>{{ "RPA16" | translate }}
+                                            </th>
+                                            <th>{{ "DPA16" | translate }}
+                                            </th>
+                                        </tr>
+                                        <tr *ngIf="isForeignAid">
+                                            <th>{{ "RPA22" | translate }}<br>
+                                                {{ "RPA22_sub" | translate }}
+                                            </th>
+                                            <th>{{ "DPA22" | translate }}<br>
+                                                {{ "DPA22_sub" | translate }}
+                                            </th>
+                                        </tr>
+
+                                        <tr *ngIf="!isForeignAid">
+                                        </tr>
+
+                                        <tr  class="text-center">
+                                            <td>{{ "01" | translate }}</td>
+                                            <td>{{ "02" | translate }}</td>
+                                            <td>{{ "03" | translate }}</td>
+                                            <td>{{ "04" | translate }}</td>
+                                            <td>{{ "05" | translate }}</td>
+                                        </tr>
+
+
+                                        <tbody *ngFor="let item of fiscalYearsList">
+                                        <tr class="text-right">
+                                            <td style="text-align: center;">{{numberPipe.convertToBanglaNumber(item.fiscalYear)}}</td>
+                                            <td>
+                                                {{numberPipe.convertToBanglaNumber((item.govAmount/100).toFixed(2))}}
+                                                <br/>
+                                                {{numberPipe.convertToBanglaNumber((item.govFeAmount/100).toFixed(2))}}
+                                            </td>
+                                            <td *ngIf="isForeignAid">{{item.rpaAmount ? item.rpaAmount : 0.00}}</td>
+                                            <td *ngIf="isForeignAid">{{item.dpaAmount ? item.dpaAmount : 0.00}}</td>
+                                            <td>
+                                                {{numberPipe.convertToBanglaNumber((item.ownFundAmount/100).toFixed(2))}}
+                                                 <br/>
+                                                {{numberPipe.convertToBanglaNumber((item.ownFundFeAmount/100).toFixed(2))}}
+                                            </td>
+                                            <td>
+                                                {{numberPipe.convertToBanglaNumber((item.otherAmount/100).toFixed(2))}}
+                                                <br/>
+                                                {{numberPipe.convertToBanglaNumber((item.otherFeAmount/100).toFixed(2))}}
+                                            </td>
+                                            <td>
+                                                {{numberPipe.convertToBanglaNumber((item.totalAmount/100).toFixed(2))}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </mat-card>
+<!--                        demo end-->
+
+                        <!--7 pecMeetingDate-->
+                        <div *ngIf="isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'recommendation_appendix' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor7" (click)="toggleShow7()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor7" (click)="toggleShow7()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'pecMeetingDate')"
+                                      id="file-upload6"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor7" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="pecMeetingDate">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--8 ongoingAnnualProgramsAllocations-->
+                        <div *ngIf="isSummaries2 || isSummaries3">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'development_program' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor8" (click)="toggleShow8()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor8" (click)="toggleShow8()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'ongoingAnnualProgramsAllocations')"
+                                      id="file-upload7"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor8" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="ongoingAnnualProgramsAllocations">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+
+                        <!--19 decesion_pec_meeting-->
+                        <div *ngIf="isSummaries3">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'decesion_pec_meeting' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor19" (click)="toggleShow19()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor19" (click)="toggleShow19()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'decesionPecMeeting')"
+                                      id="file-upload19"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor19" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="decesionPecMeeting">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--20 project_approval_terms-->
+                        <div *ngIf="isSummaries3">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'project_approval_terms' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor20" (click)="toggleShow20()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor20" (click)="toggleShow20()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'projectApprovalTerms')"
+                                      id="file-upload20"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor20" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="projectApprovalTerms">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--9 proposedCoreActivities-->
+                        <div *ngIf="isSummaries2">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'proposed_key_activities' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor9" (click)="toggleShow9()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor9" (click)="toggleShow9()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'proposedCoreActivities')"
+                                      id="file-upload8"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor9" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="proposedCoreActivities">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--10 projectReasonOfCorrections-->
+                        <div *ngIf="isSummaries2">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'revised_project' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor10" (click)="toggleShow10()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor10" (click)="toggleShow10()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'projectReasonOfCorrections')"
+                                      id="file-upload9"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor10" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="projectReasonOfCorrections">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--11 recommendationOfPecMeeting-->
+                        <div *ngIf="isPec">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'meeting_recommendations' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor11" (click)="toggleShow11()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor11" (click)="toggleShow11()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'recommendationOfPecMeeting')"
+                                      id="file-upload10"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor11" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="recommendationOfPecMeeting">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--12 othersInformation-->
+                        <div *ngIf="isSummaries1 || isSummaries2 || isSummaries3">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'other_information' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor12" (click)="toggleShow12()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor12" (click)="toggleShow12()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'othersInformation')"
+                                      id="file-upload11"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor12" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="othersInformation">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--17 projectReasonOfCorrections-->
+                        <div *ngIf="isSpec || isSummaries1">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'spec_recomendation_meeting' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor17" (click)="toggleShow17()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor17" (click)="toggleShow17()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'specRecomendationMeeting')"
+                                      id="file-upload17"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor17" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="specRecomendationMeeting">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <!--13 opinionsAndRecommendations-->
+                        <div *ngIf="isSummaries2">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'opinions_recommendations' | translate}}</span>
+                                    <!--                                <span><i>{{'OD_26.0_sub' | translate}}</i></span>-->
+
+                                    <span *ngIf="!editor13" (click)="toggleShow13()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                                    <span *ngIf="editor13" (click)="toggleShow13()">
+                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                                    <span style="float: right">
+                           <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                          matTooltipPosition="above">image</mat-icon>
+                            </label>
+                               <input #file0 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file0.files,'opinionsAndRecommendations')"
+                                      id="file-upload12"/>
+                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor13" style="position: relative;">
+
+                                <ckeditor [config]="mediumEditorConfig" formControlName="opinionsAndRecommendations">
+
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <mat-card *ngIf="isSummaries3">
+                            <!--6th Flex Layout Div Start -->
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <!-- Date Of Commencement Field-->
+                                <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <mat-label class="pb-5" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'date_of_recept_dpp' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                            <input (click)="picker1.open()" [matDatepicker]="picker1"
+                                                   formControlName="dateOfReceptDpp"
+                                                   matInput readonly required>
+                                            <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                            <mat-datepicker #picker1></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <!-- Date Of Completion Field-->
+                                <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                                        <mat-label class="pb-5" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%"
+                                                   fxFlex.xs="100%">{{'createDate' | translate}}:
+                                        </mat-label>
+                                        <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                            <input (click)="picker2.open()" [matDatepicker]="picker2"
+                                                   formControlName="summariesCreateDate"
+                                                   matInput readonly required>
+                                            <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--6th Flex Layout Div End -->
+                        </mat-card>
+
+                        <div class="space-x-4 text-end">
+                            <button *ngIf="isUpdate" (click)="downloadSummery('dpp_summary','dpp/dpp_summary')" class="mt-4 space-x-4" [disabled]="spinner" color="primary" mat-raised-button>
+                                {{'dwnld' | translate}}
+                            </button>
+                            <button *ngIf="isUpdate" class="mt-4" [disabled]="spinner" (click)="onSubmitUpdate()" color="primary" mat-raised-button>
+                                {{'Update' | translate}}
+                            </button>
+                            <button *ngIf="isSave" class="mt-4 space-x-4" [disabled]="spinner" (click)="onSubmit()" color="primary" mat-raised-button>
+                                {{'Save' | translate}}
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </mat-card>
+        </div>
+
+    </div>
+</div>
+
+

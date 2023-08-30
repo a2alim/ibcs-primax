@@ -1,0 +1,1566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rms_researcher_profile_bn" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="70748a77-5af1-4d14-be44-5971925c0e77">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rms_researcher_profile_bn_DataAdapter.xml"/>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Education Information" uuid="5fd11f38-c649-46be-83ac-82106672e608">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="researcher-profile-rpt.xml"/>
+		<queryString language="JSON">
+			<![CDATA[educationInfos]]>
+		</queryString>
+		<field name="id" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="id"/>
+			<fieldDescription><![CDATA[id]]></fieldDescription>
+		</field>
+		<field name="uuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="uuid"/>
+			<fieldDescription><![CDATA[uuid]]></fieldDescription>
+		</field>
+		<field name="isDeleted" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isDeleted"/>
+			<fieldDescription><![CDATA[isDeleted]]></fieldDescription>
+		</field>
+		<field name="createdBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdBy"/>
+			<fieldDescription><![CDATA[createdBy]]></fieldDescription>
+		</field>
+		<field name="createdOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdOn"/>
+			<fieldDescription><![CDATA[createdOn]]></fieldDescription>
+		</field>
+		<field name="updatedBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedBy"/>
+			<fieldDescription><![CDATA[updatedBy]]></fieldDescription>
+		</field>
+		<field name="updatedOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedOn"/>
+			<fieldDescription><![CDATA[updatedOn]]></fieldDescription>
+		</field>
+		<field name="profilePersonalInfoId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="profilePersonalInfoId"/>
+			<fieldDescription><![CDATA[profilePersonalInfoId]]></fieldDescription>
+		</field>
+		<field name="certificationName" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="certificationName"/>
+			<fieldDescription><![CDATA[certificationName]]></fieldDescription>
+		</field>
+		<field name="discipline" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="discipline"/>
+			<fieldDescription><![CDATA[discipline]]></fieldDescription>
+		</field>
+		<field name="passingYearMonth" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="passingYearMonth"/>
+			<fieldDescription><![CDATA[passingYearMonth]]></fieldDescription>
+		</field>
+		<field name="division" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="division"/>
+			<fieldDescription><![CDATA[division]]></fieldDescription>
+		</field>
+		<field name="scale" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="scale"/>
+			<fieldDescription><![CDATA[scale]]></fieldDescription>
+		</field>
+		<field name="cgpa" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="cgpa"/>
+			<fieldDescription><![CDATA[cgpa]]></fieldDescription>
+		</field>
+		<field name="instituteName" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="instituteName"/>
+			<fieldDescription><![CDATA[instituteName]]></fieldDescription>
+		</field>
+		<field name="divisionClassOrCgpa" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="divisionClassOrCgpa"/>
+			<fieldDescription><![CDATA[divisionClassOrCgpa]]></fieldDescription>
+		</field>
+		<field name="isForeign" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isForeign"/>
+			<fieldDescription><![CDATA[isForeign]]></fieldDescription>
+		</field>
+		<field name="certificateImage" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="certificateImage"/>
+			<fieldDescription><![CDATA[certificateImage]]></fieldDescription>
+		</field>
+		<field name="universityRegNo" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="universityRegNo"/>
+			<fieldDescription><![CDATA[universityRegNo]]></fieldDescription>
+		</field>
+		<field name="isEditable" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isEditable"/>
+			<fieldDescription><![CDATA[isEditable]]></fieldDescription>
+		</field>
+		<group name="certificationName">
+			<groupExpression><![CDATA[$F{certificationName}]]></groupExpression>
+		</group>
+		<group name="passingYearMonth">
+			<groupExpression><![CDATA[$F{passingYearMonth}]]></groupExpression>
+		</group>
+		<group name="cgpa">
+			<groupExpression><![CDATA[$F{cgpa}]]></groupExpression>
+		</group>
+		<group name="instituteName">
+			<groupExpression><![CDATA[$F{instituteName}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="Training Information" uuid="38bb4d0c-b41f-4b4c-bc72-edfe0b23b3ed">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="researcher-profile-rpt.xml"/>
+		<queryString language="JSON">
+			<![CDATA[trainings]]>
+		</queryString>
+		<field name="id" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="id"/>
+			<fieldDescription><![CDATA[id]]></fieldDescription>
+		</field>
+		<field name="uuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="uuid"/>
+			<fieldDescription><![CDATA[uuid]]></fieldDescription>
+		</field>
+		<field name="isDeleted" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isDeleted"/>
+			<fieldDescription><![CDATA[isDeleted]]></fieldDescription>
+		</field>
+		<field name="createdBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdBy"/>
+			<fieldDescription><![CDATA[createdBy]]></fieldDescription>
+		</field>
+		<field name="createdOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdOn"/>
+			<fieldDescription><![CDATA[createdOn]]></fieldDescription>
+		</field>
+		<field name="updatedBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedBy"/>
+			<fieldDescription><![CDATA[updatedBy]]></fieldDescription>
+		</field>
+		<field name="updatedOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedOn"/>
+			<fieldDescription><![CDATA[updatedOn]]></fieldDescription>
+		</field>
+		<field name="profilePersonalInfoId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="profilePersonalInfoId"/>
+			<fieldDescription><![CDATA[profilePersonalInfoId]]></fieldDescription>
+		</field>
+		<field name="trainingName" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="trainingName"/>
+			<fieldDescription><![CDATA[trainingName]]></fieldDescription>
+		</field>
+		<field name="instituteOrCenterName" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="instituteOrCenterName"/>
+			<fieldDescription><![CDATA[instituteOrCenterName]]></fieldDescription>
+		</field>
+		<field name="duration" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="duration"/>
+			<fieldDescription><![CDATA[duration]]></fieldDescription>
+		</field>
+		<field name="result" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="result"/>
+			<fieldDescription><![CDATA[result]]></fieldDescription>
+		</field>
+		<field name="editable" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="editable"/>
+			<fieldDescription><![CDATA[editable]]></fieldDescription>
+		</field>
+		<group name="certificationName">
+			<groupExpression><![CDATA[$F{trainingName}]]></groupExpression>
+		</group>
+		<group name="passingYearMonth">
+			<groupExpression><![CDATA[$F{duration}]]></groupExpression>
+		</group>
+		<group name="cgpa">
+			<groupExpression><![CDATA[$F{result}]]></groupExpression>
+		</group>
+		<group name="instituteName">
+			<groupExpression><![CDATA[$F{editable}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="Publication Information" uuid="8c226a1d-5389-4a6b-95b1-1da8e3382c2c">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="researcher-profile-rpt.xml"/>
+		<queryString language="JSON">
+			<![CDATA[publicationInfos]]>
+		</queryString>
+		<field name="id" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="id"/>
+			<fieldDescription><![CDATA[id]]></fieldDescription>
+		</field>
+		<field name="uuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="uuid"/>
+			<fieldDescription><![CDATA[uuid]]></fieldDescription>
+		</field>
+		<field name="isDeleted" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isDeleted"/>
+			<fieldDescription><![CDATA[isDeleted]]></fieldDescription>
+		</field>
+		<field name="createdBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdBy"/>
+			<fieldDescription><![CDATA[createdBy]]></fieldDescription>
+		</field>
+		<field name="createdOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdOn"/>
+			<fieldDescription><![CDATA[createdOn]]></fieldDescription>
+		</field>
+		<field name="updatedBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedBy"/>
+			<fieldDescription><![CDATA[updatedBy]]></fieldDescription>
+		</field>
+		<field name="updatedOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedOn"/>
+			<fieldDescription><![CDATA[updatedOn]]></fieldDescription>
+		</field>
+		<field name="profilePersonalInfoId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="profilePersonalInfoId"/>
+			<fieldDescription><![CDATA[profilePersonalInfoId]]></fieldDescription>
+		</field>
+		<field name="publishedIn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="publishedIn"/>
+			<fieldDescription><![CDATA[publishedIn]]></fieldDescription>
+		</field>
+		<field name="articleTitle" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="articleTitle"/>
+			<fieldDescription><![CDATA[articleTitle]]></fieldDescription>
+		</field>
+		<field name="roleInTeam" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="roleInTeam"/>
+			<fieldDescription><![CDATA[roleInTeam]]></fieldDescription>
+		</field>
+		<field name="journalPaperNature" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="journalPaperNature"/>
+			<fieldDescription><![CDATA[journalPaperNature]]></fieldDescription>
+		</field>
+		<field name="publicationDate" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="publicationDate"/>
+			<fieldDescription><![CDATA[publicationDate]]></fieldDescription>
+		</field>
+		<field name="issn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="issn"/>
+			<fieldDescription><![CDATA[issn]]></fieldDescription>
+		</field>
+		<field name="isbn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isbn"/>
+			<fieldDescription><![CDATA[isbn]]></fieldDescription>
+		</field>
+		<field name="certificateImage" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="certificateImage"/>
+			<fieldDescription><![CDATA[certificateImage]]></fieldDescription>
+		</field>
+		<field name="editable" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="editable"/>
+			<fieldDescription><![CDATA[editable]]></fieldDescription>
+		</field>
+		<group name="certificationName">
+			<groupExpression><![CDATA[$F{publishedIn}]]></groupExpression>
+		</group>
+		<group name="passingYearMonth">
+			<groupExpression><![CDATA[$F{roleInTeam}]]></groupExpression>
+		</group>
+		<group name="cgpa">
+			<groupExpression><![CDATA[$F{publicationDate}]]></groupExpression>
+		</group>
+		<group name="instituteName">
+			<groupExpression><![CDATA[$F{issn}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="Research Information" uuid="965b4e95-4c69-48ca-b97f-649eba9ce245">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="researcher-profile-rpt.xml"/>
+		<queryString language="JSON">
+			<![CDATA[researchExperiences]]>
+		</queryString>
+		<field name="id" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="id"/>
+			<fieldDescription><![CDATA[id]]></fieldDescription>
+		</field>
+		<field name="uuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="uuid"/>
+			<fieldDescription><![CDATA[uuid]]></fieldDescription>
+		</field>
+		<field name="isDeleted" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isDeleted"/>
+			<fieldDescription><![CDATA[isDeleted]]></fieldDescription>
+		</field>
+		<field name="createdBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdBy"/>
+			<fieldDescription><![CDATA[createdBy]]></fieldDescription>
+		</field>
+		<field name="createdOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdOn"/>
+			<fieldDescription><![CDATA[createdOn]]></fieldDescription>
+		</field>
+		<field name="updatedBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedBy"/>
+			<fieldDescription><![CDATA[updatedBy]]></fieldDescription>
+		</field>
+		<field name="updatedOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedOn"/>
+			<fieldDescription><![CDATA[updatedOn]]></fieldDescription>
+		</field>
+		<field name="profilePersonalInfoId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="profilePersonalInfoId"/>
+			<fieldDescription><![CDATA[profilePersonalInfoId]]></fieldDescription>
+		</field>
+		<field name="researchType" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchType"/>
+			<fieldDescription><![CDATA[researchType]]></fieldDescription>
+		</field>
+		<field name="researchTopic" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchTopic"/>
+			<fieldDescription><![CDATA[researchTopic]]></fieldDescription>
+		</field>
+		<field name="researchYear" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchYear"/>
+			<fieldDescription><![CDATA[researchYear]]></fieldDescription>
+		</field>
+		<field name="fundingOrganization" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="fundingOrganization"/>
+			<fieldDescription><![CDATA[fundingOrganization]]></fieldDescription>
+		</field>
+		<field name="supervisorDetail" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="supervisorDetail"/>
+			<fieldDescription><![CDATA[supervisorDetail]]></fieldDescription>
+		</field>
+		<field name="researchStatus" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchStatus"/>
+			<fieldDescription><![CDATA[researchStatus]]></fieldDescription>
+		</field>
+		<field name="researchValueInBDT" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchValueInBDT"/>
+			<fieldDescription><![CDATA[researchValueInBDT]]></fieldDescription>
+		</field>
+		<field name="researchFindingAndImportance" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchFindingAndImportance"/>
+			<fieldDescription><![CDATA[researchFindingAndImportance]]></fieldDescription>
+		</field>
+		<field name="totalResearchExp" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="totalResearchExp"/>
+			<fieldDescription><![CDATA[totalResearchExp]]></fieldDescription>
+		</field>
+		<field name="isEditable" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isEditable"/>
+			<fieldDescription><![CDATA[isEditable]]></fieldDescription>
+		</field>
+		<field name="isForeign" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isForeign"/>
+			<fieldDescription><![CDATA[isForeign]]></fieldDescription>
+		</field>
+		<group name="certificationName">
+			<groupExpression><![CDATA[$F{researchType}]]></groupExpression>
+		</group>
+		<group name="passingYearMonth">
+			<groupExpression><![CDATA[$F{researchYear}]]></groupExpression>
+		</group>
+		<group name="cgpa">
+			<groupExpression><![CDATA[$F{supervisorDetail}]]></groupExpression>
+		</group>
+		<group name="instituteName">
+			<groupExpression><![CDATA[$F{researchStatus}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="Professional Experiences" uuid="9c117b6b-23b2-4db3-97c0-9b2fbbba9ffa">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="researcher-profile-rpt.xml"/>
+		<queryString language="JSON">
+			<![CDATA[professionalExperiences]]>
+		</queryString>
+		<field name="id" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="id"/>
+			<fieldDescription><![CDATA[id]]></fieldDescription>
+		</field>
+		<field name="uuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="uuid"/>
+			<fieldDescription><![CDATA[uuid]]></fieldDescription>
+		</field>
+		<field name="isDeleted" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isDeleted"/>
+			<fieldDescription><![CDATA[isDeleted]]></fieldDescription>
+		</field>
+		<field name="createdBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdBy"/>
+			<fieldDescription><![CDATA[createdBy]]></fieldDescription>
+		</field>
+		<field name="createdOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdOn"/>
+			<fieldDescription><![CDATA[createdOn]]></fieldDescription>
+		</field>
+		<field name="updatedBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedBy"/>
+			<fieldDescription><![CDATA[updatedBy]]></fieldDescription>
+		</field>
+		<field name="updatedOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedOn"/>
+			<fieldDescription><![CDATA[updatedOn]]></fieldDescription>
+		</field>
+		<field name="profilePersonalInfoId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="profilePersonalInfoId"/>
+			<fieldDescription><![CDATA[profilePersonalInfoId]]></fieldDescription>
+		</field>
+		<field name="organizationName" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="organizationName"/>
+			<fieldDescription><![CDATA[organizationName]]></fieldDescription>
+		</field>
+		<field name="designation" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="designation"/>
+			<fieldDescription><![CDATA[designation]]></fieldDescription>
+		</field>
+		<field name="isGovEmployee" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isGovEmployee"/>
+			<fieldDescription><![CDATA[isGovEmployee]]></fieldDescription>
+		</field>
+		<field name="fromDate" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="fromDate"/>
+			<fieldDescription><![CDATA[fromDate]]></fieldDescription>
+		</field>
+		<field name="toDate" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="toDate"/>
+			<fieldDescription><![CDATA[toDate]]></fieldDescription>
+		</field>
+		<field name="isContinue" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isContinue"/>
+			<fieldDescription><![CDATA[isContinue]]></fieldDescription>
+		</field>
+		<field name="responsibilityDetail" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="responsibilityDetail"/>
+			<fieldDescription><![CDATA[responsibilityDetail]]></fieldDescription>
+		</field>
+		<field name="isEditable" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isEditable"/>
+			<fieldDescription><![CDATA[isEditable]]></fieldDescription>
+		</field>
+		<group name="certificationName">
+			<groupExpression><![CDATA[$F{organizationName}]]></groupExpression>
+		</group>
+		<group name="passingYearMonth">
+			<groupExpression><![CDATA[$F{fromDate}]]></groupExpression>
+		</group>
+		<group name="cgpa">
+			<groupExpression><![CDATA[$F{isContinue}]]></groupExpression>
+		</group>
+		<group name="instituteName">
+			<groupExpression><![CDATA[$F{isGovEmployee}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="Emergency Contact Information" uuid="83776c93-583a-4616-9475-9d506158acfd">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="researcher-profile-rpt.xml"/>
+		<queryString language="JSON">
+			<![CDATA[relativeInfos]]>
+		</queryString>
+		<field name="id" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="id"/>
+			<fieldDescription><![CDATA[id]]></fieldDescription>
+		</field>
+		<field name="uuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="uuid"/>
+			<fieldDescription><![CDATA[uuid]]></fieldDescription>
+		</field>
+		<field name="isDeleted" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="isDeleted"/>
+			<fieldDescription><![CDATA[isDeleted]]></fieldDescription>
+		</field>
+		<field name="createdBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdBy"/>
+			<fieldDescription><![CDATA[createdBy]]></fieldDescription>
+		</field>
+		<field name="createdOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="createdOn"/>
+			<fieldDescription><![CDATA[createdOn]]></fieldDescription>
+		</field>
+		<field name="updatedBy" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedBy"/>
+			<fieldDescription><![CDATA[updatedBy]]></fieldDescription>
+		</field>
+		<field name="updatedOn" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="updatedOn"/>
+			<fieldDescription><![CDATA[updatedOn]]></fieldDescription>
+		</field>
+		<field name="profilePersonalInfoId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="profilePersonalInfoId"/>
+			<fieldDescription><![CDATA[profilePersonalInfoId]]></fieldDescription>
+		</field>
+		<field name="name" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="name"/>
+			<fieldDescription><![CDATA[name]]></fieldDescription>
+		</field>
+		<field name="email" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="email"/>
+			<fieldDescription><![CDATA[email]]></fieldDescription>
+		</field>
+		<field name="phoneNo" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="phoneNo"/>
+			<fieldDescription><![CDATA[phoneNo]]></fieldDescription>
+		</field>
+		<field name="presentAddress" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="presentAddress"/>
+			<fieldDescription><![CDATA[presentAddress]]></fieldDescription>
+		</field>
+		<field name="permanentAddress" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="permanentAddress"/>
+			<fieldDescription><![CDATA[permanentAddress]]></fieldDescription>
+		</field>
+		<field name="nid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="nid"/>
+			<fieldDescription><![CDATA[nid]]></fieldDescription>
+		</field>
+		<field name="editable" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="editable"/>
+			<fieldDescription><![CDATA[editable]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Reference Information" uuid="26760174-4506-4a87-9f5b-40ef06e652fd">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rms_researcher_profile_bn_DataAdapter.xml"/>
+		<queryString language="json">
+			<![CDATA[relativeInfos]]>
+		</queryString>
+		<field name="name" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="name"/>
+			<fieldDescription><![CDATA[name]]></fieldDescription>
+		</field>
+		<field name="email" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="email"/>
+			<fieldDescription><![CDATA[email]]></fieldDescription>
+		</field>
+		<field name="phoneNo" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="phoneNo"/>
+			<fieldDescription><![CDATA[phoneNo]]></fieldDescription>
+		</field>
+		<field name="presentAddress" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="presentAddress"/>
+			<fieldDescription><![CDATA[presentAddress]]></fieldDescription>
+		</field>
+		<field name="permanentAddress" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="permanentAddress"/>
+			<fieldDescription><![CDATA[permanentAddress]]></fieldDescription>
+		</field>
+		<field name="sl" class="java.lang.Integer"/>
+	</subDataset>
+	<queryString language="json">
+		<![CDATA[]]>
+	</queryString>
+	<field name="personalInfo" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="personalInfo"/>
+		<fieldDescription><![CDATA[personalInfo]]></fieldDescription>
+	</field>
+	<field name="relativeInfos" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="relativeInfos"/>
+		<fieldDescription><![CDATA[relativeInfos]]></fieldDescription>
+	</field>
+	<field name="professionalExperiences" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="professionalExperiences"/>
+		<fieldDescription><![CDATA[professionalExperiences]]></fieldDescription>
+	</field>
+	<field name="trainings" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="trainings"/>
+		<fieldDescription><![CDATA[trainings]]></fieldDescription>
+	</field>
+	<field name="minio" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="minio"/>
+		<fieldDescription><![CDATA[minio]]></fieldDescription>
+	</field>
+	<field name="researcherProposalList" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="researcherProposalList"/>
+		<fieldDescription><![CDATA[researcherProposalList]]></fieldDescription>
+	</field>
+	<field name="researchExperiences" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="researchExperiences"/>
+		<fieldDescription><![CDATA[researchExperiences]]></fieldDescription>
+	</field>
+	<field name="educationInfos" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="educationInfos"/>
+		<fieldDescription><![CDATA[educationInfos]]></fieldDescription>
+	</field>
+	<field name="publicationInfos" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="publicationInfos"/>
+		<fieldDescription><![CDATA[publicationInfos]]></fieldDescription>
+	</field>
+	<field name="personalInfo.detailsPresentAddress" class="java.lang.String"/>
+	<field name="personalInfo.designation" class="java.lang.String"/>
+	<field name="personalInfo.emailAddress" class="java.lang.String"/>
+	<field name="personalInfo.regNumber" class="java.lang.String"/>
+	<field name="researchExperiences.researchType" class="java.lang.String"/>
+	<field name="personalInfo.anotherDetails" class="java.lang.String"/>
+	<field name="personalInfo.rmsUserImageId.userImageUrl" class="java.lang.String"/>
+	<field name="personalInfo.rmsUserSignatureId.signatureImageUrl" class="java.lang.String"/>
+	<field name="personalInfo.id" class="java.lang.Integer"/>
+	<field name="upzilaDto.nameBn" class="java.lang.String"/>
+	<field name="personalInfo.mobileNo" class="java.lang.String"/>
+	<field name="personalInfo.occupation" class="java.lang.String"/>
+	<field name="educationInfos.certificationName" class="java.lang.String"/>
+	<field name="educationInfos.instituteName" class="java.lang.String"/>
+	<field name="personalInfo.age" class="java.lang.String"/>
+	<field name="districtDto.nameBn" class="java.lang.String"/>
+	<field name="educationInfos.id" class="java.lang.String"/>
+	<field name="personalInfo.nidnumber" class="java.lang.String"/>
+	<field name="personalInfo.tinnumber" class="java.lang.String"/>
+	<field name="relativeInfos.name" class="java.lang.String"/>
+	<field name="researchExperiences.supervisorDetail" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="599" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="142" width="140" height="20" uuid="085bcdbd-54fe-4a3c-a899-e0130b315138"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[ক.গবেষকের নাম]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="162" width="140" height="20" uuid="80773c69-800e-41cb-8bab-0d52f5f01f7a"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<text><![CDATA[খ.বয়স]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="182" width="140" height="37" uuid="26877994-5e08-4cab-b813-7406e501dcac"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[গ.শিক্ষাগত যোগ্যতা (বিশ্ববিদ্যালয়ের নাম সহ সর্বশেষ)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="219" width="140" height="20" uuid="9b1cd800-4731-445b-8c20-8731eb45ee47"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[ঘ.পেশা]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="239" width="140" height="20" uuid="a4510e87-6115-459e-bc15-ed0f0f4f429f"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[ঙ.পদবি]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="259" width="140" height="20" uuid="0430c084-0e91-4d0c-a4d1-dc173aca3a2d"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[চ.ঠিকানা]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="168" y="162" width="212" height="20" uuid="a2de2e2e-cf63-476e-a948-dd74ac6bf4d5"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.age}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="168" y="191" width="384" height="20" uuid="78ad54cd-46a5-4b14-8bd8-ccbc716ca12a"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{educationInfos.certificationName}+","+ $F{educationInfos.instituteName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="168" y="219" width="212" height="20" uuid="ad472fa8-44d2-4f3a-9b4d-44d72ecf953a"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.occupation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="140" y="142" width="24" height="20" uuid="fffa9278-167c-414d-a502-34d1a3b98651"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="162" width="24" height="20" uuid="7a00d57b-0729-40e1-9576-dfe888ec298d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="191" width="24" height="20" uuid="ac86b080-cb03-4c66-9fdb-67e0068a949e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="219" width="24" height="20" uuid="ab2b838e-0a29-4d34-b417-aabd90800837"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="239" width="24" height="20" uuid="9c050090-162f-4d56-9c98-9e96839cbc9c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="33" width="550" height="57" backcolor="#FFFFFF" uuid="4ef514d5-082c-4164-8fe4-ae10dcf250ec"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[সামাজিক গবেষণা পরিষদ
+পরিকল্পনা বিভাগ
+পরিকল্পনা মন্ত্রণালয়]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="168" y="141" width="212" height="21" uuid="5e4fa405-da1a-43da-b48b-ac923c6c54d1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="30" uuid="4bb1debe-c20c-425e-afdf-58af1ed12888"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[গবেষণার ধরণ :]]></text>
+			</staticText>
+			<image>
+				<reportElement x="481" y="34" width="91" height="86" uuid="7496dc66-37ab-41ac-8d2f-23e971295e33"/>
+				<imageExpression><![CDATA["http://202.161.191.131:9403"+$F{personalInfo.rmsUserImageId.userImageUrl}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="481" y="121" width="59" height="57" uuid="3a3e55d1-fe11-4ea8-8cd6-2b55f40959ae"/>
+				<imageExpression><![CDATA["http://202.161.191.131:9403"+$F{personalInfo.rmsUserSignatureId.signatureImageUrl}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="140" y="259" width="24" height="20" uuid="448e9394-6e30-4105-a84b-51ecf2b4de02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="79" y="0" width="201" height="30" uuid="fc17308f-2884-4e49-821e-23eda74de2c5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{researchExperiences.researchType}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="346" y="1" width="105" height="30" uuid="0754efcc-fa02-4afd-a6dc-06c9041c7f23"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[রেজিস্ট্রেশন নম্বর :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="443" y="0" width="107" height="30" uuid="7cad1e2e-e8ca-4120-91dd-97612559d020"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{personalInfo.regNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="90" width="550" height="40" uuid="f4e139b9-70af-44b2-91e1-27fd83ec7c71"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[গবেষক রেজিস্ট্রেশন ফরম
+১.গবেষকের জীবন বৃত্তান্ত সম্পর্কিত তথ্য]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="279" width="550" height="22" uuid="9d67e32e-7700-4fda-8040-772e42d21e4c"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[বর্তমান]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="404" width="550" height="19" uuid="aeaebcce-ec95-4ccd-ae16-361b990b58c4"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[স্থায়ী]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="168" y="239" width="212" height="20" uuid="d58b227b-f2e5-4491-a965-166af54e3804"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.designation}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="168" y="259" width="212" height="20" uuid="8a773553-ac35-4bc5-8b68-21947b1d16fc"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.detailsPresentAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="579" width="220" height="20" uuid="eb21aed7-95f2-4b63-9640-97a4115b219e"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[নিকটতম পরিচয় প্রদানকারী ব্যাক্তির বিস্তারিত ঠিকানা :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="301" width="550" height="103" uuid="c829c312-3b14-4943-a315-31ff46e229ee"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="107" y="369" width="188" height="20" uuid="8281d030-edc0-4202-a42d-673dec9e9c8a"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.mobileNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="369" width="92" height="20" uuid="6944b154-2f3e-45c8-8ddf-02f9693884cb"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[মোবাইল নম্বর]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="306" width="280" height="20" uuid="ecae4b47-d76d-4029-bf95-c9b4f1723fc2"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.anotherDetails}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="306" width="92" height="20" uuid="19a2ca84-43b8-4a33-a83e-b3d04f49ba83"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[কর্মরত প্রতিষ্ঠানের নাম ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="326" width="92" height="20" uuid="47814f57-11da-48a4-87bc-7bc8f3e02010"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[ঠিকানা]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="346" width="92" height="20" uuid="ed3c46e4-f838-4ce2-880c-c3672f6ceb64"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[টেলিফোন নম্বর]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="104" y="326" width="446" height="20" uuid="8d12baa7-65e9-4b6a-92ac-7ac792c874e5"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="87" y="306" width="24" height="20" uuid="1afb092a-f852-4060-9869-aedde977849a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="326" width="24" height="20" uuid="460a435d-53da-460b-9699-1e4222b570ba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="346" width="24" height="20" uuid="74529021-835e-4432-bf28-6fcbcf30fc7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="366" width="24" height="20" uuid="cbe9f1b4-6c46-48e3-a817-6df97516623a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="389" width="92" height="20" uuid="54256070-b6f6-450a-ad27-094956cc916b"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[ই-মেইল]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="386" width="24" height="20" uuid="d750dc6e-cc76-41a3-9d26-a9ed9dc0b2c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="107" y="389" width="188" height="20" uuid="6cc5b4da-978e-4caf-95a1-45108570c01c"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.emailAddress}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="1" y="423" width="550" height="156" uuid="feab4a55-1862-4f12-b4d2-6db67b40b5f6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="428" width="92" height="20" uuid="22632216-1bad-46b7-9b13-feec408ac431"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[গ্রাম]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="448" width="92" height="20" uuid="5f3d0a6a-6e7c-4c68-8ebb-9583b965ec03"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[উপজেলা]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="469" width="92" height="20" uuid="b377f4a9-f4e2-4f47-ae12-78f9e8764ed7"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[জিলা]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="105" y="428" width="160" height="20" uuid="12967750-5efb-4b15-80ee-cdf93afcd951"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="88" y="428" width="24" height="20" uuid="166842a0-9867-4fd3-b865-9570478122c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="448" width="24" height="20" uuid="7e31ede8-dcb8-433f-ab89-3a8df0682e91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="470" width="24" height="20" uuid="f5f24a30-24fd-4c13-9dda-ce408e999d6e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="108" y="448" width="157" height="20" uuid="2bc7c48c-e71a-4a38-8f86-61ac660252cc"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{upzilaDto.nameBn}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="108" y="468" width="157" height="21" uuid="b573d64d-8a41-4f30-8ed3-52284296dec7"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{districtDto.nameBn}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="395" y="428" width="160" height="20" uuid="8ae367a9-89ac-44dc-abe9-1f0a4d34bdbf"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="377" y="428" width="24" height="20" uuid="e1f4e45b-8eb8-459c-a4ab-00eb988bfc19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="428" width="92" height="20" uuid="88d77e19-5348-4cec-9c6b-ab28d4a9bdb0"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[পোস্ট অফিস]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="450" width="92" height="20" uuid="9ef6d85e-0abb-4331-ab96-3edbe0de0646"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[উপজেলা কোড]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="450" width="24" height="20" uuid="9b8a050d-ecca-4f7c-b255-24399396f924"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="470" width="92" height="20" uuid="e23b568c-6b46-46e0-bd35-710c85ae2353"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[টেলিফোন]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="471" width="24" height="20" uuid="a4c74416-568d-41f7-b3a9-6bb27365164e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="491" width="92" height="20" uuid="e14835d1-0680-4dcf-8e56-97ad7bf44663"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[মোবাইল নম্বর]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="492" width="24" height="20" uuid="8b916981-0347-4329-a538-fe8be2a66cac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="108" y="490" width="157" height="21" uuid="6f2dea20-aae6-450c-af8d-242e110aa36b"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.mobileNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="513" width="92" height="20" uuid="1190d43f-b9f5-4d8d-9e35-d4f4787106e4"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[ই-মেইল]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="514" width="24" height="20" uuid="d687445e-2e54-4c21-a210-ed81f0bbc4ae"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="109" y="513" width="157" height="21" uuid="5717ec72-e947-4567-b8e6-31b587fcb5ad"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.emailAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="534" width="92" height="20" uuid="04ac06e5-a195-4c7f-9029-f7ac3557132f"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[জাতীয় পরিচয়পত্র নম্বর]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="535" width="24" height="20" uuid="6379cfb1-fcc3-4784-bd1f-e51cf6968158"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="109" y="534" width="157" height="21" uuid="60caf520-4fab-42ec-ab3c-58ce3878dccd"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.nidnumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="555" width="92" height="20" uuid="3bf81755-423f-4318-af47-e84ce324d8f3"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[টিআইএন নম্বর]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="556" width="24" height="20" uuid="971a10d1-a719-47f4-b2c3-1ad4c38612ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="110" y="555" width="157" height="21" uuid="ffcfe8c3-abb0-478e-9687-6f72328bdb9e"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personalInfo.tinnumber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="60">
+			<componentElement>
+				<reportElement x="0" y="0" width="552" height="60" uuid="6f0ab53c-4e62-4e6d-bf92-d5d44ad85796">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Reference Information" uuid="ae13951d-f6e1-4b70-b41f-81036d6d6066">
+						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("relativeInfos")]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="1bb6badf-e6b8-4e71-bce0-a2afcff0c904">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="30" height="30" uuid="f508ef3e-3808-4e65-b563-25fe2401121f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="12"/>
+								</textElement>
+								<text><![CDATA[ক্রমিক]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="30" height="30" uuid="e3c3a03f-1e57-4add-b978-2d76a9d4bba5"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="260" uuid="acca48fb-35d9-4616-a166-8aa64f3b3adc">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="260" height="30" uuid="a4e96c40-e3d6-4fe4-bedf-f70a4f55d0f8"/>
+								<box>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="12"/>
+								</textElement>
+								<text><![CDATA[নাম ও ঠিকানা]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="260" height="30" uuid="af7b8d75-0a3b-4c1d-86f4-fb30fa0c4f02"/>
+								<box leftPadding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{name}+"  "+$F{presentAddress}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="140" uuid="4e51739e-6748-4443-9da4-0c95252b00a5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="140" height="30" uuid="623d36b4-c560-4718-b7d3-5404446eeda8"/>
+								<box>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="12"/>
+								</textElement>
+								<text><![CDATA[টেলিফোন]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="140" height="30" uuid="a786b578-6227-4b2e-93cb-0da85c1719f2"/>
+								<box leftPadding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{phoneNo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="122" uuid="a98e62d8-2c9c-44c5-8ed3-57eeee6ba4de">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="122" height="30" uuid="eceac983-0972-4054-9de7-9aa8c1d957e2"/>
+								<box>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<text><![CDATA[ই-মেইল]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="122" height="30" uuid="32402d2e-e56d-4c62-b180-07a713758ff1"/>
+								<box leftPadding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="70">
+			<staticText>
+				<reportElement x="0" y="1" width="220" height="20" uuid="fcf45ba2-ac2e-4fcb-9fa3-0d199a7ad137"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12"/>
+				</textElement>
+				<text><![CDATA[তত্তাবদানকারীর নাম ও ঠিকানা :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="22" width="283" height="48" uuid="4572bef7-1feb-40c8-b0be-23cd2cba51b3"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{researchExperiences.supervisorDetail}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

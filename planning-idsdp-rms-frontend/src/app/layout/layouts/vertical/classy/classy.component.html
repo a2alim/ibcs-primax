@@ -1,0 +1,241 @@
+<!-- Navigation -->
+<fuse-vertical-navigation class="dark bg-gray-900 print:hidden" [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'" [navigation]="navigation" [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6">
+            <!-- Components -->
+            <!-- <div class="flex items-center ml-auto">
+               <notifications [notifications]="data.notifications"></notifications>
+                <user-menu [showAvatar]="false"></user-menu>
+            </div> -->
+        </div>
+        <!-- User -->
+        <div class="flex flex-col items-center w-full">
+            <div class="relative w-24 h-24">
+                <img class="w-full h-full rounded-full" *ngIf="data.user.avatar" [src]="logoImageUrl" alt="User avatar">
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-2">
+                <div
+                    class="w-full font-bold whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    Social Science Research Council (SSRC)
+                </div>
+                <div
+                    class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    Planning Division, Ministry of Planning
+                </div>
+            </div>
+        </div>
+        <!-- <div class="flex flex-col items-center w-full">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="data.user.avatar"
+                    [src]="profileImageUrl"
+                    alt="User avatar">
+                <mat-icon
+                    class="icon-size-24"
+                    *ngIf="!data.user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-2">
+                <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{userName}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{email}}
+                </div>
+            </div>
+        </div> -->
+    </ng-container>
+</fuse-vertical-navigation>
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0">
+    <!-- Header -->
+    <div
+        class="relative flex flex-0 items-center w-full h-13 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+        <!-- Navigation toggle button -->
+        <button mat-icon-button (click)="toggleNavigation('mainNavigation')">
+            <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+        </button>
+        <!-- Components -->
+        <div class="flex items-center pl-2 ml-auto space-x-2">
+            <div>
+                <mat-button-toggle *ngIf="showModalButton" (click)="toggleModal()" class="mr-2" style="
+                    color: #FFF;
+                    font-weight: 600;
+                    background: #313e4c;
+                    height: 41px;">
+                    <div style="display: inline-flex; align-items: center; justify-content: center;">
+                        <mat-icon color="accent" class="mr-1">login</mat-icon>
+                        <div class="iso ng-binding ml-1"> SSO Login</div>
+                    </div>
+                </mat-button-toggle>
+                <mat-button-toggle-group [value]="selectedLanguage" appearance="legacy" aria-label="Font Style"
+                    name="fontStyle">
+                    <mat-button-toggle *ngIf="selectedLanguage == 'bn' else english" (click)="setLanguage('en')"
+                        class.actu value="en">
+                        <div style="display: inline-flex; align-items: center; justify-content: center;">
+                            <img class="loading flag relative w-4 h-4" ng-src="assets/icons/us.png"
+                                src="assets/icons/us.png">
+                            <div class="iso ng-binding ml-1"> En</div>
+                        </div>
+                    </mat-button-toggle>
+                    <ng-template #english>
+                        <mat-button-toggle value="bn" (click)="setLanguage('bn')">
+                            <div style="display: inline-flex; align-items: center; justify-content: center;">
+                                <img class="loading flag relative w-4 h-4" ng-src="assets/icons/bns.png"
+                                    src="assets/icons/bns.png">
+                                <div class="iso ng-binding ml-1"> Bn</div>
+                            </div>
+                        </mat-button-toggle>
+                    </ng-template>
+                </mat-button-toggle-group>
+            </div>
+            <!--            <search [appearance]="'bar'"></search>-->
+            <!--            <shortcuts [shortcuts]="data.shortcuts"></shortcuts>-->
+            <!--            <messages [messages]="data.messages"></messages>-->
+            <div class="flex items-center ml-auto">
+                <!-- <notifications [notifications]="data.notifications"></notifications>-->
+                <div class="relative w-9 h-9">
+                    <ng-container *ngIf="((rmsUserProfileData | keyvalue).length && ((userInfo1.userType == 'Rms_Evaluator') || (userInfo1.userType == 'Rms_Researcher') || (userInfo1.userType == 'Rms_DO')) && (!userInfo1.isInstitutional && (userInfo1.userType!='Rms_Training_Institute') &&
+                        (userInfo1.userType!='NOTHI') && (userInfo1.userType!='SYSTEM')))">
+                        <img class="w-full h-full rounded-full"
+                            [src]="rmsUserProfileData?.minio + this.rmsUserProfileData?.rmsUserImageId?.userImageUrl"
+                            alt="User avatar">
+                        <mat-icon class="icon-size-9" *ngIf="!data.user.avatar"
+                            [svgIcon]="'heroicons_solid:user-circle'">
+                        </mat-icon>
+                    </ng-container>
+                    <ng-container
+                        *ngIf="((rmsUserProfileData | keyvalue).length && (userInfo1.userType == 'Rms_Training_Institute'))">
+                        <img class="w-full h-full rounded-full" [src]="minioFileDownloadEndPointHost+rmsUserProfileData?.profileImage?.bucketName+'/'
+                            +rmsUserProfileData?.profileImage?.fileName" alt="User avatar">
+                        <mat-icon class="icon-size-9" *ngIf="!data.user.avatar"
+                            [svgIcon]="'heroicons_solid:user-circle'">
+                        </mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="!((rmsUserProfileData | keyvalue).length)">
+                        <img class="w-full h-full rounded-full" *ngIf="data.user.avatar" [src]="profileImageUrl2"
+                            alt="User avatar">
+                        <mat-icon class="icon-size-9" *ngIf="!data.user.avatar"
+                            [svgIcon]="'heroicons_solid:user-circle'">
+                        </mat-icon>
+                    </ng-container>
+                </div>
+                <div class="text-center">
+                    <!-- <p style="color: #0d9488;">Admin</p> -->
+                    <p>{{userName}}</p>
+                </div>
+                <user-menu [showAvatar]="false">
+                </user-menu>
+            </div>
+        </div>
+    </div>
+    <!-- Content -->
+    <div class="flex flex-col flex-auto">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+    <!-- Footer -->
+    <div class="relative justify-center w-full px-6 pl-2 md:px-9 z-49 print:hidden"
+        style="color: #000; font-weight: bold; padding: 10px; font-family: Arial;border-top: 1px solid #dbdfe5">
+        <div style="float: left; margin-left: 23px;font-size: 13px;color: #333333">
+            Copyright &copy; {{currentYear}}, Planning Division.
+        </div>
+        <div style="float: right;margin-right: 23px">
+            <img style="width: 50px;float: right" src="assets/images/logo/logo.png">
+        </div>
+    </div>
+    <!-- <div class="relative justify-center w-full px-6 md:px-8 z-49 border-t print:hidden" style="background: rgb(76,95,191);
+    background: radial-gradient(circle, rgba(76,95,191,1) 0%, rgba(17,102,93,1) 100%); color: #FFFFFF; font-weight: bold; padding: 5px; font-family: Arial">
+            <div style="float: left; margin-top: 10px;font-size: 13px;">
+                Copyright &copy; 2021, SDPP, Planning Division & Commission, Ministry of Planning.
+            </div>
+            <div style="float: right;font-size: 11px;">
+                Design & Developed By,<br>
+                <a href="#"  style="color: #FFFFFF !important; text-decoration: none;">IBCS-PRIMAX Software (Bangladesh) Ltd.</a><br>
+                &<a href="#"  style="color: #FFFFFF !important; text-decoration: none;"> AKR Technology Ltd.</a>
+            </div>
+        </div> -->
+</div>
+<!-- ---------------------------SSO LOGIN--------------------------- -->
+<form [formGroup]="frmGroup" (ngSubmit)="onSubmit()" #inputForm="ngForm">
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <div *ngIf="showModal"
+        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+        <div class="relative my-6 w-auto md:w-30">
+            <!--content-->
+            <div
+                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <!--header-->
+                <div
+                    class="flex justify-center border-b border-solid border-slate-200 rounded-t p-3 text-3xl font-semibold">
+                    Login By SSO
+                </div>
+                <!--body-->
+                <div class="relative p-6 flex-auto">
+                    <div class="">
+                        <div class="w-full mb-2">
+                            <div class="justify-center">
+                                <input type='text' placeholder="User Id" matInput formControlName="userId"
+                                    class="px-2  w-full border rounded py-2 text-gray-700 focus:outline-none items-center" />
+                                <div *ngIf="frmGroup.get('userId').hasError('customError')">
+                                    {{ frmGroup.get('userId').errors.customError.value }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full mb-2">
+                            <div class="justify-center">
+                                <input type='password' placeholder="Password" matInput formControlName="password"
+                                    class="px-2 w-full border rounded py-2 text-gray-700 focus:outline-none" />
+                                <div *ngIf="frmGroup.get('password').hasError('customError')">
+                                    {{ frmGroup.get('password').errors.customError.value }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button class="px-3 mr-2" mat-flat-button color="accent" type="button" (click)="toggleModal()">
+                            <mat-icon class="mr-1">cancel</mat-icon>
+                            Close
+                        </button>
+                        <button class="px-3" mat-flat-button color="primary" type="submit">
+                            <mat-icon class="mr-1">save</mat-icon>
+                            Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+</form>
+<!-- ---------------------------/SSO LOGIN--------------------------- -->
+<style>
+    .mat-button-toggle-label-content {
+        padding: 0px 8px !important;
+    }
+
+    .loading {
+        -webkit-animation: rotation 2s infinite linear;
+    }
+
+    @-webkit-keyframes rotation {
+        from {
+            /* -webkit-transform: rotate(-10deg); */
+            opacity: 0.3;
+        }
+
+        to {
+            /* -webkit-transform: rotate(3deg); */
+            opacity: 1;
+        }
+    }
+
+</style>

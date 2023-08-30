@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: planning-idsdp-rms-configuration-backend
+  profiles:
+    active: ${spring.cloud.config.profile}
+  mvc:
+    servlet:
+      path: /rms-configuration/
+
+  # cache properties
+  jpa:
+    properties:
+      javax:
+        persistence:
+          sharedCache:
+            #required - enable selective caching mode - only entities with @Cacheable annotation will use L2 cache.
+            mode: ENABLE_SELECTIVE
+      hibernate:
+        cache:
+          use_query_cache: true
+          use_second_level_cache: true
+          region:
+            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+
+server:
+  port: 7000

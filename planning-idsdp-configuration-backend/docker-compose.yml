@@ -1,0 +1,16 @@
+version: '3'
+services:
+  planning-idsdp-configuration-backend:
+    image: 'planning-idsdp-configuration-backend'
+    ports:
+      - "8083:8083"
+    restart: always
+    #Volume mounted for database for the storage
+    volumes:
+      - planning-idsdp-configuration-backend:/var/lib/docker/volumes/planning-idsdp-configuration-backend/_data
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+#Volumes for DB data
+volumes:
+  planning-idsdp-configuration-backend:

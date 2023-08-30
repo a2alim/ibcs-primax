@@ -1,0 +1,209 @@
+<div class="width-100">
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="flex justify-end mb-3">
+                <button mat-raised-button color="primary" (click)="editRow()">
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                    {{'add_more' | translate}}
+                </button>
+            </div>
+
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+                <form *ngIf="userDetails.userType == 'Rms_DO'" [formGroup]="frmGroup">
+                    <div class="grid grid-cols-3 gap-2 mt-4 mb-4">
+                        <div>
+                            <mat-form-field class="w-full">
+                                <mat-label>{{'fiscalYear'|translate}}</mat-label>
+                                <mat-select formControlName="stFiscalYearId" (selectionChange)="onChangeFiscalYear($event)">
+                                    <mat-option value="">--Select--</mat-option>
+                                    <mat-option *ngFor="let f of fiscalYearList" [value]="f.id">{{f.fiscalYear}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div>
+                            <mat-form-field class="w-full">
+                                <mat-label>{{'researchTitle'|translate}}</mat-label>
+                                <mat-select formControlName="proposalId" (selectionChange)="getResearchProposalId($event)">
+                                    <mat-option value="">--Select--</mat-option>
+                                    <mat-option *ngFor="let r of researchTitleList" [value]="r">
+                                        {{r.researchTitle}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div>
+                            <mat-form-field class="w-full">
+                                <mat-label>{{'category'|translate}}</mat-label>
+                                <mat-select formControlName="stResearchCatTypeId" (selectionChange)="getCategoryId($event)">
+                                    <mat-option value="">--Select--</mat-option>
+                                    <mat-option *ngFor="let rc of researchCategoryTypeList" [value]="rc">
+                                        {{rc.categoryName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="inline-block">
+                            <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent"
+                                    type="button" (click)="onSubmit()" [disabled]="spinner">
+                                <mat-icon class="mr-1">search</mat-icon>
+                                {{'search' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="flex justify-end mb-3">
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'searchTitle' | translate}}
+                        </h1>
+                    </div>
+
+                    <mat-form-field class="sm:w-100 md:w-40 lg:w-40">
+                        <input
+                            matInput
+                            (keyup)="applyFilter($event)"
+                            [placeholder]="'search'|translate"
+                            #input/>
+                        <button mat-button matPrefix mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                            <ng-container matColumnDef="position">
+                                <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl_no' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                                        {{(pageSize * page) + i + 1}}
+                                    </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="ResearchTitle">
+                                <th mat-header-cell *matHeaderCellDef> {{'ResearcherTitle' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: center">
+                                    <span>{{ (element?.createGOLetter?.installmentProcess?.m1ResearcherProposalId?.researchTitle.length > 10) ? (element?.createGOLetter?.installmentProcess?.m1ResearcherProposalId?.researchTitle | slice: 0:15)+'...': 'Data Not Found!'}}</span>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="ChequeNumber">
+                                <th mat-header-cell *matHeaderCellDef> {{'ChequeNumber' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: center">
+                                    <span>{{ element?.chequeNumber }}</span>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="ChequeDate">
+                                <th mat-header-cell *matHeaderCellDef> {{'ChequeDate' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: center">
+                                    <span>{{ element?.chequeDate }}</span>
+                                </td>
+                            </ng-container>
+
+                            <!--<ng-container matColumnDef="TokenNumber">
+                                <th mat-header-cell *matHeaderCellDef> {{'TokenNumber' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: center">
+                                    <span>{{ element.tokenNo }}</span>
+                                </td>
+                            </ng-container>-->
+
+                            <ng-container matColumnDef="GrantAmount">
+                                <th mat-header-cell *matHeaderCellDef> {{'GrantAmount' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: center">
+                                    <span>{{ element?.grantAmount}} </span>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="ReceivedAmount">
+                                <th mat-header-cell *matHeaderCellDef> {{'ReceivedAmount' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: center">
+                                    <span>{{ element?.receivedAmount }} </span>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="ReceivedStatus">
+                                <th mat-header-cell *matHeaderCellDef> {{'ReceivedStatus' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" >
+                                    <mat-form-field class="w-full mt-3">
+                                        <mat-select  [(ngModel)]="element.receivedStatus" (selectionChange)="openDialogForStatus($event,element)"
+                                                     [ngModelOptions]="{standalone: true}"
+                                                     [disabled]="element.receivedStatus == 'Received'">
+                                            <mat-option value="Received">Received</mat-option>
+                                            <mat-option value="Not Received">Not Received</mat-option>
+                                        </mat-select>
+                                        <mat-error>required!</mat-error>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="acknowledgement">
+                                <th mat-header-cell *matHeaderCellDef> {{'acknowledge' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: center">
+                                    <button (click)="acknowledgementLetter(element)" class="px-5" mat-raised-button color="accent">
+                                        <span><mat-icon style="color:white">add</mat-icon></span>
+                                        {{'acknowledgement' | translate}}
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef class="pl-4 w-48"> {{'action' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                <span class="buttons">
+                                   <a [href]="baseUrl + element.receivedBankChequeUploadDoc[0].downloadUrl" target="_blank" [matTooltip]="'download' | translate"><mat-icon color="accent">download </mat-icon></a>
+                                </span>
+                                <span class="buttons" style="margin-left: 5px;" *ngIf="!element.isSend">
+                                    <button (click)="download(element)" mat-icon-button class="toggle-sidebar-folded"
+                                        matTooltip="View" fxHide.lt-lg>
+                                        <mat-icon color="accent">visibility
+                                        </mat-icon>
+                                    </button>
+                                </span>
+                                <span class="buttons" style="margin-left: 5px;" *ngIf="!element.isSend">
+                                    <button (click)="editRow(element)" mat-icon-button class="toggle-sidebar-folded" matTooltip="Edit">
+                                        <mat-icon color="accent">edit</mat-icon>
+                                    </button>
+                                </span>
+                                <span class="buttons" style="margin-left: 5px;" *ngIf="!element.isSend">
+                                    <button (click)="openDialog(element.id)" mat-icon-button color="warn" class="toggle-sidebar-folded" matTooltip="Delete">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </span>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator
+                        #paginatorRef
+                        [length]="totalElements"
+                        [pageSize]="pageSize"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        (page)="onChangePage($event)">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+        </form>
+    </div>
+    <!-- Main End -->
+</div>

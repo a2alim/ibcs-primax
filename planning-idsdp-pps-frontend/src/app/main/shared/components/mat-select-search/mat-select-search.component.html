@@ -1,0 +1,24 @@
+<mat-form-field [formGroup]="formGroup" class="fuse-mat-dense flex-auto" style="width: 100%">
+  <mat-select *ngIf="data && !isReadonly"
+              [required]="required"
+              (selectionChange)="onSelectionChange($event.value)"
+              [formControlName]="controlName">
+    <mat-option>
+      <ngx-mat-select-search  placeholderLabel="{{'Search' | translate }}"
+                              noEntriesFoundLabel="{{'NoMatchFound' | translate }}"
+                              [formControl]="matSelectSearch">
+      </ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngIf="!required"></mat-option>
+    <mat-option *ngFor="let item of filteredData | async " [value]="item.value">
+      {{ item.name }}
+    </mat-option>
+  </mat-select>
+  <input
+    type="text"
+    readonly
+    matInput
+    [required]="required"
+    [value]="getValueForSelectionControl()"
+    *ngIf="!(data && !isReadonly)">
+</mat-form-field>

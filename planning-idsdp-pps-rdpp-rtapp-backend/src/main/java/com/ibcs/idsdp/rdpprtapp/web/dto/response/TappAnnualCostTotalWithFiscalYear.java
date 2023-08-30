@@ -1,0 +1,13 @@
+package com.ibcs.idsdp.rdpprtapp.web.dto.response;
+
+import com.ibcs.idsdp.rdpprtapp.web.dto.TappAnnualPhasingCostTotalDTO;
+import lombok.Data;
+
+@Data
+public class TappAnnualCostTotalWithFiscalYear {
+
+    private String fiscalYear;
+    private TappAnnualPhasingCostTotalDTO tappAnnualPhasingCostTotal;
+
+
+}

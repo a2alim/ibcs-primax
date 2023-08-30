@@ -1,0 +1,209 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <!--Loder-->
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <!-- Main Start -->
+    <div id="print">
+        <div class="flex-auto m-7 body-color">
+            <mat-card class="tab-color -mt-4">
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <!--                       {{'personal_details' | translate}}-->
+                        <div class="md:flex displayNone">
+                            <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                                <!-- <h1 class="md:mt-2"> {{'details' | translate}}</h1>  -->
+                                <!-- {{tabData.personalInfo.userId}} -->
+                                <!--                        <h3 class="md:mt-2">{{'tab_1_title' | translate}}<span> </span></h3>-->
+                            </div>
+                            <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                                <div class="flex md:justify-end">
+                                    <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent"
+                                        (click)="back()" type="button">
+                                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                        {{'previous' | translate}}
+                                    </button>
+                                    <!--                                    <button [disabled]="spinner2"-->
+                                    <!--                                            class="px-3 mr-2 downloadBtn"-->
+                                    <!--                                            mat-flat-button-->
+                                    <!--                                            color="accent"-->
+                                    <!--                                            (click)="downloadFile()"-->
+                                    <!--                                            type="button">-->
+                                    <!--                                        <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>-->
+                                    <!--                                        {{'download' | translate}}-->
+                                    <!--                                    </button>-->
+                                    <button [useExistingCss]="true" printTitle="Expert Evaluator Details"
+                                        class="px-3 printBtn" mat-flat-button color="accent" printSectionId="print"
+                                        ngxPrint type="button">
+                                        <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                        {{'print' | translate}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border3 form-bg-color">
+                    <div class="md:flex p-4">
+                        <div class="w-full sm:w-auto md:w-full lg:w-full">
+                            <table class="tbl-details">
+                                <tr>
+                                    <th style=" width: 250px; ">{{'name' | translate}}</th>
+                                    <td>
+                                        {{data?.name}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'presentProfession' | translate}}</th>
+                                    <td>
+                                        {{data?.presentProfession}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'speciality' | translate}}</th>
+                                    <td>
+                                        {{extractSpeciality(data?.stSpecialityTypeId)}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'presentOfficeAddress' | translate}}</th>
+                                    <td>
+                                        {{data?.presentOfficeNameAddress}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'dob' | translate}}</th>
+                                    <td>
+                                        {{data?.dateOfBirth}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'mobile' | translate}}</th>
+                                    <td>
+                                        {{data?.mobileNo}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'email' | translate}}</th>
+                                    <td>
+                                        {{data?.emailAddress}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'trey' | translate}}</th>
+                                    <td>
+                                        {{data?.totalResearchExpYear}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'resed' | translate}}</th>
+                                    <td>
+                                        {{data?.researchExperienceDetail}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'nid' | translate}}</th>
+                                    <td>
+                                        {{data?.nidNumber}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'tin' | translate}}</th>
+                                    <td>
+                                        {{data?.tinNumber}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'otherExpertAreas' | translate}}</th>
+                                    <td>
+                                        {{data?.otherExpertAreas}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <!-- Main End -->
+        <!-- Main Start -->
+        <div class="flex-auto m-7 body-color">
+            <mat-card class="tab-color -mt-4">
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        {{'education_Information' | translate}}
+                    </div>
+                </div>
+                <div class="border3 form-bg-color">
+                    <div class="md:flex p-4">
+                        <div class="w-full sm:w-auto md:w-full lg:w-full">
+                            <table class="tbl-details">
+                                <tr>
+                                    <th>{{'Sl' | translate}}</th>
+                                    <th>{{'education_level' | translate}}</th>
+                                    <th>{{'subject_area' | translate}}</th>
+                                    <th>{{'university_institute' | translate}}</th>
+                                    <th>{{'result' | translate}}</th>
+                                </tr>
+                                <tr *ngFor="let edu of data?.educations;let i= index">
+                                    <td> {{i + 1}}</td>
+                                    <td> {{extractEducationLevel(edu?.eudcationLevel)}}</td>
+                                    <td> {{edu?.subject}}</td>
+                                    <td> {{edu?.universityOrInstitute}}</td>
+                                    <td> {{edu?.result}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <!-- Main End -->
+        <!-- Main Start -->
+        <div class="flex-auto m-7 body-color">
+            <mat-card class="tab-color -mt-4">
+                <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        {{'suitable_for_sector' | translate}}
+                    </div>
+                </div>
+                <div class="border3 form-bg-color">
+                    <div class="md:flex p-4">
+                        <div class="w-full sm:w-auto md:w-full lg:w-full">
+                            <table class="tbl-details">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Sl' | translate}}</th>
+                                        <th>{{'sector' | translate}}</th>
+                                        <!-- <th>{{'sub_sector' | translate}}</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let ssub of data?.sectorSubSectors;let i= index">
+                                        <td>{{i + 1}}</td>
+                                        <td>{{parseSector(ssub.sector)}}</td>
+                                        <!-- <td>{{parseSubSector(ssub.subSector)}}</td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="displayNone">
+                    <div class=" flex justify-end mt-3 ">
+                        <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" (click)="back()"
+                            type="button">
+                            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                            {{'previous' | translate}}
+                        </button> <!-- Card Body -->
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <!-- Main End -->
+    </div>
+</div>

@@ -1,0 +1,221 @@
+<div class="width-100" >
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+<!--    <div *ngIf="spinner" class="flex items-center justify-center">-->
+<!--        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"-->
+<!--             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>-->
+<!--    </div>-->
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+
+            <div [formGroup]="paramSearch" class="w-full grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+                <div class="w-full">
+                    <div>
+                        {{'category' | translate}}
+                    </div>
+                    <mat-form-field class="w-full">
+                        <mat-select placeholder="Select Researcher Category" formControlName="stResearchCatTypeId">
+                            <mat-option *ngFor="let rc of researchCategoryTypeList" [value]="rc.id">
+                                {{rc.categoryName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="w-full">
+                    <!--<div>
+                        {{'researchCategory' | translate}}
+                    </div>
+                    <mat-form-field class="w-full">
+                        <mat-select>
+                            <mat-option>
+
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>-->
+                </div>
+
+                <div class="w-full">
+                    <!--<div>
+                        {{'researchCategory' | translate}}
+                    </div>
+                    <mat-form-field class="w-full">
+                        <mat-select>
+                            <mat-option>
+
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>-->
+                </div>
+
+                <div class="flex w-full sm:justify-end md:justify-start md:mt-6">
+                    <div class="inline-block">
+                        <button (click)="getLatterList()" class="px-1 mr-1 previousBtn" mat-flat-button color="accent"
+                                type="button">
+                            <mat-icon class="mr-1">search</mat-icon>
+                            {{'search' | translate}}
+                        </button>
+                    </div>
+
+                    <div class="inline-block">
+                        <button class="px-1 mr-1 downloadBtn" mat-flat-button color="accent" (click)="clearParamSearch()"
+                                type="button">
+                            <mat-icon class="mr-1">clear_all</mat-icon>
+                            {{'Clear' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Body -->
+
+            <div class="flex md:justify-end">
+                <button *ngIf="user.userType == 'Rms_DO'"
+                    class="px-2 addNewBtn"
+                    mat-flat-button
+                    color="accent"
+                    (click)="addNew()"
+                    type="button">
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                    {{'addNew' | translate}}
+                </button>
+            </div>
+
+            <!-- List Grid -->
+            <div class="md:flex tbl-title">
+                <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                    <h1 class="header1">
+                        <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                        {{'searchTitle' | translate}}
+                    </h1>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-right">
+                    <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                        <!--<mat-label>Filter</mat-label>-->
+                        <input
+                            matInput
+                            (keyup)="applyFilter($event)"
+                            [placeholder]="'search'|translate"
+                            #input/>
+                        <button mat-button matPrefix mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                        <!-- Sl Column -->
+                        <ng-container matColumnDef="sl">
+                            <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl' | translate}} </th>
+                            <td class="text-center" mat-cell *matCellDef="let row; let i = index">
+                                {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="researcherTitle">
+                            <th mat-header-cell *matHeaderCellDef> {{'researcher_title' | translate}} </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{row.researcherTitle}} <br>
+                                <span class="text-blue-600">{{'category' | translate}}</span>: {{row.researcherCategory}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="subject">
+                            <th mat-header-cell *matHeaderCellDef> {{'subject' | translate}} </th>
+                            <td mat-cell *matCellDef="let row">{{row.subject}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="letterType">
+                            <th mat-header-cell *matHeaderCellDef> {{'letterType' | translate}} </th>
+                            <td mat-cell *matCellDef="let row">{{row.letterType}} Letter</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="mailStatus">
+                            <th mat-header-cell *matHeaderCellDef> {{'mail_status' | translate}} </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{row.mailStatus}}
+                            </td>
+                        </ng-container>
+
+                        <!-- <ng-container matColumnDef="forType">
+                            <th mat-header-cell *matHeaderCellDef> {{'forType' | translate}} </th>
+                            <td mat-cell *matCellDef="let row">{{row.forType}} </td>
+                        </ng-container> -->
+
+                        <ng-container matColumnDef="active">
+                            <th mat-header-cell *matHeaderCellDef class="w-32"> {{'status' | translate}} </th>
+                            <td class="text-center" mat-cell *matCellDef="let row">
+                                <span class="active" *ngIf="row.active; else elseDiv">Active</span>
+                                <ng-template #elseDiv><span class="inactive">Inactive</span></ng-template>
+                            </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}} </th>
+                            <td class="text-center" mat-cell *matCellDef="let row">
+                                <div class="buttons">
+                                    <button (click)="viewDetails(row.id)"
+                                            mat-icon-button
+                                            class="toggle-sidebar-folded"
+                                            matTooltip="View Details"
+                                            fxHide.lt-lg>
+                                        <mat-icon *ngIf="viewIcon"
+                                                  color="primary">{{viewIcon}}
+                                        </mat-icon>
+                                    </button>
+                                    <ng-container *ngIf="user.userType == 'Rms_DO' && row.mailStatus != 'Sent'">
+                                        <button (click)="editRow(row.id)"
+                                                mat-icon-button
+                                                class="toggle-sidebar-folded"
+                                                matTooltip="Edit"
+                                                fxHide.lt-lg>
+                                            <mat-icon *ngIf="editIcon"
+                                                    color="accent">{{editIcon}}
+                                            </mat-icon>
+                                        </button>
+
+                                        <button (click)="openDialog(row.id)"
+                                                mat-icon-button
+                                                [disabled]="row.mailStatus === 'Accepted'"
+                                                class="toggle-sidebar-folded"
+                                                matTooltip="Delete"
+                                                fxHide.lt-lg>
+                                            <mat-icon *ngIf="deleteIcon"
+                                                    color="warn">{{deleteIcon}}
+                                            </mat-icon>
+                                        </button>
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <!-- Initialized Table Header And Dataset-->
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+                <!-- mat-paginator -->
+                <mat-paginator
+                    #paginatorRef
+                    [length]="totalElements"
+                    [pageSize]="pageSize"
+                    [pageSizeOptions]="[10, 20, 30, 100]"
+                    (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+        </mat-card>
+
+
+    </div>
+    <!-- Main End -->
+</div>

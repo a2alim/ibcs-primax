@@ -1,0 +1,366 @@
+<div style="width: 100%" *ngIf="frmGroup">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    {{'moduleHeader' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">
+                                        {{'economicCodeHeaderBreadcrumb' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+            <div *ngIf="actionPermission?.includes('Economic Code Create')" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading rounded">
+                    <h1>
+                        {{formTitle}}
+                    </h1>
+                </div>
+                <!--<div class="p-8 pb-4">-->
+                <!-- Search Panel Start -->
+                <form [formGroup]="frmGroup" name="frmGroup" class="p-5">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                            {{'economicCodeFor' | translate}}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                            <mat-form-field class="w-full">
+                                <mat-select formControlName="economicCodeFor" >
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option value="1">Revenue</mat-option>
+                                    <mat-option value="2">Capital</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                        </div>
+                    </div>
+                    <!-- 1st row -->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                            {{'oldEconomicCodeEn' | translate}}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                            <mat-form-field class="w-full">
+                                <input formControlName="oldEconomicCodeEn" matInput />
+                                <mat-error>{{'oldEconomicCodeEn' | translate}} is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                            {{'oldEconomicCodeBn' | translate}}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                            <mat-form-field class="w-full">
+                                <input formControlName="oldEconomicCodeBn" matInput />
+                                <mat-error>{{'oldEconomicCodeBn' | translate}} is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                            {{'economicCode' | translate}}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                            <mat-form-field class="w-full">
+                                <input formControlName="economicCode" matInput />
+                                <mat-error>{{'economicCode' | translate}} is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                            {{'economicCodeBangla' | translate}}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                            <mat-form-field class="w-full">
+                                <input formControlName="economicCodeBng" matInput/>
+                                <mat-error>Economic Code Bangla is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- 1st row -->
+
+                    <!-- 2nd row -->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                            {{'economicCodeName' | translate}}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                            <mat-form-field class="w-full">
+                                <input formControlName="economicCodeName" matInput />
+                                <mat-error>{{'economicCodeName' | translate}} is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                            {{'economicCodeNameBangla' | translate}}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                            <mat-form-field class="w-full">
+                                <input formControlName="economicCodeNameBng" matInput />
+                                <mat-error>Economic Code Name Bangla is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- 2nd row -->
+
+                    <!-- 3rd row -->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                            {{'description' | translate}}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                            <mat-form-field class="w-full">
+                                <textarea formControlName="description" matInput id="" cols="30" rows="2"></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                            {{'descriptionbn' | translate}}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                            <mat-form-field class="w-full">
+                                <textarea formControlName="descriptionBn" matInput id="" cols="30" rows="2"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- 3rd row -->
+
+                    <!-- 4th row -->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 md:text-left pr-2 leading-10">
+                            {{'status' | translate}}
+                        </div>
+                        <div class="w-full sm:w-auto md:w-1/4 lg:w-1/4 mr-2">
+                            <mat-form-field class="w-full">
+                                <mat-select formControlName="status">
+                                    <mat-option value="true">Active</mat-option>
+                                    <mat-option value="false">Inactive</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- 4th row -->
+
+                    <div class="flex justify-end mt-3 mr-2">
+
+                        <button class="px-8 mr-2"
+                                (click)="reset()"
+                                mat-flat-button
+                                [color]="'accent'"
+                                type="button">
+                            Reset
+                        </button>
+                        <button *ngIf="!editValue"
+                                (click)="onSubmit()"
+                                class="px-8"
+                                mat-flat-button
+                                color="primary"
+                                type="button">
+                            Save
+                        </button>
+
+                        <button *ngIf="editValue"
+                                (click)="update()"
+                                class="px-8"
+                                mat-flat-button
+                                color="primary"
+                                type="button">
+                            Update
+                        </button>
+                    </div>
+                </form>
+                <!-- Search Panel End -->
+                <!--</div>-->
+            </div>
+
+            <!-- List Grid -->
+            <div
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between center"
+                class="mt-5">
+                <div fxFlex="30%">
+                    <h1 class="header1">
+                        {{'economicCodeList' | translate}}
+                    </h1>
+                </div>
+
+                <div>
+                    <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                        <!--<mat-label>Filter</mat-label>-->
+                        <input
+                            matInput
+                            (keyup)="applyFilter($event)"
+                            placeholder="Search"
+                            #input/>
+                        <button mat-button matPrefix mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 bg-transparent" matSort>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="id">
+                            <th class="text-alignment" mat-header-cell *matHeaderCellDef style="text-align: center !important;">
+                                {{'slNo' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row; let i = index">{{ i+1 }}</td>
+                        </ng-container>
+
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="economicCode">
+                            <th class="text-alignment" mat-header-cell *matHeaderCellDef >
+                                {{'economicCode' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.economicCode }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="economicCodeBng">
+                            <th class="text-alignment" mat-header-cell *matHeaderCellDef >
+                                {{'economicCodeBangla' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.economicCodeBng }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Color Column -->
+                        <ng-container matColumnDef="economicCodeName">
+                            <th class="text-alignment" mat-header-cell *matHeaderCellDef >
+                                {{'economicCodeName' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row" [style.color]="row.color">
+                                {{ row.economicCodeName }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="economicCodeNameBng">
+                            <th class="text-alignment" mat-header-cell *matHeaderCellDef >
+                                {{'economicCodeNameBangla' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row" [style.color]="row.color">
+                                {{ row.economicCodeNameBng }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="description">
+                            <th class="text-alignment" mat-header-cell *matHeaderCellDef >
+                                {{'description' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row" [style.color]="row.color">
+                                {{ row.description }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="descriptionBn">
+                            <th class="text-alignment" mat-header-cell *matHeaderCellDef >
+                                {{'descriptionbn' | translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row" [style.color]="row.color">
+                                {{ row.descriptionBn }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <th class="text-alignment"
+                                mat-header-cell
+                                *matHeaderCellDef
+                                style="text-align: center !important;"
+                            >
+                                Status
+                            </th>
+                            <td class="text-alignment" mat-cell *matCellDef="let row">
+                                {{ row.currentStatus}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                {{'action' | translate}}
+                            </th>
+
+                            <td mat-cell *matCellDef="let row">
+                                <div class="buttons">
+                                    <button (click)="edit(row.uuid)"
+                                            mat-icon-button
+                                            class="toggle-sidebar-folded"
+                                            matTooltip="Edit"
+                                            fxHide.lt-lg>
+                                        <mat-icon
+                                            color="accent">edit
+                                        </mat-icon>
+                                    </button>
+
+                                    <!--<button
+                                        [disabled]="disableDelete"
+                                        (click)="openDialog(row.uuid)"
+                                        mat-icon-button
+                                        class="toggle-sidebar-folded"
+                                        matTooltip="Delete"
+                                        fxHide.lt-lg>
+                                        <mat-icon
+                                            color="warn">delete
+                                        </mat-icon>
+                                    </button>-->
+                                </div>
+                            </td>
+
+                        </ng-container>
+                        <!-- Table Action Buttons End-->
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="8">
+                                <span *ngIf="input.value; else emptyData">No similar data found "{{ input.value }}"</span>
+                                <ng-template #emptyData>No data available</ng-template>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <mat-paginator
+                    [length]="total"
+                    [pageSize]="size"
+                    [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                    (page)="onChangePage($event)"></mat-paginator>
+
+            </div>
+
+        </mat-card>
+    </div>
+</div>
+

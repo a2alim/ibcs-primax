@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rms_gurantor_info_stamp" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="51c15168-2b5c-4dd9-803a-6549d8e8d6d6">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="rms_agreement_letter_DataAdapter.xml"/>
+	<queryString language="json">
+		<![CDATA[guarantorViewListList]]>
+	</queryString>
+	<field name="courseName" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="courseName"/>
+		<fieldDescription><![CDATA[courseName]]></fieldDescription>
+	</field>
+	<field name="guarantorName" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="guarantorName"/>
+		<fieldDescription><![CDATA[guarantorName]]></fieldDescription>
+	</field>
+	<field name="jobInfo" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="jobInfo"/>
+		<fieldDescription><![CDATA[jobInfo]]></fieldDescription>
+	</field>
+	<field name="designation" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="designation"/>
+		<fieldDescription><![CDATA[designation]]></fieldDescription>
+	</field>
+	<field name="mobileNo" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="mobileNo"/>
+		<fieldDescription><![CDATA[mobileNo]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="email"/>
+		<fieldDescription><![CDATA[email]]></fieldDescription>
+	</field>
+	<field name="presentAddress" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="presentAddress"/>
+		<fieldDescription><![CDATA[presentAddress]]></fieldDescription>
+	</field>
+	<field name="permanentAddress" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="permanentAddress"/>
+		<fieldDescription><![CDATA[permanentAddress]]></fieldDescription>
+	</field>
+	<field name="refundDays" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="refundDays"/>
+		<fieldDescription><![CDATA[refundDays]]></fieldDescription>
+	</field>
+	<field name="image" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="image"/>
+		<fieldDescription><![CDATA[image]]></fieldDescription>
+	</field>
+	<field name="nid" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="nid"/>
+		<fieldDescription><![CDATA[nid]]></fieldDescription>
+	</field>
+	<field name="signatureImage" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="signatureImage"/>
+		<fieldDescription><![CDATA[signatureImage]]></fieldDescription>
+	</field>
+	<field name="nidImage" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="nidImage"/>
+		<fieldDescription><![CDATA[nidImage]]></fieldDescription>
+	</field>
+	<field name="isActive" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="isActive"/>
+		<fieldDescription><![CDATA[isActive]]></fieldDescription>
+	</field>
+	<field name="amountOfGrant" class="java.lang.String"/>
+	<field name="guarantorViewListList.image.signatureImage.fileUrl" class="java.lang.String"/>
+	<field name="guarantorViewListList.image.fileName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="550" height="19" uuid="b38dec59-129b-45d3-855f-ce25b0dd197a"/>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="NikoshBAN" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style size='26' isBold='true'  isItalic='true'>"+"জামানতনামা " + "</style>" 
++"\n"+"আমি নিম্ন স্বাক্ষরকারী এই মর্মে  জামানতনামা দাখিল করিতেছি যে,গবেষক "+($F{guarantorName}!=null?$F{guarantorName}:"")+($F{presentAddress}!=null?$F{presentAddress}:"")+"কর্তৃক"
++($F{courseName}!=null?$F{courseName}:"")+"শীর্ষক ফেলোশিপ গবেষণাটি সম্পাদনের লক্ষ্যে বাংলাদেশ সামাজিক বিজ্ঞান গবেষণা পরিষদ"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="21" width="100" height="1" uuid="27095f59-ad28-440e-8d6d-6997859701e7"/>
+			</break>
+		</band>
+		<band height="27" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="3" width="550" height="19" uuid="453a23cd-3008-4c38-8d8e-80f423fd2f3f"/>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["এর সহিত সম্পাদিত চুক্তিনামা অনুযায়ী গবেষণা কমিটির জন্য সর্বোচ্চ "+($F{amountOfGrant}!=null?$F{amountOfGrant}:"/=")+"/="
++"টাকা যে উদ্দেশ্যে গ্রহণ করা হইবে - সেই উদ্দেশ্যে নির্ধারিত সময়ের "
++"সময়ের মধ্যে ব্যবহৃত না হইলে বা যথাযথভাবে ব্যবহৃত না হইলে জামানত দাতা হিসেবে  আমি নির্ধারিত সময়ের পরবর্তী ত্রিশ দিনের ভিতর উক্ত অগ্রিম অর্থ"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="26" width="100" height="1" uuid="25342522-737b-4cce-bec0-e5485a0b8e3c"/>
+			</break>
+		</band>
+		<band height="87" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="550" height="19" uuid="820a6e52-1a34-4962-94ba-3637cc1f7b94"/>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["বাবদ "+($F{amountOfGrant}!=null?$F{amountOfGrant}:"/=")+"/="+"টাকা বা ক্ষেত্র মতো অব্যবহৃত  পরিশোধ করিতে বাধ্য থাকিবো"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="40" width="100" height="1" uuid="0b8cb9db-d086-4de2-a728-ba62f5cf9fec"/>
+			</break>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="19" width="550" height="19" uuid="708cc154-7e7b-4ecb-9eb1-c114b74387e6"/>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["জামানতকারীর নাম,ঠিকানা ও স্বাক্ষর"]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="-1" y="68" width="550" height="19" uuid="05348088-bbd8-4653-a9cf-bead2c7c7986"/>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{guarantorName}
++"\n"+"পিতা"+":"+""
++"\n"+$F{permanentAddress}!=null?$F{permanentAddress}:""
++"\n"+$F{presentAddress}!=null?$F{presentAddress}:""]]></textFieldExpression>
+			</textField>
+			<image onErrorType="Blank">
+				<reportElement x="6" y="41" width="74" height="25" uuid="b4109927-3269-4f0f-92f8-cabad8b63600"/>
+				<imageExpression><![CDATA["http://202.161.191.131:9403"+"$F{guarantorViewListList.image.signatureImage.fileUrl}"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="16">
+			<textField>
+				<reportElement x="350" y="0" width="100" height="16" uuid="7e224d74-2c67-4145-9a2e-58b93cca913b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA["পাতা" +" " +$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="450" y="0" width="100" height="16" uuid="df56a54f-d35f-417f-9dd9-ffc25c4d298b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" এর মধ্যে" +" " +$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

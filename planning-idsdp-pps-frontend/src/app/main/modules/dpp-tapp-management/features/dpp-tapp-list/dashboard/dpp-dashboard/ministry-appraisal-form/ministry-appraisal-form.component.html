@@ -1,0 +1,1956 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<div style="width: 100%; background-color: white">
+    <div class="flex flex-col flex-auto min-w-0">
+
+        <div
+            class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+            <div class="flex-1 min-w-0">
+
+                <!--New Header-->
+                <div class="header flex justify-between items-center">
+                    <app-list-header [title]="'headerTitle' | translate" class="crop-text"
+                        [subTitle]="'headerSubTitle' | translate"></app-list-header>
+                    <div class="mr-12">
+                        <button (click)="goBackToHome()" class="btn btn-home flex justify-center items-center"
+                            mat-button type="button">
+                            <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                            {{"homePageText" | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <mat-card class="p-8 pb-4">
+            <div>
+                <div class="basic-info-row">
+                    <div class="basic-info-left-lbl">{{'1' | translate}}.{{'DPP.projectNameEn' | translate}}</div>
+                    <div class="basic-info-right-lbl">{{titleEn}}</div>
+                </div>
+                <div class="basic-info-row">
+                    <div class="basic-info-left-lbl">{{'1' | translate}}.{{'DPP.projectNameBn' | translate}}</div>
+                    <div class="basic-info-right-lbl">{{titleBn}}</div>
+                </div>
+                <div class="basic-info-row">
+                    <div class="basic-info-left-lbl">{{'2' | translate}}.{{'Ministry_Name' | translate}}</div>
+                    <div class="basic-info-right-lbl">{{isEnLabel == true ? agencyModel?.ministryDivisionDTO?.nameEn :
+                        agencyModel?.ministryDivisionDTO?.nameBn}}</div>
+                </div>
+                <div class="basic-info-row">
+                    <div class="basic-info-left-lbl">{{'3' | translate}}.{{'Agency_name' | translate}}</div>
+                    <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{agencyModel?.nameEn}}</div>
+                    <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{agencyModel?.nameBn}}</div>
+                </div>
+                <div class="basic-info-row">
+                    <div class="basic-info-left-lbl">{{'4' | translate}}.{{'DPP.projectType' | translate}}</div>
+                    <div *ngIf="isEnLabel" class="basic-info-right-lbl">
+                        {{projectSummary?.projectTypeDTO.nameEn.toLowerCase() === 'dpp' ? "Development Project " :
+                        "Technical Assistance Project "}}
+                        ({{projectSummary?.projectTypeDTO.nameEn}})
+                    </div>
+                    <div *ngIf="!isEnLabel" class="basic-info-right-lbl">
+                        বিনিয়োগ প্রকল্প ({{projectSummary?.projectTypeDTO.nameBn}})
+                    </div>
+                </div>
+                <div class="basic-info-row">
+                    <div class="basic-info-left-lbl">{{'5' | translate}}.{{'Sector_division' | translate}}</div>
+                    <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{sectorDivision?.sectorDivisionNameEn}}</div>
+                    <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{sectorDivision?.sectorDivisionNameBn}}</div>
+                </div>
+                <div class="basic-info-row">
+                    <div class="basic-info-left-lbl">{{'6' | translate}}.{{'Adp_sector' | translate}}</div>
+                    <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{sector?.sectorNameEn}}</div>
+                    <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{sector?.sectorNameBn}}</div>
+                </div>
+                <div class="basic-info-row">
+                    <div class="basic-info-left-lbl">{{'7' | translate}}.{{'Adp_sub_sector' | translate}}</div>
+                    <div *ngIf="isEnLabel" class="basic-info-right-lbl">{{subSector?.subSectorNameEn}}</div>
+                    <div *ngIf="!isEnLabel" class="basic-info-right-lbl">{{subSector?.subSectorNameBn}}</div>
+                </div>
+            </div>
+        </mat-card>
+
+        <!-- 8 project  -->
+        <!-- ObjectivesAndTargets CK Editor -->
+
+        <div class="p-8 pb-4">
+            <div class="sub-heading text-lg">
+                <span class="inline-block align-middle">
+                    {{'8' | translate}}.{{ "projectObjective" | translate }}
+
+                </span>
+            </div>
+            <mat-card>
+                <div class="mb-5 text-lg" [innerHTML]="objectivesTargets">
+                </div>
+            </mat-card>
+        </div>
+
+        <!-- 9 Log frame  -->
+        <mat-card class="p-8 pb-4">
+
+            <!--1st Flex Layout Div Start -->
+            <div class="sub-heading  ">
+                <span class="inline-block align-middle">
+                    {{'9' | translate}}.{{ "Log_frame" | translate }}
+                </span>
+            </div>
+
+
+            <!-- Table -->
+            <!-- -------------Goal Form---------- -->
+            <mat-card class="p-8 pb-4">
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable style="background-color: white">
+                    <table class="mat-elevation-z8">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th [innerHTML]="'Narrative_summery' | translate"></th>
+                                <th [innerHTML]="'Objectively_verifiable' | translate"></th>
+                                <th [innerHTML]="'Means_verifications' | translate"></th>
+                                <th [innerHTML]="'Important_assumptions' | translate"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="w-full-td">
+                                    {{ "Goal" | translate }}
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center" [innerHTML]="logFrame.goalNS">
+                                        <!-- {{logFrame.goalNS}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center" [innerHTML]="logFrame.goalOVI">
+                                        <!-- {{logFrame.goalOVI}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center" [innerHTML]="logFrame.goalMOV">
+                                        <!-- {{logFrame.goalMOV}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="w-full-td">
+                                    {{"Objective" | translate}}
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center"
+                                        [innerHTML]="logFrame.objectiveNS">
+                                        <!-- {{logFrame.objectiveNS}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center"
+                                        [innerHTML]="logFrame.objectiveOVI">
+                                        <!-- {{logFrame.objectiveOVI}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center"
+                                        [innerHTML]="logFrame.objectiveMOV">
+                                        <!-- {{logFrame.objectiveMOV}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center"
+                                        [innerHTML]="logFrame.objectiveIA">
+                                        <!-- {{logFrame.objectiveIA}} -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="w-full-td">
+                                    {{ "Output" | translate }}
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center" [innerHTML]="logFrame.outputNS">
+                                        <!-- {{logFrame.outputNS}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center"
+                                        [innerHTML]="logFrame.outputOVI">
+                                        <!-- {{logFrame.outputOVI}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center"
+                                        [innerHTML]="logFrame.outputMOV">
+                                        <!-- {{logFrame.outputMOV}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center" [innerHTML]="logFrame.outputIA">
+                                        <!-- {{logFrame.outputIA}} -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="w-full-td">
+                                    {{ "Input" | translate }}
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center" [innerHTML]="logFrame.inputNS">
+                                        <!-- {{logFrame.inputNS}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center" [innerHTML]="logFrame.inputOVI">
+                                        <!-- {{logFrame.inputOVI}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center" [innerHTML]="logFrame.inputMOV">
+                                        <!-- {{logFrame.inputMOV}} -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="text-align: justify; padding: 5px;"
+                                        class="w-full flex justify-center items-center" [innerHTML]="logFrame.inputIA">
+                                        <!-- {{logFrame.inputIA}} -->
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card>
+        </mat-card>
+
+        <!-- 10  -->
+        <div class="p-8 pb-4">
+            <div class="sub-heading  ">
+                <span class="inline-block align-middle">{{'10' | translate}}. {{ "Inclusioninexisting" | translate }}
+                </span>
+            </div>
+            <form [formGroup]="frmGroup" name="frmGroup">
+                <mat-card class="p-8 pb-4">
+                    <div fxLayout="row wrap" style="text-align: left !important;">
+                        <mat-radio-group formControlName="isIncludedInAdpRadp" required fxFlex="50%" fxFlex.md="70%"
+                            fxFlex.sm="70%" fxFlex.xs="100%">
+                            <!-- <mat-radio-button [checked]="true" value='false'>Yes</mat-radio-button>&nbsp;&nbsp; -->
+
+                            <mat-radio-button value='true'> {{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                            <mat-radio-button value='false'> {{ "No" | translate }}</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <br>
+                    <div>
+                        <div>{{ "DidtheMinister" | translate }}
+                        </div>
+                        <br>
+                        <div>
+                            <mat-radio-group formControlName="isMinisterApprovedNewProject" required fxFlex="50%"
+                                fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+
+                                <mat-radio-button value='true'> {{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                                <mat-radio-button value='false'> {{ "No" | translate }}</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <br>
+                        <div>{{ "IfanswerisYespleasewritethedateof" | translate }}
+
+                        </div>
+                        <br>
+                        <div>
+                            <mat-form-field class="w-full">
+                                <input (click)="picker1.open()" [matDatepicker]="picker1"
+                                    (dateChange)="commencementDataChange($event)" formControlName="approvalDate"
+                                    matInput readonly required>
+                                <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card>
+            </form>
+        </div>
+
+        <!-- 11.	Is the project only GoB Funded? -->
+        <div class="p-8 pb-4">
+            <div class="sub-heading  ">
+                <span class="inline-block align-middle">{{'11' | translate}}.{{ "IstheprojectonlyGoBFunded" | translate
+                    }}
+
+                </span>
+            </div>
+            <br>
+            <form [formGroup]="frmGroup" name="frmGroup">
+                <div>
+                    <mat-radio-group formControlName="isForeignAid" required fxFlex="50%" fxFlex.md="70%"
+                        fxFlex.sm="70%" fxFlex.xs="100%">
+
+                        <mat-radio-button value='true'> {{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'> {{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </form>
+
+            <br>
+            <!-- Total Cost: table -->
+            <div>
+                <table style="border: 1 px solid #020202 !important;
+                padding: 3px;">
+                    <tbody>
+                        <tr>
+                            <td rowspan="4"> {{ "TotalCost" | translate }}: {{projectCost.totalAmount}}</td>
+                            <td> {{ "Gob_fe" | translate }} </td>
+                            <td>{{projectCost.gobAmount}}</td>
+                            <td> {{ "fe" | translate }}</td>
+                            <td>({{projectCost.gobFeAmount}})</td>
+                            <td rowspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td> {{ "Own_fund_fe" | translate }}</td>
+                            <td>{{projectCost.ownFundAmount}}</td>
+                            <td> {{ "fe" | translate }}</td>
+                            <td>({{projectCost.ownFeAmount}})</td>
+                        </tr>
+                        <tr>
+                            <td> {{ "pa" | translate }}</td>
+                            <td>{{projectCost.paAmount}}</td>
+                            <td> {{ "Rpa" | translate }}</td>
+                            <td>({{projectCost.paRpaAmount}})</td>
+                            <td> {{ "Dpa" | translate }}{{projectCost.dpa_Amount}}</td>
+                        </tr>
+                        <tr>
+                            <td> {{ "others" | translate }}</td>
+                            <td>{{projectCost.othersAmount}}</td>
+                            <td> {{ "others" | translate }}{{ "fe" | translate }}</td>
+                            <td>({{projectCost.otherFeAmount}})</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 12 ModeFinancing Table -->
+        <div class="p-8 pb-4">
+            <!-- ---------ModeFinancingSource--------- -->
+            <div class="sub-heading" style="padding-bottom: 20px;">
+                <span> {{'12' | translate}}.{{ "ModeFinancingSource" | translate }}</span>
+            </div>
+            <mat-card>
+                <div class="md:flex">
+
+                    <div class="w-full overflow-x-auto">
+                        <i style="float: right !important;">{{ "TakaInLac" | translate }}</i>
+                        <table style="text-align: center;">
+                            <tr>
+                                <th>
+                                    <span>{{ "ModeSource" | translate }}
+                                    </span>
+                                </th>
+                                <th>
+                                    <span>{{ "GOB_FE2" | translate }} </span>
+                                </th>
+                                <th>
+                                    <span>{{ "PA_RPA2" | translate }} </span>
+                                </th>
+                                <th>
+                                    <span>{{ "OwnFund2" | translate }} </span>
+                                </th>
+                                <th>
+                                    <span>{{ "Others_FE2" | translate }} </span><br>
+                                </th>
+                                <th>
+                                    <span>{{ "PA_Sources" | translate }}</span>
+                                </th>
+                            </tr>
+
+                            <tr *ngFor="let mode of modeFinancingList; let i = index">
+                                <td>
+                                    {{ mode.modeSource }}
+
+
+
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(mode.gob) :
+                                    mode.gob}}
+
+                                    <br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(mode.gobFe) :
+                                    mode.gobFe}})
+
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(mode.pa) :
+                                    mode.pa}}
+                                    <br>
+
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(mode.paRpa) :
+                                    mode.paRpa}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(mode.ownFund) :
+                                    mode.ownFund}}
+                                    <br>
+
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(mode.ownFundFe) :
+                                    mode.ownFundFe}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(mode.others) :
+                                    mode.others}}
+                                    <br>
+
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(mode.othersFe) :
+                                    mode.othersFe}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(mode.paSources) :
+                                    mode.paSources}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <!-- ---------ModeFinancingSource--------- -->
+
+        <!-- -------13--YearWiseEstimatedCost--------- -->
+        <div class="p-8 pb-4">
+            <div class=" sub-heading  ">
+                <span> {{'13' | translate}}.{{ "YearWiseEstimatedCost" | translate }}</span>
+            </div>
+            <mat-card class="p-8 pb-4">
+                <div class="md:flex">
+
+                    <div class="w-full">
+                        <i style="float: right !important;">{{ "TakaInLac" | translate }}</i>
+                        <table>
+                            <tr>
+                                <th rowspan="2">
+                                    {{ "FinancialYear" | translate }}
+                                </th>
+                                <th rowspan="2">
+                                    <span> {{ "GOB_FE3" | translate }} </span>
+                                </th>
+                                <th *ngIf="isForeignAid && isParipatra2016" colspan="2">
+                                    {{ "PA" | translate }}
+                                </th>
+                                <th *ngIf="isForeignAid && !isParipatra2016" colspan="2">
+                                    {{ "ProjectAid2022" | translate }}
+                                </th>
+                                <th rowspan="2">
+                                    <span *ngIf="isParipatra2016">{{ "OwnFund3" | translate }}</span>
+                                    <span *ngIf="!isParipatra2016">{{ "OwnFund3_22" | translate }}</span>
+                                </th>
+                                <th rowspan="2">
+                                    <span>{{ "OthersFE3" | translate }}</span><br />
+                                </th>
+                                <th rowspan="2">
+                                    {{ "Total4" | translate }}
+                                    <br />
+                                    {{ "ForeignCurrency" | translate }}
+                                </th>
+                            </tr>
+                            <tr *ngIf="isForeignAid && isParipatra2016">
+                                <th>{{ "RPA16" | translate }}
+                                </th>
+                                <th>{{ "DPA16" | translate }}
+                                </th>
+                            </tr>
+                            <tr *ngIf="isForeignAid && !isParipatra2016">
+                                <th>{{ "RPA22" | translate }}<br>
+                                    {{ "RPA22_sub" | translate }}
+                                </th>
+                                <th>{{ "DPA22" | translate }}<br>
+                                    {{ "DPA22_sub" | translate }}
+                                </th>
+                            </tr>
+
+                            <tbody *ngFor="let item of fiscalYearsList">
+                                <tr class="text-right">
+                                    <td style="text-align: center;">{{item.fiscalYear}}</td>
+                                    <td>
+                                        {{item.govAmount ? item.govAmount : 0.00}} <br />
+                                        ({{item.govFeAmount ? item.govFeAmount : 0.00}})
+                                    </td>
+                                    <td *ngIf="isForeignAid">{{item.rpaAmount ? item.rpaAmount : 0.00}}</td>
+                                    <td *ngIf="isForeignAid">{{item.dpaAmount ? item.dpaAmount : 0.00}}</td>
+                                    <td>
+                                        {{item.ownFundAmount ? item.ownFundAmount : 0.00}} <br />
+                                        ({{item.ownFundFeAmount ? item.ownFundFeAmount : 0.00}})
+                                    </td>
+                                    <td>
+                                        {{item.otherAmount ? item.otherAmount : 0.00}} <br />
+                                        ({{item.otherFeAmount ? item.otherFeAmount : 0.00}})
+                                    </td>
+                                    <td>
+                                        {{item.totalAmount ? item.totalAmount : 0.00}}<br />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <!-- ------------/YearWiseEstimatedCost------------ -->
+
+        <!-- 14 component wise  -->
+        <div class="p-8 pb-4">
+            <span>
+                <p class="sub-heading mb-2 text-lg"> {{'14' | translate}}.{{ "Estimatedcostsummary" | translate }}</p>
+            </span>
+            <div class="cards">
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table class="tables">
+                        <thead>
+                            <tr>
+                                <th *ngIf="isParipatra2016" rowspan="3">
+                                    {{'economic' | translate}}
+                                    {{'code22' | translate}}
+                                </th>
+                                <th *ngIf="!isParipatra2016" rowspan="3">
+                                    {{'economic' | translate}}
+                                    {{'code22' | translate}}
+                                </th>
+                                <th *ngIf="isParipatra2016" rowspan="3">
+                                    {{'econdescription' | translate}}
+                                    {{'econdes_sub' | translate}}
+                                </th>
+                                <th *ngIf="!isParipatra2016" rowspan="3">
+                                    {{'econdescription' | translate}}
+                                    {{'econdes_sub' | translate}}
+                                </th>
+                                <th rowspan="3">{{'Unit' | translate}}</th>
+                                <th rowspan="3">{{'Quantity' | translate}}</th>
+                                <th rowspan="3">{{'Gob_fe' | translate}}</th>
+                                <th colspan="4" *ngIf="isForeignAid">{{'Project_aid' | translate}}</th>
+                                <th rowspan="3">{{'Own_fund_fe' | translate}}</th>
+                                <th rowspan="3">{{'Other_fe' | translate}}</th>
+                                <th *ngIf="isForeignAid" rowspan="3">{{'Total_cost_en' | translate}}</th>
+                                <th *ngIf="!isForeignAid" rowspan="3">{{'Total_cost_bn' | translate}}</th>
+                                <th rowspan="3">{{'Total_project_cost' | translate}}</th>
+                            </tr>
+                            <tr>
+                                <th *ngIf="isForeignAid" colspan="2"> {{'Rpa' | translate}}</th>
+                                <th *ngIf="isForeignAid" colspan="2">{{'Dpa' | translate}}</th>
+                            </tr>
+                            <tr>
+                                <th *ngIf="isForeignAid">{{'Through_gob' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'Special_amount' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'Through_pd' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'Special_dp' | translate}}</th>
+                            </tr>
+                            <tr *ngIf="isParipatra2016" class="boldBorder">
+                                <th>{{'Num1' | translate}}</th>
+                                <th>{{'Num2' | translate}}</th>
+                                <th>{{'Num3' | translate}}</th>
+                                <th>{{'Num4' | translate}}</th>
+                                <th>{{'Num5' | translate}}</th>
+                                <th>{{'Num6' | translate}}</th>
+                                <th>{{'Num7' | translate}}</th>
+                                <th>{{'Num8' | translate}}</th>
+                                <th>{{'Num9' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'Num10' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'Num11' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'Num12' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'Num13' | translate}}</th>
+                            </tr>
+                            <tr *ngIf="!isParipatra2016" class="boldBorder">
+                                <th>{{'c1' | translate}}</th>
+                                <th>{{'c2' | translate}}</th>
+                                <th>{{'c3' | translate}}</th>
+                                <th>{{'c4' | translate}}</th>
+                                <th>{{'c5' | translate}}</th>
+                                <th>{{'c6' | translate}}</th>
+                                <th>{{'c7' | translate}}</th>
+                                <th>{{'c8' | translate}}</th>
+                                <th>{{'c9' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'c10' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'c11' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'c12' | translate}}</th>
+                                <th *ngIf="isForeignAid">{{'c13' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #d8d5d5 !important;">
+                                <td colspan="13" style="text-align: left !important;font-weight: bold !important;">
+                                    <span *ngIf="isParipatra2016">{{'Revenue_component' | translate}}</span>
+                                    <span *ngIf="!isParipatra2016">{{'Revenue_component22' | translate}}</span>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let data of revenueList" class="text-right">
+
+                                <td class="txt-left">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.economicCode.economicCode) :
+                                    data?.economicCode.economicCode}}</td>
+                                <td class="txt-left">
+                                    {{data?.description}}</td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    data?.unitType.unitTypeNameBng : data?.unitType.unitTypeNameEng}}</td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.qty.toFixed(2)) : data?.qty.toFixed(2)}}
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.gobAmount.toFixed(2)) :
+                                    data?.gobAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.gobFeAmount.toFixed(2)) :
+                                    data?.gobFeAmount.toFixed(2)}})
+                                </td>
+                                <td *ngIf="isForeignAid">{{data?.gobThruAmount}}</td>
+                                <td *ngIf="isForeignAid">{{data?.spAcAmount}}</td>
+                                <td *ngIf="isForeignAid">{{data?.thruPdAmount}}</td>
+                                <td *ngIf="isForeignAid">{{data?.thruDpAmount}}</td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.ownFundAmount.toFixed(2)) :
+                                    data?.ownFundAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.ownFundFeAmount.toFixed(2)) :
+                                    data?.ownFundFeAmount.toFixed(2)}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.otherAmount.toFixed(2)) :
+                                    data?.otherAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.otherFeAmount.toFixed(2)) :
+                                    data?.otherFeAmount.toFixed(2)}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.totalCostCalculated.toFixed(2)) :
+                                    data?.totalCostCalculated.toFixed(2)}}
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.totalProjectCost.toFixed(2)) :
+                                    data?.totalProjectCost.toFixed(2)}}
+                                </td>
+                            </tr>
+
+                            <!--        ====================== revenue subtotal =========================-->
+                            <tr style="background-color: #d8d5d5 !important;">
+                                <td colspan="4" style="text-align: left;">
+                                    <span *ngIf="isParipatra2016">{{'Sub_total_Revenue' | translate}}</span>
+                                    <span *ngIf="!isParipatra2016">{{'Sub_total_Revenue22' | translate}}</span>
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(revenueTotal?.gobAmount?.toFixed(2)) :
+                                    revenueTotal?.gobAmount?.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(revenueTotal?.gobFeAmount.toFixed(2)) :
+                                    revenueTotal?.gobFeAmount.toFixed(2)}})
+                                </td>
+                                <td *ngIf="isForeignAid" data-label="Through GoB">{{revenueTotal?.gobThruAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Special Account **">{{revenueTotal?.spAcAmount}}
+                                </td>
+                                <td *ngIf="isForeignAid" data-label="Through PD">{{revenueTotal?.thruPdAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through DP">{{revenueTotal?.thruDpAmount}}</td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(revenueTotal?.ownFundAmount.toFixed(2)) :
+                                    revenueTotal?.ownFundAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(revenueTotal?.ownFundFeAmount.toFixed(2)) :
+                                    revenueTotal?.ownFundFeAmount.toFixed(2)}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(revenueTotal?.otherAmount.toFixed(2)) :
+                                    revenueTotal?.otherAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(revenueTotal?.otherFeAmount.toFixed(2)) :
+                                    revenueTotal?.otherFeAmount.toFixed(2)}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(revenueTotal?.totalAmount.toFixed(2)) :
+                                    revenueTotal?.totalAmount.toFixed(2)}}
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(revenueTotal?.totalProjectCost.toFixed(2)) :
+                                    revenueTotal?.totalProjectCost.toFixed(2)}}
+                                </td>
+                            </tr>
+
+                            <!--        ========================= capital component ====================-->
+
+                            <tr style="background-color: #d8d5d5 !important;">
+                                <td colspan="14" style="text-align: left !important; font-weight: bold !important;">
+                                    <span *ngIf="isParipatra2016">{{'Capital_component' | translate}}</span>
+                                    <span *ngIf="!isParipatra2016">{{'Capital_component22' | translate}}</span>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let data of capitalList" class="text-right">
+
+                                <td class="txt-left">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.economicCode.economicCode) :
+                                    data?.economicCode.economicCode }}</td>
+
+                                <td class="txt-left">
+                                    {{data?.description}}
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    data?.unitType.unitTypeNameBng : data?.unitType.unitTypeNameEng}}</td>
+
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.qty.toFixed(2)) : data?.qty.toFixed(2)}}
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.gobAmount.toFixed(2)) :
+                                    data?.gobAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.gobFeAmount.toFixed(2)) :
+                                    data?.gobFeAmount.toFixed(2)}})
+                                </td>
+                                <td *ngIf="isForeignAid">{{data?.gobThruAmount}}</td>
+                                <td *ngIf="isForeignAid">{{data?.spAcAmount}}</td>
+                                <td *ngIf="isForeignAid">{{data?.thruPdAmount}}</td>
+                                <td *ngIf="isForeignAid">{{data?.thruDpAmount}}</td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.ownFundAmount.toFixed(2)) :
+                                    data?.ownFundAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.ownFundFeAmount.toFixed(2)) :
+                                    data?.ownFundFeAmount.toFixed(2)}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.otherAmount.toFixed(2)) :
+                                    data?.otherAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.otherFeAmount.toFixed(2)) :
+                                    data?.otherFeAmount.toFixed(2)}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.totalCostCalculated.toFixed(2)) :
+                                    data?.totalCostCalculated.toFixed(2)}}
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(data?.totalProjectCost.toFixed(2)) :
+                                    data?.totalProjectCost.toFixed(2)}}
+                                </td>
+
+                            </tr>
+                            <tr style="background-color: #d8d5d5 !important;">
+                                <td colspan="4" style="text-align: left;">
+                                    <span *ngIf="isParipatra2016">{{'Sub_total_Capital' | translate}}</span>
+                                    <span *ngIf="!isParipatra2016">{{'Sub_total_Capital22' | translate}}</span>
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(capitalTotal?.gobAmount.toFixed(2)) :
+                                    capitalTotal?.gobAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(capitalTotal?.gobFeAmount.toFixed(2)) :
+                                    capitalTotal?.gobFeAmount.toFixed(2)}})
+                                </td>
+                                <td *ngIf="isForeignAid" data-label="Through GoB">{{capitalTotal?.gobThruAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Special Account **">{{capitalTotal?.spAcAmount}}
+                                </td>
+                                <td *ngIf="isForeignAid" data-label="Through PD">{{capitalTotal?.thruPdAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through DP">{{capitalTotal?.thruDpAmount}}</td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(capitalTotal?.ownFundAmount.toFixed(2)) :
+                                    capitalTotal?.ownFundAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(capitalTotal?.ownFundFeAmount.toFixed(2)) :
+                                    capitalTotal?.ownFundFeAmount.toFixed(2)}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(capitalTotal?.otherAmount.toFixed(2)) :
+                                    capitalTotal?.otherAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(capitalTotal?.otherFeAmount.toFixed(2)) :
+                                    capitalTotal?.otherFeAmount.toFixed(2)}})
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(capitalTotal?.totalAmount.toFixed(2)) :
+                                    capitalTotal?.totalAmount.toFixed(2)}}
+                                </td>
+                                <td>
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(capitalTotal?.totalProjectCost.toFixed(2)) :
+                                    capitalTotal?.totalProjectCost.toFixed(2)}}
+                                </td>
+                            </tr>
+
+                            <!--        ===================== physical contingency ========================-->
+
+                            <tr style="background-color: #d8d5d5 !important;" *ngIf="physicalContingencyTotal != null">
+                                <td colspan="4" style="text-align: left;font-weight: bold !important;">
+                                    {{'Physical_contingency' | translate}}</td>
+                                <td data-label="GoB (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(physicalContingencyTotal?.gobAmount.toFixed(2)) :
+                                    physicalContingencyTotal?.gobAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(physicalContingencyTotal?.gobFeAmount.toFixed(2)) :
+                                    physicalContingencyTotal?.gobFeAmount.toFixed(2)}})
+                                </td>
+                                <td *ngIf="isForeignAid" data-label="Through GoB">
+                                    {{physicalContingencyTotal?.gobThruAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Special Account **">
+                                    {{physicalContingencyTotal?.spAcAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through PD">
+                                    {{physicalContingencyTotal?.thruPdAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through DP">
+                                    {{physicalContingencyTotal?.thruDpAmount}}</td>
+                                <td data-label="Own Fund (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(physicalContingencyTotal?.ownFundAmount.toFixed(2))
+                                    : physicalContingencyTotal?.ownFundAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(physicalContingencyTotal?.ownFundFeAmount.toFixed(2))
+                                    : physicalContingencyTotal?.ownFundFeAmount.toFixed(2)}})
+                                </td>
+                                <td data-label="Other (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(physicalContingencyTotal?.otherAmount.toFixed(2)) :
+                                    physicalContingencyTotal?.otherAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(physicalContingencyTotal?.otherFeAmount.toFixed(2))
+                                    : physicalContingencyTotal?.otherFeAmount.toFixed(2)}})
+                                </td>
+                                <td data-label="Total Cost">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(physicalContingencyTotal?.totalAmount.toFixed(2)) :
+                                    physicalContingencyTotal?.totalAmount.toFixed(2)}}
+                                </td>
+                                <td data-label="% of Total Project Cost">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(physicalContingencyTotal?.totalProjectCost.toFixed(2))
+                                    : physicalContingencyTotal?.totalProjectCost.toFixed(2)}}
+                                </td>
+                            </tr>
+
+                            <!--                    ====================== physical contingency when null =================-->
+
+                            <tr style="background-color: #d8d5d5 !important;" *ngIf="physicalContingencyTotal == null">
+                                <td colspan="4" style="text-align: left;">{{'Physical_contingency' | translate}}</td>
+                                <td data-label="GoB (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                </td>
+                                <td *ngIf="isForeignAid" data-label="Through GoB">{{blankVal.toFixed(2)}}</td>
+                                <td *ngIf="isForeignAid" data-label="Special Account **">{{blankVal.toFixed(2)}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through PD">{{blankVal.toFixed(2)}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through DP">{{blankVal.toFixed(2)}}</td>
+                                <td data-label="Own Fund (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                </td>
+                                <td data-label="Other (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                </td>
+                                <td data-label="Total Cost">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                                </td>
+                                <td data-label="% of Total Project Cost">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                                </td>
+                            </tr>
+
+                            <!--                    ======================= price contingency ========================-->
+
+                            <tr style="background-color: #d8d5d5 !important;" *ngIf="priceContingencyTotal != null">
+                                <td colspan="4" style="text-align: left; font-weight: bold !important;">
+                                    {{'Price_contingency' | translate}}</td>
+                                <td data-label="GoB (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(priceContingencyTotal?.gobAmount.toFixed(2)) :
+                                    priceContingencyTotal?.gobAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(priceContingencyTotal?.gobFeAmount.toFixed(2)) :
+                                    priceContingencyTotal?.gobFeAmount.toFixed(2)}})
+                                </td>
+                                <td *ngIf="isForeignAid" data-label="Through GoB">
+                                    {{priceContingencyTotal?.gobThruAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Special Account **">
+                                    {{priceContingencyTotal?.spAcAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through PD">{{priceContingencyTotal?.thruPdAmount}}
+                                </td>
+                                <td *ngIf="isForeignAid" data-label="Through DP">{{priceContingencyTotal?.thruDpAmount}}
+                                </td>
+                                <td data-label="Own Fund (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(priceContingencyTotal?.ownFundAmount.toFixed(2)) :
+                                    priceContingencyTotal?.ownFundAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(priceContingencyTotal?.ownFundFeAmount.toFixed(2))
+                                    : priceContingencyTotal?.ownFundFeAmount.toFixed(2)}})
+                                </td>
+                                <td data-label="Other (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(priceContingencyTotal?.otherAmount.toFixed(2)) :
+                                    priceContingencyTotal?.otherAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(priceContingencyTotal?.otherFeAmount.toFixed(2)) :
+                                    priceContingencyTotal?.otherFeAmount.toFixed(2)}})
+                                </td>
+                                <td data-label="Total Cost">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(priceContingencyTotal?.totalAmount.toFixed(2)) :
+                                    priceContingencyTotal?.totalAmount.toFixed(2)}}
+                                </td>
+                                <td data-label="% of Total Project Cost">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(priceContingencyTotal?.totalProjectCost.toFixed(2))
+                                    : priceContingencyTotal?.totalProjectCost.toFixed(2)}}
+                                </td>
+                            </tr>
+
+                            <!--                    ========================= price contingency when null ====================-->
+                            <tr style="background-color: #d8d5d5 !important;" *ngIf="priceContingencyTotal == null">
+                                <td colspan="4" style="text-align: left;">{{'Price_contingency' | translate}}</td>
+                                <td data-label="GoB (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                </td>
+                                <td *ngIf="isForeignAid" data-label="Through GoB">{{blankVal.toFixed(2)}}</td>
+                                <td *ngIf="isForeignAid" data-label="Special Account **">{{blankVal.toFixed(2)}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through PD">{{blankVal.toFixed(2)}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through DP">{{blankVal.toFixed(2)}}</td>
+                                <td data-label="Own Fund (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                </td>
+                                <td data-label="Other (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}})
+                                </td>
+                                <td data-label="Total Cost">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                                </td>
+                                <td data-label="% of Total Project Cost">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(blankVal.toFixed(2)) : blankVal.toFixed(2)}}
+                                </td>
+                            </tr>
+
+                            <tr style="background-color: #d8d5d5 !important;">
+                                <td colspan="4" style="text-align: left; font-weight: bold">
+                                    <span *ngIf="isParipatra2016">{{'Grand_total' | translate}}</span>
+                                    <span *ngIf="!isParipatra2016">{{'Grand_total22' | translate}}</span>
+                                </td>
+                                <td data-label="GoB (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(grantTotal?.gobAmount.toFixed(2)) :
+                                    grantTotal?.gobAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(grantTotal?.gobFeAmount.toFixed(2)) :
+                                    grantTotal?.gobFeAmount.toFixed(2)}})
+                                </td>
+                                <td *ngIf="isForeignAid" data-label="Through GoB">{{grantTotal?.gobThruAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Special Account **">{{grantTotal?.spAcAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through PD">{{grantTotal?.thruPdAmount}}</td>
+                                <td *ngIf="isForeignAid" data-label="Through DP">{{grantTotal?.thruDpAmount}}</td>
+                                <td data-label="Own Fund (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(grantTotal?.ownFundAmount.toFixed(2)) :
+                                    grantTotal?.ownFundAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(grantTotal?.ownFundFeAmount.toFixed(2)) :
+                                    grantTotal?.ownFundFeAmount.toFixed(2)}})
+                                </td>
+                                <td data-label="Other (FE)">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(grantTotal?.otherAmount.toFixed(2)) :
+                                    grantTotal?.otherAmount.toFixed(2)}}<br>
+                                    ({{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(grantTotal?.otherFeAmount.toFixed(2)) :
+                                    grantTotal?.otherFeAmount.toFixed(2)}})
+                                </td>
+                                <td data-label="Total Cost">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(grantTotal?.totalAmount.toFixed(2)) :
+                                    grantTotal?.totalAmount.toFixed(2)}}
+                                </td>
+                                <td data-label="% of Total Project Cost">
+                                    {{(!projectSummary?.isForeignAid &&
+                                    projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ?
+                                    numberPipe.convertToBanglaNumber(grantTotal?.totalProjectCost.toFixed(2)) :
+                                    grantTotal?.totalProjectCost.toFixed(2)}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END -->
+
+        <!-- 15.	Is the project land required? -->
+        <form [formGroup]="frmGroup" name="frmGroup">
+
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        <!-- 15. Is the project land required? -->
+                        {{'15' | translate}}.{{ "Istheprojectlandrequired" | translate }}
+                    </span>
+                </div>
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="isProjectLandRequired" required fxFlex="50%" fxFlex.md="70%"
+                        fxFlex.sm="70%" fxFlex.xs="100%">
+
+                        <mat-radio-button value='true'> {{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'> {{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "IfYesdescribe" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'projectLandDescription')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="projectLandDescription" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 16.	Is the project feasibility study required? -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'16' | translate}}.{{ "IstheprojectFeasibilitystudyrequired" | translate }}
+                    </span>
+                </div>
+
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="isProjectFeasibilityStudyRequired" required fxFlex="50%"
+                        fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+
+                        <mat-radio-button value='true'> {{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'> {{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "IfYesdescribe" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'projectFeasibilityStudyRequiredDescription')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="projectFeasibilityStudyRequiredDescription"
+                                [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 17.	Is the project feasibility study done? -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'17' | translate}}.{{ "Istheprojectfeasibilitystudydone" | translate }}
+                    </span>
+                </div>
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="isProjectFeasibilityStudyDone" required fxFlex="50%"
+                        fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+
+                        <mat-radio-button value='true'> {{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'> {{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "IfYesdescribe" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'projectFeasibilityStudyDoneDescription')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="projectFeasibilityStudyDoneDescription"
+                                [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 18.	Environmental Clearance -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'18' | translate}}.{{ "EnvironmentalClearance" | translate }}
+                    </span>
+                </div>
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="isEnvironmentalClearance" required fxFlex="50%" fxFlex.md="70%"
+                        fxFlex.sm="70%" fxFlex.xs="100%">
+
+                        <mat-radio-button value='true'> {{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'> {{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "IfYesdescribe" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'environmentalClearanceDescription')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="environmentalClearanceDescription" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 19.	Environmental impact wise project category -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'19' | translate}}.{{ "Environmentalimpactwiseprojectcategory" | translate }}
+                    </span>
+                </div>
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="environmentalImpactWiseProjectCategory" required fxFlex="50%"
+                        fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                        <mat-radio-button value='Green'> {{ "Green" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='Orange (Ka)'> {{ "OrangeA" | translate
+                            }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='Orange (Kha)'> {{ "OrangeB" | translate
+                            }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='Red'> {{ "Red" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                    </mat-radio-group>
+                </div>
+            </div>
+
+            <!-- 20.	Located in Ecologically Critical Area (ECA): -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'20' | translate}}.{{ "LocatedinEcologicallyCriticalArea" | translate }}
+                    </span>
+                </div>
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="isLocatedInECA" required fxFlex="50%" fxFlex.md="70%"
+                        fxFlex.sm="70%" fxFlex.xs="100%">
+
+                        <mat-radio-button value='true'>{{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'>{{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "IfYesdescribe" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'locatedInEcaDescription')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="locatedInEcaDescription" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 21.	Environment Impact Analysis (EIA) Conducted: -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'21' | translate}}.{{ "EnvironmentImpactAnalysisConducted" | translate }}
+                    </span>
+                </div>
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="isEIA" required fxFlex="50%" fxFlex.md="70%" fxFlex.sm="70%"
+                        fxFlex.xs="100%">
+
+                        <mat-radio-button value='true'>{{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'>{{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "IfYesdescribe" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'eiaDescription')" id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="eiaDescription" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 22.	Is Public Private Proprietorship Needed (PPP)? -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'22' | translate}}.{{ "IsPublicPrivateProprietorshipNeeded" | translate }}
+                    </span>
+                </div>
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="isPppNeeded" required fxFlex="50%" fxFlex.md="70%" fxFlex.sm="70%"
+                        fxFlex.xs="100%">
+
+                        <mat-radio-button value='true'> {{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'> {{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "IfYesdescribe" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'pppDescription')" id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="pppDescription" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 23.	Relevance with Short / Medium / Long Term Policies / Plans / Programs:-->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'23' | translate}}.{{ "RelevancewithShortMedium" | translate }}
+                    </span>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "RelevancewithShortMedium" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'relevanceWithProgram')" id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="relevanceWithProgram" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 24.	Relevance of the Proposal with Concerned Sectoral Allocation:-->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'24' | translate}}.{{ "RelevanceProposalwithConcerned" | translate }}
+                    </span>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "RelevanceProposalwithConcerned" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'relevanceOfTheProposal')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="relevanceOfTheProposal" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 25.	Institutional Arrangement: -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'25' | translate}}.{{ "InstitutionalArrangement" | translate }}
+                    </span>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "InstitutionalArrangement" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'institutionalArrangement')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="institutionalArrangement" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 26.	Relevance with Other Development Programs of the Concerned Sector:-->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'26' | translate}}.{{ "RelevancewithOtherDevelopmentProgrammes" | translate }}
+
+                    </span>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "RelevancewithOtherDevelopmentProgrammes" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'relevanceWithOtherDevelopmentProgrammes')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="relevanceWithOtherDevelopmentProgrammes"
+                                [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 27.	Expected Socio-economic Benefits / Outputs of the Proposed Project:-->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'27' | translate}}.{{ "ExpectedSocioeconomicBenefitsProposedProject" | translate }}
+                    </span>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "ExpectedSocioeconomicBenefitsProposedProject" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'expectedSocioEconomicBenefits')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="expectedSocioEconomicBenefits" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!--   28. Project Location:-->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'28' | translate}}.{{ "ProjectLocation" | translate }}
+                    </span>
+                </div>
+                <br>
+                <table style="text-align: center;">
+
+                    <thead>
+                        <tr>
+                            <th style="width: 5%" class="top-header">{{'SlNo' | translate}}</th>
+                            <th style="width: 10%" class="top-header">{{'Division' | translate}}</th>
+                            <th style="width: 10%" class="top-header">{{'Zilla' | translate}}</th>
+                            <th style="width: 20%" class="top-header">{{'UpazilaCityCorporationPourosave' | translate}}
+                            </th>
+                        </tr>
+                        <tr style="height: 10px;">
+                            <th class="">{{'1' | translate}}</th>
+                            <th class="">{{'2' | translate}}</th>
+                            <th class="">{{'3' | translate}}</th>
+                            <th class="">{{'4' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let up of upazilas; let i = index">
+                            <td style="width: 5%" *ngIf="up.dSpan !== 0" [rowSpan]="up.dSpan">{{up.sl}}</td>
+                            <td style="width: 10%" *ngIf="up.dSpan !== 0" [rowSpan]="up.dSpan">
+                                {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase()
+                                == 'DPP') ? up?.division?.nameBn : up?.division?.nameEn}}
+                            </td>
+                            <td style="width: 10%" *ngIf="up.zSpan !== 0" [rowSpan]="up.zSpan">
+                                {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase()
+                                == 'DPP') ? up?.zilla?.nameBn : up?.zilla?.nameEn}}
+                            </td>
+                            <td style="width: 20%">
+                                {{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase()
+                                == 'DPP') ? up?.upazila?.nameBn : up?.upazila?.nameEn}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 29.	Linkage and Target:-->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'29' | translate}}.{{ "LinkageandTarget" | translate }}
+                    </span>
+                </div>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{'linkage' | translate}}
+                        </span>
+                    </div>
+                    <div class="mb-5 text-lg" [innerHTML]="specificationLinkagePerspective">
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 30.	Financial & Economic Analysis -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'30' | translate}}.{{ "FinancialEconomicAnalysis" | translate }}
+                    </span>
+                </div>
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="isFinancialEconomicAnalysis" required fxFlex="50%" fxFlex.md="70%"
+                        fxFlex.sm="70%" fxFlex.xs="100%">
+                        <mat-radio-button value='true'> {{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'> {{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "IfYesdescribe" | translate }}
+                        </span>
+                        <!-- <span *ngIf="isParipatra2016" [innerHTML]="'ObjectivesAndTargets' | translate"></span>
+                            <span *ngIf="!isParipatra2016" [innerHTML]="'ObjectivesAndTargets22' | translate"></span> -->
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'financialEconomicAnalysisDescription')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="financialEconomicAnalysisDescription" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 31.	Compensation and/ or Rehabilitation/Resettlement needed? -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'31' | translate}}.{{ "CompensationRehabilitationResettlementneeded" | translate }}
+                    </span>
+                </div>
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="isCompensationOrRehabilitationNeeded" required fxFlex="50%"
+                        fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+
+                        <mat-radio-button name="Yes" value='true'>{{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'>{{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+                <mat-card *ngif=" Yes == 1" class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "IfYesdescribe" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'compensationOrRehabilitationDescription')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="compensationOrRehabilitationDescription"
+                                [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+
+            <!-- 32.	Is manpower approved? -->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'32' | translate}}.{{ "Ismanpowerapproved" | translate }}
+                    </span>
+                </div>
+                <div class="p-8 pb-4" fxLayout="row wrap" style="text-align: left !important;">
+                    <mat-radio-group formControlName="isManpowerApproved" required fxFlex="50%" fxFlex.md="70%"
+                        fxFlex.sm="70%" fxFlex.xs="100%">
+
+                        <mat-radio-button value='true'>{{ "Yes" | translate }}</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button value='false'>{{ "No" | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle">
+                            {{ "IfYesattach" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'manpowerApprovedAttachId')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="manpowerApprovedAttachId" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+            <!-- 33.	Sustainability of the project benefit:-->
+            <div class="p-8 pb-4">
+                <div class="sub-heading  ">
+                    <span class="inline-block align-middle">
+                        {{'33' | translate}}.{{ "Sustainabilityprojectbenefit" | translate }}
+                    </span>
+                </div>
+                <br>
+                <mat-card class="p-8 pb-4">
+                    <div class="sub-heading text-lg">
+                        <span class="inline-block align-middle"> {{ "Sustainabilityprojectbenefit" | translate }}
+                        </span>
+                        <span *ngIf="!isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                matTooltipPosition="above">expand_more</mat-icon>
+                        </span>
+                        <span *ngIf="isShowObjectivesAndTargets" (click)="toggleShow1()">
+                            <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                matTooltipPosition="above">expand_less</mat-icon>
+                        </span>
+                        <span style="float: right">
+                            <label for="file-upload0">
+                                <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                    matTooltipPosition="above">image</mat-icon>
+                            </label>
+                            <input #file0 type="file" accept='image/*'
+                                (change)="uploadImageAsBase64(file0.files,'sustainabilityOfTheProjectBenefit')"
+                                id="file-upload0" />
+                        </span>
+                    </div>
+                    <div class="md:flex mb-5 text-lg">
+                        <div *ngIf="isShowObjectivesAndTargets" style="position: relative;" class="w-full">
+                            <ckeditor formControlName="sustainabilityOfTheProjectBenefit" [config]="minEditorConfig">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </form>
+
+        <!-- button  -->
+        <div class="flex justify-end mt-8 mr-15">
+            <button (click)="downloadMafReport()" *ngIf="uuid" mat-flat-button [color]="'accent'" type="button"
+                class="mr-5">
+                <mat-icon class="pr-2">print</mat-icon>
+                {{'report' | translate}}
+            </button>
+            <button (click)="onSubmitAndExit()" class="px-8 mr-2 toggle-sidebar-folded"
+                :matTooltip="{{ 'Save' | translate }}" mat-flat-button [color]="'primary'" type="button">
+                {{ "Save" | translate }}
+            </button>
+        </div>
+        <br><br>
+    </div>
+</div>

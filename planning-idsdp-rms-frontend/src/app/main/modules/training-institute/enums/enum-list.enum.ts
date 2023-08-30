@@ -1,0 +1,7 @@
+export enum RmsUserTypes {
+    RMS_DESK_OFFICER = 'Rms_DO',
+    RMS_RESEARCHER = 'RMS_RESEARCHER',
+    RMS_TRAINING_INSTITUTE = 'RMS_TRAINING_INSTITUTE',
+}
+
+

@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: planning-idsdp-pps-fs-backend
+  profiles:
+    active: ${spring.cloud.config.profile}
+  mvc:
+    servlet:
+      path: /pps-fs/
+server:
+  port: 8086

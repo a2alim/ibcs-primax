@@ -1,0 +1,84 @@
+<div>
+    <div class="max-w-8xl wrapper p-4 mt-6" style="overflow-x:auto;">
+        <section fxLayout>
+            <!-- ************* Table Start ******************-->
+            <div style="width: 400px;">
+                
+                <table class="firstTbl w-full">
+                    <!-- ************* START HEAD ******************-->
+                    <thead>
+                        <tr style="height: 65px;" class="text-nowrap">
+                            <th rowspan="2">SL</th>
+                            <th rowspan="2">Task Breakdown</th>
+                            <th rowspan="2">Start Qtr</th>
+                            <th rowspan="2">End Qtr</th>
+                        </tr>
+                    </thead>
+                    <!-- ************* END HEAD ******************-->
+
+                    <!-- ************* START BODY ******************-->
+                    <tbody>
+                        <ng-container *ngFor="let workPlan of pmWorkPlanList; index as i">
+                            <tr>
+                                <td class="text-center">{{i+1}}</td>
+                                <td>{{workPlan.taskDetails}}</td>
+                                <td>{{workPlan.startDate | date:"dd/MM/yyyy"}}</td>
+                                <td>{{workPlan.endDate | date:"dd/MM/yyyy"}}</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                    <!-- ************* START BODY End******************-->
+                </table>
+               
+            </div>
+            <!-- ************* Table End ******************-->
+
+            <!-- ************* Fiscal Year Tabs Start ******************-->
+            <div style="width: 600px;">
+                <table class="">
+                    <tr>
+                        <td *ngFor="let fiscal of fiscalYearList; let i = index;">
+                            <div>
+                                <div>
+                                    <table class="RevenueTbl">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="4" style="height: 41px;">
+                                                    {{fiscal.fiscalYear}}
+                                                </th>
+                                            </tr>
+                                            <tr class="text-nowrap">
+                                                <th>Q1</th>
+                                                <th>Q2</th>
+                                                <th>Q3</th>
+                                                <th>Q4</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!----------------- Dynamic Array List Start --------------------->
+                                            <ng-container *ngFor="let workPlan of pmWorkPlanList; let j = index;">
+                                                <tr>
+                                                    <td class="{{cleckTest(i,0,workPlan)}}">
+                                                    </td>
+                                                    <td class="{{cleckTest(i,1,workPlan)}}">
+                                                    </td>
+                                                    <td class="{{cleckTest(i,2,workPlan)}}">
+                                                    </td>
+                                                    <td class="{{cleckTest(i,3,workPlan)}}">
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                            <!----------------- Dynamic Array List End --------------------->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- ************* Fiscal Year Tabs End ******************-->
+
+        </section>
+    </div>
+</div>

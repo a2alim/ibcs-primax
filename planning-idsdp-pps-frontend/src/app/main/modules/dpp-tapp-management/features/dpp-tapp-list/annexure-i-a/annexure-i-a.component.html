@@ -1,0 +1,231 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Header Start-->
+            <div
+                class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+                <div class="flex-1 min-w-0">
+                    <!--New Header start-->
+                    <div class="header flex justify-between items-center">
+                        <app-list-header [title]="title" class="crop-text"
+                            [subTitle]="'sub_title' | translate"></app-list-header>
+                        <div class="mr-12">
+                            <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()"
+                                mat-button type="button">
+                                <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                                <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                                {{"homePage" | translate}}
+                            </button>
+                        </div>
+                    </div>
+                    <!-- / New Header end-->
+                </div>
+            </div>
+            <!-- Header close-->
+        </div>
+    </div>
+
+    <mat-card>
+        <div class="viw_work">
+            <table style="border: none; width: 100%;">
+                <tr style="border: none;">
+                    <td style="font-weight: bold; text-align: left; border: none; width: 20%;">{{'nameofTheProject' | translate}}</td>
+                    <td style="text-align: left; border: none;">:
+                        {{title}}
+                    </td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="font-weight: bold; text-align: left; border: none; width: 20%;"> {{'implimentingAgency' | translate}}</td>
+                    <td style="text-align: left; border: none;">:
+                        {{isForeignAid ? agencyModel?.nameEn : agencyModel?.nameBn}}
+                    </td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="font-weight: bold; text-align: left; border: none; width: 20%;">{{'sposoringMinistry' | translate}}</td>
+                    <td style="text-align: left; border: none;">:
+                        {{isForeignAid ? agencyModel?.ministryDivisionDTO?.nameEn : agencyModel?.ministryDivisionDTO?.nameBn}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+            <span style="float: right">{{'takaInLac' | translate}}</span>
+            <table class="tables">
+                <thead>
+                    <tr>
+                        <th rowspan="3" style="width: 7%;">{{'Economic_code' | translate}}</th>
+                        <th rowspan="3" style="width: 7%;">{{'Economic_sub_code' | translate}}</th>
+                        <th rowspan="3" style="width: 15%;">{{'Component_description' | translate}}</th>
+                        <th rowspan="3" style="width: 7%;">{{'Unit' | translate}}</th>
+                        <th rowspan="3" style="width: 7%;">{{'Unit_cost' | translate}}</th>
+                        <th rowspan="3" style="width: 5%;">{{'Quantity' | translate}}</th>
+                        <th colspan="4" style="width: 5%;">{{'projectCost' | translate}}</th>
+                        <th rowspan="3" style="width: 8%;">{{'Total_project_cost' | translate}}</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="3" style="width: 7%;"><span [innerHTML]="'Gob_fe' | translate"></span></th>
+                        <th colspan="4" *ngIf="isForeignAid">{{'Project_aid' | translate}}</th>
+                        <th rowspan="3" style="width: 7%;">{{'Own_fund_fe' | translate}}</th>
+                        <th rowspan="3" style="width: 7%;">{{'Other_fe' | translate}}</th>
+                        <th rowspan="3" class="th-width" style="width: 8%;">{{'Total_cost' | translate}}</th>
+                    </tr>
+                    <tr>
+                        <th *ngIf="isForeignAid" colspan="2"> {{'Rpa' | translate}}</th>
+                        <th *ngIf="isForeignAid" colspan="2">{{'Dpa' | translate}}</th>
+                    </tr>
+                    <tr>
+                        <th *ngIf="isForeignAid" style="width: 5%;">{{'Through_gob' | translate}}</th>
+                        <th *ngIf="isForeignAid" style="width: 5%;"><span [innerHTML]="'Special_amount' | translate"></span></th>
+                        <th *ngIf="isForeignAid" style="width: 5%;">{{'Through_pd' | translate}}</th>
+                        <th *ngIf="isForeignAid" style="width: 5%;">{{'Special_dp' | translate}}</th>
+                    </tr>
+                    <tr *ngIf="isForeignAid" class="boldBorder">
+                        <th>{{'Num1' | translate}}</th>
+                        <th>{{'Num2' | translate}}</th>
+                        <th>{{'Num3' | translate}}</th>
+                        <th>{{'Num4' | translate}}</th>
+                        <th>{{'Num5' | translate}}</th>
+                        <th>{{'Num6' | translate}}</th>
+                        <th>{{'Num7' | translate}}</th>
+                        <th>{{'Num8' | translate}}</th>
+                        <th>{{'Num9' | translate}}</th>
+                        <th>{{'Num10' | translate}}</th>
+                        <th>{{'Num11' | translate}}</th>
+                        <th>{{'Num12' | translate}}</th>
+                        <th>{{'Num13' | translate}}</th>
+                        <th>{{'Num14' | translate}}</th>
+                        <th>{{'Num15' | translate}}</th>
+                    </tr>
+                    <tr *ngIf="!isForeignAid" class="boldBorder">
+                        <th>{{'Num1' | translate}}</th>
+                        <th>{{'Num2' | translate}}</th>
+                        <th>{{'Num3' | translate}}</th>
+                        <th>{{'Num4' | translate}}</th>
+                        <th>{{'Num5' | translate}}</th>
+                        <th>{{'Num6' | translate}}</th>
+                        <th>{{'Num7' | translate}}</th>
+                        <th>{{'Num8' | translate}}</th>
+                        <th>{{'Num9' | translate}}</th>
+                        <th>{{'Num10' | translate}}</th>
+                        <th>{{'Num11' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="15" style="text-align: left !important;">{{'Revenue_component' | translate}}</td>
+                    </tr>
+                    <tr *ngFor="let data of revenueList" class="textRight">
+                        <td>{{isForeignAid ? data?.economicCode.economicCode : numberPipe.convertToBanglaNumber(data?.economicCode.economicCode)}}</td>
+                        <td>{{isForeignAid ? data?.subEconomicCode.subEconomicCode : numberPipe.convertToBanglaNumber(data?.subEconomicCode.subEconomicCode)}}</td>
+                        <td>{{data?.description}}</td>
+                        <td>{{isForeignAid ? data?.unitType.unitTypeNameEng : data?.unitType.unitTypeNameBng}}</td>
+                        <td>{{isForeignAid ? data?.unitCost?.toFixed(2) : numberPipe.convertToBanglaNumber(data?.unitCost?.toFixed(2))}}</td>
+                        <td>{{isForeignAid ? data?.qty : numberPipe.convertToBanglaNumber(data?.qty)}}</td>
+                        <td *ngIf="!isForeignAid">{{numberPipe.convertToBanglaNumber(data?.gobAmount?.toFixed(2))}}</td>
+                        <td *ngIf="isForeignAid">{{data?.gobAmount?.toFixed(2)}}<br>({{data?.gobFeAmount?.toFixed(2)}})</td>
+                        <td *ngIf="isForeignAid">{{data?.gobThruAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid">{{data?.spAcAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid">{{data?.thruPdAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid">{{data?.thruDpAmount?.toFixed(2)}}</td>
+                        <td>{{isForeignAid ? data?.ownFundAmount?.toFixed(2) : numberPipe.convertToBanglaNumber(data?.ownFundAmount?.toFixed(2))}}</td>
+                        <td>{{isForeignAid ? data?.otherAmount?.toFixed(2) : numberPipe.convertToBanglaNumber(data?.otherAmount?.toFixed(2))}}</td>
+                        <td>{{isForeignAid ? data?.totalCostCalculated?.toFixed(2) : numberPipe.convertToBanglaNumber(data?.totalCostCalculated?.toFixed(2))}}</td>
+                        <td>{{isForeignAid ? data?.totalProjectCost?.toFixed(2) : numberPipe.convertToBanglaNumber(data?.totalProjectCost?.toFixed(2))}}</td>
+                    </tr>
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="6" style="text-align: center;">{{'Sub_total_Revenue' | translate}}</td>
+                        <td *ngIf="!isForeignAid" data-label="GoB (FE)">{{isForeignAid ? revenueTotal?.gobAmount?.toFixed(2) : numberPipe.convertToBanglaNumber(revenueTotal?.gobAmount?.toFixed(2))}}</td>
+                        <td *ngIf="isForeignAid" data-label="GoB (FE)">{{revenueTotal?.gobAmount?.toFixed(2)}}<br>({{revenueTotal?.gobFeAmount?.toFixed(2)}})</td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{revenueTotal?.gobThruAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{revenueTotal?.spAcAmount?.toFixed(2)}}
+                        </td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{revenueTotal?.thruPdAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{revenueTotal?.thruDpAmount?.toFixed(2)}}</td>
+                        <td data-label="Own Fund (FE)">{{isForeignAid?revenueTotal?.ownFundAmount?.toFixed(2):numberPipe.convertToBanglaNumber(revenueTotal?.ownFundAmount?.toFixed(2))}}</td>
+                        <td data-label="Other (FE)">{{isForeignAid?revenueTotal?.otherAmount?.toFixed(2):numberPipe.convertToBanglaNumber(revenueTotal?.otherAmount?.toFixed(2))}}</td>
+                        <td data-label="Total Cost">{{isForeignAid?revenueTotal?.totalAmount?.toFixed(2):numberPipe.convertToBanglaNumber(revenueTotal?.totalAmount?.toFixed(2))}}</td>
+                        <td data-label="% of Total Project Cost">{{isForeignAid?revenueTotal?.totalProjectCost?.toFixed(2):numberPipe.convertToBanglaNumber(revenueTotal?.totalProjectCost?.toFixed(2))}}</td>
+                    </tr>
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="15" style="text-align: left !important;">{{'Capital_component' | translate}}</td>
+                    </tr>
+                    <tr *ngFor="let data of capitalList" class="textRight">
+                        <td>{{isForeignAid ? data?.economicCode.economicCode : numberPipe.convertToBanglaNumber(data?.economicCode.economicCode)}}</td>
+                        <td>{{isForeignAid ? data?.subEconomicCode.subEconomicCode : numberPipe.convertToBanglaNumber(data?.subEconomicCode.subEconomicCode)}}</td>
+                        <td>{{data?.description}}</td>
+                        <td>{{isForeignAid ? data?.unitType.unitTypeNameEng : data?.unitType.unitTypeNameBng}}</td>
+                        <td>{{isForeignAid?data?.unitCost?.toFixed(2):numberPipe.convertToBanglaNumber(data?.unitCost?.toFixed(2))}}</td>
+                        <td>{{isForeignAid?data?.qty:numberPipe.convertToBanglaNumber(data?.qty)}}</td>
+                        <td *ngIf="!isForeignAid">{{numberPipe.convertToBanglaNumber(data?.gobAmount?.toFixed(2))}}</td>
+                        <td *ngIf="isForeignAid">{{data?.gobAmount?.toFixed(2)}}<br>({{data?.gobFeAmount?.toFixed(2)}})</td>
+                        <td *ngIf="isForeignAid">{{data?.gobThruAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid">{{data?.spAcAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid">{{data?.thruPdAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid">{{data?.thruDpAmount?.toFixed(2)}}</td>
+                        <td>{{isForeignAid?data?.ownFundAmount?.toFixed(2):numberPipe.convertToBanglaNumber(data?.ownFundAmount?.toFixed(2))}}</td>
+                        <td>{{isForeignAid?data?.otherAmount?.toFixed(2):numberPipe.convertToBanglaNumber(data?.otherAmount?.toFixed(2))}}</td>
+                        <td>{{isForeignAid?data?.totalCostCalculated?.toFixed(2):numberPipe.convertToBanglaNumber(data?.totalCostCalculated?.toFixed(2))}}</td>
+                        <td>{{isForeignAid?data?.totalProjectCost?.toFixed(2):numberPipe.convertToBanglaNumber(data?.totalProjectCost?.toFixed(2))}}</td>
+                    </tr>
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="6" style="text-align: center;">{{'Sub_total_Capital' | translate}}</td>
+                        <td *ngIf="!isForeignAid" data-label="GoB (FE)">{{isForeignAid?capitalTotal?.gobAmount?.toFixed(2):numberPipe.convertToBanglaNumber(capitalTotal?.gobAmount?.toFixed(2))}}</td>
+                        <td *ngIf="isForeignAid" data-label="GoB (FE)">{{capitalTotal?.gobAmount?.toFixed(2)}}<br>({{capitalTotal?.gobFeAmount?.toFixed(2)}})</td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{capitalTotal?.gobThruAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{capitalTotal?.spAcAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{capitalTotal?.thruPdAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{capitalTotal?.thruDpAmount?.toFixed(2)}}</td>
+                        <td data-label="Own Fund (FE)">{{isForeignAid?capitalTotal?.ownFundAmount?.toFixed(2):numberPipe.convertToBanglaNumber(capitalTotal?.ownFundAmount?.toFixed(2))}}</td>
+                        <td data-label="Other (FE)">{{isForeignAid?capitalTotal?.otherAmount?.toFixed(2):numberPipe.convertToBanglaNumber(capitalTotal?.otherAmount?.toFixed(2))}}</td>
+                        <td data-label="Total Cost">{{isForeignAid?capitalTotal?.totalAmount?.toFixed(2):numberPipe.convertToBanglaNumber(capitalTotal?.totalAmount?.toFixed(2))}}</td>
+                        <td data-label="% of Total Project Cost">{{isForeignAid?capitalTotal?.totalProjectCost?.toFixed(2):numberPipe.convertToBanglaNumber(capitalTotal?.totalProjectCost?.toFixed(2))}}</td>
+                    </tr>
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="6" style="text-align: left;">{{'Physical_contingency' | translate}}</td>
+                        <td *ngIf="!isForeignAid" data-label="GoB (FE)">{{numberPipe.convertToBanglaNumber(physicalContingencyTotal?.gobAmount?.toFixed(2))}}</td>
+                        <td *ngIf="isForeignAid" data-label="GoB (FE)">{{physicalContingencyTotal?.gobAmount?.toFixed(2)}}<br>({{physicalContingencyTotal?.gobFeAmount?.toFixed(2)}})</td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{physicalContingencyTotal?.gobThruAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{physicalContingencyTotal?.spAcAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{physicalContingencyTotal?.thruPdAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{physicalContingencyTotal?.thruDpAmount?.toFixed(2)}}</td>
+                        <td data-label="Own Fund (FE)">{{isForeignAid?physicalContingencyTotal?.ownFundAmount?.toFixed(2):numberPipe.convertToBanglaNumber(physicalContingencyTotal?.ownFundAmount?.toFixed(2))}}</td>
+                        <td data-label="Other (FE)">{{isForeignAid?physicalContingencyTotal?.otherAmount?.toFixed(2):numberPipe.convertToBanglaNumber(physicalContingencyTotal?.otherAmount?.toFixed(2))}}</td>
+                        <td data-label="Total Cost">{{isForeignAid?physicalContingencyTotal?.totalCostCalculated?.toFixed(2):numberPipe.convertToBanglaNumber(physicalContingencyTotal?.totalCostCalculated?.toFixed(2))}}</td>
+                        <td data-label="% of Total Project Cost">{{isForeignAid?physicalContingencyTotal?.totalProjectCost?.toFixed(2):numberPipe.convertToBanglaNumber(physicalContingencyTotal?.totalProjectCost?.toFixed(2))}}
+                        </td>
+                    </tr>
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="6" style="text-align: left;">{{'Price_contingency' | translate}}</td>
+                        <td *ngIf="!isForeignAid" data-label="GoB (FE)">{{numberPipe.convertToBanglaNumber(priceContingencyTotal?.gobAmount?.toFixed(2))}}</td>
+                        <td *ngIf="isForeignAid" data-label="GoB (FE)">{{priceContingencyTotal?.gobAmount?.toFixed(2)}}<br>({{priceContingencyTotal?.gobFeAmount?.toFixed(2)}})</td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{priceContingencyTotal?.gobThruAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{priceContingencyTotal?.spAcAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{priceContingencyTotal?.thruPdAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{priceContingencyTotal?.thruDpAmount?.toFixed(2)}}</td>
+                        <td data-label="Own Fund (FE)">{{isForeignAid?priceContingencyTotal?.ownFundAmount?.toFixed(2):numberPipe.convertToBanglaNumber(priceContingencyTotal?.ownFundAmount?.toFixed(2))}}</td>
+                        <td data-label="Other (FE)">{{isForeignAid?priceContingencyTotal?.otherAmount?.toFixed(2):numberPipe.convertToBanglaNumber(priceContingencyTotal?.otherAmount?.toFixed(2))}}</td>
+                        <td data-label="Total Cost">{{isForeignAid?priceContingencyTotal?.totalCostCalculated?.toFixed(2):numberPipe.convertToBanglaNumber(priceContingencyTotal?.totalCostCalculated?.toFixed(2))}}</td>
+                        <td data-label="% of Total Project Cost">{{isForeignAid?priceContingencyTotal?.totalProjectCost?.toFixed(2):numberPipe.convertToBanglaNumber(priceContingencyTotal?.totalProjectCost?.toFixed(2))}}</td>
+                    </tr>
+                    <tr style="background-color: #d8d5d5 !important;">
+                        <td colspan="6" style="text-align: center;">{{'Grand_total' | translate}}</td>
+                        <td *ngIf="!isForeignAid" data-label="GoB (FE)">{{numberPipe.convertToBanglaNumber(grantTotal?.gobAmount?.toFixed(2))}}</td>
+                        <td *ngIf="isForeignAid" data-label="GoB (FE)">{{grantTotal?.gobAmount?.toFixed(2)}}<br>({{grantTotal?.gobFeAmount?.toFixed(2)}})</td>
+                        <td *ngIf="isForeignAid" data-label="Through GoB">{{grantTotal?.gobThruAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Special Account **">{{grantTotal?.spAcAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through PD">{{grantTotal?.thruPdAmount?.toFixed(2)}}</td>
+                        <td *ngIf="isForeignAid" data-label="Through DP">{{grantTotal?.thruDpAmount?.toFixed(2)}}</td>
+                        <td data-label="Own Fund (FE)">{{isForeignAid?grantTotal?.ownFundAmount?.toFixed(2):numberPipe.convertToBanglaNumber(grantTotal?.ownFundAmount?.toFixed(2))}}</td>
+                        <td data-label="Other (FE)">{{isForeignAid?grantTotal?.otherAmount?.toFixed(2):numberPipe.convertToBanglaNumber(grantTotal?.otherAmount?.toFixed(2))}}</td>
+                        <td data-label="Total Cost">{{isForeignAid?grantTotal?.totalAmount?.toFixed(2):numberPipe.convertToBanglaNumber(grantTotal?.totalAmount?.toFixed(2))}}</td>
+                        <td data-label="% of Total Project Cost">{{isForeignAid?grantTotal?.totalProjectCost?.toFixed(2):numberPipe.convertToBanglaNumber(grantTotal?.totalProjectCost?.toFixed(2))}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <p *ngIf="isForeignAid">{{'extra' | translate}}</p>
+    </mat-card>
+</div>
+

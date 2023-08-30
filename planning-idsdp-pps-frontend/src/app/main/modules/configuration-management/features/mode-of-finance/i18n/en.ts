@@ -1,0 +1,27 @@
+export const locale = {
+    lang: 'en',
+    data: {
+        'ConfigurationManagement': 'Configuration Management',
+        'Home>ModeOfFinance': 'Home > Mode Of Finance',
+        'AddModeOfFinance': 'Add Mode Of Finance',
+        'ModeOfFinanceList': 'Mode Of Finance List',
+        'SL': 'SL',
+        'NameEn': 'Name (English)',
+        'NameBn': 'Name (Bangla)',
+        'Code': 'Code',
+        'Description': 'Description',
+        'Status': 'Status',
+        'Active': 'Active',
+        'Inactive': 'Inactive',
+        'Action': 'Action',
+        'CodeRequired': 'Code is required!',
+        'NameEnRequired': 'Name (English) is required!',
+        'NameBnRequired': 'Name (Bangla) is required!',
+        'Edit': 'Edit',
+        'Delete': 'Delete',
+        'Save': 'Save',
+        'Reset': 'Reset',
+        'Update': 'Update',
+        'Search': 'Search',
+    }
+};

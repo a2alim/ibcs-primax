@@ -1,0 +1,307 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="titleEn" class="crop-text"
+                                 [subTitle]="'sub_title' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{"homePage" | translate}}
+                    </button>
+                </div>
+            </div>
+            <br>
+            <!-- / New Header end-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">
+                                    {{'AnnexureIV' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">
+                                        {{'Home' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon style="color:white">keyboard_backspace</mat-icon>&nbsp;
+                                {{'ProjectMainPage' | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <!-- Header close-->
+    <!-- Main -->
+    <div fxLayout="row" fxLayoutAlign="center center" *ngIf="show">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="!show" class="flex-auto m-7">
+        <div *ngIf="isParipatra2016" class="sub-heading">
+                        <span class="inline-block align-middle">
+                            {{'page_name' | translate}}
+                        </span>
+        </div>
+        <div *ngIf="!isParipatra2016" class="sub-heading">
+                        <span class="inline-block align-middle">
+                            {{'page_name22' | translate}}
+                        </span>
+        </div>
+        <br>
+        <table style="border: none; width: 100%;">
+            <tr style="border: none;">
+                <td style="font-weight: bold; text-align: left; border: none; width: 20%;">
+                    {{'nameofTheProject' | translate}}</td>
+                <td style="text-align: left; border: none;">:
+                    {{projectSummary?.isForeignAid ? projectSummary?.titleEn : projectSummary?.titleBn}}
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td style="font-weight: bold; text-align: left; border: none; width: 20%;">
+                    {{'implementingAgency' | translate}}</td>
+                <td style="text-align: left; border: none;">:
+                    {{projectSummary?.isForeignAid ? agencyModel?.nameEn : agencyModel?.nameBn}}
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td style="font-weight: bold; text-align: left; border: none; width: 20%;">
+                    {{'sponsoringMinistry' | translate}}</td>
+                <td style="text-align: left; border: none;">:
+                    {{projectSummary?.isForeignAid ? agencyModel?.ministryDivisionDTO?.nameEn : agencyModel?.ministryDivisionDTO?.nameBn}}
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div *ngIf="!isParipatra2016" class="text-right">
+            {{'taka' | translate}}
+        </div>
+        <div
+            class="max-w-8xl wrapper"
+            id="card-bg-color"
+            style="overflow-x: auto; padding: 10px 10px 10px">
+            <table class="planTable">
+                <thead>
+                <tr>
+                    <th rowspan="4">{{'EconomicCode' | translate}}</th>
+                    <th *ngIf="isParipatra2016" rowspan="4">{{'EconomicSubCode' | translate}}</th>
+                    <th *ngIf="!isParipatra2016" rowspan="4">{{'EconomicSubCode22' | translate}}</th>
+                    <th *ngIf="isParipatra2016" rowspan="4">{{'CodeDescription' | translate}}</th>
+                    <th *ngIf="!isParipatra2016" rowspan="4">{{'CodeDescription22' | translate}}</th>
+                    <th colspan="5">{{'TotalEconomicalAndPhysicalTarget' | translate}}</th>
+                    <ng-container *ngIf="translate === 'en'">
+                        <th colspan="3" *ngFor="let y of fiscalYearsEn">{{y}}</th>
+                    </ng-container>
+                    <ng-container *ngIf="translate === 'bn'">
+                        <th colspan="3" *ngFor="let y of fiscalYearsBn">{{y}}</th>
+                    </ng-container>
+                </tr>
+                <tr>
+                    <th rowspan="2">{{'Unit' | translate}}</th>
+                    <th rowspan="2">{{'UnitPrice' | translate}}</th>
+                    <th rowspan="2">{{'Quantity' | translate}}</th>
+                    <th rowspan="2">{{'TotalCost' | translate}}</th>
+                    <th rowspan="2">{{'Weight' | translate}}</th>
+                    <ng-container *ngFor="let y of data[0]?.details[0]?.years">
+                        <th rowspan="2">{{'FinancialAmount' | translate}}</th>
+                        <th colspan="2">{{'Physical' | translate}}</th>
+                    </ng-container>
+                </tr>
+                <tr>
+                    <th *ngFor="let y of data[0]?.details[0]?.years">{{'PercentOfItem' | translate}}</th>
+                    <th *ngFor="let y of data[0]?.details[0]?.years">{{'PercentOfProject' | translate}}</th>
+                </tr>
+                </thead>
+
+                <tbody *ngIf="data.length > 0">
+                <ng-container *ngIf="revenue">
+                    <tr *ngIf="isParipatra2016">
+                        <td [colSpan]="colspan"><b>{{'RevenueComponent' | translate}}</b></td>
+                    </tr>
+                    <tr *ngIf="!isParipatra2016">
+                        <td [colSpan]="colspan"><b>{{'RevenueComponent22' | translate}}</b></td>
+                    </tr>
+                    <ng-container *ngFor="let r of revenue.details">
+                        <tr class="text-center">
+                            <!-- <td class="txt-left">{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(r?.economicCodeDTO.economicCode) + '[' + r?.economicCodeDTO.economicCodeNameBng + ']' : r?.economicCodeDTO.economicCode + '[' + r?.economicCodeDTO.economicCode + ']'}}</td> -->
+                            <td class="txt-left">{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(r?.economicCodeDTO.economicCode)   : r?.economicCodeDTO.economicCode  }}</td>
+                            <!-- <td class="txt-left">{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(r?.subEconomicCodeDTO.subEconomicCode) + '[' + r?.subEconomicCodeDTO.subEconomicCodeNameBng + ']' : r?.subEconomicCodeDTO.subEconomicCode + '[' + r?.subEconomicCodeDTO.subEconomicCodeName + ']'}}</td> -->
+                            <td class="txt-left">{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(r?.subEconomicCodeDTO.subEconomicCode)  : r?.subEconomicCodeDTO.subEconomicCode }}</td>
+                            <td class="txt-left">{{r?.description}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? r?.unitTypeDTO.unitTypeNameBng : r?.unitTypeDTO.unitTypeNameEng}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(r?.unitCost.toFixed(2)) : r?.unitCost.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(r?.qty) : r?.qty}}</td>
+
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(r?.totalAmount.toFixed(2)) : r?.totalAmount.toFixed(2)}}</td>
+
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(r?.weight.toFixed(3)) : r?.weight.toFixed(3)}}</td>
+                            <ng-container *ngFor="let y of r.years">
+                                <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.financialAmount.toFixed(2)) : y?.financialAmount.toFixed(2)}}</td>
+                                <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfItem.toFixed(2)) : y?.percentageOfItem.toFixed(2)}}</td>
+                                <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfProject.toFixed(2)) : y?.percentageOfProject.toFixed(2)}}</td>
+                            </ng-container>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+
+
+                <ng-container  *ngIf="!isParipatra2016">
+                    <tr class="text-center">
+                        <td colSpan="6" style="text-align: left"><b>{{'RevSubTotal' | translate}}</b></td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(subTotalRevObj.totalAmount?.toFixed(2)) : subTotalRevObj.totalAmount?.toFixed(2)}}</td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(totalRevenueWeight.toFixed(3)) : totalRevenueWeight.toFixed(3)}}</td>
+                        <ng-container *ngFor="let y of grand.details[0].years; let i=index">
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenue.details[0].years[i].totalFinancialAmount.toFixed(2)) : revenue.details[0].years[i].totalFinancialAmount.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenue.details[0].years[i].totalPercentageOfItem.toFixed(2)) : revenue.details[0].years[i].totalPercentageOfItem.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(revenue.details[0].years[i].totalPercentageOfProject.toFixed(2)) : revenue.details[0].years[i].totalPercentageOfProject.toFixed(2)}}</td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+
+                <ng-container *ngIf="capital">
+                    <tr *ngIf="isParipatra2016">
+                        <td [colSpan]="colspan"><b>{{'CapitalComponent' | translate}}</b></td>
+                    </tr>
+                    <tr *ngIf="!isParipatra2016">
+                        <td [colSpan]="colspan"><b>{{'CapitalComponent22' | translate}}</b></td>
+                    </tr>
+                    <ng-container *ngFor="let c of capital.details">
+                        <tr class="text-center">
+                            <!-- <td class="txt-left">{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(c?.economicCodeDTO.economicCode) + '[' + c?.economicCodeDTO.economicCodeNameBng + ']' : c?.economicCodeDTO.economicCode + '[' + c?.economicCodeDTO.economicCode + ']'}}</td> -->
+                            <td class="txt-left">{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(c?.economicCodeDTO.economicCode)   : c?.economicCodeDTO.economicCode }}</td>
+                            <!-- <td class="txt-left">{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(c?.subEconomicCodeDTO.subEconomicCode) + '[' + c?.subEconomicCodeDTO.subEconomicCodeNameBng + ']' : c?.subEconomicCodeDTO.subEconomicCode + '[' + c?.subEconomicCodeDTO.subEconomicCodeName + ']'}}</td> -->
+                            <td class="txt-left">{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(c?.subEconomicCodeDTO.subEconomicCode) : c?.subEconomicCodeDTO.subEconomicCode  }}</td>
+                            <td class="txt-left">{{c?.description}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? c?.unitTypeDTO.unitTypeNameBng : c?.unitTypeDTO.unitTypeNameEng}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(c?.unitCost.toFixed(2)) : c?.unitCost.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(c?.qty) : c?.qty}}</td>
+
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(c?.totalAmount.toFixed(2)) : c?.totalAmount.toFixed(2)}}</td>
+
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(c?.weight.toFixed(3)) : c?.weight.toFixed(3)}}</td>
+                            <ng-container *ngFor="let y of c.years">
+                                <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.financialAmount.toFixed(2)) : y?.financialAmount.toFixed(2)}}</td>
+                                <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfItem.toFixed(2)) : y?.percentageOfItem.toFixed(2)}}</td>
+                                <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfProject.toFixed(2)) : y?.percentageOfProject.toFixed(2)}}</td>
+                            </ng-container>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+
+                <ng-container  *ngIf="!isParipatra2016">
+                    <tr class="text-center">
+                        <td colSpan="6" style="text-align: left"><b>{{'CapSubTotal' | translate}}</b></td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(subTotalCapObj.totalAmount.toFixed(2)) : subTotalCapObj.totalAmount.toFixed(2)}}</td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(totalCapitalWeight.toFixed(3)) : totalCapitalWeight.toFixed(3)}}</td>
+                        <ng-container *ngFor="let y of grand.details[0].years; let i=index">
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capital.details[0].years[i].totalFinancialAmount.toFixed(2)) : capital.details[0].years[i].totalFinancialAmount.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capital.details[0].years[i].totalPercentageOfItem.toFixed(2)) : capital.details[0].years[i].totalPercentageOfItem.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(capital.details[0].years[i].totalPercentageOfProject.toFixed(2)) : capital.details[0].years[i].totalPercentageOfProject.toFixed(2)}}</td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+
+                <ng-container *ngIf="contingency">
+                    <tr class="text-center" *ngIf="contingency.details[0].id < contingency.details[1].id">
+                        <td colSpan="6" style="text-align: left"><b>{{'PhysicalContingency' | translate}}</b></td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(contingency.details[0].totalAmount.toFixed(2)) : contingency.details[0].totalAmount.toFixed(2)}}</td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(contingency.details[0].weight.toFixed(3)) : contingency.details[0].weight.toFixed(3)}}</td>
+                        <ng-container *ngFor="let y of contingency.details[0].years">
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.financialAmount.toFixed(2)) : y?.financialAmount.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfItem.toFixed(2)) : y?.percentageOfItem.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfProject.toFixed(2)) : y?.percentageOfProject.toFixed(2)}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr class="text-center" *ngIf="contingency.details[0].id < contingency.details[1].id">
+                        <td colSpan="6" style="text-align: left"><b>{{'PriceContingency' | translate}}</b></td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(contingency.details[1].totalAmount.toFixed(2)) : contingency.details[1].totalAmount.toFixed(2)}}</td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(contingency.details[1].weight.toFixed(3)) : contingency.details[1].weight.toFixed(3)}}</td>
+                        <ng-container *ngFor="let y of contingency.details[1].years">
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.financialAmount.toFixed(2)) : y?.financialAmount.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfItem.toFixed(2)) : y?.percentageOfItem.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfProject.toFixed(2)) : y?.percentageOfProject.toFixed(2)}}</td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="grand && contingency && revenue && capital">
+                    <tr class="text-center">
+                        <td colSpan="6" style="text-align: left"><b>{{'GrandTotal' | translate}}</b></td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grand.details[0].totalAmount.toFixed(2)) : grand.details[0].totalAmount.toFixed(2)}}</td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grand.details[0].weight.toFixed(3)) : grand.details[0].weight.toFixed(3)}}</td>
+                        <ng-container *ngFor="let y of grand.details[0].years">
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.financialAmount.toFixed(2)) : y?.financialAmount.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfItem.toFixed(2)) : y?.percentageOfItem.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfProject.toFixed(2)) : y?.percentageOfProject.toFixed(2)}}</td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="grand && capital && revenue && !contingency">
+                    <tr class="text-center">
+                        <td colSpan="6" style="text-align: left"><b>{{'GrandTotalAB' | translate}}</b></td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grand.details[0].totalAmount.toFixed(2)) : grand.details[0].totalAmount.toFixed(2)}}</td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grand.details[0].weight.toFixed(3)) : grand.details[0].weight.toFixed(3)}}</td>
+                        <ng-container *ngFor="let y of grand.details[0].years">
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.financialAmount.toFixed(2)) : y?.financialAmount.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfItem.toFixed(2)) : y?.percentageOfItem.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfProject.toFixed(2)) : y?.percentageOfProject.toFixed(2)}}</td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="grand && !capital && revenue && !contingency">
+                    <tr class="text-center">
+                        <td colSpan="6" style="text-align: left"><b>{{'GrandTotalA' | translate}}</b></td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grand.details[0].totalAmount.toFixed(2)) : grand.details[0].totalAmount.toFixed(2)}}</td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grand.details[0].weight.toFixed(3)) : grand.details[0].weight.toFixed(3)}}</td>
+                        <ng-container *ngFor="let y of grand.details[0].years">
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.financialAmount.toFixed(2)) : y?.financialAmount.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfItem.toFixed(2)) : y?.percentageOfItem.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfProject.toFixed(2)) : y?.percentageOfProject.toFixed(2)}}</td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="grand && capital && !revenue && !contingency">
+                    <tr class="text-center">
+                        <td colSpan="6" style="text-align: left"><b>{{'GrandTotalB' | translate}}</b></td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grand.details[0].totalAmount.toFixed(2)) : grand.details[0].totalAmount.toFixed(2)}}</td>
+                        <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(grand.details[0].weight.toFixed(3)) : grand.details[0].weight.toFixed(3)}}</td>
+                        <ng-container *ngFor="let y of grand.details[0].years">
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.financialAmount.toFixed(2)) : y?.financialAmount.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfItem.toFixed(2)) : y?.percentageOfItem.toFixed(2)}}</td>
+                            <td>{{(!projectSummary?.isForeignAid && projectSummary?.projectTypeDTO.nameEn.toUpperCase() == 'DPP') ? numberPipe.convertToBanglaNumber(y?.percentageOfProject.toFixed(2)) : y?.percentageOfProject.toFixed(2)}}</td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,632 @@
+<div style="width: 100%">
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+            style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+    <!-- Header -->
+    <app-form-header [subTitle]="'sub' | translate" [title]="'head' | translate" class="no-print"></app-form-header>
+    <div *ngIf="spinner2" style="color: red;font-min-size: large">Generating Report Please Wait</div>
+    <div class="flex md:justify-end md:mr-3 mt-1 no-print">
+        <button (click)="backToAgreements()" class="px-3 mr-2 previousIcon" color="accent" mat-flat-button
+            type="button">
+            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+            {{'back' | translate}}
+        </button>
+
+        <!--        <button class="px-3 mr-2 saveBtn" color="accent" mat-flat-button type="button">-->
+        <!--            <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>-->
+        <!--            {{'submit' | translate}}-->
+        <!--        </button>-->
+
+        <button (click)="print()" class="px-3 mr-2 printBtn" color="accent" mat-flat-button type="button">
+            <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+            {{'print' | translate}}
+        </button>
+
+        <button (click)="download('agreement-view')" class="px-3 mr-2 downloadBtn" color="accent" mat-flat-button
+            type="button">
+            <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+            {{'download' | translate}}
+        </button>
+    </div>
+
+    <!-- Main Start -->
+    <div class="outerDiv flex-auto m-4 body-color" id="printPage">
+        <div class="contentDiv">
+            <!--Personal Info-->
+
+            <mat-card style="background: none !important;">
+                <div class="w-full sm:w-auto md:w-full lg:w-full">
+                    <!--                    <div class="text-center">-->
+                    <!--                        <img src="logo.png" width="60" height="80">-->
+                    <!--                    </div>-->
+                    <div class="w-full">
+                        <div class="text-center" style="font-size: 20px;">
+                            <b><u>প্রশিক্ষণ কোর্সের চুক্তিনামা</u></b>
+                        </div>
+                        <table class="w-full">
+                            <tr>
+                                <td class="w-80 text-center">
+
+                                </td>
+                                <td class="w-20 pic-box">
+                                    <img alt="Not Found" src="{{minioFileDownloadEndPointHost+this.agreementData?.guarantorViewListList[0].image?.bucketName+'/'
+                                     +this.agreementData?.guarantorViewListList[0].image?.fileName}}"
+                                        style="width: 250px;">
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="text-left">
+                        এই চুক্তিনামা অদ্য {{agreementData.agreementDate}} তারিখে নিম্নবর্ণিত পক্ষগণের জন্য সম্পাদিত হল।
+                        <br>
+
+                    </div>
+                    <div class="mt-3">
+                        <b>প্রথম পক্ষ :</b> গনপ্রজাতন্ত্রি বাংলাদেশ সরকার, তার প্রতিনিধিত্ব করবেন পরিকল্পনা মন্ত্রণালয়,
+                        পরিকল্পনা বিভাগের অধীন সামাজিকবিজ্ঞান গবেষণা পরিশদ-এর সহকারী পরিচালক। <br>
+                    </div>
+                    <div class="mt-3">
+                        <b>দ্বিতীয় পক্ষ :</b> (প্রতিষ্ঠানের নাম) -পক্ষে (নাম, পদবি, ঠিকানা)
+                    </div>
+                    <div class="mt-3">
+                        যেহেতু দ্বিতীয় পক্ষ এই চুক্তির পরিশিষ্ট 'ক'(প্রশিক্ষণ প্রস্তাবনা ও বাজেট)-তে উল্লিখিত প্রস্তাবনা
+                        অনুযায়ী (প্রশিক্ষণ কোর্সের শিরোনাম) শীর্ষক কোর্সটি ___ মেয়াদের মধ্যে সম্পাদন করতে সম্মত হয়েছেন
+                        সেহেতু উপরে বর্ণিত পক্ষগণ নিম্নলিখিত শর্তে এই চুক্তি সম্পাদন
+                        করলেন ঃ
+                    </div>
+                    <div class="mt-3 text-center" style="font-size: 18px;">
+                        <b><u> শর্তাবলী</u></b>
+                    </div>
+                    <div class="mt-3">
+                        ক) পরিশিষ্ট 'ক'(প্রশিক্ষণ প্রস্তাবনা ও বাজেট) এই চুক্তির একটি অবিচ্ছেদ্য অংশ বলে গণ্য হবে এবং
+                        এতে উল্লিখিত প্রশিক্ষণ কোর্স এই চুক্তির অধীনে সম্পাদিও প্রকল্প হবে;
+                    </div>
+                    <div class="mt-3">
+                        খ) প্রথম পক্ষ উক্ত প্রশিক্ষণ কোর্স সম্পাদন করার জন্য দ্বিতীয় পক্ষকে সরকার নির্ধারিত হারে ট্যাক্স
+                        ও ভাট আদায়সহ {{agreementData.amountOfGrant}}/- টাকা যথাযথ কত্রিপক্ষের অনুমোদন সাপেক্ষে মোট
+                        {{agreementData.noOfInstallment}} কিস্তিতে প্রদান করবে;
+                    </div>
+                    <div class="mt-3">
+                        গ) মঞ্জিরিকৃত টাকার কিস্তিগুলো হবে নিম্নরূপ ঃ <br>
+                    </div>
+                    <div class="mt-3 pl-8">
+                        ১) প্রথম কিস্তি(মোট মঞ্জুরির শতকরা
+                        {{agreementData?.installmentViewLists[0]?.percentageOfInstallment}} % ভাগ )
+                        {{agreementData?.installmentViewLists[0]?.totalAmount | number}} /= তাদের চাহিদার ভিত্তিতে
+                        অগ্রিম প্রদান করা হবে। অগ্রিম হিসাবে গৃহীত বিল ভাউচার
+                        জমাদান সাপেক্ষে চলতি অর্থবছর এর মধ্যে আবশ্যিকভাবে সম্মন্নয় করতে হবে।
+                    </div>
+                    <!-- <div class="mt-3 pl-8">
+                        ২) দ্বিতীয় বা চূড়ান্ত কিস্তি ( মোট মঞ্জুরির শতকরা {{agreementData?.installmentViewLists[1]?.percentageOfInstallment}} % ভাগ ) {{agreementData?.installmentViewLists[1]?.totalAmount | number}} /= টাকা সফলভাবে প্রশিক্ষণ কোর্স সম্পাদনের পর প্রথমপক্ষ কত্রিক
+                        প্রশিক্ষণ সঙ্ক্রান্ত চূড়ান্ত প্রতিবেদন দাখিল এবং উক্ত প্রতিবেদনের নিকট হতে এই মর্মে সনদ এবং বিল ভাঊচারাদি প্রাপ্তির পর প্রদান করা হবে।
+                    </div> -->
+                    <div class="mt-3">
+                        ঘ) প্রশিক্ষণ কোর্সটির অগ্রগতি পর্যবেক্ষণের জন্য প্রথম পক্ষের নিকট হাতে এক বা একাধিক কর্মকর্তাকে
+                        পর্যবেক্ষক হিসাবে দায়িত্ব প্রদান করা হবে। কোর্সটি সমাপ্তির পর দায়িত্বপ্রপ্ত কর্মকর্তা একটি
+                        প্রতিবেদন দাখিল করবেন।
+                    </div>
+                    <div class="mt-3">
+                        ঙ) এই প্রশিক্ষণ কোর্সের আওতায়ে সম্পাদিত কোর্স মডিউলসমূহ, প্রশিক্ষক ও প্রশিক্ষনারথিদের প্রয়োজনীয়
+                        তথ্য অত্র পরিষদের (১ম পক্ষ) সংরক্ষণের জন্য (
+                        <span style="color: blue;"> <b><u> ssrc.planningdivision@yahoo.com</u></b> </span> ) এই মেইল
+                        ঠিকানায় প্রেরণ করতে হবে।
+                    </div>
+                    <div class="mt-3">
+                        চ) এই চুক্তির অধীনে সম্পন্ন প্রশিক্ষণ কোর্সটি সমাপ্তের পর প্রশিক্ষণ কোর্স সমাপ্ত প্রতিবেদন ১ম
+                        পক্ষের নিকট দাখিল করতে হবে। প্রশিক্ষণ কোর্সের জন্য প্রনিত প্রতিবেদনটি ১ম পক্ষের ঠিকানায় প্রেরণ
+                        করতে হবে।
+                    </div>
+                    <div class="mt-3">
+                        ছ) ২য় পক্ষ প্রয়োজন মনে করলে প্রশিক্ষণার্থীদের কাছ হতে প্রশিক্ষণ ফী বাবদ অর্থ গ্রহন করতে পারবে।
+                    </div>
+                    <div class="mt-3">
+                        জ)নির্দিষ্ট বাজেট এবং সংশ্লিষ্ট অর্থবছর এর মধ্যে কোন সংগত বাঃ গ্রহণযোগ্য কারন ছারাই দ্বিতীয়
+                        পক্ষ কোর্সটির আয়োজন ও সম্পন্ন করতে বার্থ হলে অনুরুপ বারথতার সম্পূর্ণ দায় ভার দ্বিতীয় পক্ষকে বহন
+                        করতে হবে। এরুপ ক্ষেত্রে প্রথম পক্ষের নিকট হতে গৃহীত সমূদয় অর্থ
+                        প্রথম পক্ষকে ফেরত প্রদান করবার জন্য দ্বিতীয় পক্ষ বাধ্য থাকবেন।
+                    </div>
+                    <div class="mt-3">
+                        ঝ) প্রশিক্ষন কোর্স সমাপ্তির পর দ্বিতীয় পক্ষ সামাজিকবিজ্ঞান গবেষণা পরিশদ কর্তৃক জারিকৃত "গবেষণা
+                        প্রস্তাবনা আহ্বান" সম্বলিত
+
+                    </div>
+                    <div class="witness-table mt-4">
+                        <table class="w-full researchInfo">
+                            <tr>
+                                <th>ক্রমিক নং</th>
+                                <th>সাক্ষী</th>
+                                <th>পক্ষ ( নাম, পদবি, ঠিকানা, মোবাইল ও ই-মেইল নাম্বার )</th>
+                            </tr>
+                            <tr>
+                                <td class="w-20">
+                                    ০১.
+                                </td>
+                                <td class="w-40">
+                                    <div class="text-center">
+                                        ( ১ম পক্ষের সাক্ষী)
+                                    </div>
+                                    <!-- : <br> পদবি <br> ঠিকানা <br> মোবাইল নম্বর <br> এনইডি নম্বর <br>ই-মেইল <br> -->
+                                    <table class="w-full table-inside">
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                নাম
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.witness?.firstPartyName}}
+                                            </td>
+                                        </tr>
+                                        <!--                                        <tr>
+                                                                                    <td class="w-30 text-left">
+                                                                                        পদবি
+                                                                                    </td>
+                                                                                    <td class="w-10 text-center">
+                                                                                        :
+                                                                                    </td>
+                                                                                    <td class="w-60 text-left">
+                                                                                        {{agreementData?.witness?.firstPartySurname}}
+                                                                                    </td>
+                                                                                </tr>-->
+                                        <!--<tr>
+                                            <td class="w-30 text-left">
+                                                ঠিকানা
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.witness?.firstPartyAddress}}
+                                            </td>
+                                        </tr>-->
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                মোবাইল নম্বর
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.witness?.firstPartySurname}}
+                                            </td>
+                                        </tr>
+                                        <!--<tr>
+                                            <td class="w-30 text-left">
+                                                এনইডি নম্বর
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+
+                                            </td>
+                                        </tr>-->
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                ই-মেইল
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.witness?.firstPartyAddress}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="w-40">
+                                    <div class="text-center">
+                                        ( ১ম পক্ষ)
+                                    </div>
+                                    <table class="w-full table-inside">
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                নাম
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.firstPartyName}}
+                                            </td>
+                                        </tr>
+                                        <!--<tr>
+                                            <td class="w-30 text-left">
+                                                পদবি
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.firstPartySurname}}
+                                            </td>
+                                        </tr>-->
+                                        <!--<tr>
+                                            <td class="w-30 text-left">
+                                                ঠিকানা
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.firstPartyAddress}}
+                                            </td>
+                                        </tr>-->
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                মোবাইল নম্বর
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.firstPartySurname}}
+                                            </td>
+                                        </tr>
+                                        <!--<tr>
+                                            <td class="w-30 text-left">
+                                                এনইডি নম্বর
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+
+                                            </td>
+                                        </tr>-->
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                ই-মেইল
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.firstPartyAddress}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="w-20">
+                                    ০২.
+                                </td>
+                                <td class="w-40">
+                                    <div class="text-center">
+                                        ( ২য় পক্ষের সাক্ষী)
+                                    </div>
+                                    <table class="w-full table-ins">
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                নাম
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.witness?.secondPartyName}}
+                                            </td>
+                                        </tr>
+                                        <!--  <tr>
+                                              <td class="w-30 text-left">
+                                                  পদবি
+                                              </td>
+                                              <td class="w-10 text-center">
+                                                  :
+                                              </td>
+                                              <td class="w-60 text-left">
+                                                  {{agreementData?.witness?.secondPartySurname}}
+                                              </td>
+                                          </tr>-->
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                ঠিকানা
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.witness?.secondPartyAddress}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                মোবাইল নম্বর
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.witness?.secondPartyPhoneNo}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                এনইডি নম্বর
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.witness?.secondPartyNidNo}}
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                ই-মেইল
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.witness?.secondPartyEmail}}
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="w-40">
+                                    <div class="text-center">
+                                        ( ২য় পক্ষ )
+                                    </div>
+                                    <table class="w-full table-ins">
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                নাম
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.secondPartyName}}
+                                            </td>
+                                        </tr>
+                                        <!--<tr>
+                                            <td class="w-30 text-left">
+                                                পদবি
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.secondPartySurname}}
+                                            </td>
+                                        </tr>-->
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                ঠিকানা
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.secondPartyAddress}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                মোবাইল নম্বর
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.secondPartyPhoneNo}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                এনইডি নম্বর
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.secondPartyNidNo}}
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">
+                                                ই-মেইল
+                                            </td>
+                                            <td class="w-10 text-center">
+                                                :
+                                            </td>
+                                            <td class="w-60 text-left">
+                                                {{agreementData?.onBehalf?.secondPartyEmail}}
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="mt-5 text-center" style="font-size: 20px;">
+                        <b><u> জামানতনামা</u></b>
+                    </div>
+                    <div class="mt-2" style="font-size: 16px;line-height: 1.8;">
+                        আমি নিম্নসাক্ষরকারী এই মর্মে জামানতনামা দাখিল করছি যে, (প্রতিষ্ঠানের নাম) কর্তৃক পরিচালিত
+                        (প্রশিক্ষণের শিরোনাম)- শীর্ষক প্রশিক্ষন কোর্স সামাজিকবিজ্ঞান গবেষণা এর সাথে সম্পাদিত চুক্তিনামা
+                        অনুযায়ী প্রশিক্ষণ কোর্স আয়োজন এর জন্য {{ agreementData.amountOfGrant
+                        }} /= টাকা যে উদ্দেশে গ্রহণ কড়া হবে সেই উদ্দেশে নির্ধারিত সময়ের মধ্যে ব্যবহৃত না হলে বা
+                        যথাযথভাবে বাবহ্রিত না হলে জামানতকারি হিসাবে আমি নির্ধারিত সময়ের
+                        {{agreementData?.guarantorViewListList[0]?.refundDays}} কর্মদিবসের ভিতরে উক্ত
+                        অগ্রিম বা খেত্রমত এর অব্যবহৃত অংশ পরিশোধ করতে বাধ্য থাকব।
+                    </div>
+                    <div class="w-full">
+                        <!-- <div class="sign-box">
+
+                        </div> -->
+                        <table class="w-full">
+                            <tr>
+                                <td class="w-60">
+
+                                </td>
+                                <td class="w-40 sign-box">
+                                    <b class="ml-4">জামানতকারির নাম, ঠিকানা ও সাক্ষর</b>
+                                    <table class="ml-4">
+                                        <!--  <img style="width: 250px;" src="{{trainerData.minio+trainerData?.researcherProfilePersonalInfoMaster?.rmsUserImageId.userImageUrl}}" alt="Not Found"> -->
+                                        <tr>
+                                            <td class="w-30 text-left">সাক্ষর</td>
+                                            <td class="w-10">:</td>
+                                            <td class="w-60">
+                                                <img alt="Not Found"
+                                                    src="{{minioFileDownloadEndPointHost+this.agreementData?.guarantorViewListList[0].signatureImage?.bucketName+'/'
+                                                        +agreementData?.guarantorViewListList[0]?.signatureImage.fileName}}"
+                                                    style="width: 250px;height:80px">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">নাম</td>
+                                            <td class="w-10">:</td>
+                                            <td class="w-60"> {{agreementData?.guarantorViewListList[0]?.guarantorName}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">পদবি</td>
+                                            <td class="w-10">:</td>
+                                            <td class="w-60"> {{agreementData?.guarantorViewListList[0]?.designation}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">ঠিকানা</td>
+                                            <td class="w-10">:</td>
+                                            <td class="w-60">
+                                                {{agreementData?.guarantorViewListList[0]?.presentAddress}}
+                                                <br> {{agreementData?.guarantorViewListList[0]?.permanentAddress}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">মোবাইল নং</td>
+                                            <td class="w-10">:</td>
+                                            <td class="w-60"> {{agreementData?.guarantorViewListList[0]?.mobileNo}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left">এনইডি নং</td>
+                                            <td class="w-10">:</td>
+                                            <td class="w-60"> {{agreementData?.guarantorViewListList[0]?.nid}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30 text-left"> ই-মেইল</td>
+                                            <td class="w-10">:</td>
+                                            <td class="w-60"> {{agreementData?.guarantorViewListList[0]?.email}}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                <!--- /Course Schedule -->
+
+                <!--                <div class="mt-5 font-semibold text-gray-700">-->
+                <!--                    <div class="tblTitle relative">-->
+                <!--                        <mat-icon class="text-gray-900 absolute inset-1 flex items-center">credit_card</mat-icon>-->
+                <!--                        <div class="ml-7 text-gray-900">{{'participantList' | translate}}</div>-->
+                <!--                    </div>-->
+                <!--                    <mat-card class="pa-0">-->
+                <!--                        <table class="researchInfo">-->
+
+                <!--                            <tr>-->
+                <!--                                <th>-->
+                <!--                                    {{'sl' | translate}}-->
+                <!--                                </th>-->
+                <!--                                <th>-->
+                <!--                                    {{'participantName' | translate}}-->
+                <!--                                </th>-->
+                <!--                                <th>-->
+                <!--                                    {{'dateOfBirth' | translate}}-->
+                <!--                                </th>-->
+                <!--                                <th>-->
+                <!--                                    {{'gender' | translate}}-->
+                <!--                                </th>-->
+                <!--                                <th>-->
+                <!--                                    {{'educational' | translate}}-->
+                <!--                                </th>-->
+                <!--                                &lt;!&ndash; <th>-->
+                <!--                                    {{'nameOfOrg' | translate}}-->
+                <!--                                </th> &ndash;&gt;-->
+                <!--                                &lt;!&ndash; <th>-->
+                <!--                                    {{'jobTitle' | translate}}-->
+                <!--                                </th> &ndash;&gt;-->
+                <!--                                &lt;!&ndash; <th>-->
+                <!--                                    {{'yearsOfExperience' | translate}}-->
+                <!--                                </th> &ndash;&gt;-->
+                <!--                                <th>-->
+                <!--                                    {{'presentAddress' | translate}}-->
+                <!--                                </th>-->
+                <!--                                <th>-->
+                <!--                                    {{'mobileNo' | translate}}-->
+                <!--                                </th>-->
+                <!--                                <th>-->
+                <!--                                    {{'emailAddress' | translate}}-->
+                <!--                                </th>-->
+                <!--                                <th>-->
+                <!--                                    {{'howYouKnow' | translate}}-->
+                <!--                                </th>-->
+                <!--                            </tr>-->
+
+                <!--                            <tr *ngFor="let data of agreementData.participantViewList; let i = index">-->
+
+                <!--                                <td class="text-center align-middle w-11">-->
+                <!--                                    {{i + 1}}-->
+                <!--                                </td>-->
+
+                <!--                                <td class="text-center">-->
+                <!--                                    {{ data.name }}-->
+                <!--                                </td>-->
+
+                <!--                                <td class="text-center">-->
+                <!--                                    {{data.dateOfBirth}}-->
+                <!--                                </td>-->
+
+                <!--                                <td class="text-center" style="text-transform: lowercase;">-->
+                <!--                                    {{ data?.gender }}-->
+                <!--                                </td>-->
+
+                <!--                                <td class="text-center">-->
+                <!--                                    <span *ngFor="let academic of data.academicBackGroundViews;">{{academic?.subject}} <br></span>-->
+                <!--                                </td>-->
+                <!--                                &lt;!&ndash; <td class="text-center">-->
+                <!--                                    {{ data?.organizationName }}-->
+                <!--                                </td>-->
+                <!--                                <td class="text-center">-->
+                <!--                                    {{ data?.designation }}-->
+                <!--                                </td>-->
+                <!--                                <td class="text-center">-->
+                <!--                                    {{ data?.yearsOfExperience }}-->
+                <!--                                </td> &ndash;&gt;-->
+                <!--                                <td class="text-center">-->
+                <!--                                    {{ data?.presentAddress }}-->
+                <!--                                </td>-->
+                <!--                                <td class="text-center">-->
+                <!--                                    {{ data?.phoneNo }}-->
+                <!--                                </td>-->
+                <!--                                <td class="text-center">-->
+                <!--                                    {{ data?.email }}-->
+                <!--                                </td>-->
+                <!--                                <td class="text-center">-->
+                <!--                                    {{ data?.howYouKnowThisProgram }}-->
+                <!--                                </td>-->
+                <!--                            </tr>-->
+
+                <!--                        </table>-->
+                <!--                    </mat-card>-->
+                <!--                </div>-->
+            </mat-card>
+
+
+        </div>
+    </div>
+
+    <!-- Main End -->
+</div>

@@ -1,0 +1,289 @@
+<div class="width-100">
+    <!-- Header -->
+    <div *ngIf="!loginUserInfo.isInstitutional">
+        <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate">
+        </app-form-header>
+    </div>
+    <div *ngIf="loginUserInfo.isInstitutional">
+        <app-form-header [title]="'headerTitle2' | translate" [subTitle]="'headerSubTitle2' | translate">
+        </app-form-header>
+    </div>
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            
+            <!-- Horizontal stepper -->            
+            <form class="bg-card shadow rounded ounded-2xl overflow-hidden " [formGroup]="horizontalStepperForm">
+                <ng-template [ngIf]="smallScreen" [ngIfElse]="BigScreen">
+                    <mat-vertical-stepper orientation="vertical" [linear]="false" class="tab-bar tab-color"
+                        #horizontalStepper (selectionChange)="selectionChanged($event)">
+                        
+                        <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" matTooltip="{{'Information' | translate}}"
+                                    matTooltipPosition="above">
+                                    <!-- <span>{{'Researcher' | translate}}</span><br> -->
+                                    <span>{{'Information' | translate}}</span>
+                                </div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-researcher-proposal [existingProposalInfo]="proposalInfo"
+                                    [brodCastChange]="brodCastChange" [researcherProfileUuId]="researcherProfileUuId"
+                                    [categoryTypeId]="categoryTypeId" [storeDivisionList]="storeDivisionList"
+                                    [storeDistrictListVal]="storeDistrictListVal" [storeUpazilaList]="storeUpazilaList"
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (setFiscalYearId)="setFiscal_YearId($event)"
+                                    (onChangrResearchCategoryType)="onChangrResearchCategoryType($event)">
+                                </app-researcher-proposal>
+                            </div>
+                        </mat-step>
+
+                        <!-- <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" matTooltip="{{'ResearcherProposal' | translate}}"
+                                    matTooltipPosition="above">{{'Proposal' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-researcher-proposal-info [brodCastChange]="brodCastChange"
+                                    [existingProposalInfo]="proposalInfo" (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-researcher-proposal-info>
+                            </div>
+                        </mat-step> -->
+
+                        <ng-conatiner *ngIf="onSelectResearchCategoryTypeId==1">
+                            <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title " title="{{'RscWorkingInOrg' | translate}}">
+                                        <span>{{'Researcher' | translate}}</span><br>
+                                        <span>{{'WorkingIn' | translate}}</span><br>
+                                        <span>{{'Org' | translate}}</span>
+                                    </div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-researcher-proposal-rsc-working-in-org [existingProposalInfo]="proposalInfo"
+                                        [brodCastChange]="brodCastChange" (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-researcher-proposal-rsc-working-in-org>
+                                </div>
+                            </mat-step>
+                        </ng-conatiner>
+
+                        <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title " matTooltip="{{'UploadDoc' | translate}}"
+                                    matTooltipPosition="above">
+                                    <span>{{'Upload' | translate}}</span><br>
+                                    <span>{{'Document' | translate}}</span>
+                                </div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-researcher-proposal-upload-doc [existingProposalInfo]="proposalInfo"
+                                    [brodCastChange]="brodCastChange" (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-researcher-proposal-upload-doc>
+                            </div>
+                        </mat-step>
+
+                        <ng-conterner *ngIf="onSelectResearchCategoryTypeId == 2">
+                            <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title " matTooltip="{{'SupervisorInfo' | translate}}"
+                                        matTooltipPosition="above">
+                                        <span>{{'Researcher' | translate}}</span><br>
+                                        <span>{{'Supervisor' | translate}}</span><br>
+                                        <span>{{'Information' | translate}}</span>
+                                    </div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-researcher-supervisor-info [existingProposalInfo]="proposalInfo"
+                                        [brodCastChange]="brodCastChange" (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-researcher-supervisor-info>
+                                </div>
+                            </mat-step>
+                        </ng-conterner>
+
+                        <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" matTooltip="{{'Activity' | translate}}"
+                                    matTooltipPosition="above">{{'Activity' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-researcher-proposal-action-plan *ngIf="(activeStep == 3) || (activeStep == 4)" 
+                                    [getFiscalYearId] = "getFiscalYearId"
+                                    [rCategoryId] = "onSelectResearchCategoryTypeId"
+                                    [existingProposalInfo]="proposalInfo"
+                                    [brodCastChange]="brodCastChange" (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-researcher-proposal-action-plan>
+                            </div>
+                        </mat-step>
+
+                        <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" matTooltip="{{'BudgetDetails' | translate}}"
+                                    matTooltipPosition="above">{{'BudgetDetails' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-researcher-proposal-budget-details [existingProposalInfo]="proposalInfo"
+                                    [brodCastChange]="brodCastChange" (backPrevious)="goBack(horizontalStepper)">
+                                </app-researcher-proposal-budget-details>
+                            </div>
+                        </mat-step>
+
+                    </mat-vertical-stepper>
+                </ng-template>
+
+                <ng-template #BigScreen>
+                    <mat-horizontal-stepper orientation="vertical" [linear]="false" class="tab-bar tab-color"
+                        #horizontalStepper #stepper (selectionChange)="selectionChanged($event)">
+                        <mat-step #step1 [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" matTooltip="{{'Information' | translate}}"
+                                    matTooltipPosition="above">
+                                    <!-- <span>{{'Researcher' | translate}}</span><br> -->
+                                    <span>{{'Information' | translate}}</span>
+                                </div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-researcher-proposal [existingProposalInfo]="proposalInfo"
+                                    [brodCastChange]="brodCastChange" [researcherProfileUuId]="researcherProfileUuId"
+                                    [inputDivisionList]="storeDivisionList" [inputDistrictList]="storeDistrictListVal"
+                                    [inputUpazilaList]="storeUpazilaList" [categoryTypeId]="categoryTypeId"
+                                    (nextStep)="goForward(horizontalStepper)"
+                                    (setFiscalYearId)="setFiscal_YearId($event)"
+                                    (onChangrResearchCategoryType)="onChangrResearchCategoryType($event)">
+                                </app-researcher-proposal>
+                            </div>
+                        </mat-step>
+
+                        <mat-step #step2 [formGroupName]="'step2'" [stepControl]="horizontalStepperForm.get('step2')">
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" matTooltip="{{'ResearcherProposal' | translate}}"
+                                    matTooltipPosition="above">{{'Proposal' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-researcher-proposal-info [brodCastChange]="brodCastChange"
+                                    [existingProposalInfo]="proposalInfo" (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-researcher-proposal-info>
+                            </div>
+                        </mat-step>
+                        <ng-conatiner *ngIf="onSelectResearchCategoryTypeId==1">
+                            <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title " title="{{'RscWorkingInOrg' | translate}}">
+                                        <span>{{'Researcher' | translate}}</span><br>
+                                        <span>{{'WorkingIn' | translate}}</span><br>
+                                        <span>{{'Org' | translate}}</span>
+                                    </div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-researcher-proposal-rsc-working-in-org [existingProposalInfo]="proposalInfo"
+                                        [brodCastChange]="brodCastChange" (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-researcher-proposal-rsc-working-in-org>
+                                </div>
+                            </mat-step>
+                        </ng-conatiner>
+                        
+                        <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" matTooltip="{{'UploadDoc' | translate}}"
+                                    matTooltipPosition="above">{{'UploadDoc' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-researcher-proposal-upload-doc [existingProposalInfo]="proposalInfo"
+                                    [brodCastChange]="brodCastChange" (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-researcher-proposal-upload-doc>
+                            </div>
+                        </mat-step>
+                        
+                        <ng-conterner *ngIf="onSelectResearchCategoryTypeId == 2">
+                            <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                                <ng-template matStepLabel>
+                                    <div class="tab-header-title " matTooltip="{{'SupervisorInfo' | translate}}"
+                                        matTooltipPosition="above">
+                                        <span>{{'Researcher' | translate}}</span><br>
+                                        <span>{{'Supervisor' | translate}}</span><br>
+                                        <span>{{'Information' | translate}}</span>
+                                    </div>
+                                </ng-template>
+                                <p class="my-6 font-medium">
+                                </p>
+                                <div class="flex flex-col gt-xs:flex-row">
+                                    <app-researcher-supervisor-info [existingProposalInfo]="proposalInfo"
+                                        [brodCastChange]="brodCastChange" (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)">
+                                    </app-researcher-supervisor-info>
+                                </div>
+                            </mat-step>
+                        </ng-conterner>
+                        
+                        <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" matTooltip="{{'Activity' | translate}}"
+                                    matTooltipPosition="above">{{'Activity' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-researcher-proposal-action-plan *ngIf="(activeStep == 3) || (activeStep == 4)" 
+                                    [getFiscalYearId] = "getFiscalYearId"
+                                    [rCategoryId] = "onSelectResearchCategoryTypeId"
+                                    [existingProposalInfo]="proposalInfo"
+                                    [brodCastChange]="brodCastChange" (nextStep)="goForward(horizontalStepper)"
+                                    (backPrevious)="goBack(horizontalStepper)">
+                                </app-researcher-proposal-action-plan>
+                            </div>
+                        </mat-step>
+                        
+                        <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                            <ng-template matStepLabel>
+                                <div class="tab-header-title" matTooltip="{{'BudgetDetails' | translate}}"
+                                    matTooltipPosition="above">{{'BudgetDetails' | translate}}</div>
+                            </ng-template>
+                            <p class="my-6 font-medium">
+                            </p>
+                            <div class="flex flex-col gt-xs:flex-row">
+                                <app-researcher-proposal-budget-details [existingProposalInfo]="proposalInfo"
+                                    [brodCastChange]="brodCastChange" (backPrevious)="goBack(horizontalStepper)">
+                                </app-researcher-proposal-budget-details>
+                            </div>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                </ng-template>
+            </form>
+        </div>
+    </div>
+    <!-- Main End -->
+</div>

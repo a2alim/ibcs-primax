@@ -1,0 +1,183 @@
+<div class="width-100">
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <!-- Header -->
+    <app-form-header [title]="'headerTitleSeminar' | translate" [subTitle]="'headerSubTitleSeminar' | translate"></app-form-header>
+    <div *ngIf="spinner2" class="flex items-center justify-center">
+        <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
+    <!--Page 1-->
+    <div class="flex-auto m-7 ">
+        <mat-card class=" mt-4 ">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <!-- <h1 class="md:mt-2"> {{'details' | translate}}</h1>  -->
+                            <!-- {{tabData.personalInfo.userId}} -->
+                            <!-- <h3 class="md:mt-2">SEMINAR VIEW<span> </span></h3> -->
+                        </div>
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <div class="flex md:justify-end">
+                                <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" (click)="back()"
+                                    type="button">
+                                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                    {{'previous' | translate}}
+                                </button>
+
+                                <button [disabled]="spinner2" class="px-3 mr-2 downloadBtn" mat-flat-button
+                                    color="accent" (click)="download()" type="button">
+                                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                                    {{'download' | translate}}
+                                </button>
+
+                                <button class="px-3 printBtn" mat-flat-button color="accent" (click)="print()"
+                                    type="button">
+                                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                    {{'print' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tbl-details">
+                <div>
+                    <div class="text-center mb-8 text-2xl font-bold">
+                        পরিকল্পনা মন্ত্রণালয় <br>
+                        পরিকল্পনা বিভাগ <br>
+                        <u>সামাজিকবিজ্ঞান গবেষণা পরিষদ (এস.এস.আর.সি) </u>
+                    </div>
+                    <div class="font-bold mb-4 text-xl">
+                        বিষয়: সামাজিকবিজ্ঞান গবেষণা পরিষদের ২০২০-২০২১ অর্থবছরের চলমানকৃত গবেষণার বিষয়ক সেমিনার
+                    </div>
+
+                    <div class="mb-2">
+                        <div [innerHTML]="seminarModelForCreate?.createSeminarOptional?.paragraphOne | safeHtml">
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- <table class="tbl-details educationTbl">
+                            <thead>
+                                <th class="text-center">Sl</th>
+                                <th class="text-center">Position</th>
+                                <th class="text-center">Time Schedule</th>
+                                <th class="text-center">Program Time</th>
+                                <th class="text-center">Related Person/Proposal</th>
+
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let data of seminarModelForCreate.createSeminarTimeScheduleOptional; let i=index">
+                                    <td class="text-center">{{i + 1}}</td>
+                                    <td class="text-center">{{data.positionInSeminar}}</td>
+                                    <td class="text-center">{{data.startTime}}</td>
+                                    <td class="text-center">{{data.scheduleName}}</td>
+                                    <td class="text-center">{{data.m1ResearcherProposalId ===
+                                        null?data?.user?.name:data?.m1ResearcherProposalId?.researchTitle}}</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table> -->
+
+
+                        <table class="w-full border-collapse border border-black">
+
+                            <thead>
+                                <tr class="text-center">
+                                    <td class="border border-black font-bold" style="width: 15%">{{'time_allocation' | translate}}</td>
+                                    <td class="border border-black font-bold" style="width: 40%">{{'schedule' | translate}}</td>
+                                    <td class="border border-black font-bold" style="width: 30%">{{'concerned_individuals' | translate}}</td>                                    
+                                </tr>
+                            </thead>
+            
+            
+                            <ng-container *ngIf="timeScheduleLeadList.length > 0">
+                                <ng-container *ngFor="let item of timeScheduleLeadList; let i ='index'">
+                                    <tr class="text-center">
+                                        <td class="border border-black">{{item.startTime}}</td>
+                                        <td class="border border-black">{{item.scheduleName}}</td>
+                                        <td class="border border-black">
+                                            <span>{{item?.user?.name}}</span>
+                                            <br>
+                                            <span>{{item?.user?.designation}}</span>
+                                        </td>                                        
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+            
+            
+                            <ng-container *ngIf="timeScheduleResearcherList.length > 0">
+                                <tr>
+                                    <td class="text-center font-bold p-2" colspan="3">{{'presentation_of_research_paper' |translate}}
+                                    </td>
+                                </tr>
+            
+                                <ng-container *ngFor="let item of timeScheduleResearcherList; let i ='index'">
+            
+                                    <tr>
+                                        <td class="border border-black text-center">{{item.startTime}}</td>
+                                        <td class="border border-black">                                           
+                                            <span class="font-semibold cursor-pointer text-cyan-400" >{{'Heading' | translate}} :
+                                                {{item.m1ResearcherProposalId.researchTitle}}
+                                            </span>
+                                        </td>
+                                        <td class="border border-black text-center">
+                                            <span>{{item?.m1ResearcherProposalId?.researcherProfilePersonalInfoMaster?.userDto?.name}}</span>
+                                            <br>
+                                            <span>{{item?.m1ResearcherProposalId?.researcherProfilePersonalInfoMaster?.userDto?.designation}}</span>
+                                        </td>                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-black text-center">{{item.reviewTime}}</td>
+                                        <td class="border border-black text-center font-bold">{{'review' | translate}}</td>
+                                        <td class="border border-black text-center"></td>
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+            
+            
+                            <ng-container *ngIf="timeScheduleOthersList.length > 0">
+                                <ng-container *ngFor="let item of timeScheduleOthersList; let i ='index'">
+                                    <tr class="text-center">
+                                        <td class="border border-black">{{item.startTime}}</td>
+                                        <td class="border border-black">{{item.scheduleName}}</td>
+                                        <td class="border border-black"></td>                                        
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+            
+                        </table>
+
+                    </div>
+                    <div class="mt-2">
+                        <div [innerHTML]="seminarModelForCreate.createSeminarOptional.paragraphTwo | safeHtml">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+
+    </div>
+
+    <!--Page 2-->
+    <div class="flex-auto m-7 ">
+        <mat-card class=" mt-4 ">
+
+            <div class="tbl-details">
+                <div>
+                    <div class="mb-2">
+                        <div [innerHTML]="seminarModelForCreate?.createSeminarParticipating?.participantsList | safeHtml">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+
+    </div>
+</div>

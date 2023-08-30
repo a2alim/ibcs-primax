@@ -1,0 +1,644 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'title' | translate" [subTitle]="'sub_title' | translate"></app-form-header>
+    <!--Loder-->
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color ">
+        <mat-card class="mt-4 tab-color">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1> {{'researcher_profile_marks_setup' | translate}}</h1>
+                </div>
+            </div>
+            <!-- Card Body -->
+            <!-- ww = {{ frmGroup.get('researchCategory').value }}
+            {{selectCategoryId}} -->
+            <form [formGroup]="frmGroup" class="p-4 border3 form-bg-color">
+
+                <!-- -----------1st Row----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">{{'researchCategory' | translate}}</span><strong
+                        class="required">*</strong>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <mat-select formControlName="researchCategory"
+                                        (selectionChange)="onSelectedCategory($event.value)">
+                                        <mat-option value=""> --Select-- </mat-option>
+                                <mat-option *ngFor="let r of researchCategoryTypeList" [value]="r.id">{{r.categoryName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Research category is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- -----------/1st Row----------- -->
+
+                <!-- -----------2rd Row----------- -->
+                <div class="md:flex" *ngIf="(!isInstitutionalShow && isMPhilOrPhdShow && !isFellowshipShow)">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'applicantAge' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="applicantAge" type="number">
+                            <mat-error>Applicant age is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                           {{'govEmployee' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="govEmployee" type="number">
+                            <mat-error>Govt employee is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- -----------/2rd Row----------- -->
+
+                <!--================= For Promotional / Fellowship / MPhil and Phd Category ================= -->
+                <div *ngIf="isOthersShow">
+                    <!-- -----------3rd Row----------- -->
+                    <div class="md:flex" *ngIf="isMPhilOrPhdShow">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                           {{'marksOnProfession' | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="marksOnProfession" type="number">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'marksOnSubjectRelevancy' | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="marksOnSubjectRelevancy" type="number">
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <!-- -----------/3rd Row----------- -->
+
+                    <!-- -----------4th Row----------- -->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'graduateResultMarks' | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="firstDivision" placeholder="1st Division"
+                                       type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="secDivision" placeholder="2nd Division" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="thirdDivision" placeholder="3rd Division"
+                                       type="number">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                          {{'postGraduateResultMarks' | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="postGraduateResultMarksFirst"
+                                       placeholder="1st Division" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="postGraduateResultMarksSec" placeholder="2nd Division"
+                                       type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="postGraduateResultMarksThird"
+                                       placeholder="3rd Division" type="number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- -----------/4th Row----------- -->
+
+
+                    <!-- -----------4th Row----------- -->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'graduate_CGPA_ResultMarks' | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="graduateCgpaFirst" placeholder="Mark >= 3.5"
+                                       type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="graduateCgpaSecond" placeholder="Mark >= 2.5 or Mark < 3.5" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="graduateCgpaThird" placeholder="Mark < 2.5"
+                                       type="number">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                          {{'postGraduate_CGPA_ResultMarks' | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="postGraduateCgpaFirst"
+                                       placeholder="Mark >= 3.5" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="postGraduateCgpaSecond" placeholder="Mark >= 2.5 or Mark < 3.5"
+                                       type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="postGraduateCgpaThird"
+                                       placeholder="Mark < 2.5" type="number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- -----------/4th Row----------- -->
+
+                    <!-- -----------5th Row----------- -->
+                    <div class="md:flex" *ngIf="isMPhilOrPhdShow">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'mphil' | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="mphil" type="number">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                             {{'phd' | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="phd" type="number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- -----------5th Row----------- -->
+                </div>
+                <!--================= /For Promotional / Fellowship / MPhil and Phd Category ================= -->
+
+                <!--================= For institutional Category ================= -->
+                <div *ngIf="isInstitutionalShow">
+                    <div  class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'postGraduateResultMarks' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="instPostGraduate1"
+                                        placeholder="Person(2-3) = 4" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="instPostGraduate2" placeholder="More than 3 Person = 5"
+                                        type="number">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'mphil' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="instMPhil1" placeholder="Person(1-2) = 4" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="instMPhil2" placeholder="More than 2 Person = 5" type="number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div  class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                    {{'phd' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="instPhd1" placeholder="1 Person = 4" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="instPhd2" placeholder="2 Person = 5" type="number">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <div class="flex w-full">
+                                <div class="w-full sm:w-auto md:w-40 lg:w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                       {{'organizationStructure' | translate}}
+                                    </span>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-60 lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input matInput formControlName="organizationStructure" type="number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="flex w-full">
+                                <div class="w-full sm:w-auto md:w-40 lg:w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="text-gray-700">
+                                    {{'organizationActivity' | translate}}
+                                    </span>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-60 lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input matInput formControlName="organizationActivity" type="number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--================= For institutional Category ================= -->
+                <hr>
+
+                <div *ngIf="selectCategoryId > 0" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <h1> {{'experienceandSkill' | translate}}</h1>
+                    </div>
+                </div>
+
+                <!-- <ng-container *ngIf="!isInstitutionalShow && !isFellowshipShow"> -->
+                <!-- PhD = 4, MPhil = 5, Promotional = 6 -->
+                <ng-container *ngIf="(selectCategoryId == 6) || (selectCategoryId == 4) || (selectCategoryId == 5)">
+                    <!-- -----------7th Row----------- -->
+                    <div class="md:flex mt-5">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'thesisGroup' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="thesisGroup" type="number">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'nonThesis' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="nonThesis" type="number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'marksIfPublishedInJournal' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="marksIfPublishedInJournal" type="number">
+                            </mat-form-field>
+                        </div>
+
+                        <ng-container *ngIf="selectCategoryId == 6">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'marksIfTrainedOnResearch' | translate}}
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <input matInput formControlName="marksIfTrainedOnResearch" type="number">
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <div *ngIf="(selectCategoryId==4) || (selectCategoryId==5)" class="w-full ml-2 sm:w-auto md:w-50 lg:w-50"></div>
+                    </div>
+                    <!-- -----------/7th Row----------- -->
+
+                    <!-- -----------8th Row----------- -->
+                    <!-- <ng-container *ngIf="isMPhilOrPhdShow"> -->
+                    <!-- <ng-container *ngIf="(selectCategoryId == 4) || (selectCategoryId == 5)">
+                        <div class="md:flex mt-4" >
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'marksIfTrainedOnResearch' | translate}}
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <input matInput formControlName="marksIfTrainedOnResearch" type="number">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                {{'publishedJournalQtyIntl' | translate}}
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <input matInput formControlName="publishedJournalQtyIntl" type="number">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                {{'publishedJournalQtyLocal' | translate}}
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <input matInput formControlName="publishedJournalQtyLocal" type="number">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                {{'experienceyearsinResearchwork' | translate}}
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30 md:pt-3">
+                                <mat-form-field class="w-full">
+                                    <input matInput formControlName="experienceYearsInResearchWork" type="number">
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+                    </ng-container> -->
+
+                    <!-- -----------/8th Row----------- -->
+
+                </ng-container>
+
+                <ng-container *ngIf="(selectCategoryId == 1) || (selectCategoryId == 2)">
+                    <div class="md:flex mt-5">
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'experienceyearsinResearchwork' | translate}}
+                            </span>
+                        </div>
+                         <!-- ------For Fellowship Category------- -->
+                        <div *ngIf="selectCategoryId == 2" class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <!-- <mat-form-field class="w-full">
+                                <input matInput formControlName="experienceYearsInResearchWork" type="number">
+                            </mat-form-field> -->
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="researchExperience1" placeholder="Less than 8 Years = 0" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="researchExperience2" placeholder="Equal 8 Years = 4" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="researchExperience3" placeholder="More than 8 Years = 5" type="number">
+                            </mat-form-field>
+                        </div>
+                        <!-- ------/For Fellowship Category------- -->
+
+                        <!-- ------For Institutional Category------- -->
+                        <div *ngIf="selectCategoryId == 1" class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="researchExperience1" placeholder="Less than 2 Years = 0" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="researchExperience2" placeholder="Equal 3 Years = 4" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="researchExperience3" placeholder="More than 3 Years = 5" type="number">
+                            </mat-form-field>
+                        </div>
+                        <!-- ------/For Institutional Category------- -->
+
+                        <div *ngIf="selectCategoryId==2" class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'marksIfTrainedOnResearch' | translate}}
+                            </span>
+                        </div>
+                        <div *ngIf="selectCategoryId==2" class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="marksIfTrainedOnResearch" type="number">
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="selectCategoryId==1" class="w-full sm:w-auto md:w-50 lg:w-50"></div>
+
+                    </div>
+                    <div class="md:flex mt-2">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                            {{'publishedJournalQtyLocal' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="localPublication1" placeholder="Qty(1-5) = 6" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="localPublication2" placeholder="Qty(6-10) = 8" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="localPublication3" placeholder="More than 10 Qty = 10" type="number">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                            {{'publishedJournalQtyIntl' | translate}}
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="interPublication1" placeholder="Qty(1-5) = 6" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="interPublication2" placeholder="Qty(6-10) = 8" type="number">
+                            </mat-form-field>
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="interPublication3" placeholder="More than 10 Qty =10" type="number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="flex justify-end mt-3 mr-2">
+                    <button
+                        class="px-5 mr-2"
+                        mat-flat-button
+                        color="accent"
+                        (click)="formReset()"
+                        type="button">
+                        <mat-icon class="mr-1">refresh</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+
+                    <button
+                        class="px-5"
+                        mat-flat-button
+                        (click)="save(buttonText)"
+                        color="primary"
+                        type="submit"
+                    >
+                        <mat-icon class="mr-1">save</mat-icon>
+                        <div *ngIf="buttonText=='Edit'; else temp ">{{'update' | translate}}</div>
+                        <ng-template #temp>{{'save' | translate}}</ng-template>
+
+                    </button>
+                </div>
+            </form>
+
+            <!-- Search Bar -->
+            <div class="md:flex tbl-title">
+                <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-6">
+                    <h1 class="header1">
+                        <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                        {{'searchTitle' | translate}}
+                    </h1>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-40 lg:w-40 md:text-left md:pt-3">
+                    <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                        <input
+                            matInput
+                            (keyup)="applyFilter($event)"
+                            [placeholder]="'search'|translate"
+                            #input/>
+                        <button mat-button matPrefix mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div
+                class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl' | translate}} </th>
+                            <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                                {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="research_category">
+                            <th mat-header-cell *matHeaderCellDef> {{'researchCategory' | translate}}</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.researchCategory}}
+
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="applicant_age">
+                            <th mat-header-cell *matHeaderCellDef> {{'applicantAge' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.applicantAge}} </td>
+                        </ng-container>
+
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="marks_on_profession">
+                            <th mat-header-cell *matHeaderCellDef> {{'marksOnProfession' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.marksOnProfession}} </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="thesis_group">
+                            <th mat-header-cell *matHeaderCellDef> {{'thesisGroup' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.thesisGroup}} </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef> {{'action' | translate}}</th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="buttons">
+                                    <button (click)="editRow(element.uuid)"
+                                            mat-icon-button
+                                            class="toggle-sidebar-folded"
+                                            matTooltip="Edit"
+                                            fxHide.lt-lg>
+                                        <mat-icon
+                                            color="accent">edit
+                                        </mat-icon>
+                                    </button>
+
+                                    <button (click)="openDeleteDialog('Are You Sure',element.uuid)"
+                                            mat-icon-button
+                                            class="toggle-sidebar-folded"
+                                            matTooltip="Delete"
+                                            fxHide.lt-lg>
+
+                                        <mat-icon
+                                            color="warn">delete
+                                        </mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <!-- Initialized Table Header And Dataset-->
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                </div>
+
+                <!-- mat-paginator -->
+                <mat-paginator
+                    #paginatorRef
+                    [length]="totalElements"
+                    [pageSize]="pageSize"
+                    [pageSizeOptions]="[10, 20, 30, 100]"
+                    (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>
+
+

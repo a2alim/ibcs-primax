@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    config:
+      uri: http://202.161.191.131:9403/cloud-config-server
+      enabled: true
+      name: pps-configuration-config
+      profile: dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

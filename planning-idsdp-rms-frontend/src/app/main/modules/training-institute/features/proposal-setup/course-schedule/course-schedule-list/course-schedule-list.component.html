@@ -1,0 +1,119 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header [title]="'header' | translate" [subTitle]="'headerOfSubtitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;" class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div class="flex justify-end mb-3">
+                <button mat-raised-button color="primary" [routerLink]="['/course-schedules/add']" *ngIf="userType !== 'Rms_DO'">
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                    {{'AddMore' | translate}}
+                </button>
+            </div>
+
+            <!-- CARD ONE-->
+            <mat-card class="tab-color">
+                <div class="md:flex tbl-title">
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'courseSchedule' | translate}}
+                        </h1>
+                    </div>
+
+
+                    <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-right">
+                        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                            <!--<mat-label>Filter</mat-label>-->
+                            <input #input (keyup)="applyFilter($event)" [placeholder]="'search'|translate" matInput/>
+                            <button mat-button matPrefix mat-icon-button>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Data Table -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                    <!--<mat-card>-->
+                    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sl">
+                                <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl' | translate}} </th>
+                                <td mat-cell *matCellDef="let row; let i = index;" class="text-center">
+                                    {{(i + 1) + (page * size)}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fiscalYear">
+                                <th *matHeaderCellDef mat-header-cell> {{'fiscalYear' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center"
+                                    mat-cell> {{ getFiscalYearName(element.fiscalYearId) }} </td>
+                            </ng-container>
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="trainersName">
+                                <th mat-header-cell *matHeaderCellDef> {{'trainersName' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center"
+                                    mat-cell> {{element?.proposalModel.trainingName}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="currentPosition">
+                                <th mat-header-cell *matHeaderCellDef> {{'currentPosition' | translate}} </th>
+                                <td *matCellDef="let element" mat-cell class="text-center"> {{element.totalHours}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="mobileNo">
+                                <th mat-header-cell *matHeaderCellDef> {{'mobileNo' | translate}} </th>
+                                <td *matCellDef="let element" class="text-center" mat-cell>
+                                    <!--                                    {{ getTrainingInstituteName(element.createdBy) }} -->
+                                    {{ element.instituteName }}
+                                </td>
+                            </ng-container>
+
+
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'Action' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                    <div class="buttons">
+                                        <button (click)="viewDetails(element.id)" class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button matTooltip="visibility">
+                                            <mat-icon color="primary">visibility
+                                            </mat-icon>
+                                        </button>
+                                        <button (click)="edit(element.id)" class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button matTooltip="Edit" [disabled]="element.submitted && userType === 'Rms_Training_Institute'">
+                                            <mat-icon color="accent">edit
+                                            </mat-icon>
+                                        </button>
+                                        <button (click)="openDialog(element.id)" class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button matTooltip="delete" [disabled]="element.submitted && userType === 'Rms_Training_Institute'">
+                                            <mat-icon color="warn">delete
+                                            </mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <!-- Initialized Table Header And Dataset-->
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                    <!-- mat-paginator -->
+                    <mat-paginator (page)="onChangePage($event)" [length]="total" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="size">
+                    </mat-paginator>
+                </div>
+            </mat-card>
+
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

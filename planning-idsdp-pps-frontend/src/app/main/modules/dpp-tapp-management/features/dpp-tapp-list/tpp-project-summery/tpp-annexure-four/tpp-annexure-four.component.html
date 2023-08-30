@@ -1,0 +1,225 @@
+<div class="flex flex-col flex-auto max-w-full">
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="projectTitle" class="crop-text"
+                                 [subTitle]="'sub_title' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{'homePage' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!-- Body -->
+    <div class="flex-auto m-5 body-color">
+        <div>
+            <div style="padding: 10px; background-color: white">
+                <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                    <mat-card class="tab-color" *ngIf="isParipatra2016">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                    <table class="mat-elevation-z8">
+                                        <!-- Table Body-->
+                                        <tbody class="projectInfo">
+                                        <tr>
+                                            <th class="text-left p-3">Project Title (English)</th>
+                                            <td class="p-3">:</td>
+                                            <td class="p-3">{{projectTitle}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="p-3">Project Total Cost (Taka in Lac)</th>
+                                            <td class="p-3">:</td>
+                                            <td class="p-3">{{totalCost}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="p-3">Date of Commencement</th>
+                                            <td class="p-3">:</td>
+                                            <td class="p-3">{{commencementDate | date:
+                                                'dd-MM-yyyy'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="p-3">Date of Completion</th>
+                                            <td class="p-3">:</td>
+                                            <td class="p-3">{{completionDate | date: 'dd-MM-yyyy'}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        <!-- Table Body End-->
+                                    </table>
+                                    <!--Table End-->
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <div>
+                        <!--==== start view for work Schedule ====-->
+                        <mat-card class="tab-color mt-5">
+                            <div class="sub-heading ml-3" *ngIf="isParipatra2016">
+                                <h2 class="text-2xl font-bold">View Work Schedule</h2>
+                            </div>
+                            <div *ngIf="!isParipatra2016" class="viw_work">
+                                <table style="border: none; width: 100%;">
+                                    <tr style="border: none;">
+                                        <td style="font-weight: bold; text-align: left; border: none; width: 20%;">{{'nameofTheProject' | translate}}</td>
+                                        <td style="text-align: left; border: none;">:
+                                            {{projectTitle}}
+                                        </td>
+                                    </tr>
+                                    <tr style="border: none;">
+                                        <td style="font-weight: bold; text-align: left; border: none; width: 20%;">{{'sposoringMinistry' | translate}}</td>
+                                        <td style="text-align: left; border: none;">:
+                                            {{projectSummary?.isForeignAid ? agencyModel?.ministryDivisionDTO?.nameEn : agencyModel?.ministryDivisionDTO?.nameBn}}
+                                        </td>
+                                    </tr>
+                                    <tr style="border: none;">
+                                        <td style="font-weight: bold; text-align: left; border: none; width: 20%;"> {{'implimentingAgency' | translate}}</td>
+                                        <td style="text-align: left; border: none;">:
+                                            {{projectSummary?.isForeignAid ? agencyModel?.nameEn : agencyModel?.nameBn}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="max-w-8xl wrapper p-4 overflow-x-auto">
+                                    <section fxLayout>
+                                        <!-- ************* Table Start ******************-->
+                                        <div style="width: 400px;">
+                                            <table class="w-full">
+                                                <!-- ************* START HEAD ******************-->
+                                                <thead>
+                                                    <tr style="height: 79px;" class="text-nowrap">
+                                                        <th rowspan="2">{{'sl' | translate}}</th>
+                                                        <th rowspan="2">{{'act' | translate}}</th>
+                                                        <th rowspan="2" class="text-center">{{'task' | translate}}</th>
+                                                        <th *ngFor="let fiscal of fiscalYearList; let i = index;">
+                                                            <tr>
+                                                                <th colspan="4" style="height: 41px;" class="text-center">
+                                                                    {{fiscal.fiscalYear}}
+                                                                </th>
+                                                            </tr>
+                                                            <tr class="text-nowrap">
+                                                                <th>{{'Q1' | translate}}</th>
+                                                                <th>{{'Q2' | translate}}</th>
+                                                                <th>{{'Q3' | translate}}</th>
+                                                                <th>{{'Q4' | translate}}</th>
+                                                            </tr>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <!-- ************* END HEAD ******************-->
+
+                                                <!-- ************* START BODY ******************-->
+                                                <tbody>
+                                                    <ng-container *ngFor="let item of tappWorkPlanList; let index=index;">
+                                                            <tr>
+                                                                <td class="text-center">
+                                                                    {{projectSummary.isForeignAid ? index+1 : numberPipe.convertToBanglaNumber(index+1)}}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button (click)="deleteRow(item)" type="button" matTooltip="Delete Item">
+                                                                        <mat-icon aria-hidden="false" [color]="'warn'">delete</mat-icon>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field style="width: 300px !important;">
+                                                                        <textarea class="fixed-input" [(ngModel)]="item.taskDetails" (keyup)="changeTaskDetails()" matInput required
+                                                                            class="{{isDataEmpty && index==(tappWorkPlanList.length-1)?'required-field':''}} "></textarea>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td *ngFor="let fiscal of fiscalYearList; let i = index;">
+                                                                    <tr>
+                                                                        <td style="width: 35px;">
+                                                                            <mat-checkbox [checked]="item?.selectedQuarter?.includes(fiscal.fiscalYear+'-Q1,')"
+                                                                                color="primary" (change)="selectQuarter($event, item, fiscal.fiscalYear+'-Q1,')">
+                                                                            </mat-checkbox>
+                                                                        </td>
+                                                                        <td style="width: 35px;">
+                                                                            <mat-checkbox [checked]="item?.selectedQuarter?.includes(fiscal.fiscalYear+'-Q2,')"
+                                                                                color="primary" (change)="selectQuarter($event, item, fiscal.fiscalYear+'-Q2,')">
+                                                                            </mat-checkbox>
+                                                                        </td>
+                                                                        <td style="width: 35px;">
+                                                                            <mat-checkbox [checked]="item?.selectedQuarter?.includes(fiscal.fiscalYear+'-Q3,')"
+                                                                                color="primary" (change)="selectQuarter($event, item, fiscal.fiscalYear+'-Q3,')">
+                                                                            </mat-checkbox>
+                                                                        </td>
+                                                                        <td style="width: 35px;" >
+                                                                            <mat-checkbox [checked]="item?.selectedQuarter?.includes(fiscal.fiscalYear+'-Q4,')"
+                                                                                color="primary" (change)="selectQuarter($event, item, fiscal.fiscalYear+'-Q4,')">
+                                                                            </mat-checkbox>
+                                                                        </td>
+                                                                    </tr>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-container>
+                                                </tbody>
+                                                <!-- ************* START BODY End******************-->
+                                            </table>
+                                        </div>
+                                        <!-- ************* Table End ******************-->
+                                    </section>
+
+                                    <div>
+                                        <div style="padding: 10px;">
+                                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                <mat-label fxFlex="15%" fxFlex.xs="100%" fxFlex.sm="15%" fxFlex.md="15%" style="padding-top: 15px;">
+                                                    {{'attachWorkSchedule' | translate}}
+                                                </mat-label>
+                                                <mat-form-field  fxFlex="30%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="100%">
+                                                    <label *ngIf="attachmentId">{{attachmentName}}</label>
+                                                    <ngx-mat-file-input #fileInput formControlName="attachmentId" (change)="uploadFile($event.target.files)" [accept]="'.pdf'"
+                                                                        placeholder="{{'Browse' | translate}}" matTooltip="{{'Browse' | translate}}">
+                                                    </ngx-mat-file-input>
+                                                    <mat-icon matSuffix>folder</mat-icon>
+                                                </mat-form-field>
+
+                                                <button *ngIf="isAttachmentEnable" (click)="download()" fxFlex="2%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="50%" style="padding-top: 18px;">
+                                                    <mat-icon color="primary" class="pb-1">file_download</mat-icon>
+                                                </button>
+
+                                                <button *ngIf="isAttachmentEnable" (click)="delete()" fxFlex="2%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="50%" style="padding-top: 18px;">
+                                                    <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                                                </button>
+                                                <div fxFlex="50%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="60%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <button mat-flat-button (click)="addRow(tappWorkPlanList.length-1)"  class="px-2 mr-2 text-white"
+                                                matTooltip="Add New Item" type="button">
+                                            <mat-icon class="pr-2" aria-hidden="false" class="text-white">add</mat-icon> {{'add_new_row' | translate}}
+                                        </button>
+                                        <button mat-flat-button type="button" [disabled]="spinner" class="px-3 mr-2 text-white"
+                                                (click)="createWorkPlan()">
+                                            <mat-icon class="pr-2">save</mat-icon> {{'save' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

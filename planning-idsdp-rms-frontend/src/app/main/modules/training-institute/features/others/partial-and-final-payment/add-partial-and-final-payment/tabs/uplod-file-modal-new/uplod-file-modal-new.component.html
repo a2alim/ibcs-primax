@@ -1,0 +1,60 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+
+            <div class="md:flex">
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                        {{'FileName' | translate}}<strong class="required">*</strong>
+                    </span>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                    <mat-form-field class="w-full">
+                        {{goLetterModel?.fileName}}
+                        <ngx-mat-file-input [accept]="'.pdf'" (change)="uploadFile($event.target.files)" required>
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>folder</mat-icon>
+                        <mat-error>File is required!</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- button area -->
+
+            <div class="md:flex justify-end">
+
+                <div class="mt-3 mr-2">
+                    <button mat-flat-button type="submit" color="primary" class="px-3 mr-2 toggle-sidebar-folded"
+                        (click)="onSaveOrUpdate()" [disabled]="spinner || (!file && !goLetterModel.fileName)">
+                        <mat-icon class="mr-1">add</mat-icon>
+                        <span>{{ "save" | translate }}</span>
+                    </button>
+
+                    <button mat-flat-button type="button" style="background-color: #f37a7a !important; color: #eee2e2"
+                        class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" (click)="onClose(true)">
+                        <mat-icon class="mr-1" *ngIf="closeIcon">{{closeIcon}}</mat-icon>
+                        <span> {{ "close" | translate }}</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- button area -->
+
+        </div>
+    </div>
+    <!-- Main End -->
+
+</div>

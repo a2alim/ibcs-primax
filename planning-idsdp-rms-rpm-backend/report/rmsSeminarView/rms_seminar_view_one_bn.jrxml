@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="19_palnning_bn_main_sonjojoni_dontosso" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="487" leftMargin="72" rightMargin="36" topMargin="50" bottomMargin="0" uuid="6a2cd0e0-dbf0-4b56-80b2-7c1a7217232f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="3"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="researcherist" uuid="6db6f577-3d92-4873-bb31-55cf5bfc1929">
+		<field name="m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.name" class="java.lang.String"/>
+		<field name="m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.designation" class="java.lang.String"/>
+		<field name="m1ResearcherProposalId.researchTitleBangla" class="java.lang.String"/>
+		<field name="m1ResearcherProposalId.researchTitle" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="mem_list" uuid="e064a9ac-e256-4052-bf1c-6fb00533672a">
+		<field name="name" class="java.lang.String"/>
+		<field name="designation" class="java.lang.String"/>
+		<field name="mobileNumber" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString language="json">
+		<![CDATA[]]>
+	</queryString>
+	<field name="obj.createSeminarOptional.memorandumNo" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.nothiDateBn" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.nothiDateEn" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.paragraphOne" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.paragraphTwo" class="java.lang.String"/>
+	<field name="obj.createSeminarOptional.subject" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="151" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="487" height="72" uuid="196b6a4c-3db9-49bf-98a0-c3f7c8cb2f40"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="NikoshBAN" size="12" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["গণপ্রজাতন্ত্রী বাংলাদেশ সরকার"
++"\n"+"পরিকল্পনা মন্ত্রণালয়"
++"\n"+"পরিকল্পনা বিভাগ"
++"\n"+"সামাজিকবিজ্ঞান গবেষণা পরিষদ"
++"\n"+"শেরেবাংলা নগর,ঢাকা "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="94" width="487" height="16" uuid="c1516669-a766-42d5-a047-114d36854f67"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{obj.createSeminarOptional.memorandumNo} == null) ? "স্মারকঃ " :  (
+    ($F{obj.createSeminarOptional.memorandumNo} == "") ? "স্মারকঃ " : (
+          ($F{obj.createSeminarOptional.memorandumNo} == "null") ? "স্মারকঃ " : "স্মারকঃ " + $F{obj.createSeminarOptional.memorandumNo} +  " তারিখঃ ----------------------------------------------"
+            ) )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="186" y="78" width="237" height="16" uuid="6eb5d73e-22c4-4f6e-87f5-a444ae162c0b"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{obj.createSeminarOptional.nothiDateBn} == null) ? "" :  (
+    ($F{obj.createSeminarOptional.nothiDateBn} == "") ? "" : (
+          ($F{obj.createSeminarOptional.nothiDateBn} == "null") ? "" : $F{obj.createSeminarOptional.nothiDateBn}
+            ) )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="186" y="110" width="237" height="16" uuid="11141fca-3866-466c-9212-a17b7761e787"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{obj.createSeminarOptional.nothiDateEn} == null) ? "" :  (
+    ($F{obj.createSeminarOptional.nothiDateEn} == "") ? "" : (
+          ($F{obj.createSeminarOptional.nothiDateEn} == "null") ? "" : $F{obj.createSeminarOptional.nothiDateEn}
+            ) )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="131" width="486" height="20" uuid="d2554532-8970-49b4-9c55-28afe9351e1d"/>
+				<textElement textAlignment="Center">
+					<font fontName="NikoshBAN" size="14" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[বিজ্ঞপ্তি]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="0" width="487" height="18" uuid="bdd0704a-1775-4b0d-9238-5fab4890e19e"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="NikoshBAN" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{obj.createSeminarOptional.subject} == null) ? "বিষয়ঃ " :  (
+    ($F{obj.createSeminarOptional.subject} == "") ? "বিষয়ঃ " : (
+          ($F{obj.createSeminarOptional.subject} == "null") ? "বিষয়ঃ " : "বিষয়ঃ " + $F{obj.createSeminarOptional.subject}
+            ) )]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="25">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="0" width="487" height="20" uuid="ee5d038a-4a97-4ba4-8e7b-c1fd85679b79"/>
+				<textElement markup="html">
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{obj.createSeminarOptional.paragraphOne} == null) ? "" :  (
+    ($F{obj.createSeminarOptional.paragraphOne} == "") ? "" : (
+          ($F{obj.createSeminarOptional.paragraphOne} == "null") ? "" : $F{obj.createSeminarOptional.paragraphOne}
+            ) )]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="27">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="1" y="0" width="487" height="23" uuid="d9e4ab00-7870-40ce-8efd-e48c4932a254"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="researcherist" uuid="f341a711-b32e-4793-b010-3552c8b6ecc4">
+						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("obj.createSeminarTimeScheduleResearcherList")]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="40" uuid="2f18e23d-b988-4201-b5ed-871375f7a5a5">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="18" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="18" uuid="b2238a0b-71d9-42be-8a55-73578be40f44"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[ক্রমিক নং]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="16" uuid="b86f39f2-71da-4a1f-85dc-378ed7016803"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}+" । "]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="170" uuid="504dd906-542a-4beb-8932-fe97e81cd20e">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="18" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="170" height="18" uuid="3b8eaa74-9242-4282-8c31-a645ba64e187"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[গবেষকের নাম ও ঠিকানা]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="170" height="16" uuid="bc701fec-87b7-4987-bddd-35e1e9cf2593"/>
+								<box leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement verticalAlignment="Top">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[(($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.name} == null) ? "" :  (
+    ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.name} == "") ? "" : (
+          ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.name} == "null") ? "" : $F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.name}
+            ) )) +"\n"+
+(($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.designation} == null) ? "" :  (
+    ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.designation} == "") ? "" : (
+          ($F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.designation} == "null") ? "" : $F{m1ResearcherProposalId.researcherProfilePersonalInfoMaster.userDto.designation}
+            ) ))]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="277" uuid="3cd0f785-e264-44ee-862d-3b1fa166d27a">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="18" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="277" height="18" uuid="8ffd5106-c259-44ee-ab14-8ea4224f2750"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[গবেষণার শিরোনাম]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="277" height="16" uuid="8991134f-c14a-4f76-867e-d6f09818689f"/>
+								<box leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement verticalAlignment="Top">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{m1ResearcherProposalId.researchTitleBangla} == null) ? "" :  (
+    ($F{m1ResearcherProposalId.researchTitleBangla} == "") ? "" : (
+          ($F{m1ResearcherProposalId.researchTitleBangla} == "null") ? "" : $F{m1ResearcherProposalId.researchTitleBangla}
+            ) )]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="27">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="3" width="487" height="20" uuid="2e8867a8-f5d8-4864-bdf5-1b230cc5d5b8"/>
+				<textElement markup="html">
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{obj.createSeminarOptional.paragraphTwo} == null) ? "" :  (
+    ($F{obj.createSeminarOptional.paragraphTwo} == "") ? "" : (
+          ($F{obj.createSeminarOptional.paragraphTwo} == "null") ? "" : $F{obj.createSeminarOptional.paragraphTwo}
+            ) )]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="17">
+			<staticText>
+				<reportElement x="1" y="1" width="487" height="16" uuid="12755f58-1aad-441d-85e6-9f5123c63a17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="11" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[বিতরণ (জ্যেষ্ঠতার ক্রমানুসারে নয়):]]></text>
+			</staticText>
+		</band>
+		<band height="16">
+			<componentElement>
+				<reportElement key="table 2" style="table 2" x="1" y="0" width="487" height="16" uuid="721de79e-0f4a-4f77-ad00-c25c75a20cd6"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="mem_list" uuid="a78004bf-6fc6-44e7-bb72-9681da275bfb">
+						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("obj.memberInSeminarList")]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="25" uuid="69954539-80f3-4685-b735-bc00c4da7065">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="0" rowSpan="1"/>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="25" height="16" uuid="c5dae1bf-d4b5-45c4-a850-8b61910cbc22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}+" । "]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="462" uuid="ce4def12-e8d9-4fc2-ab95-a3eee631d69c">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="0" rowSpan="1"/>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="16" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="462" height="16" uuid="db68c78a-b665-43ca-b459-032105b4ec67"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[(($F{name} == null) ? "" :  (
+    ($F{name} == "") ? "" : (
+          ($F{name} == "null") ? "" : $F{name}
+            ) )) +
+(($F{designation} == null) ? "" :  (
+    ($F{designation} == "") ? "" : (
+          ($F{designation} == "null") ? "" : ", " + $F{designation}
+            ) ))+
+(($F{mobileNumber} == null) ? "" :  (
+    ($F{mobileNumber} == "") ? "" : (
+          ($F{mobileNumber} == "null") ? "" : ", " + $F{mobileNumber}
+            ) ))]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<summary>
+		<band height="24" splitType="Stretch"/>
+	</summary>
+</jasperReport>

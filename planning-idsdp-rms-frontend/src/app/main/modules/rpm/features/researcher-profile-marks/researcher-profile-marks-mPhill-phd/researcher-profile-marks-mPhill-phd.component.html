@@ -1,0 +1,253 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <div *ngIf="spinner2" class="flex items-center justify-center">
+        <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
+
+
+    <div class="body m-5">
+
+        <!-- CARD ONE-->
+        <div style="width: 100%;" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <mat-label class="heading w-full">
+                {{'ResearcherProfileMarks' | translate}}
+            </mat-label>
+        </div>
+
+        <mat-card class="tab-color">
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+                <div *ngIf="userDetails.userType == 'Rms_DO'; else emptyDiv2">
+                    <div *ngIf="save_button; else emptyDiv">&nbsp;</div>
+                    <ng-template #emptyDiv>
+                        <div class="relative py-2 pl-4 mr-4 leading-normal text-yellow-700 bg-yellow-200  rounded-lg"
+                            role="alert">
+                            <div class="text-base font-semibold text-yellow-600">{{'profileSubmission' | translate }}</div>
+                        </div>
+                    </ng-template>
+                </div>
+                <ng-template #emptyDiv2>
+                    <div>&nbsp;</div>
+                </ng-template>
+
+                <div class="flex justify-end">
+                    <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" type="button"
+                        (click)="previousTab()">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        {{'Previous' | translate}}
+                    </button>
+
+                    <button *ngIf="userDetails.userType != 'Rms_Evaluator'" class="px-3 mr-2 infoBtn" mat-flat-button color="accent" type="button"
+                        (click)="goToProfileView()">
+                        <mat-icon class="mr-1">info</mat-icon>
+                        {{'profileView' | translate}}
+                    </button>
+
+                    <button [disabled]="spinner2" (click)="download()" class="px-3 mr-2 downloadBtn" mat-flat-button color="accent" type="button">
+                        <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                        {{'Download' | translate}}
+                    </button>
+
+                    <button
+                        [useExistingCss]="true"
+                        printTitle="profile-mark"
+                        class="px-3 printBtn"
+                        mat-flat-button
+                        color="accent"
+                        printSectionId="print" ngxPrint
+                        type="button">
+                        <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                        {{'print' | translate}}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+                <!--<mat-card>-->
+                <div id="print" class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>                    
+                    
+                    <div class="flex">
+                        <div class="sm:w-70 md:w-80 lg:w-90">
+                            <span><b>{{'researchTitle'|translate }}</b> {{this.proposal?.researchTitle}}</span><br>
+                                <span><b>{{'researcherName'|translate}}</b> {{this.proposal?.researcherProfilePersonalInfoDto?.userDto?.name}}</span><br>
+                                <span><b>{{'category'|translate}}</b> {{this.proposal?.researchCategoryType?.categoryName}}</span><br>
+                                <span><b>{{'fiscalYear'|translate}}</b> {{this.proposal?.fiscalYear?.fiscalYear | enToBn:langVal}}</span>
+                        </div>
+                        <div class="sm:w-30 md:w-20 mt-2 flex justify-end">
+                            <a target="_blank" :href="{{circularData?.nitimalaUrl}}" class="absolute NitimalaDiv">   
+                                <div class="NitimalaBook"></div>
+                                <div class="NitimalaText">{{'ResearchNitimala' | translate}} - {{circularData?.nitimalaYear | enToBn:langVal}}</div>                                                     
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                        <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">{{'Category' | translate}}: {{this.proposal?.researchCategoryType?.categoryName | translate}}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3">{{'Qualification&Experience' | translate}}: {{50 | enToBn:langVal}}</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 25%">{{'MeasuringField' | translate}}</th>
+                                    <th style="width: 10%">{{'RealInfo' | translate}}</th>
+                                    <th style="width: 10%">{{'Marks' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr class="text-align-centre textLeft">
+                                    <td>{{'1' | translate}} {{'Graduation' | translate}}</td>
+                                    <td>
+                                        <input readonly type="text" class="text-input-field" [(ngModel)]="marks.graduationType">
+                                    </td>
+                                    <td>
+                                        <div class="relative">
+                                            {{marks.graduationMarks | enToBn:langVal}}
+                                        <input readonly type="hidden" class="number-input-field" required
+                                            [(ngModel)]="marks.graduationMarks" [ngModelOptions]="{standalone: true}"
+                                            oninput="if(this.value<0){this.value = this.value * -1}"
+                                            (keyup)="checkedFormValidation(); countTotalQualificationMarks()">                                            
+                                           <mat-icon *ngIf="profileInfo?.GraduateDoc" (click)="seeDocInformation(profileInfo?.GraduateDoc)" 
+                                           [matTooltip]="'viewCertificate' | translate" class="cursor-pointer" 
+                                           style="color: #579b90; position: absolute; right:0">description</mat-icon>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="text-align-centre textLeft">
+                                    <td>{{'1' | translate}} {{'PostGraduation' | translate}}</td>
+                                    <td>                                        
+                                        <input readonly type="text" class="text-input-field" [(ngModel)]="marks.postGraduationType">
+                                    </td>
+                                    <td>
+                                        <div class="relative"> 
+                                            {{marks.postGraduationMarks | enToBn:langVal}}                                          
+                                        <input readonly type="hidden" class="number-input-field" required
+                                            [(ngModel)]="marks.postGraduationMarks" [ngModelOptions]="{standalone: true}"
+                                            oninput="if(this.value<0){this.value = this.value * -1}"
+                                            (keyup)="checkedFormValidation(); countTotalQualificationMarks()">
+                                           <mat-icon *ngIf="profileInfo?.PostGraduateDoc" (click)="seeDocInformation(profileInfo?.PostGraduateDoc)"  
+                                           [matTooltip]="'viewCertificate' | translate" class="cursor-pointer" 
+                                           style="color: #579b90; position: absolute; right:0">description</mat-icon>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="text-align-centre textLeft">
+                                    <td>
+                                        {{'2' | translate}}.
+                                        {{'UndergraduatePostgraduateSubjectMatterIsConsistentWithPolicy' | translate}}
+                                    </td>
+                                    <td>
+                                        <input class="text-input-field inputBorder" required
+                                            [(ngModel)]="marks.realGraduationRelatedToSociology"
+                                            [ngModelOptions]="{standalone: true}" (keyup)="checkedFormValidation()">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="number-input-field inputBorder" required
+                                            placeholder="Max 5"
+                                            [(ngModel)]="marks.graduationRelatedToSociologyMarks"
+                                            [ngModelOptions]="{standalone: true}"
+                                            oninput="if(this.value<0){this.value = this.value * -1}"
+                                            (keyup)="checkedFormValidation(); countTotalQualificationMarks()">
+                                    </td>
+                                </tr>
+                                <tr class="textRight totalSumValueRow">
+                                    <td colspan="2">{{'TotalQualification' | translate}}</td>
+                                    <td style="text-align: center;">{{totalQualification | enToBn:langVal}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="border:none;">&nbsp;</td>
+                                </tr>
+                                <tr class="text-align-centre">
+                                    <th style="width: 25%">{{'MeasuringField' | translate}}</th>
+                                    <th style="width: 10%">{{'RealInfo' | translate}}</th>
+                                    <th style="width: 10%">{{'Marks' | translate}}</th>
+                                </tr>
+                                <tr class="text-align-centre textLeft">
+                                    <td>{{'SubmissionOfThesisAtPostgraduateLevel' | translate}}</td>
+                                    <td class="py-2">
+                                        <input readonly class="text-input-field" required [(ngModel)]="marks.realThesis">
+                                    </td>
+                                    <td class="py-2">
+                                        {{marks?.thesisMarks | enToBn:langVal}}
+                                        <input readonly type="hidden" class="number-input-field" required
+                                            [(ngModel)]="marks.thesisMarks" [ngModelOptions]="{standalone: true}"
+                                            oninput="if(this.value<0){this.value = this.value * -1}"
+                                            (keyup)="checkedFormValidation(); countTotalExperienceMarks()">
+                                    </td>
+                                </tr>
+
+                                <tr class="text-align-centre textLeft">
+                                    <td>{{'3' | translate}} {{'NonThesisGroup' | translate}}</td>
+                                    <td>
+                                        <input readonly class="text-input-field" required
+                                            [(ngModel)]="marks.realNonThesisGroup" [ngModelOptions]="{standalone: true}"
+                                            (keyup)="checkedFormValidation()">
+                                    </td>
+                                    <td>
+                                        {{marks?.nonThesisGroupMarks | enToBn:langVal}}
+                                        <input readonly type="hidden" class="number-input-field" required
+                                            [(ngModel)]="marks.nonThesisGroupMarks" [ngModelOptions]="{standalone: true}"
+                                            oninput="if(this.value<0){this.value = this.value * -1}"
+                                            (keyup)="checkedFormValidation(); countTotalExperienceMarks()">
+                                    </td>
+                                </tr>
+                                <tr class="text-align-centre textLeft">
+                                    <td>{{'4' | translate}}.
+                                        {{'PublicationOfResearchPublicationsOrResearchArticles' | translate}}</td>
+                                    <td>
+                                        {{marks?.realPublication | enToBn:langVal}}
+                                        <input readonly type="hidden" class="text-input-field" required
+                                            [(ngModel)]="marks.realPublication" [ngModelOptions]="{standalone: true}"
+                                            (keyup)="checkedFormValidation()">
+                                    </td>
+                                    <td>
+                                        <div class="relative">
+                                            {{marks?.publicationMarks | enToBn:langVal}}
+                                            <input readonly type="hidden" class="number-input-field" required
+                                                [(ngModel)]="marks.publicationMarks" [ngModelOptions]="{standalone: true}"
+                                                oninput="if(this.value<0){this.value = this.value * -1}"
+                                                (keyup)="checkedFormValidation(); countTotalExperienceMarks()">
+                                            <mat-icon *ngIf="profileInfo?.publicationInfos?.length > 0" (click)="downloadPublicationDoc(profileInfo?.publicationInfos)" 
+                                                [matTooltip]="'viewCertificate' | translate" class="cursor-pointer" 
+                                                style="color: #579b90; position: absolute; right:0">description</mat-icon>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="textRight totalSumValueRow">
+                                    <td colspan="2">{{'TotalExperience' | translate}}</td>
+                                    <td style="text-align: center;">{{totalExperience | enToBn:langVal}}</td>
+                                </tr>
+                                <tr class="textRight grantTotalNumber">
+                                    <td colspan="2">{{'grantTotalNumber' | translate}}</td>
+                                    <td style=" text-align: center;">{{marks.totalMarks | enToBn:langVal}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- mat-paginator -->
+
+            <div *ngIf="userDetails.userType == 'Rms_DO'" class="flex justify-end mt-3 mr-2">
+                <button *ngIf="save_button"  mat-flat-button style="background-color: green; color: #FFFFFF" type="submit"
+                    (click)="onSubmit()" color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span>{{ "Save" | translate }}</span>
+                </button>
+            </div>
+
+        </mat-card>
+    </div>
+
+    <!-- Main End -->
+</div>

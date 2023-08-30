@@ -1,0 +1,191 @@
+<!--Loder-->
+<div *ngIf="spinner" class="flex items-center justify-center">
+    <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+         class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+    </div>
+</div>
+
+<!-- Main Start -->
+<div style="width: 100%;" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <mat-label class="heading w-full">
+        {{'EvaluatorGrantAmountLetter' | translate}}
+    </mat-label>
+</div>
+
+<mat-card>
+
+    <form>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        {{'FiscalYear' | translate}}
+                        <strong class="required">*</strong>
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="70%" fxFlex.sm="60%"
+                                    fxFlex.xs="100%">
+                        <mat-select [(ngModel)]="letter.stFiscalYearId" [ngModelOptions]="{standalone: true}">
+                            <mat-option *ngFor="let f of fiscalYearsList" [value]="f.id">{{f.fiscalYear}}</mat-option>
+                        </mat-select>
+                        <mat-error>{{'FiscalYearReq' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        {{'TemplateType' | translate}}
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="70%" fxFlex.sm="60%"
+                                    fxFlex.xs="100%">
+                        <mat-select (selectionChange)="onChangeTemplateType($event, 'top')">
+                            <mat-option *ngFor="let s of templateTypeList"
+                                        [value]="s.id">{{s.templateType}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+            <div fxFlex="70%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="28%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        {{'PredefinedTemplate' | translate}}
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="72%" fxFlex.md="70%" fxFlex.sm="60%"
+                                    fxFlex.xs="100%">
+                        <mat-select (selectionChange)="onChangePredefinedTemplateType($event, 'top')">
+                            <mat-option *ngFor="let s of topPredefinedTemplateTypeList"
+                                        [value]="s.id">{{s.subject}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{'TopContent' | translate}}
+                        <strong class="required">*</strong>
+                    </mat-label>
+                    <ckeditor [(ngModel)]="letter.topContent" [ngModelOptions]="{standalone: true}"
+                              required [config]="mediumEditorConfig" fxFlex="80%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    </ckeditor>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        {{'TemplateType' | translate}}
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="70%" fxFlex.sm="60%"
+                                    fxFlex.xs="100%">
+                        <mat-select (selectionChange)="onChangeTemplateType($event, 'bottom')">
+                            <mat-option *ngFor="let s of templateTypeList"
+                                        [value]="s.id">{{s.templateType}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+            <div fxFlex="70%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="28%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        {{'PredefinedTemplate' | translate}}
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="72%" fxFlex.md="70%" fxFlex.sm="60%"
+                                    fxFlex.xs="100%">
+                        <mat-select (selectionChange)="onChangePredefinedTemplateType($event, 'bottom')">
+                            <mat-option *ngFor="let s of bottomPredefinedTemplateTypeList"
+                                        [value]="s.id">{{s.subject}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"></div>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{'BottomContent' | translate}}
+                        <strong class="required">*</strong>
+                    </mat-label>
+                    <ckeditor [(ngModel)]="letter.bottomContent" [ngModelOptions]="{standalone: true}"
+                              required [config]="mediumEditorConfig" fxFlex="80%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    </ckeditor>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-3 mr-2">
+            <button
+                mat-flat-button
+                style="background-color: green; color: #FFFFFF"
+                type="submit"
+                (click)="onSubmit(false)"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span>{{ "Save" | translate }}</span>
+            </button>
+
+            <button
+                mat-flat-button
+                (click)="onSubmit(true)"
+                type="button"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span> {{ "SaveAndNext" | translate }}</span>
+            </button>
+
+            <button
+                mat-flat-button
+                (click)="nextTab()"
+                style="background-color: green; color: #FFFFFF"
+                type="button"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                {{ "Next" | translate }}
+                <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+            </button>
+            <!-- Save Button -->
+            <!--            <button (click)="onSubmit()" class="px-8" mat-flat-button color="primary" type="button" [disabled]="spinner">-->
+            <!--                {{'Save' | translate}}-->
+            <!--            </button>-->
+        </div>
+
+    </form>
+
+</mat-card>
+<!-- Main End -->

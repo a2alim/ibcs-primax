@@ -1,0 +1,144 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header [title]="'acknowledgementTitle' | translate" [subTitle]="'acknowledgemenSubTitle' | translate"></app-form-header>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1>{{'acknowledgementTitle' | translate}}</h1>
+                </div>
+            </div>
+
+            <!-- Card Body -->
+            <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()" #inputForm="ngForm" class="p-4 border3 form-bg-color">
+                <!-- -----------4rd Row----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'receiverName' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="receiverName" placeholder="Write Your Subject... "/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- -----------5th Row----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'receiverMobile' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="receiverMobile" placeholder="Write Your number... "/>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'receivedDate' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field appearance="fill" class="w-full">
+                            <input matInput [matDatepicker]="picker" formControlName="receivedDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- -----------6th Row----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'templateType' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select placeholder="Select One"
+                                        formControlName="templateType">
+                                <mat-option>BBBBB</mat-option>
+                            </mat-select>
+                            <mat-error>required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'predefinedTemplate' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select placeholder="Select One"
+                                        formControlName="predefineTemplate">
+                                <mat-option>BBBBB</mat-option>
+                            </mat-select>
+                            <mat-error>required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- -----------6th Row----------- -->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'letterContent' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <ckeditor #ckeditor formControlName="letterContent" [config]="mediumEditorConfig">data</ckeditor>
+                    </div>
+                </div>
+
+                <!-- -----------7th Row----------- -->
+                <div class="md:flex mt-6">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-6 md:pt-3">
+                        <span class="text-gray-700">
+                           {{'fileUpload' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <ngx-mat-file-input [accept]="'.*'">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                            <mat-error>File is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-3">
+                    <button
+                        class="px-3 mr-2  previous-button"
+                        (click)="back()"
+                        mat-flat-button
+                        style="background: #2F4F4F; color: white"
+                        type="button">
+                        <mat-icon  class="mr-1">{{previousIcon}}</mat-icon>
+                        {{'previous' | translate}}
+                    </button>
+
+                    <button class="px-3 mr-2" mat-raised-button color="accent" type="button" >
+                        <mat-icon class="mr-1" style="color: white">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+
+                    <button class="px-3 mr-2" mat-raised-button color="primary" type="submit">
+                        <mat-icon class="mr-1">save</mat-icon>
+                        {{'save' | translate}}
+                    </button>
+
+                    <button class="px-3 mr-2" mat-raised-button color="warn" type="submit">
+                        <mat-icon class="mr-1">update</mat-icon>
+                        <div>{{'update' | translate}}</div>
+                    </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>

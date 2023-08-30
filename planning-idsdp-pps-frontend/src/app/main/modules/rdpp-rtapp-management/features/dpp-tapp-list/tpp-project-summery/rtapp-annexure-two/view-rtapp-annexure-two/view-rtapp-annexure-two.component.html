@@ -1,0 +1,153 @@
+
+
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="'Annexure - II : View Implementation/Work Schedule' | translate" class="crop-text"
+                                 [subTitle]="'Home > View Implementation/Work Schedule' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <mat-icon>keyboard_backspace</mat-icon>&nbsp;
+                        {{'Project Dashboard' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">Annexure - II : View Implementation/Work Schedule
+                                </div>
+                                <div class="flex items-center">
+                                    <div
+                                        class="leading-5 truncate text-secondary"> <a routerLink="/rdpp-rtapp">Home </a> > Annexure - II :View Implementation/Work Schedule
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>undo</mat-icon>&nbsp;
+                               Back
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!--========================= transaction loader spinner ===================-->
+<!--    <div *ngIf="spinner">-->
+<!--        <app-common-loader-spinner></app-common-loader-spinner>-->
+<!--    </div>-->
+    <!--========================= /// transaction loader spinner ================-->
+
+    <mat-card style="height: 100% !important; background:  #F0FDF4;">
+        <mat-card class="tab-color">
+            <div>
+                <div class="max-w-8xl wrapper p-4 mt-6" style="overflow-x:auto;">
+                    <section fxLayout>
+                        <!-- ************* Table Start ******************-->
+                        <div style="width: 400px;">
+
+                            <table class="firstTbl w-full">
+                                <!-- ************* START HEAD ******************-->
+                                <thead>
+                                <tr style="height: 65px;" class="text-nowrap">
+                                    <th rowspan="2">SL</th>
+                                    <th rowspan="2">Task Breakdown</th>
+                                    <th rowspan="2">Start Qtr</th>
+                                    <th rowspan="2">End Qtr</th>
+                                </tr>
+                                </thead>
+                                <!-- ************* END HEAD ******************-->
+
+                                <!-- ************* START BODY ******************-->
+                                <tbody>
+                                <ng-container *ngFor="let workPlan of pmWorkPlanList; index as i">
+                                    <tr>
+                                        <td class="text-center">{{i+1}}</td>
+                                        <td>{{workPlan.taskDetails}}</td>
+                                        <td>{{workPlan.startDate | date:"dd/MM/yyyy"}}</td>
+                                        <td>{{workPlan.endDate | date:"dd/MM/yyyy"}}</td>
+                                    </tr>
+                                </ng-container>
+                                </tbody>
+                                <!-- ************* START BODY End******************-->
+                            </table>
+
+                        </div>
+                        <!-- ************* Table End ******************-->
+
+                        <!-- ************* Fiscal Year Tabs Start ******************-->
+                        <div style="width: 600px;">
+                            <table class="">
+                                <tr>
+                                    <td *ngFor="let fiscal of fiscalYearList; let i = index;">
+                                        <div>
+                                            <div>
+                                                <table class="RevenueTbl">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="4" style="height: 41px;">
+                                                            {{fiscal.fiscalYear}}
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="text-nowrap">
+                                                        <th>Q1</th>
+                                                        <th>Q2</th>
+                                                        <th>Q3</th>
+                                                        <th>Q4</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <!----------------- Dynamic Array List Start --------------------->
+                                                    <ng-container *ngFor="let workPlan of pmWorkPlanList; let j = index;">
+                                                        <tr>
+                                                            <td class="{{cleckTest(i,0,workPlan)}}">
+                                                            </td>
+                                                            <td class="{{cleckTest(i,1,workPlan)}}">
+                                                            </td>
+                                                            <td class="{{cleckTest(i,2,workPlan)}}">
+                                                            </td>
+                                                            <td class="{{cleckTest(i,3,workPlan)}}">
+                                                            </td>
+                                                        </tr>
+                                                    </ng-container>
+                                                    <!----------------- Dynamic Array List End --------------------->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- ************* Fiscal Year Tabs End ******************-->
+
+                    </section>
+                </div>
+            </div>
+        </mat-card>
+    </mat-card>
+
+</div>
+

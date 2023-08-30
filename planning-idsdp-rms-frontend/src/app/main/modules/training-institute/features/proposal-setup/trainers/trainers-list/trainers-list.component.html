@@ -1,0 +1,249 @@
+<div style="width: 100%">
+    <div *ngIf="spinner"
+         class="flex items-center justify-center no-print">
+        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
+             style="border-top-color:transparent; position: absolute;z-index: 9999;">
+        </div>
+    </div>
+    <div class="flex-auto m-7 body-color">
+        <form #myForm="ngForm">
+            <!-- CARD ONE-->
+            <div class="heading capitalize mt-2">
+                <h1>{{'Trainer' | translate}}</h1>
+            </div>
+            <mat-card class="tab-color">
+                <!-- Row 1-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'name' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80 flex justify-end">
+                        <mat-form-field class="w-full">
+                            <input #name="ngModel" [(ngModel)]="trainersModel.name"
+                                   [ngModelOptions]="{standalone: true}" matInput required>
+                            <mat-error *ngIf="!name.value || name.dirty && !(name.value | required)"
+                                       style="color: crimson !important;">
+                                {{'name' | translate}} {{ 'required' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Row 2-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'currentJobInstituteName' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #currentJobInstituteName="ngModel"
+                                   [(ngModel)]="trainersModel.institute"
+                                   [ngModelOptions]="{standalone: true}" matInput required>
+                            <mat-error
+                                *ngIf="!currentJobInstituteName.value || currentJobInstituteName.dirty && !(currentJobInstituteName.value | required)"
+                                style="color: crimson !important;">
+                                {{'currentJobInstituteName' | translate}} {{ 'required' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'currentPosition' | translate}}<!--<strong class="required">*</strong>-->
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #currentPosition="ngModel" [(ngModel)]="trainersModel.designation"
+                                   [ngModelOptions]="{standalone: true}" matInput required>
+                            <!--<mat-error
+                                *ngIf="!currentPosition.value || currentPosition.dirty && !(currentPosition.value | required)"
+                                style="color: crimson !important;">{{'currentPosition' | translate}} {{ 'required' |
+                                translate }}
+                            </mat-error>-->
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Row 3-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'phoneMobileNo' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30 num-arr-hide">
+                        <mat-form-field class="w-full">
+                            <input #phoneMobileNo="ngModel" name="mbl" [(ngModel)]="trainersModel.mobileNo"
+                                   [ngModelOptions]="{standalone: true}" matInput required>
+                            <mat-hint *ngIf="phoneMobileNo.dirty && !(phoneMobileNo.value | phoneMobileNo)"
+                                      style="color: crimson !important;">
+                                {{'valid' | translate}} {{'phoneMobileNo' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'gender' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select #gender="ngModel" [(ngModel)]="trainersModel.gender"
+                                        [ngModelOptions]="{standalone: true}" placeholder="Select One" required>
+                                <mat-option value="Male">Male</mat-option>
+                                <mat-option value="Female">Female</mat-option>
+                                <mat-option value="Other">Others</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="!gender.value || gender.dirty && !(gender.value | required)"
+                                       style="color: crimson !important;">{{'gender' | translate}} {{ 'required' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'email' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #email="ngModel" [(ngModel)]="trainersModel.email"
+                                   [ngModelOptions]="{standalone: true}" matInput required type="email">
+                            <mat-hint *ngIf="email.dirty && !(email.value | email)" style="color: crimson !important;">
+                                {{'valid' | translate}} {{'email' | translate}} {{ 'required' | translate }}
+                            </mat-hint>
+                            <mat-error>{{'email' | translate}} {{ 'required' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'lastDegree' | translate}}<!--<strong class="required">*</strong>-->
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #age="ngModel" [(ngModel)]="trainersModel.lastAcademicDeg"
+                                   [ngModelOptions]="{standalone: true}" matInput required>
+                            <!--<mat-error *ngIf="!age.value || age.dirty && !(age.value | required)"
+                                       style="color: crimson !important;">
+                                {{'lastDegree' | translate}} {{ 'required' | translate }}
+                            </mat-error>-->
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card>
+            <div class="flex justify-end mt-8">
+
+                <button class="px-3 mr-2" (click)="resetFrom()" color="accent" mat-flat-button type="reset">
+                    <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                    {{'reset' | translate}}
+                </button>
+                <button (click)="saveData()"
+                        [disabled]="
+                                        !(trainersModel.institute | required) ||
+                                        !(trainersModel.email | required) ||
+                                        !(trainersModel.name | required) ||
+                                        !(trainersModel.mobileNo | required) ||
+                                        !(trainersModel.mobileNo | phoneMobileNo) ||
+                                        !(trainersModel.gender | required)||
+                                        spinner"
+                        class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button
+                        style="background-color: green; color: #FFFFFF" type="submit">
+                    <ng-container *ngIf="!trainersModel.id">
+                        <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span>{{ "Save" | translate }}</span>
+                    </ng-container>
+                    <ng-container *ngIf="trainersModel.id">
+                        <mat-icon *ngIf="saveIcon" class="mr-1">{{editIcon}}</mat-icon>
+                        <span>{{ "Update" | translate }}</span>
+                    </ng-container>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="md:flex tbl-title">
+        <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-3">
+            <div class="md:flex tbl-title">
+                <div class="w-full sm:w-auto md:w-60 lg:w-60 md:text-left md:pt-6">
+                    <h1 class="header1">
+                        <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                        {{'TrainerList' | translate}}
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="w-full sm:w-auto md:w-40 lg:w-40 md:text-left md:pt-3">
+            <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                <input #input (keyup)="applyFilter($event)" [placeholder]="'search'|translate" matInput />
+                <button mat-button mat-icon-button matPrefix>
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+        <!--<mat-card>-->
+        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+            <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+                <!-- Position Column -->
+                <ng-container matColumnDef="sl">
+                    <th *matHeaderCellDef class="w-16" mat-header-cell> {{'Sl' | translate}} </th>
+                    <td *matCellDef="let row; let i = index;" class="text-center" mat-cell>
+                        {{(i + 1) + (page * size)}}
+                    </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="trainersName">
+                    <th *matHeaderCellDef mat-header-cell> {{'trainersName' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="institute">
+                    <th *matHeaderCellDef mat-header-cell class="capitalize"> {{'instituteName' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.institute}}
+                    </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="currentPosition">
+                    <th *matHeaderCellDef mat-header-cell> {{'currentPosition' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.designation}} </td>
+                </ng-container>
+                <ng-container matColumnDef="mobileNo">
+                    <th *matHeaderCellDef mat-header-cell> {{'mobileNo' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.mobileNo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="email">
+                    <th *matHeaderCellDef mat-header-cell> {{'email' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.email}} </td>
+                </ng-container>
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th *matHeaderCellDef class="pl-4 w-32" mat-header-cell> {{'Action' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell>
+                        <div class="buttons">
+                            <button (click)="editRow(element)" class="toggle-sidebar-folded" fxHide.lt-lg
+                                    mat-icon-button matTooltip="Edit">
+                                <mat-icon color="accent">edit
+                                </mat-icon>
+                            </button>
+                            <button (click)="openDialog(element.uuid)" class="toggle-sidebar-folded" fxHide.lt-lg
+                                    mat-icon-button matTooltip="Edit">
+                                <mat-icon color="warn">delete
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <!-- Initialized Table Header And Dataset-->
+                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+            </table>
+        </div>
+        <!-- mat-paginator -->
+        <mat-paginator (page)="onChangePage($event)" [length]="total" [pageSizeOptions]="[5, 10, 25, 100]"
+                       [pageSize]="size">
+        </mat-paginator>
+    </div>
+</div>

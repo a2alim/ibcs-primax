@@ -1,0 +1,249 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">Annexure-III Qualifications,
+                                    Experience and Responsibilities of Consultants
+                                </div>
+                                <div class="flex items-center">
+                                    <div
+                                        class="leading-5 truncate text-secondary"> <a routerLink="/rdpp-rtapp">Home </a> > Annexure-III Qualifications,
+                                        Experience and Responsibilities of Consultants
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                style="padding: 0px;"
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                {{"homePage" | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+
+    <!-- Main -->
+    <div>
+
+        <div class="max-w-8xl">
+            <mat-card class="tab-color">
+                <div style="overflow-x:auto;">
+                    <mat-card>
+                        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                            <form>
+
+                                <div class="p-5" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+
+                                    <div
+                                        fxLayout="row wrap"
+                                        fxLayoutAlign="space-between center">
+                                        <div>
+                                            <form class="form">
+                                                <div>
+                                                    <div
+                                                        cdkScrollable
+                                                        class="overflow-x-auto sm:overflow-y-auto"
+                                                    >
+                                                        <!--<p>{{'project_cost' | translate}}</p>
+                                                        &lt;!&ndash;Table Start&ndash;&gt;-->
+                                                        <table class="mat-elevation-z8">
+
+                                                            <!-- Table Body-->
+                                                            <tbody class="projectInfo">
+                                                            <tr>
+                                                                <th class="text-left">
+                                                                    Project Title (English)
+                                                                </th>
+                                                                <td>
+                                                                    :
+                                                                </td>
+                                                                <td>
+                                                                    {{projectName}}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>
+                                                                    Project Total Cost (Taka in Lac)
+                                                                </th>
+                                                                <td>
+                                                                    :
+                                                                </td>
+                                                                <td>
+                                                                    {{totalAmount}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>
+                                                                    Date of Commencement
+                                                                </th>
+                                                                <td>
+                                                                    :
+                                                                </td>
+                                                                <td>{{commencementDate | date: 'dd-MM-yyyy'}}</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>
+                                                                    Date of Completion
+                                                                </th>
+                                                                <td>
+                                                                    :
+                                                                </td>
+                                                                <td>
+                                                                    {{completionDate | date: 'dd-MM-yyyy'}}
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                            <!-- Table Body End-->
+                                                        </table>
+                                                        <!--Table End-->
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- 1) Personnels to be deputed to project from existing setup -->
+                                <div>
+                                    <form  [formGroup]="form" class="form mt-5">
+                                        <div style="padding: 10px;">
+                                            <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+
+                                                <!--Table Start-->
+                                                <table class="mat-elevation-z8">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="top-header">{{'sl' | translate}}</th>
+                                                        <th class="top-header">Consultants</th>
+                                                        <th class="top-header">Educational Qualification</th>
+                                                        <th class="top-header">Experience</th>
+                                                        <th class="top-header">Responsibilities</th>
+                                                        <th class="top-header">Action</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="sub-header"> {{'num1' | translate}}</th>
+                                                        <th class="sub-header"> {{'num2' | translate}}</th>
+                                                        <th class="sub-header"> {{'num3' | translate}}</th>
+                                                        <th class="sub-header"> {{'num4' | translate}}</th>
+                                                        <th class="sub-header"> {{'num5' | translate}}</th>
+                                                        <th class="sub-header"> {{'num6' | translate}}</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <!-- Table Body-->
+                                                    <tbody style="background-color: white">
+                                                        <ng-container formArrayName="consultantsList">
+                                                            <ng-container
+                                                                *ngFor="let lessonForm of consultantsList.controls; let i = index">
+                                                                <tr class="lesson-form-row" [formGroup]="lessonForm">
+                                                                    <!-- TODO: Those value dynamically come from server-->
+                                                                    <td>{{i + 1}}</td>
+
+                                                                    <td>
+                                                                        <mat-form-field class="w-full">
+                                                                            <input formControlName="consultants"
+                                                                                appearance="outline" autocomplete="off"
+                                                                                matInput required>
+                                                                            <input style="display: none" formControlName="projectConceptMasterId"
+                                                                                   value="{{pcMasterId}}"
+                                                                                   matInput required>
+                                                                            <input style="display: none" formControlName="projectConceptUuid"
+                                                                                   value="{{conceptUuid}}"
+                                                                                   matInput required>
+                                                                        </mat-form-field>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <mat-form-field appearance="outline"
+                                                                            class="example-full-width">
+                                                                            <textarea formControlName="educationalQualification"
+                                                                                matInput></textarea>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <mat-form-field appearance="outline"
+                                                                            class="example-full-width">
+                                                                            <textarea formControlName="experience"
+                                                                                matInput></textarea>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <mat-form-field appearance="outline"
+                                                                            class="example-full-width">
+                                                                            <textarea formControlName="responsibilities"
+                                                                                matInput></textarea>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button mat-icon-button class="toggle-sidebar-folded"
+                                                                                fxHide.lt-lg>
+                                                                            <mat-icon matTooltip="Delete" (click)="deleteRow(i)" color="warn">delete</mat-icon>
+                                                                        </button>
+                                                                    </td>
+
+                                                                </tr>
+                                                            </ng-container>
+                                                        </ng-container>
+
+                                                    </tbody>
+
+                                                    <!-- Table Body End-->
+                                                </table>
+                                                <!--Table End-->
+
+                                                <div class="btnLftRit">
+                                                    <div class="left">
+                                                        <button class="mt-4" (click)="addRow()" color="primary" mat-raised-button>Add
+                                                            New Row
+                                                        </button>
+                                                    </div>
+                                                    <div class="right">
+                                                        <button class="mt-4" [disabled]="spinner" (click)="onSubmit()" color="primary" mat-raised-button>Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-card>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+

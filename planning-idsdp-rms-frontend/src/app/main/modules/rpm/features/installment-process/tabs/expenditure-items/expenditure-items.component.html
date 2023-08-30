@@ -1,0 +1,121 @@
+<div class="width-100">
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
+    </div>
+    <div class="flex-auto m-7 body-color">
+        <form>
+            <!-- CARD ONE-->
+            <div>
+                <div class="heading mt-2">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2 md:pt-3">
+                            {{'tab_2_title' | translate}}
+                        </div>
+
+                    </div>
+                </div>
+                <mat-card class="tab-color">
+
+                    <div class="bold">
+                        <span>{{installmentName}}, {{installment}}%,Taka={{amount}}</span>
+                    </div>
+
+                    <div class="border3 form-bg-color">
+                        <div class="md:flex p-4">
+                            <div class="w-full sm:w-auto md:w-full lg:w-full">
+                                <table class="tbl-details">
+
+                                    <tr>
+                                        <th><span>{{ "sl_no" | translate }}</span></th>
+                                        <th><span>{{ "tab_2_title" | translate }}</span></th>
+                                        <!-- <th><span>{{ "purpose" | translate }}</span></th> -->
+                                        <th><span>{{ "t_amount" | translate }}</span></th>
+                                        <th><span>{{ "ex_amount" | translate }}</span></th>
+                                        <th><span>{{ "rec_amount" | translate }}</span></th>
+                                    </tr>
+
+
+                                    <tr *ngFor="let edu of BudgetDetailsModels;let i=index">
+                                        <td class="text-center">{{i + 1}}</td>
+                                        <td>{{edu.stExpenditureItem}}</td>
+                                        <!-- <td>{{edu.purpose}}</td> -->
+                                        <td>{{edu.totalAmount}}</td>
+                                        <td><mat-form-field class="w-full">
+                                            <input matInput [ngModelOptions]="{standalone: true}"  type="number"
+                                                   [(ngModel)]="edu.expenseAmount"  (ngModelChange)="modifyExpense($event,i)">
+                                        </mat-form-field></td>
+                                        <td><mat-form-field class="w-full">
+                                            <input matInput [ngModelOptions]="{standalone: true}" readonly
+                                                   [(ngModel)]="edu.receivableAmount">
+                                        </mat-form-field></td>
+                                    </tr>
+
+                                    <tr class="bold">
+                                        <td></td>
+                                        <!-- <td></td> -->
+                                        <td><span>{{ "total" | translate }}</span></td>
+                                        <td>{{total}}</td>
+                                        <td>{{expense}}</td>
+                                        <td>{{receivable}}</td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="flex justify-end mt-8">
+
+                        <button
+                            mat-flat-button
+                            [color]="'primary'"
+                            (click)="previousTab()"
+                            type="submit"
+                            class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                            <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                            {{ "previous" | translate }}
+                        </button>
+
+                        <button
+                            mat-flat-button
+                            style="background-color: green; color: #FFFFFF"
+                            type="submit"
+                            (click)="save()"
+                            color="primary"
+                            class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                            <span>{{ "save" | translate }}</span>
+                        </button>
+
+                        <button
+                            mat-flat-button
+                            (click)="saveAndNext()"
+                            type="button"
+                            color="primary"
+                            class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                            <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                            <span> {{ "save_and_next" | translate }}</span>
+                        </button>
+
+                        <button
+                            mat-flat-button
+                            (click)="nextTab()"
+                            style="background-color: green; color: #FFFFFF"
+                            type="button"
+                            color="primary"
+                            class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                            {{ "next" | translate }}
+                            <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+                        </button>
+                    </div>
+                </mat-card>
+            </div>
+            <!-- Bottom Button -->
+
+        </form>
+    </div>
+</div>
+

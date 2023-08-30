@@ -1,0 +1,240 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7 || spinner8 || spinner9 || spinner10" class="flex items-center justify-center">
+        <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
+
+
+    <div class="flex-auto m-7 body-color">
+        <form>
+            <!-- CARD ONE-->
+            <div>
+                <div class="heading mt-2">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80 ml-2 md:text-left pr-2 md:pt-3">
+                            {{'tab_title' | translate}}
+                        </div>
+                    </div>
+                </div>
+
+                <mat-card class="tab-color">
+                    <form #f="ngForm">
+                        <!-- Row 1-->
+                        <div class="md:flex">
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'fiscalYear' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <mat-select #fiscalYearIdModel="ngModel"
+                                        (selectionChange)="findResearcherNamesByFiscalYear($event)"
+                                        [(ngModel)]="fiscalYearId" [ngModelOptions]="{standalone: true}" required>
+                                        <mat-option *ngFor="let f of fiscalYearList" [value]="f.id">{{f.fiscalYear}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="(fiscalYearIdModel.touched || f.submitted) && fiscalYearIdModel.errors?.required"
+                                    class="text-red-600">Required!</div>
+                            </div>
+                            <!--
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                                {{'mail_type' | translate}}<strong class="required">*</strong>
+                            </span>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <mat-select #letterType="ngModel" [(ngModel)]="latter.letterType"
+                                    [ngModelOptions]="{standalone: true}">
+                                    <mat-option value="Agreement">Agreement Letter</mat-option>
+                                </mat-select>
+                                <mat-error>Fiscal year is required!</mat-error>
+                            </mat-form-field>
+                            <div *ngIf="letterType.dirty && !(letterType.value | required)" class="text-red-600">
+                                Required!
+                            </div>
+                        </div> -->
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'memorandumNo' | translate}}
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <input matInput [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="latter.memorandumNo">
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="md:flex">
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'eNothiDateEn' | translate}}
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <input matInput [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="latter.nothiDateEn">
+                                </mat-form-field>
+                            </div>
+
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'eNothiDateBn' | translate}}
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                                <mat-form-field class="w-full">
+                                    <input matInput [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="latter.nothiDateBn">
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'researcher_title' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <!--<mat-form-field class="w-full">
+                                    <mat-select #researcherProposalId="ngModel"
+                                        [(ngModel)]="latter.researcherProposalId" [ngModelOptions]="{standalone: true}"
+                                        (selectionChange)="setProposalCreatedByValue($event)" required>
+                                        <mat-option *ngFor="let f of researchTitleNames" [value]="f.id">
+                                            {{f.researchTitle}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>-->
+
+                                <mat-form-field class="w-full">
+                                    <input matInput placeholder="Search research titles" [(ngModel)]="searchTerm" #searchInput="ngModel">
+                                    <mat-select #selectElement #researcherProposalId="ngModel"
+                                                [(ngModel)]="latter.researcherProposalId" [ngModelOptions]="{standalone: true}"
+                                                (selectionChange)="setProposalCreatedByValue($event); selectElement.close(); searchInput.reset()" required>
+                                        <mat-option *ngFor="let f of filterOptions()" [value]="f.id">
+                                            {{f.researchTitle}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="(researcherProposalId.touched || f.submitted) && researcherProposalId.errors?.required"
+                                    class="text-red-600">
+                                    Required!
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Row 2-->
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'subject' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <mat-form-field class="w-full">
+                                    <input #subject="ngModel" matInput [(ngModel)]="latter.subject"
+                                           [ngModelOptions]="{standalone: true}" required>
+                                </mat-form-field>
+                                <div *ngIf="(subject.touched || f.submitted) && subject.errors?.required"
+                                    class="text-red-600">Required!
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="md:flex">
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'template_type' | translate}}
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <mat-form-field class="w-full">
+                                    <mat-select placeholder="Select One" (selectionChange)="changeTemplateType($event)">
+                                        <mat-option *ngFor="let f of templateType" [value]="f.id">{{f.templateType}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>Template Type is required!</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="md:flex">
+
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'pre_defined_template_list' | translate}}
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <mat-form-field class="w-full">
+                                    <mat-select (selectionChange)="selectionchangeForSemener($event,'p1')">
+                                        <mat-option *ngFor="let f of preDefineTemplateList" [value]="f">{{f.subject}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <!-- Row 3-->
+                        <div class="md:flex">
+                            <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                                <span class="text-gray-700">
+                                    {{'mail_body' | translate}}<strong class="required">*</strong>
+                                </span>
+                            </div>
+                            <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                                <ckeditor #mailBody="ngModel" [(ngModel)]="latter.mailBody"
+                                    [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig"></ckeditor>
+                                <div *ngIf="mailBody.dirty && !(mailBody.value | required)" class="text-red-600">
+                                    Required!
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="flex justify-end mt-8">
+                            <button mat-flat-button [color]="'primary'" type="submit" (click)="back()"
+                                class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                {{ "previous" | translate }}
+                            </button>
+
+                            <button mat-flat-button style="background-color: green; color: #FFFFFF" type="submit"
+                                (click)="save()" color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn" [disabled]="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6 || spinner7 || spinner8 || spinner9 || spinner10">
+                                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                                <span>{{ "save" | translate }}</span>
+                            </button>
+                        </div>
+                    </form>
+                </mat-card>
+            </div>
+            <!-- Bottom Button -->
+
+        </form>
+    </div>
+</div>

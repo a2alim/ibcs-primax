@@ -1,0 +1,83 @@
+<div style="width: 100%">
+    <app-form-header *ngIf="!isEditable" [subTitle]="'headerSubTitle3' | translate" [title]="'headerTitle3' | translate">
+    </app-form-header>
+
+    <ng-container *ngIf="courseScheduleId != 'null'">
+        <app-form-header *ngIf="isEditable" [subTitle]="'headerSubTitle2' | translate"
+            [title]="'headerTitle2' | translate"></app-form-header>
+    </ng-container>
+
+    <ng-container *ngIf="courseScheduleId === 'null'">
+        <app-form-header [subTitle]="'headerSubTitle' | translate" [title]="'headerTitle' | translate">
+        </app-form-header>
+    </ng-container>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <!-- Horizontal stepper -->
+            <form class="bg-card shadow rounded ounded-2xl overflow-hidden " [formGroup]="horizontalStepperForm">
+                <mat-horizontal-stepper orientation="vertical" [linear]="false" class="tab-bar tab-color"
+                    #horizontalStepper (selectionChange)="selectionChanged($event)">
+
+                    <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title" title="{{'tab_0_title_p' | translate}}">{{'tab_0_title_p'
+                                |translate}}</div>
+                        </ng-template>
+
+
+                        <app-add-new-proposal (backPrevious)="goBack(horizontalStepper)"
+                            (nextStep)="goForward(horizontalStepper)" [brodCastChange]="brodCastChange"
+                            [existingProposal]="proposalModel">
+                        </app-add-new-proposal>
+                    </mat-step>
+
+
+                    <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title" title="{{'tab_0_2_title_p' | translate}}">{{'tab_0_2_title_p'
+                                | translate}}</div>
+                        </ng-template>
+                        <app-add-new-trainer (backPrevious)="goBack(horizontalStepper)"
+                            (nextStep)="goForward(horizontalStepper)" [brodCastChange]="brodCastChange"
+                            [existingProposal]="proposalModel">
+                        </app-add-new-trainer>
+                    </mat-step>
+
+                    <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title" title="{{'tab_0_3_title_p' | translate}}">{{'tab_0_3_title_p'
+                                | translate}}</div>
+                        </ng-template>
+                        <app-budget (backPrevious)="goBack(horizontalStepper)" (nextStep)="goForward(horizontalStepper)"
+                            [brodCastChange]="brodCastChange" [existingProposal]="proposalModel">
+                        </app-budget>
+                    </mat-step>
+
+                    <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title" title="{{'tab_0_4_title_p' | translate}}">{{'tab_0_4_title_p'
+                                | translate}}</div>
+                        </ng-template>
+
+                        <!-- <app-add-new-course 
+                            (backPrevious)="goBack(horizontalStepper)"
+                            (nextStep)="goForward(horizontalStepper)">
+                        </app-add-new-course> -->
+
+                        <app-add-new-course-schedule (backPrevious)="goBack(horizontalStepper)"
+                            (nextStep)="goForward(horizontalStepper)" [brodCastChange]="brodCastChange"
+                            [existingProposal]="proposalModel">
+                        </app-add-new-course-schedule>
+
+
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </form>
+            
+        </div>
+
+    </div>
+    <!-- Main End -->
+</div>

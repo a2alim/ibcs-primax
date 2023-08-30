@@ -1,0 +1,337 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+    <!-- Main Start -->
+
+
+    <!-- Main Start -->
+    <div class="body m-5">
+
+        <!-- CARD ONE-->
+        <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <mat-label class="heading w-full">
+                {{'FeedbackList' | translate}}
+            </mat-label>
+        </div>
+        <mat-card class="tab-color">
+            <div class="flex md:justify-end md:mr-3 mt-1 mb-3">
+
+                <button class="px-3 mr-2 previousIcon" mat-flat-button color="accent" type="button"
+                    (click)="goPrevious()">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'previous' | translate}}
+                </button>
+
+                <button class="px-3 mr-2 printBtn" mat-flat-button color="accent" type="button">
+                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                    {{'print' | translate}}
+                </button>
+
+                <button class="px-3 mr-2 downloadBtn" mat-flat-button color="accent" type="button">
+                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                    {{'download' | translate}}
+                </button>
+
+                <button class="px-4 mr-2 downloadBtn" mat-flat-button color="accent" type="button" (click)="sendMail()">
+                    <mat-icon class="mr-1" *ngIf="sendIcon">{{sendIcon}}</mat-icon>
+                    {{'Send' | translate}}
+                </button>
+
+            </div>
+            <div class="w-full sm:w-auto md:w-full lg:w-full">
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="48%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                        style="border-right: 1px solid #d7cfcf;">
+                        <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                <strong>{{'ResearcherTitle' | translate}} :</strong>
+                            </mat-label>
+                            <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                {{proposal?.researchTitle}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div fxFlex="52%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" style="padding-left: 10px;">
+                        <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                <strong>{{'ResearcherName' | translate}} :</strong>
+                            </mat-label>
+                            <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                {{proposal?.researcherProfilePersonalInfoDto?.userDto?.name}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="48%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                        style="border-right: 1px solid #d7cfcf;">
+                        <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                <strong>{{'Category' | translate}} :</strong>
+                            </mat-label>
+                            <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                {{proposal?.researchCategoryType?.categoryName}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div fxFlex="52%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" style="padding-left: 10px;">
+                        <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                <strong>{{'Designation' | translate}} :</strong>
+                            </mat-label>
+                            <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                {{proposal?.researcherProfilePersonalInfoDto.userDto?.designation}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="48%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                        style="border-right: 1px solid #d7cfcf;">
+                        <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                <strong>{{'FiscalYear' | translate}} :</strong>
+                            </mat-label>
+                            <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                {{proposal?.fiscalYear?.fiscalYear}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div fxFlex="52%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" style="padding-left: 10px;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full sm:w-auto md:w-full lg:w-full  mt-1">
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="48%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                        style="border-right: 1px solid #d7cfcf;">
+                        <div class="ml-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                <strong>{{'From' | translate}} :</strong>
+                                <hr style="border: 1px solid rgb(7, 7, 7); margin-top: 0 ;width: 30%;">
+                            </mat-label>
+                        </div>
+                    </div>
+
+                    <div fxFlex="52%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="ml-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                <strong>{{'To' | translate}} :</strong>
+                                <hr style="border: 1px solid rgb(7, 7, 7); margin-top: 0 ;width: 30%;">
+                            </mat-label>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+
+                <ng-container *ngFor="let item of evaluatorUserList ; let i = index">
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <ng-container *ngIf="i==0">
+                            <div fxFlex="48%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                style="border-right: 1px solid #d7cfcf;">
+                                <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                        <strong>{{'Name' | translate}} :</strong>
+                                    </mat-label>
+                                    <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                        {{fromData?.name}}
+                                    </span>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="i!=0">
+                            <div fxFlex="48%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                style="border-right: 1px solid #d7cfcf;">
+                            </div>
+                        </ng-container>
+
+                        <div fxFlex="52%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                            style="padding-left: 10px;">
+                            <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                    <strong>{{'Name' | translate}} :</strong>
+                                </mat-label>
+                                <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    {{item?.user?.name}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <ng-container *ngIf="i==0">
+                            <div fxFlex="48%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                style="border-right: 1px solid #d7cfcf;">
+                                <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                        <strong>{{'Designation' | translate}} :</strong>
+                                    </mat-label>
+                                    <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                        {{fromData?.designation}}
+                                    </span>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="i!=0">
+                            <div fxFlex="48%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                style="border-right: 1px solid #d7cfcf;">
+                            </div>
+                        </ng-container>
+
+
+                        <div fxFlex="52%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                            style="padding-left: 10px;">
+                            <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                    <strong>{{'Designation' | translate}} :</strong>
+                                </mat-label>
+                                <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    {{item?.user?.designation}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <ng-container *ngIf="i==0">
+                            <div fxFlex="48%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                style="border-right: 1px solid #d7cfcf;">
+                                <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                        <strong>{{'Email' | translate}} :</strong>
+                                    </mat-label>
+                                    <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                        {{fromData.name}}
+                                    </span>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="i!=0">
+                            <div fxFlex="48%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                style="border-right: 1px solid #d7cfcf;">
+                            </div>
+                        </ng-container>
+
+
+                        <div fxFlex="52%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                            style="padding-left: 10px;">
+                            <div class="pb-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="30%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
+                                    <strong>{{'Email' | translate}} :</strong>
+                                </mat-label>
+                                <span fxFlex="70%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                                    {{item?.user?.emailId}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </ng-container>
+
+            </div>
+
+            <div class="mt-2">
+                <table class="width-100">
+
+                    <tr>
+                        <th class="col-1">
+                            {{'Sl' | translate}}
+                        </th>
+                        <th class="col-2">
+                            {{'EvaluatorName/Feedback' | translate}}
+                        </th>
+                        <th class="col-3">
+                            {{'ResearcherFeedback' | translate}}
+                        </th>
+                        <th class="col-4">
+                            {{'Completed' | translate}}
+                        </th>
+                    </tr>
+
+                    <tr *ngFor="let item of feedbackList; let i = index ">
+
+                        <td class="col-1 text-align-centre">{{i + 1}}</td>
+
+                        <td class="col-2">
+<!--                            {{onShowEvaluator(item.stProfileOfExpertEvaluatorsId)}}<br />-->
+                            {{item.expertEvaluatorResponseDto?.name}}<br />
+                            {{'PageNo' | translate}}: {{item.pageNo1 ? item.pageNo1 : 0}}<br />
+                            <span [innerHTML]="item.evaluatorFeedback"></span>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <p fxFlex="80%">{{'Date' | translate}}: {{item.createdOn}}</p>
+
+                                <ng-container *ngIf="!item.feedbackCompleted">
+                                    <button fxFlex="10%" class="editDeleteButton"
+                                        (click)="onEditEvaluatorFeedback(item)">
+                                        <mat-icon class="editMatIcon">edit</mat-icon>
+                                    </button>
+                                </ng-container>
+
+                                <ng-container *ngIf="!item.feedbackCompleted">
+                                    <button [disabled]="item.feedbackCompleted" fxFlex="10%" class="editDeleteButton"
+                                        (click)="delete(item)">
+                                        <mat-icon class="deleteMatIcon">delete</mat-icon>
+                                    </button>
+                                </ng-container>
+                            </div>
+                        </td>
+
+                        <td class="col-3">
+                            {{'PageNo' | translate}}: {{item.pageNo2 ? item.pageNo2 : 0}}<br />
+
+                            <span [innerHTML]="item.researcherFeedback"></span>
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <p fxFlex="80%">{{'Date' | translate}}: {{item.createdOn}}</p>
+
+                                <ng-container *ngIf="!item.feedbackCompleted">
+                                    <button fxFlex="10%" class="editDeleteButton"
+                                        (click)="onEditResearcherFeedback(item)">
+                                        <mat-icon class="editMatIcon">edit</mat-icon>
+                                    </button>
+                                </ng-container>
+
+                                <ng-container *ngIf="!item.feedbackCompleted">
+                                    <button fxFlex="10%" class="editDeleteButton" (click)="delete(item)">
+                                        <mat-icon class="deleteMatIcon">delete</mat-icon>
+                                    </button>
+                                </ng-container>
+
+                            </div>
+                        </td>
+
+                        <td class="col-4 text-align-centre">
+                            {{item.feedbackCompleted? 'Yes':'No'}}
+                        </td>
+
+                    </tr>
+
+                </table>
+            </div>
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>

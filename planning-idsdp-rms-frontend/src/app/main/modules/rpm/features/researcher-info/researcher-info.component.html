@@ -1,0 +1,216 @@
+<div class="width-100">
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner || spinner1 || spinner2 || spinner3 || spinner4 || spinner5 || spinner6"
+         class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <div id="print">
+        <div class="flex-auto m-7 body-color">
+            <mat-card id="profileOuterBody" class="tab-color mt-4">
+                <div class="border4">
+                    <div class="flex-row grid grid-cols-1 sm:grid-cols-2">
+                        <div class="w-full sm:w-auto md:w-100 lg:w-100 pl-4 pr-4 pb-4">
+                            <table class="info-table">
+                                <tr>
+                                    <th class="w-20">{{'researchTitle' | translate}}</th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65">{{researchInformation?.researchTitle}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="w-20">{{'fiscalYear' | translate}}</th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65">{{researchInformation?.fiscalYear?.fiscalYear}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="w-20">{{'grantAmount' | translate}}</th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65">
+                                        {{researchInformation?.agreementWithResearcherResponseDto?.totalGrantAmount | number : '1.2-2'}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="w-20">{{'category' | translate}}</th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65 font-semibold" style="color: #0d9488">
+                                        {{researchInformation?.researchCategoryType?.categoryName}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-100 lg:w-100 pl-4 pr-4 pb-4">
+                            <table class="info-table">
+                                <tr>
+                                    <th class="w-20">{{'name' | translate}}</th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65 font-semibold" style="color: #4b60bd">
+                                        {{researchInformation?.researcherProfilePersonalInfoDto?.userDto?.name}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="w-20">{{'designation' | translate}}</th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65">
+                                        {{researchInformation?.researcherProfilePersonalInfoDto?.userDto?.designation}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="w-20">{{'email' | translate}}</th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65">
+                                        {{researchInformation?.researcherProfilePersonalInfoDto?.userDto?.emailId}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="w-20">{{'mobileNo' | translate}}</th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65">
+                                        {{researchInformation?.researcherProfilePersonalInfoDto?.userDto?.mobileNumber}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+
+                    <div class="flex-auto mt-6 space-y-1">
+
+                        <div class="rounded-md flex justify-between items-center" style="background-color: #cce7fa">
+                            <p class="p-4 font-bold hover:text-blue-600 cursor-pointer"
+                               (click)="goToAgreementInformation()">>> {{'agreementInformation' | translate}}</p>
+                            <span class="pr-6 cursor-pointer" (click)="downloadAgreement()">
+                                <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+                            </span>
+                        </div>
+
+                        <div class="rounded-md flex justify-between items-center" style="background-color: #cce7fa">
+                            <p class="p-4 font-bold hover:text-blue-600 cursor-pointer"
+                               (click)="goToProfileInformation()">>> {{'profileInformation' | translate}}</p>
+                            <span class="pr-6 cursor-pointer" (click)="downloadProfile()">
+                                <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+                            </span>
+                        </div>
+
+                        <div class="rounded-md flex justify-between items-center" style="background-color: #cce7fa">
+                            <p class="p-4 font-bold hover:text-blue-600 cursor-pointer"
+                               (click)="goToProposalInformation()">>> {{'proposalInformation' | translate}}</p>
+                            <span class="pr-6 cursor-pointer" (click)="downloadProposal()">
+                                <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+                            </span>
+                        </div>
+
+                        <div class="rounded-md flex justify-between items-center" style="background-color: #cce7fa">
+                            <p class="p-4 font-bold hover:text-blue-600 cursor-pointer" (click)="goToProfileMarks()">>>
+                                {{'profileMarks' | translate}}</p>
+                            <span class="pr-6 cursor-pointer">
+                                <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+                            </span>
+                        </div>
+
+                        <div class="rounded-md flex justify-between items-center" style="background-color: #cce7fa">
+                            <p class="p-4 font-bold hover:text-blue-600 cursor-pointer" (click)="goToProposalMarks()">>>
+                                {{'proposalMarks' | translate}}</p>
+                            <span class="pr-6 cursor-pointer">
+                                <mat-icon *ngIf="pdfIcon" class="mr-1">{{pdfIcon}}</mat-icon>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="flex-auto mt-6">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" style="background-color: #9CACD5">
+                            <mat-label class="heading w-full">{{'presentation' | translate}}</mat-label>
+                        </div>
+                        <mat-card class="overflow-x-auto sm:overflow-y-auto">
+                            <table style="width: 100%;">
+                                <thead>
+                                <tr class="text-center">
+                                    <th class="p-4" style="background-color: #e3e3b1 !important;">{{'date' | translate}}</th>
+                                    <th class="p-4" style="background-color: #e3e3b1 !important;">{{'type' | translate}}</th>
+                                    <th class="p-4" style="background-color: #e3e3b1 !important;">{{'download' | translate}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <ng-container
+                                    *ngFor="let item of researchInformation?.researcherPresentationResponseDtoList;let i ='index'">
+                                    <tr class="text-center"
+                                        style="border: 2px #FFFFFF solid; background-color: #ffffe0">
+                                        <td class="p-4"><span (click)="goToFeedback()" style="cursor: pointer;">
+                                                    03/04/2019
+                                                </span>
+                                        </td>
+                                        <td class="p-4">
+                                                <span (click)="goToFeedback()" style="cursor: pointer;">
+                                                    {{item?.commonTypesResponseDto?.typeName}}
+                                                </span>
+                                        </td>
+                                        <td class="p-4">
+                                            <mat-icon class="mr-1 cursor-pointer" *ngIf="pdfIcon" (click)="downloadFeedback()">
+                                                {{pdfIcon}}
+                                            </mat-icon>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+
+                                </tbody>
+                            </table>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="flex-auto mt-6 body-color">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div class="heading w-full">
+                            {{'grantInformation' | translate}}
+                        </div>
+                    </div>
+                    <mat-card class="overflow-x-auto">
+                        <table class="tbl-details data-tb text-center overflow-x-auto sm:overflow-y-auto">
+                            <thead>
+                            <tr>
+                                <th class="p-4">{{'sl' | translate}}</th>
+                                <th class="p-4">{{'title' | translate}}</th>
+                                <th class="p-4">{{'receivedDate' | translate}}</th>
+                                <th class="p-4">{{'amount' | translate}}</th>
+                                <th class="p-4">{{'download' | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ng-container
+                                *ngFor="let item of researchInformation?.agreementInstallmentResponseDtoList; let i = 'index'">
+                                <tr style="background-color: #ecddf2 !important;">
+                                    <td class="p-4 text-center">{{i + 1}}</td>
+                                    <td class="p-4 text-center">
+                                        {{item?.installmentTypeResponseDto?.installmentType}}</td>
+                                    <td class="p-4 text-center">02/03/02021</td>
+                                    <td class="p-4 text-center">{{item?.tkAmount | number : '1.2-2'}}</td>
+                                    <td class="p-4 text-center">
+                                        <mat-icon class="mr-1 cursor-pointer" *ngIf="pdfIcon">{{pdfIcon}}</mat-icon>
+                                    </td>
+                                </tr>
+                            </ng-container>
+
+                            <tr style="background-color: #c9e5e2 !important;">
+                                <td colspan="3" class="text-right font-bold p-4">{{'subTotal' | translate}}:</td>
+                                <td colspan="1" class="text-center p-4">{{calculateSubTotal() | number : '1.2-2'}}</td>
+                                <td colspan="1" class="text-center p-4"></td>
+                            </tr>
+                            <tr style="background-color: #ebebeb !important;">
+                                <td colspan="3" class="text-right font-bold p-4">{{'totalGrantAmount' | translate}}:</td>
+                                <td colspan="1"
+                                    class="text-center p-4">{{this.researchInformation?.agreementWithResearcherResponseDto?.totalGrantAmount | number : '1.2-2'}}</td>
+                                <td colspan="1" class="text-center p-4"></td>
+                            </tr>
+                            <tr style="background-color: #83b66c !important;">
+                                <td colspan="3" class="text-right font-bold p-4">{{'receivableAmount' | translate}}:</td>
+                                <td colspan="1" class="text-center p-4">{{calculateReceivableAmount() | number : '1.2-2'}}</td>
+                                <td colspan="1" class="text-center p-4"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </mat-card>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

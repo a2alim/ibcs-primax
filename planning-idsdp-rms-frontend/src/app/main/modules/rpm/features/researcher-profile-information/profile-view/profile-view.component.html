@@ -1,0 +1,972 @@
+<div class="width-100">
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Header -->
+
+    <ng-container *ngIf="loginUserInfo1.userType !='Rms_DO'">
+        <app-form-header *ngIf="isInstitutional=='false'" [title]="'headerTitle4' | translate"
+            [subTitle]="'headerSubTitle4' | translate">
+        </app-form-header>
+
+        <div *ngIf="isInstitutional=='true'">
+            <app-form-header [title]="'headerTitle4' | translate" [subTitle]="'headerSubTitle4' | translate">
+            </app-form-header>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="loginUserInfo1.userType=='Rms_DO'">
+        <app-form-header *ngIf="isInstitutional=='false'" [title]="'headerTitle' | translate"
+            [subTitle]="'headerSubTitle' | translate">
+        </app-form-header>
+
+        <div *ngIf="isInstitutional=='true'">
+            <app-form-header [title]="'headerTitle3' | translate" [subTitle]="'headerSubTitle3' | translate">
+            </app-form-header>
+        </div>
+    </ng-container>
+
+    <div *ngIf="spinner2" class="flex items-center justify-center">
+        <div class="absolute z-40 top-40 animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+
+        <mat-card id="profileOuterBody" class="tab-color mt-4">
+
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <!-- <h1 class="md:mt-2"> {{'details' | translate}}</h1>  -->
+                            <!-- {{tabData.personalInfo.userId}} -->
+                            <!-- <h3 class="md:mt-2"><span> {{'title' | translate}}</span></h3> -->
+                        </div>
+                        <div class="w-full sm:w-auto md:w-50 lg:w-50">
+                            <div class="flex md:justify-end">
+                                <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent"
+                                    (click)="backResearcherprofilelist()" type="button">
+                                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                                    {{'previous' | translate}}
+                                </button>
+
+                                <ng-container *ngIf="this.userData.userType == 'Rms_Researcher'">
+                                    <button mat-raised-button color="accent" (click)="editProfile()"
+                                        class="px-3 mr-2 editBtn">
+                                        <mat-icon *ngIf="editIcon" class="mr-1">{{editIcon}}</mat-icon>
+                                        <span>
+                                            {{'updateProfile' | translate}}
+                                        </span>
+                                    </button>
+                                </ng-container>
+
+                                <button [disabled]="spinner2" color="accent" class="px-3 mr-2 downloadBtn"
+                                    mat-flat-button (click)="downloadPdf('Researcher-Profile-Information')"
+                                    type="button">
+                                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                                    {{'download' | translate}}
+                                </button>
+
+                                <button [useExistingCss]="true" printTitle="Profile Information" class="px-3 printBtn"
+                                    mat-flat-button color="accent" printSectionId="printDiv" ngxPrint type="button">
+                                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                                    {{'print' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card Body -->
+
+            <div id="printDiv">
+                <div class="border3">
+                    <div class="w-full sm:w-auto md:w-full lg:w-full">
+                        <div *ngIf="isInstitutional=='false'">
+                            <div fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <table class="tbl-details">
+
+                                    <tr>
+                                        <th class="w-30"><strong>{{'name' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td class="w-65">{{name}} </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="w-30"><strong>{{'fatherName' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td class="w-65">{{tabData?.personalInfo?.fatherName}} </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="w-30"><strong>{{'motherName' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td class="w-65">{{tabData?.personalInfo?.motherName}} </td>
+                                    </tr>
+
+                                    <!--                                        <tr>-->
+                                    <!--                                            <th class="w-30"><strong>{{'spouseName' | translate}}</strong></th>-->
+                                    <!--                                            <th class="w-5">:</th>-->
+                                    <!--                                            <td class="w-65">Not Available</td>-->
+                                    <!--                                        </tr>-->
+                                    <!-- <tr>
+                                        <th class="w-30"><strong>{{'spouseName' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td class="w-65">Not Available</td>
+                                    </tr>-->
+
+                                    <tr>
+                                        <th class="w-30"><strong>{{'pAddress' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td class="w-65">
+                                            <table>
+                                                <tbody>
+                                                    <tr *ngIf="tabData?.personalInfo?.preUnionId">
+                                                        <th class="w-20">{{'Union' | translate}}</th>
+                                                        <th class="w-5">:</th>
+                                                        <td class="w-75">{{tabData?.personalInfo?.preUnionId}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="tabData?.personalInfo?.preUpzilaId">
+                                                        <th class="w-20">{{'Upazila' | translate}}</th>
+                                                        <th class="w-5">:</th>
+                                                        <td class="w-75">
+                                                            {{tabData?.personalInfo?.preUpzilaDto.nameEn | titlecase}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="tabData?.personalInfo?.preDistrictId">
+                                                        <th class="w-20">{{'District' | translate}}</th>
+                                                        <th class="w-5">:</th>
+                                                        <td class="w-75">
+                                                            {{tabData?.personalInfo?.preDistrictDto.nameEn | titlecase}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="tabData?.personalInfo?.preDivisionId">
+                                                        <th class="w-20">{{'Division' | translate}}</th>
+                                                        <th class="w-5">:</th>
+                                                        <td class="w-75">
+                                                            {{tabData?.personalInfo?.preDivisionDto?.nameEn | titlecase}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="tabData?.personalInfo?.preAnotherDetails">
+                                                        <th class="w-20">{{'AnotherAddress' | translate}}</th>
+                                                        <th class="w-5">:</th>
+                                                        <td class="w-75">
+                                                            {{tabData?.personalInfo?.preAnotherDetails}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="w-30"><strong>{{'PermanentAddress' | translate}}</strong>
+                                        </th>
+                                        <th class="w-5">:</th>
+                                        <td class="w-65">
+                                            <table>
+                                                <tbody>
+                                                    <tr *ngIf="tabData?.personalInfo?.unionId">
+                                                        <th class="w-20">{{'Union' | translate}}</th>
+                                                        <th class="w-5">:</th>
+                                                        <td class="w-75">{{tabData?.personalInfo?.unionId}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="tabData?.personalInfo?.upzilaId">
+                                                        <th class="w-20">{{'Upazila' | translate}}</th>
+                                                        <th class="w-5">:</th>
+                                                        <td class="w-75">
+                                                            {{tabData?.personalInfo?.upzilaDto.nameEn | titlecase}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="tabData?.personalInfo?.districtId">
+                                                        <th class="w-20">{{'District' | translate}}</th>
+                                                        <th class="w-5">:</th>
+                                                        <td class="w-75">
+                                                            {{tabData?.personalInfo?.districtDto.nameEn | titlecase}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="tabData?.personalInfo?.divisionId">
+                                                        <th class="w-20">{{'Division' | translate}}</th>
+                                                        <th class="w-5">:</th>
+                                                        <td class="w-75">
+                                                            {{tabData?.personalInfo?.divisionDto?.nameEn | titlecase}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="tabData?.personalInfo?.anotherDetails">
+                                                        <th class="w-20">{{'AnotherAddress' | translate}}</th>
+                                                        <th class="w-5">:</th>
+                                                        <td class="w-75">
+                                                            {{tabData?.personalInfo?.anotherDetails}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="w-30"><strong>{{'DateOfBirth' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td class="w-65" colspan="2">{{tabData?.personalInfo?.dateOfBirth |
+                                            date:
+                                            'dd-MM-yyyy'}} </td>
+                                    </tr>
+
+                                    <!--                                    <tr>-->
+                                    <!--                                        <th class="w-30"><strong>{{'Citizenship' | translate}}</strong></th>-->
+                                    <!--                                        <th class="w-5">:</th>-->
+                                    <!--                                        <td class="w-65" colspan="2">Bangladeshi</td>-->
+                                    <!--                                    </tr>-->
+
+                                </table>
+                            </div>
+
+                            <div fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <img class="pb-5"
+                                    *ngIf="tabData?.minio+tabData?.personalInfo?.rmsUserImageId?.userImageUrl"
+                                    src="{{tabData?.minio+tabData?.personalInfo?.rmsUserImageId?.userImageUrl}}"
+                                    alt="Not Found "
+                                    style=" width: 200px; height: 200px; border: 4px solid #c5c1c1; padding: 0px !important; margin: 12px auto; " />
+                                <img 
+                                *ngIf="tabData?.minio+tabData?.personalInfo?.rmsUserSignatureId?.signatureImageUrl"
+                                src="{{tabData?.minio+tabData?.personalInfo?.rmsUserSignatureId?.signatureImageUrl}}"
+                                    alt="Not Found" style="height: 46px;margin: 0 auto;width: 200px;" />
+                            </div>
+                        </div>
+
+                        <ng-containet *ngIf="isInstitutional=='true'">
+                            <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <table class="tbl-details">
+
+                                    <tr>
+                                        <th class="w-30"><strong>{{'InstituteName' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td class="w-65">{{name}} </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><strong>{{'YearOfEstablishment' | translate}}</strong>
+                                        </th>
+                                        <th class="w-5">:</th>
+                                        <td>
+                                            {{tabData?.personalInfo?.instYearOfEstablishment}} XXX
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><strong>{{'AddressDetails' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td>{{tabData?.personalInfo?.instAddressDetails}} </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><strong>{{'TelephoneNo' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td>{{tabData?.personalInfo?.instTelephoneNo}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><strong>{{'EmailAddress' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td>{{tabData?.personalInfo?.emailAddress}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><strong>{{'RegistrationNo' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td>{{tabData?.personalInfo?.instRegistrationNo}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><strong>{{'TinNo' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td>{{tabData?.personalInfo?.tinnumber}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><strong>{{'MobileNo' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td>{{tabData?.personalInfo?.mobileNo}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><strong>{{'phD' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td>{{tabData?.personalInfo?.phd}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><strong>{{'Mphil' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td>{{tabData?.personalInfo?.mphil}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><strong>{{'Masters' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td>{{tabData?.personalInfo?.masters}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><strong>{{'ResearchExperience' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td>{{tabData?.personalInfo?.totalResearchExperience}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><strong>{{'TaxTokenImgOfCurrentYear' | translate}}</strong></th>
+                                        <th class="w-5">:</th>
+                                        <td class="w-65 relative">
+                                            <button *ngIf="tabData?.personalInfo?.researcherProfileUploadAcknowledgementIncomeTaxId?.downloadUrl" class="absolute top-0" 
+                                                    (click)="downloadDoc(tabData?.personalInfo?.researcherProfileUploadAcknowledgementIncomeTaxId?.downloadUrl)" 
+                                                    mat-icon-button [matTooltip]="'document' | translate"
+                                                            fxHide.lt-lg>
+                                                            <mat-icon color="primary">get_app</mat-icon>
+                                                        </button>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                            <!-- <div fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%"> -->
+                            <!-- <img class="pb-5"
+                                    src="{{tabData?.minio+tabData?.personalInfo?.rmsUserImageId?.userImageUrl}}"
+                                    alt="Not Found" />
+                                <img src="{{tabData?.minio+tabData?.personalInfo?.rmsUserSignatureId?.signatureImageUrl}}"
+                                    alt="Not Found" />
+                                Signature............ -->
+                            <!-- </div> -->
+                        </ng-containet>
+                    </div>
+                </div>
+                <!-- {{tabData.educationInfos | json}} -->
+                <ng-container *ngIf="isInstitutional=='false'">
+                    <!--- Education Information --->
+                    <div class="flex-auto mt-6 body-color" *ngIf="tabData?.educationInfos.length > 0">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="heading w-full">
+                                {{'EducationInformation' | translate}}
+                            </div>
+                        </div>
+                        <mat-card>
+                            <table class="tbl-details educationTbl data-tb">
+                                <thead>
+                                    <th class="text-center">{{'sl_no' | translate}}</th>
+                                    <th class="text-center">{{'Subject' | translate}}</th>
+                                    <th class="text-center">{{'Degree' | translate}}</th>
+                                    <th class="text-center">{{'PassingYear' | translate}}</th>
+                                    <th class="text-center">{{'Result' | translate}}</th>
+                                    <th class="text-center">{{'InstitutionName' | translate}}</th>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let edu of tabData.educationInfos;let i=index">
+                                        <td class="text-center">{{i+1 | enToBn:langVal}}</td>
+                                        <td>{{edu.subject}}</td>
+                                        <td>{{edu.certificationName}}</td>
+                                        <td>{{edu.passingYearMonth}}</td>
+                                        <td>
+                                            <ng-container *ngIf="edu?.divisionClassOrCgpa == 1; else CGPA">
+                                                {{edu.division}}
+                                            </ng-container>
+                                            <ng-template #CGPA>GPA {{edu.cgpa}} Out Of {{edu.scale}}</ng-template>
+                                        </td>
+                                        <td class="relative w-30">
+                                            {{edu.instituteName}}
+                                                <button class="absolute top-0 -right-2" (click)="downloadFile(edu.fileUploadModel)" mat-icon-button [matTooltip]="'certificate' | translate"
+                                                    fxHide.lt-lg>
+                                                    <mat-icon color="primary">get_app</mat-icon>
+                                                </button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </mat-card>
+                    </div>
+                    <!--- /Education Information --->
+
+                    <!--- Professional Experience --->
+                    <div class="flex-auto mt-6 body-color">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="heading w-full">
+                                {{'ProfessionalExperiences' | translate}}
+
+                            </div>
+                        </div>
+                        <mat-card>
+                            <div *ngIf="tabData?.professionalExperiences.length > 0; else emptyDiv">
+
+                                <table class="tbl-details data-tb">
+                                    <thead>
+                                        <th class="text-center" style="width: 10%">{{'sl_no' | translate}}</th>
+                                        <th class="text-center" style="width: 25%">{{'OrganizationName' | translate}}
+                                        </th>
+                                        <th class="text-center" style="width: 25%">{{'Designation' | translate}}</th>
+                                        <th class="text-center" style="width: 15%">{{'From' | translate}}</th>
+                                        <th class="text-center" style="width: 15%">{{'To' | translate}}</th>
+                                        <th class="text-center" style="width: 10%">{{'IsGovt' | translate}}</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let profession of tabData?.professionalExperiences; let i = index">
+                                            <td class="text-center" style="width: 10%">{{i+1 | enToBn:langVal}}</td>
+                                            <td class="text-center" style="width: 25%">{{profession.organizationName}}
+                                            </td>
+                                            <td class="text-center" style="width: 25%">{{profession.designation}}</td>
+                                            <td class="text-center" style="width: 15%">{{profession.fromDate | date:
+                                                'dd-MM-yyyy'}}</td>
+                                            <td class="text-center" style="width: 15%">{{profession.isContinue ?
+                                                'Continue'
+                                                :
+                                                profession.toDate | date: 'dd-MM-yyyy'}}</td>
+                                            <td class="text-center" style="width: 10%">
+                                                {{(profession.isGovEmployee === 1) ? 'Govt' : (profession.isGovEmployee
+                                                ===
+                                                2) ?
+                                                'Private' : 'Others'}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <ng-template #emptyDiv>
+                                <div class="relative py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-200  rounded-lg"
+                                    role="alert">
+                                    <div class="text-lg font-semibold text-red-600"> {{'Notapplicable' | translate}}
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </mat-card>
+                    </div>
+                </ng-container>
+
+                    <!--- Publication Information --->
+                    <div class="flex-auto mt-6 body-color">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="heading w-full">
+                                {{'PublicationInformation' | translate}}
+                            </div>
+                        </div>
+                        <mat-card>
+                            <div *ngIf="tabData?.publicationInfos.length > 0; else emptyDiv">
+                                <table class="tbl-details educationTbl data-tb">
+
+                                    <thead>
+                                        <th class="text-center">{{'sl_no' | translate}}</th>
+                                        <th class="text-center">{{'ArticleTitle' | translate}}</th>
+                                        <th class="text-center">{{'PublishedIn' | translate}}</th>
+                                        <th class="text-center">{{'Role' | translate}}</th>
+                                        <th class="text-center">{{'PublicationDate' | translate}}</th>
+                                        <th class="text-center">{{'ISSN' | translate}}</th>
+                                        <th class="text-center">{{'ISBN' | translate}}</th>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let publication of tabData.publicationInfos;let i=index">
+                                            <td class="text-center">{{i+1 | enToBn:langVal}}</td>
+                                            <td>{{publication.articleTitle}}</td>
+                                            <td>{{publication.publishedIn}}</td>
+                                            <td>{{publication.roleInTeam}}</td>
+                                            <td>{{publication.publicationDate | date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{publication.issn}}</td>
+                                            <td class="relative">
+                                                {{publication.isbn}}
+                                                {{publication.downloadUrl}}
+                                                <button class="absolute -top-1 -right-3" (click)="downloadDoc(publication?.fileUploadModel?.downloadUrl)" mat-icon-button [matTooltip]="'document' | translate"
+                                                fxHide.lt-lg>
+                                                <mat-icon color="primary">get_app</mat-icon>
+                                            </button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ng-template #emptyDiv>
+                                <div class="relative py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-200  rounded-lg"
+                                    role="alert">
+                                    <div class="text-lg font-semibold text-red-600"> {{'Notapplicable' | translate}}
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                        </mat-card>
+                    </div>
+                    <!--- /Publication Information --->
+                    
+                <ng-container *ngIf="isInstitutional=='false'">
+                    <!--- Research Information --->
+                    <div class="flex-auto mt-6 body-color">
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="heading w-full">
+                                {{'ResearchExperiences' | translate}}
+                            </div>
+                        </div>
+
+                        <mat-card>
+                            <div *ngIf="tabData?.researchExperiences.length> 0; else emptyDiv">
+
+                                <table class="tbl-details educationTbl data-tb">
+
+                                    <thead>
+                                        <th class="text-center" style="width: 5%">{{'sl_no' | translate}}</th>
+                                        <th class="text-center" style="width: 40%">{{'ResearchTitle' | translate}}</th>
+                                        <!-- <th class="text-center" style="width: 25%">{{'SupervisorEvaluation' |
+                                            translate}}
+                                        </th> -->
+                                        <!-- <th class="text-center" style="width: 10%">{{'Category' | translate}}</th> -->
+                                        <th class="text-center" style="width: 10%">{{'FiscalYear' | translate}}</th>
+                                        <th class="text-center" style="width: 10%">{{'ResearchStatus' | translate}}</th>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let item of tabData?.researchExperiences; let i = index">
+                                            <td class="text-center" style="width: 5%">{{i+1 | enToBn:langVal}}</td>
+                                            <td style="text-align: center;width: 40%">{{item?.researchTopic}}</td>
+                                            <!-- <td style="text-align: left;width: 25%">
+
+                                                <ng-container *ngIf="item?.profileOfExpertEvaluatorsName">
+                                                    <div>{{item?.profileOfExpertEvaluatorsName}}</div>
+                                                </ng-container>
+
+                                                <ng-container *ngIf="item?.supervisorDetail">
+                                                    <div>{{item?.supervisorDetail}}</div>
+                                                </ng-container>
+                                            </td> -->
+                                            <!-- <td style="width: 10%;text-align: center;">{{item?.researchType}}</td> -->
+                                            <td style="width: 10%;text-align: center">{{item?.researchYear}}</td>
+                                            <td class="relative text-align w-10">
+                                                {{item?.researchStatus}}
+                                                <button class="absolute top-0 -right-2" (click)="downloadFile(item.fileUploadModel)" mat-icon-button [matTooltip]="'document' | translate"
+                                                    fxHide.lt-lg>
+                                                    <mat-icon color="primary">get_app</mat-icon>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <ng-template #emptyDiv>
+                                <div class="relative py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-200  rounded-lg"
+                                    role="alert">
+                                    <div class="text-lg font-semibold text-red-600"> {{'Notapplicable' | translate}}
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </mat-card>
+                    </div>
+
+                    <!--- Training Information --->
+                    <div class="flex-auto mt-6 body-color">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="heading w-full">
+                                {{'TrainingInformation' | translate}}
+                            </div>
+                        </div>
+                        <mat-card>
+                            <div *ngIf="tabData?.trainings.length > 0; else emptyDiv">
+
+                                <table class="tbl-details educationTbl data-tb">
+                                    <thead>
+                                        <th class="text-center">{{'sl_no' | translate}}</th>
+                                        <th class="text-center">{{'NameOfTraining' | translate}}</th>
+                                        <th class="text-center">{{'InstitutionCenter' | translate}}</th>
+                                        <th class="text-center">{{'Duration' | translate}}</th>
+                                        <th class="text-center">{{'Year' | translate}}</th>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let training of tabData.trainings;let i=index">
+                                            <td class="text-center">                                                
+                                                {{i+1 | enToBn:langVal}}
+                                            </td>
+                                            <td>{{training.trainingName}}</td>
+                                            <td>{{training.instituteOrCenterName}}</td>
+                                            <td>{{training.duration}}</td>
+                                            <td>{{training.result}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <ng-template #emptyDiv>
+                                <div class="relative py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-200  rounded-lg"
+                                    role="alert">
+                                    <div class="text-lg font-semibold text-red-600"> {{'Notapplicable' | translate}}
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </mat-card>
+                    </div>
+                    <!--- /Training Information --->
+
+                    <!--- Emergency Contact --->
+                    <div class="flex-auto mt-6 body-color" *ngIf="tabData?.relativeInfos.length > 0">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="heading w-full">
+                                {{'EmergencyContact' | translate}}
+                            </div>
+                        </div>
+                        <mat-card>
+                            <table class="tbl-details data-tb">
+                                <thead>
+                                    <th class="text-center" style="width: 5%">{{'sl_no' | translate}}</th>
+                                    <th class="text-center" style="width: 15%">{{'Name' | translate}}</th>
+                                    <th class="text-center" style="width: 10%">{{'Email' | translate}}</th>
+                                    <th class="text-center" style="width: 10%">{{'MobileNo' | translate}}</th>
+                                    <th class="text-center" style="width: 10%">{{'NID' | translate}}</th>
+                                    <th class="text-center" style="width: 25%">{{'pAddress' | translate}}</th>
+                                    <th class="text-center" style="width: 25%">{{'PermanentAddress' | translate}}</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let emergency of tabData?.relativeInfos; let i = index">
+                                        <td class="text-center" style="width: 5%">                                            
+                                            {{i+1 | enToBn:langVal}}
+                                        </td>
+                                        <td class="text-center" style="width: 15%">{{emergency.name}}</td>
+                                        <td class="text-center" style="width: 10%">{{emergency.email}}</td>
+                                        <td class="text-center" style="width: 10%">{{emergency.phoneNo}}</td>
+                                        <td class="text-center" style="width: 10%">{{emergency.nid}}</td>
+                                        <td class="text-center" style="width: 25%">{{emergency.presentAddress}}</td>
+                                        <td class="text-center" style="width: 25%">{{emergency.permanentAddress}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </mat-card>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="isInstitutional=='true'">
+                    <!--- Education Information --->
+                    <div class="flex-auto mt-6 body-color"
+                        *ngIf="tabData?.researcherProfileRscWorkingInOrgList.length > 0">
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="heading w-full">
+                                {{'HeadOfTheInstitute' | translate}}
+                            </div>
+                        </div>
+                        <mat-card>
+                            <table class="tbl-details">
+                                <tr>
+                                    <th class="w-30"><strong>{{'name' | translate}}</strong></th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65">{{tabData?.personalInfo?.instHeadName}} </td>
+                                </tr>
+                                <tr>
+                                    <th class="w-30"><strong>{{'designation' | translate}}</strong></th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65">{{tabData?.personalInfo?.instHeadDesignation}} </td>
+                                </tr>
+                            </table>
+                        </mat-card>
+                    </div>
+                    <!--- /Education Information --->
+                </ng-container>
+
+
+                <ng-container *ngIf="isInstitutional=='true'">
+                    <!--- Education Information --->
+                    <div class="flex-auto mt-6 body-color"
+                        *ngIf="tabData?.researcherProfileRscWorkingInOrgList.length > 0">
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="heading w-full">
+                                {{'TheTotalManpower' | translate}}
+                            </div>
+                        </div>
+                        <mat-card>
+                            <table class="tbl-details">
+                                <tr>
+                                    <th class="w-20"><strong>{{'(A) 1st class' | translate}}</strong></th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65">{{tabData?.personalInfo?.fastClass}} </td>
+                                    <th class="w-20"><strong>{{'(B) 2nd class' | translate}}</strong></th>
+                                    <th class="w-5">:</th>
+                                    <td class="w-65">{{tabData?.personalInfo?.secondClass}} </td>
+                                </tr>
+                                <tr>
+
+                                </tr>
+                                <tr>
+                                    <th><strong>{{'(C) 3rd class' | translate}}</strong></th>
+                                    <th>:</th>
+                                    <td>{{tabData?.personalInfo?.thirdClass}} </td>
+                                    <th><strong>{{'(D) 4th class' | translate}}</strong></th>
+                                    <th>:</th>
+                                    <td>{{tabData?.personalInfo?.fourthClass}} </td>
+                                </tr>
+                            </table>
+                        </mat-card>
+                    </div>
+                    <!--- /Education Information --->
+                </ng-container>
+
+                <div class="flex-auto mt-6 body-color" *ngIf="tabData?.researcherProfileRscWorkingInOrgList.length > 0">
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div class="heading w-full">
+                            {{'bankDetails' | translate}}
+                        </div>
+                    </div>
+                    <mat-card>
+                        <table class="tbl-details">
+                            <tr>
+                                <th class="w-20"><strong>{{'Bank_Name' | translate}}</strong></th>
+                                <th class="w-5">:</th>
+                                <td class="w-65">{{tabData?.personalInfo?.bankName}} </td>
+                                <th class="w-20"><strong>{{'branchName' | translate}}</strong></th>
+                                <th class="w-5">:</th>
+                                <td class="w-65">{{tabData?.personalInfo?.bankBranchName}} </td>
+                            </tr>
+
+                            <tr>
+                                <th class="w-20"><strong>{{'accountName' | translate}}</strong></th>
+                                <th class="w-5">:</th>
+                                <td class="w-65">{{tabData?.personalInfo?.accountName}} </td>
+                                <th class="w-20"><strong>{{'accountNumber' | translate}}</strong></th>
+                                <th class="w-5">:</th>
+                                <td class="w-65">{{tabData?.personalInfo?.accountNumber}} </td>
+                            </tr>                            
+                            <tr>
+                                <th class="w-20"><strong>{{'nidNo' | translate}}</strong></th>
+                                <th class="w-5">:</th>                                
+                                <td class="w-65">{{tabData?.personalInfo?.nidNo}} </td>
+                                <th class="w-20"><strong>{{'mobile_no' | translate}}</strong></th>
+                                <th class="w-5">:</th>
+                                <td class="w-65">{{tabData?.personalInfo?.mobileNo}} </td>
+                                
+                            </tr>
+                            <tr>
+                            <tr>
+                                <th class="w-20"><strong>{{'InstituteActivities' | translate}}</strong></th>
+                                <th class="w-5">:</th>
+                                <td colspan="4" class="w-65">{{tabData?.personalInfo?.instituteActivities}} </td>
+                            </tr>
+                            <tr>
+                                <th><strong>{{'InfrastructuralFacilities' | translate}}</strong></th>
+                                <th>:</th>
+                                <td colspan="4" >{{tabData?.personalInfo?.infrastructuralFacilities}} </td>
+                            </tr>
+                            <tr>
+                                <th><strong>{{'ShortDescriptionOfNationalInternationalResearch' | translate}}</strong>
+                                </th>
+                                <th>:</th>
+                                <td colspan="4">{{tabData?.personalInfo?.nattionalIntResearchDescription}} </td>
+                            </tr>
+                            <tr>
+                                <th class="w-20"><strong>{{'CheckBookFirstPage' | translate}}</strong></th>
+                                <th class="w-5">:</th>
+                                <td class="w-65 relative">
+                                    <button *ngIf="tabData?.personalInfo?.fileDownloadUrl" class="absolute top-0" 
+                                            (click)="downloadDoc(tabData?.personalInfo?.fileDownloadUrl)" 
+                                            mat-icon-button [matTooltip]="'document' | translate"
+                                                    fxHide.lt-lg>
+                                                    <mat-icon color="primary">get_app</mat-icon>
+                                                </button>
+                                </td>  
+                            </tr>
+                        </table>
+                    </mat-card>
+                </div>
+
+                <ng-container *ngIf="isInstitutional=='true'">
+                    <!--- Education Information --->
+                    <div class="flex-auto mt-6 body-color" style="page-break-after: always"
+                        *ngIf="tabData?.researcherProfileRscWorkingInOrgList.length > 0">
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="heading w-full">
+                                {{'ResearcherWorkingInOrganization' | translate}}
+                            </div>
+                        </div>
+
+                        <mat-card>
+                            <table class="tbl-details2 educationTbl data-tb">
+                                <thead>
+                                    <th class="text-center">{{'sl_no' | translate}}</th>
+                                    <th class="text-center">{{'details' | translate}}</th>
+                                    <!-- -- <th class="text-center">{{'Designation' | translate}}</th> -->
+                                    <th class="text-center">{{'Age' | translate}}</th>
+                                    <th class="text-center">{{'Occupation' | translate}}</th>
+                                    <!-- --<th class="text-center">{{'MobileNo' | translate}}</th> -->
+                                    <!-- -- <th class="text-center">{{'EmailAddress' | translate}}</th> -->
+                                    <th class="text-center">{{'NidNo' | translate}}</th>
+                                    <!-- -- <th class="text-center">{{'TelephoneNo' | translate}}</th> -->
+                                    <th class="text-center">{{'EducationQualification' | translate}}</th>
+                                    <th class="text-center">{{'Personal_Digital_Information' | translate}}</th>
+                                    <th class="text-center">{{'download' | translate}}</th>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let edu of tabData.researcherProfileRscWorkingInOrgList;let i=index">
+                                        <td class="text-center">                                            
+                                            {{i+1 | enToBn:langVal}}
+                                        </td>
+                                        <td>
+                                            <span style="color: rgb(8, 10, 9);">{{'researcherName' | translate}} :
+                                                {{edu.researcherName}}</span><br>
+                                            <span style="color: rgb(6, 241, 104);">{{'Designation' | translate}}</span>
+                                            : <span>{{edu.designation}}</span><br>
+                                            <span style="color: rgb(117, 245, 12);">{{'MobileNo' | translate}}</span> :
+                                            <span>{{edu.mobileNo}}</span><br>
+                                            <span style="color: rgb(226, 223, 7);">{{'EmailAddress' | translate}}</span>
+                                            : <span>{{edu.emailAddress}}</span><br>
+                                            <span style="color: rgb(235, 84, 25);">{{'TelephoneNo' | translate}}</span>
+                                            : <span>{{edu.telephoneNo}}</span>
+                                        </td>
+                                        <!-- <td>{{edu.designation}}</td> -->
+                                        <td>{{edu.age}}</td>
+                                        <td>{{edu.occupation}}</td>
+                                        <!-- <td>{{edu.mobileNo}}</td> -->
+                                        <!-- <td>{{edu.emailAddress}}</td> -->
+                                        <td>{{edu.nidNo}}</td>
+                                        <!-- <td>{{edu.telephoneNo}}</td> -->
+                                        <td>{{edu.educationQualification}}</td>
+                                        <td>{{edu.personalDigitalInformation}}</td>
+                                        <td><button (click)="downloadDoc(edu.fileDownloadUrl)" mat-icon-button matTooltip="Download"
+                                                fxHide.lt-lg>
+                                                <mat-icon color="warn">get_app</mat-icon>
+                                            </button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </mat-card>
+                    </div>
+
+                    <!--- /Education Information --->
+                </ng-container>
+
+                <ng-container>
+                    <div class="flex-auto mt-6 body-color" style="page-break-after: always"
+                        *ngIf="researcherData?.researcherProposalList?.length > 0">
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="heading w-full">
+                                {{'researchInfo' | translate}}
+                            </div>
+                        </div>
+                        <mat-card>
+                            <table class="tbl-details data-tb">
+                                <tr>
+                                    <th>
+                                        {{'sl_no' | translate}}
+                                    </th>
+                                    <th>
+                                        {{'researchTitleNew' | translate}}
+                                    </th>
+                                    <th>
+                                        {{'supervisorEvaluator' | translate}}
+                                    </th>
+                                    <th>
+                                        {{'researchCategory' | translate}}
+                                    </th>
+                                    <th>
+                                        {{'researchStatus' | translate}}
+                                    </th>
+                                </tr>
+
+                                <tr *ngFor="let contact of researcherData?.researcherProposalList; let i = index">
+
+                                    <td class="text-center align-middle w-11">
+                                        {{i+1 | enToBn:langVal}}
+                                    </td>
+
+                                    <td>
+                                        <div class="font-bold">
+                                            <span class="font-semibold cursor-pointer text-cyan-400">
+                                                {{'researchTitleLn' | translate}} :
+                                                {{contact?.researchTitle}}
+                                            </span>
+
+                                            <!-- <span *ngIf="userDetails.isInstitutional"
+                                                class="font-semibold text-sm text-amber-600">
+                                                (Inst.Proposal)
+                                            </span> -->
+
+                                            <br>
+                                            <span class="text-amber-500 font-nomal">
+                                                {{'stFiscalYearIdLn' | translate}} :
+                                                <!-- {{showFiscalYear(contact?.fiscalYear?.id)}} -->
+                                            </span>
+                                        </div>
+                                    </td>
+
+                                    <td style=" vertical-align: top; ">
+                                        <div class="font-bold">{{contact?.researcherSupervisorInfoResponseDto?.supervisorName}}</div>
+                                    </td>
+
+                                    <td class="text-pink-600 font-semibold text-center">
+                                        {{contact?.researchCategoryType?.categoryName}}
+                                    </td>
+
+                                    <td class="font-semibold text-center">
+
+                                        <ng-container [ngSwitch]="contact.approvalStatus">
+                                            <ng-container *ngSwitchCase="1">
+                                                <span class="text-green-600"> {{'Approved' | translate}} </span>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="2">
+                                                <span class="text-yellow-600"> {{'Not Approved' | translate}} </span>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="3">
+                                                <span class="text-yellow-600"> {{'Pending' | translate}} </span>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="4">
+                                                <span class="text-yellow-600"> {{'Cancelled Proposal' | translate}}</span>
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="5">
+                                                <span class="text-yellow-600"> {{'Completed' | translate}}</span>
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="6">
+                                                <span class="text-yellow-600"> {{'Defaulter' | translate}}</span>
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="7">
+                                                <span class="text-yellow-600"> {{'Waiting for Final Report' | translate}}</span>
+                                            </ng-container>
+                                        </ng-container>
+
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </mat-card>
+                    </div>
+                </ng-container>
+
+
+
+                <ng-container *ngIf="isInstitutional=='false'">
+                    <table class="tbl-details mt-5">
+                        <tr>
+                            <th class="w-10"><strong> {{'Declaration' | translate}}</strong></th>
+                            <th class="w-5">:</th>
+                            <td class="w-65"><span *ngIf="tabData?.personalInfo?.declaration=='true'"> {{'message' |
+                                    translate}} </span> </td>
+                        </tr>
+                    </table>
+                </ng-container>
+            </div>
+
+            <div *ngIf="userData.userType==='Rms_DO'" class="flex justify-end mt-3">
+                <button class="px-5 previous-button" mat-flat-button color="accent"
+                    (click)="backResearcherprofilelist()" type="button">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'previous' | translate}}
+                </button>
+            </div>
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>

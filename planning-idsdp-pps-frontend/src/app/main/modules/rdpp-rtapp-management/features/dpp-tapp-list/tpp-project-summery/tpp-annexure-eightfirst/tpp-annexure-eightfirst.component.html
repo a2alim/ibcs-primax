@@ -1,0 +1,472 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="titleEn" class="crop-text"
+                                 [subTitle]="'Home > Annexure - I (a): Goods' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <mat-icon>keyboard_backspace</mat-icon>&nbsp;
+                        {{'homePage' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;"> Annexure - VIII (a): Goods
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">Home> Annexure - VIII (a): Goods
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                {{"homePage" | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+
+    <!-- Main -->
+    <div>
+        <div class="max-w-8xl">
+            <mat-card class="tab-color">
+                <div style="overflow-x:auto;">
+                    <mat-card>
+                        <div class="heading mb-2">Project Goods</div>
+                        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                            <form>
+
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <div>
+                                                <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                                    <!--<p>{{'project_cost' | translate}}</p>
+                                                &lt;!&ndash;Table Start&ndash;&gt;-->
+                                                    <table class="mat-elevation-z8">
+                                                            <!-- Table Body-->
+                                                        <tbody class="projectInfo">
+                                                            <tr>
+                                                                <th class="text-left">
+                                                                    Ministry/Division
+                                                                </th>
+                                                                <td>
+                                                                    :
+                                                                </td>
+                                                                <td>
+                                                                    {{objectiveAndCost?.ministryDivision}}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>
+                                                                    Agency
+                                                                </th>
+                                                                <td>
+                                                                    :
+                                                                </td>
+                                                                <td>
+                                                                    {{objectiveAndCost?.implementingAgency}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>
+                                                                    Procurement Entity Name & Code
+                                                                </th>
+                                                                <td>
+                                                                    :
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th>
+                                                                    Project Programme Name & Code
+                                                                </th>
+                                                                <td>
+                                                                    :
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <!-- Table Body End-->
+                                                    </table>
+                                                    <!--Table End-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                            <div>
+                                                <form class="form">
+                                                    <div>
+                                                        <div cdkScrollable
+                                                            class="overflow-x-auto sm:overflow-y-auto">
+                                                            <p class="proCostTitle">
+                                                                {{
+                                                                "project_cost" | translate
+                                                                }}
+                                                            </p>
+                                                            <!--Table Start-->
+                                                            <table id="projectCostsInfo" class="mat-elevation-z8">
+                                                                <thead>
+                                                                    <tr class="text-right">
+                                                                        <th class="sub-header" style="
+                                                                        width: 100px;">
+                                                                            Total
+                                                                        </th>
+                                                                        <th class="sub-header">
+                                                                            {{projectCost.totalAmount | number:'1.0-3'}}.00
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+
+                                                                <!-- Table Body-->
+                                                                <!-- Table Body-->
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <!-- TODO: Those value dynamically come from server-->
+                                                                        <td>
+                                                                            GoB<br>
+                                                                            (FE)
+                                                                        </td>
+                                                                        <td>
+                                                                            {{projectCost.gobAmount | number:'1.0-3'}}.00 <br>
+                                                                            ({{projectCost.gobFeAmount | number:'1.0-3'}}.00)
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <!-- TODO: Those value dynamically come from server-->
+                                                                        <td>
+                                                                            PA <br>
+                                                                            (RPA)
+                                                                        </td>
+                                                                        <td>
+                                                                            {{projectCost.paAmount | number:'1.0-3'}}.00 <br>
+                                                                            ({{projectCost.paRpaAmount | number:'1.0-3'}}.00)
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <!-- TODO: Those value dynamically come from server-->
+                                                                        <td>
+                                                                            Own Fund<br>
+                                                                            (FE)
+                                                                        </td>
+                                                                        <td>
+                                                                            {{projectCost.ownFeAmount | number:'1.0-3'}}.00 <br>
+                                                                            ({{projectCost.ownFundAmount | number:'1.0-3'}}.00)
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <!-- TODO: Those value dynamically come from server-->
+                                                                        <td>
+                                                                            Others<br>
+                                                                            (FE)
+                                                                        </td>
+                                                                        <td>
+                                                                            {{projectCost.othersAmount | number:'1.0-3'}}.00 <br>
+                                                                            ({{projectCost.otherFeAmount | number:'1.0-3'}}.00)
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <!-- Table Body End-->
+                                                            </table>
+                                                            <!--Table End-->
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 1) Personnels to be deputed to project from existing setup -->
+                                <div>
+                                    <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()" class="form mt-5">
+                                        <div>
+                                            <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                                                <!--Table Start-->
+                                                <table class="mat-elevation-z8 formTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 50px" class="top-header" rowspan="2">{{'sl' | translate}}</th>
+                                                            <th class="top-header" rowspan="2">
+                                                                {{'package_no' | translate}}</th>
+                                                            <th style="width: 250px" class="top-header" rowspan="2">
+                                                                {{'tapp_goods' | translate}}</th>
+                                                            <th class="top-header col-size" rowspan="2">{{'unit' | translate}}
+                                                            </th>
+                                                            <th class="top-header" rowspan="2">
+                                                                {{'quantity' | translate}}</th>
+                                                            <th class="top-header col-size" rowspan="2">
+                                                                {{'procurement_method' | translate}}</th>
+                                                            <th class="top-header col-size" rowspan="2">
+                                                                {{'procurement_type' | translate}}</th>
+                                                            <th class="top-header" rowspan="2">
+                                                                {{'contract_approving_authority' | translate}}</th>
+                                                            <th class="top-header" rowspan="2">
+                                                                {{'source_of_fund' | translate}}</th>
+                                                            <th class="top-header" rowspan="2">
+                                                                {{'estd_cost' | translate}}</th>
+                                                            <th class="top-header" colspan="3">Indicatives Dates</th>
+                                                            <th class="top-header" rowspan="2">{{'action' | translate}}
+                                                            </th>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th class="sub-header date-col-size">
+                                                                {{'invitation_for_tender' | translate}}</th>
+                                                            <th class="sub-header date-col-size">{{'signing_of_contract' | translate}}
+                                                            </th>
+                                                            <th class="sub-header date-col-size">
+                                                                {{'completion_of_contract_service' | translate}}</th>
+
+                                                        </tr>
+
+                                                        <tr class="boldBorder">
+                                                            <th class="sub-header"> {{'num1' | translate}}</th>
+                                                            <th class="sub-header"> {{'num2' | translate}}</th>
+                                                            <th class="sub-header"> {{'num3' | translate}}</th>
+                                                            <th class="sub-header"> {{'num4' | translate}}</th>
+                                                            <th class="sub-header"> {{'num5' | translate}}</th>
+                                                            <th class="sub-header"> {{'num6' | translate}}</th>
+                                                            <th class="sub-header"> {{'num7' | translate}}</th>
+                                                            <th class="sub-header"> {{'num8' | translate}}</th>
+                                                            <th class="sub-header"> {{'num9' | translate}}</th>
+                                                            <th class="sub-header"> {{'num10' | translate}}</th>
+                                                            <th class="sub-header"> {{'num11' | translate}}</th>
+                                                            <th class="sub-header"> {{'num12' | translate}}</th>
+                                                            <th class="sub-header"> {{'num13' | translate}}</th>
+                                                            <th class="sub-header"> {{'num14' | translate}}</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <!-- Table Body-->
+                                                    <tbody>
+                                                        <ng-container formArrayName="list">
+                                                            <ng-container
+                                                                *ngFor="let formRows of list.controls; let i = index" [formGroupName]="i">
+                                                                <tr>
+                                                                    <td>{{i + 1}}</td>
+                                                                    <td>
+                                                                        <!-- Package name input field-->
+                                                                        <mat-form-field class="w-full">
+                                                                            <input formControlName="packageName" appearance="outline" autocomplete="off" matInput required>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <mat-form-field>
+                                                                            <!-- Tapp goods input field-->
+                                                                            <textarea formControlName="tappGoods" matInput></textarea>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <!-- Unit type input field-->
+                                                                        <mat-form-field class="w-full">
+                                                                            <mat-select formControlName="unitId">
+                                                                                <mat-option [value]=""> --- Select ---
+                                                                                </mat-option>
+                                                                                <mat-option
+                                                                                    *ngFor="let data of unitTypeList"
+                                                                                    [value]=data.id>
+                                                                                    {{data.unitTypeNameEng}}
+                                                                                </mat-option>
+                                                                            </mat-select>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <mat-form-field class="w-full">
+                                                                            <!-- Quantity input field-->
+                                                                            <input NumbersOnly formControlName="quantity" type="number" (input)="calculateCostAndQty()" appearance="outline"
+                                                                                autocomplete="off" matInput required>
+                                                                        </mat-form-field>
+
+                                                                    </td>
+                                                                    <td>
+                                                                        <!-- Procurement methodId input field-->
+                                                                        <mat-form-field>
+                                                                            <mat-select formControlName="procurementMethodId">
+                                                                                <mat-option [value]=""> --- Select ---</mat-option>
+                                                                                <mat-option
+                                                                                    *ngFor="let data of procMethodsList"
+                                                                                    [value]=data.id>
+                                                                                    {{data.nameEn}}
+                                                                                </mat-option>
+                                                                            </mat-select>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <!-- Procurement type input field-->
+                                                                        <mat-form-field>
+                                                                            <mat-select formControlName="procurementTypeId">
+                                                                                <mat-option [value]=""> --- Select ---</mat-option>
+                                                                                <mat-option
+                                                                                    *ngFor="let data of procTypeList"
+                                                                                    [value]=data.id>
+                                                                                    {{data.nameEn}}
+                                                                                </mat-option>
+                                                                            </mat-select>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <!-- Contract approve authority input field-->
+                                                                        <mat-form-field class="w-full">
+                                                                            <input formControlName="contractApproveAuthoriity" appearance="outline"
+                                                                                autocomplete="off" matInput required>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <!-- Source of fund input field-->
+                                                                        <mat-form-field class="w-full">
+                                                                            <input formControlName="sourceOfFund" appearance="outline"
+                                                                                autocomplete="off" matInput required>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <!-- estdCostAmount input field-->
+                                                                        <mat-form-field class="w-full">
+                                                                            <input TwoDigitDecimalNumber formControlName="estdCostAmount" (input)="calculateCostAndQty()" appearance="outline"
+                                                                                autocomplete="off" matInput required>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <!-- 'Invitation for tender date' input field-->
+                                                                        <mat-form-field class="w-full"
+                                                                            style="width:145px !important">
+                                                                            <input (click)="picker1.open()"
+                                                                                [matDatepicker]="picker1"
+                                                                                formControlName="invitationForTender" matInput
+                                                                                readonly required>
+                                                                            <mat-datepicker-toggle [for]="picker1" matSuffix>
+                                                                            </mat-datepicker-toggle>
+                                                                            <mat-datepicker #picker1></mat-datepicker>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <!-- 'Signing of contract date' input field-->
+                                                                        <mat-form-field class="w-full"
+                                                                            style="width:145px !important">
+                                                                            <input (click)="picker2.open()"
+                                                                                [matDatepicker]="picker2"
+                                                                                formControlName="signingOfContract" matInput
+                                                                                readonly required>
+                                                                            <mat-datepicker-toggle [for]="picker2" matSuffix>
+                                                                            </mat-datepicker-toggle>
+                                                                            <mat-datepicker #picker2></mat-datepicker>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <!-- 'Completion of contract date' input field-->
+                                                                        <mat-form-field class="w-full"
+                                                                            style="width:145px !important">
+                                                                            <input (click)="picker3.open()"
+                                                                                [matDatepicker]="picker3"
+                                                                                formControlName="completionOfContract" matInput
+                                                                                readonly required>
+                                                                            <mat-datepicker-toggle [for]="picker3" matSuffix>
+                                                                            </mat-datepicker-toggle>
+                                                                            <mat-datepicker #picker3></mat-datepicker>
+                                                                        </mat-form-field>
+                                                                    </td>
+                                                                    <td>
+                                                                        <!-- Delete action button-->
+                                                                        <button type="button" mat-icon-button class="toggle-sidebar-folded"
+                                                                                fxHide.lt-lg>
+                                                                            <mat-icon (click)="confirmationDelete(i)" color="warn">delete</mat-icon>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-container>
+                                                        </ng-container>
+
+                                                    </tbody>
+
+                                                    <!-- Table Body End-->
+                                                </table>
+                                                <!--Table End-->
+                                            </div>
+                                        </div>
+
+
+                                        <div class="md:flex">
+                                            <div class="w-full sm:w-auto md:w-1/2 lg:w-1/2">
+                                                <!-- Total input field-->
+                                                <div class="mt-5">
+                                                    <mat-label style=" text-align: center; font-weight: bold;">
+                                                        Grand Total
+                                                    </mat-label>
+                                                    <div style="width: 230px">
+                                                        <!-- <span>BDT</span> -->
+                                                        <mat-form-field class="text-right w-full readOnly">
+                                                            <input formControlName="totalAmountView" readonly autocomplete="off" matInput/>
+                                                            <input formControlName="totalAmount" type="hidden" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex sm:justify-start md:justify-end w-full sm:w-auto md:w-1/2 lg:w-1/2">
+                                                <!-- Add new row and save button -->
+                                                <div class="mt-5">
+                                                    <button class="mb-1 mt-1" type="button" (click)="addRow()"
+                                                        color="primary" mat-raised-button>
+                                                        Add New Row
+                                                    </button>
+
+                                                    <button [disabled]="spinner" class="ml-3 mb-1 mt-1" type="submit" color="primary"
+                                                        mat-raised-button>
+                                                        Save
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+
+                            </form>
+                        </div>
+                    </mat-card>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

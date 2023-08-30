@@ -1,0 +1,113 @@
+<div>
+    <div class="heading">
+        <strong>{{'researcher_proposal_information' | translate}}</strong>
+    </div>
+
+
+
+        <div class="body m-5">
+            <form name="frmGroup">
+                <!-- Form Body -->
+                <div class="flex justify-end mb-3">
+                    <button mat-raised-button color="primary" (click)="addResearcherProposal()">Add new</button>
+                </div>
+
+                <!-- CARD ONE-->
+                <mat-card class="tab-color">
+                    <div class="flex justify-end mb-3">
+                        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                            <input
+                                matInput
+                                (keyup)="applyFilter($event)"
+                                [placeholder]="'search'|translate"
+                                #input/>
+                            <button mat-button matPrefix mat-icon-button>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                        <!--<mat-card>-->
+                        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="position">
+                                    <th mat-header-cell *matHeaderCellDef> {{'Sl' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                                        {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                                    </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="researchTitle">
+                                    <th mat-header-cell *matHeaderCellDef> {{'research_title' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.researchTitle}} </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="category">
+                                    <th mat-header-cell *matHeaderCellDef> {{'category' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.researchCategoryType.categoryName}} </td>
+                                </ng-container>
+
+                                <!-- Action Column -->
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef> {{'Action' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element" class="text-center">
+                                        <div class="buttons">
+                                            <button (click)="showResearcherProposal(element.uuid)" mat-icon-button class="toggle-sidebar-folded"
+                                                    matTooltip="visibility" fxHide.lt-lg>
+                                                <mat-icon color="accent">visibility
+                                                </mat-icon>
+                                            </button>
+
+                                            <button (click)="editResearcherProposal(element.uuid)" mat-icon-button class="toggle-sidebar-folded"
+                                                    matTooltip="Edit" fxHide.lt-lg>
+                                                <mat-icon color="accent">edit
+                                                </mat-icon>
+                                            </button>
+
+                                            <button (click)="openDialog(element.uuid)" mat-icon-button
+                                                    class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>
+                                                <mat-icon color="warn">delete
+                                                </mat-icon>
+                                            </button>
+
+                                            <button (click)="letterSubmission(element.uuid)" mat-icon-button
+                                                    class="toggle-sidebar-folded" matTooltip="Letter Submission" fxHide.lt-lg>
+                                                <mat-icon color="primary">send
+                                                </mat-icon>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Initialized Table Header And Dataset-->
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+                        <!-- mat-paginator -->
+                        <mat-paginator
+                            #paginatorRef
+                            [length]="totalElements"
+                            [pageSize]="pageSize"
+                            [pageSizeOptions]="[5, 10, 25, 100]"
+                            (page)="onChangePage($event)">
+                        </mat-paginator>
+                    </div>
+                </mat-card>
+
+            </form>
+        </div>
+
+
+<!--
+    <mat-dialog-actions align="end">
+        <button mat-button class="cancel-button" mat-dialog-close>{{'Cancel' | translate}}</button>
+        <button mat-button class="save-button" cdkFocusInitial>{{'Save' | translate}}</button>
+    </mat-dialog-actions>
+-->
+</div>

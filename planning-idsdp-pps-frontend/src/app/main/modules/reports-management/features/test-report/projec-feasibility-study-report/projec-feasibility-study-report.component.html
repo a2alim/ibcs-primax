@@ -1,0 +1,624 @@
+<div fxLayout="row" class="flex items-center justify-end mb-5 mr-15 ml-15 mt-4">
+    <button (click)="exportAsPdf()" mat-raised-button color="primary">Download Pdf
+    </button>
+    <button (click)="exportAsXLSX()" class="ml-3" mat-raised-button color="primary">Download Excel
+    </button>
+</div>
+<div id="pdfTable" #pdfTable>
+    <diV class="flex items-center justify-end mb-5 mr-15 ml-15 mt-4" style="background-color: white !important;">
+
+        <div style="margin-left:4% ;margin-right: 4%;margin-top: 20px;width: 90%;margin-bottom: 2%;">
+
+            <!-- cover page start -->
+
+
+            <div style=" width: 18%;
+font-size: 16pt;
+height: 100%;
+margin-left: 40%;
+padding-bottom:7%;
+margin-top: 10%;">
+                <img src="assets/images/logo/bd.png" alt="prb logo">
+            </div>
+            <div style=" width: 100%;
+font-size: 20pt;
+height: 100%;
+font-weight: bold;
+margin-left: 36%;">
+                Ministry of -------</div>
+            <div style="font-weight: bold;width: 100%;text-align: center;font-size: 19pt;">
+                Government of the People's Republic of Bangladesh</div>
+
+
+            <div style="font-weight: bold;width: 100%;text-align: center;font-size: 19pt;margin-top: 14%;">
+                Feasibilify study for -- (Name of the project/projects)</div>
+
+
+            <div style="font-weight: bold;width: 100%;text-align: center;font-size: 19pt;margin-top: 14%;">
+                <div
+                    style="font-weight: bold;width: 100%;text-align: center;font-size: 19pt;margin-top: 60%;margin-bottom: 25%;">
+                    -------(Month)20--------</div>
+            </div>
+
+            <!-- cover page end -->
+
+
+
+
+
+
+
+
+
+
+            <div class="head" style="font-weight: bold;width: 100%;text-align: center;font-size: 16pt;">
+                <h1>Project Feasibility Study Report
+                </h1>
+            </div>
+
+            <div class="f">
+                <table style="max-width: fit-content;">
+                    <tr>
+                        <td class="bold">Section 1. Basic Information</td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="3">
+                            <table class="t1">
+                                <tr class="tr1">
+                                    <td class="tds">1. </td>
+                                    <td class="tds1">Name of the Project</td>
+                                    <td class="tds2">:</td>
+                                    <td class="td1">{{reportData.nameofpro}}</td>
+                                </tr>
+
+                                <tr class="tr1">
+                                    <td class="tds">2. </td>
+                                    <td class="tds1">(a) Sponsoring MinistrylDivision<br>(b)Implementing Agency
+                                    </td>
+                                    <td class="tds2">:<br>:</td>
+                                    <td class="td1">
+                                        {{reportData?.ministryDivision?.nameEn}}<br>{{reportData?.agency?.nameEn}}</td>
+                                </tr>
+                                <tr class="tr1">
+                                    <td class="tds">3. </td>
+                                    <td class="tds1">Project Objectives (Project to be taken<br>
+                                        based on the study)
+                                    </td>
+                                    <td class="tds2">:</td>
+                                    <!-- <td class="td1">{{reportData.projectObjectives}}</td> -->
+                                    <td class="td1" style="max-width:400px;">
+                                        <p [innerHTML]="reportData.projectObjectives"></p>
+                                    </td>
+                                </tr>
+
+                                <tr class="tr1">
+                                    <td class="tds">4. </td>
+                                    <td class="tds1">Estimated Project Cost<br>
+                                        (Thka in Crore)
+                                    </td>
+                                    <td class="tds2">:</td>
+                                    <td class="td1">{{reportData.estimatedProjCost}}</td>
+                                </tr>
+
+                                <tr class="tr1">
+                                    <td class="tds">5. </td>
+                                    <td class="tds1">Sector & Sub-sector
+                                    </td>
+                                    <td class="tds2">:</td>
+                                    <td class="td1">{{reportData?.sector?.sectorNameEn}} &
+                                        {{reportData?.subSector?.subSectorNameEn}}</td>
+                                </tr>
+
+
+                                <tr class="tr1">
+                                    <td class="tds">6. </td>
+                                    <td class="tds1">Project Category (Based on Environment<br>
+                                        Conservation Rules l997)
+                                    </td>
+                                    <td class="tds2">:</td>
+                                    <td class="td1">{{reportData?.category?.categoryCodeName}}</td>
+                                </tr>
+
+                                <tr class="tr1">
+                                    <td class="tds">7. </td>
+                                    <td class="tds1">
+                                        Project Geographic Location<br>
+                                        (a) Countrywide<br>
+                                        (b) Division<br>
+                                        (c) District<br>
+                                        (d) Upazila<br>
+                                        (e) Others (City Corporation,pourashva)
+                                    </td>
+                                    <td class="tds2">:</td>
+                                    <td class="td1">ffffffffffffffffffffffffffffffff</td>
+                                </tr>
+
+                                <tr class="tr1">
+                                    <td class="tds">8. </td>
+                                    <td class="tds1">Project Duration
+                                    </td>
+                                    <td class="tds2">:</td>
+                                    <td class="td1">
+                                        {{reportData.dateOfCommencement |date:'dd-MMM-yyyy'}} To
+                                        {{reportData.dateOfCompletion |date:'dd-MMM-yyyy'}}
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="bold">Sectiom 2: Introduction</td>
+                    </tr>
+
+                    <tr>
+                        <td class="bold">Describe the following:</td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">(a) Project Background: <p style="margin-top: 5px;"
+                                [innerHTML]="reportData.projectBackground"></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">(b) Objectives of the feasibility srudy: <p
+                                style="margin-top: 5px;" [innerHTML]="reportData.objOfFsStudy"></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">(c) Approach and methodology of the feasibility study: <p
+                                style="margin-top: 5px;" [innerHTML]="reportData.approachMethodologyFsStudy"></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">(d) Organization of the feasibility study : <p
+                                style="margin-top: 5px;" [innerHTML]="reportData.orgFsStudy"></p>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td class="bold">Section 3: Market/Demand Analysis</td>
+                    </tr>
+
+                    <tr>
+                        <td>This section assesses the need for public investments and involves the elements listed
+                            below:
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(a) Problem Statement: </span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.prbStatement"></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(b) Relevance of the Project
+                                Idea: </span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.relevanceProjectIdea"></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(c) Proposed Project
+                                Interventions:</span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.proposedProjectInterventions"></p>
+                        </td>
+                    </tr>
+
+
+
+                </table>
+
+                <table>
+
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(d) Stakeholders:</span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.stakeholders"></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(e) Demand Analysis :</span>Identiff the need
+                            for public investments by assessing:
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="r">(i) Current demand:
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.currentDemand"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="r">(ii) Future demand : <p style="margin-top: 5px;"
+                                [innerHTML]="reportData.futureDemand"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="r">(iii) Various Demand :<p style="margin-top: 5px;"
+                                [innerHTML]="reportData.variousDemand"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(f) SWOT Analysis: :</span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.swotAnalysis"></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="bold">Section 4: Technical/Technological & Engineering analysis</td>
+                    </tr>
+
+                    <tr>
+                        <td>A summary of the proposed project shall be presented with the following headings:
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(a) Location:</span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.location"></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(b) Technical design:</span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.technicalDesign"></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(c) Output plan :</span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.outputPlan"></p>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(d) Costs estimates:</span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.costEstimates"></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;"><span class="bold">(e) Imptementation
+                                timeline:</span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.impTimeline"></p>
+                        </td>
+                    </tr>
+
+                </table>
+                <table>
+                    <tr>
+                        <td class="bold">Section 5: Environmental Sustainability, Climate Resilience and Disaster Risk
+                            Analysis
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="bold">5.1 Environinental, Climate Change and Disaster
+                                Risk Analysis.</span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.envClimateChangeAnalysis"></p>
+                        </td>
+                    </tr>
+
+                    <!-- <tr>
+                        <td>
+                            Describe and specifu the economic effects/impacts of environmental, disaster and climate
+                            change effects/impacts and possible compensations for ecological damages. Key issues to be
+                            addressed:
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">(a) What are the likely environmental, disasters and climate
+                            change impacts or risks from
+                            the project (any impact of project to increase the existing disaster and climate change
+                            related risks and/or contribute to create new risks)?
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (b) What counter measures are taken to reduce these impacts?
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (c) What is the cost for reducing/mitigating the negative impacts?
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (d) Are there alternative ways of delivering the required services or goods without
+                            incurring these environmental costs? What are the costs ofthese alternatives?
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (e) Are there alternative ways of delivering the required services or goods without
+                            incurring these environmental costs? What are the costs ofthese alternatives?
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (f) Are there alternative ways of delivering the required services or goods without
+                            incurring these environmental costs? What are the costs ofthese alternatives?
+                        </td>
+                    </tr> -->
+
+
+
+                    <!-- start 5.2 -->
+                    <tr>
+                        <td><span class="bold">5.2 Assessment of Disaster Resilience of the
+                                Project</span>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.assessmentDisasterResilienceProject">
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- <tr>
+                        <td>
+                            This section assesses the resilience and address about uncertainties. Key indicators need to
+                            be
+                            discussed:
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">(a) Contingency Plan for Emergency Disaster Management: Describe
+                            the evacuation plan
+                            if required, institutional arrangement for shufting down of utility services, and general
+                            procedures to be followed b,v individuals during disasters (Fire, Earthquake, Flood,
+                            Cyclone etc.);
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (b) Business Continuity Plan: Outline the key response and recovery priorities. This plan
+                            will detail out how different utility services lvill be rendered to support the overall
+                            Emergency Management Plan;
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (c) Time of Recovery: Required time for rehabilitation after a disaster; and
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (d) Reporting of residual risks: Reporting of remaining risks after recognition and put in
+                            place adequate risk reduction measures.
+                        </td>
+                    </tr> -->
+                    <!-- End 5.2 -->
+
+                    <!-- start section 6.1 -->
+                    <tr>
+                        <td class="bold">Section 5: Cost-Benefit Analysis</td>
+                    </tr>
+
+                    <tr>
+                        <td class="bold">6.1<span style="margin-left: 30px;"> Financial Analysis</span></td>
+                    </tr>
+                    <tr>
+                        <td>Describe the components of costs and benefits at market prices including option analysis.
+                        </td>
+                    </tr>
+
+                    <!-- <tr>
+                        <td style="padding-left: 30px;">
+                            (a) identify the components of cost & benefit
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (b) Transfer them in monetary value
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (c) Construct cash flow
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (d) identify the Key Assumptions considered in exercises; then
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (e) identify the Key Assumptions considered in exercises; then
+                        </td>
+                    </tr> -->
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (i) Financial Net Present Value (FNPV) : {{reportData.financialNetPresentVal}}<br>
+                            (ii) Financial Benefit Cost Ratio (FBCR): {{reportData.financialBenefitCostRatio}}<br>
+                            (iii) Financial Internal Rate of Return (FIRR): {{reportData.financialInternalRateReturn}}
+                        </td>
+                    </tr>
+                    <!-- end section 6.1 -->
+                </table>
+                <table>
+                    <!-- start 6.2 -->
+                    <tr>
+                        <td class="bold">6.2<span style="margin-left: 20px;">Economic Analysis</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Economic adjustments from financial data using standard conversion factor; after that costs
+                            and benefits are appraised from the point of view of the entire economy
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td style="padding-left: 30px;">(a) Identiff the direct, indirect and associated cost and
+                            benefit components;
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">(b) Adjust them where necessary;
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (c) Convert the value of cost and benefit components into economic price by using
+                            Standard Conversion Factor (SCF) determined by the Government;
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (d) Constructthe cash flow;
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (e) Mention the Assumption;
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (f) Compute the following indicators and interpret the results:
+                        </td>
+                    </tr> -->
+
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            (i) Economic Net Present Value (EMV) : {{reportData.economicNetPresentVal}}<br>
+                            (ii) Economic Benefit CostRatio (EBCR): {{reportData.economicBenefitCostRatio}}<br>
+                            (iii) Economic Internal Rate of Return (EIRR): {{reportData.economicInternalRateReturn}}
+                        </td>
+                    </tr>
+                    <!-- end 6.2 -->
+
+                    <!-- start section 7 -->
+                    <tr>
+                        <td class="bold">Section 7:Human Resources and Administrative Support Analysis
+                            (During Implementation and Post Implementation olther project)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.humanResourceAnalysis"></p>
+                        </td>
+                    </tr>
+
+                    <!-- end section 7 -->
+
+
+                    <!-- start section 8 -->
+                    <tr>
+                        <td class="bold">Section 8: Institutional and Legal Analysis
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Illuskate the legal reskictions (if any) that may obstruct or impede the project during its
+                            implementation and functional stage of the project outputs, key issues are:
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.institutionalAnalysis"></p>
+                        </td>
+                    </tr>
+                    <!-- end section 8 -->
+
+
+
+
+                    <!-- start section 9 -->
+                    <tr>
+                        <td class="bold">Section 9: Risk (Uncertainty) and Sensitivity Analysis
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.riskSensitivityAnalysis"></p>
+                        </td>
+                    </tr>
+
+                    <!-- end section 9 -->
+
+
+                    <!-- start section 10 -->
+                    <tr>
+                        <td class="bold">Section 10: Alternative/Options Analysis
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.alternativesAnalysis"></p>
+                        </td>
+                    </tr>
+                    <!-- end section 10 -->
+
+
+                    <!-- start section 11-->
+                    <tr>
+                        <td class="bold">Section 11: Recommendation and Conclusion
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p style="margin-top: 5px;" [innerHTML]="reportData.recommendationConclution"></p>
+                        </td>
+                    </tr>
+                    <!-- end section 11-->
+
+
+                    <!-- start section 12-->
+                    <tr>
+                        <td class="bold">Section 12: Annexes
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Attach detailed technical and engineering designs, plant prototypes designs etc. Financial &
+                            Economic models and any supporting documents.
+                        </td>
+                    </tr>
+                    <!-- end section 12-->
+                </table>
+
+            </div>
+
+
+        </div>
+
+
+    </diV>

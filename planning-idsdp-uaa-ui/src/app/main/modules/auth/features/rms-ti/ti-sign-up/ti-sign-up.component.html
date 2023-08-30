@@ -1,0 +1,239 @@
+<div id="loginPage" class="w-full pr-4 pl-4 ">
+    <!-- class="flex flex-col flex-auto min-w-0 sm:justify-center" -->
+    <div id="topImageWrap" class="top-image-wrapperX" fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <div fxFlex="33%" fxFlex.md="33%" fxFlex.sm="33%" fxFlex.xs="33%">
+            <mat-card class="mat-elevation-z4" style="background: transparent;box-shadow: none;">
+                <img mat-card-image style="height: 65px;width: 100px"
+                    src="assets/images/logos/suborno-joyonto-logo.png">
+            </mat-card>
+        </div>
+        <div fxFlex="33%" fxFlex.md="33%" fxFlex.sm="33%" fxFlex.xs="33%">
+            <mat-card class="mat-elevation-z4" style="background: transparent;box-shadow: none;">
+                <img mat-card-image style="height: 65px;width: 65px;margin: 0 auto;"
+                    src="assets/images/logos/bd_gov_logo.png">
+            </mat-card>
+        </div>
+        <div fxFlex="33%" fxFlex.md="33%" fxFlex.sm="33%" fxFlex.xs="33%">
+            <mat-card class="mat-elevation-z4" style="background: transparent;box-shadow: none;">
+                <img mat-card-image style="height: 65px;width: 80px;float: right"
+                    src="assets/images/logos/mujib_100_logo.png">
+            </mat-card>
+        </div>
+    </div>
+    <!-- style="margin-top: 79px !important;" -->
+    <div class="text-center md:mt-25 md:mb-25 pl-4 pr-4">
+        <h1 class="banner-lbl">Planning Division & Planning Commission</h1>
+        <p class="sddp-lbl">Strengthening Digital Processing Of Projects (SDPP)</p>
+        <!--        <div class="font-bold text-2xl text-yellow-700">Social Science Research Council (SSRC). Research Management
+            System(RMS)
+        </div> -->
+
+        <div class="font-bold text-2xl text-yellow-700">Research Management System (RMS). <span
+                style="color:#3e97d7 ">Social Science Research Council (SSRC).</span>
+        </div>
+
+        <div class="flex justify-center ng-tns-c244-0">
+            <div class="w-full sm:w-auto md:w-/5 lg:w-3/5 md:text-left md:pt-0 text-center">
+
+                <div class="mt-3 body-color w-full">
+                    <mat-card class="tab-color">
+                        <div class="text-center font-bold text-lg text-gray-900 mb-3">Training Institute Sign Up Form
+                        </div>
+                        <!-- Alert -->
+                        <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
+                            [type]="alert.type" [@shake]="alert.type === 'error'">
+                            {{alert.message}}
+                        </fuse-alert>
+                        <form #signInNgForm="ngForm" [formGroup]="signInForm" (ngSubmit)="createUser(signInNgForm)">
+                            <!-- Email field -->
+
+                            <div class="md:flex">
+
+                                <div class="w-full sm:w-auto md:w-11/12 lg:w-11/12 md:text-left pr-1  ">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Training Institute Name<strong style="color: red;"> *</strong>
+                                        </mat-label>
+                                        <input id="trainingInstituteName" matInput placeholder="Institute Name"
+                                            formControlName="trainingInstituteName">
+                                        <mat-icon matSuffix class="secondary-text">home</mat-icon>
+                                        <mat-error *ngIf="signInForm.get('trainingInstituteName').hasError('required')">
+                                            Training institute name is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="w-full sm:w-auto md:w-11/12 lg:w-11/12 md:text-left    ">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Head of Institute Name<strong style="color: red;"> *</strong>
+                                        </mat-label>
+                                        <input id="headOfInstitute" matInput placeholder="Head of Institute Name"
+                                            formControlName="headOfInstitute">
+                                        <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                                        <mat-error *ngIf="signInForm.get('headOfInstitute').hasError('required')">
+                                            Head of institute name is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="md:flex">
+                                <div class="w-full sm:w-auto md:w-2/4 lg:w-2/4 md:text-left pr-2  ">
+                                    <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                        <mat-label>Designation<strong style="color: red;"> *</strong></mat-label>
+                                        <input id="designation" matInput placeholder="Designation"
+                                            formControlName="designation">
+                                        <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                                        <mat-error *ngIf="signInForm.get('designation').hasError('required')">
+                                            Designation is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-2/4 lg:w-2/4 md:text-left pr-2  ">
+                                    <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                        <mat-label>Mobile No.<strong style="color: red;"> *</strong></mat-label>
+                                        <input id="mobile" matInput placeholder="mobile" formControlName="mobile">
+                                        <mat-icon matSuffix class="secondary-text">phone_iphone</mat-icon>
+                                        <mat-error *ngIf="signInForm.get('mobile').hasError('required')">
+                                            Mobile no is required
+                                        </mat-error>
+
+                                        <mat-error *ngIf="signInForm.get('mobile').hasError('minlength')">
+                                            Mobile no is required
+                                        </mat-error>
+
+                                        <mat-error *ngIf="signInForm.get('mobile').hasError('maxlength')">
+                                            Mobile no is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-full sm:w-auto md:w-2/4 lg:w-2/4 md:text-left pr-2  ">
+                                    <!-- <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                        <mat-label>Date of Birth<strong style="color: red;">*</strong></mat-label>
+                                        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <mat-error *ngIf="signInForm.get('dateOfBirth').hasError('required')">
+                                            Date Of birth is required
+                                        </mat-error>
+                                    </mat-form-field> -->
+                                    <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                        <mat-label>Email<strong style="color: red;"> *</strong></mat-label>
+                                        <input id="email" matInput placeholder="email" formControlName="email">
+                                        <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                                        <mat-error *ngIf="signInForm.get('email').hasError('required')">
+                                            Email is required
+                                        </mat-error>
+                                        <mat-error *ngIf="signInForm.get('email').hasError('email')">
+                                            Please enter a valid email address
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-2/4 lg:w-2/4 md:text-left pr-2  "></div>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-full sm:w-auto md:w-2/4 lg:w-2/4 md:text-left pr-2  ">
+                                    <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                        <mat-label>Password<strong style="color: red;"> *</strong></mat-label>
+                                        <input id="password" matInput type="password" placeholder="password"
+                                            formControlName="password" #passwordField>
+                                        <button mat-icon-button type="button"
+                                            (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                                            matSuffix>
+                                            <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+                                                [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                            <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+                                                [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                                        </button>
+                                        <mat-error *ngIf="signInForm.get('password').hasError('required')">
+                                            Password is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-full sm:w-auto md:w-2/4 lg:w-2/4 md:text-left  ">
+                                    <mat-form-field class="w-full fuse-mat-dense flex-auto">
+                                        <mat-label>Confirm Password<strong style="color: red;"> *</strong></mat-label>
+                                        <input id="confirmPassword" type="password" matInput
+                                            formControlName="confirmPassword">
+                                        <mat-icon matSuffix class="secondary-text">password</mat-icon>
+                                        <mat-error *ngIf="signInForm.get('confirmPassword').hasError('required')">
+                                            Confirm password is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                           <!-- <div class="inline-flex w-full mt-1">
+                                <mat-checkbox [color]="'primary'" formControlName="rememberMe"></mat-checkbox>
+                                I Agree to the
+                                <span class="text-green-700 font-bold cursor-pointer">&nbsp; Terms and Conditions
+                                    &nbsp; </span> with
+                                <span class="text-green-700 font-bold cursor-pointer">&nbsp; Privacy Policy</span>
+                            </div>
+
+                            &lt;!&ndash; Submit button &ndash;&gt;
+                            <div class="flex justify-end">
+                                <button class="mt-1" mat-flat-button [color]="'primary'"
+                                    [disabled]="signInForm.disabled" style="background: #4b60bd;border-radius: 5px;">
+                                    <span *ngIf="!signInForm.disabled">&nbsp; Sign Up</span>
+                                    <mat-progress-spinner *ngIf="signInForm.disabled" [diameter]="24"
+                                        [mode]="'indeterminate'">
+                                    </mat-progress-spinner>
+                                </button>
+                            </div>-->
+
+                            <div>
+                                <div class="inline-flex w-full mt-1.5">
+                                    <mat-checkbox #checkbox (change)="isAgreement(checkbox.checked)" [color]="'primary'"
+                                                  formControlName="agreements">
+                                    </mat-checkbox><strong class="mat-error">*</strong> &nbsp;
+                                    I Agree to the
+                                    <span class="text-green-700 font-bold cursor-pointer">&nbsp; Terms and Conditions
+                                            &nbsp; </span> with
+                                    <span class="text-green-700 font-bold cursor-pointer">&nbsp; Privacy Policy</span>
+                                </div>
+                                <div class="text-red-600 pl-6 text-md font-semibold" *ngIf="termsAndCondition == 'false'">
+                                    Terms and Conditions is required
+                                </div>
+                            </div>
+    
+                            <!-- Submit button -->
+                            <!-- [disabled]="signInForm.disabled || !agreements" -->                            
+                            <div class="flex justify-end">
+                                <button class="mt-1 " mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled"
+                                        style="background: #4b60bd;border-radius: 5px;">
+                                    <mat-icon *ngIf="!signInForm.disabled">person_add</mat-icon>
+                                    <mat-progress-spinner *ngIf="signInForm.disabled" [diameter]="24"
+                                                          [mode]="'indeterminate'">
+                                    </mat-progress-spinner>
+                                    <span>&nbsp;Sign Up</span>
+                                    
+                                </button>
+                            </div>
+                        </form>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full sm:w-auto px-4" style="user-select: none">
+        <div class="flex justify-center">
+
+            <!-- <div fxLayout="row wrap" fxLayoutAlign="space-between center"> -->
+
+
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 w-full grid grid-cols-2 gap-2 mt-10 md:mt-1 mb-2">
+        <div class="ml-4">
+            <img style="width: 220px" src="assets/images/logos/ibcs_akr_logo.png">
+        </div>
+
+        <div class="flex justify-end mr-4">
+            <img style="width: 90px;float: right" src="assets/images/logos/sdpp.png">
+        </div>
+    </div>
+</div>

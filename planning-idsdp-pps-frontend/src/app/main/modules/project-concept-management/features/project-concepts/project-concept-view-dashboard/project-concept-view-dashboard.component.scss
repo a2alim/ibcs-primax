@@ -1,0 +1,220 @@
+@import './movement-status.scss';
+
+table.proSummary {
+    width: 100%;
+
+    th {
+        font-size: small;
+    }
+    th, td{
+        border: 1px solid #e2e8f0;
+        padding: 0px 4px;
+    }
+    th:nth-child(1), td:nth-child(1)
+    {
+        width: 8%;
+        text-align: center;
+    }
+    th:nth-child(3), td:nth-child(3)
+    {
+        width: 20%;
+        text-align: center;
+    }
+    th:last-child, td:last-child {
+        width: 20%;
+        text-align: center;
+    }
+}
+
+table.attachment-table {
+    width: 100% !important;
+
+    th {
+        font-size: small;
+    }
+    th, td{
+        border: 1px solid #e2e8f0;
+        padding: 0px 4px;
+        text-align: center !important;
+    }
+    th:nth-child(1), td:nth-child(1)
+    {
+        width: 8%;
+        text-align: center;
+    }
+    th:nth-child(3), td:nth-child(3)
+    {
+        width: 20%;
+        text-align: center;
+    }
+    th:last-child, td:last-child {
+        width: 20%;
+        text-align: center;
+    }
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.text-alignment {
+    text-align: center;
+}
+
+.btn-comment-agency {
+    margin: 10px;
+    padding-top: 18px;
+    min-height: 60px;
+    max-height: 60px;
+    color: #ffffff !important;
+    font-size: 15px;
+    border-radius: 0%;
+    background-color: #7657a8 !important;
+}
+
+.btn-comment-ministry {
+    margin: 10px;
+    padding-top: 18px;
+    min-height: 60px;
+    max-height: 60px;
+    color: #ffffff !important;
+    font-size: 15px;
+    border-radius: 0%;
+    background-color: deepskyblue !important;
+}
+
+.btn-comment-commission {
+    margin: 10px;
+    padding-top: 18px;
+    min-height: 60px;
+    max-height: 60px;
+    color: #ffffff !important;
+    font-size: 15px;
+    border-radius: 0%;
+    background-color: #9e79a8 !important;
+}
+
+
+.btn-movement {
+    margin: 10px;
+    min-height: 50px;
+    max-height: 50px;
+    color: #ffffff !important;
+    font-size: 17px;
+    border-radius: 0%;
+    background-color: #40b7b7 !important;
+}
+
+.btn-project-concept-edit {
+    margin: 5px;
+    min-height: 40px;
+    max-height: 40px;
+    color: #ffffff !important;
+    font-size: 15px;
+    border-radius: 0%;
+    background-color:  #424f9e !important;
+}
+.btn-project-concept-delete {
+    margin: 5px;
+    min-height: 40px;
+    max-height: 40px;
+    color: #ffffff !important;
+    font-size: 15px;
+    border-radius: 0%;
+    background-color:  #424f9e !important;
+}
+.mtbf-btn {
+    -webkit-border-radius: 60px;
+}
+@keyframes glowing {
+    0% {
+        background-color: #035d92;
+        box-shadow: 0 0 5px #035d92;
+    }
+    50% {
+        background-color: #047984;
+        box-shadow: 0 0 20px #047984;
+    }
+    100% {
+        background-color: #035d92;
+        box-shadow: 0 0 5px #035d92;
+    }
+}
+.mtbf-btn {
+    animation: glowing 1300ms infinite;
+}
+.info-summary-odd{
+    width: 100%;
+    background-color: #8B9FC1;
+    margin: 1px;
+    padding: 2px;
+}
+.info-summary-even{
+    width: 100%;
+    background-color: #76b89a;
+    margin: 1px;
+    padding: 2px;
+}
+.left-info-td{
+    text-align: left !important;
+    width: 40% !important;
+    border: none !important;
+}
+.right-info-td{
+    text-align: left !important;
+    width: 60% !important;
+    border: none !important;
+}
+.info-tr-odd{
+    background-color: #e0effd;
+    height: 49px !important;
+}
+.info-tr-even{
+    background-color: #fbdef8;
+    height: 49px !important;
+}
+table.infoSummary tr td{
+    border-bottom: 5px solid white !important
+}
+.required {
+    color: red;
+}
+
+.icon {
+    color: #FFFFFF !important;
+}
+
+
+.close-button{
+    float: right;
+    margin-top: -15px;
+    margin-right: -10px;
+    padding-top: 13px;
+}
+
+.close-icon {
+    transition: 1s ease-in-out;
+}
+
+.close-icon:hover {
+    transform: rotate(180deg);
+}
+
+::ng-deep .icon-outside .close-button{
+    float: right;
+    top:-52px;
+    right:-52px;
+}
+
+::ng-deep .icon-outside .mat-dialog-container {
+    overflow: unset
+}
+
+
+
+
+
+

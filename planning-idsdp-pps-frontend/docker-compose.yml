@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+    planning-idsdp-pps-frontend:
+        image: 'idsdp-pps-frontend'
+        container_name: pps-frontend
+        environment:
+            - TZ=Asia/Dhaka
+        networks:
+         - sdpp01_fr_net 
+        ports:
+            - "4400:3000"
+        restart: always    
+        build:
+            context: "./"
+            dockerfile: "Dockerfile"
+networks:
+   sdpp01_fr_net:
+     name: sdpp01_fr_net
+

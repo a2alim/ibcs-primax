@@ -1,0 +1,374 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="'title' | translate" class="crop-text"
+                                 [subTitle]="'sub_title' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="navigateToList()" mat-button type="button">
+                        <mat-icon>keyboard_backspace</mat-icon>&nbsp;
+                        {{'homePage' | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+
+            <!-- Header -->
+            <!--<div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        &lt;!&ndash; Avatar and name &ndash;&gt;
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">{{'page_title' | translate}}</div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary"><a style="cursor: pointer" (click)="navigateToList()">{{'breadcrumb1' | translate}}</a> {{'breadcrumb2' | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        &lt;!&ndash; Actions &ndash;&gt;
+                        <div class="flex justify-end" style="margin-top: -50px; color: #FFFFFF !important;">
+                            <button
+                                (click)="navigateToList()"
+                                mat-button
+                                type="button">
+&lt;!&ndash;                                <mat-icon>home</mat-icon>&nbsp;&ndash;&gt;
+                                {{'page_title' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10 outside-body">
+
+        <div class="max-w-8xl">
+
+            <!-- Horizontal stepper -->
+            <form
+                class="p-4 shadow rounded overflow-hidden"
+                style="background: #F0FDF4"
+                [formGroup]="horizontalStepperForm">
+                <mat-horizontal-stepper
+                    style="background: #F0FDF4"
+                    [linear]="false" (selectionChange)="stepChanged($event);"
+                    #horizontalStepper>
+
+                  
+                    <mat-step  role="tab" aria-selected="true"
+                        [formGroupName]="'step1'"
+                        [stepControl]="horizontalStepperForm.get('step1')"
+                        #horizontalStepperStep1 >
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="Feasibility Study Summary" matTooltipPosition="above">
+                                <span>Feasibility Study Summary</span>
+<!--                                <span class="tab-font-size">Feasibility</span><br>-->
+<!--                                <span class="tab-font-size">Study</span><br>-->
+<!--                                <span class="tab-font-size">Summary</span>-->
+<!--                                Feasibility Study Summary-->
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-fs-summary (nextStep)="goForward(horizontalStepper)"></app-fs-summary>
+                        </div>
+                        <div class="flex justify-end mt-8">
+<!--                            <button-->
+<!--                                class="px-8 mr-2"-->
+<!--                                mat-flat-button-->
+<!--                                [color]="'primary'"-->
+<!--                                type="button"-->
+<!--                                matStepperNext>-->
+<!--                                Save & Next-->
+<!--                            </button>-->
+<!--                            <button-->
+<!--                                class="px-8"-->
+<!--                                mat-flat-button-->
+<!--                                style="background-color: green; color: #FFFFFF"-->
+<!--                                type="button">-->
+<!--                                Save & Exit-->
+<!--                            </button>-->
+                        </div>
+                    </mat-step>
+                   
+
+                
+                    <mat-step
+                        [formGroupName]="'step2'"
+                        [stepControl]="horizontalStepperForm.get('step2')"
+                        #horizontalStepperStep1>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="Expenditure with Cost" matTooltipPosition="above">
+                                <span>Expenditure with Cost</span>
+<!--                                <span class="tab-font-size">Expenditure</span><br>-->
+<!--                                <span class="tab-font-size">with Cost</span>-->
+<!--                                Expenditure with Cost-->
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-expenditure-cost (nextStep)="goForward(horizontalStepper)"
+                                                  (backPrevious)="goBack(horizontalStepper)"></app-expenditure-cost>
+                        </div>
+                        <div class="flex justify-end mt-8">
+<!--                            <button-->
+<!--                                class="px-8 mr-2"-->
+<!--                                mat-flat-button-->
+<!--                                [color]="'accent'"-->
+<!--                                type="button"-->
+<!--                                matStepperPrevious>-->
+<!--                                Back-->
+<!--                            </button>-->
+<!--                            <button-->
+<!--                                class="px-8 mr-2"-->
+<!--                                mat-flat-button-->
+<!--                                [color]="'primary'"-->
+<!--                                type="button"-->
+<!--                                matStepperNext>-->
+<!--                                Save & Next-->
+<!--                            </button>-->
+<!--                            <button-->
+<!--                                class="px-8"-->
+<!--                                mat-flat-button-->
+<!--                                style="background-color: green; color: #FFFFFF"-->
+<!--                                type="button">-->
+<!--                                Save & Exit-->
+<!--                            </button>-->
+                        </div>
+                    </mat-step> 
+               
+
+                
+                    <mat-step
+                        [formGroupName]="'step3'"
+                        [stepControl]="horizontalStepperForm.get('step3')"
+                        #horizontalStepperStep1>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="Mode of Finance" matTooltipPosition="above">
+                                <span>Mode of Finance</span>
+<!--                                <span class="tab-font-size">Mode of</span><br>-->
+<!--                                <span class="tab-font-size">Finance</span>-->
+<!--                                Mode of Finance-->
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-mode-of-finance (nextStep)="goForward(horizontalStepper)"
+                                                 (backPrevious)="goBack(horizontalStepper)"></app-mode-of-finance>
+                        </div>
+                        <div class="flex justify-end mt-8">
+<!--                            <button-->
+<!--                                class="px-8 mr-2"-->
+<!--                                mat-flat-button-->
+<!--                                [color]="'accent'"-->
+<!--                                type="button"-->
+<!--                                matStepperPrevious>-->
+<!--                                Back-->
+<!--                            </button>-->
+<!--                            <button-->
+<!--                                class="px-8 mr-2"-->
+<!--                                mat-flat-button-->
+<!--                                [color]="'primary'"-->
+<!--                                type="button"-->
+<!--                                matStepperNext>-->
+<!--                                Save & Next-->
+<!--                            </button>-->
+<!--                            <button-->
+<!--                                class="px-8"-->
+<!--                                mat-flat-button-->
+<!--                                style="background-color: green; color: #FFFFFF"-->
+<!--                                type="button">-->
+<!--                                Save & Exit-->
+<!--                            </button>-->
+                        </div>
+                    </mat-step>
+               
+
+                    <!--
+                    <mat-step
+                        [formGroupName]="'step4'"
+                        [stepControl]="horizontalStepperForm.get('step4')"
+                        #horizontalStepperStep2>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="Committee Management" matTooltipPosition="above">
+                                <span class="tab-font-size">Committee</span><br>
+                                <span class="tab-font-size">Management</span>
+&lt;!&ndash;                                Committee Management&ndash;&gt;
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-committee-management (nextStep)="goForward(horizontalStepper)"
+                                                      (backPrevious)="goBack(horizontalStepper)"></app-committee-management>
+                        </div>
+                        <div class="flex justify-end mt-8">
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8 mr-2"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                [color]="'accent'"&ndash;&gt;
+&lt;!&ndash;                                type="button"&ndash;&gt;
+&lt;!&ndash;                                matStepperPrevious>&ndash;&gt;
+&lt;!&ndash;                                Back&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8 mr-2"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                [color]="'primary'"&ndash;&gt;
+&lt;!&ndash;                                type="button"&ndash;&gt;
+&lt;!&ndash;                                matStepperNext>&ndash;&gt;
+&lt;!&ndash;                                Save & Next&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                style="background-color: green; color: #FFFFFF"&ndash;&gt;
+&lt;!&ndash;                                type="button">&ndash;&gt;
+&lt;!&ndash;                                Save & Exit&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step5'"
+                        [stepControl]="horizontalStepperForm.get('step5')"
+                        #horizontalStepperStep2>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="Vendor Management" matTooltipPosition="above">
+                                <span class="tab-font-size">Vendor</span><br>
+                                <span class="tab-font-size">Management</span>
+&lt;!&ndash;                                Vendor Management&ndash;&gt;
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-vendor (nextStep)="goForward(horizontalStepper)"
+                                        (backPrevious)="goBack(horizontalStepper)"></app-vendor>
+                        </div>
+                        <div class="flex justify-end mt-8">
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8 mr-2"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                [color]="'accent'"&ndash;&gt;
+&lt;!&ndash;                                type="button"&ndash;&gt;
+&lt;!&ndash;                                matStepperPrevious>&ndash;&gt;
+&lt;!&ndash;                                Back&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8 mr-2"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                [color]="'primary'"&ndash;&gt;
+&lt;!&ndash;                                type="button"&ndash;&gt;
+&lt;!&ndash;                                matStepperNext>&ndash;&gt;
+&lt;!&ndash;                                Save & Next&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                style="background-color: green; color: #FFFFFF"&ndash;&gt;
+&lt;!&ndash;                                type="button">&ndash;&gt;
+&lt;!&ndash;                                Save & Exit&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step6'"
+                        [stepControl]="horizontalStepperForm.get('step6')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="Work Plan/Schedule" matTooltipPosition="above">
+                                <span class="tab-font-size">Work</span><br>
+                                <span class="tab-font-size">Plan/</span><br>
+                                <span class="tab-font-size">Schedule</span>
+&lt;!&ndash;                                Work Plan/Schedule&ndash;&gt;
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-work-plan (nextStep)="goForward(horizontalStepper)"
+                                           (backPreviousPage)="goBack(horizontalStepper)"></app-work-plan>
+                        </div>
+                        <div class="flex justify-end mt-8">
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8 mr-2"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                [color]="'accent'"&ndash;&gt;
+&lt;!&ndash;                                type="button"&ndash;&gt;
+&lt;!&ndash;                                matStepperPrevious>&ndash;&gt;
+&lt;!&ndash;                                Back&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8 mr-2"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                [color]="'primary'"&ndash;&gt;
+&lt;!&ndash;                                type="button"&ndash;&gt;
+&lt;!&ndash;                                matStepperNext>&ndash;&gt;
+&lt;!&ndash;                                Save & Next&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                style="background-color: green; color: #FFFFFF"&ndash;&gt;
+&lt;!&ndash;                                type="button">&ndash;&gt;
+&lt;!&ndash;                                Save & Exit&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+                        </div>
+                    </mat-step>
+
+                    <mat-step>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="Visit Plan" matTooltipPosition="above">
+                                <span class="tab-font-size">Visit</span><br>
+                                <span class="tab-font-size">Plan</span>
+&lt;!&ndash;                                Visit Plan&ndash;&gt;
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-visit-plan
+                                (backPrevious)="goBack(horizontalStepper)"></app-visit-plan>
+                        </div>
+                        <div class="flex justify-end mt-8">
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8 mr-2"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                [color]="'accent'"&ndash;&gt;
+&lt;!&ndash;                                type="button"&ndash;&gt;
+&lt;!&ndash;                                matStepperPrevious>&ndash;&gt;
+&lt;!&ndash;                                Back&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+&lt;!&ndash;                            <button&ndash;&gt;
+&lt;!&ndash;                                class="px-8"&ndash;&gt;
+&lt;!&ndash;                                mat-flat-button&ndash;&gt;
+&lt;!&ndash;                                [color]="'primary'"&ndash;&gt;
+&lt;!&ndash;                                type="reset"&ndash;&gt;
+&lt;!&ndash;                                (click)="save();">&ndash;&gt;
+&lt;!&ndash;                                Save&ndash;&gt;
+&lt;!&ndash;                            </button>&ndash;&gt;
+                        </div>
+                    </mat-step>
+                    -->
+
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+    </div>
+</div>

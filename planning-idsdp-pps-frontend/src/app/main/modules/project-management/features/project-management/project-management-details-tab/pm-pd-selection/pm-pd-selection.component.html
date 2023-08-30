@@ -1,0 +1,201 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+  <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<!--  Form Start-->
+<form [formGroup]="formGroup" name="frmGroup" class="p-5">
+  <mat-card>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <!--Start Input for name -->
+      <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+            {{ "name" | translate }}<span class="required">*</span>
+          </mat-label>
+          <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <input formControlName="name" autocomplete="off" placeholder="Enter Name" matInput required />
+            <mat-error>{{'nameIisRequired' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <!--end Input for name -->
+
+      <!--Start Input for Designation -->
+      <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+            {{ "designation" | translate }}
+          </mat-label>
+          <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <input formControlName="designation" autocomplete="off" placeholder="Enter Designation" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+      <!--end Input for Designation -->
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <!-- Start Input for NID -->
+      <div fxFlex="40%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+            {{"nid" | translate }}
+          </mat-label>
+          <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <input class="numberField" autocomplete="off" placeholder="Enter NID" formControlName="nid" matInput />
+          </mat-form-field>
+          <mat-error *ngIf="formGroup.get('nid').hasError('customError')">
+            {{ formGroup.get('nid').errors.customError.value }}
+          </mat-error>
+        </div>
+      </div>
+      <!-- end Input for NID -->
+
+      <!-- Start Input for Joining Date -->
+      <div fxFlex="40%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+            {{"joiningDate" | translate }}
+          </mat-label>
+          <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <input (click)="picker1.open()" [matDatepicker]="picker1" placeholder="Enter Join Date"
+              formControlName="joiningDate" matInput>
+            <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- End Input for Joining Date -->
+
+      <!-- Start Input for Continuing -->
+      <div fxFlex="20%" fxFlex.md="20%" fxFlex.sm="20%" fxFlex.xs="20%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <mat-checkbox class="pb-5 pl-5" id="continuing" color="primary" formControlName="continuing"
+            [disabled]="isContinuedDisabled" (change)="onClickEndContinuing()"></mat-checkbox>
+          <mat-label class="pb-5" fxFlex="75%" fxFlex.md="75%" fxFlex.sm="75%" fxFlex.xs="75%">
+            {{"continuing" | translate }}
+          </mat-label>
+        </div>
+      </div>
+      <!-- End Input for Continuing -->
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start center">
+      <!-- Start Input for End Date -->
+      <div fxFlex="40%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+            {{"endDate" | translate }}
+          </mat-label>
+          <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <input (click)="picker2.open()" [matDatepicker]="picker2" placeholder="Enter End Date"
+              formControlName="endDate" matInput [disabled]="isEndDateDisabled" (ngModelChange)="onClickEndDate()">
+            <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- end Input for End Date -->
+
+      <!-- Start Input for Joining Date -->
+      <div fxFlex="40%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+            {{"selectFile" | translate }}
+          </mat-label>
+          <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+            {{pdSelectionModel.attachmentName}}
+            <ngx-mat-file-input formControlName="attachmentName" [accept]="'.pdf'"
+              (change)="handleFileInput($event.target.files)" placeholder="Select File">
+            </ngx-mat-file-input>
+            <mat-icon matSuffix>folder</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- End Input for Joining Date -->
+
+      <!-- Start Input for Continuing -->
+      <div fxFlex="20%" fxFlex.md="20%" fxFlex.sm="20%" fxFlex.xs="20%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <button mat-flat-button (click)="onClickSave()" type="button" color="primary"
+            class="px-3 mb-5 ml-5 toggle-sidebar-folded" [disabled]="spinner">
+            <mat-icon class="mr-1">save</mat-icon>
+            <span> {{ "save" | translate }}</span>
+          </button>
+        </div>
+      </div>
+      <!-- End Input for Continuing -->
+    </div>
+
+  </mat-card>
+</form>
+<!-- Form end-->
+
+<div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+  <!--<mat-card>-->
+  <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+
+      <ng-container matColumnDef="sl">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'sl'|translate}}</th>
+        <td class="text-left" mat-cell *matCellDef="let element; let i = index">{{i+1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'name'|translate}} </th>
+        <td class="text-left" mat-cell *matCellDef="let element;">{{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="designation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'designation'|translate}}</th>
+        <td class="text-left" mat-cell *matCellDef="let element;">{{element.designation}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nid">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'nid'|translate}}</th>
+        <td class="text-left" mat-cell *matCellDef="let element;">{{element.nid}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="joiningDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'joiningDate' |translate}}</th>
+        <td class="text-left" mat-cell *matCellDef="let element;">{{element.joiningDate | date:"dd/MM/yyyy"}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'endDate' |translate}}</th>
+        <td class="text-left" mat-cell *matCellDef="let element;">{{element.endDate | date:"dd/MM/yyyy"}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'action'|translate}}</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <button (click)="onClickEdit(element)" class="ml-3 action-btn" type="button">
+            <mat-icon aria-hidden="false" [color]="'primary'" aria-label="Example home icon">edit</mat-icon>
+          </button>
+          <button (click)="onClickDelete(element)" class="ml-3 action-btn" type="button">
+            <mat-icon aria-hidden="false" [color]="'warn'" aria-label="Example home icon">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Initialized Table Header And Dataset-->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [length]="total" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+  </div>
+</div>
+
+<!--Start Bottom Button -->
+<div class="flex justify-end mt-8">
+  <button mat-flat-button type="button" [disabled]="spinner" [color]="'primary'" class="px-3 mr-2" (click)="nextTab()">
+    Next <mat-icon class="mr-1">fast_forward</mat-icon>
+  </button>
+
+  <button mat-flat-button [disabled]="spinner" type="button" [color]="'warn'" class="px-3 mr-2" (click)="goToHome()">
+    Exit
+  </button>
+</div>
+<!--end Bottom Button -->

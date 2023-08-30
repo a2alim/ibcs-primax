@@ -1,0 +1,606 @@
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="show">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="flex flex-col flex-auto min-w-0">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    Strengthening Digital Processing Of Projects (SDPP)
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">Project Processing,
+                                        Appraisal and Management System
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                        <div class="flex justify-end" style="margin-top: -50px; color: #4b4b4b !important;">
+                            <button matTooltip="View Dashboard" *ngIf="actionPermission?.includes('View Project Concept Dashboard')" (click)="gotToViewDashboard()" mat-button type="button">
+                                <mat-icon svgIcon="heroicons_outline:eye"></mat-icon>
+                            </button>
+                            <button matTooltip="Project List"
+                                (click)="navigateToList()"
+                                mat-button
+                                type="button">
+                                <mat-icon>dashboard</mat-icon>&nbsp;
+<!--                                {{'Dashboard' | translate}}-->
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    <div class="mr-2 ml-2 mt-2 mb-2">-->
+    <!--        <div class="flex items-center justify-end">-->
+    <!--            <button class="px-6 ml-3" mat-flat-button color="primary">-->
+    <!--                <mat-icon>file_download</mat-icon>-->
+    <!--                {{'send_to_daak' | translate}}-->
+    <!--            </button>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <!--    <button mat-flat-button color="accent" type="button" mat-raised-button></button>-->
+    <!--    <div class="flex-auto p-6 sm:p-10 outside-body">-->
+    <!--        <div class="max-w-8xl">-->
+    <!--            <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" mat-raised-button>-->
+    <!--                <mat-icon>file_download</mat-icon>-->
+    <!--                {{'send_to_daak' | translate}}-->
+    <!--            </button>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-6 outside-body">
+        <div class="max-w-8xl">
+            <div class="flex items-center justify-end mb-3">
+<!--                <button class="px-6 ml-3" mat-flat-button style="background-color: #b1950ac2;color: #FFFFFF"-->
+<!--                        (click)="sendProjectConceptToNothi()">-->
+<!--                    <img src="assets/images/logo/post_office.png" alt=""-->
+<!--                         style="width: 30px;margin-right: 5px;">{{'send_to_daak' | translate}}-->
+<!--                </button>-->
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="56" class="flex flex-col bg-card shadow rounded overflow-hidden"
+                     style="height: 348px;overflow-y: scroll !important;">
+                    <div class="heading">
+                        <h1>Preliminary Project Proposal</h1>
+                    </div>
+                    <div class="mr-2 ml-2 mt-2 mb-2">
+                        <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap">
+                            <table class="infoSummary proSummary">
+                                <tr class="info-tr info-tr-odd">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        Project Name(English)
+                                    </td>
+                                    <td class="right-info-td">{{projectSummary?.titleEn}}</td>
+                                </tr>
+                                <tr class="info-tr info-tr-even">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        Project Name(Bangla)
+                                    </td>
+                                    <td class="right-info-td">{{projectSummary?.titleBn}}</td>
+                                </tr>
+                                <tr class="info-tr info-tr-odd">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        Project Type
+                                    </td>
+                                    <td class="right-info-td">{{projectSummary?.projectTypeDTO.nameEn}}</td>
+                                </tr>
+                                <tr class="info-tr info-tr-even">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        Date of Commencement
+                                    </td>
+                                    <td class="right-info-td">{{projectSummary ? commencementDate : ''}}</td>
+                                </tr>
+                                <tr class="info-tr info-tr-odd">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        Date of Completion
+                                    </td>
+                                    <td class="right-info-td">{{projectSummary ? completionDate : ''}}</td>
+                                </tr>
+                                <tr class="info-tr info-tr-even">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        Project Status
+                                    </td>
+                                    <td class="right-info-td">
+                                        <mat-label><span class="heading"
+                                                         style="border-radius: 5%;">{{projectStatus}}</span>
+                                        </mat-label>
+                                    </td>
+                                </tr>
+                                <tr class="info-tr info-tr-odd">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        Project Stage
+                                    </td>
+                                    <td class="right-info-td">
+                                        <mat-label><span class="heading"
+                                                         style="border-radius: 5%;">{{projectStage}}</span>
+                                        </mat-label>
+                                    </td>
+                                </tr>
+
+                                <tr class="info-tr info-tr-odd">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right
+                                        </mat-icon>
+                                        Nothi Status
+                                    </td>
+                                    <td class="right-info-td">
+                                        <mat-label>
+                                            <label class="heading mt-3">
+                                                {{nothiStatus}}
+                                            </label>
+                                            <article class="right-info-td"
+                                                     [ngStyle]="{'height':potroJari?'80px':'40px'}">
+                                                <p *ngIf="potroJari" style="margin-top: 3%; color:white">
+                                                    <a [href]="potroUrl" target="_blank" class="potroUrlLink"
+                                                       style="animation: glowing 1300ms infinite;
+                                                       padding: 0.5% 5% 0.5% 5%">জারিকৃত পত্র দেখুন </a>
+                                                </p>
+                                            </article>
+                                        </mat-label>
+                                    </td>
+                                </tr>
+
+
+                                <tr *ngIf="userGroupModel?.ministryDivision" class="info-tr info-tr-even">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        Implementing Agency
+                                    </td>
+                                    <td class="right-info-td">{{agencyModel?.nameEn}}</td>
+                                </tr>
+                                <tr class="info-tr info-tr-odd">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        ADP Sector
+                                    </td>
+                                    <td class="right-info-td">{{sector?.sectorNameEn}}</td>
+                                </tr>
+                                <tr class="info-tr info-tr-even">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        ADP Sub-Sector
+                                    </td>
+                                    <td class="right-info-td">{{subSector?.subSectorNameEn}}</td>
+                                </tr>
+                                <tr class="info-tr info-tr-odd">
+                                    <td class="left-info-td">
+                                        <mat-icon style="vertical-align: bottom;" color="accent">arrow_right</mat-icon>
+                                        Sector Division of Planning Commission
+                                    </td>
+                                    <td class="right-info-td">{{sectorDivision?.sectorDivisionNameEn}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxFlex="3">
+
+                </div>
+
+                <div fxFlex="41" class="flex flex-col bg-card shadow rounded overflow-hidden" style="height: 348px;">
+                    <div class="heading">
+                        <h1>Cost Information</h1>
+                    </div>
+                    <div class="mr-4 ml-4 mt-4 mb-4">
+                        <div fxLayout="row wrap" fxLayoutAlign="start center" class="flex flex-wrap">
+                            <div style="width: 100%;">
+                                <button class="mtbf-btn" style="float: right" color="primary" mat-raised-button>MTBF
+                                    Checking
+                                </button>
+                            </div>
+                            <div id="chart" *ngIf="projectSummary!=null">
+                                <apx-chart
+                                    [series]="chartOptions.series"
+                                    [chart]="chartOptions.chart"
+                                    [labels]="chartOptions.labels"
+                                    [dataLabels]="chartOptions.dataLabels"
+                                    [title]="chartOptions.title"
+                                    [fill]="chartOptions.fill"
+                                    [states]="chartOptions.states"
+                                    [plotOptions]="chartOptions.plotOptions"
+                                    [stroke]="chartOptions.stroke"
+                                    [theme]="chartOptions.theme"
+                                    [responsive]="chartOptions.responsive"
+                                ></apx-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <h1>Preliminary Project Proposal Details</h1>
+                    </div>
+
+                    <div class="mr-8 ml-8 mt-4 mb-4">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                        mat-raised-button (click)="editProjectSummary()"
+                                        class="btn-project-concept-edit">
+<!--                                    <mat-icon>gpp_good</mat-icon>-->
+                                    Preliminary Project Proposal
+                                </button>
+                            </div>
+
+                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            </div>
+
+
+                            <div fxFlex="20%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+<!--                                <button fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"-->
+<!--                                        mat-raised-button-->
+<!--                                        class="btn-project-concept-delete">-->
+<!--&lt;!&ndash;                                    <mat-icon>file_download</mat-icon>&ndash;&gt;-->
+<!--                                    Download-->
+<!--                                </button>-->
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <h1>List of Attachments</h1>
+                    </div>
+                    <div class="mr-8 ml-8 mt-4">
+                        <div>
+
+                            <div
+                                class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                                <!--<mat-card>-->
+                                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                                    <table
+                                        mat-table
+                                        [dataSource]="dataSource"
+                                        class="attachment-table mat-elevation-z8 bg-transparent"
+                                        matSort>
+                                        <!-- ID Column -->
+                                        <ng-container matColumnDef="id">
+                                            <th class="text-alignment"
+                                                mat-header-cell
+                                                *matHeaderCellDef>
+                                                Sl.
+                                            </th>
+                                            <td mat-cell *matCellDef="let row, let i = index">
+                                                {{(i + 1) + (page * size) }}</td>
+                                        </ng-container>
+
+                                        <!-- Progress Column -->
+                                        <ng-container matColumnDef="name">
+                                            <th class="text-alignment"
+                                                mat-header-cell
+                                                *matHeaderCellDef>
+                                                Title
+                                            </th>
+                                            <td style="text-align: left !important" mat-cell *matCellDef="let row">
+                                                {{ row.title }}
+                                            </td>
+                                        </ng-container>
+
+                                        <!-- Name Column -->
+                                        <ng-container matColumnDef="progress">
+                                            <th class="text-alignment"
+                                                mat-header-cell
+                                                *matHeaderCellDef>
+                                                Download
+                                            </th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <button mat-icon-button color="primary" (click)="openUrl(row)">
+                                                    <mat-icon>file_download</mat-icon>
+                                                </button>
+                                            </td>
+                                        </ng-container>
+
+                                        <!-- Action Column -->
+                                        <ng-container matColumnDef="action">
+                                            <th class="text-alignment" mat-header-cell *matHeaderCellDef>
+                                                Action
+                                            </th>
+
+                                            <td class="text-alignment" mat-cell *matCellDef="let row">
+                                                <div class="buttons">
+                                                    <button (click)="edit(row)"
+                                                            mat-icon-button
+                                                            class="toggle-sidebar-folded"
+                                                            matTooltip="Edit"
+                                                            fxHide.lt-lg>
+                                                        <mat-icon
+                                                            color="accent">edit
+                                                        </mat-icon>
+                                                    </button>
+
+                                                    <button
+                                                        (click)="deleteDialog(row.uuid)"
+                                                        mat-icon-button
+                                                        class="toggle-sidebar-folded"
+                                                        matTooltip="Delete"
+                                                        fxHide.lt-lg>
+                                                        <mat-icon
+                                                            color="warn">delete
+                                                        </mat-icon>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <!-- Table Action Buttons End-->
+
+                                        <tr mat-header-row
+                                            *matHeaderRowDef="displayedColumns">
+                                        </tr>
+                                        <tr mat-row
+                                            *matRowDef="let row; columns: displayedColumns">
+                                        </tr>
+
+                                        <!-- Row shown when there is no matching data. -->
+                                        <tr class="mat-row" *matNoDataRow>
+                                            <td class="mat-cell" colspan="4">
+                                                No data Found
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <mat-paginator
+                                    [length]="total"
+                                    [pageSize]="size"
+                                    [pageIndex]="page"
+                                    [pageSizeOptions]="[2, 5, 10, 25, 100]"
+                                    (page)="onChangePage($event)">
+
+                                </mat-paginator>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="mt-4 mb-4">
+                            <button (click)="openDialog()" color="primary" mat-raised-button>
+                                Add Attachment
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+                    <div class="heading">
+                        <h1>Comment & Observation</h1>
+                    </div>
+                    <div class="mr-8 ml-8 mt-4 mb-4">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div class="btn-comment-agency" fxFlex="28%"
+                                 fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-icon class="pb-1 icon" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%"
+                                              fxFlex.xs="15%">home
+                                    </mat-icon>
+                                    <label fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                           fxFlex.xs="70%">{{'Agency' | translate}}</label>
+                                    <button class="pt-1" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="15%"
+                                            (click)="showComments('A')">
+                                        <mat-icon class="icon">comment</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="btn-comment-ministry" fxFlex="28%"
+                                 fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-icon class="pb-1 icon" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%"
+                                              fxFlex.xs="15%">home
+                                    </mat-icon>
+                                    <label fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                           fxFlex.xs="70%">{{'MinistryDivision' | translate}}</label>
+                                    <button class="pt-1" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="15%"
+                                            (click)="showComments('MD')">
+                                        <mat-icon class="icon">comment</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="btn-comment-commission" fxFlex="28%"
+                                 fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-icon class="pb-1 icon" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%"
+                                              fxFlex.xs="20%">home
+                                    </mat-icon>
+                                    <label fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                           fxFlex.xs="70%">{{'PlanningCommission' | translate}}</label>
+                                    <button class="pt-1" fxFlex="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="15%"
+                                            (click)=" showComments('PC')">
+                                        <mat-icon class="icon">comment</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mt-8">
+                <div fxFlex="55" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                     class="flex flex-col bg-card shadow rounded overflow-hidden" style="height: 348px;">
+                    <div class="heading">
+                        <h1>Project Movement Status</h1>
+                    </div>
+                    <ul class="timesheet">
+
+                        <li *ngFor="let movement of movementStatusList; let i=index">
+
+                            <div>
+                                <div class="direction-l">
+                                    <img *ngIf="i==0" [src]="'http://training.nothi.gov.bd'" class="img-l">
+                                    <img *ngIf="i!=0"
+                                         [src]="'http://training.nothi.gov.bd'+movementStatusList[i-1].current_desk_user_info.user_photo"
+                                         class="img-l">
+                                    <p class="desc" style="margin-top: 0%;color: blue;">প্রেরক: মোঃ আহসান হাবীব</p>
+                                </div>
+                                <div class="direction-r">
+
+                                    <div class="flag-wrapper">
+                                        <span class="flag">{{movement.decision_note}} sdcsdcsds sdcsdcsdc</span>
+                                        <span class="time-wrapper"><span
+                                            class="time">{{movement.feedbackDateTime | date}}</span></span>
+                                    </div>
+                                    <div class="desc">
+                                        <p style="font-weight: 600;">মূল প্রাপক</p>
+                                        {{movement.current_desk_user_info.officer_name}},
+                                        {{movement.current_desk_user_info.designation_label}}
+                                        <p>{{movement.current_desk_user_info.office_name}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+
+                <div fxFlex="5" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+
+                </div>
+
+                <div fxFlex="40" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                     class="flex flex-col bg-card shadow rounded overflow-hidden" style="height: 348px;">
+                    <div class="heading">
+                        <h1>GIS MAP</h1>
+                    </div>
+                    <div class="">
+                        <div class="mapouter">
+                            <div class="gmap_canvas">
+                                <iframe class="gmap_iframe" frameborder="0" scrolling="no" marginheight="0"
+                                        marginwidth="0"
+                                        src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=planning ministry&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                <a href="https://www.fridaynightfunkin.net/">Friday Night Funkin</a></div>
+                            <style>.mapouter {
+                                position: relative;
+                                text-align: right;
+                                width: 100%;
+                                height: 100%;
+                            }
+
+                            .gmap_canvas {
+                                overflow: hidden;
+                                background: none !important;
+                                width: 600px;
+                                height: 400px;
+                            }
+
+                            .gmap_iframe {
+                                width: 100% !important;
+                                height: 100% !important;
+                            }</style>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<fuse-drawer
+    fxFlex="50" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+    style="width: 40%;"
+    fixed
+    transparentOverlay
+    [mode]="'over'"
+    [name]="'commentObservationDrawer'"
+    [position]="'right'"
+    #commentObservationDrawer>
+    <app-comment-observation style="width: 100%"></app-comment-observation>
+</fuse-drawer>-->
+
+
+<ng-template fxFlex="100%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%" class="mr-20" #callAPIDialog>
+    <div fxFlex="100" class="flex flex-col bg-card shadow rounded overflow-hidden">
+        <div class="heading">
+            <h1>Upload Attachment</h1>
+        </div>
+        <mat-dialog-content class="mat-typography">
+            <form [formGroup]="frmGroup" class="p-8">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                       fxFlex.xs="100%">Title<strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                            fxFlex.sm="60%"
+                                            fxFlex.xs="100%">
+                                <input matInput formControlName="title">
+                                <mat-error>Title is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                       fxFlex.xs="100%">Attachment<strong class="required">*</strong>
+                            </mat-label>
+                            <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                            class="fuse-mat-dense flex-auto mt-5">
+                                <ngx-mat-file-input formControlName="attachmentId"
+                                                    (change)="uploadFile($event.target.files)" [accept]="'.pdf'"
+                                                    placeholder="Basic outline placeholder"></ngx-mat-file-input>
+                                <mat-icon matSuffix>folder</mat-icon>
+                                <mat-error>Attachment is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button (click)="resetValue()" mat-flat-button color="accent" type="button" mat-dialog-close>Cancel</button>
+            <button (click)="save()" *ngIf="!frmGroup.value.uuid" [disabled]="!frmGroup.valid" class="mr-2"
+                    mat-flat-button color="primary" type="button"
+                    [mat-dialog-close]="true" cdkFocusInitial>Save
+            </button>
+            <button (click)="save()" *ngIf="frmGroup.value.uuid" [disabled]="!frmGroup.valid" class="mr-2"
+                    mat-flat-button color="primary" type="button"
+                    [mat-dialog-close]="true" cdkFocusInitial>Update
+            </button>
+        </mat-dialog-actions>
+
+    </div>
+</ng-template>
+
+

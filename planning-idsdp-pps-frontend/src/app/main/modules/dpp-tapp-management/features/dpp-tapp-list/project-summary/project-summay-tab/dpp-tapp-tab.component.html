@@ -1,0 +1,161 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header Start-->
+
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="titleEn" class="crop-text"
+                                 [subTitle]="'LANG.sub_title' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <!-- <mat-icon>keyboard_backspace</mat-icon>&nbsp; -->
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{"LANG.homePageText" | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+        </div>
+    </div>
+    <!-- Header close-->
+    <!-- Main -->
+    <div class=" m-7 body-color">
+        <div class= " flex-wrap max-w-8xl">
+            <!-- Horizontal stepper -->
+            <form
+                class="bg-card shadow rounded ounded-2xl overflow-hidden "
+                [formGroup]="horizontalStepperForm">
+                <mat-horizontal-stepper
+                    [linear]="false"
+                    class="tab-bar tab-color "
+                    #horizontalStepper
+                    (selectionChange)="selectionChanged($event)">
+                    <mat-step   role="tab" aria-selected="true" class=" "
+                        [formGroupName]="'step1'"
+                        [stepControl]="horizontalStepperForm.get('step1')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title" class=" "
+                                 matTooltip="{{'LANG.toolTip1' | translate}}" matTooltipPosition="above">
+                                <span  >{{'LANG.tab_title_1' | translate}}</span><br>
+                                <span >{{'LANG.tab_title_1_sub' | translate}}</span>
+<!--                                {{'LANG.tab_title_1' | translate}}-->
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row  ">
+                            <app-object-and-cost class=" "
+                                (nextStep)="goForward(horizontalStepper)">
+                            </app-object-and-cost>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step2'"
+                        [stepControl]="horizontalStepperForm.get('step2')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="{{'LANG.toolTip2' | translate}}" matTooltipPosition="above">
+                                <span >{{'LANG.tab_title_2' | translate}} </span>
+<!--                                {{'LANG.tab_title_2' | translate}}-->
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-locations
+                                (nextStep)="goForward(horizontalStepper)"
+                                (backPrevious)="goBack(horizontalStepper)">
+                            </app-locations>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step3'"
+                        [stepControl]="horizontalStepperForm.get('step3')"
+                    >
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="{{'LANG.toolTip3' | translate}}" matTooltipPosition="above">
+                                <span>{{'LANG.tab_title_3' | translate}}</span><br>
+                                <span>{{'LANG.tab_title_3_sub' | translate}}</span>
+<!--                                {{'LANG.tab_title_3' | translate}}-->
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-component-wise-cost
+                                (nextStep)="goForward(horizontalStepper)"
+                                (backPrevious)="goBack(horizontalStepper)">
+                            </app-component-wise-cost>
+                        </div>
+                        <div class="flex justify-end mt-8">
+                            <button
+                                class="px-8 mr-2"
+                                mat-flat-button
+                                color="primary"
+                                (click)="getDppMaster()"
+                                matStepperNext
+                                type="button">
+                                {{ "SaveNext" | translate }}
+                            </button>
+
+                            <button
+                                class="px-8"
+                                mat-flat-button
+                                style="background-color: green; color: #FFFFFF"
+                                (click)="goToDashBoard()"
+                                matStepperNext
+                                type="button">
+                                {{ "SaveExit" | translate }}
+                            </button>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step4'"
+                        [stepControl]="horizontalStepperForm.get('step4')"
+                        #horizontalStepperStep2>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="{{'LANG.toolTip4' | translate}}" matTooltipPosition="above">
+                                <span>{{'LANG.tab_title_4' | translate}}</span>
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-log-frame
+                                (nextStep)="goForward(horizontalStepper)"
+                                (backPrevious)="goBack(horizontalStepper)">
+                            </app-log-frame>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step5'"
+                        [stepControl]="horizontalStepperForm.get('step5')">
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 matTooltip="{{'LANG.toolTip5' | translate}}" matTooltipPosition="above">
+                                <span>{{'LANG.tab_title_5' | translate}}</span><br>
+                                <span>{{'LANG.tab_title_5_sub' | translate}}</span>
+                            </div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <app-project-management
+                                (nextStep)="goForward(horizontalStepper)"
+                                (backPrevious)="goBack(horizontalStepper)">
+                            </app-project-management>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+    </div>
+</div>

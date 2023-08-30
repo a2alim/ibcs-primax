@@ -1,0 +1,129 @@
+<div style="width: 100%">
+  <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+    <div class="flex-1 min-w-0">
+
+      <!-- Header -->
+      <div class="dark bg-card dark:border-b">
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+          <div class="m-5">
+            <!-- Avatar and name -->
+            <div class="flex flex-auto items-center min-w-0">
+              <div class="flex flex-col min-w-0 ml-4">
+                <div class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                  {{'title'| translate}}
+                </div>
+                <div class="flex items-center">
+                  <div class="leading-5 truncate text-secondary">{{'breadcrumb'| translate}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- Actions -->
+            <!-- <div class="flex justify-end " style="margin-top: -50px; color: #4b4b4b !important;">
+              <button class="action-btn" mat-raised-button [routerLink]="['/dpp-tapp/create-new-dpp-tapp']"
+                color="primary">
+                <mat-icon style="vertical-align: middle;color: #fff" svgIcon="heroicons_outline:plus-circle"></mat-icon>
+                Create New DPP/TAPP
+              </button>
+            </div> -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-page-outside-body">
+
+    <div class="flex flex-col bg-card shadow rounded overflow-hidden m-5">
+      <div class="heading">
+        <h1>
+          <mat-icon svgIcon="heroicons_outline:adjustments" style="vertical-align: middle;color: #000000;"></mat-icon>
+          {{'criteriaBasedSearching'| translate}}
+        </h1>
+      </div>
+      <form [formGroup]="form" class="mr-15 ml-15 mb-3">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+              <mat-label fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%">Type
+              </mat-label>
+              <mat-form-field class="fuse-mat-dense flex-auto mt-5" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                fxFlex.xs="70%">
+                <mat-select formControlName="projectType">
+                  <mat-option value="">Select</mat-option>
+                  <mat-option value="DPP">DPP</mat-option>
+                  <mat-option value="TAPP">TAPP</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <div class="flex justify-end mr-3 mt-1">
+              <button (click)="clearSearchForm()" class="action-btn" mat-flat-button [color]="'accent'"
+                type="button">Clear</button>
+              <button (click)="searchByCriteria()" class="ml-3 action-btn" mat-flat-button [color]="'accent'"
+                type="button">Search</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+      <!--<mat-card>-->
+      <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+          <ng-container matColumnDef="sl">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>SL </th>
+            <td class="text-left" mat-cell *matCellDef="let element; let i = index">{{i+1}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="projectTitleEn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Project Title </th>
+            <td class="text-left" mat-cell *matCellDef="let element;">{{element.projectTitleEn}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dppTappType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Project Type </th>
+            <td class="text-left" mat-cell *matCellDef="let element;">{{element.dppTappType}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="priority">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+            <td class="text-left" mat-cell *matCellDef="let element;">{{element.priority}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dateCommencement">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+            <td class="text-left" mat-cell *matCellDef="let element;">{{element.dateCommencement}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dateCompletion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>End Date</th>
+            <td class="text-left" mat-cell *matCellDef="let element;">{{element.dateCompletion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="pdName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>PD Name</th>
+            <td class="text-left" mat-cell *matCellDef="let element; let i = index">{{element.pdName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              <button (click)="goToProjectManagementDetails(element)" class="ml-3 action-btn" mat-flat-button
+                [color]="'accent'" type="button">Edit</button>
+            </td>
+          </ng-container>
+
+          <!-- Initialized Table Header And Dataset-->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="total" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+      </div>
+    </div>
+
+  </div>
+</div>

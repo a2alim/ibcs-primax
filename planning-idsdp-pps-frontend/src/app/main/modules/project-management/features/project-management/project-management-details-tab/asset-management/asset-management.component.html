@@ -1,0 +1,202 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<!--  Form Start-->
+<form class="p-5">
+    <mat-card>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!--Start Input for name -->
+            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "Asset Details" | translate }}<span class="required">*</span>
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input autocomplete="off" placeholder="Enter Asset Details" matInput required
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="assetManagementModel.assetDetails"/>
+                        <mat-error>{{'nameIisRequired' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for name -->
+
+            <!--Start Input for Designation -->
+            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{ "Vendor Details" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <textarea autocomplete="off" placeholder="Enter Vendor Details"
+                                  matInput [ngModelOptions]="{standalone: true}"
+                                  [(ngModel)]="assetManagementModel.vendorDetails"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--end Input for Designation -->
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!-- Start Input for NID -->
+            <div fxFlex="40%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{"Asset Category" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input class="numberField" autocomplete="off" placeholder="Enter Asset Category"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="assetManagementModel.assetCategory"
+                               matInput/>
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <!-- end Input for NID -->
+
+            <!-- Start Input for Joining Date -->
+            <div fxFlex="40%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{"Remarks" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                           <textarea autocomplete="off" placeholder="Enter Remarks"
+                                     [ngModelOptions]="{standalone: true}" [(ngModel)]="assetManagementModel.remarks"
+                                     matInput></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- End Input for Joining Date -->
+
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <!-- Start Input for End Date -->
+            <div fxFlex="40%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{"Procurement Date" | translate }}
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input (click)="picker1.open()" [matDatepicker]="picker1" placeholder="Enter Procurement Date"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="assetManagementModel.procurementDate"
+                               matInput readonly required>
+                        <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- end Input for End Date -->
+
+            <!-- Start Input for Joining Date -->
+            <div fxFlex="40%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label class="pb-5 pl-3" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        {{"Asset Location" | translate }}<span class="required">*</span>
+                    </mat-label>
+                    <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <input class="numberField" autocomplete="off" placeholder="Enter Asset Location"
+                               formControlName="nid"
+                               matInput/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- End Input for Joining Date -->
+
+            <!-- Start Input for Continuing -->
+            <div fxFlex="20%" fxFlex.md="20%" fxFlex.sm="20%" fxFlex.xs="20%">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <button mat-flat-button type="button" color="primary" (click)="saveNewAsset()"
+                            class="px-3 mb-5 ml-5 toggle-sidebar-folded" [disabled]="spinner">
+                        <mat-icon class="mr-1">save</mat-icon>
+                        <span> {{ "save" | translate }}</span>
+                    </button>
+                </div>
+            </div>
+            <!-- End Input for Continuing -->
+        </div>
+
+    </mat-card>
+</form>
+<!-- Form end-->
+
+<div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto m-5">
+    <!--<mat-card>-->
+    <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+
+            <ng-container matColumnDef="sl">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'sl'|translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="assetDetails">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'assetDetails'|translate}} </th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.assetDetails}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vendorDetails">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'vendorDetails'|translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.vendorDetails}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="assetCategory">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'assetCategory'|translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.assetCategory}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="remarks">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'remarks' |translate}}</th>
+                <td class="text-left" mat-cell *matCellDef="let element;">{{element.remarks}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="procurementDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'procurementDate' |translate}}</th>
+                <td class="text-left" mat-cell
+                    *matCellDef="let element;">{{element.procurementDate | date:"dd/MM/yyyy"}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'action'|translate}}</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <button class="ml-3 action-btn" type="button">
+                        <mat-icon aria-hidden="false" [color]="'primary'" aria-label="Example home icon"
+                                  (click)="editData(element)">edit
+                        </mat-icon>
+                    </button>
+                    <button class="ml-3 action-btn" type="button">
+                        <mat-icon aria-hidden="false" [color]="'warn'" aria-label="Example home icon"
+                                  (click)="deleteData(element.uuid)">delete
+                        </mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <!-- Initialized Table Header And Dataset-->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+    </div>
+</div>
+
+<!--Start Bottom Button -->
+<div class="flex justify-end mt-8">
+    <button mat-flat-button type="button" [disabled]="spinner" [color]="'primary'" class="px-3 mr-2"
+            (click)="nextTab()">
+        <span>{{ "save&next" | translate }}</span>
+        <mat-icon class="mr-1">fast_forward</mat-icon>
+    </button>
+
+    <button mat-flat-button [disabled]="spinner" type="button" [color]="'warn'" class="px-3 mr-2">
+        <span> {{ "save&exit" | translate }}</span>
+        <mat-icon class="mr-1">heroicons_outline</mat-icon>
+    </button>
+</div>
+<!--end Bottom Button -->

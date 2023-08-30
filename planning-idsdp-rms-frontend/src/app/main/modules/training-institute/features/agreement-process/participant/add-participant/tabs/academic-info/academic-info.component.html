@@ -1,0 +1,309 @@
+<div class="body">
+    <form [formGroup]="academicForm" #inputForm="ngForm" (ngSubmit)="onSubmit()">
+        <!-- Form Body -->
+
+        <!-- CARD ONE-->
+        <div class="heading mt-2">
+            <h1>{{'academicBackground' | translate}}</h1>
+        </div>
+        <mat-card class="tab-color">
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                            {{'subject' | translate}}<strong class="required">*</strong>
+                        </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input formControlName="subject" matInput required>
+                        <mat-error *ngIf="academicForm.invalid">{{'subject' | translate}} {{ 'required' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                           {{'examination' | translate}}<strong class="required">*</strong>
+                        </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input formControlName="examinationName" matInput required type="text">
+                        <mat-error *ngIf="academicForm.invalid">{{'examination' | translate}} {{ 'required' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <!-- Row 2-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                            {{'result' | translate}}<strong class="required">*</strong>
+                        </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <mat-select formControlName="resultId" placeholder="Select One" required>
+                            <mat-option *ngFor="let result of resultList" [value]="result.id"> {{result.name}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="academicForm.invalid">{{'result' | translate}} {{ 'required' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                           {{'passingYear' | translate}}<strong class="required">*</strong>
+                        </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input formControlName="passingYear" matInput min="0" required type="number">
+                        <mat-error *ngIf="academicForm.invalid">{{'passingYear' | translate}} {{ 'required' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Row 3-->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                            {{'instituteName' | translate}}<strong class="required">*</strong>
+                        </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <input formControlName="instituteName" matInput required>
+                        <mat-error *ngIf="academicForm.invalid">{{'instituteName' | translate}} {{ 'required' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                            {{'board' | translate}}<strong class="required">*</strong>
+                        </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                    <mat-form-field class="w-full">
+                        <mat-select formControlName="board" placeholder="Select One" required>
+                            <mat-option value="Dhaka">Dhaka</mat-option>
+                            <mat-option value="Rajshahi">Rajshahi</mat-option>
+                            <mat-option value="Comilla">Comilla</mat-option>
+                            <mat-option value="Jessore">Jessore</mat-option>
+                            <mat-option value="Chittagong">Chittagong</mat-option>
+                            <mat-option value="Barisal">Barisal</mat-option>
+                            <mat-option value="Sylhet">Sylhet</mat-option>
+                            <mat-option value="Dinajpur">Dinajpur</mat-option>
+                            <mat-option value="Madrasah">Madrasah</mat-option>
+                            <mat-option value="Others">Others</mat-option>
+                        </mat-select>
+                        <mat-error>{{'board' | translate}} {{ 'required' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Row 4 -->
+            <div class="md:flex">
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                    <span class="text-gray-700">
+                       {{'upload_relevant_doc' | translate}}
+                    </span>
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+
+                    <mat-form-field (change)="uploadFile($event.target.files,'certificate_image')" class="w-full">
+                        {{imageName}}
+                        <ngx-mat-file-input formControlName="certificateImage" [accept]="'.*'">
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>folder</mat-icon>
+                        <mat-error>File is {{ 'required' | translate }}</mat-error>
+                        <mat-hint>Image Size Maximum 1MB, JPG, PNG</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+
+                </div>
+                <div class="w-full sm:w-auto md:w-30 lg:w-30">
+
+                </div>
+            </div>
+
+
+<!--            <div class="flex justify-end mt-8">-->
+
+<!--                <button (click)="addAcademicInfo()" [disabled]="academicForm.invalid" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="reset">-->
+<!--                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>-->
+<!--                    <span>{{ 'add_more' | translate }}</span>-->
+<!--                </button>-->
+
+<!--            </div>-->
+
+            <!-- Bottom Button -->
+            <div class="flex justify-end mt-8 mb-8">
+                <button (click)="previousTab()" class="px-3 mr-2 toggle-sidebar-folded nextBtn" color="primary" mat-flat-button style="background: #4c72c7 !important;color: white;" type="button">
+                    <mat-icon *ngIf="nextIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{ "previous" | translate }}
+                </button>
+
+                <button
+                    class="px-5 mr-2"
+                    mat-flat-button
+                    color="accent"
+                    (click)="formReset()"
+                    type="reset">
+                    <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                    {{'reset' | translate}}
+                </button>
+<!--                <button (click)="save(false)" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">-->
+<!--                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>-->
+<!--                    <span>{{ formTitle==='Edit' ? ("update" | translate) : ("save" | translate) }}</span>-->
+
+<!--                </button>-->
+                <button  class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span>{{ formTitle==='Edit' ? ("update" | translate) : ("save" | translate) }}</span>
+
+
+
+                </button>
+
+                <button (click)="addAndNext()" class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn" color="primary" mat-flat-button type="button">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span> {{ formTitle==='Edit' ? ("update_and_next" | translate) : ("save_and_next" | translate) }}</span>
+                </button>
+
+                <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF"
+                        type="button" color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                    {{ "next" | translate }}
+                    <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+                </button>
+
+                <!--        <button (click)="nextTab()" class="px-3 mr-2 toggle-sidebar-folded nextBtn" color="primary" mat-flat-button-->
+                <!--                style="background-color: green; color: #FFFFFF" type="button">-->
+                <!--            {{ "next" | translate }}-->
+                <!--            <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>-->
+                <!--        </button>-->
+            </div>
+
+        </mat-card>
+    </form>
+    <!-- Data Table -->
+    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto my-4">
+        <!--<mat-card>-->
+        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+            <table [dataSource]="dataSource" class="mat-elevation-z8 w-full" mat-table>
+                <!-- Position Column -->
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl' | translate}} </th>
+                    <td class="text-center" mat-cell *matCellDef="let element; let i = index">
+                        {{ i + 1 }}
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="subject">
+                    <th *matHeaderCellDef class="w-16" mat-header-cell> {{'subject' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.subject}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="examination">
+                    <th *matHeaderCellDef mat-header-cell> {{'examination' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell>
+                        {{element.examinationName}}
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="result">
+                    <th *matHeaderCellDef mat-header-cell> {{'result' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.resultId | resultName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="passingYear">
+                    <th *matHeaderCellDef mat-header-cell> {{'passingYear' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.passingYear}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="instituteName">
+                    <th *matHeaderCellDef mat-header-cell> {{'instituteName' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.instituteName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="board">
+                    <th *matHeaderCellDef mat-header-cell> {{'board' | translate}} </th>
+                    <td *matCellDef="let element" class="text-center" mat-cell> {{element.board}} </td>
+                </ng-container>
+
+
+                <!-- Action Column -->
+                <!--<ng-container matColumnDef="action">
+                    <th *matHeaderCellDef class="pl-4 w-32" mat-header-cell> {{'Action' | translate}} </th>
+                    <td *matCellDef="let row; let i = index;" class="text-center" mat-cell>
+                        <div class="buttons">
+                            <button (click)="editRow(row)"
+                                    mat-icon-button
+                                    class="toggle-sidebar-folded"
+                                    matTooltip="Edit"
+                                    fxHide.lt-lg>
+                                <mat-icon *ngIf="editBtn"
+                                          color="accent">{{editBtn}}
+                                </mat-icon>
+                            </button>
+                        </div>
+                        <div class="buttons">
+                            <button (click)="deleteAcademicInfo(i)" class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button matTooltip="delete">
+                                <mat-icon color="warn">delete
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>-->
+
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}} </th>
+                    <td class="text-center" mat-cell *matCellDef="let row; let i = index;">
+                        <div class="buttons">
+                            <button (click)="editRow(row,i)"
+                                    mat-icon-button
+                                    class="toggle-sidebar-folded"
+                                    matTooltip="Edit"
+                                    fxHide.lt-lg>
+                                <mat-icon *ngIf="editBtn"
+                                          color="accent">{{editBtn}}
+                                </mat-icon>
+                            </button>
+
+                            <button (click)="deleteAcademicInfo(i)"
+                                    mat-icon-button
+                                    class="toggle-sidebar-folded"
+                                    matTooltip="Delete"
+                                    fxHide.lt-lg>
+                                <mat-icon *ngIf="deleteBtn"
+                                          color="warn">{{deleteBtn}}
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Initialized Table Header And Dataset-->
+                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+            </table>
+
+            <!-- </form> -->
+        </div>
+
+<!--        &lt;!&ndash; mat-paginator &ndash;&gt;-->
+<!--        <mat-paginator-->
+<!--            #paginatorRef-->
+<!--            [length]="totalElements"-->
+<!--            [pageSize]="pageSize"-->
+<!--            [pageSizeOptions]="[5, 10, 25, 100]"-->
+<!--            (page)="onChangePage($event)">-->
+<!--        </mat-paginator>-->
+
+    </div>
+
+    <!-- </form> -->
+</div>

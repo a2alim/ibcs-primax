@@ -1,0 +1,115 @@
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<div style="width: 100%">
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    {{'questionAnswerBankViewHeader' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">{{'questionAnswerBankViewHeaderBreadcrumb' | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+            <!--<div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">-->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                    <!--<div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>-->
+                    <div class="heading">
+                        <h1><strong>{{'answerDetails' | translate}}</strong></h1>
+                    </div>
+                    <form [formGroup]="form">
+                <div class="p-8 pb-4">
+                    <!-- View Block Start -->
+                    <!-- View Fields Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="15%" fxFlex.xs="100%" fxFlex.sm="50%" style="margin-top: -15px;">
+                            {{'questionSource' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="29%" fxFlex.xs="100%"
+                                        fxFlex.sm="50%">
+                            <input readonly matInput value="{{ministryDivision?.nameEn}}">
+                        </mat-form-field>
+                        <mat-label fxFlex="12%" fxFlex.xs="100%" fxFlex.sm="50%" style="margin-top: -15px;">
+                            {{'questionType' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="29%" fxFlex.xs="100%"
+                                        fxFlex.sm="50%">
+                            <input matInput readonly value="{{questionType?.nameEn}}">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="12%" fxFlex.xs="100%" fxFlex.sm="30%" style="margin-top: -15px;">
+                            {{'questionTitle' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="80%" fxFlex.xs="100%"
+                                        fxFlex.sm="50%">
+                            <input matInput readonly value="{{query?.questionTitle}}">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="mb-4">
+                        <mat-label fxFlex="12%" fxFlex.xs="30%" fxFlex.sm="30%">{{'answerDetails' | translate}}
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="100%"
+                                        fxFlex.sm="50%">
+                            <textarea required matInput rows="6" formControlName="details" value="{{answerBank?.details}}"></textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Attachment Block Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="margin1">
+                        <mat-label class="pb-3" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                            {{'attachment' | translate}}
+                        </mat-label>
+                        <mat-form-field appearance="outline" fxFlex="30%" fxFlex.xs="50%" fxFlex.sm="50%" fxFlex.md="50%" style="padding-top: 21px;" class="fuse-mat-dense flex-auto">
+                            <label *ngIf="attachment?.id">{{attachment?.fileName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="attachment" placeholder="{{'browse' | translate}}" (change)="uploadFile($event.target.files)">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <button *ngIf="attachment?.id" (click)="openDialogForDeleteAttachment(attachment?.id)" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="40%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="attachment?.id" (click)="downloadAttachment(attachment?.id)" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1 primary" [color]="'primary'">file_download</mat-icon>
+                        </button>
+                        <div fxFlex="50%" fxFlex.xs="20%" fxFlex.sm="20%" fxFlex.md="20%"></div>
+                    </div>
+                    <!-- Attachment Block End -->
+                    <!-- View Fields End -->
+
+                    <!-- Button Start -->
+                    <div class="flex items-center justify-end mb-5">
+                        <button class="px-6 ml-3" mat-flat-button [color]="'back'" [routerLink]="['/question-answer-bank/list']">{{'back' | translate}}</button>
+                        <button [disabled]="!form.valid"  (click)="submit()" class="px-6 ml-3" mat-flat-button [color]="'primary'">Save</button>
+                    </div>
+                    <!-- Button End -->
+                    <!-- View Block End -->
+                </div>
+                </form>
+            </div>
+        </mat-card>
+    </div>
+
+</div>

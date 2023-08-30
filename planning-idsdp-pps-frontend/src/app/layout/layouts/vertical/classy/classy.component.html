@@ -1,0 +1,114 @@
+<!-- Navigation -->
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    *ngIf="!isPublicDashboard"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation"
+    [opened]="!isScreenSmall">
+
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6" style="padding: 0.2rem !important;">
+            <!-- Logo -->
+            <div class="flex items-center justify-center">
+                <img class="w-20" src="">
+            </div>
+            <!-- Components -->
+            <div class="flex items-center ml-auto">
+                <!--                <notifications [notifications]="data.notifications"></notifications>-->
+                <!--                <user-menu [showAvatar]="true"></user-menu>-->
+            </div>
+        </div>
+        <!-- User -->
+        <div class="flex flex-col items-center w-full mb-5">
+            <div class="relative w-24 h-24">
+                <img class="w-full h-full rounded-full" src="/assets/images/logo/bd.png" alt="User avatar">
+                <mat-icon class="icon-size-24" *ngIf="!data.user.avatar" [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-2">
+                <div class="w-full overflow-ellipsis overflow-hidden text-center leading-normal font-medium"
+                     style="color: #333c48 !important;font-weight: bold !important;">
+                    {{userGroupName}}
+                </div>
+<!--                <div>-->
+<!--                    <span>{{userGroupDesc}}</span>-->
+<!--                </div>-->
+                <div class="w-full overflow-ellipsis overflow-hidden text-center leading-normal font-medium"
+                    style="color: #333c48 !important;font-weight: bold !important;" *ngIf="ministryName">
+                    {{ministryName}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+<!--                    Planning Commission Rd, Dhaka 1207-->
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0">
+    <!--     Header-->
+    <div *ngIf="!isPublicDashboard"
+        class="relative flex flex-0 items-center w-full h-13 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+        <!--style="background-color: #f1f5f9 !important;"-->
+
+        <!-- Navigation toggle button -->
+        <button mat-icon-button (click)="toggleNavigation('mainNavigation')">
+            <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+        </button>
+        <div class="flex items-center pl-2 ml-auto space-x-2">
+            <div style="width: 100%">
+                <div style="display: inline-block; margin-right: 5px;vertical-align: text-bottom;">
+                    <messages [messages]="data.messages"></messages>
+                </div>
+                <div style="display: inline-block; margin-right: 5px;vertical-align: text-bottom;">
+                    <img style="height: 40px;width: 40px;" src="assets/images/avatars/user_profile_icon.png">
+                </div>
+                <div style="display: inline-block;">
+                    <p style="color: #0d9488">{{userName}}</p>
+                    <p>{{designation}}</p>
+                </div>
+                <div style="display: inline-block; vertical-align: bottom;">
+                    <user-menu></user-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Components -->
+        <!--        <div class="flex items-center pl-2 ml-auto space-x-2">-->
+        <!--            <search [appearance]="'bar'"></search>-->
+        <!--            <shortcuts [shortcuts]="data.shortcuts"></shortcuts>-->
+        <!--            <messages [messages]="data.messages"></messages>-->
+        <!--            <div>-->
+        <!--                <mat-button-toggle-group [value]="selectedLanguage" appearance="legacy" aria-label="Font Style"-->
+        <!--                                         name="fontStyle">>
+                            <mat-button-toggle (click)="setLanguage('en')" class.actu value="en">En</mat-button-toggle>
+                            <mat-button-toggle value="bn" (click)="setLanguage('bn')">Bn</mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+    </div>-->
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+    <!-- Footer -->
+    <div class="relative justify-center w-full px-6 pl-2 md:px-9 z-49 print:hidden"
+         style="color: #000; font-weight: bold; padding: 10px; font-family: Arial;border-top: 1px solid #dbdfe5">
+        <div style="float: left; margin-left: 23px;font-size: 13px;color: #333333">
+            Copyright &copy; 2021, Planning Division.
+        </div>
+        <div style="float: right;margin-right: 23px">
+            <img style="width: 50px;float: right" src="assets/images/logo/logo.png">
+        </div>
+    </div>
+</div>
+
+<button *ngIf="pageYoffset > 0"  id="myBtn" class="backToTop" (click)="scrollToTop()">
+    <mat-icon style="color: white;">eject</mat-icon>
+</button>

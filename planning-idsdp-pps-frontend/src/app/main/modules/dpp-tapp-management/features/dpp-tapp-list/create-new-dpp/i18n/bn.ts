@@ -1,0 +1,33 @@
+export const locale = {
+    lang: 'bn',
+    data: {
+        'headerTitle': 'ডিপিপি-টিএপিপি ব্যবস্থাপনা',
+        'headerSubTitle': 'হোম  > ডিপিপি/টিএপিপি তৈরী',
+        'page_title': 'ডিপিপি-টিএপিপি ব্যবস্থাপনা',
+        'breadcrumb1' : 'হোম  > ',
+        'breadcrumb2' : 'ডিপিপি/টিএপিপি তৈরী',
+        'BasicInformation' : 'Basic Information',
+        'LinkWithProjectConcept' : 'Link with Project Concept',
+        'ProjectMainPage' : 'Project List',
+        'TitleEn' : 'Title (English)',
+        'TitleBn' : 'Title (Bangla)',
+        'ProjectType' : 'Project Type',
+        'MinistryDivision' : 'Ministry Division',
+        'ImplementingAgency' : 'Implementing Agency',
+        'ExpectedImplementationPeriod': 'Expected Implementation Period',
+        'DateOfCommencement': 'Date of Commencement',
+        'DateOfCompletion': 'Date of Completion',
+        'TheWorkingsOfTheGovernmentAndCOFOGSelection': 'ADP Sector/Sub-Sector selection',
+        'SectorDivision': 'Concerned Division of Planning Commission',
+        'ProjectSectorAndSubSectorSection': 'Project Sector and Sub Sector (As Per ADP)',
+        'Sector': 'Sector',
+        'SubSector': 'Sub-Sector',
+        'FundingType': 'Funding Type',
+        'OnlyGoBFund': 'Only GoB Fund',
+        'Save': 'Save',
+        'GreenPageList':'Green Page List',
+        'fiscalYear':'(Fiscal Year: 2023-24, Program Type: ADP)',
+        'completionDate' : 'Completion Date: ',
+        'commencementDate' : 'Commencement Date: '
+    }
+};

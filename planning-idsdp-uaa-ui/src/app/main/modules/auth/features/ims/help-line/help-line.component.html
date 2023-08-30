@@ -1,0 +1,106 @@
+<div class="w-full" style="">
+    <!-- Header Area  -->
+    <div>
+        <app-ims-header [title]="'Help Line'" [subTitle]="'Information Management System / Help Line'"></app-ims-header>
+    </div>
+    <!-- Header End  -->
+
+
+    <!-- Body area  -->
+    <div style="width: 100%;">
+        <div class="center" style="width: 100%;">
+
+            <div class="page-content" style="width: 100%;">
+                <div class="form-v4-content " style="box-shadow: 5px 5px  15px 15px #818381; margin-top: 15px">
+
+                    <form [formGroup]="form" class="form-detail form-left " id="myform">
+                        <div class="form-group">
+                            <div class="form-row form-row-1">
+                                <label for="first_name">First Name*</label>
+                                <input type="text" name="first_name" id="first_name" placeholder="First name"
+                                    formControlName="firstName"
+                                    [ngClass]="{ 'is-invalid': submitted && form.controls.firstName.errors }"
+                                    class="input-text form-control">
+                                <div *ngIf="submitted && form.controls.firstName.errors" class="text-danger">
+                                    <div *ngIf="form.controls.firstName.errors.required">First Name is required</div>
+                                </div>
+                            </div>
+
+                            <div class="form-row form-row-1">
+                                <label for="last_name">Last Name*</label>
+                                <input type="text" placeholder="Last name" formControlName="lastName" name="last_name"
+                                    id="last_name"
+                                    [ngClass]="{ 'is-invalid': submitted && form.controls.lastName.errors }"
+                                    class="input-text form-control">
+                                <div *ngIf="submitted && form.controls.lastName.errors" class="text-danger">
+                                    <div *ngIf="form.controls.lastName.errors.required">Last Name is required</div>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-row">
+                            <label for="your_email">Email*</label>
+                            <input type="email" formControlName="email" class="form-control"
+                                placeholder="somethings@email.com"
+                                [ngClass]="{ 'is-invalid': submitted && form.controls.email.errors }" />
+                            <div *ngIf="submitted && form.controls.email.errors" class="text-danger">
+                                <div *ngIf="form.controls.email.errors.required">Email is required</div>
+                                <div *ngIf="form.controls.email.errors.email">Email must be a valid email address</div>
+                            </div>
+                        </div><br>
+                        <div class=" ">
+                            <label for="Message">Message*</label>
+                            <textarea class="form-control" rows="3" formControlName="message" type="text"
+                                placeholder="Your message"
+                                [ngClass]="{ 'is-invalid': submitted && form.controls.message.errors }"></textarea>
+                            <div *ngIf="submitted && form.controls.message.errors" class="text-danger">
+                                <div *ngIf="form.controls.message.errors.required">Message is required</div>
+                            </div>
+                        </div><br>
+                        <div class=" ">
+                            <label for="Aditional">Additional Details </label>
+                            <textarea class="form-control" rows="3" formControlName="additionalDetails" type="text"
+                                placeholder="Your message"
+                                      [ngClass]="{ 'is-invalid': submitted && form.controls.additionalDetails.errors }">
+                            </textarea>
+                        </div><br>
+                        <div class="form-row-last">
+                            <button type="button" style="height: 40px; box-shadow: 5px 5px  5px 5px #818381 ;"
+                                class="register" (click)="sendMessage()">Send</button>
+                        </div>
+                    </form>
+
+
+                    <div class="form-right">
+                        <h2>How Can We Help?</h2>
+                        <p class="text-1">Our team is happy to answer your questions and help you to get involved with
+                            our system.</p><br><br><br>
+                        <p class="text-2"><span>Please do not hesitate to raise your hand for help.</span><br><br><br>
+
+                            Senior System Analyst <br>
+                            Planning Division <br>
+                            Ministry of Planning <br>
+                            Block:13, Room No:12 <br>
+                            Phone:9180789, Fax:9185868 <br>
+                            Agargoan,Sher-E-Bangla Nagar,Dhaka-1207,Bangladesh <br><br><br>
+                            <b>Mail: </b>
+                            <span style="color: blue;">
+                                <a href="mailto:sdpp.plandiv@mail.gov.bd"
+                                    style="text-decoration: underline;">sdpp.plandiv@mail.gov.bd
+                                </a>
+                            </span>
+                            <br><br><br>
+                            <b>Cell:</b> +880 01911 054321, +880 01711 054321<br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  Body  end area  -->
+
+    <!-- footer area -->
+    <div>
+        <app-ims-footer></app-ims-footer>
+    </div>
+
+</div>

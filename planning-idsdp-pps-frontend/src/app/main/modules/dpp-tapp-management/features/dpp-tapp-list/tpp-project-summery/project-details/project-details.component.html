@@ -1,0 +1,633 @@
+<div class="flex flex-col flex-auto max-w-full">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!--New Header start-->
+            <div class="header flex justify-between items-center">
+                <app-list-header [title]="title" class="crop-text" [subTitle]="'sub_title' | translate"></app-list-header>
+                <div class="mr-12">
+                    <button class="btn btn-home flex justify-center items-center" (click)="goBackToHome()" mat-button type="button">
+                        <span class="material-icons" style="color: white;">keyboard_backspace</span>&nbsp;
+                        {{"projectMainPage" | translate}}
+                    </button>
+                </div>
+            </div>
+            <!-- / New Header end-->
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <!--========================= transaction loader spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--========================= /// transaction loader spinner ================-->
+
+    <mat-card>
+        <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()">
+            <div class="body">
+                <div>
+                    <ng-container>
+                        <div class="sub-heading" *ngIf="isParipatra2016">
+                            <span *ngIf="isParipatra2016" class="inline-block align-middle m-1">
+                                <p>{{'EI_15.0' | translate}}
+                            </span>
+                        </div>
+                        <mat-card>
+                            <div>
+                                <div class="sub-heading">
+                                    <p>
+                                        <span *ngIf="isParipatra2016">{{'EI_24.1' | translate}}</span>
+                                        <span *ngIf="!isParipatra2016">{{'EI_15.0_22' | translate}}</span>
+                                        <span *ngIf="!editor1" (click)="toggleShow1()">
+                                            <mat-icon style="color: white;cursor: pointer;float:right"
+                                               matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                        </span>
+                                        <span *ngIf="editor1" (click)="toggleShow1()">
+                                            <mat-icon style="color: white;cursor: pointer;float:right"
+                                                matTooltip="ClickToECollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                        </span>
+                                        <span style="float: right">
+                                            <label for="file-upload0">
+                                                <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                            </label>
+                                            <input #file0 type="file" accept='image/*'
+                                                (change)="uploadImageAsBase64(file0.files,'situationAnalysis')" id="file-upload0"/>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div *ngIf="editor1" style="position: relative;">
+                                    <ckeditor [config]="mediumEditorConfig" formControlName="situationAnalysis" required></ckeditor>
+                                    <mat-error *ngIf="frmGroup.get('situationAnalysis').hasError('customError')">
+                                        {{ frmGroup.get('situationAnalysis').errors.customError.value }}
+                                    </mat-error>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </ng-container>
+
+                    <div class="mt-5">
+                        <div class="sub-heading" *ngIf="isForeignAid">
+                            <span  class="inline-block align-middle">
+                                <p *ngIf="isParipatra2016">{{'EI_24.2' | translate}}</p>
+                                <p *ngIf="!isParipatra2016">{{'EI_24.2_22' | translate}}</p>
+                            </span>
+                        </div>
+                    </div>
+                    <mat-card>
+                        <div>
+                            <div class="sub-heading">
+                                <p>
+                                    <span *ngIf="isParipatra2016">{{'EI_24_2_1' | translate}}</span>
+                                    <span *ngIf="!isParipatra2016">{{'EI_24_2_1_22' | translate}}</span>
+                                    <span *ngIf="!editor2" (click)="toggleShow2()">
+                                         <mat-icon style="color: white;cursor: pointer;float:right"
+                                                   matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor2" (click)="toggleShow2()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right"
+                                              matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload1">
+                                            <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                        </label>
+                                        <input #file1 type="file" accept='image/*' (change)="uploadImageAsBase64(file1.files,'objectives')"
+                                               id="file-upload1"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor2" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="objectives"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('objectives').hasError('customError')">
+                                    {{ frmGroup.get('objectives').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <div class="sub-heading">
+                                <p>
+                                    <span *ngIf="isParipatra2016">{{'EI_24.3' | translate}}</span>
+                                    <span *ngIf="!isParipatra2016">{{'EI_24.3_22' | translate}}</span>
+                                    <span *ngIf="!editor3" (click)="toggleShow3()">
+                                         <mat-icon style="color: white;cursor: pointer;float:right"
+                                                   matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor3" (click)="toggleShow3()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right"
+                                              matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload3"><mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                        matTooltipPosition="above">image</mat-icon></label>
+                                        <input #file3 type="file" accept='image/*'
+                                            (change)="uploadImageAsBase64(file3.files,'specificDetails')" id="file-upload3"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor3" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="specificDetails"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('specificDetails').hasError('customError')">
+                                    {{ frmGroup.get('specificDetails').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <br>
+
+                    <mat-card>
+                        <div>
+                            <div class="sub-heading">
+                                <p>
+                                    <span *ngIf="isParipatra2016">{{'EI_24.4' | translate}}</span>
+                                    <span *ngIf="!isParipatra2016">{{'EI_24.4_22' | translate}}</span>
+                                    <span *ngIf="!editor4" (click)="toggleShow4()">
+                                         <mat-icon style="color: white;cursor: pointer;float:right"
+                                                   matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor4" (click)="toggleShow4()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right"
+                                              matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload4"><mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                                                            matTooltipPosition="above">image</mat-icon></label>
+                                        <input #file4 type="file" accept='image/*'
+                                            (change)="uploadImageAsBase64(file4.files,'visionMission')" id="file-upload4"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor4" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="visionMission"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('visionMission').hasError('customError')">
+                                    {{ frmGroup.get('visionMission').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+                        <br>
+                        <div *ngIf="!isForeignAid">
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'visionMissionOfAgency' | translate}}</span>
+                                    <span *ngIf="!editor12" (click)="toggleShow12()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor12" (click)="toggleShow12()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload12">
+                                            <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                        </label>
+                                        <input #file12 type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file12.files,'visionMissionOfAgency')" id="file-upload12"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor12" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="visionMissionOfAgency"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('visionMissionOfAgency').hasError('customError')">
+                                    {{ frmGroup.get('visionMissionOfAgency').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div>
+                            <div class="sub-heading">
+                                <p>
+                                    <span *ngIf="isParipatra2016">{{'EI_24.5' | translate}}</span>
+                                    <span *ngIf="!isParipatra2016">{{'EI_24.5_22' | translate}}</span>
+                                    <span *ngIf="!editor5" (click)="toggleShow5()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor5" (click)="toggleShow5()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload5">
+                                            <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                        </label>
+                                        <input #file5 type="file" accept='image/*'
+                                            (change)="uploadImageAsBase64(file5.files,'projectContribute')" id="file-upload5"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor5" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="projectContribute"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('projectContribute').hasError('customError')">
+                                    {{ frmGroup.get('projectContribute').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <br>
+
+                    <div class="mt-5" *ngIf="!isForeignAid">
+                        <div class="sub-heading">
+                            <span class="inline-block align-middle">
+                                <p>{{'visionMission' | translate}}</p>
+                            </span>
+                        </div>
+                    </div>
+                    <mat-card>
+                        <div>
+                            <div class="sub-heading">
+                                <p>
+                                    <span *ngIf="isParipatra2016">{{'EI_24.6' | translate}}</span>
+                                    <span *ngIf="!isParipatra2016">{{'EI_24.6_22' | translate}}</span>
+                                    <span *ngIf="!editor10" (click)="toggleShow10()">
+                                         <mat-icon *ngIf="!isParipatra2016" style="color: white;cursor: pointer;float:right"
+                                                   matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor10" (click)="toggleShow10()">
+                                        <mat-icon *ngIf="!isParipatra2016" style="color: white;cursor: pointer;float:right"
+                                                  matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload10">
+                                            <mat-icon *ngIf="!isParipatra2016" matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                        </label>
+                                        <input #file10 type="file" accept='image/*'
+                                            (change)="uploadImageAsBase64(file10.files,'implementationArrangements')" id="file-upload10"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor10" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="implementationArrangements"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('implementationArrangements').hasError('customError')">
+                                    {{ frmGroup.get('implementationArrangements').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+
+                        <div *ngIf="!isForeignAid">
+                            <br>
+                            <div class="sub-heading">
+                                <p>
+                                    <span>{{'implementationFramework' | translate}}</span>
+                                    <span *ngIf="!editor13" (click)="toggleShow13()">
+                                         <mat-icon *ngIf="!isParipatra2016" style="color: white;cursor: pointer;float:right"
+                                                   matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor13" (click)="toggleShow13()">
+                                        <mat-icon *ngIf="!isParipatra2016" style="color: white;cursor: pointer;float:right"
+                                                  matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload13">
+                                            <mat-icon *ngIf="!isParipatra2016" matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                        </label>
+                                        <input #file13 type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file13.files,'implementationFramework')" id="file-upload13"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor13" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="implementationFramework"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('implementationFramework').hasError('customError')">
+                                    {{ frmGroup.get('implementationFramework').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <br>
+
+                    <mat-card *ngIf="isParipatra2016">
+                        <div>
+                            <div class="sub-heading">
+                                <p>
+                                    {{'EI_24_6_1' | translate}}
+                                    <span *ngIf="!editor6" (click)="toggleShow6()">
+                                         <mat-icon style="color: white;cursor: pointer;float:right"
+                                                   matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor6" (click)="toggleShow6()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right"
+                                                  matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload6">
+                                            <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                        </label>
+                                        <input #file6 type="file" accept='image/*'
+                                            (change)="uploadImageAsBase64(file6.files,'implementationArrangements')" id="file-upload6"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor6" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig"
+                                          formControlName="implementationArrangements"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('implementationArrangements').hasError('customError')">
+                                    {{ frmGroup.get('implementationArrangements').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+                    </mat-card>
+
+                    <div class="mt-5" *ngIf="!isForeignAid">
+                        <div class="sub-heading">
+                            <span class="inline-block align-middle">
+                                <p>{{'expectedOutputOutcome' | translate}}</p>
+                            </span>
+                        </div>
+                    </div>
+                    <mat-card>
+                        <div>
+                            <div class="sub-heading">
+                                <span *ngIf="isParipatra2016" class="inline-block align-middle">
+                                    <p>{{'EI_24.7' | translate}}</p>
+                                </span>
+                                <span *ngIf="!isParipatra2016" class="inline-block align-middle">
+                                    <p>{{'EI_24.7_22' | translate}}</p>
+                                </span>
+                                <span *ngIf="!editor11" (click)="toggleShow11()">
+                                         <mat-icon *ngIf="!isParipatra2016" style="color: white;cursor: pointer;float:right"
+                                                   matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                <span *ngIf="editor11" (click)="toggleShow11()">
+                                    <mat-icon *ngIf="!isParipatra2016" style="color: white;cursor: pointer;float:right"
+                                              matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                </span>
+                                <span style="float: right">
+                                     <label for="file-upload11">
+                                         <mat-icon *ngIf="!isParipatra2016" matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                     </label>
+                                    <input #file11 type="file" accept='image/*'
+                                           (change)="uploadImageAsBase64(file11.files,'expectedOutputOutcome')" id="file-upload11"/>
+                                </span>
+                            </div>
+                            <div *ngIf="editor11" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="expectedOutputOutcome"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('expectedOutputOutcome').hasError('customError')">
+                                    {{ frmGroup.get('expectedOutputOutcome').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+
+                        <div *ngIf="!isForeignAid">
+                            <br>
+                            <div class="sub-heading">
+                                <span class="inline-block align-middle">
+                                    <p>{{'expectedOutputOutcomeDescription' | translate}}</p>
+                                </span>
+                                <span *ngIf="!editor14" (click)="toggleShow14()">
+                                         <mat-icon *ngIf="!isParipatra2016" style="color: white;cursor: pointer;float:right"
+                                                   matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                <span *ngIf="editor14" (click)="toggleShow14()">
+                                    <mat-icon *ngIf="!isParipatra2016" style="color: white;cursor: pointer;float:right"
+                                              matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                </span>
+                                <span style="float: right">
+                                     <label for="file-upload14">
+                                         <mat-icon *ngIf="!isParipatra2016" matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                     </label>
+                                    <input #file14 type="file" accept='image/*'
+                                           (change)="uploadImageAsBase64(file14.files,'expectedOutputOutcomeDescription')" id="file-upload14"/>
+                                </span>
+                            </div>
+                            <div *ngIf="editor14" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="expectedOutputOutcomeDescription"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('expectedOutputOutcomeDescription').hasError('customError')">
+                                    {{ frmGroup.get('expectedOutputOutcomeDescription').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+                    </mat-card>
+
+                    <mat-card *ngIf="isParipatra2016">
+                        <div>
+                            <div class="sub-heading">
+                                <p>
+                                    {{'EI_24_7_1' | translate}}
+                                    <span *ngIf="!editor7" (click)="toggleShow7()">
+                                         <mat-icon style="color: white;cursor: pointer;float:right"
+                                                   matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor7" (click)="toggleShow7()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right"
+                                                  matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload7">
+                                            <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                        </label>
+                                        <input #file7 type="file" accept='image/*'
+                                               (change)="uploadImageAsBase64(file7.files,'expectedOutputOutcome')" id="file-upload7"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor7" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="expectedOutputOutcome"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('expectedOutputOutcome').hasError('customError')">
+                                    {{ frmGroup.get('expectedOutputOutcome').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <br>
+
+                   <ng-container *ngIf="isParipatra2016" >
+                       <div class="mt-5">
+                           <div class="sub-heading">
+                            <span class="inline-block align-middle">
+                              {{'EI_24.8' | translate}}
+                            </span>
+                           </div>
+                       </div>
+                       <mat-card>
+                           <div>
+                               <div class="sub-heading">
+                                   <p>
+                                        {{'EI_24_8_1' | translate}}
+                                        <span *ngIf="!editor8" (click)="toggleShow8()">
+                                            <mat-icon style="color: white;cursor: pointer;float:right"
+                                               matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                        </span>
+                                        <span *ngIf="editor8" (click)="toggleShow8()">
+                                            <mat-icon style="color: white;cursor: pointer;float:right"
+                                              matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                        </span>
+                                        <span style="float: right">
+                                            <label for="file-upload8">
+                                                <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                            </label>
+                                            <input #file8 type="file" accept='image/*'
+                                                (change)="uploadImageAsBase64(file8.files,'monitoringEvaluationReporting')" id="file-upload8"/>
+                                        </span>
+                                   </p>
+                               </div>
+                               <div *ngIf="editor8" style="position: relative;">
+                                   <ckeditor [config]="mediumEditorConfig" formControlName="monitoringEvaluationReporting"></ckeditor>
+                                   <mat-error *ngIf="frmGroup.get('monitoringEvaluationReporting').hasError('customError')">
+                                       {{ frmGroup.get('monitoringEvaluationReporting').errors.customError.value }}
+                                   </mat-error>
+                               </div>
+                           </div>
+                       </mat-card>
+                   </ng-container>
+
+                   <ng-container *ngIf="!isParipatra2016">
+                       <mat-card>
+                           <div>
+                               <div class="sub-heading">
+                                    <p>
+                                        {{'EI_24.8_22' | translate}}
+                                        <span *ngIf="!editor8" (click)="toggleShow8()">
+                                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                        </span>
+                                        <span *ngIf="editor8" (click)="toggleShow8()">
+                                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                        </span>
+                                        <span style="float: right">
+                                            <label for="file-upload8"><mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon></label>
+                                            <input #file8 type="file" accept='image/*'
+                                                   (change)="uploadImageAsBase64(file8.files,'monitoringEvaluationReporting')" id="file-upload8"/>
+                                        </span>
+                                   </p>
+                               </div>
+                               <div *ngIf="editor8" style="position: relative;">
+                                   <ckeditor [config]="mediumEditorConfig" formControlName="monitoringEvaluationReporting"></ckeditor>
+                                   <mat-error *ngIf="frmGroup.get('monitoringEvaluationReporting').hasError('customError')">
+                                       {{ frmGroup.get('monitoringEvaluationReporting').errors.customError.value }}
+                                   </mat-error>
+                               </div>
+                           </div>
+
+                           <div *ngIf="!isForeignAid">
+                               <br>
+                               <div class="sub-heading">
+                                   <p>
+                                       {{'interimMidtermAssessment' | translate}}
+                                       <span *ngIf="!editor15" (click)="toggleShow15()">
+                                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                        </span>
+                                       <span *ngIf="editor15" (click)="toggleShow15()">
+                                            <mat-icon style="color: white;cursor: pointer;float:right" matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                        </span>
+                                       <span style="float: right">
+                                            <label for="file-upload15">
+                                                <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon></label>
+                                            <input #file15 type="file" accept='image/*'
+                                                   (change)="uploadImageAsBase64(file15.files,'interimMidtermAssessment')" id="file-upload15"/>
+                                        </span>
+                                   </p>
+                               </div>
+                               <div *ngIf="editor15" style="position: relative;">
+                                   <ckeditor [config]="mediumEditorConfig" formControlName="interimMidtermAssessment"></ckeditor>
+                                   <mat-error *ngIf="frmGroup.get('interimMidtermAssessment').hasError('customError')">
+                                       {{ frmGroup.get('interimMidtermAssessment').errors.customError.value }}
+                                   </mat-error>
+                               </div>
+                           </div>
+
+                       </mat-card>
+                   </ng-container>
+
+                    <div class="mt-5" *ngIf="isForeignAid">
+                        <div class="sub-heading">
+                            <span *ngIf="isParipatra2016" class="inline-block align-middle">
+                                <p>{{'EI_24.9' | translate}}</p>
+                            </span>
+                            <span *ngIf="!isParipatra2016" class="inline-block align-middle">
+                                <p>{{'EI_24.9_22' | translate}}</p>
+                            </span>
+                        </div>
+                    </div>
+                    <br *ngIf="!isForeignAid">
+                    <mat-card>
+                        <div>
+                            <div class="sub-heading">
+                                <p>
+                                    <span *ngIf="isForeignAid">{{'EI_24.10' | translate}}</span>
+                                    <span *ngIf="!isForeignAid">{{'EI_24.9_22' | translate}}</span>
+                                    <span *ngIf="!editor9" (click)="toggleShow9()">
+                                         <mat-icon style="color: white;cursor: pointer;float:right"
+                                                   matTooltip="ClickToExpand" matTooltipPosition="above">expand_more</mat-icon>
+                                    </span>
+                                    <span *ngIf="editor9" (click)="toggleShow9()">
+                                        <mat-icon style="color: white;cursor: pointer;float:right"
+                                              matTooltip="ClickToCollapse" matTooltipPosition="above">expand_less</mat-icon>
+                                    </span>
+                                    <span style="float: right">
+                                        <label for="file-upload9">
+                                            <mat-icon matTooltip="{{'Upload_Image' | translate}}" matTooltipPosition="above">image</mat-icon>
+                                        </label>
+                                        <input #file9 type="file" accept='image/*'
+                                            (change)="uploadImageAsBase64(file9.files,'legalContext')" id="file-upload9"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div *ngIf="editor9" style="position: relative;">
+                                <ckeditor [config]="mediumEditorConfig" formControlName="legalContext"></ckeditor>
+                                <mat-error *ngIf="frmGroup.get('legalContext').hasError('customError')">
+                                    {{ frmGroup.get('legalContext').errors.customError.value }}
+                                </mat-error>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+
+            <div class="eca">
+                <div class="sub-heading mt-5">
+                    <div class="description">
+                        <p>{{'annexure' | translate}}</p>
+                    </div>
+                </div>
+                <div class="fileInput">
+                    <div class="mt-5">
+                        <p>
+                            <span *ngIf="isParipatra2016">{{'p1' | translate}}</span>
+                            <span *ngIf="!isParipatra2016">{{'p1_22' | translate}}</span>
+                            {{'as_per1' | translate}}<a class="AnnexureLink" routerLink="/dpp-tapp/annexure-i-a/{{pcUuid}}"><u>{{'ann1a' | translate}}</u></a>
+                            {{'and' | translate}}<a class="AnnexureLink" routerLink="/dpp-tapp/tapp-annexure-one/{{pcUuid}}"><u>{{'ann1b' | translate}}</u></a>]
+                        </p>
+                        <p>
+                            <span *ngIf="isParipatra2016">{{'p2' | translate}}</span>
+                            <span *ngIf="!isParipatra2016">{{'p2_22' | translate}}</span>
+                            {{'as_per2' | translate}}<a class="AnnexureLink" href="/dpp-tapp/tapp-annexure-two/{{pcUuid}}"><u>{{'ann2' | translate}}</u></a>{{'cl' | translate}}
+                        </p>
+                        <p>
+                            <span *ngIf="isParipatra2016">{{'p3' | translate}}</span>
+                            <span *ngIf="!isParipatra2016">{{'p3_22' | translate}}</span>
+                            {{'as_per2' | translate}}<a class="AnnexureLink" href="/dpp-tapp/tapp-annexure-three/{{pcUuid}}"><u>{{'ann3' | translate}}</u></a>{{'cl' | translate}}
+                        </p>
+                        <p>
+                            <span *ngIf="isParipatra2016">{{'p4' | translate}}</span>
+                            <span *ngIf="!isParipatra2016">{{'p4_22' | translate}}</span>
+                            {{'as_per2' | translate}}<a class="AnnexureLink" href="/dpp-tapp/tapp-annexure-four/{{pcUuid}}"><u>{{'ann4' | translate}}</u></a>{{'cl' | translate}}
+                        </p>
+                        <p>
+                            <span *ngIf="isParipatra2016">{{'p5' | translate}}</span>
+                            <span *ngIf="!isParipatra2016">{{'p5_22' | translate}}</span>
+                            {{'as_per2' | translate}}<a class="AnnexureLink" href="/dpp-tapp/tapp-annexure-five/{{pcUuid}}"><u>{{'ann5' | translate}}</u></a>{{'cl' | translate}}
+                        </p>
+                        <p>
+                            <span *ngIf="isParipatra2016">{{'p6' | translate}}</span>
+                            <span *ngIf="!isParipatra2016">{{'p6_22' | translate}}</span>
+                            {{'as_per2' | translate}}<a class="AnnexureLink" href="/dpp-tapp/tapp-annexure-six/{{pcUuid}}"><u>{{'ann6' | translate}}</u></a>{{'cl' | translate}}
+                        </p>
+                        <p *ngIf="isForeignAid">
+                            <span *ngIf="isParipatra2016">{{'p7' | translate}}</span>
+                            <span *ngIf="!isParipatra2016">{{'p7_22' | translate}}</span>
+                            {{'as_per2' | translate}}<a class="AnnexureLink" href="/dpp-tapp/tapp-annexure-seven/{{pcUuid}}"><u>{{'ann7' | translate}}</u></a>{{'cl' | translate}}
+                        </p>
+                        <p>
+                            <span *ngIf="isParipatra2016">{{'p8' | translate}}</span>
+                            <span *ngIf="!isParipatra2016">{{'p8_22' | translate}}</span>
+                            {{'as_per2' | translate}}<a class="AnnexureLink" href="/dpp-tapp/tapp-annexure-goods-first/{{pcUuid}}"><u>{{'ann8' | translate}}</u></a>{{'cl' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="mt-2" align="end">
+                <button [disabled]="spinner" color="primary" type="submit" mat-raised-button>{{'save' | translate}}</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

@@ -1,0 +1,68 @@
+<div>
+    <div class="heading">
+        <strong>{{'SendToDak' | translate}}</strong>
+    </div>
+
+    <mat-dialog-content>
+
+        <form *ngIf="form" [formGroup]="form">
+            <div class="mt-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <strong>{{'Subject' | translate}}:</strong>
+                </mat-label>
+                <br/>
+                <mat-form-field fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <input matInput formControlName="applicationSubject" required/>
+                    <mat-error>Daak Subject is required!</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mt-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <strong>{{'CoverLetter' | translate}}:</strong>
+                </mat-label>
+                <br/>
+                <ckeditor [config]="editorConfig" formControlName="data" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%"
+                          fxFlex.xs="100%" required></ckeditor>
+            </div>
+            <div class="mt-2" fxLayout="row wrap" fxLayoutAlign="space-between center" >
+                <button type="button" mat-raised-button color="warn" style="background-color: orange !important;" (click)="saveReport()" [disabled]="reportSavedSuccesful">Generate Report</button>
+            </div>
+            <div class="mt-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div style="width: 100%">   
+                    <mat-label>Reports List</mat-label>
+                    <table class="table">
+                        <thead style="text-align: center;">
+                            <th>SL#</th>
+                            <th>Name</th>
+                            <th>Url</th>
+                            <!-- <th>Date/Time</th> -->
+                            <th>Action</th>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            <tr *ngFor="let report of reportList; let i=index">
+                                <td><span>{{i+1}}</span></td>                           
+                                <td><span>{{report.name}}</span></td>
+                                <td> <span (click)="getUrl(report.urlPath)" target="_blank" style="cursor: pointer;"><mat-icon>receipt</mat-icon></span></td> 
+                                <!-- <td><span>{{report.createdOn}}</span></td> -->
+                                <td>
+                                    <mat-radio-button name="radio"  (change)="changeRadio($event,report)">
+
+                                    </mat-radio-button>
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                        
+                    </table>
+                   
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button class="cancel-button" mat-dialog-close>{{'Cancel' | translate}}</button>
+        <button mat-button class="save-button" (click)="submit()" [disabled]="!submitted && !form.valid" cdkFocusInitial>{{'Save' | translate}}</button>
+    </mat-dialog-actions>
+</div>
+
+

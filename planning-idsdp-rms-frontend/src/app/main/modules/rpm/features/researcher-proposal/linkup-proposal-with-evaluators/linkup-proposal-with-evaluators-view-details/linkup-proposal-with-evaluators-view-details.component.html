@@ -1,0 +1,126 @@
+<div class="width-100">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate"></app-form-header>
+
+
+    <!-- Main Start -->
+    <div class="body m-5">
+
+        <!-- CARD ONE-->
+        <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <mat-label class="heading w-full">
+                {{'LinkupProposalWithEvaluatorList' | translate}}
+            </mat-label>
+        </div>
+
+        <mat-card class="tab-color">
+            <div class="flex md:justify-end md:mr-3 mt-1 mb-3">
+
+                <button class="px-3 mr-2 previousBtn" mat-flat-button color="accent" type="button"
+                    (click)="goPrevious()">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    {{'previous' | translate}}
+                </button>
+                
+                <button
+                    [useExistingCss]="true"
+                    printTitle="Sector-Sub Sector"
+                    class="px-3 printBtn"
+                    mat-flat-button
+                    color="accent"
+                    printSectionId="printDiv" ngxPrint
+                    type="button">
+                    <mat-icon *ngIf="printIcon" class="mr-1">{{printIcon}}</mat-icon>
+                    {{'print' | translate}}
+                </button>
+
+                <!-- <button class="px-3 mr-2 downloadBtn" (click)="download()" mat-flat-button color="accent" type="button">
+                    <mat-icon *ngIf="downloadIcon" class="mr-1">{{downloadIcon}}</mat-icon>
+                    {{'download' | translate}}
+                </button> -->
+            </div>
+
+
+            <div class="mt-2" id="print">
+                <table class="width-100">
+
+                    <tr>
+                        <th class="col-1">
+                            {{'Sl' | translate}}
+                        </th>
+
+                        <th class="col-2">
+                            {{'ResearcherProposalDetails' | translate}}
+                        </th>
+
+                        <th class="col-3">
+                            {{'Category' | translate}}
+                        </th>
+
+                        <th class="col-4">
+                            {{'EvaluatorDetails' | translate}}
+                        </th>
+
+                        <th>
+                            {{'SupervisorDetails'|translate }}
+                        </th>
+
+                        <th class="col-5">
+                            {{'FiscalYear' | translate}}
+                        </th>
+
+                        <th class="col-6">
+                            {{'SectorDetails' | translate}}
+                        </th>
+
+                    </tr>
+
+                    <tr *ngFor="let item of researcherProposalList; let i = index ">
+
+                        <td class="col-1 text-align-centre">{{i + 1}}</td>
+
+                        <td class="col-2">
+                            {{'researchTittle'| translate}} : {{item?.researchTitle}}<br />
+                            {{'researcherName' | translate}} :
+                            {{item?.researcherProfilePersonalInfoDto?.userDto?.name}}<br />
+                            {{'researcherDesignation' | translate}} :
+                            {{item?.researcherProfilePersonalInfoDto?.userDto?.designation}}
+                        </td>
+
+                        <td class="col-3">
+                            {{item?.researchCategoryType?.categoryName}}
+                        </td>
+
+                        <td class="col-4">
+                            {{'evaluatorName'| translate}} :
+                            {{getEvaluatorDetails(item?.stProfileOfExpertEvaluatorsId).name}}
+                        </td>
+
+                        <td class="col-7">
+                            {{'SupervisorName'| translate}} :
+                            {{item?.researcherSupervisorInfoResponseDto?.supervisorName}}                            
+                        </td>
+
+                        <td class="col-5">
+                            {{item?.fiscalYear?.fiscalYear}}
+                        </td>
+
+                        <td class="col-6">
+                            {{'sector'| translate}} : {{item?.sector?.fieldName}}<br />
+                            {{'subSector' | translate}}: {{item?.subSector?.subFieldName}}<br />
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+
+
+
+
+
+
+        </mat-card>
+    </div>
+    <!-- Main End -->
+</div>

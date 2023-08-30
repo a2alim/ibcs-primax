@@ -1,0 +1,1290 @@
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="show">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="form && summaryForm">
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+    <form class="form p4" [formGroup]="form">
+
+        <!--1st Header Body Div Start -->
+        <div class="heading">
+            <h1>{{'BasicInformation' | translate}}</h1>
+        </div>
+        <mat-card>
+            <div>
+                <div>
+                    <!--1st Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Project Code Field-->
+                        <div fxFlex="32%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="29%" fxFlex.md="30%" fxFlex.sm="30%"
+                                           fxFlex.xs="100%">{{'ProjectCode' | translate}}:
+                                </mat-label>
+                                <mat-form-field class="readOnly" fxFlex="71%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                fxFlex.xs="100%">
+                                    <input formControlName="projectCode" matInput readonly>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="2%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+
+                        <!-- Project Type Field-->
+                        <div fxFlex="32%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="25%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                    {{'ProjectType' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="75%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <mat-select (change)="onChangeProjectType($event)"
+                                                formControlName="projectTypeId" required>
+                                        <mat-option *ngFor="let project of projectTypeList" [value]="project.id">
+                                            {{project.nameEn}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="2%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+
+                        <!-- Priority Field-->
+                        <div fxFlex="32%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="25%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                                    {{'Priority' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="75%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <mat-select formControlName="priorityId" required>
+                                        <mat-option *ngFor="let priority of priorityList" [value]="priority.id">
+                                            {{priority.nameEn}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <!--1st Flex Layout Div End -->
+
+                    <!--2nd Flex Layout Div Start -->
+                    <!-- Title Eng Field-->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="14%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="100%">{{'TitleEn' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="86%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                            <textarea formControlName="titleEn" matInput placeholder="Enter Text" required></textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <!--3th Flex Layout Div Start -->
+                    <!-- Title Bng Field-->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="14%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="100%">{{'TitleBn' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="86%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                            <textarea formControlName="titleBn" matInput placeholder="Enter Text" required></textarea>
+                        </mat-form-field>
+                    </div>
+                    <!--3rd Flex Layout Div End -->
+
+                    <!--4nd Flex Layout Div Start -->
+                    <!-- Ministry Division Field-->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="14%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="100%">{{'Ministry_Division' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="86%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%" class="w-full readOnly">
+                            <input matInput readonly  formControlName="sponsoringMinistryName">
+                        </mat-form-field>
+                    </div>
+
+                    <!--5th Flex Layout Div Start -->
+                    <!-- Agency Field-->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="14%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="100%">{{'Impleting_Agency' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="86%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%" class="w-full readOnly">
+                            <input  matInput readonly  formControlName="implementingAgencyName">
+                        </mat-form-field>
+                    </div>
+
+                    <!--4th Flex Layout Div Start -->
+                    <!-- Objectives Eng Field-->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                                   fxFlex.md="100%">
+                            {{'ObjectivesEn' | translate}}:
+                            <span *ngIf="!expObjectiveEn" (click)="expand(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="expObjectiveEn" (click)="collapse(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                            <span style="float: right">
+                             <label for="file-upload">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                  matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file type="file" accept='image/*'
+                            (change)="uploadImageAsBase64(file.files,'objectivesEn')" id="file-upload"/>
+                            </span>
+
+                        </mat-label>
+                    </div>
+
+
+                    <div *ngIf="expObjectiveEn" fxLayout="row wrap" style="position: relative;"
+                         fxLayoutAlign="space-between center" class="required-ck-editor">
+                        <ckeditor formControlName="objectivesEn" fxFlex="100%" fxFlex.md="100%"
+                                  fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                  [config]="minEditorConfig">
+                        </ckeditor>
+                    </div>
+
+                    <br>
+                    <div>
+
+                    </div>
+
+                    <br/>
+
+                    <!--5th Flex Layout Div Start -->
+                    <!-- Objectives Bng Field-->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                                   fxFlex.md="100%">
+                            {{'ObjectivesBn' | translate}}:
+                            <span *ngIf="!expObjectiveBn" (click)="expand(2)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="expObjectiveBn" (click)="collapse(2)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                            <span style="float: right">
+                             <label for="file-upload1">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file1 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file1.files,'objectivesBn')" id="file-upload1"/>
+                            </span>
+                        </mat-label>
+                    </div>
+                    <div *ngIf="expObjectiveBn" class="required-ck-editor" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                        <ckeditor formControlName="objectivesBn" fxFlex="100%" fxFlex.md="100%"
+                                  fxFlex.sm="100%" fxFlex.xs="100%" required [config]="minEditorConfig">
+                        </ckeditor>
+                    </div>
+                    <br/>
+                    <!--5th Flex Layout Div End -->
+
+                    <div class="sub-heading">
+                        <h1>{{'ExpectedImplementationPeriod' | translate}}</h1>
+                    </div>
+                    <mat-card>
+                        <!--6th Flex Layout Div Start -->
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <!-- Date Of Commencement Field-->
+                            <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <mat-label class="pb-5" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="100%">{{'DateOfCommencement' | translate}}:
+                                    </mat-label>
+                                    <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                        <input (click)="picker1.open()" [matDatepicker]="picker1"
+                                               [max]="expCommencementMaxDate"
+                                               (dateChange)="commencementDataChange($event)"
+                                               formControlName="expCommencementDate"
+                                               matInput readonly required>
+                                        <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <!-- Date Of Completion Field-->
+                            <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                                    <mat-label class="pb-5" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%"
+                                               fxFlex.xs="100%">{{'DateOfCompletion' | translate}}:
+                                    </mat-label>
+                                    <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                        <input (click)="picker2.open()" [matDatepicker]="picker2"
+                                               [min]="expCompletionMinDate"
+                                               formControlName="expCompletionDate"
+                                               (dateChange)="completionDataChange($event)"
+                                               matInput readonly required>
+                                        <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <!--6th Flex Layout Div End -->
+                    </mat-card>
+                </div>
+            </div>
+        </mat-card>
+        <!--1st Header Body Div End -->
+        <br/>
+        <!------------------------------------------------------------------------------------------------------------------------------>
+
+        <!--2nd Header Body Div Start -->
+        <div class="heading">
+            <h1>{{'TheWorkingsOfTheGovernmentAndCOFOGSelection' | translate}}:</h1>
+        </div>
+        <mat-card>
+            <div>
+                <!--1st Flex Layout Div Start -->
+                <!-- Sector Division Field-->
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                    <mat-label class="pb-5" fxFlex="35%" fxFlex.md="40%" fxFlex.sm="40%"
+                               fxFlex.xs="100%">{{'SectorDivision' | translate}}:
+                    </mat-label>
+                    <mat-form-field fxFlex="34%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                        <mat-select formControlName="sectorDivisionId" required (ngModelChange)="onchangeSectorDivision($event)">
+                            <mat-option *ngFor="let sector of sectorsDivisions"
+                                        [value]="sector.id">{{sector.sectorDivisionNameEn}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!--1st Flex Layout Div End -->
+
+                <mat-label class="matLabel2">
+                    <strong><u>{{'ProjectSectorAndSubSectorSection' | translate}}</u></strong></mat-label>
+
+                <!--2nd Flex Layout Div Start -->
+                <mat-card class="mt-2">
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <!-- Sector Field-->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="16%" fxFlex.md="30%" fxFlex.sm="30%"
+                                           fxFlex.xs="100%">{{'Sector' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="80%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <mat-select formControlName="sectorId" required
+                                                (ngModelChange)="onchangeSector($event)">
+                                        <mat-option *ngFor="let sector of sectors"
+                                                    [value]="sector.id">{{sector.sectorNameEn}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div fxFlex="4%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Sub Sector Division Field-->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="24%" fxFlex.md="30%" fxFlex.sm="30%"
+                                           fxFlex.xs="100%">{{'SubSector' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="76%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <mat-select formControlName="subSectorId" required
+                                                (ngModelChange)="onchangeSubSector()">
+                                        <mat-option *ngFor="let subSector of subSectors"
+                                                    [value]="subSector.id">{{subSector.subSectorNameEn}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+                <!--2nd Flex Layout Div End -->
+
+                <br/>
+                <mat-label class="matLabel2">
+                    <strong><u>{{'জাতিসংঘেরClassificationoftheFunctionsofGovernmentঅনুযায়ী' | translate}}</u></strong>
+                </mat-label>
+
+                <!--3rd Flex Layout Div Start -->
+                <mat-card class="mt-2">
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <!-- Mains Cofog Field-->
+                        <div class="pr-4" fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="25%" fxFlex.md="30%" fxFlex.sm="30%"
+                                           fxFlex.xs="100%">{{'Main' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="75%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <mat-select formControlName="mainCofogId"
+                                                (ngModelChange)="onchangeMain($event)">
+                                        <mat-option *ngFor="let main of mains"
+                                                    [value]="main.id">{{main.nameEn}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- Optional Cofog Field-->
+                        <div fxFlex="34%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="25%" fxFlex.md="30%" fxFlex.sm="30%"
+                                           fxFlex.xs="100%">{{'Optional' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="75%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <mat-select formControlName="optionalCofogId"
+                                                (ngModelChange)="onchangeOptional($event)">
+                                        <mat-option *ngFor="let optional of optionals"
+                                                    [value]="optional.id">{{optional.nameEn}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- Details cofog Field-->
+                        <div fxFlex="33%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="25%" fxFlex.md="30%" fxFlex.sm="30%"
+                                           fxFlex.xs="100%">{{'Details' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="75%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <mat-select formControlName="detailsCofogId">
+                                        <mat-option *ngFor="let detail of details"
+                                                    [value]="detail.id">{{detail.nameEn}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+                <!--3rd Flex Layout Div End -->
+
+                <!--4th Flex Layout Div Start -->
+
+                <br/>
+                <mat-label class="matLabel2"><strong><u>{{'FundingType' | translate}}</u></strong>
+                </mat-label>
+
+                <mat-card class="mt-2">
+                    <!-- Is Self Fund Field-->
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <mat-label fxFlex="16%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                            <strong>{{'IsSelfFund' | translate}} ?</strong>:
+                        </mat-label>
+                        <mat-radio-group formControlName="isSelfFund" required fxFlex="50%" fxFlex.md="70%"
+                                         fxFlex.sm="70%" fxFlex.xs="100%">
+                            <mat-radio-button value='true'>Yes</mat-radio-button>&nbsp;&nbsp;
+                            <mat-radio-button value='false'>No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <!--4th Flex Layout Div End -->
+                    <br/>
+                    <!--5th Flex Layout Div Start -->
+                    <!-- Is Foreign Aid Field-->
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <mat-label fxFlex="16%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                            <strong>{{'IsForeignAid?' | translate}}</strong>:
+                        </mat-label>
+                        <mat-radio-group formControlName="isForeignAid" required fxFlex="50%" fxFlex.md="70%"
+                                         fxFlex.sm="70%"
+                                         fxFlex.xs="100%">
+                            <mat-radio-button value='true'>Yes</mat-radio-button>&nbsp;&nbsp;
+                            <mat-radio-button value='false'>No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <!--5th Flex Layout Div End -->
+                    <br/>
+                    <!--6th Flex Layout Div Start -->
+                    <div *ngIf="form?.value.isForeignAid === 'true'" fxLayout="row wrap" fxLayoutAlign="start center">
+                        <!-- Agreement Number Field-->
+                        <div class="pr-5" fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="40%" fxFlex.md="30%" fxFlex.sm="30%"
+                                           fxFlex.xs="100%">{{'AgreementNumber' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="60%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <input formControlName="agreementNo" matInput placeholder="Agreement No">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- Agreement Attachment Field-->
+                        <mat-form-field appearance="outline" fxFlex="25%" fxFlex.md="80%" fxFlex.sm="70%"
+                                        fxFlex.xs="100%">
+<!--                            <mat-label>{{'Attachment' | translate}}</mat-label>-->
+                            <label *ngIf="projectSummary?.agreementAttachmentId">{{projectSummary.agreementAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="agreementAttachment"
+                                                (change)="uploadFile($event.target.files, 'agreementAttachmentId', 'agreementAttachmentName')"
+                                                matTooltip="Browse" placeholder="{{'Attachment' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+
+                        <button (click)="deleteAgreementAttachment()" fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="15%" fxFlex.xs="50%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="form.value.agreementAttachmentId" (click)="download('agreementAttachmentId')"
+                                fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="15%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1">file_download</mat-icon>
+                        </button>
+                        <!--                        <div *ngIf="!form.value.agreementAttachmentId" fxFlex="2%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>-->
+
+                    </div>
+                </mat-card>
+                <!--6th Flex Layout Div End -->
+            </div>
+        </mat-card>
+        <!--2nd Header Body Div End -->
+        <br/>
+        <!------------------------------------------------------------------------------------------------------------------------------>
+
+        <!--3rd Header Body Div Start -->
+        <div class="heading">
+            <h1>{{'EstimatedCost(BDTInLac)' | translate}}:</h1>
+        </div>
+        <mat-card>
+            <div class="padding2">
+                <div>
+                    <!--1st Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Total Field-->
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="30%" fxFlex.md="30%" fxFlex.sm="30%"
+                                           fxFlex.xs="100%">{{'Total' | translate}}:
+                                </mat-label>
+                                <mat-form-field class="readOnly" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                fxFlex.xs="100%">
+                                    <input (focusout)="onTotalChange($event.target['value'])"
+                                           formControlName="totalAmount"
+                                           matInput readonly required type="number" onfocus="this.select()">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- GoB Field-->
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="30%" fxFlex.md="30%"
+                                           fxFlex.sm="30%" fxFlex.xs="100%">{{'GoB' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <input formControlName="gobAmount" matInput TwoDigitDecimalNumber required
+                                           oninput="if(this.value<0){this.value= this.value * -1}" (focusout)="onGobChange($event)"
+                                           onfocus="this.select()">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- FE Field-->
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                           fxFlex.md="30%">{{'FE' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <input formControlName="feGobAmount" matInput TwoDigitDecimalNumber required
+                                           oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="feGoBChange($event)"
+                                           onfocus="this.select()">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                    </div>
+                    <!--1st Flex Layout Div End -->
+
+                    <!--2nd Flex Layout Div Start -->
+                    <div *ngIf="form?.value.isSelfFund === 'true'" fxLayout="row wrap"
+                         fxLayoutAlign="space-between center">
+                        <!-- Own Fund Field-->
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                           fxFlex.md="30%">{{'OwnFund' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <input formControlName="ownFundAmount" matInput TwoDigitDecimalNumber required
+                                           oninput="if(this.value<0){this.value= this.value * -1}" (focusout)="onOwnFundChange($event)"
+                                           onfocus="this.select()">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- FE Field-->
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                           fxFlex.md="30%">{{'FE' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <input formControlName="feOwnFundAmount" matInput TwoDigitDecimalNumber required
+                                           oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="feOwnFundBChange($event)"
+                                           onfocus="this.select()">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                    </div>
+                    <!--2nd Flex Layout Div End -->
+
+                    <!--3rd Flex Layout Div Start -->
+                    <div *ngIf="form?.value.isForeignAid === 'true'" fxLayout="row wrap"
+                         fxLayoutAlign="space-between center">
+                        <!-- PA Field-->
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                           fxFlex.md="30%">{{'PA' | translate}}:
+                                </mat-label>
+                                <mat-form-field class="readOnly" fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%"
+                                                fxFlex.xs="100%">
+                                    <input formControlName="paAmount" matInput readonly required onfocus="this.select()" >
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- RPA Field-->
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                           fxFlex.md="30%">{{'RPA' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <input formControlName="rpaAmount" matInput TwoDigitDecimalNumber required
+                                           oninput="if(this.value<0){this.value= this.value * -1}" (focusout)="onRpaChange($event)"
+                                           onfocus="this.select()">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!-- DPA Field-->
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                           fxFlex.md="30%">{{'DPA' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <input formControlName="dpaAmount" matInput TwoDigitDecimalNumber required
+                                           oninput="if(this.value<0){this.value= this.value * -1}" (focusout)="onDpaChange($event)"
+                                           onfocus="this.select()">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <!--3rd Flex Layout Div End -->
+
+                    <!--4th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Other Field-->
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="100%" fxFlex.md="30%">{{'Other' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <input formControlName="otherAmount" matInput TwoDigitDecimalNumber required
+                                           oninput="if(this.value<0){this.value= this.value * -1}" (focusout)="onOtherChange($event)"
+                                           onfocus="this.select()">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- Mention Field-->
+                        <div class="pr-2" fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label class="pb-5" fxFlex="30%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                           fxFlex.md="30%">{{'FE' | translate}}:
+                                </mat-label>
+                                <mat-form-field fxFlex="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                                    <input formControlName="feOtherAmount" matInput TwoDigitDecimalNumber required
+                                           oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="feOtherChange($event)"
+                                           onfocus="this.select()">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxFlex="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                    </div>
+                    <!--4th Flex Layout Div End -->
+                </div>
+            </div>
+        </mat-card>
+        <br/>
+        <!--3rd Header Body Div End -->
+
+    </form>
+    <form class="form p4" [formGroup]="summaryForm">
+
+        <!------------------------------------------------------------------------------------------------------------------------------>
+
+        <!--4th Header Body Div Start -->
+        <div class="heading">
+            <h1>{{'InformationOnEnvironmentalSustainability' | translate}}</h1>
+        </div>
+        <mat-card>
+            <div>
+                <div>
+                    <!--1st Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <mat-label class="pb-5" fxFlex="40%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                   fxFlex.md="30%">{{'CategoryAsPerEnvironmentConservationRules' | translate}}:
+                        </mat-label>
+                        <!-- Category Field-->
+                        <mat-form-field fxFlex="60%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+
+                            <mat-select formControlName="catEnvRulesId" required>
+                                <mat-option *ngFor="let cat of category"
+                                            [value]="cat.id">{{cat.categoryCodeName}}</mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+                    <!--1st Flex Layout Div End -->
+                    <!--2nd Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <mat-label fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="100%"><strong>{{'LocatedInEcologicallyCriticalArea' | translate}}</strong>:
+                        </mat-label>
+                        <!-- Located In Ecologically Critical Area Field-->
+                        <mat-radio-group formControlName="isEcaRequired" required fxFlex="55%" fxFlex.md="70%"
+                                         fxFlex.sm="70%"
+                                         fxFlex.xs="100%">
+                            <mat-radio-button value='true'>Yes</mat-radio-button>&nbsp;&nbsp;
+                            <mat-radio-button value='false'>No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <br/>
+                    <!--2nd Flex Layout Div End -->
+                    <!--3rd Flex Layout Div Start -->
+                    <div *ngIf="summaryForm?.value.isEcaRequired === 'true'" fxLayout="row wrap"
+                         fxLayoutAlign="start center">
+                        <!-- Description for ECA Field-->
+                        <mat-label class="pb-5" fxFlex="12%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                   fxFlex.md="30%">{{'Description' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="59%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                            <textarea formControlName="descriptionEca" matInput></textarea>
+                        </mat-form-field>
+                        <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                        <!-- Attachment for ECA Field-->
+                        <mat-form-field appearance="outline" class="pt-3" fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="80%"
+                                        fxFlex.md="80%">
+<!--                            <mat-label>{{'Attachment' | translate}}</mat-label>-->
+                            <label *ngIf="projectSummary?.projectConceptSummary?.ecaAttachmentId">{{projectSummary.projectConceptSummary.ecaAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="ecaAttachment"
+                                                (change)="uploadFile($event.target.files, 'ecaAttachmentId', 'ecaAttachmentName')"
+                                                placeholder="{{'Browse' | translate}}"
+                                                matTooltip="{{'Browse' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <button (click)="delete('ecaAttachment')" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%"
+                                fxFlex.xs="40%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="summaryForm.value.ecaAttachmentId" (click)="download('ecaAttachmentId')"
+                                fxFlex="4%"
+                                fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1">file_download</mat-icon>
+                        </button>
+                        <div *ngIf="!summaryForm.value.ecaAttachmentId" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%"
+                             fxFlex.xs="50%"></div>
+                    </div>
+                    <!--3rd Flex Layout Div End -->
+                    <!--4th Flex Layout Div Start -->
+                    <div class="pb-1" fxLayout="row wrap" fxLayoutAlign="start center">
+                        <mat-label fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="100%">
+                            <strong>{{'EnvironmentImpactAnalysisConducted' | translate}}</strong>:
+                        </mat-label>
+                        <!-- EIA Radio Field-->
+                        <mat-radio-group formControlName="isEiaRequired" required fxFlex="55%" fxFlex.md="70%"
+                                         fxFlex.sm="70%"
+                                         fxFlex.xs="100%">
+                            <mat-radio-button value='true'>Yes</mat-radio-button>&nbsp;&nbsp;
+                            <mat-radio-button value='false'>No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <!--4th Flex Layout Div End -->
+                    <br/>
+                    <!--5th Flex Layout Div Start -->
+                    <div *ngIf="summaryForm?.value.isEiaRequired === 'true'" fxLayout="row wrap"
+                         fxLayoutAlign="start center">
+                        <!-- Description for EIA Field-->
+                        <mat-label class="pb-5" fxFlex="12%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                   fxFlex.md="30%">{{'Description' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="59%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <textarea formControlName="descriptionEia" matInput></textarea>
+                        </mat-form-field>
+                        <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                        <!-- Attachment for EIA Field-->
+                        <mat-form-field appearance="outline" class="pt-3" fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="80%"
+                                        fxFlex.md="80%">
+<!--                            <mat-label>{{'Attachment' | translate}}</mat-label>-->
+                            <label *ngIf="projectSummary?.projectConceptSummary?.eiaAttachmentId">{{projectSummary.projectConceptSummary.eiaAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="eiaAttachment"
+                                                (change)="uploadFile($event.target.files, 'eiaAttachmentId', 'eiaAttachmentName')"
+                                                placeholder="{{'Browse' | translate}}"
+                                                matTooltip="{{'Browse' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <button (click)="delete('eiaAttachment')" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%"
+                                fxFlex.xs="50%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="summaryForm.value.eiaAttachmentId" (click)="download('eiaAttachmentId')"
+                                fxFlex="4%"
+                                fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1">file_download</mat-icon>
+                        </button>
+                        <div *ngIf="!summaryForm.value.eiaAttachmentId" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%"
+                             fxFlex.xs="50%"></div>
+                    </div>
+                    <!--5th Flex Layout Div End -->
+                </div>
+            </div>
+        </mat-card>
+        <!--4th Header Body Div End -->
+        <br/>
+
+        <!------------------------------------------------------------------------------------------------------------------------------>
+
+        <!--5th Header Body Div Start -->
+        <div class="heading">
+            <h1>{{'OtherInformation' | translate}}</h1>
+        </div>
+        <mat-card>
+            <div>
+                <div>
+                    <!--1st Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <!-- Ia Land Required radio field-->
+                        <mat-label fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                            <strong>{{'IsLandRequired' | translate}}</strong>:
+                        </mat-label>
+                        <mat-radio-group formControlName="isLandRequired" required fxFlex="55%" fxFlex.md="70%"
+                                         fxFlex.sm="70%"
+                                         fxFlex.xs="100%">
+                            <mat-radio-button value='true'>Yes</mat-radio-button>&nbsp;&nbsp;
+                            <mat-radio-button value='false'>No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <!--1st Flex Layout Div End -->
+                    <br/>
+                    <!--2nd Flex Layout Div Start -->
+                    <div *ngIf="summaryForm?.value.isLandRequired === 'true'" fxLayout="row wrap"
+                         fxLayoutAlign="start center">
+                        <!-- Description for land field-->
+                        <mat-label class="pb-5" fxFlex="12%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                   fxFlex.md="30%">{{'Description' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="59%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <textarea formControlName="descriptionLand" matInput></textarea>
+                        </mat-form-field>
+                        <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                        <!-- Attachment for land field-->
+                        <mat-form-field class="pt-3" appearance="outline" fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="80%"
+                                        fxFlex.md="80%">
+                            <mat-label>{{'Attachment' | translate}}</mat-label>
+                            <label *ngIf="projectSummary?.projectConceptSummary?.landAttachmentId">{{projectSummary.projectConceptSummary.landAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="landAttachment"
+                                                placeholder="{{'Browse' | translate}}"
+                                                (change)="uploadFile($event.target.files, 'landAttachmentId', 'landAttachmentName')"
+                                                matTooltip="{{'Browse' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+
+                        <button (click)="delete('landAttachment')" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%"
+                                fxFlex.xs="50%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="summaryForm.value.landAttachmentId" (click)="download('landAttachmentId')"
+                                fxFlex="4%"
+                                fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1">file_download</mat-icon>
+                        </button>
+                        <div *ngIf="!summaryForm.value.landAttachmentId" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%"
+                             fxFlex.xs="50%"></div>
+                    </div>
+                    <!--2nd Flex Layout Div End -->
+                    <!--3rd Flex Layout Div Start -->
+                    <div class="pb-1" fxLayout="row wrap" fxLayoutAlign="start center">
+                        <!-- Is Feasibility Study required radio button -->
+                        <mat-label fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%"
+                                   fxFlex.xs="100%"><strong>{{'IsFeasibilityStudy' | translate}}</strong>:
+                        </mat-label>
+                        <mat-radio-group formControlName="isFeasibilityRequired" required fxFlex="55%" fxFlex.md="70%"
+                                         fxFlex.sm="70%"
+                                         fxFlex.xs="100%">
+                            <mat-radio-button value='true'>Yes</mat-radio-button>&nbsp;&nbsp;
+                            <mat-radio-button value='false'>No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <!--3rd Flex Layout Div End -->
+                    <br/>
+                    <!--4th Flex Layout Div Start -->
+                    <div *ngIf="summaryForm?.value.isFeasibilityRequired === 'true'" fxLayout="row wrap"
+                         fxLayoutAlign="start center">
+                        <!-- Description for fs required field -->
+                        <mat-label class="pb-5" fxFlex="12%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                   fxFlex.md="30%">{{'Description' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="59%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <textarea formControlName="descriptionFs" matInput></textarea>
+                        </mat-form-field>
+                        <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                        <!-- Attachment for fs required field -->
+                        <mat-form-field class="pt-3" appearance="outline" fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="80%"
+                                        fxFlex.md="80%">
+<!--                            <mat-label>{{'Attachment' | translate}}</mat-label>-->
+                            <label *ngIf="projectSummary?.projectConceptSummary?.fsAttachmentId">{{projectSummary.projectConceptSummary.fsAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="fsAttachment"
+                                                placeholder="{{'Browse' | translate}}"
+                                                (change)="uploadFile($event.target.files, 'fsAttachmentId', 'fsAttachmentName')"
+                                                matTooltip="{{'Browse' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <button (click)="delete('fsAttachment')" fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="summaryForm.value.fsAttachmentId" (click)="download('fsAttachmentId')"
+                                fxFlex="4%"
+                                fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1">file_download</mat-icon>
+                        </button>
+                        <div *ngIf="!summaryForm.value.fsAttachmentId" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%"
+                             fxFlex.xs="50%"></div>
+                    </div>
+                    <!--4th Flex Layout Div End -->
+                    <!--5th Flex Layout Div Start -->
+                    <div class="pb-1" fxLayout="row wrap" fxLayoutAlign="start center">
+                        <!-- Is ppp required radio button -->
+                        <mat-label fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="100%">
+                            <strong>{{'IsPublicPrivateProprietorshipNeeded' | translate}}</strong>:
+                        </mat-label>
+                        <mat-radio-group formControlName="isPppRequired" required fxFlex="55%" fxFlex.md="70%"
+                                         fxFlex.sm="70%"
+                                         fxFlex.xs="100%">
+                            <mat-radio-button value='true'>Yes</mat-radio-button>&nbsp;&nbsp;
+                            <mat-radio-button value='false'>No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <!--5th Flex Layout Div End -->
+                    <br/>
+                    <!--6th Flex Layout Div Start -->
+                    <div *ngIf="summaryForm?.value.isPppRequired === 'true'" fxLayout="row wrap"
+                         fxLayoutAlign="start center">
+                        <!-- Description for ppp field -->
+                        <mat-label class="pb-5" fxFlex="12%" fxFlex.sm="30%" fxFlex.xs="100%"
+                                   fxFlex.md="30%">{{'Description' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="59%" fxFlex.md="70%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <textarea formControlName="descriptionPpp" matInput></textarea>
+                        </mat-form-field>
+                        <div fxFlex="1%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                        <!-- Attachment for ppp field -->
+                        <mat-form-field class="pt-3" appearance="outline" fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="80%"
+                                        fxFlex.md="80%">
+<!--                            <mat-label>{{'Attachment' | translate}}</mat-label>-->
+                            <label *ngIf="projectSummary?.projectConceptSummary?.pppAttachmentId">{{projectSummary.projectConceptSummary.pppAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="pppAttachment"
+                                                placeholder="{{'Browse' | translate}}"
+                                                (change)="uploadFile($event.target.files, 'pppAttachmentId', 'pppAttachmentName')"
+                                                matTooltip="{{'Browse' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <button (click)="delete('pppAttachment')" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%"
+                                fxFlex.xs="50%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="summaryForm.value.pppAttachmentId" (click)="download('pppAttachmentId')"
+                                fxFlex="4%"
+                                fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1 ml-3">file_download</mat-icon>
+                        </button>
+                        <div *ngIf="!summaryForm.value.pppAttachmentId" fxFlex="4%" fxFlex.md="10%" fxFlex.sm="10%"
+                             fxFlex.xs="50%"></div>
+                    </div>
+                    <!--6th Flex Layout Div End -->
+                    <!--7th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Relevance Wth Short Medium Long Term Policies Plans Programs Editor -->
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                                   fxFlex.md="100%">
+                            {{'RelevanceWthShortMediumLongTermPoliciesPlansPrograms' | translate}}:
+                            <span *ngIf="!expRelevanceWithShortProgram" (click)="expand(3)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="expRelevanceWithShortProgram" (click)="collapse(3)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+
+                            <span style="float: right">
+                             <label for="file-upload3">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file2 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase641(file2.files,'relevanceWithShortProgram')" id="file-upload3"/>
+                            </span>
+
+
+                        </mat-label>
+                    </div>
+
+                    <div *ngIf="expRelevanceWithShortProgram" class="required-ck-editor" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                        <ckeditor formControlName="relevanceWithShortProgram" fxFlex="100%" fxFlex.md="100%"
+                                  fxFlex.sm="100%" fxFlex.xs="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <!--7th Flex Layout Div End -->
+
+                    <br/>
+                    <!--5th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Attachment Relevance Wth Short Medium Long Term Policies Plans Programs -->
+                        <mat-label fxFlex="14%" fxFlex.xs="100%" fxFlex.sm="20%"
+                                   fxFlex.md="20%">{{'Attachment' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="40%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                            <label *ngIf="projectSummary?.projectConceptSummary?.relevanceWithShortProgramAttachmentId">{{projectSummary.projectConceptSummary.relevanceWithShortProgramAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="relevanceWithShortProgramAttachment"
+                                                placeholder="{{'Browse' | translate}}"
+                                                (change)="uploadFile($event.target.files, 'relevanceWithShortProgramAttachmentId', 'relevanceWithShortProgramAttachmentName')"
+                                                matTooltip="{{'Browse' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <button (click)="delete('relevanceWithShortProgramAttachment')" fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="summaryForm.value.relevanceWithShortProgramAttachmentId"
+                                (click)="download('relevanceWithShortProgramAttachmentId')" fxFlex="2%" fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1">file_download</mat-icon>
+                        </button>
+                        <div *ngIf="!summaryForm.value.relevanceWithShortProgramAttachmentId" fxFlex="4%"
+                             fxFlex.md="10%"
+                             fxFlex.sm="10%" fxFlex.xs="50%"></div>
+                        <div fxFlex="38%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                    </div>
+                    <!--5th Flex Layout Div End -->
+
+                    <!--6th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Relevance Of The Proposal With Concerned Sectoral Allocation Editor -->
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                                   fxFlex.md="100%">
+                            {{'RelevanceOfTheProposalWithConcernedSectoralAllocation' | translate}}:
+                            <span *ngIf="!expRelevanceOfProposal" (click)="expand(4)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="expRelevanceOfProposal" (click)="collapse(4)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+
+
+                            <span style="float: right">
+                             <label for="file-upload9">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file9 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase641(file9.files,'relevanceWithProposal')" id="file-upload9"/>
+                            </span>
+
+
+
+
+                        </mat-label>
+                    </div>
+                    <div *ngIf="expRelevanceOfProposal" class="required-ck-editor" fxLayout="row wrap" style="position:relative" fxLayoutAlign="space-between center">
+                        <ckeditor formControlName="relevanceWithProposal" fxFlex="100%" fxFlex.xs="100%"
+                                  fxFlex.sm="100%" fxFlex.md="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <!--6th Flex Layout Div End -->
+
+                    <br/>
+                    <!--7th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Attachment Relevance Of The Proposal With Concerned Sectoral Allocation -->
+                        <mat-label fxFlex="14%" fxFlex.xs="100%" fxFlex.sm="20%"
+                                   fxFlex.md="20%">{{'Attachment' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="40%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                            <label *ngIf="projectSummary?.projectConceptSummary?.relevanceWithProposalAttachmentId">{{projectSummary.projectConceptSummary.relevanceWithProposalAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="relevanceWithProposalAttachment"
+                                                placeholder="{{'Browse' | translate}}"
+                                                (change)="uploadFile($event.target.files, 'relevanceWithProposalAttachmentId', 'relevanceWithProposalAttachmentName')"
+                                                matTooltip="{{'Browse' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <button (click)="delete('relevanceWithProposalAttachment')" fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="summaryForm.value.relevanceWithProposalAttachmentId"
+                                (click)="download('relevanceWithProposalAttachmentId')" fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1">file_download</mat-icon>
+                        </button>
+                        <div *ngIf="!summaryForm.value.relevanceWithProposalAttachmentId" fxFlex="4%" fxFlex.md="10%"
+                             fxFlex.sm="10%" fxFlex.xs="50%"></div>
+                        <div fxFlex="38%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                    </div>
+                    <!--7th Flex Layout Div End -->
+
+                    <!--8th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Institutional Arrangement Editor -->
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                                   fxFlex.md="100%">
+                            {{'InstitutionalArrangement' | translate}}:
+                            <span *ngIf="!expInstitutionalArrangement" (click)="expand(5)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="expInstitutionalArrangement" (click)="collapse(5)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+
+                            <span style="float: right">
+                             <label for="file-upload4">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file4 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase641(file4.files,'institutionalArrangement')" id="file-upload4"/>
+                            </span>
+
+
+                        </mat-label>
+                    </div>
+                    <div *ngIf="expInstitutionalArrangement" class="required-ck-editor" fxLayout="row wrap" style="position:relative" fxLayoutAlign="space-between center">
+
+                        <ckeditor formControlName="institutionalArrangement" fxFlex="100%" fxFlex.xs="100%"
+                                  fxFlex.sm="100%" fxFlex.md="100%" required [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <!--8th Flex Layout Div End -->
+
+                    <br/>
+                    <!--9th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Attachment of Institutional Arrangement -->
+                        <mat-label fxFlex="14%" fxFlex.xs="100%" fxFlex.sm="20%"
+                                   fxFlex.md="20%">{{'Attachment' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="40%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                            <label *ngIf="projectSummary?.projectConceptSummary?.institutionalArrangementAttachmentId">{{projectSummary.projectConceptSummary.institutionalArrangementAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="institutionalArrangementAttachment"
+                                                placeholder="{{'Browse' | translate}}"
+                                                (change)="uploadFile($event.target.files, 'institutionalArrangementAttachmentId', 'institutionalArrangementAttachmentName')"
+                                                matTooltip="{{'Browse' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <button (click)="delete('institutionalArrangementAttachment')" fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="summaryForm.value.institutionalArrangementAttachmentId"
+                                (click)="download('institutionalArrangementAttachmentId')" fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1">file_download</mat-icon>
+                        </button>
+                        <div *ngIf="!summaryForm.value.institutionalArrangementAttachmentId" fxFlex="4%" fxFlex.md="10%"
+                             fxFlex.sm="10%" fxFlex.xs="50%"></div>
+                        <div fxFlex="38%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                    </div>
+                    <!--9th Flex Layout Div End -->
+
+                    <!--10th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Relevance With Other Development Programmes Of The Concerned Sector Editor -->
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                                   fxFlex.md="100%">
+                            {{'RelevanceWithOtherDevelopmentProgrammesOfTheConcernedSector' | translate}}:
+                            <span *ngIf="!expRelevanceWithDevelopment" (click)="expand(6)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="expRelevanceWithDevelopment" (click)="collapse(6)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+
+
+                            <span style="float: right">
+                             <label for="file-upload5">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file5 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase641(file5.files,'relevanceWithOtherDevelopment')" id="file-upload5"/>
+                            </span>
+
+
+
+
+                        </mat-label>
+                    </div>
+                    <div *ngIf="expRelevanceWithDevelopment" class="required-ck-editor" fxLayout="row wrap" style="position:relative" fxLayoutAlign="space-between center">
+                        <ckeditor formControlName="relevanceWithOtherDevelopment" fxFlex="100%" fxFlex.xs="100%"
+                                  fxFlex.sm="100%" fxFlex.md="100%" required="" [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <!--10th Flex Layout Div End -->
+
+                    <br/>
+                    <!--11th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Attachment of Relevance With Other Development Programmes Of The Concerned Sector -->
+                        <mat-label fxFlex="14%" fxFlex.xs="100%" fxFlex.sm="20%"
+                                   fxFlex.md="20%">{{'Attachment' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="40%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                            <label *ngIf="projectSummary?.projectConceptSummary?.relevanceWithOtherDevelopmentAttachmentId">{{projectSummary.projectConceptSummary.relevanceWithOtherDevelopmentAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'"
+                                                formControlName="relevanceWithOtherDevelopmentAttachment"
+                                                placeholder="{{'Browse' | translate}}"
+                                                (change)="uploadFile($event.target.files, 'relevanceWithOtherDevelopmentAttachmentId', 'relevanceWithOtherDevelopmentAttachmentName')"
+                                                matTooltip="{{'Browse' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <button (click)="delete('relevanceWithOtherDevelopmentAttachment')" fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="summaryForm.value.relevanceWithOtherDevelopmentAttachmentId"
+                                (click)="download('relevanceWithOtherDevelopmentAttachmentId')" fxFlex="4%"
+                                fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1">file_download</mat-icon>
+                        </button>
+                        <div *ngIf="!summaryForm.value.relevanceWithOtherDevelopmentAttachmentId" fxFlex="4%"
+                             fxFlex.md="10%"
+                             fxFlex.sm="10%" fxFlex.xs="50%"></div>
+                        <div fxFlex="38%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                    </div>
+                    <!--11th Flex Layout Div End -->
+
+                    <!--12th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Expected Socio Economic Benefits Outputs Of The Proposed Project Editor -->
+                        <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                                   fxFlex.md="100%">
+                            {{'ExpectedSocioEconomicBenefitsOutputsOfTheProposedProject' | translate}}:
+                            <span *ngIf="!expExpectedBenifit" (click)="expand(7)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                            <span *ngIf="expExpectedBenifit" (click)="collapse(7)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+
+                            <span style="float: right">
+                             <label for="file-upload7">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file7 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase641(file7.files,'expectedBenefits')" id="file-upload7"/>
+                            </span>
+
+
+                        </mat-label>
+                    </div>
+                    <div *ngIf="expExpectedBenifit" class="required-ck-editor" fxLayout="row wrap" style="position:relative" fxLayoutAlign="space-between center">
+
+                        <ckeditor formControlName="expectedBenefits" fxFlex="100%" fxFlex.xs="100%"
+                                  fxFlex.sm="100%" fxFlex.md="100%" required="" [config]="minEditorConfig"></ckeditor>
+                    </div>
+                    <!--12th Flex Layout Div End -->
+
+                    <br/>
+                    <!--13th Flex Layout Div Start -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <!-- Attachment of Expected Socio Economic Benefits Outputs Of The Proposed Project -->
+                        <mat-label fxFlex="14%" fxFlex.xs="100%" fxFlex.sm="20%"
+                                   fxFlex.md="20%">{{'Attachment' | translate}}:
+                        </mat-label>
+                        <mat-form-field fxFlex="40%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                            <label *ngIf="projectSummary?.projectConceptSummary?.expectedBenefitsAttachmentId">{{projectSummary.projectConceptSummary.expectedBenefitsAttachmentName}}</label>
+                            <ngx-mat-file-input [accept]="'.pdf'" formControlName="expectedBenefitsAttachment"
+                                                placeholder="{{'Browse' | translate}}"
+                                                (change)="uploadFile($event.target.files, 'expectedBenefitsAttachmentId', 'expectedBenefitsAttachmentName')"
+                                                matTooltip="{{'Browse' | translate}}">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                        <button (click)="delete('expectedBenefitsAttachment')" fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                        </button>
+                        <button *ngIf="summaryForm.value.expectedBenefitsAttachmentId"
+                                (click)="download('expectedBenefitsAttachmentId')" fxFlex="4%" fxFlex.md="10%"
+                                fxFlex.sm="10%" fxFlex.xs="50%">
+                            <mat-icon class="pb-1">file_download</mat-icon>
+                        </button>
+                        <div *ngIf="!summaryForm.value.expectedBenefitsAttachmentId" fxFlex="4%" fxFlex.md="10%"
+                             fxFlex.sm="10%" fxFlex.xs="50%"></div>
+                        <div fxFlex="38%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                    </div>
+                    <!--13th Flex Layout Div End -->
+                </div>
+            </div>
+        </mat-card>
+
+        <!--5th Header Body Div End -->
+
+    </form>
+
+    <div>
+        <br/><br/><br/>
+        <div fxLayout="row wrap" fxLayoutAlign="end" *ngIf="canEdit">
+
+            <!-- Save and Next Button -->
+            <button class="mr-2" mat-flat-button color="primary" type="button"
+                    [disabled]="spinner"
+                    (click)="saveAndNext()">{{'Save&Next' | translate}}</button>
+
+            <!-- Save and Exit Button -->
+            <button class="mr-2" mat-flat-button class="mr-2" style="background-color: green; color: #FFFFFF" type="button"
+                    [disabled]="spinner"
+                    (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+
+            <!-- Next TAB Button -->
+<!--            <button mat-flat-button style="background-color: green; color: #FFFFFF" type="button"-->
+<!--                    (click)="nextTab()">{{'Next' | translate}}</button>-->
+
+        </div>
+    </div>
+
+</div>
+
+
+

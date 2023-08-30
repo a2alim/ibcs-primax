@@ -1,0 +1,427 @@
+<div fxLayout="row" class="flex items-center justify-end mb-5 mr-15 ml-15 mt-4">
+    <button (click)="exportAsPdf()" mat-raised-button color="primary">Download Pdf
+    </button>
+    <button (click)="exportAsXLSX()" class="ml-3" mat-raised-button color="primary">Download Excel
+    </button>
+</div>
+
+<diV class="flex items-center justify-end mb-5 mr-15 ml-15 mt-4" style="background-color: white !important;">
+
+    <div id="pdfTable" #pdfTable style="margin-left: 50px;margin-top: 20px;margin-right: 20px;">
+
+
+        <div class="head"
+            style="font-weight: bold;text-decoration: underline;width: 100%;text-align: center;font-size: 16pt;">
+            <h1>Proforma/Proposal for Feasibility Study/Survey (PFS)
+            </h1>
+        </div>
+
+        <div class="1" style="font-size: 10pt;margin-top: 10px;font-weight: bold;">
+            <table>
+                <tr>
+                    <td>1.</td>
+                    <td>Title of the Feasibility Study/Survey :</td>
+                    <td>{{feasibilityStudyProposalData?.titleEn}}</td>
+                </tr>
+                <tr>
+                    <td>2.</td>
+                    <td> &#8560;) Sponsoring Ministry/Division : </td>
+                    <td>{{feasibilityStudyProposalData?.ministryDivision?.nameEn}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> &#8561;) Executing Agency : </td>
+                    <td>{{feasibilityStudyProposalData?.agency?.nameEn}}</td>
+                </tr>
+                <tr>
+                    <td>3.</td>
+                    <td>Implementation Period : </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> &#8560;) Date of Commencement : </td>
+                    <td>{{feasibilityStudyProposalData?.dateOfCommencement|date:'dd-MMM-yyyy'}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> &#8561;) Date of Completion : </td>
+                    <td>{{feasibilityStudyProposalData?.dateOfCompletion|date:'dd-MMM-yyyy'}}</td>
+                </tr>
+                <tr>
+                    <td>4.</td>
+                    <td>Estimated Cost :</td>
+                    <td>(Taka in Lac)</td>
+                </tr>
+                <tr>
+
+                    <td colspan="3">
+                        <table class="t3">
+                            <tr class="tr3">
+                                <td class="td3">Total</td>
+                                <td class="td3">GOB <br>(FE)</td>
+                                <td class="td3">PA <br>(RPA)</td>
+                                <td class="td3">Own Fund</td>
+                                <td class="td3">Others</td>
+                            </tr>
+                            <tr class="tr3">
+                                <td class="td3">{{feasibilityStudyProposalData?.totalAmount.toFixed(2)}}</td>
+                                <td class="td3">
+                                    {{feasibilityStudyProposalData?.gobAmount.toFixed(2)}}
+                                    <br>
+                                    ({{feasibilityStudyProposalData?.feGobAmount.toFixed(2)}})
+                                </td>
+                                <td class="td3">
+                                    {{feasibilityStudyProposalData?.paAmount.toFixed(2)}}
+                                    <br>
+                                    ({{feasibilityStudyProposalData?.rpaAmount.toFixed(2)}})
+                                </td>
+                                <td class="td3">{{feasibilityStudyProposalData?.ownFundAmount.toFixed(2)}}</td>
+                                <td class="td3">{{feasibilityStudyProposalData?.otherAmount.toFixed(2)}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5.</td>
+                    <td>Mode of Financing with Source :</td>
+                    <td>(Taka in Lac)</td>
+                </tr>
+                <tr>
+
+                    <td colspan="3">
+                        <table class="t2">
+                            <tr class="tr2">
+                                <td class="td2" style="text-align: right;">Source </td>
+                                <td class="td2" rowspan="2">GOB <br>(FE) </td>
+                                <td class="td2" rowspan="2">PA <br>(RPA)</td>
+                                <td class="td2" rowspan="2">Own Fund <br>(FE)</td>
+                                <td class="td2" rowspan="2">Others <br>(Specify) </td>
+                                <td class="td2" rowspan="2">PA source </td>
+                            </tr>
+
+                            <tr class="tr2">
+                                <td class="td2" style="text-align: left;">Mode </td>
+                            </tr>
+
+                            <tr class="tr2">
+                                <td class="td2">1 </td>
+                                <td class="td2">2 </td>
+                                <td class="td2">3 </td>
+                                <td class="td2">4 </td>
+                                <td class="td2">5 </td>
+                                <td class="td2">6 </td>
+                            </tr>
+
+
+                            <ng-container *ngFor="let item of modeOfFinanceList; let i = 'index'">
+                                <tr class="tr2">
+                                    <td class="td2">
+                                        <ng-container *ngFor="let c of configModeList;">
+                                            {{c.id == item.modeFinId ?c.nameEn : ''}}
+                                        </ng-container>
+                                    </td>
+                                    <td class="td2">
+                                        {{item?.gobAmount.toFixed(2)}} <br>
+                                        ({{item?.feGobAmount.toFixed(2)}})
+                                    </td>
+                                    <td class="td2">
+                                        {{item?.paAmount}} <br>
+                                        ({{item?.rpaAmount.toFixed(2)}})
+                                    </td>
+                                    <td class="td2">
+                                        {{item?.ownFundAmount.toFixed(2)}}<br>
+                                        ({{item?.feOwnFundAmount.toFixed(2)}})
+                                    </td>
+                                    <td class="td2">
+                                        {{item?.otherAmount.toFixed(2)}}
+                                        <br>
+                                        ({{item?.feOtherAmount.toFixed(2)}})
+                                    </td>
+
+                                    <td class="td2">
+                                        <ng-container *ngFor="let c of paSourceList;">
+                                            {{c.id == item.paSourceId ? c.nameEn : ''}}
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </table>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>6.</td>
+                    <td>General Description : </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td> &#8560;) Background : </td>
+                    <td>
+                        <p [innerHTML]="feasibilityStudyProposalData?.background"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> &#8561;) Objective : </td>
+                    <td>
+                        <p [innerHTML]="feasibilityStudyProposalData?.objective"></p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td> &#8562;)Brief Outline and Scope of the Study/Survey : </td>
+                    <td>
+                        <p [innerHTML]="feasibilityStudyProposalData?.briefOutlineScope"></p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td> &#8563;)Need and Justification : </td>
+                    <td>
+                        <p [innerHTML]="feasibilityStudyProposalData?.needJustification"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> &#8564;)Output : </td>
+                    <td>
+                        <p [innerHTML]="feasibilityStudyProposalData?.output"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7.</td>
+                    <td>Implementation Modality : </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> &#8560;) Methodology of Conducting the Study/Survey : </td>
+                    <td>
+                        <p [innerHTML]="feasibilityStudyProposalData?.methodologyOfConductingStudy"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> &#8561;) Financing Arrangement : </td>
+                    <td>
+                        <p [innerHTML]="feasibilityStudyProposalData?.financingArrangement"></p>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>8.</td>
+                    <td>Major Items of Expenditure with Cost (Taka in Lac) : </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <table class="t1">
+
+                            <tr class="tr1">
+                                <td class="td1" rowspan="4">Economic<br>
+                                    Code</td>
+                                <td class="td1" rowspan="4">Economic <br>Sub-
+                                    Code</td>
+                                <td class="td1" rowspan="4">Economic<br>
+                                    Subcode<br>
+                                    Description
+                                <td class="td1" colspan="8">Estimated Cost</td>
+                            </tr>
+
+
+                            <tr class="tr1">
+                                <td class="td1" rowspan="3">GOB<br>
+                                    (FE)</td>
+                                <td class="td1" colspan="4">PA</td>
+                                <td class="td1" rowspan="3">Own<br> Fund</td>
+                                <td class="td1" rowspan="3">Others</td>
+                                <td class="td1" rowspan="3">Total</td>
+                            </tr>
+
+                            <tr class="tr1">
+                                <td class="td1" colspan="2">RPA</td>
+                                <td class="td1" colspan="2">DPA</td>
+                            </tr>
+
+                            <tr class="tr1">
+                                <td class="td1">GOB</td>
+                                <td class="td1">Special<br> Account</td>
+                                <td class="td1">Through<br> PD</td>
+                                <td class="td1">Through<br> DP</td>
+                            </tr>
+
+
+
+                            <tr class="tr1">
+                                <td class="td1">1</td>
+                                <td class="td1">2</td>
+                                <td class="td1">3</td>
+                                <td class="td1">4</td>
+                                <td class="td1">5</td>
+                                <td class="td1">6</td>
+                                <td class="td1">7</td>
+                                <td class="td1">8</td>
+                                <td class="td1">9</td>
+                                <td class="td1">10</td>
+                                <td class="td1">11</td>
+                            </tr>
+
+                            <!-- 
+                            <td>{{list.description}}</td>
+                <td>{{list.feGobAmount ? list.feGobAmount.toFixed(2) : '0.00'}}</td>
+                <td>{{list.gobAmount ? list.gobAmount.toFixed(2) : '0.00'}}</td>
+                <td>{{list.rpaSpecialAccountAmount ? list.rpaSpecialAccountAmount.toFixed(2) : '0.00'}}</td>
+                <td>{{list.dpaThroughPdAmount ? list.dpaThroughPdAmount.toFixed(2) : '0.00'}}</td>
+                <td>{{list.dpaDpAmount ? list.dpaDpAmount.toFixed(2) : '0.00'}}</td>
+                <td>{{list.ownFundAmount ? list.ownFundAmount.toFixed(2) : '0.00'}}</td>
+                <td>{{list.othersAmount ? list.othersAmount.toFixed(2) : '0.00'}}</td>
+                <td>{{list.totalAmount ? list.totalAmount.toFixed(2) : '0.00'}}</td> -->
+
+
+                            <ng-container *ngFor="let item of expenditureCostList ; let i ='index'">
+                                <tr class="tr1">
+                                    <!-- <td class="td1" colspan="3" style="text-align: left;">{{item.economicCodeId}}</td> -->
+                                    <td class="td1">
+                                        <ng-container *ngFor="let c of economicListAll;">
+                                            {{c.id == item.economicCodeId ? c.economicCodeName : ''}}
+                                        </ng-container>
+                                    </td>
+                                    <td class="td1">
+                                        <ng-container *ngFor="let e of subEconomicAllList;">
+                                            {{e.id == item.economicSubCodeId ? e.subEconomicCodeName : ''}}
+                                        </ng-container>
+                                    </td>
+                                    <td class="td1">{{item.description}}</td>
+                                    <td class="td1">
+                                        {{item.gobAmount}}
+                                        <br>
+                                        ({{item.feGobAmount.toFixed(2)}})
+                                    </td>
+                                    <td class="td1">{{item.rpaGobAmount.toFixed(2)}}</td>
+                                    <td class="td1">{{item.rpaSpecialAccountAmount.toFixed(2)}}</td>
+                                    <td class="td1">{{item.dpaThroughPdAmount.toFixed(2)}}</td>
+                                    <td class="td1">{{item.dpaDpAmount.toFixed(2)}}</td>
+                                    <td class="td1">{{item.ownFundAmount.toFixed(2)}}</td>
+                                    <td class="td1">{{item.othersAmount.toFixed(2)}}</td>
+                                    <td class="td1">{{item.totalAmount.toFixed(2)}}</td>
+                                </tr>
+                            </ng-container>
+                            <!-- <tr class="tr1">
+                                <td class="td1" colspan="3" style="text-align: left;">Machinery/Equipment</td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+
+                            </tr>
+                            <tr class="tr1">
+                                <td class="td1" colspan="3" style="text-align: left;">Services</td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+
+                            </tr>
+                            <tr class="tr1">
+                                <td class="td1" colspan="3" style="text-align: left;">Personnel</td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+
+                            </tr>
+                            <tr class="tr1">
+                                <td class="td1" colspan="3" style="text-align: left;">Transport/Vehicle</td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+
+                            </tr>
+                            <tr class="tr1">
+                                <td class="td1" colspan="3" style="text-align: left;">Printing and Reproduction</td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+
+                            </tr>
+                            <tr class="tr1">
+                                <td class="td1" colspan="3" style="text-align: left;">Others (specify)</td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+                                <td class="td1"></td>
+
+                            </tr> -->
+
+                        </table>
+
+                    </td>
+                </tr>
+                <!--   ===================================================== -->
+
+
+                <tr>
+                    <td>9.</td>
+                    <td>List of machinery/equipment, personnel and transport/vehicle with cost to be
+                        annexed :</td>
+                    <td>{{reportData.title}}</td>
+                </tr>
+
+
+
+                <!--   =====================================================                                          -->
+
+
+                <tr>
+                    <td></td>
+                    <td id="s"><span> Signature of the Officers Responsible for</span><br>
+                        Preparation of the Proposal with Seal & Date</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td id="s1">Signature of the <span>Head of the Agency</span> with Seal & Date</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td id="s2"><span>Signature of the Secretary of</span><br>the Sponsoring Ministry/Division
+                        with<br>Seal & Date
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</diV>

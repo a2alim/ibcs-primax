@@ -1,0 +1,348 @@
+<div style="width: 100%">
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+    <form #myForm="ngForm">
+        <div class="flex-auto mt-7 body-color">
+            <div class="heading">
+                <h1>{{'Institute_Information' | translate}}</h1>
+            </div>
+            <mat-card class="tab-color p-4">
+                <!-- Row 1-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'training_name' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full readonly">
+                            <input [(ngModel)]="profileModel.trainingInstituteName"
+                                [ngModelOptions]="{standalone: true}" readonly matInput required>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'dateof_birth' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+                            <input matInput #dateOf="ngModel" [matDatepicker]="datepicker" name="dateOfBirth"
+                                [(ngModel)]="profileModel.dateOfBirth" (click)="datepicker.open()" required>
+                            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker>
+                            </mat-datepicker>
+                            <mat-hint *ngIf="dateOf.dirty && !(dateOf.value | required)"
+                                style="color: crimson !important;">Date of Establishment is required!</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Row 3-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'email' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full readonly">
+                            <input [(ngModel)]="profileModel.email" [ngModelOptions]="{standalone: true}" readonly
+                                matInput required>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 ml-2 pr-2"></div>
+                </div>
+                <!-- Row 4-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'permanent_address' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <textarea #permanentAddress="ngModel" [(ngModel)]="profileModel.permanentAddress"
+                                [ngModelOptions]="{standalone: true}" matInput name="otherExpertAreas"
+                                rows="5"></textarea>
+                            <mat-hint *ngIf="permanentAddress.dirty && !(permanentAddress.value | required)"
+                                style="color: crimson !important;">
+                                {{'permanent_address_hint' | translate}}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="md:flex ">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700 nikoshFont">
+                            {{'infrastrcutural_facilities' | translate}}
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 mt-2 nikoshFont">
+                        <mat-checkbox name="all" (change)="onChangeAll($event)">
+                            {{ 'All' | translate}}
+                        </mat-checkbox>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 mt-2 nikoshFont">
+                        <mat-checkbox [(ngModel)]="profileModel.audioVisual" [ngModelOptions]="{standalone: true}"
+                            name="audioVisual">
+                            {{ 'audioVisual' | translate}}
+                        </mat-checkbox>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 mt-2">
+                        <mat-checkbox [(ngModel)]="profileModel.trainingRoom" [ngModelOptions]="{standalone: true}"
+                            name="trainingRoom">
+                            {{ 'trRoom' | translate}}
+                        </mat-checkbox>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 mt-2">
+                        <mat-checkbox [(ngModel)]="profileModel.supportingStaff" [ngModelOptions]="{standalone: true}"
+                            name="supportingStaffaudioVisual">
+                            {{ 'sps' | translate}}
+                        </mat-checkbox>
+                    </div>
+                </div>
+            </mat-card>
+            <!-- CARD ONE-->
+            <div class="heading mt-4">
+                <h1>{{'Head_of_Institute_Information' | translate}}</h1>
+            </div>
+            <mat-card class="tab-color p-4">
+                <!-- Row 1-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'head_of_institute_name' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full readonly">
+                            <input [(ngModel)]="profileModel.headOfInstituteName" [ngModelOptions]="{standalone: true}"
+                                matInput required readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 pr-2 md:text-left  md:pt-3">
+                        <span class="text-gray-700" style="text-transform: capitalize">
+                            {{'designation2' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full readonly">
+                            <input [(ngModel)]="profileModel.designation" [ngModelOptions]="{standalone: true}" readonly
+                                matInput required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Row 2-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'mobile_number' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full readonly">
+                            <input [(ngModel)]="profileModel.mobileNumber" [ngModelOptions]="{standalone: true}"
+                                readonly matInput required>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 ml-2 pr-2"></div>
+                </div>
+                <!-- Row 3-->
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'uploadProfileImage1' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field id="tiProfileImage"
+                            (change)="uploadFile($event.target.files,'profile_image',300,330)" class="w-full" required>
+                            <ngx-mat-file-input [accept]="'.*'" required>
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                            <mat-error> {{'uploadProfileImage1' | translate}} {{ 'required' | translate }}</mat-error>
+                            <mat-hint>
+                                <span class="text-color-green">{{'UploadedFile' | translate}} : </span>
+                                {{ImageSpliter(profileModel?.profileImage?.fileName?profileModel?.profileImage?.fileName:'')}}
+                                <div class="mt-2">{{ 'imgHint1' | translate }}</div>
+                                <div *ngIf="imgSpinner" class="flex items-center justify-center mt-2">
+                                    <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+                                        class="absolute top-0 left-1/2 w-12 h-12 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+                                    </div>
+                                </div>
+                                <div class="mt-2 text-green-500 font-medium cursor-pointer"
+                                    (click)="resizeImage('300-5-5.5')">
+                                    {{'resizeImg' | translate}}
+                                </div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'uploadImage1' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field #tiSignImage id="tiSignImageVariable"
+                            (change)="uploadFile($event.target.files,'sign_image',300,86)" class="w-full" required>
+                            <ngx-mat-file-input [accept]="'.*'" required>
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                            <mat-error> {{'uploadImage1' | translate}} {{ 'required' | translate }}</mat-error>
+                            <mat-hint>
+                                <div *ngIf="imgSpinner2" class="flex items-center justify-center">
+                                    <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+                                        class="absolute top-0 left-1/2 w-12 h-12 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+                                    </div>
+                                </div>
+                                <span class="text-color-green mt-2">{{'UploadedFile' | translate}} : </span>
+                                {{ImageSpliter(profileModel?.signImage?.fileName?profileModel?.signImage?.fileName:'')}}
+                                <div class="mt-2">{{ 'imgHint_2' | translate }}</div>
+                                <div class="mt-2 text-green-500 font-medium cursor-pointer"
+                                    (click)="resizeImage('300-32-9')">
+                                    {{'resizeImg' | translate}}
+                                </div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'Telephone_number' | translate}}<!--<strong class="required">*</strong>-->
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #telephoneNumber="ngModel" [(ngModel)]="profileModel.telephoneNumber"
+                                   [ngModelOptions]="{standalone: true}" matInput>
+                            <!--<mat-hint
+                                *ngIf="(telephoneNumber.touched || myForm.submitted) && telephoneNumber.errors?.required"
+                                style="color: crimson !important;">Telephone number is required!
+                            </mat-hint>-->
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'Bank_Name' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #bankName="ngModel" [(ngModel)]="profileModel.bankName"
+                                   [ngModelOptions]="{standalone: true}" matInput required>
+                            <mat-hint *ngIf="(bankName.touched || myForm.submitted) && bankName.errors?.required"
+                                      style="color: crimson !important;">Bank name is required!
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'BranchName' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #branchName="ngModel" [(ngModel)]="profileModel.branchName"
+                                [ngModelOptions]="{standalone: true}" matInput required>
+                            <mat-hint *ngIf="(branchName.touched || myForm.submitted) && branchName.errors?.required"
+                                style="color: crimson !important;">Branch name is required!
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'Routing_number' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #routingNum="ngModel" [(ngModel)]="profileModel.routingNumber" [ngModelOptions]="{standalone: true}"
+                                matInput required>
+                            <mat-hint *ngIf="(routingNum.touched || myForm.submitted) && routingNum.errors?.required"
+                                style="color: crimson !important;">Routing Number is required!
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'Account_Name' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #accountName="ngModel" [(ngModel)]="profileModel.accountName"
+                                [ngModelOptions]="{standalone: true}" matInput required>
+                            <mat-hint *ngIf="(accountName.touched || myForm.submitted) && accountName.errors?.required"
+                                style="color: crimson !important;">Account name is required!
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'Account_number' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input #accountNumber="ngModel" [(ngModel)]="profileModel.accountNumber"
+                                [ngModelOptions]="{standalone: true}" matInput required>
+                            <mat-hint
+                                *ngIf="(accountNumber.touched || myForm.submitted) && accountNumber.errors?.required"
+                                style="color: crimson !important;">Account number is required!
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!--<div class="md:flex">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'Routing_number' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <input [(ngModel)]="profileModel.routingNumber" [ngModelOptions]="{standalone: true}"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-50 lg:w-50 ml-2 md:text-left pr-2 md:pt-3"></div>
+                </div>-->
+            </mat-card>
+            <div class="flex justify-end mt-8">
+                <button (click)="back()" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button
+                    style="background-color: green; color: #FFFFFF" type="submit">
+                    <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                    <span>{{ "back" | translate }}</span>
+                </button>
+                <button (click)="reset()" class="px-3 mr-2" color="accent" mat-flat-button type="reset">
+                    <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                    {{'reset' | translate}}
+                </button>
+                <button (click)="save()" color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn" mat-flat-button
+                    style="background-color: green; color: #FFFFFF" type="submit" [disabled]="spinner">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span>{{ "Save_For_Profile" | translate }}</span>
+                </button>
+                <button (click)="saveandNext()" color="primary" class="px-3 mr-2 toggle-sidebar-folded saveBtn"
+                    mat-flat-button style="background-color: green; color: #FFFFFF" type="submit" [disabled]="spinner">
+                    <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                    <span>{{"save_and_next" | translate }}</span>
+                </button>
+                <button mat-flat-button (click)="nextTab()" style="background-color: green; color: #FFFFFF" [disabled]="spinner"
+                    type="button" color="primary" class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                    {{ "next" | translate }}
+                    <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,76 @@
+<div class="body">
+    <!--============================== transaction spinner ===================-->
+    <div *ngIf="spinner">
+        <app-common-loader-spinner></app-common-loader-spinner>
+    </div>
+    <!--============================== // transaction spinner ===================-->
+    <div *ngIf="isParipatra2016" class="sub-heading text-lg">
+        <h1>{{'locationLabel' | translate}}</h1>
+    </div>
+    <div *ngIf="!isParipatra2016" class="sub-heading text-lg">
+        <h1>{{'locationLabel22' | translate}}</h1>
+    </div>
+
+    <app-project-location-common class="pl-4" [conceptUuid]="conceptUuid" [locations]="location" (sendData)="addData($event)"></app-project-location-common>
+    <div>
+
+        <div *ngIf="!isParipatra2016">
+            <br>
+            <div class="sub-heading text-lg">
+                <span [innerHTML]="'justification' | translate"></span>
+                <span *ngIf="!isShowJustification" (click)="toggleJustification()">
+                    <mat-icon class="exp-icon" matTooltipPosition="above">expand_more</mat-icon>
+                </span>
+                <span *ngIf="isShowJustification" (click)="toggleJustification()">
+                    <mat-icon class="exp-icon" matTooltipPosition="above">expand_less</mat-icon>
+                </span>
+            </div>
+            <form [formGroup]="formJustification" name="formGroup">
+                <div class="md:flex mb-5 text-lg">
+                    <div *ngIf="isShowJustification" style="position: relative;" class="w-full">
+                        <ckeditor formControlName="projectAreaJustification" [config]="minEditorConfig"></ckeditor>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="isParipatra2016">
+            <br/>
+            <p><b>{{'annex1' | translate}}
+                <a class="AnnexureLink" routerLink="/dpp-tapp/location-wise-cost-breakdown/{{conceptUuid}}">{{'annex2022' | translate}}</a>
+            </b></p>
+            <br/><br/>
+        </div>
+
+        <div *ngIf="!isParipatra2016">
+            <br/>
+            <p><b>{{'annex122' | translate}}
+                (<a class="AnnexureLink" routerLink="/dpp-tapp/location-wise-cost-breakdown/{{conceptUuid}}">{{'annex' | translate}}</a>)
+            </b><span>{{'note' | translate}}</span></p>
+            <br/><br/>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="end">
+<!--            <button class="mr-2" mat-flat-button color="accent" type="button"-->
+<!--                    (click)="back()">Back</button>-->
+            <button class="mr-2" mat-flat-button color="primary" type="button"
+                    [disabled]="spinner"
+                    (click)="save()">{{'Save' | translate}}</button>
+            <button class="mr-2" mat-flat-button color="primary" type="button"
+                    [disabled]="spinner"
+                    (click)="saveAndNext()">{{'SaveNext' | translate}}</button>
+            <button class="mr-2" mat-flat-button style="background-color: green; color: #FFFFFF" type="button"
+                    [disabled]="spinner"
+                    (click)="saveAndExit()">{{'SaveExit' | translate}}</button>
+
+<!--            <button-->
+<!--                class="px-8 toggle-sidebar-folded"-->
+<!--                :matTooltip="{{ 'Next' | translate }}"-->
+<!--                mat-flat-button-->
+<!--                style="background-color: green; color: #FFFFFF"-->
+<!--                matStepperNext-->
+<!--                type="button">-->
+<!--                {{ "Next" | translate }}-->
+<!--            </button>-->
+        </div>
+    </div>
+</div>

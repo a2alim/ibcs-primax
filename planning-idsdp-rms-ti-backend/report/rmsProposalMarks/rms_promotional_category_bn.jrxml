@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rms_promotional_category_bn" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e0165cf8-063f-47c1-9739-6140875ff001">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="proposal_and_marks_info.xml"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Researcher Quality Information" uuid="101530bb-ebd2-4d75-96fb-e2f01aeef1c5">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="proposal_and_marks_info.xml"/>
+		<queryString language="json">
+			<![CDATA[marks_info.items]]>
+		</queryString>
+		<field name="proposalId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalId"/>
+			<fieldDescription><![CDATA[proposalId]]></fieldDescription>
+		</field>
+		<field name="proposalUuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalUuid"/>
+			<fieldDescription><![CDATA[proposalUuid]]></fieldDescription>
+		</field>
+		<field name="stResearchCatTypeId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="stResearchCatTypeId"/>
+			<fieldDescription><![CDATA[stResearchCatTypeId]]></fieldDescription>
+		</field>
+		<field name="fiscalYearId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="fiscalYearId"/>
+			<fieldDescription><![CDATA[fiscalYearId]]></fieldDescription>
+		</field>
+		<field name="userId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="userId"/>
+			<fieldDescription><![CDATA[userId]]></fieldDescription>
+		</field>
+		<field name="profileMarks" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="profileMarks"/>
+			<fieldDescription><![CDATA[profileMarks]]></fieldDescription>
+		</field>
+		<field name="proposalMarks" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalMarks"/>
+			<fieldDescription><![CDATA[proposalMarks]]></fieldDescription>
+		</field>
+		<field name="userDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="userDto"/>
+			<fieldDescription><![CDATA[userDto]]></fieldDescription>
+		</field>
+		<field name="researchCategoryType" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchCategoryType"/>
+			<fieldDescription><![CDATA[researchCategoryType]]></fieldDescription>
+		</field>
+		<field name="fiscalYearDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="fiscalYearDto"/>
+			<fieldDescription><![CDATA[fiscalYearDto]]></fieldDescription>
+		</field>
+		<field name="userDto.designation" class="java.lang.String"/>
+		<field name="userDto.mobileNumber" class="java.lang.String"/>
+		<field name="userDto.name" class="java.lang.String"/>
+		<field name="divisionDto" class="java.lang.String"/>
+		<field name="districtDto" class="java.lang.String"/>
+		<field name="upzilaDto" class="java.lang.String"/>
+		<field name="preDivisionDto" class="java.lang.String"/>
+		<field name="preDistrictDto" class="java.lang.String"/>
+		<field name="preUpzilaDto" class="java.lang.String"/>
+		<field name="userDto.emailId" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="Researchers Proposal List" uuid="4212e7e7-1faa-4d03-bb89-bbae4e934880">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="proposal_and_marks_info.xml"/>
+		<queryString language="json">
+			<![CDATA[proposal_info.items]]>
+		</queryString>
+		<field name="proposalId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalId"/>
+			<fieldDescription><![CDATA[proposalId]]></fieldDescription>
+		</field>
+		<field name="proposalUuid" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="proposalUuid"/>
+			<fieldDescription><![CDATA[proposalUuid]]></fieldDescription>
+		</field>
+		<field name="researcherProfilePersonalInfoMasterId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researcherProfilePersonalInfoMasterId"/>
+			<fieldDescription><![CDATA[researcherProfilePersonalInfoMasterId]]></fieldDescription>
+		</field>
+		<field name="fiscalYearId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="fiscalYearId"/>
+			<fieldDescription><![CDATA[fiscalYearId]]></fieldDescription>
+		</field>
+		<field name="stResearchCatTypeId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="stResearchCatTypeId"/>
+			<fieldDescription><![CDATA[stResearchCatTypeId]]></fieldDescription>
+		</field>
+		<field name="stSectorTypeId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="stSectorTypeId"/>
+			<fieldDescription><![CDATA[stSectorTypeId]]></fieldDescription>
+		</field>
+		<field name="researchTitle" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchTitle"/>
+			<fieldDescription><![CDATA[researchTitle]]></fieldDescription>
+		</field>
+		<field name="userId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="userId"/>
+			<fieldDescription><![CDATA[userId]]></fieldDescription>
+		</field>
+		<field name="divisionId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="divisionId"/>
+			<fieldDescription><![CDATA[divisionId]]></fieldDescription>
+		</field>
+		<field name="districtId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="districtId"/>
+			<fieldDescription><![CDATA[districtId]]></fieldDescription>
+		</field>
+		<field name="upzilaId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="upzilaId"/>
+			<fieldDescription><![CDATA[upzilaId]]></fieldDescription>
+		</field>
+		<field name="preDivisionId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="preDivisionId"/>
+			<fieldDescription><![CDATA[preDivisionId]]></fieldDescription>
+		</field>
+		<field name="preDistrictId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="preDistrictId"/>
+			<fieldDescription><![CDATA[preDistrictId]]></fieldDescription>
+		</field>
+		<field name="preUpzilaId" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="preUpzilaId"/>
+			<fieldDescription><![CDATA[preUpzilaId]]></fieldDescription>
+		</field>
+		<field name="userDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="userDto"/>
+			<fieldDescription><![CDATA[userDto]]></fieldDescription>
+		</field>
+		<field name="researchCategoryType" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="researchCategoryType"/>
+			<fieldDescription><![CDATA[researchCategoryType]]></fieldDescription>
+		</field>
+		<field name="divisionDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="divisionDto"/>
+			<fieldDescription><![CDATA[divisionDto]]></fieldDescription>
+		</field>
+		<field name="districtDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="districtDto"/>
+			<fieldDescription><![CDATA[districtDto]]></fieldDescription>
+		</field>
+		<field name="upzilaDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="upzilaDto"/>
+			<fieldDescription><![CDATA[upzilaDto]]></fieldDescription>
+		</field>
+		<field name="preDivisionDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="preDivisionDto"/>
+			<fieldDescription><![CDATA[preDivisionDto]]></fieldDescription>
+		</field>
+		<field name="preDistrictDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="preDistrictDto"/>
+			<fieldDescription><![CDATA[preDistrictDto]]></fieldDescription>
+		</field>
+		<field name="preUpzilaDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="preUpzilaDto"/>
+			<fieldDescription><![CDATA[preUpzilaDto]]></fieldDescription>
+		</field>
+		<field name="fiscalYearDto" class="java.lang.String">
+			<property name="net.sf.jasperreports.json.field.expression" value="fiscalYearDto"/>
+			<fieldDescription><![CDATA[fiscalYearDto]]></fieldDescription>
+		</field>
+		<field name="userDto.emailId" class="java.lang.String"/>
+		<field name="userDto.mobileNumber" class="java.lang.String"/>
+		<field name="userDto.designation" class="java.lang.String"/>
+		<field name="userDto.name" class="java.lang.String"/>
+	</subDataset>
+	<queryString language="json">
+		<![CDATA[]]>
+	</queryString>
+	<field name="proposal_info" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="proposal_info"/>
+		<fieldDescription><![CDATA[proposal_info]]></fieldDescription>
+	</field>
+	<field name="marks_info" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="marks_info"/>
+		<fieldDescription><![CDATA[marks_info]]></fieldDescription>
+	</field>
+	<field name="proposal_info.obj.fiscalYearDto.fiscalYear" class="java.lang.String"/>
+	<field name="proposal_info.obj.researchCategoryType.categoryName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="550" height="40" uuid="e948d7eb-059f-4920-97d9-3d42b04e0cc7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="14"/>
+				</textElement>
+				<text><![CDATA[সামাজিক গবেষণা পরিষদ
+পরিকল্পনা বিভাগ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="40" height="20" uuid="df7d0ff1-9ac2-43ef-b667-e868cc972d36"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="14"/>
+				</textElement>
+				<text><![CDATA[ বিষয় :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="39" width="57" height="20" uuid="7f36aa2b-a943-4773-bb10-7d701d2f2f7c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proposal_info.obj.fiscalYearDto.fiscalYear}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="40" width="460" height="20" uuid="f170c5de-a6c6-4175-9e1f-f4424d39b704"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="14"/>
+				</textElement>
+				<text><![CDATA[অর্থ বছরে জমাকৃত গবেষণা ও গবেষকদের যোগ্যতা ও দক্ষতা যাচাই কার্যক্রম]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="60" height="20" uuid="300ac073-a9f7-4c7d-b1ca-e16929fb8dd6"/>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ক্যাটাগরি :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="55" y="60" width="484" height="20" uuid="4bbdba04-e306-4410-a75f-f355cdecdedd"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proposal_info.obj.researchCategoryType.categoryName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="78" splitType="Stretch">
+			<componentElement>
+				<reportElement x="1" y="20" width="550" height="58" uuid="e495b7d0-c85f-44d9-9960-f29616fbc924">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 1_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="Researchers Proposal List" uuid="c90ac1a1-9c20-4b20-9174-3cda1f48ea68">
+						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("proposal_info.items")]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="1e98c6fa-f187-48e5-8a51-f6596bf24c3b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="30" height="30" uuid="cabc1041-0b34-4775-9c1a-96e7e315afe8"/>
+								<box leftPadding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[ক্রমিক নং]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="30" uuid="7dbd2b65-65e9-432a-a24e-8639690c943c"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="270" uuid="5b60ef7a-d9e2-44fc-afe2-2b86f8288bc5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="270" height="30" uuid="4d3524ee-4492-4b06-b5d2-8293627ee6e9"/>
+								<box leftPadding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[গবেষকের নাম,পদবি,বর্তমান স্থায়ী ঠিকানা,টেলিফোন এবং ইমেইল নং]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="270" height="30" uuid="549b69cf-4d33-412d-b744-711ea6f15af7"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{userDto.name}== null? "" :$F{userDto.name})+","+($F{userDto.designation}== null? "" :$F{userDto.designation})+","+($F{preDivisionDto}== null? "" :$F{preDivisionDto})+","+($F{preDistrictDto}== null? "" :$F{preDistrictDto})+","+($F{preUpzilaDto}== null? "" :$F{preUpzilaDto})+","+
+($F{divisionDto}==null?"":$F{divisionDto})+","+
+($F{districtDto}== null? "" :$F{districtDto})+","+($F{upzilaDto}== null? "" :$F{upzilaDto})+","+
+($F{userDto.mobileNumber}== null? "" :$F{userDto.mobileNumber})+","+($F{userDto.emailId}== null? "" :$F{userDto.emailId})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3040d81c-c2bd-431b-8fb0-1da6cbda740c">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="c52ffd2c-5453-4c2b-9bfb-890e160c48a3"/>
+								<box leftPadding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[গভেষণা ক্ষেত্র (বিজ্ঞাপন অনুযায়ী)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="30" uuid="843fcd6a-e190-4bee-b994-b7b6447da32e"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stResearchCatTypeId}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="89" uuid="e50bce0a-6bde-44bb-b860-02478eaaeb9b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="89" height="30" uuid="ef5e5242-f8b5-406a-abec-3a78c088f97f"/>
+								<box leftPadding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[উপক্ষেত্র]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="89" height="30" uuid="37d99bd6-3b22-4975-96c3-c1bd04eb7ff7"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stSectorTypeId}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="71" uuid="fa9787d2-27ea-4b04-a768-f6e80c131921">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="Table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="71" height="30" uuid="91d6d378-8c02-4e4a-b0bc-231a3f8ea6e8"/>
+								<box leftPadding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[গবেষণার শিরোনাম]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="71" height="30" uuid="941128e2-1772-4664-8505-ed6c4ba217a6"/>
+								<box padding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{researchTitle}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="0" width="550" height="20" uuid="0844037a-a73e-4ab2-a07e-cc3b5474d67e"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="14"/>
+				</textElement>
+				<text><![CDATA[উপক্ষেত্র :]]></text>
+			</staticText>
+		</band>
+		<band height="87">
+			<componentElement>
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="20" width="550" height="67" uuid="a8ce0781-0493-42f2-9882-53b7e8599090">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="Researcher Quality Information" uuid="319835e5-2856-4e5b-b1f8-b1f5ddca8d94">
+						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("marks_info.items")]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="494ad06c-c21b-477e-ba9c-ec0f60d3802b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="40" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="40" uuid="80173f5d-5992-448e-a116-83688748be90"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[ক্রমিক নং]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="30" uuid="f53096e9-4dc9-4ec5-9110-f9b260d176fd"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="270" uuid="78ae4dac-6627-4fd4-9c0c-4fe061a0e793">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="40" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="270" height="40" uuid="086808b0-f009-4923-9012-8001be671805"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[গবেষকের নাম,পদবি,বর্তমান স্থায়ী ঠিকানা,টেলিফোন এবং ইমেইল নং]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="270" height="30" uuid="cb2cf2a7-237d-43fb-b6cf-14d47591abb1"/>
+								<box leftPadding="3" rightPadding="3">
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{userDto.name}== null? "" :$F{userDto.name})+","+($F{userDto.designation}== null? "" :$F{userDto.designation})+","+($F{preDivisionDto}== null? "" :$F{preDivisionDto})+","+($F{preDistrictDto}== null? "" :$F{preDistrictDto})+","+($F{preUpzilaDto}== null? "" :$F{preUpzilaDto})+","+
+($F{divisionDto}==null?"":$F{divisionDto})+","+
+($F{districtDto}== null? "" :$F{districtDto})+","+($F{upzilaDto}== null? "" :$F{upzilaDto})+","+
+($F{userDto.mobileNumber}== null? "" :$F{userDto.mobileNumber})+","+($F{userDto.emailId}== null? "" :$F{userDto.emailId})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="fcd92599-0610-43fc-91da-1662c7ca468b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="40" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="40" uuid="7d2fceb1-cbb8-4f48-85c6-649179976c49"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[গভেষণা ক্ষেত্র (বিজ্ঞাপন অনুযায়ী)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="30" uuid="9d11f868-faa8-4135-902d-c74026fe0a4f"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stResearchCatTypeId}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="65" uuid="f0bca91a-1d76-4bc5-8ccf-7555f0bb76aa">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="40" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="65" height="40" uuid="41515729-faf9-4c8b-aeff-384899c8947a"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[যোগ্যতা,অভিজ্ঞতা ও দক্ষতার প্রাপ্ত নম্বর]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="65" height="30" uuid="b3ccc64a-b668-400c-bb29-ed7011892d7e"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{profileMarks}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="bfba8345-44d3-48d5-bcd8-6c0a2277965c">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="Table_CH" height="40" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="60" height="40" uuid="21bc9bd0-e3a6-47a8-b389-495c1fee8042"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[মূল্যায়নকারী কর্তৃক প্রাপ্ত নম্বর]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="60" height="30" uuid="7ad0a1da-1d66-4f0f-b4c9-f8c603441912"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{proposalMarks}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="55" uuid="271b752c-abd8-4a5e-9ce1-efde5d3cb9a0">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader style="Table_CH" height="40" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="55" height="40" uuid="ac712dbd-3b6b-4c1c-b1cb-6e720b9bce45"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN" size="11"/>
+								</textElement>
+								<text><![CDATA[মোট প্রাপ্ত নম্বর]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="55" height="30" uuid="0daf4b3f-785b-4374-adda-dcfa08d1c620"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{profileMarks}+$F{proposalMarks}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="0" width="550" height="20" uuid="67d6f4f1-bf81-4332-b8d5-b2ad938aac5f"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="NikoshBAN" size="14"/>
+				</textElement>
+				<text><![CDATA[গভেষণা ক্ষেত্র :]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

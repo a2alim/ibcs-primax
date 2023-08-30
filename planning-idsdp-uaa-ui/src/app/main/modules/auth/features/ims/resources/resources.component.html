@@ -1,0 +1,102 @@
+<div class="w-full">
+    <div>
+        <app-ims-header [title]="'Resources'" [subTitle]="'Information Management System / Resources'"></app-ims-header>
+    </div>
+    <!-- Header area end  -->
+
+    <!-- Body area  star -->
+
+    <mat-card class="m-3">
+        <div class="border-green-400 border-2 min-h-48">
+            <div class="h-40 body-color mb-2">
+                <h1 class="font-bold text-3xl pl-5 py-5 text-white">Resources</h1>
+                <form [formGroup]="resourceForm">
+                    <div class="flex justify-center w-full">
+                        <div class="flex justify-between gap-x-2 px-10 body-color w-9/12">
+                            <div class="text-white font-medium pointer w-60">
+                                <mat-form-field class="w-full">
+                                    <mat-select (selectionChange)="getYearByCategory($event.value)" [formControlName]="'category'" placeholder="Select Category">
+                                        <mat-option>Clear</mat-option>
+                                        <mat-option [value]="category"
+                                                    *ngFor="let category of categoryList">{{category}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="text-white font-medium pointer w-60">
+                                <mat-form-field class="w-full">
+                                    <mat-select (selectionChange)="getMonthByYear($event.value)" [formControlName]="'year'" placeholder="Select Year">
+                                        <mat-option>Clear</mat-option>
+                                        <mat-option [value]="year" *ngFor="let year of yearList">{{year}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="text-white font-medium pointer w-60">
+                                <mat-form-field class="w-full">
+                                    <mat-select (selectionChange)="submitData()" [formControlName]="'month'" placeholder="Select Month">
+                                        <mat-option>Clear</mat-option>
+                                        <mat-option [value]="month"
+                                                    *ngFor="let month of monthList">{{month}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <ng-container>
+                <div class="overflow-y-scroll" style="max-height: 80vh;">
+                    <mat-card class="m-5">
+                        <ng-container *ngFor="let resource of resourceList">
+                            <div class="flex justify-between">
+                                <div class="text-justify">
+                                    <h3 class="underline text-xl font-medium">{{resource?.title}}</h3>
+                                    <p><b>Category:</b> {{resource?.category}}</p>
+                                    <p><b>Summary:</b> {{resource?.summary}}</p>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button (click)="openDetailsDialog(resource)" mat-flat-button style="background-color: #0d9488 !important;">
+                                        <mat-icon style="color: white !important">remove_red_eye</mat-icon>
+                                    </button>
+                                    <button (click)="viewAttachment(resource.attachmentUrl)" class="ml-2 flex justify-center items-center" mat-flat-button color="primary">
+                                        <mat-icon class="mr-2 material-icons-outlined" color="primary">file_download</mat-icon>
+                                        <span>Download</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </mat-card>
+                </div>
+            </ng-container>
+        </div>
+    </mat-card>
+
+    <!-- dialog  -->
+    <ng-template #resourceDetailsModal>
+        <div class="border-green-600 border-2">
+            <div class="flex justify-between pb-5 sub-heading">
+                <p class="text-3xl">Resources Details</p>
+                <button mat-icon-button class="bg-red-300" [mat-dialog-close]="true">
+                    <mat-icon class="icon-size-5 text-current text-red-500" [svgIcon]="'heroicons_solid:x'">
+                    </mat-icon>
+                </button>
+            </div>
+            <div class="overflow-y-scroll" style="max-height: 80vh;">
+                <mat-card class="h-auto p-5 m-5">
+                    <div>
+                        <h3 class="underline text-xl font-medium">{{resource?.title}}</h3>
+                        <p><b>Category:</b> {{resource?.category}}</p>
+                        <p><b>Summary:</b> {{resource?.summary}}</p>
+                        <a (click)="viewAttachment(resource.attachmentUrl)" class="hover:underline hover:text-purple-700 text-purple-500">
+                            Download Resource Details
+                        </a>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </ng-template>
+    <!-- Body area end -->
+    <!-- footer area -->
+    <div>
+        <app-ims-footer></app-ims-footer>
+    </div>
+</div>

@@ -1,0 +1,506 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header Start-->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto  sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate"
+                                    style=" font-size: 1.50rem; padding-bottom: 2px;">
+                                    {{'heading' | translate}}
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="leading-5 truncate text-secondary">
+                                        <a routerLink="/rdpp-rtapp">{{'subHeading' | translate}}</a> >{{'subHeading2' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex justify-end go-to-home-page">
+                            <button
+                                style="padding: 0px; right: -28px;"
+                                (click)="goBackToHome()"
+                                mat-button
+                                type="button">
+                                <mat-icon>home</mat-icon>&nbsp;
+                                {{'homePage' | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header close-->
+
+    <div class="flex-auto m-7 body-color">
+
+        <!--============================== transaction spinner ===================-->
+        <div *ngIf="spinner">
+            <app-common-loader-spinner></app-common-loader-spinner>
+        </div>
+        <!--============================== // transaction spinner ===================-->
+    <div class="flex-auto m-7 body-color">
+
+        <mat-card class="tab-color">
+            <form [formGroup]="form" name="frmGroup" class="p-5">
+
+                <div style="overflow-x:auto; border: 1px solid #ccc;margin-bottom: 15px; background-color: white;">
+                    <p class="heading">{{'OrganogramOfTheProposedSetup' | translate}}</p>
+                    <div style="padding: 10px;">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <!-- Attachment of Expected Socio Economic Benefits Outputs Of The Proposed Project -->
+                    <mat-label fxFlex="10%" fxFlex.xs="100%" fxFlex.sm="20%"
+                               fxFlex.md="20%">{{'Attachment' | translate}}:
+                    </mat-label>
+                    <mat-form-field fxFlex="40%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+                        <ngx-mat-file-input formControlName="attachment" (change)="uploadFile($event.target.files)" [accept]="'.pdf'"
+                                            placeholder="{{'Browse' | translate}}"
+                                            matTooltip="{{'Browse' | translate}}">
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>folder</mat-icon>
+                    </mat-form-field>
+
+                    <button *ngIf="isAttachmentEnable" (click)="download()" fxFlex="2%" fxFlex.md="10%"
+                            fxFlex.sm="10%" fxFlex.xs="50%">
+                        <mat-icon color="primary" class="pb-1">file_download</mat-icon>
+                    </button>
+
+                    <button *ngIf="isAttachmentEnable" (click)="deleteAttachment()" fxFlex="2%" fxFlex.md="10%"
+                            fxFlex.sm="10%" fxFlex.xs="50%">
+                        <mat-icon class="pb-3 ml-2 warn">delete</mat-icon>
+                    </button>
+                    <div fxFlex="40%" fxFlex.md="10%"
+                         fxFlex.sm="10%" fxFlex.xs="50%">
+
+                    </div>
+                </div>
+                    </div>
+                </div>
+
+                <!-- 1) Personnels to be deputed to project from existing setup -->
+                <div style="overflow-x:auto; border: 1px solid #ccc;margin-bottom: 15px; background-color: white;">
+                    <p class="heading">{{'existing_setup' | translate}}</p>
+
+                    <div style="padding: 10px;">
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                            <!--Table Start-->
+                            <table class="mat-elevation-z8">
+                                <thead>
+                                    <tr>
+                                        <th class="top-header">{{'SI_NO' | translate}}</th>
+                                        <th class="top-header">{{'Name_of_the_post' | translate}}</th>
+                                        <th class="top-header">{{'Quantity' | translate}}</th>
+                                        <th class="top-header">{{'Qualification' | translate}}</th>
+                                        <th class="top-header">{{'Mode_of_Recruitment' | translate}}</th>
+                                        <th class="top-header">{{'Scale_Amount' | translate}}</th>
+                                        <th class="top-header">{{'Pay_Grade' | translate}}</th>
+                                        <th class="top-header">{{'Responsibility' | translate}}</th>
+                                        <th class="top-header">{{'Remarks' | translate}}</th>
+                                        <th class="top-header"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="sub-header">{{'1' | translate}}</th>
+                                        <th class="sub-header">{{'2' | translate}}</th>
+                                        <th class="sub-header">{{'3' | translate}}</th>
+                                        <th class="sub-header">{{'4' | translate}}</th>
+                                        <th class="sub-header">{{'5' | translate}}</th>
+                                        <th class="sub-header">{{'6' | translate}}</th>
+                                        <th class="sub-header">{{'7' | translate}}</th>
+                                        <th class="sub-header">{{'8' | translate}}</th>
+                                        <th class="sub-header">{{'9' | translate}}</th>
+                                        <th class="sub-header">{{'10' | translate}}</th>
+                                    </tr>
+                                </thead>
+
+                                <!-- Table Body-->
+                                <tbody>
+                                    <ng-container formArrayName="existingSetup">
+                                        <ng-container *ngFor="let lessonForm of existingSetup.controls; let i = index">
+                                            <tr class="lesson-form-row" [formGroup]="lessonForm">
+                                                <!-- TODO: Those value dynamically come from server-->
+                                                <td>{{i + 1}}</td>
+
+                                                <td>
+                                                    <mat-form-field  class="example-full-width">
+                                                        <input formControlName="nameOfThePost" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td class="hideRow">
+                                                    <mat-form-field class="example-full-width">
+                                                        <input formControlName="projectConceptUuid" matInput>
+                                                        <input formControlName="uuid" matInput >
+
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input NumbersOnly type="number" class="rightAlign" formControlName="quantity" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="qualification" matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="modeOfRecruitment"
+                                                            matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input TwoDigitDecimalNumber class="rightAlign" formControlName="scale_amount" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input formControlName="payGrade" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="responsibility" matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="remarks" matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+
+                                                <td>
+                                                    <button *ngIf="!canUpdate" mat-icon-button
+                                                        class="toggle-sidebar-folded" fxHide.lt-lg>
+                                                        <mat-icon matTooltip="Delete"
+                                                                  (click)="deleteRow(i)"
+                                                            color="warn">delete</mat-icon>
+                                                    </button>
+                                                    <button *ngIf="canUpdate" mat-icon-button
+                                                        class="toggle-sidebar-folded" fxHide.lt-lg>
+                                                        <mat-icon matTooltip="Delete"
+                                                            (click)="deleteRow(i)"
+                                                            color="warn">delete</mat-icon>
+                                                    </button>
+
+<!--                                                    <button *ngIf="canUpdate" mat-icon-button-->
+<!--                                                            class="toggle-sidebar-folded" fxHide.lt-lg>-->
+<!--                                                        <mat-icon matTooltip="Delete"-->
+<!--                                                                  (click)="openDialog(i, 'existing')"-->
+<!--                                                                  color="warn">delete</mat-icon>-->
+<!--                                                    </button>-->
+                                                    <!-- <mat-icon (click)="openDialog(i, 'deleteFromDB', 'existing')"
+                                                        color="warn">
+                                                        delete</mat-icon> -->
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </ng-container>
+
+                                </tbody>
+
+                                <!-- Table Body End-->
+                            </table>
+                            <!--Table End-->
+                        </div>
+                    </div>
+                    <button (click)="addRow()" [disabled]="buttonDisable" class="m-2" color="primary" mat-raised-button>{{'add_new_row' | translate}}</button>
+
+                </div>
+                <!--        2) Personnels to be recruited directly for only execution of the project-->
+                <div style="overflow-x:auto; border: 1px solid #ccc;margin-bottom: 15px; background-color: white;">
+                    <p class="heading">{{'execution_setup' | translate}}</p>
+
+                    <div style="padding: 10px;">
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                            <!--Table Start-->
+                            <table class="mat-elevation-z8">
+                                <thead>
+                                <tr>
+                                    <th class="top-header">{{'SI_NO' | translate}}</th>
+                                    <th class="top-header">{{'Name_of_the_post' | translate}}</th>
+                                    <th class="top-header">{{'Quantity' | translate}}</th>
+                                    <th class="top-header">{{'Qualification' | translate}}</th>
+                                    <th class="top-header">{{'Mode_of_Recruitment' | translate}}</th>
+                                    <th class="top-header">{{'Scale_Amount' | translate}}</th>
+                                    <th class="top-header">{{'Pay_Grade' | translate}}</th>
+                                    <th class="top-header">{{'Responsibility' | translate}}</th>
+                                    <th class="top-header">{{'Remarks' | translate}}</th>
+                                    <th class="top-header"></th>
+                                </tr>
+                                <tr>
+                                    <th class="sub-header">{{'1' | translate}}</th>
+                                    <th class="sub-header">{{'2' | translate}}</th>
+                                    <th class="sub-header">{{'3' | translate}}</th>
+                                    <th class="sub-header">{{'4' | translate}}</th>
+                                    <th class="sub-header">{{'5' | translate}}</th>
+                                    <th class="sub-header">{{'6' | translate}}</th>
+                                    <th class="sub-header">{{'7' | translate}}</th>
+                                    <th class="sub-header">{{'8' | translate}}</th>
+                                    <th class="sub-header">{{'9' | translate}}</th>
+                                    <th class="sub-header">{{'10' | translate}}</th>
+                                </tr>
+                                </thead>
+
+                                <!-- Table Body-->
+                                <tbody>
+                                    <ng-container formArrayName="executionSetup">
+                                        <ng-container *ngFor="let lessonForm of executionSetup.controls; let i = index">
+                                            <tr class="lesson-form-row" [formGroup]="lessonForm">
+                                                <!-- TODO: Those value dynamically come from server-->
+                                                <td>{{i + 1}}</td>
+
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input formControlName="nameOfThePost" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td class="hideRow">
+                                                    <mat-form-field class="example-full-width">
+                                                        <input formControlName="projectConceptUuid"
+                                                            autocomplete="off" matInput disabled>
+                                                        <input formControlName="uuid"
+                                                               autocomplete="off" matInput disabled>
+
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input NumbersOnly type="number" class="rightAlign" formControlName="quantity" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="qualification" matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="modeOfRecruitment"
+                                                            matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input TwoDigitDecimalNumber class="rightAlign" formControlName="scale_amount" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input formControlName="payGrade" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="responsibility" matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="remarks" matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+
+                                                <td>
+                                                    <button *ngIf="!canUpdate" mat-icon-button
+                                                        class="toggle-sidebar-folded" fxHide.lt-lg>
+                                                        <mat-icon matTooltip="Delete"
+                                                                  (click)="deleteRow2(i)"
+                                                            color="warn">delete</mat-icon>
+                                                    </button>
+                                                    <button *ngIf="canUpdate" mat-icon-button
+                                                        class="toggle-sidebar-folded" fxHide.lt-lg>
+                                                        <mat-icon matTooltip="Delete"
+                                                                  (click)="deleteRow2(i)"
+                                                            color="warn">delete</mat-icon>
+                                                    </button>
+                                                    <!-- <mat-icon (click)="openDialog(i, 'deleteFromDB', 'execution')" color="warn">
+                                                    delete</mat-icon> -->
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </ng-container>
+
+                                </tbody>
+
+                                <!-- Table Body End-->
+                            </table>
+                            <!--Table End-->
+
+                        </div>
+                    </div>
+                    <button (click)="addRow1()" [disabled]="buttonDisable" class="m-2" color="primary" mat-raised-button>{{'add_new_row' | translate}}</button>
+
+                </div>
+
+                <!-- 3) Personnels to be recruited by outsourcing -->
+                <div style="overflow-x:auto; border: 1px solid #ccc;margin-bottom: 15px; background-color: white;">
+                    <p class="heading">{{'outsourcing_setup' | translate}}</p>
+
+                    <div style="padding: 10px;">
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                            <!--Table Start-->
+                            <table class="mat-elevation-z8">
+                                <thead>
+                                <tr>
+                                    <th class="top-header">{{'SI_NO' | translate}}</th>
+                                    <th class="top-header">{{'Name_of_the_post' | translate}}</th>
+                                    <th class="top-header">{{'Quantity' | translate}}</th>
+                                    <th class="top-header">{{'Qualification' | translate}}</th>
+                                    <th class="top-header">{{'Mode_of_Recruitment' | translate}}</th>
+                                    <th class="top-header">{{'Scale_Amount' | translate}}</th>
+                                    <th class="top-header">{{'Pay_Grade' | translate}}</th>
+                                    <th class="top-header">{{'Responsibility' | translate}}</th>
+                                    <th class="top-header">{{'Remarks' | translate}}</th>
+                                    <th class="top-header"></th>
+                                </tr>
+                                <tr>
+                                    <th class="sub-header">{{'1' | translate}}</th>
+                                    <th class="sub-header">{{'2' | translate}}</th>
+                                    <th class="sub-header">{{'3' | translate}}</th>
+                                    <th class="sub-header">{{'4' | translate}}</th>
+                                    <th class="sub-header">{{'5' | translate}}</th>
+                                    <th class="sub-header">{{'6' | translate}}</th>
+                                    <th class="sub-header">{{'7' | translate}}</th>
+                                    <th class="sub-header">{{'8' | translate}}</th>
+                                    <th class="sub-header">{{'9' | translate}}</th>
+                                    <th class="sub-header">{{'10' | translate}}</th>
+                                </tr>
+                                </thead>
+
+                                <!-- Table Body-->
+                                <tbody>
+                                    <ng-container formArrayName="outSourcing">
+                                        <ng-container *ngFor="let lessonForm of outSourcing.controls; let i = index">
+                                            <tr class="lesson-form-row" [formGroup]="lessonForm">
+                                                <!-- TODO: Those value dynamically come from server-->
+                                                <td>{{i + 1}}</td>
+
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input formControlName="nameOfThePost" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td class="hideRow">
+                                                    <mat-form-field class="example-full-width">
+                                                        <input formControlName="projectConceptUuid"
+                                                            autocomplete="off" matInput disabled>
+                                                        <input formControlName="uuid"
+                                                               autocomplete="off" matInput disabled>
+
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input NumbersOnly type="number" class="rightAlign" formControlName="quantity" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="qualification" matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="modeOfRecruitment"
+                                                            matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input TwoDigitDecimalNumber class="rightAlign" formControlName="scale_amount" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field class="example-full-width">
+                                                        <input formControlName="payGrade" appearance="outline"
+                                                            autocomplete="off" matInput required>
+                                                        <mat-error>Value is required</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="responsibility" matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <textarea formControlName="remarks" matInput></textarea>
+                                                    </mat-form-field>
+                                                </td>
+
+                                                <td>
+                                                    <button *ngIf="!canUpdate" mat-icon-button
+                                                            class="toggle-sidebar-folded" fxHide.lt-lg>
+                                                        <mat-icon matTooltip="Delete"
+                                                                  (click)="deleteRow3(i)"
+                                                                  color="warn">delete</mat-icon>
+                                                    </button>
+                                                    <button *ngIf="canUpdate" mat-icon-button
+                                                            class="toggle-sidebar-folded" fxHide.lt-lg>
+                                                        <mat-icon matTooltip="Delete"
+                                                                  (click)="deleteRow3(i)"
+                                                                  color="warn">delete</mat-icon>
+                                                    </button>
+<!--                                                    <mat-icon (click)="openDialog(i, 'outsourcing')"-->
+<!--                                                        color="warn">-->
+<!--                                                        delete</mat-icon>-->
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </ng-container>
+
+                                </tbody>
+
+                                <!-- Table Body End-->
+                            </table>
+                            <!--Table End-->
+
+                        </div>
+                    </div>
+                    <button (click)="addRow2()" [disabled]="buttonDisable" class="m-2" color="primary" mat-raised-button>{{'add_new_row' | translate}}</button>
+
+                </div>
+
+                <!--Action Bar-->
+                <div class="p-1 text-right">
+                    <button (click)="onSubmit()" [disabled]="buttonDisable || spinner" class="m-2" color="primary" mat-raised-button>{{'save' | translate}}</button>
+                </div>
+
+            </form>
+        </mat-card>
+    </div>
+</div>
+</div>

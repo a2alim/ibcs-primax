@@ -1,0 +1,196 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+<div class="body">
+    <div class="flex flex-col flex-auto min-w-0">
+        <!-- Main -->
+
+        <div class="heading">
+                    <span class="inline-block align-middle">
+                        {{ "Estimated_cost" | translate }}
+                    </span>
+        </div>
+
+        <mat-card>
+            <table class="w-full">
+
+                <tr>
+                    <th rowspan="2">
+                        {{ "FinancialYear" | translate }}
+                    </th>
+                    <th rowspan="2">
+                        {{ "ProjectRevisions" | translate }}
+                    </th>
+                    <th rowspan="2">
+                        {{ "Total" | translate }}
+                    </th>
+                    <th rowspan="2">
+                        <span [innerHTML]="'GOB' | translate"></span>
+                    </th>
+                    <th *ngIf="isForeignAid" colspan="2">
+                        {{ "Project_aid" | translate }}
+                    </th>
+                    <th rowspan="2">
+                        <span [innerHTML]="'Own_fund' | translate"></span>
+                    </th>
+                    <th rowspan="2">
+                        <span [innerHTML]="'Other' | translate"></span><br/>
+                    </th>
+                </tr>
+
+                <tr *ngIf="isForeignAid">
+                    <th>{{ "RPA" | translate }}</th>
+                    <th>{{ "DPA" | translate }}</th>
+                </tr>
+
+                <tr *ngIf="!isForeignAid">
+                </tr>
+
+                <tr *ngIf="!isForeignAid" class="text-center">
+                    <td>{{ "Num1" | translate }}</td>
+                    <td>{{ "Num2" | translate }}</td>
+                    <td>{{ "Num3" | translate }}</td>
+                    <td>{{ "Num4" | translate }}</td>
+                    <td>{{ "Num5" | translate }}</td>
+                    <td>{{ "Num6" | translate }}</td>
+                </tr>
+
+                <tr *ngIf="isForeignAid" class="text-center">
+                    <td>{{ "Num1" | translate }}</td>
+                    <td>{{ "Num2" | translate }}</td>
+                    <td>{{ "Num3" | translate }}</td>
+                    <td>{{ "Num4" | translate }}</td>
+                    <td>{{ "Num5" | translate }}</td>
+                    <td>{{ "Num6" | translate }}</td>
+                    <td>{{ "Num7" | translate }}</td>
+                    <td>{{ "Num8" | translate }}</td>
+                </tr>
+                <tbody>
+                    <tr class="text-right"  *ngFor="let item of fiscalYearsList; let i=index">
+                        <ng-container *ngIf="i % estimatiedCostTotal.length == 0">
+                            <td style="text-align: center;" [attr.rowspan]="estimatiedCostTotal.length">
+                                {{item.fiscalYear}}
+                            </td>
+                        </ng-container>
+                        <td style="text-align: center;">{{item.revisedVersion}}</td>
+                        <td>
+                            {{item.totalAmount}}<br/>
+                        </td>
+                        <td>
+                            {{item.gobAmount}} <br/>
+                            ({{item.gobFeAmount}})
+                        </td>
+                        <td *ngIf="isForeignAid">{{item.rpaAmount}}</td>
+                        <td *ngIf="isForeignAid">{{item.dpaAmount}}</td>
+                        <td>
+                            {{item.ownFundAmount}} <br/>
+                            ({{item.ownFundFeAmount}})
+                        </td>
+                        <td>
+                            {{item.otherAmount}} <br/>
+                            ({{item.otherFeAmount}})
+                        </td>
+                    </tr>
+                    <tr class="text-right"  *ngFor="let item of estimatiedCostTotal; let i=index">
+                        <ng-container *ngIf="i==0">
+                            <td style="text-align: center;" [attr.rowspan]="estimatiedCostTotal.length">
+                                {{"GrandTotal" | translate}}
+                            </td>
+                        </ng-container>
+                        <td style="text-align: center;">{{item?.costTotal.revisedVersion}}</td>
+                        <td>
+                            {{item?.costTotal?.totalAmount}}<br/>
+                        </td>
+                        <td>
+                            {{item?.costTotal?.gobAmount}} <br/>
+                            ({{item?.costTotal?.gobFeAmount}})
+                        </td>
+                        <td *ngIf="isForeignAid">
+                            {{item?.costTotal?.rpaAmount}}
+                        </td>
+                        <td *ngIf="isForeignAid">
+                            {{item?.costTotal?.dpaAmount}}
+                        </td>
+                        <td>
+                            {{item?.costTotal?.ownFundAmount}} <br/>
+                            ({{item?.costTotal?.ownFundFeAmount}})
+                        </td>
+                        <td>
+                            {{item?.costTotal?.otherAmount}} <br/>
+                            ({{item?.costTotal?.otherFeAmount}})
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </mat-card>
+
+        <!--1st CK Editor -->
+        <div class="heading mt-5">
+            <span class="inline-block align-middle">
+                {{ "justification" | translate }}
+            </span>
+        </div>
+
+        <mat-card>
+             <div class="sub-heading">
+                <span class="inline-block align-middle">
+                    {{ "justification" | translate }}
+                </span>
+                <span *ngIf="!isJustification" (click)="expandOrCollapse()">
+                    <mat-icon class="exp-icon" matTooltip="{{'justification' | translate}}" matTooltipPosition="above">expand_more</mat-icon>
+                </span>
+                <span *ngIf="isJustification" (click)="expandOrCollapse()">
+                    <mat-icon class="exp-icon" matTooltip="{{'justification' | translate}}" matTooltipPosition="above">expand_less</mat-icon>
+                </span>
+            </div>
+            <div *ngIf="isJustification" class="ck-editor" style="position: relative;">
+                <ckeditor
+                    [(ngModel)]="mainFeaturesOfRevision">
+                </ckeditor>
+            </div>
+       </mat-card>
+
+        <div class="flex justify-end mt-8">
+            <button
+                [color]="'accent'"
+                class="px-8 mr-2 toggle-sidebar-folded"
+                matTooltip="Back"
+                mat-flat-button
+                matStepperPrevious
+                type="button">
+                Back
+            </button>
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                type="submit"
+                [disabled]="spinner"
+                (click)="onSubmit('next')"
+                class="px-8 mr-2 toggle-sidebar-folded"
+                matTooltip="Save & Next">
+                Save & Next
+            </button>
+            <button
+                mat-flat-button
+                style="background-color: green; color: #FFFFFF"
+                type="submit"
+                [disabled]="spinner"
+                (click)="onSubmit('dashboard')"
+                class="px-8 mr-2 toggle-sidebar-folded"
+                matTooltip="Save & Exit">
+                Save & Exit
+            </button>
+            <button
+                class="px-8 mr-2 toggle-sidebar-folded"
+                matTooltip="Next"
+                mat-flat-button
+                style="background-color: green; color: #FFFFFF"
+                matStepperNext
+                type="button">
+                Next
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+<div class="width-100" >
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color mt-4">
+
+            <div  class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1>{{'formTitle' | translate}}</h1>
+                </div>
+            </div>
+            <!-- Card Body -->
+            <form [formGroup]="frmGroup" (ngSubmit)="onSubmit()" #inputForm="ngForm" class="p-4 border3 form-bg-color">
+
+                <!-- -----------1st Row----------- -->
+                <div class="md:flex row">
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'stFiscalYearId' | translate}}  <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full">
+                            <mat-select formControlName="stFiscalYearId">
+                                <mat-option *ngFor="let f of fiscalYearList" [value]="f.id">{{f.fiscalYear}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="frmGroup.get('stFiscalYearId').hasError('customError')">
+                                {{ frmGroup.get('stFiscalYearId').errors.customError.value }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                </div>
+                <!-- -----------/1st Row----------- -->
+
+                <div class="md:flex row">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                        {{'sendTo' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                        <mat-form-field class="w-full">
+                            <input matInput formControlName="sendTo">
+                            <mat-error *ngIf="frmGroup.get('sendTo').hasError('customError')">
+                                {{ frmGroup.get('sendTo').errors.customError.value }}
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    </div>
+
+
+                    <div class="md:flex row">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                            <span class="text-gray-700">
+                            {{'subject' | translate}} <strong class="required">*</strong>
+                            </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                            <mat-form-field class="w-full">
+                                <input matInput formControlName="subject">
+                                <mat-error *ngIf="frmGroup.get('subject').hasError('customError')">
+                                    {{ frmGroup.get('subject').errors.customError.value }}
+                                </mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        </div>
+
+                <!-- -----------2nd Row-------------->
+                <div class="md:flex row">
+
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                        {{'details' | translate}} <strong class="required">*</strong>
+                        </span>
+                    </div>
+                    <div class="ck-editor w-full sm:w-auto md:w-80 lg:w-80 ml-1">
+                        <ckeditor #ckeditor formControlName="letterBodyContent" [config]="mediumEditorConfig" required [config]="mediumEditorConfig" ></ckeditor>
+                        <mat-error *ngIf="frmGroup.get('letterBodyContent').hasError('customError')">
+                            {{ frmGroup.get('letterBodyContent').errors.customError.value }}
+                        </mat-error>
+                    </div>
+
+
+
+
+                </div>
+
+                <!-- -----------/3rd Row----------- -->
+
+
+                <div class="md:flex row">
+
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                        <span class="text-gray-700">
+                            {{'upload_attachment' | translate}}<strong class="required">*</strong>
+                        </span>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                        <mat-form-field class="w-full" (change)="handleFileInput($event.target.files,1)">
+                            {{ attachment === null ? '' : attachment | slice:attachment.length-15:attachment.length }}
+                            <ngx-mat-file-input [accept]="'.*'">
+                            </ngx-mat-file-input>
+                            <mat-icon matSuffix>folder</mat-icon>
+                            <mat-error>File is required!</mat-error>
+                        </mat-form-field>
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="flex justify-end mt-3">
+                    <button
+                        class="px-3 mr-2 previousBtn"
+                        mat-flat-button
+                        color="accent"
+                        (click)="back()"
+                        type="button">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        {{'previous' | translate}}
+                    </button>
+
+                    <button
+                        class="px-3 mr-2"
+                        mat-flat-button
+                        color="accent"
+                        (click)="formReset()"
+                        type="reset">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+
+                    <button
+                        class="px-3"
+                        mat-flat-button
+                        color="primary"
+                        type="submit"
+                        ><mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <div *ngIf="formTitle=='Edit'; else temp ">{{'update' | translate}}</div>
+                        <ng-template #temp>{{'save' | translate}}</ng-template>
+                    </button>
+                </div>
+            </form>
+
+        </mat-card>
+
+
+    </div>
+    <!-- Main End -->
+</div>
+
+

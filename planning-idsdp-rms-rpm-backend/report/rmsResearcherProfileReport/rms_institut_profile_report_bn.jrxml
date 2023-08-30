@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="9_planning_dpp_annexure5b_bn_main" pageWidth="595" pageHeight="842" columnWidth="487" leftMargin="72" rightMargin="36" topMargin="50" bottomMargin="20" uuid="6a2cd0e0-dbf0-4b56-80b2-7c1a7217232f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="instt" uuid="8a28a4df-f390-421c-b892-2d4cacc4a8e3">
+		<field name="researcherName" class="java.lang.String"/>
+		<field name="designation" class="java.lang.String"/>
+		<field name="mobileNo" class="java.lang.String"/>
+		<field name="emailAddress" class="java.lang.String"/>
+		<field name="telephoneNo" class="java.lang.String"/>
+		<field name="age" class="java.lang.String"/>
+		<field name="occupation" class="java.lang.String"/>
+		<field name="nidNo" class="java.lang.String"/>
+		<field name="educationQualification" class="java.lang.String"/>
+		<field name="personalDigitalInformation" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString language="json">
+		<![CDATA[]]>
+	</queryString>
+	<field name="userName" class="java.lang.String"/>
+	<field name="personalInfo.instYearOfEstablishment" class="java.lang.String"/>
+	<field name="personalInfo.instAddressDetails" class="java.lang.String"/>
+	<field name="personalInfo.instTelephoneNo" class="java.lang.String"/>
+	<field name="personalInfo.emailAddress" class="java.lang.String"/>
+	<field name="personalInfo.instRegistrationNo" class="java.lang.String"/>
+	<field name="personalInfo.tINNumber" class="java.lang.String"/>
+	<field name="personalInfo.mobileNo" class="java.lang.String"/>
+	<field name="personalInfo.phd" class="java.lang.String"/>
+	<field name="personalInfo.mphil" class="java.lang.String"/>
+	<field name="personalInfo.masters" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="224" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="487" height="16" uuid="7c1923a0-37fd-4c33-ab2d-c4fd2c81c55f"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="NikoshBAN" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[প্রাতিষ্ঠানিক প্রোফাইল ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="30" width="356" height="18" uuid="9f3a1d63-4a5f-4827-b40e-0fe979799cc7"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " + $F{userName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="46" width="356" height="18" uuid="420283d3-b507-4b9f-9f0a-7d7e76622204"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " + $F{personalInfo.instYearOfEstablishment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="63" width="356" height="18" uuid="d515811a-a516-4404-87a4-2d3ab3b42e2d"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " + $F{personalInfo.instAddressDetails}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="80" width="356" height="18" uuid="06c8edeb-8a0c-4f48-81d9-fca3b2fdd452"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " +$F{personalInfo.instTelephoneNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="97" width="356" height="18" uuid="a4a6a290-37c3-44a5-9f0b-b09e49c57e3b"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " +$F{personalInfo.emailAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="114" width="356" height="18" uuid="38e4b46f-15ec-4936-890a-e7b3820301c8"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " +$F{personalInfo.instRegistrationNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="131" width="356" height="18" uuid="013aca57-3dd4-46dd-a10f-d69348cb3034"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " +$F{personalInfo.tINNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="148" width="356" height="18" uuid="4d064ea5-1352-45ba-8e64-c060a4f69aca"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " +$F{personalInfo.mobileNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="165" width="356" height="18" uuid="1ea08f9b-2c05-4542-ac08-b99b0c8ad947"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " +$F{personalInfo.phd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="182" width="356" height="18" uuid="98de468a-48ed-475b-886a-b4fca41ba75b"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " +$F{personalInfo.mphil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="199" width="356" height="18" uuid="c101b5c7-fb34-4a3f-b439-90b07defb1be"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": " + $F{personalInfo.masters}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="131" height="18" uuid="6adcfecc-79c7-4808-8ac0-148e35e7988d"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[প্রতিষ্ঠানের নাম]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="46" width="131" height="18" uuid="14330ee0-9c5b-4cd2-aab0-e7139af48025"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[সংস্থাপন বছর]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="63" width="131" height="18" uuid="e6447c7a-9387-4d64-b56a-aa86d30b74c8"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[বিস্তারিত ঠিকানা]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="131" height="18" uuid="f65fdb38-cf96-4cfc-a56e-3518201e077b"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[টেলিফন নম্বর]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="131" width="131" height="18" uuid="06159219-df87-479f-a79d-f364de5419d5"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[টিন নম্বর ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="97" width="131" height="18" uuid="15a6213b-7320-4d57-9364-e51725c4b514"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[ইমেইল ঠিকানা ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="114" width="131" height="18" uuid="1f2304d7-001c-4e26-953e-195a9969fc6b"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[নিবন্ধন নম্বর]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="148" width="131" height="18" uuid="804fd96c-56fe-43ea-9b15-19c4c6dccc22"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[মোবাইল নাম্বার]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="199" width="131" height="18" uuid="0e849886-8876-4990-bc3b-9e2a83377b2c"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[মাস্টার্স (ব্যক্তি নং) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="182" width="131" height="18" uuid="994fc6f3-fa63-47a6-bd0e-a0d31e8af10e"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[এমফিল (ব্যক্তি নং) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="165" width="131" height="18" uuid="775b245c-f951-4d07-bee1-28d12b6fa0ec"/>
+				<textElement>
+					<font fontName="NikoshBAN" size="11"/>
+				</textElement>
+				<text><![CDATA[পিএইচডি (ব্যক্তি নং) ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="3"/>
+		<band height="3"/>
+		<band height="31">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="4" width="487" height="20" backcolor="#F0F0F0" uuid="f4aa8e68-311b-4070-b2f4-7a96f9210e3e"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="NikoshBAN" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[সংস্থায় কর্মরত গবেষক ]]></text>
+			</staticText>
+		</band>
+		<band height="28">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="0" y="0" width="487" height="20" uuid="e4f23ee7-b93b-436c-90e0-b47927694978"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="instt" uuid="df5462b3-dae0-4cd4-b17f-545fa1bc2998">
+						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("researcherProfileRscWorkingInOrgList")]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="27" uuid="fb60bbff-afd0-4dbe-8b7d-453cdeb722b2">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="60" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="27" height="60" uuid="3f13bcef-1d76-4e88-8620-604d4b0363f1"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="NikoshBAN" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ক্রমিক নং ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="18" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="27" height="18" uuid="cbbed6c4-311d-4581-a516-29ddd1362197"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="102" uuid="16e62d61-922e-4dee-96ba-8c1b311b3813">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="60" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="102" height="60" uuid="2e0c7767-b851-4866-9aa9-5be29c39ee89"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="NikoshBAN" isBold="true"/>
+								</textElement>
+								<text><![CDATA[গবেষকের নাম/ পদবী/ মোবাইল নম্বর/ ইমেইল/
+টেলিফোন ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="102" height="18" uuid="a10304b4-5dcc-43a8-8723-8f57bbc955d2"/>
+								<box topPadding="1" leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement verticalAlignment="Top">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[(($F{researcherName} == null) ? "" :  (
+    ($F{researcherName} == "") ? "" : (
+          ($F{researcherName} == "null") ? "" : $F{researcherName}
+            ) )) +"\n"+
+(($F{designation} == null) ? "" :  (
+    ($F{designation} == "") ? "" : (
+          ($F{designation} == "null") ? "" : $F{designation}
+            ) )) +"\n"+
+(($F{mobileNo} == null) ? "" :  (
+    ($F{mobileNo} == "") ? "" : (
+          ($F{mobileNo} == "null") ? "" : $F{mobileNo}
+            ) )) +"\n"+
+(($F{emailAddress} == null) ? "" :  (
+    ($F{emailAddress} == "") ? "" : (
+          ($F{emailAddress} == "null") ? "" : $F{emailAddress}
+            ) )) +"\n"+
+(($F{telephoneNo} == null) ? "" :  (
+    ($F{telephoneNo} == "") ? "" : (
+          ($F{telephoneNo} == "null") ? "" : $F{telephoneNo}
+            ) ))]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="39" uuid="3895922a-4199-4cb4-b6e4-7e68d62a67dd">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="60" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="39" height="60" uuid="8f964351-7dbb-4228-b7a8-4a28d901a7a2"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="NikoshBAN" isBold="true"/>
+								</textElement>
+								<text><![CDATA[বয়স ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="39" height="18" uuid="449cf149-ccaf-4664-b2f5-b52a962a140e"/>
+								<box topPadding="1" leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement verticalAlignment="Top">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[(($F{age} == null) ? "" :  (
+    ($F{age} == "") ? "" : (
+          ($F{age} == "null") ? "" : $F{age}
+            ) ))]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="c1f9e637-44af-46f6-b6fa-30a27d38ed69">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="60" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="60" uuid="ed8c8497-6818-46fb-bded-4b50aa6bd198"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="NikoshBAN" isBold="true"/>
+								</textElement>
+								<text><![CDATA[পেশা]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="18" uuid="07694e1f-1e5e-473d-acaa-de1426d7fdd8"/>
+								<box topPadding="1" leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement verticalAlignment="Top">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[(($F{occupation} == null) ? "" :  (
+    ($F{occupation} == "") ? "" : (
+          ($F{occupation} == "null") ? "" : $F{occupation}
+            ) ))]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="69" uuid="c4ed63ce-a557-4e24-8942-6e0714cb7313">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="60" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="69" height="60" uuid="e7f0391a-3a65-4b7c-8401-7dd3142f560f"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="NikoshBAN" isBold="true"/>
+								</textElement>
+								<text><![CDATA[এনআইডি নম্বর ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="69" height="18" uuid="ce5da68e-ed73-45b2-acc2-3999dac54539"/>
+								<box topPadding="1" leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement verticalAlignment="Top">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[(($F{nidNo} == null) ? "" :  (
+    ($F{nidNo} == "") ? "" : (
+          ($F{nidNo} == "null") ? "" : $F{nidNo}
+            ) ))]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="5f1c7823-5440-4f66-a8af-10a95e337293">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="60" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="60" uuid="a3b1202e-cd4d-427d-b1eb-f4f0f2c6a3cf"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="NikoshBAN" isBold="true"/>
+								</textElement>
+								<text><![CDATA[শিক্ষাগত যোগ্যতা
+(শেষ ডিগ্রি) ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="18" uuid="9952998d-a629-4af9-8e4c-521b7fa745c4"/>
+								<box topPadding="1" leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement verticalAlignment="Top">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[(($F{educationQualification} == null) ? "" :  (
+    ($F{educationQualification} == "") ? "" : (
+          ($F{educationQualification} == "null") ? "" : $F{educationQualification}
+            ) ))]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="80b658b3-b7ad-4231-af5d-433ae06be8df">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="60" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="60" uuid="eaa703a1-8ceb-4af7-b014-328c39dacc6c"/>
+								<box>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="NikoshBAN" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ব্যক্তিগত ডিজিটাল তথ্য ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell height="18" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="18" uuid="351eb399-b63d-4ff0-8d3d-6d6ef84fc7b4"/>
+								<box topPadding="1" leftPadding="2">
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement verticalAlignment="Top">
+									<font fontName="NikoshBAN"/>
+								</textElement>
+								<textFieldExpression><![CDATA[(($F{personalDigitalInformation} == null) ? "" :  (
+    ($F{personalDigitalInformation} == "") ? "" : (
+          ($F{personalDigitalInformation} == "null") ? "" : $F{personalDigitalInformation}
+            ) ))]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<summary>
+		<band height="16" splitType="Stretch"/>
+	</summary>
+</jasperReport>

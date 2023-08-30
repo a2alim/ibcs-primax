@@ -1,0 +1,97 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header [title]="'headerTitle' | translate" [subTitle]="'headerSubTitle' | translate"></app-form-header>
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+            class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+    <!-- Main Start -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1 *ngIf="finalEvaluationReportModel.id">{{'editFormTitle' | translate}}</h1>
+                    <h1 *ngIf="!finalEvaluationReportModel.id">{{'addFormTitle' | translate}}</h1>
+                </div>
+            </div>
+
+            <!-- Card Body -->
+            <form [formGroup]="formGroup" #finalEvlRep="ngForm" (submit)="submitForm()"
+                class="p-4 border3 form-bg-color">
+
+                <!-- -----------1st Row----------- -->
+                <div class="md:flex" style="margin-left: -10px">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 pr-2 mt-1">
+                        <span>{{'researchObjectives' | translate}}</span>&nbsp;<strong class="required">*</strong>
+                    </div>
+                    <div class="w-full ck_border_color1">
+                        <ckeditor formControlName="researchObjectives" [config]="mediumEditorConfig"></ckeditor>
+                    </div>
+                </div>
+                <!-- -----------1st Row----------- -->
+
+                <!-- -----------2nd Row----------- -->
+                <div class="md:flex mt-5" style="margin-left: -10px">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 pr-2 mt-1">
+                        <span>{{'describeProblem' | translate}}</span>&nbsp;<strong class="required">*</strong>
+                    </div>
+                    <div class="w-full ck_border_color2">
+                        <ckeditor formControlName="describeProblem" [config]="mediumEditorConfig"></ckeditor>
+                    </div>
+                </div>
+                <!-- -----------2nd Row----------- -->
+
+                <!-- -----------3rd Row----------- -->
+                <div class="md:flex mt-5" style="margin-left: -10px">
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 pr-2 mt-1">
+                        <span>{{'note' | translate}}</span>&nbsp;<strong class="required">*</strong>
+                    </div>
+                    <div class="w-full" class="ck_border_color3">
+                        <ckeditor formControlName="note" [config]="mediumEditorConfig"></ckeditor>
+                    </div>
+                </div>
+                <!-- -----------3rd Row----------- -->
+
+                <!-- -----------4th Row----------- -->
+                <div class="md:flex mt-5" style="margin-left: -10px">
+                    <div class="w-full sm:w-auto md:w-25 lg:w-25 ml-2 pr-2 mt-1">
+                        <span>{{'isResearchRulesAreFollowed' | translate}}</span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-35 lg:w-35 ml-2 mt-1">
+                        <mat-checkbox class="example-margin" formControlName="isResearchRulesAreFollowed">
+                        </mat-checkbox>
+                    </div>
+
+                    <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 pr-2 mt-1 md:text-ri lg:text-right">
+                        <span>{{'isEditable' | translate}}</span>
+                    </div>
+                    <div class="w-full sm:w-auto md:w-30 lg:w-30 ml-2 mt-1">
+                        <mat-checkbox class="example-margin" formControlName="isEditable"></mat-checkbox>
+                    </div>
+                </div>
+                <!-- -----------4th Row----------- -->
+
+                <!-- -----------Button Row----------- -->
+                <div class="flex justify-end mt-3" style="margin-left: -10px">
+                    <button class="px-3 mr-2" mat-flat-button color="accent" (click)="resetFormValue()" type="reset"
+                        [matTooltip]="'reset' | translate">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+                    <button class="px-3" mat-flat-button color="primary" type="submit" [disabled]="spinner"
+                        [matTooltip]="finalEvaluationReportModel.id?'update': 'save' | translate">
+                        <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <div *ngIf="finalEvaluationReportModel.id">{{'update'| translate}}</div>
+                        <div *ngIf="!finalEvaluationReportModel.id">{{'save' | translate}}</div>
+                    </button>
+                </div>
+                <!-- -----------Button Row----------- -->
+
+            </form>
+
+        </mat-card>
+    </div>
+</div>

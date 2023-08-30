@@ -1,0 +1,70 @@
+<div class="flex-auto body-color">
+    <div class="max-w-8xl">
+        <!-- Horizontal stepper -->
+        <form class="bg-card shadow rounded ounded-2xl overflow-hidden" [formGroup]="horizontalStepperForm">
+            <mat-horizontal-stepper id="second" [linear]="false" class="tab-bar tab-color" #horizontalStepper>
+
+                <mat-step [formGroupName]="'step1'" title="procurement plan (1-3)"
+                    [stepControl]="horizontalStepperForm.get('step1')" #horizontalStepperStep1>
+                    <ng-template matStepLabel>
+                        <div matTooltipPosition="above" matTooltip="Goods">
+                            <span class="tab-font-size">Goods</span>
+                        </div>
+                    </ng-template>
+                    <p class="my-6 font-medium"></p>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <app-procurement-plan-goods [dppTappMasterId]="dppTappMasterId"
+                            [dppTappMasterUuid]="dppTappMasterUuid" [projectConceptMasterId]="projectConceptMasterId"
+                            [projectConceptUuid]="projectConceptUuid">
+                        </app-procurement-plan-goods>
+                    </div>
+                </mat-step>
+
+                <mat-step [formGroupName]="'step2'" [stepControl]="horizontalStepperForm.get('step2')"
+                    #horizontalStepperStep1>
+                    <ng-template matStepLabel>
+                        <div matTooltipPosition="above" matTooltip="Works">
+                            <span class="tab-font-size">Works</span>
+                        </div>
+                    </ng-template>
+                    <p class="my-6 font-medium"></p>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <app-procurement-plan-works [dppTappMasterId]="dppTappMasterId"
+                            [dppTappMasterUuid]="dppTappMasterUuid" [projectConceptMasterId]="projectConceptMasterId"
+                            [projectConceptUuid]="projectConceptUuid">
+                        </app-procurement-plan-works>
+                    </div>
+                </mat-step>
+
+                <mat-step [formGroupName]="'step3'" [stepControl]="horizontalStepperForm.get('step3')"
+                    #horizontalStepperStep1>
+                    <ng-template matStepLabel>
+                        <div matTooltipPosition="above" matTooltip="Services">
+                            <span class="tab-font-size">Services</span>
+                        </div>
+                    </ng-template>
+                    <p class="my-6 font-medium"></p>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <app-procurement-plan-services [dppTappMasterId]="dppTappMasterId"
+                            [dppTappMasterUuid]="dppTappMasterUuid" [projectConceptMasterId]="projectConceptMasterId"
+                            [projectConceptUuid]="projectConceptUuid">
+                        </app-procurement-plan-services>
+                    </div>
+                </mat-step>
+
+            </mat-horizontal-stepper>
+        </form>
+    </div>
+</div>
+<!--Start Bottom Button -->
+<div class="flex justify-end mt-8">
+    <button mat-flat-button type="button" [disabled]="spinner" [color]="'primary'" class="px-3 mr-2"
+        (click)="nextTab()">Next
+        <mat-icon class="mr-1">fast_forward</mat-icon>
+    </button>
+
+    <button mat-flat-button [disabled]="spinner" type="button" [color]="'warn'" class="px-3 mr-2" (click)="goToHome()">
+        Exit
+    </button>
+</div>
+<!--end Bottom Button -->

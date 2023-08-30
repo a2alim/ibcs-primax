@@ -1,0 +1,546 @@
+<div style="width: 100%">
+    <app-form-header [subTitle]="'headerSubTitle' | translate" [title]="'headerTitle' | translate"></app-form-header>
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color">
+            <form #myForm="ngForm" class="">
+                <!-- CARD ONE-->
+                <div class="heading mt-2">
+                    <h1>{{'headerTitle' | translate}}</h1>
+                </div>
+                <mat-card class="form-bg-color mat-elevation-z0 border3">
+
+                    <!-- Row 1-->
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="agreement capitalize">
+                            {{'fiscalYear' | translate}}
+                                <strong class="required">*</strong>
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <mat-select [(ngModel)]="agreement.fiscalYearId" [(value)]="agreement.fiscalYearId" name="itemOfExpenditure" required>
+                                    <mat-option *ngFor="let item of fiscalYears" [value]="item.id">{{item.fiscalYear}}</mat-option>
+                                </mat-select>
+                                <mat-error> {{'fiscalYear' | translate}} {{ 'required' | translate }}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="agreement capitalize">
+                            {{'agreementDate' | translate}}<strong class="required">*</strong>
+                        </span>
+                        </div>
+                        <!-- Date Picker-->
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full" class="example-form-field" style="width: 99%;">
+
+                                <input [(ngModel)]="agreement.agreementDate" [matDatepicker]="datepicker" matInput name="dateOfBirth" required>
+                                <!--   [(ngModel)]="personalInfoFormModel.dateOfBirth" -->
+                                <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker>
+
+                                </mat-datepicker>
+                                <mat-error> {{'agreementDate' | translate}} {{ 'required' | translate }}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+
+                    </div>
+                    <div class="md:flex">
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="agreement capitalize">
+                           {{'trainingTitle' | translate}}<strong class="required">*</strong>
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-80 lg:w-80">
+                            <mat-form-field class="w-full">
+                                <!-- <input matInput name="commonTypes" > -->
+                                <mat-select (selectionChange)="selectProposal()" [(ngModel)]="agreement.proposalId" [ngModelOptions]="{standalone: true}" placeholder="Select One" required>
+                                    <mat-option *ngFor="let trainingTitle of proposals" [value]="trainingTitle.id">{{ trainingTitle.trainingName }}</mat-option>
+                                </mat-select>
+                                <mat-error>{{'trainingTitle' | translate}} {{ 'required' | translate }}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+                        <!-- <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="agreement capitalize">
+                            {{'fiscalYear' | translate}}
+                                <strong class="required">*</strong>
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <mat-select [(ngModel)]="agreement.fiscalYearId" [(value)]="agreement.fiscalYearId" name="itemOfExpenditure" required>
+                                    <mat-option *ngFor="let item of fiscalYears" [value]="item.id">{{item.fiscalYear}}</mat-option>
+                                </mat-select>
+                                <mat-error> {{'fiscalYear' | translate}} {{ 'required' | translate }}</mat-error>
+                            </mat-form-field>
+                        </div> -->
+                        <!-- <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+
+                        </div> -->
+
+                    </div>
+                </mat-card>
+                <!-- CARD TWO-->
+                <div class="md:flex">
+                    <!-- col 1  -->
+                    <div class="m-0 w-full sm:w-auto md:w-50 lg:w-50 md:mr-2 lg:mr-2">
+                        <div class="heading mt-2 w-full text-center">
+                            <h1>{{'witness' | translate}}</h1>
+                        </div>
+                        <mat-card class="form-bg-color mat-elevation-z0 border3">
+                            <div class="h2" style="font-size: 18px;">
+                                <h2><b><u>({{'firstPartyWitness' | translate}}) </u> </b></h2>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'name' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <mat-select (selectionChange)="selectDeskOfficer2($event)" [(ngModel)]="agreement.witness.firstPartyName" [ngModelOptions]="{standalone: true}" placeholder="Select One" required>
+                                            <mat-option *ngFor="let deskOfficer of deskOfficers" [value]="deskOfficer.name">
+                                                {{ deskOfficer.name }}</mat-option>
+                                        </mat-select>
+                                        <mat-error> {{'name' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'surname' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input [(ngModel)]="agreement.witness.firstPartySurname" [ngModelOptions]="{standalone: true}" matInput required>
+                                        <mat-error>{{'surname' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
+                            <!-- <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'address' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <textarea [(ngModel)]="agreement.witness.firstPartyAddress" [ngModelOptions]="{standalone: true}" matInput required></textarea>
+                                        <mat-error>{{'address' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
+                            <!--  -->
+                            <div class="h2" style="font-size: 18px;">
+                                <h2><b><u>({{'secondPartyWitness' | translate}} ) </u> </b></h2>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'name' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input [(ngModel)]="agreement.witness.secondPartyName" [ngModelOptions]="{standalone: true}" matInput required>
+                                        <mat-error> {{'name' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'surname' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input [(ngModel)]="agreement.witness.secondPartySurname" [ngModelOptions]="{standalone: true}" matInput required>
+                                        <mat-error>{{'surname' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'address' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <textarea [(ngModel)]="agreement.witness.secondPartyAddress" [ngModelOptions]="{standalone: true}" matInput required></textarea>
+                                        <mat-error>{{'address' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'mobileNo' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input #phoneMobileNo="ngModel" [(ngModel)]="agreement.witness.secondPartyPhoneNo" [ngModelOptions]="{standalone: true}" matInput required>
+                                        <mat-hint *ngIf="phoneMobileNo.dirty && !(phoneMobileNo.value | phoneMobileNo)" style="color: crimson !important;">
+                                            {{'valid' | translate}} {{'mobileNo' | translate}} {{ 'required' | translate }}
+                                        </mat-hint>
+                                        <mat-error>{{'mobileNo' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'nidNo' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input #nid_number_2="ngModel" [(ngModel)]="agreement.witness.secondPartyNidNo" [ngModelOptions]="{standalone: true}" matInput required type="number">
+                                        <mat-hint *ngIf="nid_number_2.dirty && !(nid_number_2.value | nid_number)" style="color: crimson !important;">
+                                            Invalid Number. Please provide a valid 10 digit, 13 digit or 17 digit number.
+                                        </mat-hint>
+                                        <mat-error> <span style="text-transform: uppercase !important;">{{'nid' | translate}}</span> {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'email' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input #emailS="ngModel" [(ngModel)]="agreement.witness.secondPartyEmail" [ngModelOptions]="{standalone: true}" matInput required type="email">
+                                        <mat-hint *ngIf="emailS.dirty && !(emailS.value | email)" style="color: crimson !important;">
+                                            {{'valid' | translate}} {{'email' | translate}} {{ 'required' | translate }}
+                                        </mat-hint>
+                                        <mat-error>{{'email' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                    <!-- col 2 -->
+                    <div class="m-0 w-full sm:w-auto md:w-50 lg:w-50 md:mr-2 lg:mr-2">
+                        <div class="heading mt-2 w-full text-center">
+                            <h1>{{'side' | translate}}</h1>
+                        </div>
+                        <mat-card class="form-bg-color mat-elevation-z0 border3">
+                            <!-- -->
+                            <div class="h2" style="font-size: 18px;">
+                                <h2><b><u>({{ '1stSide' | translate}}) </u> </b></h2>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'name' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <mat-select (selectionChange)="selectDeskOfficer1($event)" [(ngModel)]="agreement.onBehalf.firstPartyName" [ngModelOptions]="{standalone: true}" placeholder="Select One" required>
+                                            <mat-option *ngFor="let deskOfficer of deskOfficers" [value]="deskOfficer.name">
+                                                {{ deskOfficer.name }}</mat-option>
+                                        </mat-select>
+                                        <mat-error> {{'name' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'surname' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input [(ngModel)]="agreement.onBehalf.firstPartySurname" [ngModelOptions]="{standalone: true}" matInput required>
+                                        <mat-error>{{'surname' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
+                            <!-- <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'address' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <textarea [(ngModel)]="agreement.onBehalf.firstPartyAddress" [ngModelOptions]="{standalone: true}" matInput required></textarea>
+                                        <mat-error>{{'address' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
+                            <!--  -->
+                            <div class="h2" style="font-size: 18px;">
+                                <h2><b><u>({{ '2ndSide' | translate}}) </u> </b></h2>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'name' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input [(ngModel)]="agreement.onBehalf.secondPartyName" [ngModelOptions]="{standalone: true}" disabled matInput required>
+                                        <mat-error>{{'name' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'surname' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input [(ngModel)]="agreement.onBehalf.secondPartySurname" [ngModelOptions]="{standalone: true}" matInput required>
+                                        <mat-error>{{'surname' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'address' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <textarea [(ngModel)]="agreement.onBehalf.secondPartyAddress" [ngModelOptions]="{standalone: true}" disabled matInput required></textarea>
+                                        <mat-error> {{'address' | translate}} {{ 'required' | translate }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'mobileNo' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input #phoneMobileNoOnBf="ngModel" [(ngModel)]="agreement.onBehalf.secondPartyPhoneNo" [ngModelOptions]="{standalone: true}" disabled matInput required>
+                                        <mat-hint *ngIf="phoneMobileNoOnBf.dirty && !(phoneMobileNoOnBf.value | phoneMobileNo)" style="color: crimson !important;">
+                                            {{'valid' | translate}} {{'phoneMobileNo' | translate}} {{ 'required' | translate }}
+                                        </mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'nidNo' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input #nid_number="ngModel" [(ngModel)]="agreement.onBehalf.secondPartyNidNo" [ngModelOptions]="{standalone: true}" disabled matInput required type="number">
+                                        <mat-hint *ngIf="nid_number.dirty && !(nid_number.value | nid_number)" style="color: crimson !important;">
+                                            Invalid Number. Please provide a valid 10 digit, 13 digit or 17 digit number. </mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="md:flex">
+                                <div class="w-40 ml-2 md:text-left pr-2 md:pt-3">
+                                    <span class="agreement capitalize">
+                                   {{'email' | translate}}<strong class="required">*</strong>
+                                </span>
+                                </div>
+                                <!--  -->
+                                <div class="w-full sm:w-full md:w-full lg:w-60">
+                                    <mat-form-field class="w-full">
+                                        <input #email="ngModel" [(ngModel)]="agreement.onBehalf.secondPartyEmail" [ngModelOptions]="{standalone: true}" disabled matInput required type="email">
+                                        <mat-hint *ngIf="email.dirty && !(email.value | email)" style="color: crimson !important;">
+                                            {{'valid' | translate}} {{'email' | translate}} {{ 'required' | translate }}
+                                        </mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+
+                </div>
+                <!-- <hr> -->
+                <!-- CARD THREE-->
+
+                <mat-card class="form-bg-color mat-elevation-z0 border3 mt-4">
+                    <!-- Row 13-->
+                    <div class="md:flex">
+
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="agreement capitalize">
+                           {{'selectGrantor' | translate}}<strong class="required">*</strong>
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+
+                            <mat-form-field class="w-full">
+                                <input [(ngModel)]="agreement.guarantorName" [ngModelOptions]="{standalone: true}" matInput disabled required>
+                                <mat-error> {{'name' | translate}} {{ 'required' | translate }}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="agreement">
+                            {{'noOfTraineesRecomended' | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <!-- <input [(ngModel)]="agreement.traineeRecommended" [ngModelOptions]="{standalone: true}" matInput min="0" required type="number"> -->
+                                <mat-select [(ngModel)]="agreement.traineeRecommended" [(value)]="agreement.traineeRecommended" [ngModelOptions]="{standalone: true}" placeholder="Select One" required>
+
+                                    <mat-option *ngFor="let n of num" [value]="n">{{ n }}</mat-option>
+
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <div class="md:flex">
+                        <div class="w-full sm:w-auto ml-2 md:text-left pr-2 md:pt-0 md:pb-3" style="font-size: 12px;">
+                            <i> {{'inculdeVatTax' | translate}} </i></div>
+                    </div> -->
+                    <div class="md:flex">
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="agreement capitalize">
+                            {{'grantAmount' | translate}}<strong class="required">*</strong>
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input [(ngModel)]="agreement.amountOfGrant" [ngModelOptions]="{standalone: true}" matInput required type="number">
+                                <mat-error>{{'grantAmount' | translate}} {{ 'required' | translate }}</mat-error>
+                                <mat-hint>{{'inculdeVatTax' | translate}} </mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="agreement">
+                            {{'installmentAmount' | translate}}<strong class="required">*</strong>
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <!-- <input matInput name="commonTypes" > -->
+                                <mat-select (selectionChange)="setChange($event.value)" [(ngModel)]="agreement.noOfInstallment" [(value)]="agreement.noOfInstallment" name="noOfInsll" placeholder="Select One" required>
+
+                                    <mat-option *ngFor="let installment of installmentValues" [value]="installment">{{ installment }}</mat-option>
+
+                                </mat-select>
+                                <mat-error>{{'installmentAmount' | translate}} {{ 'required' | translate }}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+
+                    </div>
+                    <!-- lists -->
+                    <div *ngFor="let element of insArr;let idx = index;" class="md:flex">
+                        <!--                        <h4>HI</h4>-->
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="agreement capitalize">
+                            {{'installmentPercentage' + idx.toString() | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input (keyup)="onPercentageChange(idx)" [(ngModel)]="agreement.agreementInstallments[idx].percentageOfInstallment" [ngModelOptions]="{standalone: true}" matInput max="100" min="0" required type="number">
+                                <mat-error>{{'installmentPercentage' + idx.toString() | translate}} {{ 'required' | translate }}</mat-error>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="w-full sm:w-auto md:w-20 lg:w-20 ml-2 md:text-left pr-2 md:pt-3">
+                            <span class="agreement capitalize">
+                           {{'tkPercentage' + idx.toString() | translate}}
+                        </span>
+                        </div>
+                        <div class="w-full sm:w-auto md:w-30 lg:w-30">
+                            <mat-form-field class="w-full">
+                                <input [(ngModel)]="agreement.agreementInstallments[idx].totalAmount" [ngModelOptions]="{standalone: true}" disabled matInput min="0" required type="number">
+                                <mat-error>{{'totalTk' | translate}} {{ 'required' | translate }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </mat-card>
+
+                <div class="flex justify-end mt-8">
+                    <button [routerLink]="['/agreement-letter']" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                        <span>{{ "back" | translate }}</span>
+                    </button>
+                    <button (click)="formReset()" class="px-3 mr-2" color="accent" mat-flat-button type="reset">
+                        <mat-icon *ngIf="refreshIcon" class="mr-1">{{refreshIcon}}</mat-icon>
+                        {{'reset' | translate}}
+                    </button>
+                    <button (click)="saveAndUpdate()" [disabled]="!(agreement.agreementDate | required) ||
+                    !(agreement.proposalId | required) ||
+                    !(agreement.fiscalYearId | required) ||
+                    !(agreement.onBehalf.firstPartyName | required) ||
+                    !(agreement.onBehalf.secondPartyName | required) ||
+                    !(agreement.onBehalf.secondPartyAddress | required) ||
+                    !(agreement.onBehalf.secondPartyPhoneNo | required) ||
+                    !(agreement.onBehalf.secondPartyPhoneNo | phoneMobileNo) ||
+                    !(agreement.onBehalf.secondPartyNidNo | required) ||
+                    !(agreement.onBehalf.secondPartyNidNo | nid_number) ||
+                    !(agreement.onBehalf.secondPartyEmail | required) ||
+                    !(agreement.onBehalf.secondPartyEmail | email) ||
+                    !(agreement.witness.firstPartyName | required) ||
+                    !(agreement.witness.secondPartyName | required) ||
+                    !(agreement.witness.secondPartyAddress | required) ||
+                    !(agreement.witness.secondPartyPhoneNo | required) ||
+                    !(agreement.witness.secondPartyPhoneNo | phoneMobileNo) ||
+                    !(agreement.witness.secondPartyNidNo | required) ||
+                    !(agreement.witness.secondPartyNidNo | nid_number) ||
+                    !(agreement.witness.secondPartyEmail | required) ||
+                    !(agreement.witness.secondPartyEmail | email) ||
+                    !(agreement.amountOfGrant | required) ||
+                    !(agreement.traineeRecommended | required) ||
+                    !(agreement.guarantorId | required) ||
+                    !(agreement.noOfInstallment | required) ||
+                    !isOk" class="px-3 mr-2 toggle-sidebar-folded saveBtn" color="primary" mat-flat-button style="background-color: green; color: #FFFFFF" type="submit">
+                        <mat-icon *ngIf="previousIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                        <span *ngIf="!isEditable">{{ "save" | translate }}</span>
+                        <span *ngIf="isEditable">{{ "update" | translate }}</span>
+                    </button>
+                </div>
+
+            </form>
+        </mat-card>
+    </div>
+</div>

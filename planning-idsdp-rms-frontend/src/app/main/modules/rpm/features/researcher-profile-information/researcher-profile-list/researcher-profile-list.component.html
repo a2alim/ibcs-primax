@@ -1,0 +1,148 @@
+<div class="width-100">
+
+    <ng-container *ngIf="userDetails.userType !='Rms_DO'">
+        <app-form-header [title]="'headerTitle4' | translate" [subTitle]="'headerSubTitle4' | translate">
+        </app-form-header>
+    </ng-container>
+
+    <ng-container *ngIf="userDetails.userType =='Rms_DO'">
+        <app-form-header [title]="'headerTitle5' | translate" [subTitle]="'headerSubTitle5' | translate">
+        </app-form-header>
+    </ng-container>
+
+    <div *ngIf="spinner" class="flex items-center justify-center">
+        <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+             class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin">
+        </div>
+    </div>
+
+
+
+    <!-- Main Start -->
+    <div class="body m-5">
+        <form name="frmGroup">
+            <!-- Form Body -->
+            <div *ngIf="dataList?.length < 1 || userDetails.userType == 'Rms_DO'" class="flex justify-end mb-3">
+                <button mat-raised-button color="primary" [routerLink]="['/researcher-profile-information/add']">
+                    <mat-icon *ngIf="addNewIcon" class="mr-1">{{addNewIcon}}</mat-icon>
+                    <span *ngIf="userDetails.userType == 'Rms_DO'; else ResearcherDiv2"> {{'updateProfile2' |
+                        translate}}</span>
+                    <ng-template #ResearcherDiv2>
+                        <span>
+                            {{'updateProfile' | translate}}
+                        </span>
+                    </ng-template>
+
+                </button>
+            </div>
+
+            <ng-container *ngIf="userDetails.userType =='Rms_DO'">
+                <!-- CARD ONE-->
+                <mat-card class="tab-color">
+                    <div class="flex justify-end mb-3">
+                        <mat-form-field class="sm:w-100 md:w-40 lg:w-40">
+                            <input matInput (keyup)="applyFilter($event)" [placeholder]="'search'|translate" #input />
+                            <button mat-button matPrefix mat-icon-button>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto mt-4">
+                        <!--<mat-card>-->
+                        <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="position">
+                                    <th mat-header-cell *matHeaderCellDef class="w-16"> {{'sl_no' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                                        {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+                                    </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef> {{'nameTd' | translate}} </th>
+<!--                                    <td mat-cell *matCellDef="let element">-->
+<!--                                        <ng-container *ngFor="let user of userList">-->
+<!--                                            <span *ngIf="user.id==element.name">{{user.name}}</span>-->
+<!--                                        </ng-container>-->
+<!--                                        <div *ngIf="element.isInstitutional"-->
+<!--                                            class="font-semibold text-sm text-amber-600">-->
+<!--                                            (Inst. Profile)</div>-->
+<!--                                    </td>-->
+                                    <td mat-cell *matCellDef="let element"> {{element.name}}
+                                        <div *ngIf="element.isInstitutional"
+                                             class="font-semibold text-sm text-amber-600">
+                                            (Inst. Profile)</div>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="reg_no">
+                                    <th mat-header-cell *matHeaderCellDef> {{'reg_no' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.regNo}}</td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="mobile_no">
+                                    <th mat-header-cell *matHeaderCellDef> {{'mobile_no' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element" class="text-center">
+                                        {{element.mobileNo}}
+                                    </td>
+                                </ng-container>
+
+                                <!-- Action Column -->
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef class="pl-4 w-32"> {{'action' | translate}}
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="text-center">
+                                        <div class="buttons">
+                                            <button (click)="showProfile(element.uuid, element.isInstitutional)"
+                                                mat-icon-button class="toggle-sidebar-folded" [matTooltip]="'detailsInfo' | translate"
+                                                fxHide.lt-lg>
+                                                <mat-icon color="accent">visibility
+                                                </mat-icon>
+                                            </button>
+                                            <button *ngIf="userDetails.userType == 'Rms_Researcher'"
+                                                (click)="editProfile(element)" mat-icon-button
+                                                class="toggle-sidebar-folded" matTooltip="Edit" fxHide.lt-lg>
+                                                <mat-icon color="accent">edit
+                                                </mat-icon>
+                                            </button>
+
+                                            <button *ngIf="userDetails.userType == 'Rms_Researcher'"
+                                                (click)="openProfileDeleteDialog(element.uuid)" mat-icon-button
+                                                class="toggle-sidebar-folded" matTooltip="Delete" fxHide.lt-lg>
+                                                <mat-icon color="warn">delete
+                                                </mat-icon>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Initialized Table Header And Dataset-->
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+                        <!-- mat-paginator -->
+                        <mat-paginator #paginatorRef [length]="totalElements" [pageSize]="pageSize"
+                                       [pageSizeOptions]="[10, 20, 30, 100]" (page)="onChangePage($event)">
+                        </mat-paginator>
+                    </div>
+                </mat-card>
+            </ng-container>
+
+            <ng-container *ngIf="userDetails.userType !='Rms_DO'">
+                <div class="relative py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-200  rounded-lg mt-2"  role="alert">
+                    <div class="text-lg font-semibold text-red-600"> {{'profileInfo' | translate}}
+                    </div>
+                </div>
+            </ng-container>
+        </form>
+    </div>
+
+    <!-- Main End -->
+</div>

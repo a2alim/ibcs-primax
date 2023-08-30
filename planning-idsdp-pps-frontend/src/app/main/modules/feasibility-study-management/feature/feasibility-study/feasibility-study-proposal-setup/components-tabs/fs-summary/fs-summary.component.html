@@ -1,0 +1,639 @@
+<!--========================= transaction loader spinner ===================-->
+<div *ngIf="spinner">
+    <app-common-loader-spinner></app-common-loader-spinner>
+</div>
+<!--========================= /// transaction loader spinner ================-->
+
+<div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+    <div class="heading">
+        <h1>{{'ProjectConceptSummary' | translate}}</h1>
+    </div>
+    <mat-card>
+        <form class="form" [formGroup]="formSummary">
+            <!--1st Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="mat-label-padding" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                    {{'TitleEn' | translate}}:
+                </mat-label>
+                <mat-form-field class="readOnly" fxFlex="80%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">
+                    <textarea matInput formControlName="titleEnPC" readonly></textarea>
+                </mat-form-field>
+            </div>
+            <!--1st Flex Layout Div End -->
+            <!--2nd Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="mat-label-padding" fxFlex="20%" fxFlex.xs="30%" fxFlex.sm="30%" fxFlex.md="30%">
+                    {{'TitleBn' | translate}}:
+                </mat-label>
+                <mat-form-field class="readOnly" fxFlex="80%" fxFlex.xs="70%" fxFlex.sm="70%" fxFlex.md="70%">
+                    <textarea matInput formControlName="titleBnPC" readonly></textarea>
+                </mat-form-field>
+            </div>
+            <!--2nd Flex Layout Div End -->
+            <!--3rd Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="45%" fxFlex.sm="50%" fxFlex.xs="50%" fxFlex.md="50%">{{'EstimatedCost' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly" fxFlex="52%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input readonly formControlName="estimatedCostPC" matInput type="number">
+                        </mat-form-field>
+                        <div fxFlex="3%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.sm="50%" fxFlex.xs="50%" fxFlex.md="50%"
+                            style="margin-top: -15px;">{{'GoB' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly" fxFlex="57%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input readonly formControlName="gobPC" matInput type="number">
+                        </mat-form-field>
+                        <div fxFlex="3%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.sm="50%" fxFlex.xs="50%" fxFlex.md="50%"
+                            style="margin-top: -15px;">{{'PA' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly" fxFlex="57%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input readonly formControlName="paPC" matInput type="number">
+                        </mat-form-field>
+                        <div fxFlex="3%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.sm="50%" fxFlex.xs="50%" fxFlex.md="50%"
+                            style="margin-top: -15px;">{{'OwnFund' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly" fxFlex="57%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input readonly formControlName="ownFundPC" matInput type="number">
+                        </mat-form-field>
+                        <div fxFlex="3%" fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="0%"></div>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.sm="50%" fxFlex.xs="50%" fxFlex.md="50%"
+                            style="margin-top: -15px;">{{'Other' | translate}}:
+                        </mat-label>
+                        <mat-form-field class="readOnly" fxFlex="60%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input readonly formControlName="othersPC" matInput type="number">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <!--3rd Flex Layout Div End -->
+            <!--4th Flex Layout Div Start -->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label class="pb-5" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%">
+                            {{'ExpectedDateOfCommencement' | translate}}:
+                        </mat-label>
+
+                        <mat-form-field class="readOnly" fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+                            <input formControlName="dateOfCommencementPC" matInput readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                        <mat-label class="pb-5" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%">
+                            {{'ExpectedDateOfCompletion' | translate}}:
+                        </mat-label>
+
+                        <mat-form-field class="readOnly" fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+                            <input formControlName="dateOfCompletionPC" matInput readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <!--4th Flex Layout Div End -->
+        </form>
+    </mat-card>
+</div>
+
+<div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+    <div class="heading">
+        <h1 class="header1">{{'FSSummary' | translate}}</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="p-8 pb-4">
+        <form [formGroup]="formSummary">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="100%" style="margin-top: -15px;">{{'TitleEn' |
+                    translate}}
+                    <strong class="required">*</strong>:
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="100%" fxFlex.sm="50%">
+                    <textarea matInput required formControlName="enTitle"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="100%" style="margin-top: -15px;">{{'TitleBn' |
+                    translate}}
+                    <strong class="required">*</strong>:
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="100%" fxFlex.sm="50%">
+                    <textarea matInput required formControlName="bnTitle"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="100%" style="margin-top: -15px;">
+                    {{'SponsoringMinistryDivision' | translate}}:
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="80%" fxFlex.xs="100%" fxFlex.sm="50%">
+                    <input readonly matInput formControlName="sponsoringMinistry" value="{{ministry_name}}">
+<!--                    <input readonly matInput formControlName="sponsoringMinistry">-->
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label fxFlex="20%" fxFlex.sm="30%" fxFlex.xs="100%" style="margin-top: -15px;">{{'ExecutingAgency'
+                    | translate}}:
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="80%" fxFlex.xs="100%" fxFlex.sm="50%">
+                    <input readonly matInput formControlName="executingAgency" value="{{agency_name}}">
+<!--                    <input readonly matInput formControlName="executingAgency">-->
+                </mat-form-field>
+            </div>
+            <div class="sub-heading">
+                <h1 class="header1">{{'ExpectedImplementationPeriod' | translate}}<strong class="required">*</strong>:
+                </h1>
+            </div>
+            <mat-card>
+                <!--6th Flex Layout Div Start -->
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <mat-label class="pb-5 pr-5" fxFlex="45%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%">
+                                {{'DateOfCommencement' | translate}}:  
+                            </mat-label>
+                            <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+                                <input (click)="picker1.open()" [matDatepicker]="picker1" [max]="expCommencementMaxDate"
+                                    (dateChange)="commencementDataChange($event)" formControlName="dateCommencement"
+                                    matInput readonly required>
+                                <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="pr-5" fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div fxFlex="10%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                            <mat-label class="pb-5 pr-5" fxFlex="35%" fxFlex.md="30%" fxFlex.sm="30%" fxFlex.xs="30%">
+                                {{'DateOfCompletion' | translate}}:  
+                            </mat-label>
+                            <mat-form-field fxFlex="55%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="70%">
+                                <input (click)="picker2.open()" [matDatepicker]="picker2" [min]="expCompletionMinDate"
+                                    formControlName="dateCompletion" (dateChange)="completionDataChange($event)"
+                                    matInput readonly required>
+                                <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <!--6th Flex Layout Div End -->
+            </mat-card>
+
+        </form>
+    </div>
+</div>
+
+<div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+    <div class="heading">
+        <h1 class="header1">{{'GeneralDescription' | translate}}</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="p-8 pb-4">
+        <form [formGroup]="formDescription">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%">{{'Background' |
+                    translate}}:
+                    <span *ngIf="!expBackground" (click)="expand(1)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expBackground" (click)="collapse(1)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+
+                    <span style="float: right">
+                             <label for="file-upload">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file.files,'background')" id="file-upload"/>
+                    </span>
+
+                </mat-label>
+            </div>
+            <div *ngIf="expBackground"class="required-ck-editor"  fxLayout="row wrap" style="position:relative"  fxLayoutAlign="space-between center">
+                <ckeditor formControlName="background" required fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                    [config]="minEditorConfig">
+                </ckeditor>
+            </div>
+
+            <br />
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%">{{'Objective' |
+                    translate}}:
+                    <span *ngIf="!expObjective" (click)="expand(2)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expObjective" (click)="collapse(2)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+
+                    <span style="float: right">
+                             <label for="file-upload1">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file1 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file1.files,'objective')" id="file-upload1"/>
+                    </span>
+
+                </mat-label>
+            </div>
+            <div *ngIf="expObjective"class="required-ck-editor"  fxLayout="row wrap" style="position:relative" fxLayoutAlign="space-between center">
+                <ckeditor formControlName="objective" required fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                    [config]="minEditorConfig"></ckeditor>
+            </div>
+
+            <br />
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%">{{'BriefOutlineScope'
+                    | translate}}:
+                    <span *ngIf="!expBriefOutlineScope" (click)="expand(3)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expBriefOutlineScope" (click)="collapse(3)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+
+
+                    <span style="float: right">
+                             <label for="file-upload2">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file2 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file2.files,'briefOutlineScope')" id="file-upload2"/>
+                    </span>
+
+                </mat-label>
+            </div>
+            <div *ngIf="expBriefOutlineScope"class="required-ck-editor"  fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+                <ckeditor formControlName="briefOutlineScope" required fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                    [config]="minEditorConfig"></ckeditor>
+            </div>
+
+            <br />
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%">{{'Output' |
+                    translate}}
+                    :
+                    <span *ngIf="!expOutput" (click)="expand(4)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expOutput" (click)="collapse(4)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+
+                    <span style="float: right">
+                             <label for="file-upload3">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file3 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file3.files,'output')" id="file-upload3"/>
+                    </span>
+
+                </mat-label>
+            </div>
+            <div *ngIf="expOutput"class="required-ck-editor"  fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <ckeditor formControlName="output" required fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                    [config]="minEditorConfig"></ckeditor>
+            </div>
+
+            <br />
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%">{{'NeedJustification'
+                    | translate}}:
+                    <span *ngIf="!expNeedJustification" (click)="expand(5)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expNeedJustification" (click)="collapse(5)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+
+                    <span style="float: right">
+                             <label for="file-upload4">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file4 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file4.files,'needJustification')" id="file-upload4"/>
+                    </span>
+
+                </mat-label>
+            </div>
+            <div *ngIf="expNeedJustification"class="required-ck-editor"  fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <ckeditor formControlName="needJustification" required fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                    [config]="minEditorConfig"></ckeditor>
+            </div>
+
+            <br />
+
+        </form>
+    </div>
+</div>
+
+<div class="flex flex-col bg-card shadow rounded overflow-hidden mb-5">
+    <div class="heading">
+        <h1 class="header1">{{'EstimatedCost(BDTinLac)' | translate}}</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="p-8 pb-4">
+        <form [formGroup]="formEstimatedCost">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%" style="margin-top: -15px;">{{'Total' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="75%" fxFlex.xs="50%"
+                            fxFlex.sm="50%">
+                            <input readonly formControlName="total" matInput required type="number" min="0">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%" style="margin-top: -15px;">{{'GoB' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input formControlName="gob" matInput required type="number" min="0"
+                                (focusout)="onGobChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="50%" style="margin-top: -15px;">{{'FE' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input formControlName="gobFe" required matInput type="number" min="0"
+                                oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="feGoBChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+            </div>
+
+            <div *ngIf="isSelfFund" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    </div>
+                </div>
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%" style="margin-top: -15px;">{{'OwnFund' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input formControlName="ownFund" matInput required type="number" min="0"
+                                (focusout)="onOwnFundChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="50%" style="margin-top: -15px;">{{'FE' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input formControlName="ownFundFe" matInput required type="number" min="0"
+                                oninput="if(this.value<0){this.value= this.value * -1}"
+                                (keyup)="feOwnFundBChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+            </div>
+
+            <div *ngIf="isForeignAid" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%" style="margin-top: -15px;">{{'PA' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto readOnly" fxFlex="75%" fxFlex.xs="50%"
+                            fxFlex.sm="50%">
+                            <input readonly formControlName="pa" matInput required type="number" min="0">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="50%" style="margin-top: -15px;">{{'RPA' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input formControlName="rpa" matInput required type="number" min="0"
+                                (focusout)="onRpaChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="40%" fxFlex.sm="50%" fxFlex.xs="50%" style="margin-top: -15px;">{{'DPA' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input formControlName="dpa" matInput required type="number" min="0"
+                                (focusout)="onDpaChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    </div>
+                </div>
+                <div fxFlex="4%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="50%" style="margin-top: -15px;">{{'Other' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input matInput required formControlName="other" type="number" min="0"
+                                (focusout)="onOtherChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="26%" fxFlex.xs="100%" fxFlex.sm="100%">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <mat-label fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="50%" style="margin-top: -15px;">{{'Fe' |
+                            translate}}:
+                        </mat-label>
+                        <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+                            <input matInput required type="number" min="0" formControlName="feOther"
+                                oninput="if(this.value<0){this.value= this.value * -1}" (keyup)="feOtherChange($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="2%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+                <div fxFlex="22%" fxFlex.xs="100%" fxFlex.sm="100%"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="flex flex-col bg-card shadow rounded overflow-hidden">
+    <div class="heading">
+        <h1 class="header1">{{'ImplementingModality' | translate}}</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="p-8 pb-4">
+        <form [formGroup]="formImplementingModality">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    {{'MethodologyofConductingtheStudy' | translate}}:
+                    <span *ngIf="!expMethodology" (click)="expand(6)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expMethodology" (click)="collapse(6)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+
+                    <span style="float: right">
+                             <label for="file-upload9">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file9 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file9.files,'methodology')" id="file-upload9"/>
+                    </span>
+                </mat-label>
+            </div>
+            <div *ngIf="expMethodology"class="required-ck-editor"  fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <ckeditor formControlName="methodology" required fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                    [config]="minEditorConfig"></ckeditor>
+            </div>
+
+            <br/>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    {{'FinancingArrangement' | translate}}:
+                    <span *ngIf="!expFinancing" (click)="expand(7)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                            matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="expFinancing" (click)="collapse(7)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                            matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                    <span style="float: right">
+                             <label for="file-upload10">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file10 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file10.files,'financing')" id="file-upload10"/>
+                    </span>
+                </mat-label>
+            </div>
+            <div *ngIf="expFinancing"class="required-ck-editor"  fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <ckeditor formControlName="financing" required fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                    [config]="minEditorConfig"></ckeditor>
+            </div>
+
+            <br/>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 sub-heading" fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                    {{'ListOfMachineryEquipment' | translate}}:
+                    <span *ngIf="!listOfMachinery" (click)="expand(8)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                  matTooltipPosition="above">expand_more</mat-icon>
+                    </span>
+                    <span *ngIf="listOfMachinery" (click)="collapse(8)">
+                        <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                  matTooltipPosition="above">expand_less</mat-icon>
+                    </span>
+                    <span style="float: right">
+                             <label for="file-upload10">
+                              <mat-icon matTooltip="{{'Upload_Image' | translate}}"
+                                        matTooltipPosition="above">image</mat-icon>
+                             </label>
+                               <input #file11 type="file" accept='image/*'
+                                      (change)="uploadImageAsBase64(file11.files,'listOfMachinery')" id="file-upload10"/>
+                    </span>
+                </mat-label>
+            </div>
+            <div *ngIf="listOfMachinery" class="required-ck-editor" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <ckeditor formControlName="listOfMachinery" required fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%"
+                          [config]="minEditorConfig"></ckeditor>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <br /><br /><br />
+    <div fxLayout="row wrap" fxLayoutAlign="end">
+        <button class="mr-2" *ngIf="!update" [disabled]="spinner" mat-flat-button color="primary" type="button"
+            (click)="saveAndNext()">{{'Save&Next' | translate}}</button>&nbsp;&nbsp;
+        <button class="mr-2" *ngIf="!update" [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF"
+            type="button" (click)="saveAndExit()">{{'Save&Exit' | translate}}</button>
+        <button class="mr-2" *ngIf="update" [disabled]="spinner" mat-flat-button color="primary" type="button"
+            (click)="updateAndNext()">{{'Save&Next' | translate}}</button>
+        <button class="mr-2" *ngIf="update" [disabled]="spinner" mat-flat-button style="background-color: green; color: #FFFFFF"
+            color="primary" type="button" (click)="updateAndExit()">{{'Save&Exit' | translate}}</button>
+    </div>
+</div>

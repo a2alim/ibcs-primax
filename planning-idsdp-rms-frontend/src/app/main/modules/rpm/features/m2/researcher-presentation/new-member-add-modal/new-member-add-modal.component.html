@@ -1,0 +1,66 @@
+<div class="body m-5">
+
+    <!-- CARD ONE-->
+    <div class="width-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <mat-label class="heading w-full">
+            {{'NewMemberAdd' | translate}}
+        </mat-label>
+    </div>
+    <mat-card class="tab-color">
+
+        <div class="mt-5">
+            <form [formGroup]="form">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        <strong>{{'EvaluatorName' | translate}} :</strong>
+                        <strong class="required">*</strong>
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="70%" fxFlex.sm="60%"
+                        fxFlex.xs="100%">
+                        <input matInput required formControlName="evaluatorName">
+                        <mat-error>{{'EvaluatorNameReq' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        <strong>{{'ProfileSummary' | translate}} :</strong>
+                        <strong class="required">*</strong>
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="70%" fxFlex.sm="60%"
+                        fxFlex.xs="100%">
+                        <input matInput required formControlName="profileSummary">
+                        <mat-error>{{'ProfileSummaryReq' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="30%" fxFlex.sm="40%" fxFlex.xs="100%">
+                        <strong>{{'Type' | translate}} :</strong>
+                        <strong class="required">*</strong>
+                    </mat-label>
+                    <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="70%" fxFlex.sm="60%"
+                        fxFlex.xs="100%">
+                        <mat-select formControlName="stCommonTypeId">
+                            <mat-option *ngFor="let s of seminarType" [value]="s.id">{{s.typeName}}</mat-option>
+                        </mat-select>
+                        <mat-error>{{'TypeReq' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+
+        <div class="flex justify-end mt-3 mr-2">
+            <button mat-flat-button [disabled]="saveDisable && !form.valid" (click)="onSubmit()"
+                class="px-3 mr-2 toggle-sidebar-folded save-button">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span>{{ "Save" | translate }}</span>
+            </button>
+
+            <button mat-flat-button mat-dialog-close class="px-3 mr-2 toggle-sidebar-folded cancel-button"
+                (click)="onClose(true)">
+                <mat-icon class="mr-1">{{closeIcon}}</mat-icon>
+                <span>{{ "Close" | translate }}</span>
+            </button>
+        </div>
+
+    </mat-card>
+</div>

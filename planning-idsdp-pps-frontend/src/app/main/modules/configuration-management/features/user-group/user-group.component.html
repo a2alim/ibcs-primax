@@ -1,0 +1,291 @@
+<div style="width: 100%" *ngIf="formGroup">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Header -->
+            <div class="dark bg-card dark:border-b">
+                <div
+                    class="flex flex-col w-full max-w-screen-xl mx-auto sm:px-8">
+                    <div class="m-5">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <div
+                                    class="header-font-title font-semibold tracking-tight leading-7 md:leading-10 truncate">
+                                    Configuration Management
+                                </div>
+                                <div class="flex items-center">
+                                    <div
+                                        class="leading-5 truncate text-secondary">
+                                        Home > User Group
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto m-7 body-color">
+        <mat-card class="tab-color -mt-4">
+
+            <!-- <div *ngIf="actionPermission?.includes('User Group Create')" class="flex flex-col bg-card shadow rounded overflow-hidden"> -->
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    <h1>Add User Group</h1>
+                </div>
+
+                <form [formGroup]="formGroup" class="p-8">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="40%">
+                            <mat-label fxFlex="40%" fxFlex.sm="60%" fxFlex.xs="100%" >User Group <strong
+                                    class="required">
+                                    *</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="50%" fxFlex.sm="50%">
+                                <mat-select (selectionChange)="onUserGroupChange($event)">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option *ngFor="let ug of usergroup" [value]="ug.id">{{ug.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="20%"></div>
+                        <!--  -->
+                        <div fxFlex="40%" *ngIf="showUserGroupDiv=='agency'">
+                            <mat-label fxFlex="40%" fxFlex.sm="60%" fxFlex.xs="100%" >Agency <strong
+                                    class="required">
+                                    *</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="50%" fxFlex.sm="50%">
+                                <mat-select (selectionChange)="onChangeAgency($event)">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option *ngFor="let agency of agencyList" [value]="agency.id">{{agency.nameEn}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="40%" *ngIf="showUserGroupDiv=='ministry'">
+                            <mat-label fxFlex="40%" fxFlex.sm="60%" fxFlex.xs="100%" >Ministry <strong
+                                    class="required">
+                                    *</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="50%" fxFlex.sm="50%">
+                                <mat-select (selectionChange)="onChangeMinistry($event)">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option *ngFor="let ministry of ministryList" [value]="ministry.id">{{ministry.nameEn}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div fxFlex="40%" *ngIf="showUserGroupDiv=='planning_Commission'">
+                            <mat-label fxFlex="40%" fxFlex.sm="60%" fxFlex.xs="100%" >Planning Commission <strong
+                                class="required">
+                                *</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="100%" fxFlex.sm="100%">
+                                <mat-select (selectionChange)="onChangePlanningUser($event.value)">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option *ngFor="let it of planningCommissionUsers" [value]="it.name">{{it.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+
+                        <div fxFlex="40%" *ngIf="isSectorDivison == true">
+                            <mat-label fxFlex="40%" fxFlex.sm="60%" fxFlex.xs="100%" >Sector Divison <strong
+                                class="required">
+                                *</strong>
+                            </mat-label>
+                            <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.xs="50%" fxFlex.sm="50%">
+                                <mat-select (selectionChange)="onChangeSectorDivison($event)">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option *ngFor="let sector of sectorDivisonList" [value]="sector.id">{{sector.sectorDivisionNameEn}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+
+
+                    <div class="flex justify-end mt-3 mr-2">
+                        <button
+                                (click)="onSubmit()"
+                                [disabled]="!selectedAgency && !selectedSectorDivison && !selectedMinistry && !selectedPlanningMinister && !selectedEcnec"
+                                class="px-8"
+                                mat-flat-button
+                                color="primary"
+                                type="button">
+                            Save
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- List Grid -->
+            <div
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between center"
+                class="mt-5">
+                <div fxFlex="30%">
+                    <h1 class="header1">
+                        User Group List
+                    </h1>
+                </div>
+
+                <div>
+                    <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                        <!--<mat-label>Filter</mat-label>-->
+                        <input
+                            matInput
+                            (keyup)="applyFilter($event)"
+                            placeholder="Search"
+                            #input/>
+                        <button mat-button matPrefix mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div
+                class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                <!--<mat-card>-->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+                    <table
+                        mat-table
+                        [dataSource]="dataSource"
+                        class="mat-elevation-z8 bg-transparent"
+                        matSort>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="sl">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                class="text-alignment">
+                                Sl.
+                            </th>
+                            <td mat-cell *matCellDef="let row, let i = index;">{{(i + 1)}}</td>
+                        </ng-container>
+
+
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="name">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                class="text-alignment">
+                                Name (English)
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.user.name }}
+                            </td>
+                        </ng-container>
+
+                            <!-- ID Column -->
+                            <ng-container matColumnDef="userGroupId">
+                                <th mat-header-cell *matHeaderCellDef class="text-alignment">
+                                    User Group
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{ row.user.userGroupId }}</td>
+                            </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="designation">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                class="text-alignment">
+                                Name (Bangla)
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.user.designation }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="dutyType">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                class="text-alignment">
+                                User Type
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.user.dutyType }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Action
+                            </th>
+
+                            <td mat-cell *matCellDef="let row, let i = index">
+                                <div class="buttons" *ngIf="selectedAgency || selectedSectorDivison || selectedMinistry || selectedEcnec || selectedPlanningMinister">
+                                    <!-- <button
+                                        mat-icon-button
+                                        class="toggle-sidebar-folded"
+                                        matTooltip="Edit"
+                                        fxHide.lt-lg (click)="edit(row)">
+                                        <mat-icon
+                                            color="accent">edit
+                                        </mat-icon>
+                                    </button> -->
+                                    <mat-checkbox
+                                        #checkboxes
+                                        class="example-margin" [checked]="row.checked" (change)="onUserChecked($event,row, i)"></mat-checkbox>
+
+                                    <!--<button
+                                        [disabled]="disableDelete"
+                                        mat-icon-button
+                                        class="toggle-sidebar-folded"
+                                        matTooltip="Delete"
+                                        fxHide.lt-lg (click)="openDialog(row)">
+                                        <mat-icon
+                                            color="warn">delete
+                                        </mat-icon>
+                                    </button>-->
+                                </div>
+                            </td>
+                        </ng-container>
+                        <!-- Table Action Buttons End-->
+
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns"></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns"></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="6">
+                                No data matching the filter "{{ input.value }}"
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <mat-paginator
+                    [length]="total"
+                    [pageSize]="size"
+                    [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                    (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+
+        </mat-card>
+    </div>
+</div>
+
+

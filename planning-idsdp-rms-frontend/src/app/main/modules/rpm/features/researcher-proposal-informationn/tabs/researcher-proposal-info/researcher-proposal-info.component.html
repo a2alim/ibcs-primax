@@ -1,0 +1,535 @@
+<!--Loder-->
+<div *ngIf="spinner" class="flex items-center justify-center">
+    <div style="border-top-color:transparent; position: absolute;z-index: 9999;"
+         class="absolute top-1/2 left-1/2 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
+</div>
+
+
+<h1 class="p-2" style="color: red;" *ngIf="!canSave"><strong>{{'ResearcherProposalReq' | translate}}</strong></h1>
+
+<div style="width: 100%;" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <mat-label class="heading w-full">
+        {{'Information' | translate}}
+    </mat-label>
+</div>
+
+<mat-card>
+
+    <form>
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'Introduction' | translate}}:
+                    <span *ngIf="!information" (click)="expand(1)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="information" (click)="collapse(1)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="information" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'information')" id="file-upload1"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.introduction" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'ObjectivesOfTheStudy' | translate}}:
+                    <span *ngIf="!objectivesOfTheStudy" (click)="expand(2)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="objectivesOfTheStudy" (click)="collapse(2)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="objectivesOfTheStudy" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'objectivesOfTheStudy')" id="file-upload2"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.objectivesOfTheStudy" [ngModelOptions]="{standalone: true}"[config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'FormulationResearch' | translate}}:
+                    <span *ngIf="!formulationResearch" (click)="expand(3)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="formulationResearch" (click)="collapse(3)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="formulationResearch" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'formulationResearch')" id="file-upload3"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.formulationResearch" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'ConceptualFramework' | translate}}:
+                    <span *ngIf="!conceptualFramework" (click)="expand(4)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="conceptualFramework" (click)="collapse(4)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="conceptualFramework" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'conceptualFramework')" id="file-upload4"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.conceptualFramework" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'ReviewOfLiterature' | translate}}:
+                    <span *ngIf="!reviewOfLiterature" (click)="expand(5)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="reviewOfLiterature" (click)="collapse(5)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="reviewOfLiterature" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'reviewOfLiterature')" id="file-upload5"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.reviewOfLiterature" [ngModelOptions]="{standalone: true}"[config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'RationaleOfTheStudy' | translate}}:
+                    <span *ngIf="!rationaleOfTheStudy" (click)="expand(6)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="rationaleOfTheStudy" (click)="collapse(6)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="rationaleOfTheStudy" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'rationaleOfTheStudy')" id="file-upload6"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.rationaleOfTheStudy" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig"fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'ScopeOfTheStudy' | translate}}:
+                    <span *ngIf="!scopeOfTheStudy" (click)="expand(7)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="scopeOfTheStudy" (click)="collapse(7)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="scopeOfTheStudy" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'scopeOfTheStudy')" id="file-upload7"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.scopeOfTheStudy" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig"fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'MethodsOfTheStudy' | translate}}:
+                    <span *ngIf="!methodsOfTheStudy" (click)="expand(8)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="methodsOfTheStudy" (click)="collapse(8)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="methodsOfTheStudy" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'methodsOfTheStudy')" id="file-upload8"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.methodsOfTheStudy" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'ExpectedOutput' | translate}}:
+                    <span *ngIf="!expectedOutput" (click)="expand(9)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="expectedOutput" (click)="collapse(9)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="expectedOutput" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'expectedOutput')" id="file-upload9"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.expectedOutput" [ngModelOptions]="{standalone: true}"[config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'RelationWithSocialPolicy' | translate}}:
+                    <span *ngIf="!relationWithSocialPolicy" (click)="expand(10)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="relationWithSocialPolicy" (click)="collapse(10)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="relationWithSocialPolicy" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'relationWithSocialPolicy')" id="file-upload10"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.relationWithSocialPolicy" [ngModelOptions]="{standalone: true}"[config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'TentativeChapterization' | translate}}:
+                    <span *ngIf="!tentativeChapterization" (click)="expand(11)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="tentativeChapterization" (click)="collapse(11)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="tentativeChapterization" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'tentativeChapterization')" id="file-upload11"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.tentativeChapterization" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'ActionPlanTentativeBudget' | translate}}:
+                    <span *ngIf="!actionPlanTentativeBudget" (click)="expand(12)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="actionPlanTentativeBudget" (click)="collapse(12)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="actionPlanTentativeBudget" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'actionPlanTentativeBudget')" id="file-upload12"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.actionPlanTentativeBudget" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'BibliographyReferences' | translate}}:
+                    <span *ngIf="!bibliographyReferences" (click)="expand(13)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="bibliographyReferences" (click)="collapse(13)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="bibliographyReferences" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'bibliographyReferences')" id="file-upload13"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.bibliographyReferences" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig"fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label class="p-2 label-heading" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%">
+                    {{'AdditionalInfoTopicProposal' | translate}}:
+                    <span *ngIf="!additionalInfoTopicProposal" (click)="expand(14)" >
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToExpand' | translate}}"
+                                          matTooltipPosition="above">expand_more</mat-icon>
+                            </span>
+                    <span *ngIf="additionalInfoTopicProposal" (click)="collapse(14)">
+                                <mat-icon class="exp-icon" matTooltip="{{'ClickToCollapse' | translate}}"
+                                          matTooltipPosition="above">expand_less</mat-icon>
+                            </span>
+                </mat-label>
+            </div>
+            <div *ngIf="additionalInfoTopicProposal" fxLayout="row wrap" style="position: relative;" fxLayoutAlign="space-between center">
+
+                <div class="custom-file-upload-div">
+                    <label for="file-upload1" class="custom-file-upload">
+                        <mat-icon class="custom-image-icon">image</mat-icon>
+                    </label>
+                    <input #file1 type="file" accept='image/*'
+                           (change)="uploadImageAsBase64(file1.files,'additionalInfoTopicProposal')" id="file-upload14"/>
+                </div>
+
+                <ckeditor [(ngModel)]="proposalInfo.additionalInfoTopicProposal" [ngModelOptions]="{standalone: true}" [config]="mediumEditorConfig" fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%"
+                          required>
+                </ckeditor>
+            </div>
+            <br/>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                               fxFlex.xs="100%">
+                        {{'IsEditable' | translate}}
+                    </mat-label>
+                    <mat-radio-group [(ngModel)]="proposalInfo.isEditable" [ngModelOptions]="{standalone: true}" required fxFlex="50%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+                        <mat-radio-button [value]='1'>Yes</mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button [value]='0'>No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="flex justify-end mt-3 mr-2">
+
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                (click)="previousTab()"
+                type="submit"
+                class="px-3 mr-2 toggle-sidebar-folded previousBtn">
+                <mat-icon *ngIf="previousIcon" class="mr-1">{{previousIcon}}</mat-icon>
+                {{ "Previous" | translate }}
+            </button>
+
+            <button
+                mat-flat-button
+                style="background-color: green; color: #FFFFFF"
+                type="submit"
+                (click)="onSubmit(false)"
+                [disabled]="!canSave"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded saveBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span>{{ "Save" | translate }}</span>
+            </button>
+
+            <button
+                mat-flat-button
+                (click)="onSubmit(true)"
+                [disabled]="!canSave"
+                type="button"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded saveAndNextBtn">
+                <mat-icon *ngIf="saveIcon" class="mr-1">{{saveIcon}}</mat-icon>
+                <span> {{ "SaveAndNext" | translate }}</span>
+            </button>
+
+            <button
+                mat-flat-button
+                (click)="nextTab()"
+                style="background-color: green; color: #FFFFFF"
+                type="button"
+                color="primary"
+                class="px-3 mr-2 toggle-sidebar-folded nextBtn">
+                {{ "Next" | translate }}
+                <mat-icon *ngIf="nextIcon" class="mr-1">{{nextIcon}}</mat-icon>
+            </button>
+
+            <!-- Save Button -->
+<!--            <button-->
+<!--                (click)="onSubmit()"-->
+<!--                [disabled]="!canSave"-->
+<!--                class="px-8"-->
+<!--                mat-flat-button-->
+<!--                color="primary"-->
+<!--                type="button">-->
+<!--                {{'Save' | translate}}-->
+<!--            </button>-->
+        </div>
+
+    </form>
+
+    <!--    </mat-card>-->
+
+
+</mat-card>
+<!-- Main End -->
+
+

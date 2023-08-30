@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=Calibri.jar -DgroupId=ibcs-font -DartifactId=calibri -Dversion=1.0 -Dpackaging=jar

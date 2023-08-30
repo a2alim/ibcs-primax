@@ -1,0 +1,67 @@
+<div style="width: 100%">
+    <!-- Header -->
+    <app-form-header [subTitle]="'headerSubTitle' | translate" [title]="'headerTitle' | translate"></app-form-header>
+
+    <div class="flex-auto m-7 body-color">
+        <div class="max-w-8xl">
+            <!-- Horizontal stepper -->
+            <form class="bg-card shadow rounded ounded-2xl overflow-hidden ">
+                <mat-horizontal-stepper #horizontalStepper (selectionChange)="selectionChanged($event)" [linear]="false"
+                                        class="tab-bar tab-color">
+
+                    <mat-step>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 title="{{'tab_1_title' | translate}}">{{'tab_1_title' | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <!--                            <app-create-letter (backPrevious)="goBack(horizontalStepper)" (nextStep)="goForward(horizontalStepper)"-->
+                            <!--                                               [isEditable]="isEditable" [newPaymentModel]="newPaymentModel"-->
+                            <!--                                               [partialPaymentId]="partialPaymentId"></app-create-letter>-->
+                            <app-edit-letter [brodCastChange]="brodCastChange" (backPrevious)="goBack(horizontalStepper)"
+                                             (nextStep)="goForward(horizontalStepper)"></app-edit-letter>
+                        </div>
+                    </mat-step>
+
+                    <mat-step>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 title="{{'tab_2_title' | translate}}">{{'tab_2_title' | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <!--                            <app-submit-bill-voucher (backPrevious)="goBack(horizontalStepper)" (nextStep)="goForward(horizontalStepper)"-->
+                            <!--                                                     [isEditable]="isEditable" [newPaymentModel]="newPaymentModel"-->
+                            <!--                                                     [partialPaymentId]="partialPaymentId"></app-submit-bill-voucher>-->
+                            <app-edit-submit-bill-voucher [brodCastChange]="brodCastChange" (backPrevious)="goBack(horizontalStepper)"
+                                                          (nextStep)="goForward(horizontalStepper)"></app-edit-submit-bill-voucher>
+                        </div>
+                    </mat-step>
+
+                    <mat-step #horizontalStepperStep2>
+                        <ng-template matStepLabel>
+                            <div class="tab-header-title"
+                                 title="{{'tab_3_title' | translate}}">{{'tab_3_title' | translate}}</div>
+                        </ng-template>
+                        <p class="my-6 font-medium">
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <!--                            <app-file-upload (backPrevious)="goBack(horizontalStepper)" (nextStep)="goForward(horizontalStepper)"-->
+                            <!--                                             [isEditable]="isEditable" [newPaymentModel]="newPaymentModel"-->
+                            <!--                                             [partialPaymentId]="partialPaymentId"></app-file-upload>-->
+                            <app-edit-file-upload (backPrevious)="goBack(horizontalStepper)"
+                                                  (nextStep)="goForward(horizontalStepper)"></app-edit-file-upload>
+                        </div>
+                    </mat-step>
+
+
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+
+    </div>
+    <!-- Main End -->
+</div>
